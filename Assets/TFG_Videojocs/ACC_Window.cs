@@ -32,8 +32,8 @@ public class ACC_Window : EditorWindow
         accessibilityContainer = new VisualElement();
         var accessibilityRow = new VisualElement();
         
-        toolbar.AddToClassList("my-toolbar");
-        titleToolbar.AddToClassList("my-label");
+        toolbar.AddToClassList("toolbar");
+        titleToolbar.AddToClassList("toolbar-title");
         mainContainer.AddToClassList("main-container");
         sidebar.AddToClassList("my-box");
         audibleButton.AddToClassList("my-button");
@@ -106,7 +106,7 @@ public class ACC_Window : EditorWindow
     private void SubtitlesBox(VisualElement box)
     {
         var dynamicContainer = new VisualElement();
-        var options = new List<string> { "Create a subtitle", "Add accessbility to existent subtitle" };
+        var options = new List<string> { "Create a subtitle", "Add accessbility to existent subtitle", "Edit subtitle" };
         var dropdown = new DropdownField("Options:", options, 0);
                 
         dropdown.AddToClassList("dropdown-container");
@@ -156,14 +156,22 @@ public class ACC_Window : EditorWindow
         subtitleCreationContainer.Add(canvasSelectionContainer);
         canvasSelectionContainer.style.display = DisplayStyle.None;
 
+        var createSubtitlesButton = new Button() { text = "Create" };
+        createSubtitlesButton.AddToClassList("create-subtitles-button");
+        subtitleCreationContainer.Add(createSubtitlesButton);
+
         hasCanvasToggle.RegisterValueChangedCallback(evt =>
         {
             if(evt.newValue) canvasSelectionContainer.style.display = DisplayStyle.Flex;
             else canvasSelectionContainer.style.display = DisplayStyle.None;
         });
+        
+        createSubtitlesButton.clicked += () =>
+        {
+            ACC_SubtitlesEditorWindow.ShowWindow();
+        };
 
         return subtitleCreationContainer;
-
     }
 
     private VisualElement CreateCanvasSelection()
