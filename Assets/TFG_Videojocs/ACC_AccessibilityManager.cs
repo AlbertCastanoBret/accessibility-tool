@@ -30,11 +30,13 @@ namespace TFG_Videojocs
         Pam,
     }
 
-    public class AccessibilityManager : MonoBehaviour
+    public class ACC_AccessibilityManager : MonoBehaviour
     {
-        public static AccessibilityManager Instance { get; private set; }
+        public static ACC_AccessibilityManager Instance { get; private set; }
 
         private Dictionary<AccessibilityFeature, bool> featureStates = new Dictionary<AccessibilityFeature, bool>();
+
+        private ACC_AudioAccessibility accAudioAccessibility { get; set; }
 
         private void Awake()
         {
@@ -42,6 +44,7 @@ namespace TFG_Videojocs
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+                accAudioAccessibility = new ACC_AudioAccessibility();
             }
             else
             {

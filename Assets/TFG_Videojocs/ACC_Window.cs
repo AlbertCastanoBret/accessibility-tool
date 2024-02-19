@@ -42,6 +42,7 @@ public class ACC_Window : EditorWindow
         accessibilityRow.AddToClassList("accessibility-row");
         
         rootVisualElement.styleSheets.Add(styleSheet);
+        rootVisualElement.style.minWidth = new StyleLength(1000);
         
         toolbar.Add(titleToolbar);
         
@@ -97,38 +98,90 @@ public class ACC_Window : EditorWindow
         switch (Enum.GetName(typeof(AuditiveFeatures), index))
         {
             case "Subtitles":
-                CreateSubtitlesBox(box);
+                SubtitlesBox(box);
                 break;
         }
     }
 
-    private void CreateSubtitlesBox(VisualElement box)
+    private void SubtitlesBox(VisualElement box)
     {
         var dynamicContainer = new VisualElement();
         var options = new List<string> { "Create a subtitle", "Add accessbility to existent subtitle" };
-        var dropdown = new DropdownField("Options", options, 0);
+        var dropdown = new DropdownField("Options:", options, 0);
                 
-        dropdown.AddToClassList("dropdown-box");
+        dropdown.AddToClassList("dropdown-container");
+        dropdown[0].AddToClassList("dropdown-list");
                 
         box.Add(dropdown);
         box.Add(dynamicContainer);
+        
+        var subtitleCreation = CreateASubtitle();
+        dynamicContainer.Add(subtitleCreation);
+        subtitleCreation.style.display = DisplayStyle.Flex;
                 
         dropdown.RegisterValueChangedCallback(evt =>
         {
-            dynamicContainer.Clear();
             if (evt.newValue == "Create a subtitle")
             {
-                var label = new Label("A");
-                dynamicContainer.Add(label);
+                subtitleCreation.style.display = DisplayStyle.Flex;
             }
             else if (evt.newValue == "Add accessbility to existent subtitle")
             {
-                var label = new Label("B");
-                dynamicContainer.Add(label);
+                subtitleCreation.style.display = DisplayStyle.None;
             }
         });
-                
-        var label = new Label("A");
-        dynamicContainer.Add(label);
+
+    }
+
+    private VisualElement CreateASubtitle()
+    {
+        var subtitleCreationContainer = new VisualElement();
+        subtitleCreationContainer.AddToClassList("subtitle-creation-container");
+        
+        var toggleContainer = new VisualElement();
+        toggleContainer.AddToClassList("canvas-toggle-container");
+
+        var hasCanvasLabel = new Label("Is there a Canvas already created?");
+        hasCanvasLabel.AddToClassList("canvas-label");
+        
+        var hasCanvasToggle = new Toggle();
+        hasCanvasToggle.AddToClassList("canvas-toggle");
+        
+        toggleContainer.Add(hasCanvasLabel);
+        toggleContainer.Add(hasCanvasToggle);
+        
+        subtitleCreationContainer.Add(toggleContainer);
+        
+        var canvasSelectionContainer = CreateCanvasSelection();
+        subtitleCreationContainer.Add(canvasSelectionContainer);
+        canvasSelectionContainer.style.display = DisplayStyle.None;
+
+        hasCanvasToggle.RegisterValueChangedCallback(evt =>
+        {
+            if(evt.newValue) canvasSelectionContainer.style.display = DisplayStyle.Flex;
+            else canvasSelectionContainer.style.display = DisplayStyle.None;
+        });
+
+        return subtitleCreationContainer;
+
+    }
+
+    private VisualElement CreateCanvasSelection()
+    {
+        var canvasSelectionContainer = new VisualElement();
+        canvasSelectionContainer.AddToClassList("canvas-selection-container");
+        
+        var canvasTitle = new Label("Select a Canvas: ");
+        canvasTitle.AddToClassList("canvas-title");
+        var canvasField = new ObjectField()
+        {
+            objectType = typeof(GameObject),
+            allowSceneObjects = true
+        };
+        canvasField.AddToClassList("canvas-field");
+        canvasSelectionContainer.Add(canvasTitle);
+        canvasSelectionContainer.Add(canvasField);
+        
+        return canvasSelectionContainer;
     }
 }

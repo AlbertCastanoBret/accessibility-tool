@@ -40,6 +40,7 @@
 .accessibility-container{
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
     padding: 16px 20px 0;
 }
@@ -49,6 +50,7 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    max-width: 1000px;
 }
 
 .red-box{
@@ -58,26 +60,52 @@
     border-radius: 10px;
     margin: 10px 2%;
     padding: 12px;
-    max-width: 500px;
+    font-size: 14px;
 }
 
 .title-box{
     -unity-text-align: middle-center;
     font-size: 17px;
     margin-bottom: 10px;
+    background-color: #343434;
+    border-radius: 4px;
+    padding: 6px 2px;
 }
 
-.dropdown-box{
-    
+.dropdown-list{
+    width: 49%;
 }
 
-.my-object-field{
-    max-width: 180px;
+.canvas-toggle-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 12px;
+}
+
+.canvas-label{
+    width: 50%;
+    white-space: normal;
+}
+
+.canvas-toggle{
+    margin-right: auto;
+}
+
+.canvas-selection-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 12px;
+    margin-left: 3px;
+}
+
+.canvas-title{
+    align-self: center;
+}
+
+.canvas-field{
+    margin-left: auto;
     width: 50%;
 }
 
-.apply-button{
-    max-width: 70px;
-    width: 30%;
-}
+
 
