@@ -95,19 +95,32 @@
     background-color: #3f3f3f;
 }
 
+.bottom-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 16px;
+}
+
 .add-subtitles-container{
     display: flex;
     flex-direction: row;
     margin-left: auto;
-    margin-top: 16px;
+    align-self: center;
+}
+
+.create-subtitle-button{
+    font-size: 14px;
+    padding: 4px 10px;
 }
 
 .add-subtitles-label{
     -unity-text-align: middle-center;
     margin-right: 6px;
+    font-size: 14px;
 }
 
 .add-subtitle-button{
     margin: 0px;
     padding: 4px 10px;
+    font-size: 14px;
 }

@@ -35,9 +35,17 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         mainContainer.AddToClassList("main-container");
 
         table = CreateTable();
-        CreateRow(10);
+        CreateRow(1);
         tableScrollView.Add(table);
         mainContainer.Add(tableScrollView);
+
+        var bottomContainer = new VisualElement();
+        bottomContainer.AddToClassList("bottom-container");
+        
+        var createSubtitleButton = new Button() { text = "Create Subtitle" };
+        createSubtitleButton.AddToClassList("create-subtitle-button");
+        
+        bottomContainer.Add(createSubtitleButton);
 
         var addSubtitlesContainer = new VisualElement();
         addSubtitlesContainer.AddToClassList("add-subtitles-container");
@@ -59,7 +67,8 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         addSubtitlesContainer.Add(addSubtitle1);
         addSubtitlesContainer.Add(addSubtitle5);
         addSubtitlesContainer.Add(addSubtitle10);
-        mainContainer.Add(addSubtitlesContainer);
+        bottomContainer.Add(addSubtitlesContainer);
+        mainContainer.Add(bottomContainer);
         
         rootVisualElement.Add(mainContainer);
     }
@@ -97,6 +106,19 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             subtitleField.value = "Hello";
             subtitleField.AddToClassList("subtitles-new-cell");
             subtitleField[0].AddToClassList("subtitles-input-cell");
+            /*subtitleField.RegisterCallback<KeyDownEvent>(evt =>
+            {
+                if (evt.keyCode == KeyCode.Return)
+                {
+                    CreateRow(1);
+                    evt.StopPropagation();
+                }
+                else if (evt.keyCode == KeyCode.Backspace && subtitleField.value == "")
+                {
+                    table.Remove(newRow);
+                }
+            });*/
+            
             newRow.Add(subtitleField);
             
             var timeField = new TextField();
@@ -114,6 +136,11 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             newRow.Add(deleteButton);
             
             table.Add(newRow);
+            
+            rootVisualElement.schedule.Execute(() =>
+            {
+                subtitleField[0].Focus();
+            }).StartingIn((long)0.001);
         }
     }
 }
