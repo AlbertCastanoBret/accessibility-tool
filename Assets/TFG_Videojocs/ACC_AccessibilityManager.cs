@@ -33,7 +33,7 @@ namespace TFG_Videojocs
     public class ACC_AccessibilityManager : MonoBehaviour
     {
         public static ACC_AccessibilityManager Instance { get; private set; }
-
+        
         public List<int> numbers;
 
         private Dictionary<AccessibilityFeature, bool> featureStates = new Dictionary<AccessibilityFeature, bool>();

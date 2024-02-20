@@ -16,8 +16,8 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         //var window = CreateInstance<ACC_SubtitlesEditorWindow>();
         var window = GetWindow<ACC_SubtitlesEditorWindow>();
         window.titleContent = new GUIContent("Subtitle Creation");
-        window.minSize = new Vector2(600, 500);
-        window.maxSize = new Vector2(600, 500);
+        window.minSize = new Vector2(600, 680);
+        window.maxSize = new Vector2(600, 680);
         window.ShowModal();
     }
     
@@ -34,42 +34,21 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
         mainContainer.AddToClassList("main-container");
 
+        var subtitlesTitle = new Label("Subtitles");
+        subtitlesTitle.AddToClassList("subtitles-title");
+            
         table = CreateTable();
         CreateRow(1);
         tableScrollView.Add(table);
+        
+        mainContainer.Add(subtitlesTitle);
         mainContainer.Add(tableScrollView);
 
-        var bottomContainer = new VisualElement();
-        bottomContainer.AddToClassList("bottom-container");
+        var settingsContainer = CreateSettingsContainer();
+        var bottomContainer = CreateBottomContainer();
         
-        var createSubtitleButton = new Button() { text = "Create Subtitle" };
-        createSubtitleButton.AddToClassList("create-subtitle-button");
-        
-        bottomContainer.Add(createSubtitleButton);
-
-        var addSubtitlesContainer = new VisualElement();
-        addSubtitlesContainer.AddToClassList("add-subtitles-container");
-        
-        var addSubtitlesLabel = new Label("Add Subtitles:");
-        addSubtitlesLabel.AddToClassList("add-subtitles-label");
-        
-        var addSubtitle1 = new Button(){text = "+1"};
-        addSubtitle1.AddToClassList("add-subtitle-button");
-        addSubtitle1.clicked += () => { CreateRow(1); };
-        var addSubtitle5 = new Button(){text = "+5"};
-        addSubtitle5.AddToClassList("add-subtitle-button");
-        addSubtitle5.clicked += () => { CreateRow(5); };
-        var addSubtitle10 = new Button(){text = "+10"};
-        addSubtitle10.AddToClassList("add-subtitle-button");
-        addSubtitle10.clicked += () => { CreateRow(10); };
-        
-        addSubtitlesContainer.Add(addSubtitlesLabel);
-        addSubtitlesContainer.Add(addSubtitle1);
-        addSubtitlesContainer.Add(addSubtitle5);
-        addSubtitlesContainer.Add(addSubtitle10);
-        bottomContainer.Add(addSubtitlesContainer);
+        mainContainer.Add(settingsContainer);
         mainContainer.Add(bottomContainer);
-        
         rootVisualElement.Add(mainContainer);
     }
 
@@ -142,5 +121,86 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
                 subtitleField[0].Focus();
             }).StartingIn((long)0.001);
         }
+    }
+
+    private VisualElement CreateSettingsContainer()
+    {
+        var settingsContainer = new VisualElement();
+        settingsContainer.AddToClassList("settings-container");
+        
+        var settingsTitle = new Label("Settings");
+        settingsTitle.AddToClassList("settings-title");
+        
+        var fontColorContainer = new VisualElement();
+        fontColorContainer.AddToClassList("option-container");
+        var fontColorTitle = new Label("Font color:");
+        fontColorTitle.AddToClassList("option-title");
+        var fontColorInput = new ColorField();
+        fontColorInput.AddToClassList("option-input");
+        
+        var backgroundColorContainer = new VisualElement();
+        backgroundColorContainer.AddToClassList("option-container");
+        var backgroundColorTitle = new Label("Background color:");
+        backgroundColorTitle.AddToClassList("option-title");
+        var backgroundColorInput = new ColorField();
+        backgroundColorInput.AddToClassList("option-input");
+        
+        var fontSizeContainer = new VisualElement();
+        fontSizeContainer.AddToClassList("option-container");
+        var fontSizeTitle = new Label("Font size: ");
+        fontSizeTitle.AddToClassList("option-title");
+        var fontSizeInput = new TextField();
+        fontSizeInput.AddToClassList("option-input");
+        
+        fontColorContainer.Add(fontColorTitle);
+        fontColorContainer.Add(fontColorInput);
+        
+        backgroundColorContainer.Add(backgroundColorTitle);
+        backgroundColorContainer.Add(backgroundColorInput);
+        
+        fontSizeContainer.Add(fontSizeTitle);
+        fontSizeContainer.Add(fontSizeInput);
+        
+        settingsContainer.Add(settingsTitle);
+        settingsContainer.Add(fontColorContainer);
+        settingsContainer.Add(backgroundColorContainer);
+        settingsContainer.Add(fontSizeContainer);
+
+        return settingsContainer;
+    }
+
+    private VisualElement CreateBottomContainer()
+    {
+        var bottomContainer = new VisualElement();
+        bottomContainer.AddToClassList("bottom-container");
+        
+        var createSubtitleButton = new Button() { text = "Create Subtitle" };
+        createSubtitleButton.AddToClassList("create-subtitle-button");
+        
+        bottomContainer.Add(createSubtitleButton);
+
+        var addSubtitlesContainer = new VisualElement();
+        addSubtitlesContainer.AddToClassList("add-subtitles-container");
+        
+        var addSubtitlesLabel = new Label("Add Subtitles:");
+        addSubtitlesLabel.AddToClassList("add-subtitles-label");
+        
+        var addSubtitle1 = new Button(){text = "+1"};
+        addSubtitle1.AddToClassList("add-subtitle-button");
+        addSubtitle1.clicked += () => { CreateRow(1); };
+        var addSubtitle5 = new Button(){text = "+5"};
+        addSubtitle5.AddToClassList("add-subtitle-button");
+        addSubtitle5.clicked += () => { CreateRow(5); };
+        var addSubtitle10 = new Button(){text = "+10"};
+        addSubtitle10.AddToClassList("add-subtitle-button");
+        addSubtitle10.clicked += () => { CreateRow(10); };
+        
+        addSubtitlesContainer.Add(addSubtitlesLabel);
+        addSubtitlesContainer.Add(addSubtitle1);
+        addSubtitlesContainer.Add(addSubtitle5);
+        addSubtitlesContainer.Add(addSubtitle10);
+        bottomContainer.Add(addSubtitlesContainer);
+
+        return bottomContainer;
     }
 }

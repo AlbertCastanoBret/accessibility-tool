@@ -3,7 +3,7 @@
 }
 
 .main-container{
-    padding: 30px 20px;
+    padding: 16px 20px;
     font-size: 14px;
 }
 
@@ -13,6 +13,12 @@
     overflow: scroll;
     margin: auto;
     border-radius: 4px;
+}
+
+.subtitles-title{
+    -unity-font-style: bold;
+    margin-bottom: 8px;
+    margin-left: 4px;
 }
 
 .table{
@@ -95,10 +101,37 @@
     background-color: #3f3f3f;
 }
 
+.settings-container{
+    margin-top: 20px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.settings-title{
+    margin-right: auto;
+    margin-bottom: 4px;
+    -unity-font-style: bold;
+}
+
+.option-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 6px;
+}
+
+.option-title{
+    width: 50%;
+}
+
+.option-input{
+    width: 49.5%;
+}
+
 .bottom-container{
     display: flex;
     flex-direction: row;
-    margin-top: 16px;
+    margin-top: 20px;
+    margin-right: 4px;
 }
 
 .add-subtitles-container{
@@ -124,3 +157,4 @@
     padding: 4px 10px;
     font-size: 14px;
 }
+
