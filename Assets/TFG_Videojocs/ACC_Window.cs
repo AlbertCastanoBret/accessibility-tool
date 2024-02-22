@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TFG_Videojocs;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
@@ -12,7 +13,18 @@ public class ACC_Window : EditorWindow
 {
     private VisualElement accessibilityContainer;
     private const int numberOfColumns = 2;
-    
+    private DropdownField subtitlesDropdown;
+
+    private void OnEnable()
+    {
+        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += HandleCloseSubtitleWindow;
+    }
+
+    private void OnDisable()
+    {
+        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= HandleCloseSubtitleWindow;
+    }
+
     [MenuItem("Tools/ACC/Accessibility Window")]
     public static void ShowWindow()
     {
@@ -55,6 +67,7 @@ public class ACC_Window : EditorWindow
         mainContainer.Add(accessibilityContainer);
         rootVisualElement.Add(toolbar);
         rootVisualElement.Add(mainContainer);
+        Directory.CreateDirectory(".maricon");
     }
     
     private void UpdateAccessibilityContainer(Type featureType)
@@ -111,70 +124,51 @@ public class ACC_Window : EditorWindow
                 
         dropdown.AddToClassList("dropdown-container");
         dropdown[0].AddToClassList("dropdown-list");
-                
-        box.Add(dropdown);
-        box.Add(dynamicContainer);
         
         var subtitleCreation = CreateASubtitle();
         dynamicContainer.Add(subtitleCreation);
-        subtitleCreation.style.display = DisplayStyle.Flex;
+                
+        box.Add(dropdown);
+        box.Add(dynamicContainer);
                 
         dropdown.RegisterValueChangedCallback(evt =>
         {
+            dynamicContainer.Clear();
             if (evt.newValue == "Create a subtitle")
             {
-                subtitleCreation.style.display = DisplayStyle.Flex;
+                subtitleCreation = CreateASubtitle();
+                dynamicContainer.Add(subtitleCreation);
             }
             else if (evt.newValue == "Add accessbility to existent subtitle")
             {
-                subtitleCreation.style.display = DisplayStyle.None;
+                
+            }
+            else if (evt.newValue == "Edit subtitle")
+            {
+                var subtitleSelection = LoadASubtitle();
+                dynamicContainer.Add(subtitleSelection);
             }
         });
-
     }
 
     private VisualElement CreateASubtitle()
     {
         var subtitleCreationContainer = new VisualElement();
         subtitleCreationContainer.AddToClassList("subtitle-creation-container");
-        
-        //var toggleContainer = new VisualElement();
-        //toggleContainer.AddToClassList("canvas-toggle-container");
-
-        //var hasCanvasLabel = new Label("Is there a Canvas already created?");
-        //hasCanvasLabel.AddToClassList("canvas-label");
-        
-        //var hasCanvasToggle = new Toggle();
-        //hasCanvasToggle.AddToClassList("canvas-toggle");
-        
-        //toggleContainer.Add(hasCanvasLabel);
-        //toggleContainer.Add(hasCanvasToggle);
-        
-        //subtitleCreationContainer.Add(toggleContainer);
-        
-        var canvasSelectionContainer = CreateCanvasSelection();
-        subtitleCreationContainer.Add(canvasSelectionContainer);
-        canvasSelectionContainer.style.display = DisplayStyle.None;
 
         var createSubtitlesButton = new Button() { text = "Create" };
         createSubtitlesButton.AddToClassList("create-subtitles-button");
         subtitleCreationContainer.Add(createSubtitlesButton);
-
-        //hasCanvasToggle.RegisterValueChangedCallback(evt =>
-        //{
-            //if(evt.newValue) canvasSelectionContainer.style.display = DisplayStyle.Flex;
-            //else canvasSelectionContainer.style.display = DisplayStyle.None;
-        //});
         
         createSubtitlesButton.clicked += () =>
         {
-            ACC_SubtitlesEditorWindow.ShowWindow();
+            ACC_SubtitlesEditorWindow.ShowWindow(null);
         };
 
         return subtitleCreationContainer;
     }
 
-    private VisualElement CreateCanvasSelection()
+    /*private VisualElement CreateCanvasSelection()
     {
         var canvasSelectionContainer = new VisualElement();
         canvasSelectionContainer.AddToClassList("canvas-selection-container");
@@ -191,5 +185,53 @@ public class ACC_Window : EditorWindow
         canvasSelectionContainer.Add(canvasField);
         
         return canvasSelectionContainer;
+    }*/
+
+    private VisualElement LoadASubtitle()
+    {
+        var selectSubtitleContainer = new VisualElement();
+
+        var options = GetSubtitlesOptions();
+        
+        subtitlesDropdown = new DropdownField("Select a subtitle:", options, 0);
+        subtitlesDropdown.AddToClassList("select-subtitle-dropdown");
+        subtitlesDropdown[0].AddToClassList("select-subtitle-label");
+        
+        var loadSubtitlesButton = new Button() { text = "Load" };
+        loadSubtitlesButton.AddToClassList("load-subtitles-button");
+        loadSubtitlesButton.clicked += () =>
+        {
+            if (subtitlesDropdown.value != null) ACC_SubtitlesEditorWindow.ShowWindow(subtitlesDropdown.value);
+            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to load.", "OK");
+        };
+        
+        selectSubtitleContainer.Add(subtitlesDropdown);
+        selectSubtitleContainer.Add(loadSubtitlesButton);
+        
+        return selectSubtitleContainer;
+    }
+    
+    private List<string> GetSubtitlesOptions()
+    {
+        var options = new List<string> {};
+        string[] files = Directory.GetFiles("Assets/TFG_Videojocs/ACC_JSONSubtitle", "*.json");
+        foreach (string file in files)
+        {
+            string json = File.ReadAllText(file);
+            ACC_SubtitleData subtitleData = JsonUtility.FromJson<ACC_SubtitleData>(json);
+            options.Add(subtitleData.name);
+        }
+        return options;
+    }
+
+    private void HandleCloseSubtitleWindow()
+    {
+        if (subtitlesDropdown != null)
+        {
+            var options = GetSubtitlesOptions();
+            subtitlesDropdown.choices = options;
+            subtitlesDropdown.value = options.Count > 0 ? options[0] : "";
+        }
+        Repaint();
     }
 }

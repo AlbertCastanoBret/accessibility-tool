@@ -26,7 +26,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
             {
                 if (currentIndex < subtitleDictionary.Count)
                 {
-                    print("A");
                     subtitleText.text = subtitleDictionary[currentIndex].value;
                     startTime = currentTime;
                     nextSubtitleTime = startTime + timeDictionary[currentIndex].value;
@@ -44,7 +43,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         subtitleDictionary = new List<ACC_KeyValuePairData<int, string>>();
         timeDictionary = new List<ACC_KeyValuePairData<int, int>>();
-        string json = File.ReadAllText("Assets/TFG_Videojocs/" + jsonFile);
+        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSONSubtitle/" + jsonFile + ".json");
         ACC_SubtitleData subtitleData = JsonUtility.FromJson<ACC_SubtitleData>(json);
         for (int i = 0; i < subtitleData.subtitleText.Count; i++)
         {

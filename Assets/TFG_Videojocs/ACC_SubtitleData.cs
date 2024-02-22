@@ -7,6 +7,7 @@ public class ACC_SubtitleData
 {
     public List<ACC_KeyValuePairData<int, string>> subtitleText;
     public List<ACC_KeyValuePairData<int, int>> timeText;
+    public string name;
     public Color fontColor;
     public Color backgroundColor;
     public int fontSize;
