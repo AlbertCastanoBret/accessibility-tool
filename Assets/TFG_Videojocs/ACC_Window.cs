@@ -138,19 +138,19 @@ public class ACC_Window : EditorWindow
         var subtitleCreationContainer = new VisualElement();
         subtitleCreationContainer.AddToClassList("subtitle-creation-container");
         
-        var toggleContainer = new VisualElement();
-        toggleContainer.AddToClassList("canvas-toggle-container");
+        //var toggleContainer = new VisualElement();
+        //toggleContainer.AddToClassList("canvas-toggle-container");
 
-        var hasCanvasLabel = new Label("Is there a Canvas already created?");
-        hasCanvasLabel.AddToClassList("canvas-label");
+        //var hasCanvasLabel = new Label("Is there a Canvas already created?");
+        //hasCanvasLabel.AddToClassList("canvas-label");
         
-        var hasCanvasToggle = new Toggle();
-        hasCanvasToggle.AddToClassList("canvas-toggle");
+        //var hasCanvasToggle = new Toggle();
+        //hasCanvasToggle.AddToClassList("canvas-toggle");
         
-        toggleContainer.Add(hasCanvasLabel);
-        toggleContainer.Add(hasCanvasToggle);
+        //toggleContainer.Add(hasCanvasLabel);
+        //toggleContainer.Add(hasCanvasToggle);
         
-        subtitleCreationContainer.Add(toggleContainer);
+        //subtitleCreationContainer.Add(toggleContainer);
         
         var canvasSelectionContainer = CreateCanvasSelection();
         subtitleCreationContainer.Add(canvasSelectionContainer);
@@ -160,11 +160,11 @@ public class ACC_Window : EditorWindow
         createSubtitlesButton.AddToClassList("create-subtitles-button");
         subtitleCreationContainer.Add(createSubtitlesButton);
 
-        hasCanvasToggle.RegisterValueChangedCallback(evt =>
-        {
-            if(evt.newValue) canvasSelectionContainer.style.display = DisplayStyle.Flex;
-            else canvasSelectionContainer.style.display = DisplayStyle.None;
-        });
+        //hasCanvasToggle.RegisterValueChangedCallback(evt =>
+        //{
+            //if(evt.newValue) canvasSelectionContainer.style.display = DisplayStyle.Flex;
+            //else canvasSelectionContainer.style.display = DisplayStyle.None;
+        //});
         
         createSubtitlesButton.clicked += () =>
         {

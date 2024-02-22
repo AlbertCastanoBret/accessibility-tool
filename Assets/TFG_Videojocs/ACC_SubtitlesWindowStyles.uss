@@ -9,7 +9,7 @@
 
 .table-scroll-view {
     width: 510px;
-    height: 450px;
+    height: 300px;
     overflow: scroll;
     margin: auto;
     border-radius: 4px;
@@ -17,7 +17,7 @@
 
 .subtitles-title{
     -unity-font-style: bold;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     margin-left: 4px;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .subtitles-cell{
-    width: 50%;
+    width: 85%;
     -unity-text-align: middle-center;
     padding: 4px 0;
     border-right-color: #b2b2b2;
@@ -45,17 +45,16 @@
 .time-cell{
     width: 15%;
     -unity-text-align: middle-center;
+    margin: auto;
     padding: 4px 0;
-    border-right-color: #b2b2b2;
-    border-right-width: 1px;
 }
 
-.font-color-cell{
+/*font-color-cell{
     width: 25%;
     -unity-text-align: middle-center;
     margin: auto;
     padding: 4px 0;
-}
+}*/
 
 .row{
     display: flex;
@@ -64,7 +63,7 @@
 }
 
 .subtitles-new-cell{
-    width: 50%;
+    width: 85%;
     height: 100%;
     margin: 0;
 }
@@ -87,24 +86,27 @@
     background-color: #3f3f3f;
     padding: 4px 2px;
     border-radius: 0px;
-    border-width: 1px 1px 0 0;
+    border-width: 1px 0 0 0;
     border-color: #b2b2b2;
     -unity-text-align: middle-center;
 }
 
-.font-color-new-cell{
+/*.font-color-new-cell{
     width: 35%;
     border-width: 1px 0 0 0;
     margin: 0;
     padding: 4px 4px 0;
     border-color: #b2b2b2;
     background-color: #3f3f3f;
-}
+}*/
 
 .settings-container{
-    margin-top: 20px;
+    margin-top: 10px;
+    padding-top: 10px;
     margin-left: 4px;
     margin-right: 4px;
+    border-top-color: #b2b2b2;
+    border-top-width: 1px;
 }
 
 .settings-title{
