@@ -17,12 +17,12 @@ public class ACC_Window : EditorWindow
 
     private void OnEnable()
     {
-        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += HandleCloseSubtitleWindow;
+        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += RefreshDropdown;
     }
 
     private void OnDisable()
     {
-        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= HandleCloseSubtitleWindow;
+        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= RefreshDropdown;
     }
 
     [MenuItem("Tools/ACC/Accessibility Window")]
@@ -196,17 +196,30 @@ public class ACC_Window : EditorWindow
         subtitlesDropdown = new DropdownField("Select a subtitle:", options, 0);
         subtitlesDropdown.AddToClassList("select-subtitle-dropdown");
         subtitlesDropdown[0].AddToClassList("select-subtitle-label");
+
+        var editSubtitleBottomContainer = new VisualElement();
+        editSubtitleBottomContainer.AddToClassList("edit-subtitle-bottom-container");
         
         var loadSubtitlesButton = new Button() { text = "Load" };
-        loadSubtitlesButton.AddToClassList("load-subtitles-button");
+        loadSubtitlesButton.AddToClassList("edit-subtitles-button");
         loadSubtitlesButton.clicked += () =>
         {
             if (subtitlesDropdown.value != null) ACC_SubtitlesEditorWindow.ShowWindow(subtitlesDropdown.value);
             else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to load.", "OK");
         };
+
+        var deleteSubtitleButton = new Button() { text = "Delete" };
+        deleteSubtitleButton.AddToClassList("edit-subtitles-button");
+        deleteSubtitleButton.clicked += () =>
+        {
+            if (subtitlesDropdown.value != null) DeleteSubtitle(subtitlesDropdown.value);
+        };
+        
+        editSubtitleBottomContainer.Add(loadSubtitlesButton);
+        editSubtitleBottomContainer.Add(deleteSubtitleButton);
         
         selectSubtitleContainer.Add(subtitlesDropdown);
-        selectSubtitleContainer.Add(loadSubtitlesButton);
+        selectSubtitleContainer.Add(editSubtitleBottomContainer);
         
         return selectSubtitleContainer;
     }
@@ -224,7 +237,19 @@ public class ACC_Window : EditorWindow
         return options;
     }
 
-    private void HandleCloseSubtitleWindow()
+    private void DeleteSubtitle(string name)
+    {
+        string path = Path.Combine("Assets/TFG_Videojocs/ACC_JSONSubtitle", name + ".json");
+        
+        if (File.Exists(path))
+        {
+            AssetDatabase.DeleteAsset(path);
+            AssetDatabase.Refresh();
+            RefreshDropdown();
+        }
+    }
+
+    private void RefreshDropdown()
     {
         if (subtitlesDropdown != null)
         {
