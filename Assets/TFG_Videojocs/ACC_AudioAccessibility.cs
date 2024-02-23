@@ -6,14 +6,40 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum AudioFeatures
+{
+    Subtitles,
+    VisualNotification,
+    PimPam,
+    Pum,
+    Wow
+}
+
 public class ACC_AudioAccessibility
 {
+    private Dictionary<AudioFeatures, bool> audioFeatureStates = new Dictionary<AudioFeatures, bool>();
     private GameObject subtitleText;
     private GameObject backgroundColor;
     private ACC_SubtitlesManager accSubtitlesManager;
     public ACC_AudioAccessibility()
     {
         CreateSubtitleManager();
+    }
+    
+    public void SetFeatureState(AudioFeatures feature, bool enable)
+    {
+        audioFeatureStates[feature] = enable;
+        ApplyFeatureSettings(feature, enable);
+    }
+    
+    private void ApplyFeatureSettings(AudioFeatures feature, bool enabled)
+    {
+        switch (feature)
+        {
+            case AudioFeatures.Subtitles:
+                EnableSubtitles(enabled);
+                break;
+        }
     }
 
     public void ChangeSubtitleFontSize(int newFontSize)
@@ -31,16 +57,16 @@ public class ACC_AudioAccessibility
         backgroundColor.GetComponent<Image>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
     }
 
-    public void EnableSubtitles(bool enabled)
-    {
-        subtitleText.GetComponent<TextMeshProUGUI>().enabled = enabled;
-        backgroundColor.GetComponent<Image>().enabled = enabled;
-    }
-
     public void PlaySubtitle(string name)
     {
         accSubtitlesManager.LoadSubtitles(name);
         accSubtitlesManager.PlaySubtitle();
+    }
+    
+    private void EnableSubtitles(bool enabled)
+    {
+        subtitleText.GetComponent<TextMeshProUGUI>().enabled = enabled;
+        backgroundColor.GetComponent<Image>().enabled = enabled;
     }
     
     private void CreateSubtitleManager()
@@ -84,7 +110,5 @@ public class ACC_AudioAccessibility
         subtitleTextRectTransform.sizeDelta = new Vector2(0, 40);
         
         accSubtitlesManager = subtitleText.AddComponent<ACC_SubtitlesManager>(); 
-        accSubtitlesManager.subtitleText = subtitleTextMeshProUGUI;
-        accSubtitlesManager.backgroundColor = backgroundColor.GetComponent<Image>();
     }
 }

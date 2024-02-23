@@ -21,15 +21,6 @@ namespace TFG_Videojocs
         ContextualReminders
     }
     
-    public enum AudioFeatures
-    {
-        Subtitles,
-        VisualNotification,
-        PimPam,
-        Pum,
-        Wow
-    }
-    
     public enum VisualFeatures
     {
         TextToVoice,
@@ -42,10 +33,6 @@ namespace TFG_Videojocs
         public static ACC_AccessibilityManager Instance { get; private set; }
         private ACC_AudioAccessibility accAudioAccessibility;
         //private Queue<Action> actionsToPerformOnLoad = new Queue<Action>();
-
-        private Dictionary<AudioFeatures, bool> audioFeatureStates = new Dictionary<AudioFeatures, bool>();
-        private Dictionary<VisualFeatures, bool> visualFeatureStates = new Dictionary<VisualFeatures, bool>();
-        private Dictionary<AccessibilityFeature, bool> accessibilityFeatureStates = new Dictionary<AccessibilityFeature, bool>();
         
         [Header("Audio Accessibility")]
         [SerializeField] private bool subtitlesEnabled;
@@ -83,7 +70,7 @@ namespace TFG_Videojocs
         {
             if (Application.isPlaying && sceneLoaded)
             {
-                SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+                accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
             }
         }
         #endif
@@ -100,46 +87,15 @@ namespace TFG_Videojocs
             SceneManager.sceneUnloaded += OnSceneUnloading;
         }
 
-        public void SetFeatureState(AudioFeatures feature, bool enable)
-        {
-            SetFeatureState(audioFeatureStates, feature, enable);
-        }
-
-        public void SetFeatureState(VisualFeatures feature, bool enable)
-        {
-            SetFeatureState(visualFeatureStates, feature, enable);
-        }
-
-        public void SetFeatureState(AccessibilityFeature feature, bool enable)
-        {
-            SetFeatureState(accessibilityFeatureStates, feature, enable);
-        }
-
         public ACC_AudioAccessibility AudioAccessibilityManager()
         {
             return accAudioAccessibility;
-        }
-
-        private void SetFeatureState<T>(Dictionary<T, bool> featureStates, T feature, bool enable) where T : Enum
-        {
-            featureStates[feature] = enable;
-            ApplyFeatureSettings(feature, enable);
-        }
-
-        private void ApplyFeatureSettings<T>(T feature, bool enabled) where T : Enum
-        {
-            switch (feature)
-            {
-                case AudioFeatures.Subtitles:
-                    accAudioAccessibility.EnableSubtitles(enabled);
-                    break;
-            }
         }
         
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             accAudioAccessibility = new ACC_AudioAccessibility();
-            SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+            accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
             sceneLoaded = true;
             /*while (actionsToPerformOnLoad.Count > 0)
             {

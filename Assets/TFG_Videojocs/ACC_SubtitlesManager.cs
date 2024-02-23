@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public class ACC_SubtitlesManager : MonoBehaviour
 {
-    [HideInInspector] public TextMeshProUGUI subtitleText { get; set; }
-    [HideInInspector] public Image backgroundColor { get; set; }
+    [HideInInspector] private TextMeshProUGUI subtitleText { get; set; }
+    [HideInInspector] private Image backgroundColor { get; set; }
     private List<ACC_KeyValuePairData<int, string>> subtitleDictionary = new List<ACC_KeyValuePairData<int, string>>();
     private List<ACC_KeyValuePairData<int, int>> timeDictionary = new List<ACC_KeyValuePairData<int, int>>();
     
@@ -18,6 +18,12 @@ public class ACC_SubtitlesManager : MonoBehaviour
     private int currentIndex = 0;
     private float startTime;
     private float nextSubtitleTime;
+
+    private void Awake()
+    {
+        subtitleText = GetComponent<TextMeshProUGUI>();
+        backgroundColor = GameObject.Find("ACC_BackgroundColor").GetComponent<Image>();
+    }
 
     void Update()
     {
@@ -31,6 +37,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
                     subtitleText.text = subtitleDictionary[currentIndex].value;
                     startTime = currentTime;
                     nextSubtitleTime = startTime + timeDictionary[currentIndex].value;
+                    subtitleText.GetComponent<RectTransform>().sizeDelta = 
+                        new Vector2(0, subtitleText.preferredHeight);
+                    backgroundColor.GetComponent<RectTransform>().sizeDelta =
+                        new Vector2(0, subtitleText.preferredHeight);
                 }
                 else if (currentIndex >= subtitleDictionary.Count)
                 {
