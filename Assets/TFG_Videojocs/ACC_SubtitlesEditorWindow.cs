@@ -325,7 +325,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
     
     private void CreateSubtitleManager()
     {
-        GameObject canvasObject = GameObject.Find("Canvas");
+        /*GameObject canvasObject = GameObject.Find("Canvas");
         
         if (canvasObject == null)
         {
@@ -388,7 +388,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         subtitleText.color = new Color(fontColorInput.value.r, fontColorInput.value.g, fontColorInput.value.b);
         
         accSubtitleManager.LoadSubtitles(nameInput.value);
-        accSubtitleManager.EnableSubtitles();
+        accSubtitleManager.EnableSubtitles();*/
     }
 
     public void LoadJson(string name)

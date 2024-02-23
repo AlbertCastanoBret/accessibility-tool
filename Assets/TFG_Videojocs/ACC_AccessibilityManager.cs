@@ -1,7 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+using UnityEditor; // UnityEditor solo está disponible en el Editor de Unity.
+#endif
 
 namespace TFG_Videojocs
 {
@@ -35,7 +40,8 @@ namespace TFG_Videojocs
     public class ACC_AccessibilityManager : MonoBehaviour
     {
         public static ACC_AccessibilityManager Instance { get; private set; }
-        public ACC_AudioAccessibility accAudioAccessibility { get; set; }
+        private ACC_AudioAccessibility accAudioAccessibility;
+        //private Queue<Action> actionsToPerformOnLoad = new Queue<Action>();
 
         private Dictionary<AudioFeatures, bool> audioFeatureStates = new Dictionary<AudioFeatures, bool>();
         private Dictionary<VisualFeatures, bool> visualFeatureStates = new Dictionary<VisualFeatures, bool>();
@@ -43,6 +49,7 @@ namespace TFG_Videojocs
         
         [Header("Audio Accessibility")]
         [SerializeField] private bool subtitlesEnabled;
+        private bool sceneLoaded;
 
         private void Awake()
         {
@@ -50,23 +57,47 @@ namespace TFG_Videojocs
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
-                accAudioAccessibility = new ACC_AudioAccessibility();
-                SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
             }
             else
             {
                 Destroy(gameObject);
             }
         }
-        
-        void OnEnable()
+
+        private void Start()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
+            StartCoroutine(ChangeScene());
         }
 
-        void OnDisable()
+        private IEnumerator ChangeScene()
+        {
+            yield return new WaitForSeconds(7);
+            SceneManager.LoadScene("Scene2");
+            yield return new WaitForSeconds(1);
+            AudioAccessibilityManager().PlaySubtitle("Ejemplo");
+        }
+
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (Application.isPlaying && sceneLoaded)
+            {
+                SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+            }
+        }
+        #endif
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneUnloading;
+        }
+
+        private void OnDisable()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneUnloading;
         }
 
         public void SetFeatureState(AudioFeatures feature, bool enable)
@@ -84,16 +115,14 @@ namespace TFG_Videojocs
             SetFeatureState(accessibilityFeatureStates, feature, enable);
         }
 
+        public ACC_AudioAccessibility AudioAccessibilityManager()
+        {
+            return accAudioAccessibility;
+        }
+
         private void SetFeatureState<T>(Dictionary<T, bool> featureStates, T feature, bool enable) where T : Enum
         {
-            if (featureStates.ContainsKey(feature))
-            {
-                featureStates[feature] = enable;
-            }
-            else
-            {
-                featureStates.Add(feature, enable);
-            }
+            featureStates[feature] = enable;
             ApplyFeatureSettings(feature, enable);
         }
 
@@ -107,9 +136,27 @@ namespace TFG_Videojocs
             }
         }
         
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             accAudioAccessibility = new ACC_AudioAccessibility();
+            SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+            sceneLoaded = true;
+            /*while (actionsToPerformOnLoad.Count > 0)
+            {
+                var action = actionsToPerformOnLoad.Dequeue();
+                action();
+            }*/
+        }
+        
+        /*private void EnqueueAction(Action action)
+        {
+            if (sceneLoaded) action();
+            else actionsToPerformOnLoad.Enqueue(action);
+        }*/
+        
+        private void OnSceneUnloading(Scene current)
+        {
+            sceneLoaded = false;
         }
     }
 }

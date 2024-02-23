@@ -3,23 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ACC_SubtitlesManager : MonoBehaviour
 {
-    public Text subtitleText;
-    public List<ACC_KeyValuePairData<int, string>> subtitleDictionary = new List<ACC_KeyValuePairData<int, string>>();
-    public List<ACC_KeyValuePairData<int, int>> timeDictionary = new List<ACC_KeyValuePairData<int, int>>();
-    [SerializeField] private bool subtitlesEnabled = false;
+    [HideInInspector] public TextMeshProUGUI subtitleText { get; set; }
+    [HideInInspector] public Image backgroundColor { get; set; }
+    private List<ACC_KeyValuePairData<int, string>> subtitleDictionary = new List<ACC_KeyValuePairData<int, string>>();
+    private List<ACC_KeyValuePairData<int, int>> timeDictionary = new List<ACC_KeyValuePairData<int, int>>();
     
+    private bool canPlaySubtitle = false;
     private int currentIndex = 0;
     private float startTime;
     private float nextSubtitleTime;
 
     void Update()
     {
-        if (subtitlesEnabled)
+        if (canPlaySubtitle)
         {
             float currentTime = Time.time;
             if (currentTime >= nextSubtitleTime)
@@ -32,7 +34,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
                 }
                 else if (currentIndex >= subtitleDictionary.Count)
                 {
+                    currentIndex = -1;
+                    canPlaySubtitle = false;
                     subtitleText.text = "";
+                    backgroundColor.color = new Color(0, 0, 0, 0);
                 }
                 currentIndex++;
             }
@@ -52,16 +57,25 @@ public class ACC_SubtitlesManager : MonoBehaviour
             subtitleDictionary.Add(new ACC_KeyValuePairData<int, string>(i, subtitle));
             timeDictionary.Add(new ACC_KeyValuePairData<int, int>(i, time));
         }
+
+        subtitleText.color = new Color(subtitleData.fontColor.r, subtitleData.fontColor.g,
+            subtitleData.fontColor.b, subtitleData.fontColor.a);
+        backgroundColor.color = new Color(subtitleData.backgroundColor.r, subtitleData.backgroundColor.g,
+            subtitleData.backgroundColor.b, subtitleData.backgroundColor.a);
+        subtitleText.fontSize = subtitleData.fontSize;
     }
 
-    public void EnableSubtitles()
+    public void PlaySubtitle()
     {
-        subtitlesEnabled = true;
-    }
-
-    public void DisableSubtitles()
-    {
-        subtitlesEnabled = false;
+        canPlaySubtitle = true;
         subtitleText.text = "";
+        currentIndex = 0;
     }
+
+    /*public void EndSubtitle()
+    {
+        canPlaySubtitle = false;
+        subtitleText.text = "";
+        currentIndex = 0;
+    }*/
 }
