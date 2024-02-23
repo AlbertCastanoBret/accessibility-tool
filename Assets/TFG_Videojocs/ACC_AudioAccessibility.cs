@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TFG_Videojocs;
@@ -6,29 +7,36 @@ using UnityEngine.UI;
 
 public class ACC_AudioAccessibility
 {
+    private GameObject subtitleManager;
+    private GameObject backgroundColor;
     public ACC_AudioAccessibility()
     {
-        
+        subtitleManager = GameObject.Find("SubtitleText");
+        backgroundColor = GameObject.Find("BackgroundColor");
     }
 
-    public void CreateSubtitle()
+    public void ChangeSubtitleFontSize(int newFontSize)
     {
-        GameObject canvasObject = new GameObject("Canvas");
-        canvasObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-        canvasObject.AddComponent<CanvasScaler>();
+        subtitleManager.GetComponent<Text>().fontSize = newFontSize;
+    }
 
-        GameObject subtitleManager = new GameObject("SubtitleText");
-        subtitleManager.transform.SetParent(canvasObject.transform, false);
-        
-        Text subtitleText = subtitleManager.AddComponent<Text>();
-        ACC_SubtitlesManager accSubtitleManager = subtitleManager.AddComponent<ACC_SubtitlesManager>();
-        accSubtitleManager.LoadSubtitles("JSONSubtitles");
-        accSubtitleManager.EnableSubtitles();
-        accSubtitleManager.subtitleText = subtitleText;
+    public void ChangeSubtitleFontColor(Color newColor)
+    {
+        subtitleManager.GetComponent<Text>().color = new Color(newColor.r, newColor.g, newColor.b);
+    }
+
+    public void ChangeSubtitleBackgroundColor(Color newColor)
+    {
+        backgroundColor.GetComponent<Image>().color = new Color(newColor.r, newColor.g, newColor.b);
     }
     
     public void CreateSubtitle(GameObject canvas)
     {
         
+    }
+
+    public void EnableSubtitles(bool enabled)
+    {
+        subtitleManager.GetComponent<ACC_SubtitlesManager>().enabled = enabled;
     }
 }

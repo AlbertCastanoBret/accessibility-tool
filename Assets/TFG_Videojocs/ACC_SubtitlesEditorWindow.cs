@@ -81,17 +81,14 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         var mainRow = new VisualElement();
         var subtitles = new Label("Subtitles");
         var time = new Label("Time");
-        //var fontColor = new Label("Color");
         
         table.AddToClassList("table");
         mainRow.AddToClassList("main-row");
         subtitles.AddToClassList("subtitles-cell");
         time.AddToClassList("time-cell");
-        //fontColor.AddToClassList("font-color-cell");
         
         mainRow.Add(subtitles);
         mainRow.Add(time);
-        //mainRow.Add(fontColor);
         table.Add(mainRow);
 
         return table;

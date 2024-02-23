@@ -58,7 +58,7 @@ public class ACC_Window : EditorWindow
         
         toolbar.Add(titleToolbar);
         
-        audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AuditiveFeatures));};
+        audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
         visualButton.clicked += () => { UpdateAccessibilityContainer(typeof(VisualFeatures)); };
         
         sidebar.Add(audibleButton);
@@ -101,14 +101,14 @@ public class ACC_Window : EditorWindow
         titleBox.AddToClassList("title-box");
         box.Add(titleBox);
 
-        if(featuretype == typeof(AuditiveFeatures)) CreateAudioBox(box, index);
+        if(featuretype == typeof(AudioFeatures)) CreateAudioBox(box, index);
 
         return box;
     }
 
     private void CreateAudioBox(VisualElement box, int index)
     {
-        switch (Enum.GetName(typeof(AuditiveFeatures), index))
+        switch (Enum.GetName(typeof(AudioFeatures), index))
         {
             case "Subtitles":
                 SubtitlesBox(box);
@@ -213,6 +213,7 @@ public class ACC_Window : EditorWindow
         deleteSubtitleButton.clicked += () =>
         {
             if (subtitlesDropdown.value != null) DeleteSubtitle(subtitlesDropdown.value);
+            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to delete.", "OK");
         };
         
         editSubtitleBottomContainer.Add(loadSubtitlesButton);
