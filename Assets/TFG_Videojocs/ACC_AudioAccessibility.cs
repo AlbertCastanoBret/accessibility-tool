@@ -23,12 +23,12 @@ public class ACC_AudioAccessibility
 
     public void ChangeSubtitleFontColor(Color newColor)
     {
-        subtitleText.GetComponent<Text>().color = new Color(newColor.r, newColor.g, newColor.b);
+        subtitleText.GetComponent<Text>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
     }
 
     public void ChangeSubtitleBackgroundColor(Color newColor)
     {
-        backgroundColor.GetComponent<Image>().color = new Color(newColor.r, newColor.g, newColor.b);
+        backgroundColor.GetComponent<Image>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
     }
 
     public void EnableSubtitles(bool enabled)

@@ -164,6 +164,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         fontColorTitle.AddToClassList("option-title");
         fontColorInput = new ColorField();
         fontColorInput.AddToClassList("option-input");
+        fontColorInput.value = new Color(0,0,0,1);
         
         var backgroundColorContainer = new VisualElement();
         backgroundColorContainer.AddToClassList("option-container");
@@ -171,6 +172,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         backgroundColorTitle.AddToClassList("option-title");
         backgroundColorInput = new ColorField();
         backgroundColorInput.AddToClassList("option-input");
+        backgroundColorInput.value = new Color(0,0,0,1);
         
         var fontSizeContainer = new VisualElement();
         fontSizeContainer.AddToClassList("option-container");
