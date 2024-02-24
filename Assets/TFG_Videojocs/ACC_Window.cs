@@ -113,6 +113,9 @@ public class ACC_Window : EditorWindow
             case "Subtitles":
                 SubtitlesBox(box);
                 break;
+            case "VisualNotification":
+                VisualNotification(box);
+                break;
         }
     }
 
@@ -259,5 +262,15 @@ public class ACC_Window : EditorWindow
             subtitlesDropdown.value = options.Count > 0 ? options[0] : "";
         }
         Repaint();
+    }
+
+    private void VisualNotification(VisualElement box)
+    {
+        IMGUIContainer imguiContainer = new IMGUIContainer(() =>
+        {
+            MonoScript script = null;
+            script = EditorGUILayout.ObjectField("Selecciona un Script:", script, typeof(MonoScript), false) as MonoScript;
+        });
+        box.Add(imguiContainer);
     }
 }
