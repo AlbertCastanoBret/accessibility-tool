@@ -179,7 +179,7 @@ public class ACC_Window : EditorWindow
     {
         var selectSubtitleContainer = new VisualElement();
 
-        var options = GetSubtitlesOptions();
+        var options = ACC_JSONHelper.GetFiles("/ACC_JSONSubtitle/");
         
         subtitlesDropdown = new DropdownField("Select a subtitle:", options, 0);
         subtitlesDropdown.AddToClassList("select-subtitle-dropdown");
@@ -200,7 +200,11 @@ public class ACC_Window : EditorWindow
         deleteSubtitleButton.AddToClassList("edit-subtitles-button");
         deleteSubtitleButton.clicked += () =>
         {
-            if (!string.IsNullOrEmpty(subtitlesDropdown.value)) DeleteSubtitle(subtitlesDropdown.value);
+            if (!string.IsNullOrEmpty(subtitlesDropdown.value))
+            {
+                ACC_JSONHelper.DeleteFile("/ACC_JSONSubtitle/" + subtitlesDropdown.value);
+                RefreshDropdown();
+            }
             else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to delete.", "OK");
         };
         
@@ -212,37 +216,12 @@ public class ACC_Window : EditorWindow
         
         return selectSubtitleContainer;
     }
-    
-    private List<string> GetSubtitlesOptions()
-    {
-        var options = new List<string> {};
-        string[] files = Directory.GetFiles("Assets/TFG_Videojocs/ACC_JSON/ACC_JSONSubtitle", "*.json");
-        foreach (string file in files)
-        {
-            string json = File.ReadAllText(file);
-            ACC_SubtitleData subtitleData = JsonUtility.FromJson<ACC_SubtitleData>(json);
-            options.Add(subtitleData.name);
-        }
-        return options;
-    }
-
-    private void DeleteSubtitle(string name)
-    {
-        string path = Path.Combine("Assets/TFG_Videojocs/ACC_JSON/ACC_JSONSubtitle", name + ".json");
-        
-        if (File.Exists(path))
-        {
-            AssetDatabase.DeleteAsset(path);
-            AssetDatabase.Refresh();
-            RefreshDropdown();
-        }
-    }
 
     private void RefreshDropdown()
     {
         if (subtitlesDropdown != null)
         {
-            var options = GetSubtitlesOptions();
+            var options = ACC_JSONHelper.GetFiles("/ACC_JSONSubtitle/");
             subtitlesDropdown.choices = options;
             subtitlesDropdown.value = options.Count > 0 ? options[0] : "";
         }
