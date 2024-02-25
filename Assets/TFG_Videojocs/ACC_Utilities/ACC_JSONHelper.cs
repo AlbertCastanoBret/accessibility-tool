@@ -8,6 +8,9 @@ using UnityEngine;
 public class ACC_JSONHelper
 {
     private static string basePath = "Assets/TFG_Videojocs/ACC_JSON";
+    public delegate TResult GetCustomDelegate<in TData, out TResult>(TData data);
+    public delegate List<TListItem> GetListDelegate<TListItem, in TData>(TData data);
+    public delegate bool ItemMatchDelegate<in TListItem>(TListItem item, TListItem toMatch);
 
     public static void CreateJson(ACC_AbstractData abstractData, string folder)
     {
@@ -47,17 +50,47 @@ public class ACC_JSONHelper
         }
     }
 
-    public static List<string> GetFiles(string folder)
+    public static string GetFileNameByListParameter<TData, TListItem>(
+        string folder,
+        GetListDelegate<TListItem, TData> getList,
+        ItemMatchDelegate<TListItem> isMatch,
+        TListItem toMatch)
     {
-        var options = new List<string> { };
+        string[] files = Directory.GetFiles(basePath + folder, "*.json");
+        foreach (string filePath in files)
+        {
+            string json = File.ReadAllText(filePath);
+            TData data = JsonUtility.FromJson<TData>(json);
+            List<TListItem> list = getList(data);
+            foreach (TListItem item in list)
+            {
+                if (isMatch(item, toMatch))
+                {
+                    return Path.GetFileName(filePath);
+                }
+            }
+        }
+        return null;
+    }
+
+    public static TResult GetParamByFileName<TData, TResult>(GetCustomDelegate<TData, TResult> getCustom, string folder, string filename)
+    {
+        string json = File.ReadAllText(basePath + folder + filename + ".json");
+        TData data = JsonUtility.FromJson<TData>(json);
+        return getCustom(data);
+    }
+
+    public static List<TResult> GetFilesListByParam<TData, TResult>(string folder, GetCustomDelegate<TData, TResult> getCustom)
+    {
+        var options = new List<TResult>();
         string[] files = Directory.GetFiles(basePath + folder, "*.json");
         foreach (string file in files)
         {
             string json = File.ReadAllText(file);
-            ACC_SubtitleData subtitleData = JsonUtility.FromJson<ACC_SubtitleData>(json);
-            options.Add(subtitleData.name);
+            TData data = JsonUtility.FromJson<TData>(json);
+            TResult option = getCustom(data);
+            options.Add(option);
         }
-
         return options;
     }
 

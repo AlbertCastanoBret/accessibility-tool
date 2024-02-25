@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace TFG_Videojocs.ACC_Utilities
 {
     [System.Serializable]

@@ -3,6 +3,12 @@
     font-size: 14px;
 }
 
+.sounds-selected-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
 .create-visual-notification-button{
     margin-top: 12px;
     margin-right: auto;
@@ -21,4 +27,22 @@
 
 .visual-notification-label{
     width: 50%;
+}
+
+.font-size-container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 6px;
+}
+
+.font-size-slider{
+    width: 88%;
+}
+
+.font-size-label{
+    width: 56%;
+}
+
+.font-size-field{
+    width: 10%;
 }

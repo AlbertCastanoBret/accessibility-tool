@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
 using UnityEditor; // UnityEditor solo está disponible en el Editor de Unity.
@@ -32,6 +33,8 @@ namespace TFG_Videojocs
     {
         public static ACC_AccessibilityManager Instance { get; private set; }
         private ACC_AudioAccessibility accAudioAccessibility;
+        [Range(0, 10)]
+        public float mySliderValue = 5;
         //private Queue<Action> actionsToPerformOnLoad = new Queue<Action>();
         
         [Header("Audio Accessibility")]
@@ -55,7 +58,7 @@ namespace TFG_Videojocs
 
         private void Start()
         {
-            AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
+            AudioAccessibilityManager().PlaySubtitle("Hola");
             //StartCoroutine(ChangeScene());
         }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using TFG_Videojocs;
 using Unity.Collections;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ public class ACC_AudioManager : MonoBehaviour
     private void Start()
     {
         PlayMusic("Plumber");
+        PlaySFX("Alarm");
     }
 
     private void OnValidate()
@@ -42,29 +44,30 @@ public class ACC_AudioManager : MonoBehaviour
     {
         foreach (var sound in sounds)
         {
-            if (sound.AudioClip != null)
+            if (sound.audioClip != null)
             {
-                sound.Name = sound.AudioClip.name;
+                sound.name = sound.audioClip.name;
             }
         }
     }
 
     public void PlayMusic(string name)
     {
-        ACC_Sound accSound = Array.Find(musicSounds, x => x.Name == name);
+        ACC_Sound accSound = Array.Find(musicSounds, x => x.name == name);
         if (accSound != null)
         {
-            musicSource.clip = accSound.AudioClip;
+            musicSource.clip = accSound.audioClip;
             musicSource.Play();
         }
     }
     
     public void PlaySFX(string name)
     {
-        ACC_Sound accSound = Array.Find(sfxSounds, x => x.Name == name);
+        ACC_Sound accSound = Array.Find(sfxSounds, x => x.name == name);
         if (accSound != null)
         {
-            sfxSource.clip = accSound.AudioClip;
+            ACC_AccessibilityManager.Instance.AudioAccessibilityManager().PlayVisualNotification(accSound);
+            sfxSource.clip = accSound.audioClip;
             sfxSource.Play();
         }
     }

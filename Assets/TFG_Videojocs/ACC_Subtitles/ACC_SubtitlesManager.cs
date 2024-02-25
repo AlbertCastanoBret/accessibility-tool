@@ -9,15 +9,14 @@ using UnityEngine.UI;
 
 public class ACC_SubtitlesManager : MonoBehaviour
 {
-    [HideInInspector] private TextMeshProUGUI subtitleText { get; set; }
-    [HideInInspector] private Image backgroundColor { get; set; }
-    private List<ACC_KeyValuePairData<int, string>> subtitleDictionary = new List<ACC_KeyValuePairData<int, string>>();
-    private List<ACC_KeyValuePairData<int, int>> timeDictionary = new List<ACC_KeyValuePairData<int, int>>();
+    private TextMeshProUGUI subtitleText;
+    private Image backgroundColor;
     
-    private bool canPlaySubtitle = false;
-    private int currentIndex = 0;
+    private bool canPlaySubtitle;
+    private int currentIndex;
     private float startTime;
     private float nextSubtitleTime;
+    private ACC_SubtitleData loadedData;
 
     private void Awake()
     {
@@ -32,11 +31,11 @@ public class ACC_SubtitlesManager : MonoBehaviour
             float currentTime = Time.time;
             if (currentTime >= nextSubtitleTime)
             {
-                if (currentIndex < subtitleDictionary.Count)
+                if (currentIndex < loadedData.subtitleText.Count)
                 {
-                    subtitleText.text = subtitleDictionary[currentIndex].value;
+                    subtitleText.text = loadedData.subtitleText[currentIndex].value;
                     startTime = currentTime;
-                    nextSubtitleTime = startTime + timeDictionary[currentIndex].value;
+                    nextSubtitleTime = startTime + loadedData.timeText[currentIndex].value;
                     GetComponent<RectTransform>().sizeDelta =
                         new Vector2(0, subtitleText.preferredHeight);
                     subtitleText.GetComponent<RectTransform>().sizeDelta = 
@@ -44,7 +43,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                     backgroundColor.GetComponent<RectTransform>().sizeDelta =
                         new Vector2(0, subtitleText.preferredHeight);
                 }
-                else if (currentIndex >= subtitleDictionary.Count)
+                else if (currentIndex >= loadedData.subtitleText.Count)
                 {
                     currentIndex = -1;
                     canPlaySubtitle = false;
@@ -58,23 +57,8 @@ public class ACC_SubtitlesManager : MonoBehaviour
 
     public void LoadSubtitles(string jsonFile)
     {
-        subtitleDictionary = new List<ACC_KeyValuePairData<int, string>>();
-        timeDictionary = new List<ACC_KeyValuePairData<int, int>>();
-        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSONSubtitle/" + jsonFile + ".json");
-        ACC_SubtitleData subtitleData = JsonUtility.FromJson<ACC_SubtitleData>(json);
-        for (int i = 0; i < subtitleData.subtitleText.Count; i++)
-        {
-            int time = subtitleData.timeText[i].value;
-            string subtitle = subtitleData.subtitleText[i].value;
-            subtitleDictionary.Add(new ACC_KeyValuePairData<int, string>(i, subtitle));
-            timeDictionary.Add(new ACC_KeyValuePairData<int, int>(i, time));
-        }
-
-        subtitleText.color = new Color(subtitleData.fontColor.r, subtitleData.fontColor.g,
-            subtitleData.fontColor.b, subtitleData.fontColor.a);
-        backgroundColor.color = new Color(subtitleData.backgroundColor.r, subtitleData.backgroundColor.g,
-            subtitleData.backgroundColor.b, subtitleData.backgroundColor.a);
-        subtitleText.fontSize = subtitleData.fontSize;
+        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_JSONSubtitle/" + jsonFile + ".json");
+        loadedData = JsonUtility.FromJson<ACC_SubtitleData>(json);
     }
 
     public void PlaySubtitle()
@@ -82,6 +66,12 @@ public class ACC_SubtitlesManager : MonoBehaviour
         canPlaySubtitle = true;
         subtitleText.text = "";
         currentIndex = 0;
+        
+        subtitleText.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
+            loadedData.fontColor.b, loadedData.fontColor.a);
+        backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+            loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+        subtitleText.fontSize = loadedData.fontSize;
     }
 
     /*public void EndSubtitle()

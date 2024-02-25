@@ -23,6 +23,7 @@ public class ACC_AudioAccessibility
     private ACC_SubtitlesManager accSubtitlesManager;
 
     private GameObject visualNotificationText,  visualNotificationBackground;
+    private ACC_VisualNotificationManager accVisualNotificationManager;
     public ACC_AudioAccessibility()
     {
         CreateSubtitleManager();
@@ -127,10 +128,17 @@ public class ACC_AudioAccessibility
         
         accSubtitlesManager = subtitleManager.AddComponent<ACC_SubtitlesManager>();
     }
+
+    public void PlayVisualNotification(ACC_Sound accSound)
+    {
+        accVisualNotificationManager.LoadVisualNotification(accSound);
+        accVisualNotificationManager.PlayVisualNotification();
+    }
     
     private void EnableVisualNotification(bool enabled)
     {
-        
+        visualNotificationText.GetComponent<TextMeshProUGUI>().enabled = enabled;
+        visualNotificationBackground.GetComponent<Image>().enabled = enabled;
     }
     
     private void CreateVisualNotificationManager()
@@ -158,7 +166,7 @@ public class ACC_AudioAccessibility
         visualNotificationBackground = new GameObject("ACC_VisualNotificationBackground");
         visualNotificationBackground.transform.SetParent(visualNotificationManager.transform, false);
         var backgroundColorImage = visualNotificationBackground.AddComponent<Image>();
-        backgroundColorImage.color = new Color(1, 1, 1, 1);
+        backgroundColorImage.color = new Color(1, 1, 1, 0);
         
         RectTransform backgroundTextRectTransform = visualNotificationBackground.GetComponent<RectTransform>();
         backgroundTextRectTransform.anchorMin = new Vector2(0, 0.5f);
@@ -174,7 +182,7 @@ public class ACC_AudioAccessibility
         visualNotificationTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
         visualNotificationTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
         visualNotificationTextMeshProUGUI.enableWordWrapping = true;
-        visualNotificationTextMeshProUGUI.color = new Color(1f, 0f, 0f, 1);
+        visualNotificationTextMeshProUGUI.color = new Color(1f, 0f, 0f, 0);
         
         RectTransform visualNotificationTextRectTransform = visualNotificationText.GetComponent<RectTransform>();
         visualNotificationTextRectTransform.anchorMin = new Vector2(0, 0.5f);
@@ -183,5 +191,6 @@ public class ACC_AudioAccessibility
         visualNotificationTextRectTransform.anchoredPosition = new Vector2(0, 0);
         visualNotificationTextRectTransform.sizeDelta = new Vector2(0, 100);
 
+        accVisualNotificationManager = visualNotificationManager.AddComponent<ACC_VisualNotificationManager>();
     }
 }

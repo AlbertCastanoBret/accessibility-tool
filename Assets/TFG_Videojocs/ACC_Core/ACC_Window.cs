@@ -17,16 +17,21 @@ public class ACC_Window : EditorWindow
 
     private ACC_AudioManager audioManager;
     private ScrollView soundContainer;
+    private List<ACC_Sound> selectedSounds;
+    private DropdownField visualNotificationDropdown;
+    
     private void OnEnable()
     {
-        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += RefreshDropdown;
+        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += RefreshSubtititleWindow;
+        ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow += RefreshVisualNotification;
         audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
         audioManager.OnSoundsChanged += CreateSoundList;
     }
 
     private void OnDisable()
     {
-        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= RefreshDropdown;
+        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= RefreshSubtititleWindow;
+        ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow += RefreshVisualNotification;
         audioManager.OnSoundsChanged -= CreateSoundList;
     }
 
@@ -152,7 +157,7 @@ public class ACC_Window : EditorWindow
             }
             else if (evt.newValue == "Edit subtitle")
             {
-                var subtitleSelection = LoadASubtitle();
+                var subtitleSelection = LoadSubtitle();
                 dynamicContainer.Add(subtitleSelection);
             }
         });
@@ -175,11 +180,11 @@ public class ACC_Window : EditorWindow
         return subtitleCreationContainer;
     }
 
-    private VisualElement LoadASubtitle()
+    private VisualElement LoadSubtitle()
     {
         var selectSubtitleContainer = new VisualElement();
 
-        var options = ACC_JSONHelper.GetFiles("/ACC_JSONSubtitle/");
+        var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("/ACC_JSONSubtitle/", data => data.name);
         
         subtitlesDropdown = new DropdownField("Select a subtitle:", options, 0);
         subtitlesDropdown.AddToClassList("select-subtitle-dropdown");
@@ -203,7 +208,7 @@ public class ACC_Window : EditorWindow
             if (!string.IsNullOrEmpty(subtitlesDropdown.value))
             {
                 ACC_JSONHelper.DeleteFile("/ACC_JSONSubtitle/" + subtitlesDropdown.value);
-                RefreshDropdown();
+                RefreshSubtititleWindow();
             }
             else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to delete.", "OK");
         };
@@ -217,11 +222,11 @@ public class ACC_Window : EditorWindow
         return selectSubtitleContainer;
     }
 
-    private void RefreshDropdown()
+    private void RefreshSubtititleWindow()
     {
         if (subtitlesDropdown != null)
         {
-            var options = ACC_JSONHelper.GetFiles("/ACC_JSONSubtitle/");
+            var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("/ACC_JSONSubtitle/", data => data.name);
             subtitlesDropdown.choices = options;
             subtitlesDropdown.value = options.Count > 0 ? options[0] : "";
         }
@@ -230,30 +235,57 @@ public class ACC_Window : EditorWindow
 
     private void VisualContainerBox(VisualElement box)
     {
+        var dynamicContainer = new VisualElement();
+        
+        var options = new List<string> { "Create a visual notification", "Edit visual notification" };
+        var dropdown = new DropdownField("Options:", options, 0);
+                
+        dropdown.AddToClassList("dropdown-container");
+        dropdown[0].AddToClassList("dropdown-list");
+        
         soundContainer = new ScrollView();
         soundContainer.AddToClassList("sound-container");
         CreateSoundList();
-        box.Add(soundContainer);
-
-        var addVisualNotificationButton = new Button() { text = "Add" };
+        dynamicContainer.Add(soundContainer);
+        
+        var addVisualNotificationButton = new Button() { text = "Create" };
         addVisualNotificationButton.AddToClassList("add-visual-notification-button");
-        box.Add(addVisualNotificationButton);
+        dynamicContainer.Add(addVisualNotificationButton);
 
         addVisualNotificationButton.clicked += () =>
         {
-            ACC_VisualNotificationEditorWindow.ShowWindow();
+            if(selectedSounds.Count > 0) ACC_VisualNotificationEditorWindow.ShowWindow(selectedSounds, null);
+            else EditorUtility.DisplayDialog("Required Field", "Please select at least one sound to create a visual notification", "OK");
         };
+        
+        dropdown.RegisterValueChangedCallback(evt =>
+        {
+            dynamicContainer.Clear();
+            if (evt.newValue == "Create a visual notification")
+            {
+                dynamicContainer.Add(soundContainer);
+                dynamicContainer.Add(addVisualNotificationButton);
+            }
+            else if (evt.newValue == "Edit visual notification")
+            {
+                var visualNotificationSelection = LoadVisualNotification();
+                dynamicContainer.Add(visualNotificationSelection);
+            }
+        });
+        
+        box.Add(dropdown);
+        box.Add(dynamicContainer);
     }
 
     private void CreateSoundList()
     {
         soundContainer.Clear();
-        List<string> selectedSounds = new List<string>();   
+        selectedSounds = new List<ACC_Sound>();   
         var SFXSounds = audioManager.GetSFXSounds();
         bool isFirst = true;
         foreach (var sound in SFXSounds)
         {
-            var soundLabel = new Label(sound.Name);
+            var soundLabel = new Label(sound.name);
             soundLabel.AddToClassList("sound-label");
             soundLabel.focusable = true;
             soundLabel.userData = sound;
@@ -267,22 +299,79 @@ public class ACC_Window : EditorWindow
             soundLabel.RegisterCallback<MouseDownEvent>(evt =>
             {
                 var label = evt.currentTarget as Label;
-                var soundData = label.userData as ACC_Sound;
+                if (label != null)
+                {
+                    ACC_Sound soundData = label.userData as ACC_Sound;
 
-                if (soundData != null && selectedSounds.Contains(soundData.Name))
-                {
-                    selectedSounds.Remove(soundData.Name);
-                    label.RemoveFromClassList("selected-sound");
-                }
-                else
-                {
-                    selectedSounds.Add(soundData.Name);
-                    label.AddToClassList("selected-sound");
+                    if (selectedSounds.Contains(soundData))
+                    {
+                        selectedSounds.Remove(soundData);
+                        label.RemoveFromClassList("selected-sound");
+                    }
+                    else
+                    {
+                        selectedSounds.Add(soundData);
+                        label.AddToClassList("selected-sound");
+                    }
                 }
             });
 
             soundContainer.Add(soundLabel);
         }
+    }
+    
+    private VisualElement LoadVisualNotification()
+    {
+        var selectSubtitleContainer = new VisualElement();
+
+        var options = ACC_JSONHelper.GetFilesListByParam<ACC_VisualNotificationData, string>("/ACC_JSONVisualNotification/", data => data.name);
         
+        visualNotificationDropdown = new DropdownField("Select a visual notification:", options, 0);
+        visualNotificationDropdown.AddToClassList("select-subtitle-dropdown");
+        visualNotificationDropdown[0].AddToClassList("select-subtitle-label");
+
+        var editSubtitleBottomContainer = new VisualElement();
+        editSubtitleBottomContainer.AddToClassList("edit-subtitle-bottom-container");
+        
+        var loadSubtitlesButton = new Button() { text = "Load" };
+        loadSubtitlesButton.AddToClassList("edit-subtitles-button");
+        loadSubtitlesButton.clicked += () =>
+        {
+            var sounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
+                "/ACC_JSONVisualNotification/", visualNotificationDropdown.value);
+            if (!string.IsNullOrEmpty(visualNotificationDropdown.value)) ACC_VisualNotificationEditorWindow.ShowWindow(sounds, visualNotificationDropdown.value);
+            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to load.", "OK");
+        };
+
+        var deleteSubtitleButton = new Button() { text = "Delete" };
+        deleteSubtitleButton.AddToClassList("edit-subtitles-button");
+        deleteSubtitleButton.clicked += () =>
+        {
+            if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
+            {
+                ACC_JSONHelper.DeleteFile("/ACC_JSONVisualNotification/" + visualNotificationDropdown.value);
+                RefreshVisualNotification();
+            }
+            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to delete.", "OK");
+        };
+        
+        editSubtitleBottomContainer.Add(loadSubtitlesButton);
+        editSubtitleBottomContainer.Add(deleteSubtitleButton);
+        
+        selectSubtitleContainer.Add(visualNotificationDropdown);
+        selectSubtitleContainer.Add(editSubtitleBottomContainer);
+        
+        return selectSubtitleContainer;
+    }
+    
+    private void RefreshVisualNotification()
+    {
+        if (visualNotificationDropdown != null)
+        {
+            var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("/ACC_JSONVisualNotification/", data => data.name);
+            visualNotificationDropdown.choices = options;
+            visualNotificationDropdown.value = options.Count > 0 ? options[0] : "";
+        }
+        Repaint();
     }
 }

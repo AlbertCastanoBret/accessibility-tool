@@ -42,7 +42,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             window.isEditing = true;
             window.LoadJson(name);
         }
-        //window.ShowModal();
+        window.ShowModal();
     }
     
     private void CreateGUI()
