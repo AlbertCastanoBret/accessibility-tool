@@ -24,15 +24,15 @@ public class ACC_Window : EditorWindow
     {
         ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += RefreshSubtititleWindow;
         ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow += RefreshVisualNotification;
-        audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
-        audioManager.OnSoundsChanged += CreateSoundList;
+        //audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
+        //audioManager.OnSoundsChanged += CreateSoundList;
     }
 
     private void OnDisable()
     {
         ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= RefreshSubtititleWindow;
         ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow += RefreshVisualNotification;
-        audioManager.OnSoundsChanged -= CreateSoundList;
+        //audioManager.OnSoundsChanged -= CreateSoundList;
     }
 
     [MenuItem("Tools/ACC/Accessibility Window")]
@@ -243,10 +243,10 @@ public class ACC_Window : EditorWindow
         dropdown.AddToClassList("dropdown-container");
         dropdown[0].AddToClassList("dropdown-list");
         
-        soundContainer = new ScrollView();
-        soundContainer.AddToClassList("sound-container");
-        CreateSoundList();
-        dynamicContainer.Add(soundContainer);
+        //soundContainer = new ScrollView();
+        //soundContainer.AddToClassList("sound-container");
+        //CreateSoundList();
+        //dynamicContainer.Add(soundContainer);
         
         var addVisualNotificationButton = new Button() { text = "Create" };
         addVisualNotificationButton.AddToClassList("add-visual-notification-button");
@@ -254,8 +254,7 @@ public class ACC_Window : EditorWindow
 
         addVisualNotificationButton.clicked += () =>
         {
-            if(selectedSounds.Count > 0) ACC_VisualNotificationEditorWindow.ShowWindow(selectedSounds, null);
-            else EditorUtility.DisplayDialog("Required Field", "Please select at least one sound to create a visual notification", "OK");
+            ACC_VisualNotificationEditorWindow.ShowWindow(null);
         };
         
         dropdown.RegisterValueChangedCallback(evt =>
@@ -263,7 +262,7 @@ public class ACC_Window : EditorWindow
             dynamicContainer.Clear();
             if (evt.newValue == "Create a visual notification")
             {
-                dynamicContainer.Add(soundContainer);
+                //dynamicContainer.Add(soundContainer);
                 dynamicContainer.Add(addVisualNotificationButton);
             }
             else if (evt.newValue == "Edit visual notification")
@@ -277,7 +276,7 @@ public class ACC_Window : EditorWindow
         box.Add(dynamicContainer);
     }
 
-    private void CreateSoundList()
+    /*private void CreateSoundList()
     {
         soundContainer.Clear();
         selectedSounds = new List<ACC_Sound>();   
@@ -318,7 +317,7 @@ public class ACC_Window : EditorWindow
 
             soundContainer.Add(soundLabel);
         }
-    }
+    }*/
     
     private VisualElement LoadVisualNotification()
     {
@@ -337,10 +336,13 @@ public class ACC_Window : EditorWindow
         loadSubtitlesButton.AddToClassList("edit-subtitles-button");
         loadSubtitlesButton.clicked += () =>
         {
-            var sounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
-                "/ACC_JSONVisualNotification/", visualNotificationDropdown.value);
-            if (!string.IsNullOrEmpty(visualNotificationDropdown.value)) ACC_VisualNotificationEditorWindow.ShowWindow(sounds, visualNotificationDropdown.value);
-            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to load.", "OK");
+            if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
+            {
+                var sounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
+                    "/ACC_JSONVisualNotification/", visualNotificationDropdown.value);
+                ACC_VisualNotificationEditorWindow.ShowWindow(visualNotificationDropdown.value);
+            }
+            else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to load.", "OK");
         };
 
         var deleteSubtitleButton = new Button() { text = "Delete" };
@@ -352,7 +354,7 @@ public class ACC_Window : EditorWindow
                 ACC_JSONHelper.DeleteFile("/ACC_JSONVisualNotification/" + visualNotificationDropdown.value);
                 RefreshVisualNotification();
             }
-            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to delete.", "OK");
+            else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to delete.", "OK");
         };
         
         editSubtitleBottomContainer.Add(loadSubtitlesButton);

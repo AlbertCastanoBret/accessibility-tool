@@ -17,27 +17,46 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
     private ColorField fontColorInput;
     private ColorField backgroundColorInput;
     private SliderInt fontSizeInput;
+    private ScrollView soundContainer;
+    private ACC_AudioManager audioManager;
+    private AudioClip audioClip;
     
     private bool isEditing = false;
     private string oldName;
     
     public delegate void SubtitleWindowDelegate();
     public static event SubtitleWindowDelegate OnCloseVisualNotificationWindow;
-    
-    public static void ShowWindow(List<ACC_Sound> selectedSounds, string name)
+
+    private void OnEnable()
+    {
+        audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
+        audioManager.OnSoundsChanged += ResetSoundsList;
+    }
+
+    private void OnDisable()
+    {
+        audioManager.OnSoundsChanged -= ResetSoundsList;
+    }
+
+    private void OnDestroy()
+    {
+        OnCloseVisualNotificationWindow?.Invoke();
+    }
+
+    public static void ShowWindow(string name)
     {
         ACC_VisualNotificationEditorWindow window = CreateInstance<ACC_VisualNotificationEditorWindow>();
         window.titleContent = new GUIContent("Visual Notification Creation");
-        window.minSize = new Vector2(600, 530);
-        window.maxSize = new Vector2(600, 530);
-        window.selectedSounds = selectedSounds;
+        window.minSize = new Vector2(600, 550);
+        window.maxSize = new Vector2(600, 550);
         if (name != null)
         {
             window.isEditing = true;
             window.LoadJson(name);
+            window.selectedSounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
+                "/ACC_JSONVisualNotification/", name);
         }
         window = GetWindow<ACC_VisualNotificationEditorWindow>();
-        window.ShowModal();
     }
 
     private void CreateGUI()
@@ -50,21 +69,61 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         
         var mainContainer = new VisualElement();
         mainContainer.AddToClassList("main-container");
+        
+        var soundsSelectedTitleLabel = new Label("Sounds");
+        soundsSelectedTitleLabel.style.unityFontStyleAndWeight = new StyleEnum<FontStyle>(FontStyle.Bold);
+        
+        soundContainer = new ScrollView();
+        soundContainer.AddToClassList("sound-container");
+        selectedSounds = new List<ACC_Sound>();
+        CreateSoundsList();
 
-        var soundsSelectedContainer = new VisualElement();
-        soundsSelectedContainer.AddToClassList("sounds-selected-container");
+        var audioClipContainer = new VisualElement();
+        audioClipContainer.AddToClassList("audio-clip-container");
+
+        var audioClipField = new ObjectField("Add new sound:")
+        {
+            objectType = typeof(AudioClip),
+            allowSceneObjects = false
+        };
+        audioClipField.AddToClassList("audio-field");
+        audioClipField[0].AddToClassList("audio-label");
         
-        var soundsSelectedTitleLabel = new Label("Selectd sounds:");
-        soundsSelectedTitleLabel.AddToClassList("visual-notification-label");
+        audioClipField.RegisterValueChangedCallback(evt =>
+        {
+            audioClip = evt.newValue as AudioClip;
+        });
+
+        var audioClipButton = new Button() { text = "Add" };
+        audioClipButton.AddToClassList("audio-button");
+        audioClipButton.clicked += () =>
+        {
+            
+            if (audioClip != null && !selectedSounds.Any(s => s.name == audioClip.name))
+            {
+                ACC_Sound accSound = new ACC_Sound(audioClip.name, audioClip);
+                audioManager.AddSFXSound(accSound);
+                selectedSounds.Add(accSound);
+            }
+            else
+            {
+                if (audioClip == null)
+                {
+                    EditorUtility.DisplayDialog("No AudioClip Selected", "Please select an AudioClip to add.", "OK");
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("AudioClip Already Selected", "The selected AudioClip is already in the list.", "OK");
+                }
+            }
+        };
         
-        var soundNames = selectedSounds.Select(sound => sound.name).ToList();
-        string selectedSoundsString = string.Join(", ", soundNames);
-        
-        var soundsSelectedLabel = new Label(selectedSoundsString);
-        soundsSelectedLabel.AddToClassList("visual-notification-label");
-        
-        soundsSelectedContainer.Add(soundsSelectedTitleLabel);
-        soundsSelectedContainer.Add(soundsSelectedLabel);
+        audioClipContainer.Add(audioClipField);
+        audioClipContainer.Add(audioClipButton);
+
+        var settingsLabelTitle = new Label("Settings");
+        settingsLabelTitle.style.unityFontStyleAndWeight = new StyleEnum<FontStyle>(FontStyle.Bold);
+        settingsLabelTitle.style.marginTop = new Length(12, LengthUnit.Pixel);
         
         nameInput = new TextField("Name: ");
         nameInput.AddToClassList("visual-notification-field");
@@ -173,7 +232,6 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
                             break;
                     }
                 }
-                ConfigureJson();
             }
             else
             {
@@ -181,7 +239,10 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
             }
         };
         
-        mainContainer.Add(soundsSelectedContainer);
+        mainContainer.Add(soundsSelectedTitleLabel);
+        mainContainer.Add(soundContainer);
+        mainContainer.Add(audioClipContainer);
+        mainContainer.Add(settingsLabelTitle);
         mainContainer.Add(nameInput);
         mainContainer.Add(messageInput);
         mainContainer.Add(dropdownHorizontalAlignment);
@@ -194,11 +255,60 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         rootVisualElement.Add(mainContainer);
     }
 
+    private void ResetSoundsList()
+    {
+        if(soundContainer!= null) soundContainer.Clear();
+        selectedSounds = new List<ACC_Sound>();
+        CreateSoundsList();
+    }
+    
+    private void CreateSoundsList()
+    {
+        if(soundContainer!= null) soundContainer.Clear();
+        var SFXSounds = audioManager.GetSFXSounds();
+        bool isFirst = true;
+        foreach (var sound in SFXSounds)
+        {
+            var soundLabel = new Label(sound.name);
+            soundLabel.AddToClassList("sound-label");
+            soundLabel.focusable = true;
+            soundLabel.userData = sound;
+    
+            if (isFirst)
+            {
+                soundLabel.AddToClassList("sound-label-first");
+                isFirst = false;
+            }
+
+            soundLabel.RegisterCallback<MouseDownEvent>(evt =>
+            {
+                var label = evt.currentTarget as Label;
+                if (label != null)
+                {
+                    ACC_Sound soundData = label.userData as ACC_Sound;
+
+                    if (selectedSounds.Contains(soundData))
+                    {
+                        selectedSounds.Remove(soundData);
+                        label.RemoveFromClassList("selected-sound");
+                    }
+                    else
+                    {
+                        selectedSounds.Add(soundData);
+                        label.AddToClassList("selected-sound");
+                    }
+                }
+            });
+
+            if (soundContainer != null) soundContainer.Add(soundLabel);
+        }
+    }
+
     private void ConfigureJson()
     {
         ACC_VisualNotificationData accVisualNotificationData = new ACC_VisualNotificationData();
         accVisualNotificationData.name = nameInput.value;
-        accVisualNotificationData.soundsList = selectedSounds;
+        accVisualNotificationData.soundsList = new List<ACC_Sound>(selectedSounds);
         accVisualNotificationData.message = messageInput.value;
         accVisualNotificationData.horizontalAlignment = dropdownHorizontalAlignment.value;
         accVisualNotificationData.verticalAlignment = dropdownVerticalAlignment.value;
@@ -206,6 +316,23 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         accVisualNotificationData.fontColor = fontColorInput.value;
         accVisualNotificationData.backgroundColor = backgroundColorInput.value;
         accVisualNotificationData.fontSize = fontSizeInput.value;
+
+        List<string> repeatedSounds = new List<string>(); 
+        for (int i = 0; i < selectedSounds.Count; i++)
+        {
+            Debug.Log(selectedSounds.Count);
+            string fileName = ACC_JSONHelper.GetFileNameByListParameter<ACC_VisualNotificationData, ACC_Sound>(
+                "/ACC_JSONVisualNotification/",
+                data => data.soundsList,
+                (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
+                selectedSounds[i]
+            );
+            if (fileName != null)
+            {
+                repeatedSounds.Add(fileName);
+                Debug.Log(fileName);
+            }
+        }
     
         ACC_JSONHelper.CreateJson(accVisualNotificationData, "/ACC_JSONVisualNotification/");
     }

@@ -10,7 +10,7 @@ public class ACC_AudioManager : MonoBehaviour
 {
     public static ACC_AudioManager Instance;
     
-    [SerializeField] private ACC_Sound[] musicSounds, sfxSounds;
+    [SerializeField] private List<ACC_Sound> musicSounds, sfxSounds;
     [SerializeField] private AudioSource musicSource, sfxSource;
     public event Action OnSoundsChanged;
     
@@ -40,7 +40,7 @@ public class ACC_AudioManager : MonoBehaviour
         OnSoundsChanged?.Invoke();
     }
     
-    private void UpdateSoundNames(ACC_Sound[] sounds)
+    private void UpdateSoundNames(List<ACC_Sound> sounds)
     {
         foreach (var sound in sounds)
         {
@@ -53,7 +53,7 @@ public class ACC_AudioManager : MonoBehaviour
 
     public void PlayMusic(string name)
     {
-        ACC_Sound accSound = Array.Find(musicSounds, x => x.name == name);
+        ACC_Sound accSound = musicSounds.Find(x => x.name == name);
         if (accSound != null)
         {
             musicSource.clip = accSound.audioClip;
@@ -63,7 +63,7 @@ public class ACC_AudioManager : MonoBehaviour
     
     public void PlaySFX(string name)
     {
-        ACC_Sound accSound = Array.Find(sfxSounds, x => x.name == name);
+        ACC_Sound accSound = sfxSounds.Find( x => x.name == name);
         if (accSound != null)
         {
             ACC_AccessibilityManager.Instance.AudioAccessibilityManager().PlayVisualNotification(accSound);
@@ -72,8 +72,35 @@ public class ACC_AudioManager : MonoBehaviour
         }
     }
 
-    public ACC_Sound[] GetSFXSounds()
+    public List<ACC_Sound> GetMusicSounds()
+    {
+        return musicSounds;
+    }
+    
+    public List<ACC_Sound> GetSFXSounds()
     {
         return sfxSounds;
+    }
+
+    public void AddMusicSound(ACC_Sound accSound)
+    {
+        musicSounds.Add(accSound);
+    }
+    
+    public void AddMusicSound(AudioClip audioClip)
+    {
+        musicSounds.Add(new ACC_Sound(audioClip.name, audioClip));
+    }
+    
+    public void AddSFXSound(ACC_Sound accSound)
+    {
+        sfxSounds.Add(accSound);
+        OnSoundsChanged?.Invoke();
+    }
+
+    public void AddSFXSound(AudioClip audioClip)
+    {
+        sfxSounds.Add(new ACC_Sound(audioClip.name, audioClip));
+        OnSoundsChanged?.Invoke();
     }
 }

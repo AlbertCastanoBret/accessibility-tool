@@ -22,7 +22,6 @@ public class ACC_JSONHelper
     public static bool FileNameAlreadyExists(string filename)
     {
         string filePath = basePath + filename + ".json";
-        Debug.Log(filePath);
         return File.Exists(filePath);
     }
 

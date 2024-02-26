@@ -7,6 +7,26 @@
     display: flex;
     flex-direction: row;
     width: 100%;
+    margin-top: 12px;
+}
+
+.audio-clip-container{
+    display: flex;
+    flex-direction: row;
+    width: 88.5%;
+    margin-top: 12px;
+}
+
+.audio-field{
+    width: 99%;
+}
+
+.audio-label{
+    width:56.5%;
+}
+
+.audio-button{
+    width: 11.5%;
 }
 
 .create-visual-notification-button{
@@ -29,6 +49,10 @@
     width: 50%;
 }
 
+visual-notification-label-bold{
+    -unity-font-style: bold;
+}
+
 .font-size-container{
     display: flex;
     flex-direction: row;
@@ -45,4 +69,40 @@
 
 .font-size-field{
     width: 10%;
+}
+
+.sound-container{
+    display: flex;
+    flex-direction: row;
+    height: 160px;
+    overflow: scroll;
+    margin-top: 12px;
+    padding: 0 6px 12px 6px;
+    border-bottom-color: #343434;
+    border-bottom-width: 1px;
+}
+
+.sound-label{
+    margin-top: 2px;
+    margin-right: 1px;
+    padding: 5px 2px;
+    border-radius: 4px;
+    border-color: #343434;
+    border-width: 1px;
+    width: 95%;
+    align-self: center;
+}
+
+.sound-label:hover{
+    cursor: link;
+}
+
+.sound-label-first{
+    margin-top: 0;
+}
+
+.selected-sound {
+    background-color: #b2b2b2;
+    color: #343434;
+    -unity-font-style: bold;
 }
