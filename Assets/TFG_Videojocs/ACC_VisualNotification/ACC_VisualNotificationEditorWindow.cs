@@ -20,8 +20,8 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
     private ScrollView soundContainer;
     private ACC_AudioManager audioManager;
     private AudioClip audioClip;
-    
-    private bool isEditing = false;
+
+    private bool isEditing, isRenamingFile, isCreatingNewFile, isOverWriting;
     private string oldName;
     
     public delegate void SubtitleWindowDelegate();
@@ -45,18 +45,17 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
 
     public static void ShowWindow(string name)
     {
-        ACC_VisualNotificationEditorWindow window = CreateInstance<ACC_VisualNotificationEditorWindow>();
+        ACC_VisualNotificationEditorWindow window = GetWindow<ACC_VisualNotificationEditorWindow>();
         window.titleContent = new GUIContent("Visual Notification Creation");
         window.minSize = new Vector2(600, 550);
         window.maxSize = new Vector2(600, 550);
         if (name != null)
         {
             window.isEditing = true;
-            window.LoadJson(name);
             window.selectedSounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
                 "/ACC_JSONVisualNotification/", name);
+            window.LoadJson(name);
         }
-        window = GetWindow<ACC_VisualNotificationEditorWindow>();
     }
 
     private void CreateGUI()
@@ -98,8 +97,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         audioClipButton.AddToClassList("audio-button");
         audioClipButton.clicked += () =>
         {
-            
-            if (audioClip != null && !selectedSounds.Any(s => s.name == audioClip.name))
+            if (audioClip != null && soundContainer.Children().OfType<Label>().All(label => label.text != audioClip.name))
             {
                 ACC_Sound accSound = new ACC_Sound(audioClip.name, audioClip);
                 audioManager.AddSFXSound(accSound);
@@ -147,7 +145,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         timeOnScreen.AddToClassList("visual-notification-field");
         timeOnScreen[0].AddToClassList("visual-notification-label");
         
-        dropdownVerticalAlignment = new DropdownField("Horizontal alignment:", optionsVertical, 0);
+        dropdownVerticalAlignment = new DropdownField("Vertical alignment:", optionsVertical, 0);
         dropdownVerticalAlignment.AddToClassList("visual-notification-dropdown");
         dropdownVerticalAlignment[0].AddToClassList("visual-notification-label");
 
@@ -184,19 +182,19 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         fontSizeContainer.Add(fontSizeInput);
         fontSizeContainer.Add(fontSizeField);
         
-        var createVisualNotificationButton = new Button() { text = "Create" };
+        var createVisualNotificationButton = new Button() { text = "Save" };
         createVisualNotificationButton.AddToClassList("create-visual-notification-button");
 
         createVisualNotificationButton.clicked += () =>
         {
-            if (nameInput.value.Length > 0)
+            if (nameInput.value.Length > 0 && selectedSounds.Count > 0)
             {
                 var fileExists = ACC_JSONHelper.FileNameAlreadyExists("/ACC_JSONVisualNotification/" + nameInput.value);
-                if (!fileExists && !isEditing || fileExists && isEditing)
+                if (!fileExists && !isEditing || fileExists && isEditing && nameInput.value == oldName)
                 {
                     ConfigureJson();
                 }
-                else if(fileExists && !isEditing)
+                else if(fileExists && !isEditing || fileExists && isEditing && nameInput.value != oldName)
                 {
                     int option = EditorUtility.DisplayDialogComplex(
                         "File name already exists",
@@ -208,6 +206,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
                     switch (option)
                     {
                         case 0:
+                            isOverWriting = true;
                             ConfigureJson();
                             break;
                     }
@@ -224,18 +223,22 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
                     switch (option)
                     {
                         case 0:
+                            isCreatingNewFile = true;
                             ConfigureJson();
                             break;
                         case 2:
+                            isRenamingFile = true;
                             ACC_JSONHelper.RenameFile("/ACC_JSONVisualNotification/" + oldName, "/ACC_JSONVisualNotification/" + nameInput.value);
                             ConfigureJson();
                             break;
                     }
                 }
+                if (!isEditing) Close();
             }
             else
             {
-                EditorUtility.DisplayDialog("Required field", "Please, introduce a name before saving.", "OK");
+                if(nameInput.value.Length == 0) EditorUtility.DisplayDialog("Required field", "Please, introduce a name before saving.", "OK");
+                else if (selectedSounds.Count == 0) EditorUtility.DisplayDialog("Required field", "Please, introduce at least one sound name to create a visual notification", "OK");
             }
         };
         
@@ -317,29 +320,103 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         accVisualNotificationData.backgroundColor = backgroundColorInput.value;
         accVisualNotificationData.fontSize = fontSizeInput.value;
 
-        List<string> repeatedSounds = new List<string>(); 
+        Dictionary<string, List<ACC_Sound>> repeatedSounds = new Dictionary<string, List<ACC_Sound>>(); 
         for (int i = 0; i < selectedSounds.Count; i++)
         {
-            Debug.Log(selectedSounds.Count);
             string fileName = ACC_JSONHelper.GetFileNameByListParameter<ACC_VisualNotificationData, ACC_Sound>(
                 "/ACC_JSONVisualNotification/",
                 data => data.soundsList,
                 (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
                 selectedSounds[i]
             );
-            if (fileName != null)
+            if (fileName != null && fileName != oldName + ".json" || fileName != null && isCreatingNewFile || fileName != null && isOverWriting)
             {
-                repeatedSounds.Add(fileName);
-                Debug.Log(fileName);
+                if (!repeatedSounds.ContainsKey(fileName))
+                {
+                    repeatedSounds.Add(fileName, new List<ACC_Sound>());
+                    repeatedSounds[fileName].Add(selectedSounds[i]);
+                }
+                else repeatedSounds[fileName].Add(selectedSounds[i]);
             }
         }
-    
-        ACC_JSONHelper.CreateJson(accVisualNotificationData, "/ACC_JSONVisualNotification/");
+        
+        if (repeatedSounds.Count > 0 && !isRenamingFile)
+        {
+            isCreatingNewFile = false;
+            isOverWriting = false;
+            ShowDialogRepeatedSounds(repeatedSounds, accVisualNotificationData);
+        }
+        else
+        {
+            isRenamingFile = false;
+            isCreatingNewFile = false;
+            isOverWriting = false;
+            ACC_JSONHelper.CreateJson(accVisualNotificationData, "/ACC_JSONVisualNotification/");
+            if(isEditing) oldName = nameInput.value;
+        }
     }
-    
+
     public void LoadJson(string name)
     {
         string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_JSONVisualNotification/" + name + ".json");
-        ACC_SubtitleData subtitleData = JsonUtility.FromJson<ACC_SubtitleData>(json);
+        ACC_VisualNotificationData accVisualNotificationData = JsonUtility.FromJson<ACC_VisualNotificationData>(json);
+
+        if (isEditing) oldName = accVisualNotificationData.name;
+        
+        nameInput.value = accVisualNotificationData.name;
+        messageInput.value = accVisualNotificationData.name;
+        dropdownHorizontalAlignment.value = accVisualNotificationData.horizontalAlignment;
+        dropdownVerticalAlignment.value = accVisualNotificationData.verticalAlignment;
+        timeOnScreen.value = accVisualNotificationData.timeOnScreen;
+        fontColorInput.value = accVisualNotificationData.fontColor;
+        backgroundColorInput.value = accVisualNotificationData.backgroundColor;
+        fontSizeInput.value = accVisualNotificationData.fontSize;
+        
+        foreach (var visualElement in soundContainer.Children())
+        {
+            Label label = (Label)visualElement;
+            foreach (var sound in selectedSounds)
+            {
+                if (sound.name == label.text)
+                {
+                    ACC_Sound soundData = label.userData as ACC_Sound;
+                    selectedSounds.Remove(sound);
+                    selectedSounds.Add(soundData);
+                    label.AddToClassList("selected-sound");
+                    break;
+                }
+            }
+        }
+    }
+    
+    private void ShowDialogRepeatedSounds(Dictionary<string, List<ACC_Sound>> repeatedSounds, ACC_VisualNotificationData accVisualNotificationData)
+    {
+        string sounds = string.Join(", ", repeatedSounds);
+        int option = EditorUtility.DisplayDialogComplex(
+            "Some sounds already have a visual notification.",
+            "Sounds \"" + sounds + "\" already have been added to another visual notification. What would you like to do?",
+            "Move sounds",
+            "Cancel",
+            ""
+        );
+        switch (option)
+        {
+            case 0:
+                foreach (KeyValuePair<string, List<ACC_Sound>> kvp in repeatedSounds)
+                {
+                    foreach (ACC_Sound sound in kvp.Value)
+                    {
+                        ACC_JSONHelper.RemoveItemFromListInFile<ACC_VisualNotificationData, ACC_Sound>(
+                            "/ACC_JSONVisualNotification",
+                            data => data.soundsList,
+                            (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
+                            sound
+                        );
+                    }
+                }
+                ACC_JSONHelper.CreateJson(accVisualNotificationData, "/ACC_JSONVisualNotification/");
+                if(isEditing) oldName = nameInput.value;
+                break;
+        }
     }
 }

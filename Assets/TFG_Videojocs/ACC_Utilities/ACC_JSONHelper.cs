@@ -71,6 +71,31 @@ public class ACC_JSONHelper
         }
         return null;
     }
+    
+    public static void RemoveItemFromListInFile<TData, TListItem>(
+        string folder,
+        GetListDelegate<TListItem, TData> getList,
+        ItemMatchDelegate<TListItem> isMatch,
+        TListItem toMatch) where TData : new()
+    {
+        string[] files = Directory.GetFiles(basePath + folder, "*.json");
+        foreach (string filePath in files)
+        {
+            string json = File.ReadAllText(filePath);
+            TData data = JsonUtility.FromJson<TData>(json);
+            List<TListItem> list = getList(data);
+            int matchIndex = list.FindIndex(item => isMatch(item, toMatch));
+
+            if (matchIndex != -1)
+            {
+                list.RemoveAt(matchIndex);
+                string modifiedJson = JsonUtility.ToJson(data, true);
+                File.WriteAllText(filePath, modifiedJson);
+                break;
+            }
+        }
+        AssetDatabase.Refresh();
+    }
 
     public static TResult GetParamByFileName<TData, TResult>(GetCustomDelegate<TData, TResult> getCustom, string folder, string filename)
     {

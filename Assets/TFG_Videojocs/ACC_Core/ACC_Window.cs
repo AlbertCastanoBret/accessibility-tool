@@ -17,7 +17,6 @@ public class ACC_Window : EditorWindow
 
     private ACC_AudioManager audioManager;
     private ScrollView soundContainer;
-    private List<ACC_Sound> selectedSounds;
     private DropdownField visualNotificationDropdown;
     
     private void OnEnable()

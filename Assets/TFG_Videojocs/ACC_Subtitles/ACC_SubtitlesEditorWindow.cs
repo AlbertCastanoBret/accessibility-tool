@@ -42,7 +42,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             window.isEditing = true;
             window.LoadJson(name);
         }
-        window.ShowModal();
+        //window.ShowModal();
     }
     
     private void CreateGUI()
@@ -215,11 +215,11 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             if (nameInput.value.Length > 0)
             {
                 var fileExists = ACC_JSONHelper.FileNameAlreadyExists("/ACC_JSONSubtitle/" + nameInput.value);
-                if (!fileExists && !isEditing || fileExists && isEditing)
+                if (!fileExists && !isEditing || fileExists && isEditing && nameInput.value == oldName)
                 {
                     ConfigureJson();
                 }
-                else if(fileExists && !isEditing)
+                else if(fileExists && !isEditing || fileExists && isEditing && nameInput.value != oldName)
                 {
                     int option = EditorUtility.DisplayDialogComplex(
                         "File name already exists",
@@ -255,6 +255,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
                             break;
                     }
                 }
+                if (!isEditing) Close();
             }
             else
             {
@@ -346,8 +347,8 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         }
 
         nameInput.value = subtitleData.name;
-        fontSizeInput.value = subtitleData.fontSize;
         fontColorInput.value = subtitleData.fontColor;
         backgroundColorInput.value = subtitleData.backgroundColor;
+        fontSizeInput.value = subtitleData.fontSize;
     }
 }
