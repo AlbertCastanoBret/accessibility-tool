@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using TFG_Videojocs;
 using Unity.Collections;
 using UnityEngine;
@@ -29,7 +30,6 @@ public class ACC_AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayMusic("Plumber");
         PlaySFX("Alarm");
     }
 
@@ -74,12 +74,12 @@ public class ACC_AudioManager : MonoBehaviour
 
     public List<ACC_Sound> GetMusicSounds()
     {
-        return musicSounds;
+        return musicSounds.GroupBy(sound => sound.name).Select(group => group.First()).ToList();
     }
     
     public List<ACC_Sound> GetSFXSounds()
     {
-        return sfxSounds;
+        return sfxSounds.GroupBy(sound => sound.name).Select(group => group.First()).ToList();
     }
 
     public void AddMusicSound(ACC_Sound accSound)

@@ -18,7 +18,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
     private TextField nameInput;
     private ColorField fontColorInput;
     private ColorField backgroundColorInput;
-    private IntegerField fontSizeInput;
+    private SliderInt fontSizeInput;
     
     private bool isEditing = false;
     private string oldName;
@@ -176,11 +176,24 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         backgroundColorInput.value = new Color(0,0,0,1);
         
         var fontSizeContainer = new VisualElement();
-        fontSizeContainer.AddToClassList("option-container");
-        var fontSizeTitle = new Label("Font size: ");
-        fontSizeTitle.AddToClassList("option-title");
-        fontSizeInput = new IntegerField();
-        fontSizeInput.AddToClassList("option-input");
+        fontSizeContainer.AddToClassList("font-size-container");
+        
+        fontSizeInput = new SliderInt("Font size:", 10, 60) { value = 20 };
+        fontSizeInput.AddToClassList("font-size-slider");
+        fontSizeInput[0].AddToClassList("font-size-label");
+        
+        var fontSizeField = new IntegerField { value = 20, name = "fontSizeField" };
+        fontSizeField.AddToClassList("font-size-field");
+        
+        fontSizeInput.RegisterValueChangedCallback(evt =>
+        {
+            fontSizeField.value = evt.newValue;
+        });
+        
+        fontSizeField.RegisterValueChangedCallback(evt =>
+        {
+            fontSizeInput.value = evt.newValue;
+        });
         
         nameContainer.Add(nameTitle);
         nameContainer.Add(nameInput);
@@ -190,9 +203,9 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         
         backgroundColorContainer.Add(backgroundColorTitle);
         backgroundColorContainer.Add(backgroundColorInput);
-        
-        fontSizeContainer.Add(fontSizeTitle);
+
         fontSizeContainer.Add(fontSizeInput);
+        fontSizeContainer.Add(fontSizeField);
         
         settingsContainer.Add(settingsTitle);
         settingsContainer.Add(nameContainer);

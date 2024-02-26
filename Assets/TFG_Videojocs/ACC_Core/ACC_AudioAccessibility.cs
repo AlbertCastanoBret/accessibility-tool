@@ -183,6 +183,9 @@ public class ACC_AudioAccessibility
         visualNotificationTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
         visualNotificationTextMeshProUGUI.enableWordWrapping = true;
         visualNotificationTextMeshProUGUI.color = new Color(1f, 0f, 0f, 0);
+        //visualNotificationTextMeshProUGUI.enableAutoSizing = true;
+        //visualNotificationTextMeshProUGUI.fontSizeMin = 10;
+        //visualNotificationTextMeshProUGUI.fontSizeMax = 60;
         
         RectTransform visualNotificationTextRectTransform = visualNotificationText.GetComponent<RectTransform>();
         visualNotificationTextRectTransform.anchorMin = new Vector2(0, 0.5f);

@@ -144,6 +144,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         timeOnScreen = new IntegerField(){label = "Time on screen"};
         timeOnScreen.AddToClassList("visual-notification-field");
         timeOnScreen[0].AddToClassList("visual-notification-label");
+        timeOnScreen.value = 1;
         
         dropdownVerticalAlignment = new DropdownField("Vertical alignment:", optionsVertical, 0);
         dropdownVerticalAlignment.AddToClassList("visual-notification-dropdown");
@@ -364,7 +365,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         if (isEditing) oldName = accVisualNotificationData.name;
         
         nameInput.value = accVisualNotificationData.name;
-        messageInput.value = accVisualNotificationData.name;
+        messageInput.value = accVisualNotificationData.message;
         dropdownHorizontalAlignment.value = accVisualNotificationData.horizontalAlignment;
         dropdownVerticalAlignment.value = accVisualNotificationData.verticalAlignment;
         timeOnScreen.value = accVisualNotificationData.timeOnScreen;

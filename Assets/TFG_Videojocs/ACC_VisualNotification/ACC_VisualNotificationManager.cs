@@ -46,7 +46,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
             soundToMatch
         );
-        Debug.Log(fileName);
+        
         string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_JSONVisualNotification/" + fileName);
         loadedData = JsonUtility.FromJson<ACC_VisualNotificationData>(json);
     }
@@ -62,5 +62,60 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
             loadedData.backgroundColor.b, loadedData.backgroundColor.a);
         text.fontSize = loadedData.fontSize;
+        
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        (float horizontalAnchorMin, float horizontalAnchorMax, float verticalAnchorMin, float verticalAnchorMax, float posY) = GetAlignment();
+        
+        rectTransform.anchorMin = new Vector2(horizontalAnchorMin, verticalAnchorMin);
+        rectTransform.anchorMax = new Vector2(horizontalAnchorMax, verticalAnchorMax);
+        rectTransform.anchoredPosition = new Vector2(0, posY);
+        
+        GetComponent<RectTransform>().sizeDelta =
+            new Vector2(0, text.preferredHeight);
+        text.GetComponent<RectTransform>().sizeDelta = 
+            new Vector2(0, text.preferredHeight);
+        backgroundColor.GetComponent<RectTransform>().sizeDelta =
+            new Vector2(0, text.preferredHeight);
+    }
+
+    private (float, float, float, float, float) GetAlignment()
+    {
+        float horizontalAnchorMin = 0, horizontalAnchorMax = 0, verticalAnchorMin = 0, verticalAnchorMax = 0, posY = 0;
+        if (loadedData.horizontalAlignment == "Left")
+        {
+            horizontalAnchorMin = 0.1f;
+            horizontalAnchorMax = 0.5f;
+        }
+        else if (loadedData.horizontalAlignment == "Center")
+        {
+            horizontalAnchorMin = 0.3f;
+            horizontalAnchorMax = 0.7f;
+        }
+        else if (loadedData.horizontalAlignment == "Right")
+        {
+            horizontalAnchorMin = 0.5f;
+            horizontalAnchorMax = 0.9f;
+        }
+        
+        if (loadedData.verticalAlignment == "Top")
+        {
+            verticalAnchorMin = 1;
+            verticalAnchorMax = 1;
+            posY = -100;
+        }
+        else if (loadedData.verticalAlignment == "Center")
+        {
+            verticalAnchorMin = 0.5f;
+            verticalAnchorMax = 0.5f;
+            posY = 0;
+        }
+        else if (loadedData.verticalAlignment == "Down")
+        {
+            verticalAnchorMin = 0;
+            verticalAnchorMax = 0;
+            posY = 100;
+        }
+
+        return (horizontalAnchorMin, horizontalAnchorMax, verticalAnchorMin, verticalAnchorMax, posY);
     }
 }

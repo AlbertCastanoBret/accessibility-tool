@@ -1,21 +1,40 @@
 {
     "name": "A",
-    "soundsList": [],
-    "message": "B",
+    "soundsList": [
+        {
+            "name": "Jump",
+            "audioClip": {
+                "instanceID": 23184
+            }
+        },
+        {
+            "name": "Alarm",
+            "audioClip": {
+                "instanceID": 23186
+            }
+        },
+        {
+            "name": "Bounds Reached",
+            "audioClip": {
+                "instanceID": 23296
+            }
+        }
+    ],
+    "message": "Alarm is ringing. Uoooooooooooooooooooooooooo",
     "fontColor": {
-        "r": 0.0,
+        "r": 1.0,
         "g": 0.0,
         "b": 0.0,
         "a": 1.0
     },
     "backgroundColor": {
-        "r": 0.0,
-        "g": 0.0,
+        "r": 1.0,
+        "g": 0.39242300391197207,
         "b": 0.0,
         "a": 1.0
     },
-    "fontSize": 20,
+    "fontSize": 10,
     "horizontalAlignment": "Left",
     "verticalAlignment": "Top",
-    "timeOnScreen": 0
+    "timeOnScreen": 5
 }

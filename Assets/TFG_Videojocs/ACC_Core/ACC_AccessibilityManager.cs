@@ -58,7 +58,7 @@ namespace TFG_Videojocs
 
         private void Start()
         {
-            AudioAccessibilityManager().PlaySubtitle("Hola");
+            AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
             //StartCoroutine(ChangeScene());
         }
 
