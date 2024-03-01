@@ -45,7 +45,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                     currentIndex = -1;
                     canPlaySubtitle = false;
                     subtitleText.text = "";
-                    backgroundColor.color = new Color(0, 0, 0, 0);
+                    backgroundColor.gameObject.SetActive(false);
                 }
                 currentIndex++;
             }
@@ -62,6 +62,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         canPlaySubtitle = true;
         subtitleText.text = "";
+        backgroundColor.gameObject.SetActive(true);
         currentIndex = 0;
 
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))

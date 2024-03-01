@@ -64,11 +64,11 @@ namespace TFG_Videojocs
 
         private IEnumerator ChangeScene()
         {
-            yield return new WaitForSeconds(2);
-            LoadUserPreferences();
             yield return new WaitForSeconds(6);
-            SceneManager.LoadScene(1);
-            yield return new WaitForSeconds(1);
+            //LoadUserPreferences();
+            //yield return new WaitForSeconds(6);
+            //SceneManager.LoadScene(1);
+            //yield return new WaitForSeconds(1);
             AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
         }
         

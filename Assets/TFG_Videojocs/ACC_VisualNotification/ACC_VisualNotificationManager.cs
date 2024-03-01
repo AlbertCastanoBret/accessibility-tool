@@ -32,7 +32,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             {
                 canPlaySubtitleNotification = false;
                 text.text = "";
-                backgroundColor.color = new Color(0, 0, 0, 0);
+                backgroundColor.gameObject.SetActive(false);
             }
         }
     }
@@ -54,6 +54,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     {
         canPlaySubtitleNotification = true;
         text.text = loadedData.message;
+        backgroundColor.gameObject.SetActive(true);
         startTime = Time.time;
 
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
