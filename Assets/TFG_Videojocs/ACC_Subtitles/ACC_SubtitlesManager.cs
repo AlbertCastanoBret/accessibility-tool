@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TFG_Videojocs;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ACC_SubtitlesManager : MonoBehaviour
 {
+    private Dictionary<string, bool> featuresCanBeLoaded = new Dictionary<string, bool>();
     private TextMeshProUGUI subtitleText;
     private Image backgroundColor;
     
@@ -36,12 +38,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                     subtitleText.text = loadedData.subtitleText[currentIndex].value;
                     startTime = currentTime;
                     nextSubtitleTime = startTime + loadedData.timeText[currentIndex].value;
-                    GetComponent<RectTransform>().sizeDelta =
-                        new Vector2(0, subtitleText.preferredHeight);
-                    subtitleText.GetComponent<RectTransform>().sizeDelta = 
-                        new Vector2(0, subtitleText.preferredHeight);
-                    backgroundColor.GetComponent<RectTransform>().sizeDelta =
-                        new Vector2(0, subtitleText.preferredHeight);
+                    UpdateSize();
                 }
                 else if (currentIndex >= loadedData.subtitleText.Count)
                 {
@@ -66,18 +63,34 @@ public class ACC_SubtitlesManager : MonoBehaviour
         canPlaySubtitle = true;
         subtitleText.text = "";
         currentIndex = 0;
-        
-        subtitleText.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
-            loadedData.fontColor.b, loadedData.fontColor.a);
-        backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
-            loadedData.backgroundColor.b, loadedData.backgroundColor.a);
-        subtitleText.fontSize = loadedData.fontSize;
+
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
+        {
+            subtitleText.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
+                loadedData.fontColor.b, loadedData.fontColor.a);
+        }
+
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
+        {
+            backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+        }
+
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize))
+        {
+            subtitleText.fontSize = loadedData.fontSize;
+        }
     }
 
-    /*public void EndSubtitle()
+    public void UpdateSize()
     {
-        canPlaySubtitle = false;
-        subtitleText.text = "";
-        currentIndex = 0;
-    }*/
+        GetComponent<RectTransform>().sizeDelta = 
+            new Vector2(0, subtitleText.preferredHeight);
+        subtitleText.GetComponent<RectTransform>().sizeDelta = 
+            new Vector2(0, subtitleText.preferredHeight);
+        backgroundColor.GetComponent<RectTransform>().sizeDelta =
+            new Vector2(0, subtitleText.preferredHeight);
+    }
+    
+    
 }

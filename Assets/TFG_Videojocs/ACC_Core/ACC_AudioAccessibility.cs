@@ -2,17 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TFG_Videojocs;
+using TFG_Videojocs.ACC_Utilities;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using ColorUtility = UnityEngine.ColorUtility;
 
 public enum AudioFeatures
 {
     Subtitles,
     VisualNotification,
-    PimPam,
-    Pum,
-    Wow
 }
 
 public class ACC_AudioAccessibility
@@ -29,11 +29,18 @@ public class ACC_AudioAccessibility
         CreateSubtitleManager();
         CreateVisualNotificationManager();
     }
-
+    
+    
     public void SetFeatureState(AudioFeatures feature, bool enable)
     {
         audioFeatureStates[feature] = enable;
         ApplyFeatureSettings(feature, enable);
+    }
+
+    public void LoadUserPreferences()
+    {
+        LoadUserPreferencesSubtitles();
+        LoadUserPreferencesVisualNotification();
     }
     
     private void ApplyFeatureSettings(AudioFeatures feature, bool enabled)
@@ -49,23 +56,80 @@ public class ACC_AudioAccessibility
         }
     }
 
-    public void ChangeSubtitleFontSize(int newFontSize)
-    {
-        subtitleText.GetComponent<Text>().fontSize = newFontSize;
-    }
+    #region Subtitles
 
     public void ChangeSubtitleFontColor(Color newColor)
     {
-        subtitleText.GetComponent<Text>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
+        PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor, ColorUtility.ToHtmlStringRGBA(newColor));
+        PlayerPrefs.Save();
+        subtitleText.GetComponent<TextMeshProUGUI>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
+    }
+
+    public Color GetSubtitleFontColor()
+    {
+        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedFontColor)
+            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
+        {
+            return loadedFontColor;
+        }
+        return new Color(0,0,0,1);
     }
 
     public void ChangeSubtitleBackgroundColor(Color newColor)
     {
+        PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor, ColorUtility.ToHtmlStringRGBA(newColor));
+        PlayerPrefs.Save();
         subtitleBackground.GetComponent<Image>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
     }
+    
+    public Color GetSubtitleBackgroundColor()
+    {
+        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor), out Color loadedBackgroundColor)
+            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
+        {
+            return loadedBackgroundColor;
+        }
+        return new Color(1,1,1,0);
+    }
+    
+    public void ChangeSubtitleFontSize(int newFontSize)
+    {
+        PlayerPrefs.SetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize, newFontSize);
+        PlayerPrefs.Save();
+        subtitleText.GetComponent<TextMeshProUGUI>().fontSize = newFontSize;
+        accSubtitlesManager.UpdateSize();
+    }
 
+    public float GetSubtitleFontSize()
+    {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize))
+        {
+            return PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+        }
+        return 30;
+    }
+
+    private void LoadUserPreferencesSubtitles()
+    {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize))
+        {
+            subtitleText.GetComponent<TextMeshProUGUI>().fontSize = PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+        }
+        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedFontColor)
+            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
+        {
+            subtitleText.GetComponent<TextMeshProUGUI>().color = new Color(loadedFontColor.r, loadedFontColor.g, loadedFontColor.b, loadedFontColor.a);
+        }
+        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedBackgroundColor)
+            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
+        {
+            subtitleText.GetComponent<TextMeshProUGUI>().color = new Color(loadedBackgroundColor.r, loadedBackgroundColor.g, loadedBackgroundColor.b, loadedBackgroundColor.a);
+        }
+    }
+    
     public void PlaySubtitle(string name)
     {
+        LoadUserPreferencesSubtitles();
         accSubtitlesManager.LoadSubtitles(name);
         accSubtitlesManager.PlaySubtitle();
     }
@@ -128,11 +192,170 @@ public class ACC_AudioAccessibility
         
         accSubtitlesManager = subtitleManager.AddComponent<ACC_SubtitlesManager>();
     }
+    
+    #endregion
 
-    public void PlayVisualNotification(ACC_Sound accSound)
+    #region VisualNotification
+
+        public void PlayVisualNotification(ACC_Sound accSound)
     {
         accVisualNotificationManager.LoadVisualNotification(accSound);
         accVisualNotificationManager.PlayVisualNotification();
+    }
+
+    /// <summary>
+    /// Change horizontal alignment for visual notifications
+    /// </summary>
+    /// <param name="alignment">0 = Left, 1 = Center, 2 = Right</param>
+    public void ChangeVisualNotificationHorizontalAlignment(int alignment)
+    {
+        if (alignment == 0)
+        {
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(0.1f,
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.y);
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f,
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y);
+            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, "Left");
+            PlayerPrefs.Save();
+        }
+        else if (alignment == 1)
+        {
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(0.3f,
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.y);
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(0.7f,
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y);
+            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, "Center");
+            PlayerPrefs.Save();
+        }
+        else if (alignment == 2)
+        {
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f,
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.y);
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(0.9f,
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y);
+            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, "Right");
+            PlayerPrefs.Save();
+        }
+        else Debug.LogError("Wrong parameter entered");
+    }
+
+    public string GetVisualNotificationHorizontalAlignment()
+    {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
+        {
+            return PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
+        }
+        return "Left";
+        //return "Value not saved";
+    }
+    
+    /// <summary>
+    /// Change vertical alignment for visual notifications
+    /// </summary>
+    /// <param name="alignment">0 = Top, 1 = Center, 2 = Down</param>
+    public void ChangeVisualNotificationVerticalAlignment(int alignment)
+    {
+        if (alignment == 0)
+        {
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 1);
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y, 1);
+            accVisualNotificationManager.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
+            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, "Top");
+            PlayerPrefs.Save();
+        }
+        else if (alignment == 1)
+        {
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 0.5f);
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y, 0.5f);
+            accVisualNotificationManager.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, "Center");
+            PlayerPrefs.Save();
+        }
+        else if (alignment == 2)
+        {
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 0);
+            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(
+                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y, 0);
+            accVisualNotificationManager.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
+            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, "Down");
+            PlayerPrefs.Save();
+        }
+        else Debug.LogError("Wrong parameter entered");
+    }
+    
+    public string GetVisualNotificationVerticalAlignment()
+    {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment))
+        {
+            return PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
+        }
+        return "Top";
+    }
+    
+    public void ChangeVisualNotificationTimeOnScreen(int newTime)
+    {
+        
+    }
+    
+    public void ChangeVisualNotificationFontColor(Color newColor)
+    {
+        PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor, ColorUtility.ToHtmlStringRGBA(newColor));
+        PlayerPrefs.Save();
+        visualNotificationText.GetComponent<TextMeshProUGUI>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
+    }
+
+    public Color GetVisualNotificationFontColor()
+    {
+        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor), out Color loadedFontColor)
+            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
+        {
+            return loadedFontColor;
+        }
+        return new Color(0,0,0,1);
+    }
+    
+    public void ChangeVisualNotificationBackgroundColor(Color newColor)
+    {
+        PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor, ColorUtility.ToHtmlStringRGBA(newColor));
+        PlayerPrefs.Save();
+        visualNotificationBackground.GetComponent<Image>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
+    }
+    
+    public Color GetVisualNotificationBackgroundColor()
+    {
+        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color loadedBackgroundColor)
+            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
+        {
+            return loadedBackgroundColor;
+        }
+        return new Color(1,1,1,0);
+    }
+    
+    public void ChangeVisualNotificationFontSize(int newFontSize)
+    {
+        PlayerPrefs.SetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize, newFontSize);
+        PlayerPrefs.Save();
+        visualNotificationText.GetComponent<TextMeshProUGUI>().fontSize = newFontSize;
+        accVisualNotificationManager.UpdateSize();
+    }
+    
+    public float GetVisualNotificationFontSize()
+    {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize))
+        {
+            return PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
+        }
+        return 30;
+    }
+    
+    private void LoadUserPreferencesVisualNotification()
+    {
+        
     }
     
     private void EnableVisualNotification(bool enabled)
@@ -196,4 +419,6 @@ public class ACC_AudioAccessibility
 
         accVisualNotificationManager = visualNotificationManager.AddComponent<ACC_VisualNotificationManager>();
     }
+
+    #endregion
 }

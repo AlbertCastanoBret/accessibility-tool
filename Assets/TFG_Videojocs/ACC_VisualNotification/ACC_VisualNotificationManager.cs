@@ -11,7 +11,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     private TextMeshProUGUI text;
     private Image backgroundColor;
     
-    private string currentText;
     private float startTime;
     private bool canPlaySubtitleNotification;
     private ACC_VisualNotificationData loadedData;
@@ -56,21 +55,52 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         canPlaySubtitleNotification = true;
         text.text = loadedData.message;
         startTime = Time.time;
+
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
+        {
+            text.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
+                loadedData.fontColor.b, loadedData.fontColor.a);
+        }
+
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
+        {
+            backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+        }
+
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize))
+        {
+            text.fontSize = loadedData.fontSize;
+        }
         
-        text.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
-            loadedData.fontColor.b, loadedData.fontColor.a);
-        backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
-            loadedData.backgroundColor.b, loadedData.backgroundColor.a);
-        text.fontSize = loadedData.fontSize;
         
         RectTransform rectTransform = GetComponent<RectTransform>();
-        (float horizontalAnchorMin, float horizontalAnchorMax, float verticalAnchorMin, float verticalAnchorMax, float posY) = GetAlignment();
+        float horizontalAnchorMin = rectTransform.anchorMin.y;
+        float horizontalAnchorMax = rectTransform.anchorMin.x;
+        float verticalAnchorMin = rectTransform.anchorMax.y;
+        float verticalAnchorMax = rectTransform.anchorMax.x;
+        float posY = rectTransform.anchoredPosition.y;
+
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
+        {
+            (horizontalAnchorMin, horizontalAnchorMax) = GetHorizontalAlignment();
+        }
+
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment))
+        {
+            (verticalAnchorMin, verticalAnchorMax, posY) = GetVerticalAlignment();
+        }
         
         rectTransform.anchorMin = new Vector2(horizontalAnchorMin, verticalAnchorMin);
         rectTransform.anchorMax = new Vector2(horizontalAnchorMax, verticalAnchorMax);
         rectTransform.anchoredPosition = new Vector2(0, posY);
         
-        GetComponent<RectTransform>().sizeDelta =
+        UpdateSize();
+    }
+    
+    public void UpdateSize()
+    {
+        GetComponent<RectTransform>().sizeDelta = 
             new Vector2(0, text.preferredHeight);
         text.GetComponent<RectTransform>().sizeDelta = 
             new Vector2(0, text.preferredHeight);
@@ -78,44 +108,53 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             new Vector2(0, text.preferredHeight);
     }
 
-    private (float, float, float, float, float) GetAlignment()
+    private (float horizontalAnchorMin, float horizontalAnchorMax) GetHorizontalAlignment()
     {
-        float horizontalAnchorMin = 0, horizontalAnchorMax = 0, verticalAnchorMin = 0, verticalAnchorMax = 0, posY = 0;
-        if (loadedData.horizontalAlignment == "Left")
+        float horizontalAnchorMin = 0, horizontalAnchorMax = 0;
+
+        switch (loadedData.horizontalAlignment)
         {
-            horizontalAnchorMin = 0.1f;
-            horizontalAnchorMax = 0.5f;
-        }
-        else if (loadedData.horizontalAlignment == "Center")
-        {
-            horizontalAnchorMin = 0.3f;
-            horizontalAnchorMax = 0.7f;
-        }
-        else if (loadedData.horizontalAlignment == "Right")
-        {
-            horizontalAnchorMin = 0.5f;
-            horizontalAnchorMax = 0.9f;
-        }
-        
-        if (loadedData.verticalAlignment == "Top")
-        {
-            verticalAnchorMin = 1;
-            verticalAnchorMax = 1;
-            posY = -100;
-        }
-        else if (loadedData.verticalAlignment == "Center")
-        {
-            verticalAnchorMin = 0.5f;
-            verticalAnchorMax = 0.5f;
-            posY = 0;
-        }
-        else if (loadedData.verticalAlignment == "Down")
-        {
-            verticalAnchorMin = 0;
-            verticalAnchorMax = 0;
-            posY = 100;
+            case "Left":
+                horizontalAnchorMin = 0.1f;
+                horizontalAnchorMax = 0.5f;
+                break;
+            case "Center":
+                horizontalAnchorMin = 0.3f;
+                horizontalAnchorMax = 0.7f;
+                break;
+            case "Right":
+                horizontalAnchorMin = 0.5f;
+                horizontalAnchorMax = 0.9f;
+                break;
         }
 
-        return (horizontalAnchorMin, horizontalAnchorMax, verticalAnchorMin, verticalAnchorMax, posY);
+        return (horizontalAnchorMin, horizontalAnchorMax);
     }
+    
+    private (float verticalAnchorMin, float verticalAnchorMax, float posY) GetVerticalAlignment()
+    {
+        float verticalAnchorMin = 0, verticalAnchorMax = 0, posY = 0;
+
+        switch (loadedData.verticalAlignment)
+        {
+            case "Top":
+                verticalAnchorMin = 1;
+                verticalAnchorMax = 1;
+                posY = -100;
+                break;
+            case "Center":
+                verticalAnchorMin = 0.5f;
+                verticalAnchorMax = 0.5f;
+                posY = 0;
+                break;
+            case "Down":
+                verticalAnchorMin = 0;
+                verticalAnchorMax = 0;
+                posY = 100;
+                break;
+        }
+
+        return (verticalAnchorMin, verticalAnchorMax, posY);
+    }
+    
 }

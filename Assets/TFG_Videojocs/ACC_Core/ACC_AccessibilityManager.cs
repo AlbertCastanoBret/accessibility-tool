@@ -25,17 +25,14 @@ namespace TFG_Videojocs
     public enum VisualFeatures
     {
         TextToVoice,
-        Pim,
-        Pam,
     }
 
     public class ACC_AccessibilityManager : MonoBehaviour
     {
         public static ACC_AccessibilityManager Instance { get; private set; }
         private ACC_AudioAccessibility accAudioAccessibility;
-        [Range(0, 10)]
-        public float mySliderValue = 5;
-        //private Queue<Action> actionsToPerformOnLoad = new Queue<Action>();
+
+        //private Queue<Action> pendingActions = new Queue<Action>();
         
         [Header("Audio Accessibility")]
         [SerializeField] private bool subtitlesEnabled;
@@ -48,6 +45,9 @@ namespace TFG_Videojocs
             if (Instance == null)
             {
                 Instance = this;
+                accAudioAccessibility = new ACC_AudioAccessibility();
+                accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+                accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -58,16 +58,18 @@ namespace TFG_Videojocs
 
         private void Start()
         {
-            AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
-            //StartCoroutine(ChangeScene());
+            AudioAccessibilityManager().PlaySubtitle("Ejemplo");
+            StartCoroutine(ChangeScene());
         }
 
         private IEnumerator ChangeScene()
         {
-            yield return new WaitForSeconds(7);
-            SceneManager.LoadScene("Scene2");
+            yield return new WaitForSeconds(2);
+            LoadUserPreferences();
+            yield return new WaitForSeconds(6);
+            SceneManager.LoadScene(1);
             yield return new WaitForSeconds(1);
-            AudioAccessibilityManager().PlaySubtitle("Ejemplo");
+            AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
         }
         
         private void OnValidate()
@@ -75,6 +77,7 @@ namespace TFG_Videojocs
             if (Application.isPlaying && sceneLoaded)
             {
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+                accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
             }
         }
 
@@ -94,29 +97,37 @@ namespace TFG_Videojocs
         {
             return accAudioAccessibility;
         }
+
+        public void LoadUserPreferences()
+        {
+            accAudioAccessibility.LoadUserPreferences();
+        }
         
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            accAudioAccessibility = new ACC_AudioAccessibility();
-            accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
-            accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
-            sceneLoaded = true;
-            /*while (actionsToPerformOnLoad.Count > 0)
+            if (accAudioAccessibility == null)
             {
-                var action = actionsToPerformOnLoad.Dequeue();
+                accAudioAccessibility = new ACC_AudioAccessibility();
+                accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+                accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+            }
+            sceneLoaded = true;
+            /*while (pendingActions.Count > 0)
+            {
+                var action = pendingActions.Dequeue();
                 action();
             }*/
         }
         
-        /*private void EnqueueAction(Action action)
-        {
-            if (sceneLoaded) action();
-            else actionsToPerformOnLoad.Enqueue(action);
-        }*/
-        
         private void OnSceneUnloading(Scene current)
         {
             sceneLoaded = false;
+            accAudioAccessibility = null;
+        }
+
+        public bool IsSceneLoaded()
+        {
+            return sceneLoaded;
         }
     }
 }
