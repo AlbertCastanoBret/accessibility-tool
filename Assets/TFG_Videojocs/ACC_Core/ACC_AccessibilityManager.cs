@@ -64,6 +64,10 @@ namespace TFG_Videojocs
 
         private IEnumerator ChangeScene()
         {
+            yield return new WaitForSeconds(1);
+            accAudioAccessibility.ChangeSubtitleFontSize(80);
+            accAudioAccessibility.ChangeSubtitleFontColor(Color.blue);
+            accAudioAccessibility.ChangeSubtitleBackgroundColor(Color.magenta);
             yield return new WaitForSeconds(6);
             //LoadUserPreferences();
             //yield return new WaitForSeconds(6);
@@ -93,12 +97,19 @@ namespace TFG_Videojocs
             SceneManager.sceneUnloaded += OnSceneUnloading;
         }
 
+        /// <summary>
+        /// Retrieves the current instance of the audio accessibility manager.
+        /// </summary>
+        /// <returns>The active ACC_AudioAccessibility instance managing audio accessibility features.</returns>
         public ACC_AudioAccessibility AudioAccessibilityManager()
         {
             return accAudioAccessibility;
         }
 
-        public void LoadUserPreferences()
+        /// <summary>
+        /// Loads user preferences for all accessibility modules.
+        /// </summary>
+        public void LoadAllUserPreferences()
         {
             accAudioAccessibility.LoadUserPreferences();
         }

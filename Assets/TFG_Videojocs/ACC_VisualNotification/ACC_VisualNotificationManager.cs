@@ -76,10 +76,10 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         
         
         RectTransform rectTransform = GetComponent<RectTransform>();
-        float horizontalAnchorMin = rectTransform.anchorMin.y;
-        float horizontalAnchorMax = rectTransform.anchorMin.x;
-        float verticalAnchorMin = rectTransform.anchorMax.y;
-        float verticalAnchorMax = rectTransform.anchorMax.x;
+        float horizontalAnchorMin = rectTransform.anchorMin.x;
+        float horizontalAnchorMax = rectTransform.anchorMax.x;
+        float verticalAnchorMin = rectTransform.anchorMin.y;
+        float verticalAnchorMax = rectTransform.anchorMax.y;
         float posY = rectTransform.anchoredPosition.y;
 
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
@@ -101,6 +101,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     
     public void UpdateSize()
     {
+        print(text.preferredHeight);
         GetComponent<RectTransform>().sizeDelta = 
             new Vector2(0, text.preferredHeight);
         text.GetComponent<RectTransform>().sizeDelta = 
