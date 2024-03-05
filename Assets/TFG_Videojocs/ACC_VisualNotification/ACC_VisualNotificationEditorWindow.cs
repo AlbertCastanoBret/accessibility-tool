@@ -262,8 +262,11 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
     private void ResetSoundsList()
     {
         if(soundContainer!= null) soundContainer.Clear();
-        selectedSounds = new List<ACC_Sound>();
+        selectedSounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
+            "/ACC_JSONVisualNotification/", oldName);
+        nameInput.value = oldName;
         CreateSoundsList();
+        LoadSelectedSounds();
     }
     
     private void CreateSoundsList()
@@ -373,12 +376,17 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         backgroundColorInput.value = accVisualNotificationData.backgroundColor;
         fontSizeInput.value = accVisualNotificationData.fontSize;
         
+        LoadSelectedSounds();
+    }
+
+    private void LoadSelectedSounds()
+    {
         foreach (var visualElement in soundContainer.Children())
         {
             Label label = (Label)visualElement;
             foreach (var sound in selectedSounds)
             {
-                if (sound.name == label.text)
+                if (sound.name == label.text && audioManager.GetSFXSounds().Contains(sound))
                 {
                     ACC_Sound soundData = label.userData as ACC_Sound;
                     selectedSounds.Remove(sound);

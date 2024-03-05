@@ -101,7 +101,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     
     public void UpdateSize()
     {
-        print(text.preferredHeight);
         GetComponent<RectTransform>().sizeDelta = 
             new Vector2(0, text.preferredHeight);
         text.GetComponent<RectTransform>().sizeDelta = 

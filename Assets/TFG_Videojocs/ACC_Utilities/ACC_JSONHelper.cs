@@ -85,7 +85,7 @@ public class ACC_JSONHelper
             TData data = JsonUtility.FromJson<TData>(json);
             List<TListItem> list = getList(data);
             int matchIndex = list.FindIndex(item => isMatch(item, toMatch));
-
+                
             if (matchIndex != -1)
             {
                 list.RemoveAt(matchIndex);

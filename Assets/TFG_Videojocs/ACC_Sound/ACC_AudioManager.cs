@@ -12,6 +12,7 @@ public class ACC_AudioManager : MonoBehaviour
     public static ACC_AudioManager Instance;
     
     [SerializeField] private List<ACC_Sound> musicSounds, sfxSounds;
+    [SerializeField] private List<ACC_Sound> previousSfxSounds;
     [SerializeField] private AudioSource musicSource, sfxSource;
     public event Action OnSoundsChanged;
     
@@ -37,17 +38,49 @@ public class ACC_AudioManager : MonoBehaviour
     {
         UpdateSoundNames(musicSounds);
         UpdateSoundNames(sfxSounds);
+        CheckIfSoundIsEliminated();
         OnSoundsChanged?.Invoke();
     }
-    
+
+    private void Reset()
+    {
+        musicSounds = new List<ACC_Sound>();
+        sfxSounds = new List<ACC_Sound>();
+        previousSfxSounds = new List<ACC_Sound>();
+        musicSource = transform.GetChild(0).GetComponent<AudioSource>();
+        sfxSource = transform.GetChild(1).GetComponent<AudioSource>();
+    }
+
     private void UpdateSoundNames(List<ACC_Sound> sounds)
     {
+        if (sounds == null) return;
         foreach (var sound in sounds)
         {
             if (sound.audioClip != null)
             {
                 sound.name = sound.audioClip.name;
             }
+        }
+    }
+
+    private void CheckIfSoundIsEliminated()
+    {
+        if (sfxSounds != previousSfxSounds)
+        {
+            foreach (var prevSound in previousSfxSounds)
+            {
+                if (!sfxSounds.Contains(prevSound))
+                {
+                    Debug.Log(prevSound.name);
+                    ACC_JSONHelper.RemoveItemFromListInFile<ACC_VisualNotificationData, ACC_Sound>(
+                        "/ACC_JSONVisualNotification",
+                        data => data.soundsList,
+                        (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
+                        prevSound
+                    );
+                }
+            }
+            previousSfxSounds = sfxSounds.Select(sound => (ACC_Sound)sound.Clone()).ToList();
         }
     }
 
@@ -95,7 +128,7 @@ public class ACC_AudioManager : MonoBehaviour
     public void AddSFXSound(ACC_Sound accSound)
     {
         sfxSounds.Add(accSound);
-        OnSoundsChanged?.Invoke();
+        OnValidate();
     }
 
     public void AddSFXSound(AudioClip audioClip)

@@ -130,7 +130,7 @@ public class ACC_Window : EditorWindow
     private void SubtitlesBox(VisualElement box)
     {
         var dynamicContainer = new VisualElement();
-        var options = new List<string> { "Create a subtitle", "Add accessbility to existent subtitle", "Edit subtitle" };
+        var options = new List<string> { "Create a subtitle", /*"Add accessbility to existent subtitle",*/ "Edit subtitle" };
         var dropdown = new DropdownField("Options:", options, 0);
                 
         dropdown.AddToClassList("dropdown-container");

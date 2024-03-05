@@ -26,7 +26,7 @@ namespace TFG_Videojocs
     {
         TextToVoice,
     }
-
+    
     public class ACC_AccessibilityManager : MonoBehaviour
     {
         public static ACC_AccessibilityManager Instance { get; private set; }
@@ -65,9 +65,6 @@ namespace TFG_Videojocs
         private IEnumerator ChangeScene()
         {
             yield return new WaitForSeconds(1);
-            accAudioAccessibility.ChangeSubtitleFontSize(80);
-            accAudioAccessibility.ChangeSubtitleFontColor(Color.blue);
-            accAudioAccessibility.ChangeSubtitleBackgroundColor(Color.magenta);
             yield return new WaitForSeconds(6);
             //LoadUserPreferences();
             //yield return new WaitForSeconds(6);
@@ -95,6 +92,12 @@ namespace TFG_Videojocs
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloading;
+        }
+
+        private void Reset()
+        {
+            subtitlesEnabled = true;
+            visualNotificationEnabled = true;
         }
 
         /// <summary>
