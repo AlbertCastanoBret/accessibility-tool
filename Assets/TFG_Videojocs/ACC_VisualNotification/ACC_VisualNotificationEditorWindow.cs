@@ -47,8 +47,8 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
     {
         ACC_VisualNotificationEditorWindow window = GetWindow<ACC_VisualNotificationEditorWindow>();
         window.titleContent = new GUIContent("Visual Notification Creation");
-        window.minSize = new Vector2(600, 550);
-        window.maxSize = new Vector2(600, 550);
+        window.minSize = new Vector2(600, 520);
+        window.maxSize = new Vector2(600, 520);
         if (name != null)
         {
             window.isEditing = true;
