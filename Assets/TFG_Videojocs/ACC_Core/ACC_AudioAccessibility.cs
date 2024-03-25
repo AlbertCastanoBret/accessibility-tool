@@ -191,7 +191,7 @@ public class ACC_AudioAccessibility
         subtitleManagerTextRectTransform.anchoredPosition = new Vector2(0, 50);
         subtitleManagerTextRectTransform.sizeDelta = new Vector2(0, 40);
         
-        subtitleBackground = new GameObject("ACC_Background");
+        subtitleBackground = new GameObject("ACC_SubtitleBackground");
         subtitleBackground.transform.SetParent(subtitleManager.transform, false);
         var backgroundColorImage = subtitleBackground.AddComponent<Image>();
         backgroundColorImage.color = new Color(0, 0, 0, 0);

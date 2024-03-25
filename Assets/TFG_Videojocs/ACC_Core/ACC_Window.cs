@@ -38,7 +38,7 @@ public class ACC_Window : EditorWindow
     public static void ShowWindow()
     {
         var window = GetWindow<ACC_Window>("Accessibility Window");
-        window.minSize = new Vector2(400, 300);
+        window.minSize = new Vector2(520, 300);
     }
 
     public void CreateGUI()
@@ -63,7 +63,7 @@ public class ACC_Window : EditorWindow
         accessibilityRow.AddToClassList("accessibility-row");
         
         rootVisualElement.styleSheets.Add(styleSheet);
-        rootVisualElement.style.minWidth = new StyleLength(1000);
+        rootVisualElement.style.minWidth = new StyleLength(520);
         
         toolbar.Add(titleToolbar);
         
@@ -80,12 +80,16 @@ public class ACC_Window : EditorWindow
     
     private void UpdateAccessibilityContainer(Type featureType)
     {
-        int numberOfRows = (Enum.GetNames(featureType).Length%2==0 ? Enum.GetNames(featureType).Length : Enum.GetNames(featureType).Length + 1) / numberOfColumns;
+        //int numberOfRows = (Enum.GetNames(featureType).Length%2==0 ? Enum.GetNames(featureType).Length : Enum.GetNames(featureType).Length + 1) / numberOfColumns;
         accessibilityContainer.Clear();
-        for (int i = 0; i < numberOfRows; i++)
+        for (int i = 0; i < Enum.GetNames(featureType).Length; i++)
+        {
+            accessibilityContainer.Add(CreateFeatureBox(featureType, i));
+        }
+        /*for (int i = 0; i < numberOfRows; i++)
         {
             CreateAccessibilityRow(featureType, i);
-        }
+        }*/
     }
     
     private void CreateAccessibilityRow(Type featureType, int rowIndex)

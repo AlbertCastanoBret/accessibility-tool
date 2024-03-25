@@ -23,7 +23,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
     private void Awake()
     {
         subtitleText = GameObject.Find("ACC_SubtitleManager/ACC_SubtitleText").GetComponent<TextMeshProUGUI>();
-        backgroundColor = GameObject.Find("ACC_SubtitleManager/ACC_Background").GetComponent<Image>();
+        backgroundColor = GameObject.Find("ACC_SubtitleManager/ACC_SubtitleBackground").GetComponent<Image>();
     }
 
     void Update()

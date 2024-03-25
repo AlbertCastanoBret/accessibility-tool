@@ -125,11 +125,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             timeField.value = time;
             timeField.AddToClassList("time-new-cell");
             timeField[0].AddToClassList("time-input-cell");
-            newRow.Add(timeField);
-                    
-            /*var fontColorField = new ColorField("");
-            fontColorField.AddToClassList("font-color-new-cell");
-            newRow.Add(fontColorField);*/
+            newRow.Add(timeField); 
             
             var deleteButton = new Button(() => table.Remove(newRow)) { text = "-" };
             deleteButton.AddToClassList("delete-row-button");

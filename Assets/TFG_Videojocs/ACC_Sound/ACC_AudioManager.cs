@@ -12,7 +12,7 @@ public class ACC_AudioManager : MonoBehaviour
     public static ACC_AudioManager Instance;
     
     [SerializeField] private List<ACC_Sound> musicSounds, sfxSounds;
-    [SerializeField] private List<ACC_Sound> previousSfxSounds;
+    private List<ACC_Sound> previousSfxSounds;
     [SerializeField] private AudioSource musicSource, sfxSource;
     public event Action OnSoundsChanged;
     
