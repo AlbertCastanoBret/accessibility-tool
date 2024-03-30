@@ -470,7 +470,6 @@ public class ACC_AudioAccessibility
             }
             else if (verticalAlignment == "Down")
             {
-                Debug.Log("AAA");
                 accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
                     accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 0);
                 accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(

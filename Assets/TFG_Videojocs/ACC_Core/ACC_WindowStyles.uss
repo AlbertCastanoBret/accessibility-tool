@@ -70,41 +70,35 @@
 .title-box{
     -unity-text-align: middle-center;
     font-size: 14px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     background-color: #343434;
     border-radius: 2px;
     padding: 6px 2px;
 }
 
-.dropdown-list{
+.dropdown-label{
     width: 49%;
 }
 
-.create-subtitles-button{
-    margin-top: 12px;
+.create-button{
     margin-right: auto;
     padding: 4px 6px;
     font-size: 12px;
 }
 
-.select-subtitle-dropdown{
+.dropdown-container{
     display: flex;
     flex-direction: row;
-    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
-.select-subtitle-label{
-    width: 49%;
-}
-
-.edit-subtitle-bottom-container{
+.button-container{
     display: flex;
     flex-direction: row;
     margin-right: auto;
 }
 
-.edit-subtitles-button{
-    margin-top: 12px;
+.button{
     padding: 4px 6px;
     font-size: 12px;
 }
@@ -148,9 +142,29 @@
     -unity-font-style: bold;
 }
 
-.add-visual-notification-button{
-    margin-top: 12px;
-    margin-right: auto;
-    padding: 4px 6px;
+.object-field{
+    margin-bottom: 6px;
+}
+
+.object-label{
+    width: 49%;
+}
+
+.control-schemes-container{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 6px;
+    align-items: center;
+}
+
+.control-schemes-label{
+    margin-left: 3px;
+    width: 47.5%;
+}
+
+.control-schemes-button{
+    width: 50%;
     font-size: 12px;
+    padding: 4px 4px;
+    -unity-text-align: middle-left;
 }

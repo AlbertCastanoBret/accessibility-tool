@@ -11,12 +11,24 @@ public class ACC_JSONHelper
     public delegate TResult GetCustomDelegate<in TData, out TResult>(TData data);
     public delegate List<TListItem> GetListDelegate<TListItem, in TData>(TData data);
     public delegate bool ItemMatchDelegate<in TListItem>(TListItem item, TListItem toMatch);
+    public delegate IEnumerable<TListItem> ExtractListDelegate<out TListItem, in TData>(TData data);
 
     public static void CreateJson(ACC_AbstractData abstractData, string folder)
     {
         string json = JsonUtility.ToJson(abstractData, true);
         File.WriteAllText(basePath + folder + abstractData.name + ".json", json);
         AssetDatabase.Refresh();
+    }
+    
+    public static T LoadJson<T>(string path)
+    {
+        string fullPath = basePath + path + ".json";
+        if (File.Exists(fullPath))
+        {
+            string json = File.ReadAllText(fullPath);
+            return JsonUtility.FromJson<T>(json);
+        }
+        return default(T);
     }
 
     public static bool FileNameAlreadyExists(string filename)
@@ -116,6 +128,26 @@ public class ACC_JSONHelper
             options.Add(option);
         }
         return options;
+    }
+    
+    public static List<string> GetListFromJson<TData, TListItem>(
+        string folder,
+        ExtractListDelegate<TListItem, TData> extractList)
+    {
+        List<string> resultList = new List<string>();
+        string[] files = Directory.GetFiles(basePath + folder, "*.json");
+        foreach (string filePath in files)
+        {
+            string json = File.ReadAllText(filePath);
+            TData data = JsonUtility.FromJson<TData>(json);
+            IEnumerable<TListItem> listItems = extractList(data);
+
+            foreach (TListItem item in listItems)
+            {
+                resultList.Add(item.ToString());
+            }
+        }
+        return resultList;
     }
 
     public static void DeleteFile(string name)

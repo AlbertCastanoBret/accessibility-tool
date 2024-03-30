@@ -65,7 +65,7 @@ public class ACC_AudioManager : MonoBehaviour
 
     private void CheckIfSoundIsEliminated()
     {
-        if (sfxSounds != previousSfxSounds)
+        if (sfxSounds != previousSfxSounds && sfxSounds!=null && previousSfxSounds !=null)
         {
             foreach (var prevSound in previousSfxSounds)
             {

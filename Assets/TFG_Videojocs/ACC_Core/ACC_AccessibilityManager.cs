@@ -26,6 +26,11 @@ namespace TFG_Videojocs
     {
         TextToVoice,
     }
+
+    public enum CognitiveFeatures
+    {
+        RemapControls
+    }
     
     public class ACC_AccessibilityManager : MonoBehaviour
     {
@@ -58,7 +63,7 @@ namespace TFG_Videojocs
 
         private void Start()
         {
-            AudioAccessibilityManager().PlaySubtitle("Ejemplo");
+            AudioAccessibilityManager().PlaySubtitle("Juanjo");
             StartCoroutine(ChangeScene());
         }
 

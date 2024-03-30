@@ -362,8 +362,8 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
 
     public void LoadJson(string name)
     {
-        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_JSONVisualNotification/" + name + ".json");
-        ACC_VisualNotificationData accVisualNotificationData = JsonUtility.FromJson<ACC_VisualNotificationData>(json);
+        string path = "/ACC_JSONVisualNotification/" + name;
+        ACC_VisualNotificationData accVisualNotificationData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>(path);
 
         if (isEditing) oldName = accVisualNotificationData.name;
         

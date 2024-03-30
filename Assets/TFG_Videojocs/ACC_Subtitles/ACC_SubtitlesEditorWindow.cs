@@ -272,7 +272,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             }
         };
 
-       /*var loadSubtitleButton = new Button() { text = "Load" };
+        /*var loadSubtitleButton = new Button() { text = "Load" };
         loadSubtitleButton.AddToClassList("create-subtitle-button");
         loadSubtitleButton.clicked += () =>
         {
@@ -332,8 +332,8 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
 
     public void LoadJson(string name)
     {
-        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_JSONSubtitle/" + name + ".json");
-        ACC_SubtitleData subtitleData = JsonUtility.FromJson<ACC_SubtitleData>(json);
+        string path = "/ACC_JSONSubtitle/" + name;
+        ACC_SubtitleData subtitleData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>(path);
 
         List<VisualElement> rows = new List<VisualElement>();
         bool isFirstRow = true; 
