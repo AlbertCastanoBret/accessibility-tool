@@ -12,12 +12,16 @@ namespace TFG_Videojocs.ACC_RemapControls
     {
         private InputActionAsset inputActionAsset;
         private bool isReadyToCreateGUI = false;
+        
         private VisualElement controlSchemesContainer;
         private ScrollView controlSchemesScrollView;
+        
         private Dictionary<string, bool> controlSchemeToggleValues = new Dictionary<string, bool>();
-        private bool isSaved = true;
-        private bool forceQuit = false;
-        private bool userCanChange = false;
+        private Dictionary<string, bool> currentControlSchemeToggleValues = new Dictionary<string, bool>();
+        private Dictionary<string, bool> lastSaveControlSchemeToggleValues = new Dictionary<string, bool>();
+        
+        //private bool isSaved = true;
+        //private bool forceQuit = false;
         private void OnEnable()
         {
             //EditorApplication.wantsToQuit += EditorWantsToQuit;
@@ -38,6 +42,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             window.inputActionAsset = inputActionAsset;
             window.isReadyToCreateGUI = true;
             window.CreateGUI();
+            window.LoadJson();
             //window.ShowModal();
         }
 
@@ -68,12 +73,15 @@ namespace TFG_Videojocs.ACC_RemapControls
             devicesDropdown[0].AddToClassList("devices-dropdown-label");
 
             var controlSchemes = inputActionAsset.controlSchemes.Select(scheme => scheme.name).ToList();
+            controlSchemes.ForEach(key => currentControlSchemeToggleValues[key] = false);
             
             devicesDropdown.RegisterValueChangedCallback(evt =>
             {
                 if (evt.newValue == "All devices")
                 {
                     controlSchemes = inputActionAsset.controlSchemes.Select(scheme => scheme.name).ToList();
+                    currentControlSchemeToggleValues = new Dictionary<string, bool>();
+                    controlSchemes.ForEach(key => currentControlSchemeToggleValues[key] = controlSchemeToggleValues[key]);
                 }
                 else
                 {
@@ -84,25 +92,15 @@ namespace TFG_Videojocs.ACC_RemapControls
                             .OrderBy(device => device)) == evt.newValue)
                         .Select(scheme => scheme.name)
                         .ToList();
+                    currentControlSchemeToggleValues = new Dictionary<string, bool>();
+                    controlSchemes.ForEach(key => currentControlSchemeToggleValues[key] = controlSchemeToggleValues[key]);
                 }
-                controlSchemesScrollView.Add(CreateTable(controlSchemes));
-                
-                for (int i = 1; i < controlSchemesContainer.childCount; i++)
-                {
-                    userCanChange = false;
-                    var row = controlSchemesContainer[i];
-                    var controlSchemeLabel = row.Query<Label>().First();
-                    var canRebind = row.Query<Toggle>().First();
-                    if (controlSchemeToggleValues.TryGetValue(controlSchemeLabel.text, out bool value))
-                    {
-                        canRebind.value = value;
-                    }
-                }
+                CreateTable();
             });
             
             controlSchemesScrollView = new ScrollView();
             controlSchemesScrollView.AddToClassList("control-schemes-scroll-view");
-            controlSchemesScrollView.Add(CreateTable(controlSchemes));
+            CreateTable();
             
             var createButton = new Button() { text = "Save" };
             createButton.AddToClassList("create-button");
@@ -119,14 +117,12 @@ namespace TFG_Videojocs.ACC_RemapControls
                 var controlSchemeLabel = row.Query<Label>().First();
                 controlSchemeToggleValues[controlSchemeLabel.text] = false;
             }
-            
-            LoadJson();
         }
 
-        private VisualElement CreateTable(List<string> controlSchemes)
+        private void CreateTable()
         {
-            if(controlSchemesContainer==null)controlSchemesContainer = new VisualElement();
-            else controlSchemesContainer.Clear();
+            controlSchemesScrollView.Clear();
+            controlSchemesContainer = new VisualElement();
             controlSchemesContainer.AddToClassList("control-schemes-container");
             
             var controlSchemeTitle = new VisualElement();
@@ -143,31 +139,26 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             controlSchemesContainer.Add(controlSchemeTitle);
             
-            for (int i=0; i<controlSchemes.Count; i++)
+            for (int i=0; i<currentControlSchemeToggleValues.Count; i++)
             {
                 var controlScheme = new VisualElement();
                 controlScheme.AddToClassList("control-scheme");
-                if (i == controlSchemes.Count - 1)
+                if (i == currentControlSchemeToggleValues.Count - 1)
                 {
                     controlScheme.AddToClassList("control-scheme-last");
                 }
                 
-                var controlSchemeLabel = new Label(controlSchemes[i]);
+                var controlSchemeLabel = new Label(currentControlSchemeToggleValues.Keys.ToList()[i]);
                 controlSchemeLabel.AddToClassList("control-scheme-label");
 
                 var controlSchemeToggleContainer = new VisualElement();
                 controlSchemeToggleContainer.AddToClassList("control-scheme-toggle-container");
                 
-                var controlSchemeToggle = new Toggle();
+                var controlSchemeToggle = new Toggle(){value = currentControlSchemeToggleValues[controlSchemeLabel.text]};
                 controlSchemeToggle.AddToClassList("control-scheme-toggle");
                 controlSchemeToggle.RegisterValueChangedCallback(evt =>
                 {
-                    if (!userCanChange) userCanChange = true;
-                    else if (userCanChange)
-                    {
-                        isSaved = false;
-                        controlSchemeToggleValues[controlSchemeLabel.text] = evt.newValue;
-                    }
+                    controlSchemeToggleValues[controlSchemeLabel.text] = evt.newValue;
                 });
                 
                 controlSchemeToggleContainer.Add(controlSchemeToggle);
@@ -176,7 +167,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 controlScheme.Add(controlSchemeToggleContainer);
                 controlSchemesContainer.Add(controlScheme);
             }
-            return controlSchemesContainer;
+            controlSchemesScrollView.Add(controlSchemesContainer);
         }
 
         private void ConfigureJSON()
@@ -189,7 +180,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 accControlSchemeData.controlSchemesList.Add(new ACC_KeyValuePairData<string, bool>(item.Key, item.Value));
                 ACC_JSONHelper.CreateJson(accControlSchemeData, "/ACC_JSONRemapControls/");
             }
-            isSaved = true;
+            lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);        
         }
         
         private void LoadJson()
@@ -198,27 +189,35 @@ namespace TFG_Videojocs.ACC_RemapControls
             ACC_ControlSchemeData accControlSchemeData = ACC_JSONHelper.LoadJson<ACC_ControlSchemeData>(path);
             if(accControlSchemeData != null)
             {
+                currentControlSchemeToggleValues = new Dictionary<string, bool>();
                 foreach (var scheme in accControlSchemeData.controlSchemesList)
                 {
                     if (controlSchemeToggleValues.ContainsKey(scheme.key))
                     {
                         controlSchemeToggleValues[scheme.key] = scheme.value;
+                        currentControlSchemeToggleValues[scheme.key] = scheme.value;
                     }
                 }
-
-                for (int i = 1; i < controlSchemesContainer.childCount; i++)
-                {
-                    userCanChange = false;
-                    var row = controlSchemesContainer[i];
-                    var controlSchemeLabel = row.Query<Label>().First();
-                    
-                    if (controlSchemeToggleValues.TryGetValue(controlSchemeLabel.text, out bool value))
-                    {
-                        var canRebind = row.Query<Toggle>().First();
-                        canRebind.value = value;
-                    }
-                }
+                lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
+                CreateTable();
             }
+        }
+
+        private void Cancel()
+        {
+            var window = Instantiate(this);
+            window.titleContent = new GUIContent("Control Schemes Configuration");
+            window.minSize = new Vector2(600, 450);
+            window.maxSize = new Vector2(600, 450);
+            window.inputActionAsset = inputActionAsset;
+            window.isReadyToCreateGUI = true;
+            window.CreateGUI();
+            
+            window.currentControlSchemeToggleValues = controlSchemeToggleValues;
+            window.controlSchemeToggleValues = controlSchemeToggleValues;
+            window.CreateTable();
+            
+            window.Show();
         }
         
         /*private bool EditorWantsToQuit()
@@ -228,7 +227,7 @@ namespace TFG_Videojocs.ACC_RemapControls
         
         private void ConfirmSaveChangesIfNeeded()
         {
-            if (/*!forceQuit &&*/ !isSaved)
+            if (/*!forceQuit &&*/ !controlSchemeToggleValues.SequenceEqual(lastSaveControlSchemeToggleValues))
             {
                 var result = EditorUtility.DisplayDialogComplex("Control Schemes Configuration has been modified",
                     $"Do you want to save the changes you made in:\n./JSONRemapControls/{inputActionAsset.name}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
@@ -238,14 +237,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                         ConfigureJSON();
                         break;
                     case 1:
-                        var window = Instantiate(this);
-                        window.titleContent = new GUIContent("Control Schemes Configuration");
-                        window.minSize = new Vector2(600, 450);
-                        window.maxSize = new Vector2(600, 450);
-                        window.inputActionAsset = inputActionAsset;
-                        window.isReadyToCreateGUI = true;
-                        window.CreateGUI();
-                        window.Show();
+                        Cancel();
                         break;
                     case 2:
                         //forceQuit = true;
