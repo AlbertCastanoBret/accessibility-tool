@@ -143,12 +143,19 @@ namespace TFG_Videojocs.ACC_RemapControls
             {
                 var controlScheme = new VisualElement();
                 controlScheme.AddToClassList("control-scheme");
+                
+                var controlSchemeFirstRow = new VisualElement();
+                controlSchemeFirstRow.AddToClassList("control-scheme-first-row");
                 if (i == currentControlSchemeToggleValues.Count - 1)
                 {
-                    controlScheme.AddToClassList("control-scheme-last");
+                    controlSchemeFirstRow.AddToClassList("control-scheme-last");
                 }
+
+                var arrowButton = new Button() { text = "\u25b6" };
+                arrowButton.AddToClassList("control-scheme-arrow");
+                arrowButton.clicked += () => CreateActionMaps(arrowButton, controlScheme);
                 
-                var controlSchemeLabel = new Label(currentControlSchemeToggleValues.Keys.ToList()[i]);
+                var controlSchemeLabel = new Label(){text = currentControlSchemeToggleValues.Keys.ToList()[i]};
                 controlSchemeLabel.AddToClassList("control-scheme-label");
 
                 var controlSchemeToggleContainer = new VisualElement();
@@ -163,11 +170,94 @@ namespace TFG_Videojocs.ACC_RemapControls
                 
                 controlSchemeToggleContainer.Add(controlSchemeToggle);
                 
-                controlScheme.Add(controlSchemeLabel);
-                controlScheme.Add(controlSchemeToggleContainer);
+                controlSchemeFirstRow.Add(arrowButton);
+                controlSchemeFirstRow.Add(controlSchemeLabel);
+                controlSchemeFirstRow.Add(controlSchemeToggleContainer);
+                controlScheme.Add(controlSchemeFirstRow);
                 controlSchemesContainer.Add(controlScheme);
             }
             controlSchemesScrollView.Add(controlSchemesContainer);
+        }
+
+        private void CreateActionMaps(Button arrowButton, VisualElement controlScheme)
+        {
+            if (arrowButton.text == "\u25b6")
+            {
+                arrowButton.text = "\u25bc";
+                        
+                var actionMaps = inputActionAsset.actionMaps;
+                foreach (var actionMap in actionMaps)
+                {
+                    var mainContainer = new VisualElement();
+                    mainContainer.AddToClassList("control-scheme-action-map-container");
+                    
+                    var firstRow = new VisualElement();
+                    firstRow.AddToClassList("control-scheme-action-map-first-row");
+                    
+                    var arrowButton2 = new Button() { text = "\u25b6" };
+                    arrowButton2.AddToClassList("control-scheme-arrow");
+                    arrowButton2.clicked += () => CreateActions(arrowButton2, mainContainer);
+                    
+                    var actionMapLabel = new Label(actionMap.name);
+                    actionMapLabel.AddToClassList("control-scheme-action-map-label");
+                    
+                    firstRow.Add(arrowButton2);
+                    firstRow.Add(actionMapLabel);
+                    mainContainer.Add(firstRow);
+                    controlScheme.Add(mainContainer);
+                }
+            }
+            else
+            {
+                arrowButton.text = "\u25b6";
+                for(int i = controlScheme.childCount - 1; i >= 1; i--)
+                {
+                    controlScheme.RemoveAt(i);
+                }
+            }
+        }
+        
+        private void CreateActions(Button arrowButton, VisualElement parent)
+        {
+            if (arrowButton.text == "\u25b6")
+            {
+                arrowButton.text = "\u25bc";
+                        
+                var actionMaps = inputActionAsset.actionMaps;
+                var actionMap = actionMaps.FirstOrDefault(am => am.name == parent.Query<Label>().First().text);
+                if (actionMap != null)
+                {
+                    var actionMapActions = actionMap.actions;
+                    foreach (var action in actionMapActions)
+                    {
+                        var mainContainer = new VisualElement();
+                        mainContainer.AddToClassList("control-scheme-action-container");
+                        
+                        var firstRow = new VisualElement();
+                        firstRow.AddToClassList("control-scheme-action-first-row");
+                        
+                        var arrowButton2 = new Button() { text = "\u25b6" };
+                        arrowButton2.AddToClassList("control-scheme-arrow");
+                        //arrowButton2.clicked += () => CreateBindings(arrowButton2, controlScheme);
+                        
+                        var actionLabel = new Label(action.name);
+                        actionLabel.AddToClassList("control-scheme-action-label");
+                        
+                        firstRow.Add(arrowButton2);
+                        firstRow.Add(actionLabel);
+                        mainContainer.Add(firstRow);
+                        parent.Add(mainContainer);
+                    }
+                }
+            }
+            else
+            {
+                arrowButton.text = "\u25b6";
+                for(int i = parent.childCount - 1; i >= 1; i--)
+                {
+                    parent.RemoveAt(i);
+                }
+            }
         }
 
         private void ConfigureJSON()
@@ -189,6 +279,62 @@ namespace TFG_Videojocs.ACC_RemapControls
             ACC_ControlSchemeData accControlSchemeData = ACC_JSONHelper.LoadJson<ACC_ControlSchemeData>(path);
             if(accControlSchemeData != null)
             {
+                for (int i=0; i<inputActionAsset.controlSchemes.Count; i++)
+                {
+                    if (accControlSchemeData.controlSchemesList.Count > i)
+                    {
+                        if (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name &&
+                            inputActionAsset.controlSchemes.Skip(i).Any(controlsScheme =>
+                                controlsScheme.name == accControlSchemeData.controlSchemesList[i].key))
+                        {
+                            accControlSchemeData.controlSchemesList.Add(accControlSchemeData.controlSchemesList[i]);
+                            while (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name)
+                            {
+                                accControlSchemeData.controlSchemesList.Insert(i, new ACC_KeyValuePairData<string, bool>(inputActionAsset.controlSchemes[i].name, false));
+                                i++;
+                            
+                                if (accControlSchemeData.controlSchemesList.Count-1 == i)
+                                {
+                                    break;
+                                }
+                            
+                                if (accControlSchemeData.controlSchemesList[i].key ==
+                                    inputActionAsset.controlSchemes[i].name)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        else if (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name &&
+                                 inputActionAsset.controlSchemes.Take(i+1).Any(controlsScheme => controlsScheme.name == accControlSchemeData.controlSchemesList[i].key))
+                        {
+                            accControlSchemeData.controlSchemesList.Add(accControlSchemeData.controlSchemesList[i]);
+                            while (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name)
+                            {
+                                accControlSchemeData.controlSchemesList.Insert(i, new ACC_KeyValuePairData<string, bool>(inputActionAsset.controlSchemes[i].name, false));
+                                i--;
+                            
+                                if (accControlSchemeData.controlSchemesList.Count-1 == i)
+                                {
+                                    break;
+                                }
+                            
+                                if (accControlSchemeData.controlSchemesList[i].key ==
+                                    inputActionAsset.controlSchemes[i].name)
+                                {
+                                    break;
+                                }
+                            }
+                            
+                        }
+                        else accControlSchemeData.controlSchemesList[i].key = inputActionAsset.controlSchemes[i].name;
+                    }
+                    else
+                    {
+                        accControlSchemeData.controlSchemesList.Add(new ACC_KeyValuePairData<string, bool>(inputActionAsset.controlSchemes[i].name, false));
+                    }
+                }
+                
                 currentControlSchemeToggleValues = new Dictionary<string, bool>();
                 foreach (var scheme in accControlSchemeData.controlSchemesList)
                 {
@@ -200,6 +346,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
                 lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
                 CreateTable();
+                //ConfigureJSON();
             }
         }
 

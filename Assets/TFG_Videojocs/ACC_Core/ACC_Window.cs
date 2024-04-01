@@ -58,7 +58,7 @@ public class ACC_Window : EditorWindow
         var sidebar = new VisualElement();
         var audibleButton = new Button() { text = "Auditive" };
         var visualButton = new Button() { text = "Visual" };
-        var cognitiveButton = new Button() { text = "Cognitive" };
+        var cognitiveButton = new Button() { text = "Mobility" };
         accessibilityContainer = new VisualElement();
         var accessibilityRow = new VisualElement();
         
@@ -80,7 +80,7 @@ public class ACC_Window : EditorWindow
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
         visualButton.clicked += () => { UpdateAccessibilityContainer(typeof(VisualFeatures)); };
-        cognitiveButton.clicked += () => { UpdateAccessibilityContainer(typeof(CognitiveFeatures)); };
+        cognitiveButton.clicked += () => { UpdateAccessibilityContainer(typeof(MobilityFeatures)); };
         
         sidebar.Add(audibleButton);
         sidebar.Add(visualButton);
@@ -127,7 +127,7 @@ public class ACC_Window : EditorWindow
         box.Add(titleBox);
 
         if(featuretype==typeof(AudioFeatures))CreateAudioBox(box, index);
-        else if (featuretype==typeof(CognitiveFeatures))CreateCognitiveBox(box, index);
+        else if (featuretype==typeof(MobilityFeatures))CreateMobilityBox(box, index);
 
         return box;
     }
@@ -145,9 +145,9 @@ public class ACC_Window : EditorWindow
         }
     }
     
-    private void CreateCognitiveBox(VisualElement box, int index)
+    private void CreateMobilityBox(VisualElement box, int index)
     {
-        switch (Enum.GetName(typeof(CognitiveFeatures), index))
+        switch (Enum.GetName(typeof(MobilityFeatures), index))
         {
             case "RemapControls":
                 RemapControlsBox(box);

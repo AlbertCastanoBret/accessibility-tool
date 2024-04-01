@@ -13,6 +13,8 @@ namespace TFG_Videojocs.ACC_RemapControls
         public ACC_ControlSchemeData()
         {
             controlSchemesList = new List<ACC_KeyValuePairData<string, bool>>();
+            
+            
         }
     }
 }

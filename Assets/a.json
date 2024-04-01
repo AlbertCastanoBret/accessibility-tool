@@ -71,7 +71,7 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse",
+                    "groups": "Keyboard&Mouse",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -177,6 +177,17 @@
                 },
                 {
                     "name": "",
+                    "id": "e96a7fe9-6d04-49b8-a1a6-b804674b56d9",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad 2",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c1f7a91b-d0fd-4a62-997e-7fb9b69bf235",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
@@ -210,11 +221,22 @@
                 },
                 {
                     "name": "",
+                    "id": "7a5c6c8d-1c38-4cfc-b315-16d43e5d9db6",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad 2",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "143bb1cd-cc10-4eca-a2f0-a3664166fe91",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "Gamepad;Gamepad 2",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -270,6 +292,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9b664a90-f55b-4104-80c3-38d050a6227a",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad 2;Gamepad",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -855,8 +888,19 @@
             ]
         },
         {
-            "name": "Keyboard & Mouse 2",
-            "bindingGroup": "Keyboard & Mouse 2",
+            "name": "Gamepad 2",
+            "bindingGroup": "Gamepad 2",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard&Mouse3",
+            "bindingGroup": "Keyboard&Mouse3",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",
@@ -871,11 +915,16 @@
             ]
         },
         {
-            "name": "Gamepad 2",
-            "bindingGroup": "Gamepad 2",
+            "name": "Keyboard&Mouse2",
+            "bindingGroup": "Keyboard&Mouse2",
             "devices": [
                 {
-                    "devicePath": "<Gamepad>",
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
                     "isOptional": false,
                     "isOR": false
                 }
