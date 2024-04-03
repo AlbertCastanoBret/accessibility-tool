@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TFG_Videojocs.ACC_Utilities;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -270,7 +272,8 @@ namespace TFG_Videojocs.ACC_RemapControls
                 accControlSchemeData.controlSchemesList.Add(new ACC_KeyValuePairData<string, bool>(item.Key, item.Value));
                 ACC_JSONHelper.CreateJson(accControlSchemeData, "/ACC_JSONRemapControls/");
             }
-            lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);        
+            lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
+            //ACC_AssetSaveProcessor.controlSchemesChanged.Find(x=>x.key == inputActionAsset.name).value = true;
         }
         
         private void LoadJson()
@@ -287,6 +290,8 @@ namespace TFG_Videojocs.ACC_RemapControls
                             inputActionAsset.controlSchemes.Skip(i).Any(controlsScheme =>
                                 controlsScheme.name == accControlSchemeData.controlSchemesList[i].key))
                         {
+                            Debug.Log("1");
+                            accControlSchemeData.controlSchemesList.Remove(accControlSchemeData.controlSchemesList[i]);
                             accControlSchemeData.controlSchemesList.Add(accControlSchemeData.controlSchemesList[i]);
                             while (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name)
                             {
@@ -306,8 +311,10 @@ namespace TFG_Videojocs.ACC_RemapControls
                             }
                         }
                         else if (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name &&
-                                 inputActionAsset.controlSchemes.Take(i+1).Any(controlsScheme => controlsScheme.name == accControlSchemeData.controlSchemesList[i].key))
+                                 inputActionAsset.controlSchemes.Take(i).Any(controlsScheme => controlsScheme.name == accControlSchemeData.controlSchemesList[i].key))
                         {
+                            Debug.Log("2");
+                            accControlSchemeData.controlSchemesList.Remove(accControlSchemeData.controlSchemesList[i]);
                             accControlSchemeData.controlSchemesList.Add(accControlSchemeData.controlSchemesList[i]);
                             while (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name)
                             {
@@ -325,15 +332,30 @@ namespace TFG_Videojocs.ACC_RemapControls
                                     break;
                                 }
                             }
-                            
                         }
-                        else accControlSchemeData.controlSchemesList[i].key = inputActionAsset.controlSchemes[i].name;
+                        else
+                        {
+                            Debug.Log("3");
+                            accControlSchemeData.controlSchemesList[i].key = inputActionAsset.controlSchemes[i].name;
+                        }
                     }
                     else
                     {
+                        Debug.Log("4");
                         accControlSchemeData.controlSchemesList.Add(new ACC_KeyValuePairData<string, bool>(inputActionAsset.controlSchemes[i].name, false));
                     }
                 }
+
+                /*List<ACC_KeyValuePairData<string, bool>> auxiliarControlScheme = new List<ACC_KeyValuePairData<string, bool>>(accControlSchemeData.controlSchemesList);
+                foreach (var controlScheme in auxiliarControlScheme)
+                {
+                    if(inputActionAsset.controlSchemes.All(scheme => scheme.name != controlScheme.key))
+                    {
+                        accControlSchemeData.controlSchemesList.Remove(controlScheme);
+                    }
+                }*/
+                
+                ACC_JSONHelper.CreateJson(accControlSchemeData, "/ACC_JSONRemapControls/");
                 
                 currentControlSchemeToggleValues = new Dictionary<string, bool>();
                 foreach (var scheme in accControlSchemeData.controlSchemesList)
@@ -346,7 +368,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
                 lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
                 CreateTable();
-                //ConfigureJSON();
             }
         }
 

@@ -484,7 +484,12 @@ public class ACC_Window : EditorWindow
                 dynamicControlSchemesContainer.Add(remapControlsButtonContainer);
                 string json = inputActionAsset.ToJson();
                 File.WriteAllText("Assets/a.json", json);
+                //json += "\n {Mariconazo: 2}";
+                //File.WriteAllText("Assets/b.json", json);
                 AssetDatabase.Refresh();
+                
+                //inputActionAsset.LoadFromJson(json);
+                
                 //dynamicControlSchemesContainer.Add(controlSchemesContainer);
                 /*if (inputActionAsset.controlSchemes.Count > 0)
                 {
