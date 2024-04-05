@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using TFG_Videojocs.ACC_RemapControls;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using ACC_UniqueInputControlSchemeData = TFG_Videojocs.ACC_RemapControls.ACC_UniqueInputControlSchemeData;
 
 namespace TFG_Videojocs.ACC_Utilities
 {
     public class ACC_AssetSaveProcessor : AssetPostprocessor 
     {
-        private static List<ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>>> lastControlSchemesList =
+        /*private static List<ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>>> lastControlSchemesList =
             new List<ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>>>();
         private static List<ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>>> controlSchemesList =
-            new List<ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>>>();
+            new List<ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>>>();*/
         
         public static List<ACC_KeyValuePairData<string, bool>> controlSchemesChanged = new List<ACC_KeyValuePairData<string, bool>>();
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
@@ -23,6 +23,10 @@ namespace TFG_Videojocs.ACC_Utilities
             {
                 if (asset.EndsWith(".inputactions"))
                 {
+
+                    string filename = Path.GetFileNameWithoutExtension(asset);
+                    ACC_JSONHelper.DeleteFile("/ACC_JSONRemapControls/" + filename);
+                    //ACC_JSONHelper.DeleteFile();
                     /*InputActionAsset inputActionAsset = AssetDatabase.LoadAssetAtPath<InputActionAsset>(asset);
                     if (inputActionAsset != null)
                     {
@@ -36,10 +40,10 @@ namespace TFG_Videojocs.ACC_Utilities
                         }
 
                         ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>> currentInputActionAsset;
-                        ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>> lastCurrentInputActionAsset 
+                        ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>> lastCurrentInputActionAsset
                             = lastControlSchemesList.Find(x => x.key == inputActionAsset.name);
                         //inputActionAsset.contro
-                        
+
                         if(!controlSchemesList.Exists(x => x.key == inputActionAsset.name))
                         {
                             currentInputActionAsset = new ACC_KeyValuePairData<string, List<ACC_UniqueInputControlSchemeData>>(inputActionAsset.name, new List<ACC_UniqueInputControlSchemeData>());
@@ -49,15 +53,15 @@ namespace TFG_Videojocs.ACC_Utilities
                         {
                             currentInputActionAsset = controlSchemesList.Find(x => x.key == inputActionAsset.name);
                         }
-                        
+
                         {
                             controlSchemesChanged.Find(x => x.key == inputActionAsset.name).value = true;
                         };
                         foreach (InputControlScheme controlScheme in inputActionAsset.controlSchemes)
                         {
                             ACC_UniqueInputControlSchemeData uniqueInputControlSchemeData = new ACC_UniqueInputControlSchemeData(controlScheme);
-                            currentInputActionAsset.value.Add(uniqueInputControlSchemeData);    
-                            
+                            currentInputActionAsset.value.Add(uniqueInputControlSchemeData);
+
                         }
                     }*/
                 }

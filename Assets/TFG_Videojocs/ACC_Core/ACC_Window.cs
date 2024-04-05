@@ -38,7 +38,7 @@ public class ACC_Window : EditorWindow
     private void OnDisable()
     {
         ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= RefreshSubtititleWindow;
-        ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow += RefreshVisualNotification;
+        ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow -= RefreshVisualNotification;
         //audioManager.OnSoundsChanged -= CreateSoundList;
     }
 
@@ -105,7 +105,7 @@ public class ACC_Window : EditorWindow
         }*/
     }
     
-    private void CreateAccessibilityRow(Type featureType, int rowIndex)
+    /*private void CreateAccessibilityRow(Type featureType, int rowIndex)
     {
         var row = new VisualElement();
         row.AddToClassList("accessibility-row");
@@ -114,7 +114,7 @@ public class ACC_Window : EditorWindow
             if(Enum.GetName(featureType, numberOfColumns*rowIndex+i)!=null) row.Add(CreateFeatureBox(featureType, numberOfColumns*rowIndex+i));
         }
         accessibilityContainer.Add(row);
-    }
+    }*/
 
     private VisualElement CreateFeatureBox(Type featuretype, int index)
     {
@@ -484,8 +484,6 @@ public class ACC_Window : EditorWindow
                 dynamicControlSchemesContainer.Add(remapControlsButtonContainer);
                 string json = inputActionAsset.ToJson();
                 File.WriteAllText("Assets/a.json", json);
-                //json += "\n {Mariconazo: 2}";
-                //File.WriteAllText("Assets/b.json", json);
                 AssetDatabase.Refresh();
                 
                 //inputActionAsset.LoadFromJson(json);

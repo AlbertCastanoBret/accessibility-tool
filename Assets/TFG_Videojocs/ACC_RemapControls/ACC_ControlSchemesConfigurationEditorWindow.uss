@@ -136,6 +136,43 @@
     border-bottom-width: 1px;
 }
 
+.control-scheme-binding-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.control-scheme-binding-first-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    background-color: #8a8a8a;
+    border-bottom-color: #b2b2b2;
+    border-bottom-width: 1px;
+}
+
+.control-scheme-binding-label{
+    -unity-text-align: middle-left;
+    width: 84%;
+    white-space: normal;
+    border-right-color: #b2b2b2;
+    border-right-width: 1px;
+    height: 100%;
+    padding: 4px;
+}
+
+.binding-toggle-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 16%;
+    padding: 4px 0;
+}
+    
 .create-button{
     margin-right: auto;
     margin-top: auto;
