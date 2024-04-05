@@ -150,6 +150,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             rootVisualElement.Add(createButton);
             
             lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
+            lastSaveBindingsToggleValues = new Dictionary<ACC_BindingData, bool>(bindingsToggleValues);
         }
 
         private void CreateTable()
@@ -402,6 +403,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             ACC_JSONHelper.CreateJson(accControlSchemeData, "/ACC_JSONRemapControls/");
             lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
+            lastSaveBindingsToggleValues = new Dictionary<ACC_BindingData, bool>(bindingsToggleValues);
             //ACC_AssetSaveProcessor.controlSchemesChanged.Find(x=>x.key == inputActionAsset.name).value = true;
         }
         
@@ -496,6 +498,12 @@ namespace TFG_Videojocs.ACC_RemapControls
                 CreateTable();
             }
         }
+        
+        private bool IsThereAnyChange()
+        {
+            return !controlSchemeToggleValues.SequenceEqual(lastSaveControlSchemeToggleValues) ||
+                   !bindingsToggleValues.SequenceEqual(lastSaveBindingsToggleValues);
+        }
 
         private void Cancel()
         {
@@ -519,7 +527,7 @@ namespace TFG_Videojocs.ACC_RemapControls
         
         private void ConfirmSaveChangesIfNeeded()
         {
-            if (!controlSchemeToggleValues.SequenceEqual(lastSaveControlSchemeToggleValues) || !bindingsToggleValues.SequenceEqual(lastSaveBindingsToggleValues))
+            if (IsThereAnyChange())
             {
                 var result = EditorUtility.DisplayDialogComplex("Control Schemes Configuration has been modified",
                     $"Do you want to save the changes you made in:\n./JSONRemapControls/{inputActionAsset.name}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");

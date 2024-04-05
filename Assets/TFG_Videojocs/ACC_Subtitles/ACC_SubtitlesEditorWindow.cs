@@ -4,13 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using TFG_Videojocs;
 using UnityEditor;
-using UnityEditor.IMGUI.Controls;
 using UnityEditor.UIElements;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UIElements.Button;
-using Image = UnityEngine.UI.Image;
 
 public class ACC_SubtitlesEditorWindow : EditorWindow
 {
@@ -22,13 +19,14 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
     
     private bool isEditing = false;
     private string oldName;
+    private ACC_SubtitleData lastSubtitleData;
     
     public delegate void SubtitleWindowDelegate();
     public static event SubtitleWindowDelegate OnCloseSubtitleWindow;
-
+    
     private void OnDestroy()
     {
-        OnCloseSubtitleWindow?.Invoke();
+        ConfirmSaveChangesIfNeeded();
     }
 
     public static void ShowWindow(string name)
@@ -74,6 +72,21 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         mainContainer.Add(settingsContainer);
         mainContainer.Add(bottomContainer);
         rootVisualElement.Add(mainContainer);
+        
+        lastSubtitleData = new ACC_SubtitleData();
+        for (int i = 1; i < table.childCount; i++)
+        {
+            var row = table[i];
+            var subtitleElement = row.Query<TextField>().First();
+            lastSubtitleData.subtitleText.Add(new ACC_KeyValuePairData<int, string>(i, subtitleElement.value));
+
+            var timeElement = row.Query<IntegerField>().First();
+            lastSubtitleData.timeText.Add(new ACC_KeyValuePairData<int, int>(i, timeElement.value));
+        }
+        lastSubtitleData.name = nameInput.value;
+        lastSubtitleData.fontColor = fontColorInput.value;
+        lastSubtitleData.backgroundColor = backgroundColorInput.value;
+        lastSubtitleData.fontSize = fontSizeInput.value;
     }
 
     private VisualElement CreateTable()
@@ -221,66 +234,9 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         createSubtitleButton.AddToClassList("create-subtitle-button");
         createSubtitleButton.clicked += () =>
         {
-            if (nameInput.value.Length > 0)
-            {
-                var fileExists = ACC_JSONHelper.FileNameAlreadyExists("/ACC_JSONSubtitle/" + nameInput.value);
-                if (!fileExists && !isEditing || fileExists && isEditing && nameInput.value == oldName)
-                {
-                    ConfigureJson();
-                }
-                else if(fileExists && !isEditing || fileExists && isEditing && nameInput.value != oldName)
-                {
-                    int option = EditorUtility.DisplayDialogComplex(
-                        "File name already exists",
-                        "The name \"" + nameInput.value + "\" already exists. What would you like to do?",
-                        "Overwrite",
-                        "Cancel",
-                        ""
-                    );
-                    switch (option)
-                    {
-                        case 0:
-                            ConfigureJson();
-                            break;
-                    }
-                }
-                else if(!fileExists && isEditing)
-                {
-                    int option = EditorUtility.DisplayDialogComplex(
-                        "Name Change Detected",
-                        $"The name has been changed to \"{nameInput.value}\". What would you like to do?",
-                        "Create New File", 
-                        "Cancel",
-                        "Rename Existing File"
-                    );
-                    switch (option)
-                    {
-                        case 0:
-                            ConfigureJson();
-                            break;
-                        case 2:
-                            ACC_JSONHelper.RenameFile("/ACC_JSONSubtitle/" + oldName, "/ACC_JSONSubtitle/" + nameInput.value);
-                            ConfigureJson();
-                            break;
-                    }
-                }
-                if (!isEditing) Close();
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Required field", "Please, introduce a name before saving.", "OK");
-            }
+            HandleSave(false);
         };
-
-        /*var loadSubtitleButton = new Button() { text = "Load" };
-        loadSubtitleButton.AddToClassList("create-subtitle-button");
-        loadSubtitleButton.clicked += () =>
-        {
-            LoadJson();
-        };*/
-        
         bottomContainer.Add(createSubtitleButton);
-        //bottomContainer.Add(loadSubtitleButton);
 
         var addSubtitlesContainer = new VisualElement();
         addSubtitlesContainer.AddToClassList("add-subtitles-container");
@@ -307,7 +263,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         return bottomContainer;
     }
 
-    private void ConfigureJson()
+    private void ConfigureJSON()
     {
         ACC_SubtitleData subtitleData = new ACC_SubtitleData();
         for (int i = 1; i < table.childCount; i++)
@@ -326,6 +282,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         subtitleData.fontSize = fontSizeInput.value;
         
         ACC_JSONHelper.CreateJson(subtitleData, "/ACC_JSONSubtitle/");
+        lastSubtitleData = subtitleData;
         
         if(isEditing) oldName = nameInput.value;
     }
@@ -359,5 +316,127 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         fontColorInput.value = subtitleData.fontColor;
         backgroundColorInput.value = subtitleData.backgroundColor;
         fontSizeInput.value = subtitleData.fontSize;
+        
+        lastSubtitleData = subtitleData;
+    }
+
+    private void HandleSave(bool isClosing)
+    {
+        if (nameInput.value.Length > 0)
+        {
+            var fileExists = ACC_JSONHelper.FileNameAlreadyExists("/ACC_JSONSubtitle/" + nameInput.value);
+            if (!fileExists && !isEditing || fileExists && isEditing && nameInput.value == oldName)
+            {
+                ConfigureJSON();
+            }
+            else if(fileExists && !isEditing || fileExists && isEditing && nameInput.value != oldName)
+            {
+                int option = EditorUtility.DisplayDialogComplex(
+                    "File name already exists",
+                    "The name \"" + nameInput.value + "\" already exists. What would you like to do?",
+                    "Overwrite",
+                    "Cancel",
+                    ""
+                );
+                switch (option)
+                {
+                    case 0:
+                        ConfigureJSON();
+                        break;
+                }
+            }
+            else if(!fileExists && isEditing)
+            {
+                int option = EditorUtility.DisplayDialogComplex(
+                    "Name Change Detected",
+                    $"The name has been changed to \"{nameInput.value}\". What would you like to do?",
+                    "Create New File", 
+                    "Cancel",
+                    "Rename Existing File"
+                );
+                switch (option)
+                {
+                    case 0:
+                        ConfigureJSON();
+                        break;
+                    case 2:
+                        ACC_JSONHelper.RenameFile("/ACC_JSONSubtitle/" + oldName, "/ACC_JSONSubtitle/" + nameInput.value);
+                        ConfigureJSON();
+                        break;
+                }
+            }
+            if (!isEditing && !isClosing) Close();
+        }
+        else
+        {
+            EditorUtility.DisplayDialog("Required field", "Please, introduce a name before saving.", "OK");
+            if(isClosing) Cancel();
+        }
+    }
+
+    private bool IsThereAnyChange()
+    {
+        if (lastSubtitleData.name != nameInput.value) return true;
+        if (lastSubtitleData.fontColor != fontColorInput.value) return true;
+        if (lastSubtitleData.backgroundColor != backgroundColorInput.value) return true;
+        if (lastSubtitleData.fontSize != fontSizeInput.value) return true;
+        if (lastSubtitleData.subtitleText.Count != table.childCount - 1) return true;
+        for (int i = 1; i < table.childCount; i++)
+        {
+            var row = table[i];
+            var subtitleElement = row.Query<TextField>().First();
+            var timeElement = row.Query<IntegerField>().First();
+            if (lastSubtitleData.subtitleText[i - 1].value != subtitleElement.value) return true;
+            if (lastSubtitleData.timeText[i - 1].value != timeElement.value) return true;
+        }
+        return false;
+    }
+
+    private void Cancel()
+    {
+        var window = Instantiate(this);
+        window.titleContent = new GUIContent("Subtitle Creation");
+        window.minSize = new Vector2(600, 530);
+        window.maxSize = new Vector2(600, 530);
+        window.Show();
+        
+        window.lastSubtitleData = lastSubtitleData;
+        window.nameInput.value = nameInput.value;
+        window.fontColorInput.value = new Color(fontColorInput.value.r, fontColorInput.value.g, fontColorInput.value.b, fontColorInput.value.a);
+        window.backgroundColorInput.value = new Color(backgroundColorInput.value.r, backgroundColorInput.value.g, backgroundColorInput.value.b, backgroundColorInput.value.a);
+        window.fontSizeInput.value = fontSizeInput.value;
+        window.table.Remove(window.table[1]);
+        for (int i = 1; i < table.childCount; i++)
+        {
+            window.CreateRow(1, table[i].Query<TextField>().First().text, table[i].Query<IntegerField>().First().value);
+        }
+        
+        if (isEditing)
+        {
+            window.oldName = oldName;
+            window.isEditing = true;
+            //window.LoadJson(oldName);
+        }
+    }
+    
+    private void ConfirmSaveChangesIfNeeded()
+    {
+        if (IsThereAnyChange())
+        {
+            var result = EditorUtility.DisplayDialogComplex("Subtitles file has been modified",
+                $"Do you want to save the changes you made in:\n./ACC_JSONSubtitle/{nameInput.value}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
+            switch (result)
+            {
+                case 0:
+                    HandleSave(true);
+                    OnCloseSubtitleWindow?.Invoke();
+                    break;
+                case 1:
+                    Cancel();
+                    break;
+                case 2:
+                    break;
+            }
+        }
     }
 }
