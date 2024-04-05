@@ -110,6 +110,11 @@ namespace TFG_Videojocs.ACC_RemapControls
             controlSchemesScrollView = new ScrollView();
             controlSchemesScrollView.AddToClassList("control-schemes-scroll-view");
             
+            for (int i = 0; i < controlSchemes.Count(); i++)
+            {
+                controlSchemeToggleValues[controlSchemes[i]] = false;
+            }
+            
             bindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
             foreach (var controlScheme in controlSchemes)
             {
@@ -143,13 +148,6 @@ namespace TFG_Videojocs.ACC_RemapControls
             rootVisualElement.Add(devicesDropdown);
             rootVisualElement.Add(controlSchemesScrollView);
             rootVisualElement.Add(createButton);
-            
-            for (int i = 1; i < controlSchemesContainer.childCount; i++)
-            {
-                var row = controlSchemesContainer[i];
-                var controlSchemeLabel = row.Query<Label>().First();
-                controlSchemeToggleValues[controlSchemeLabel.text] = false;
-            }
             
             lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
         }
@@ -331,6 +329,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                                 {
                                     currentBindingsToggleValues[accBindingData] = bindingsToggleValues[accBindingData];
                                     var bindingToggle = new Toggle() { value = bindingsToggleValues[accBindingData] };
+                                    bindingToggle.SetEnabled(controlSchemeToggleValues[controlScheme]);
                                     bindingToggle.AddToClassList("binding-toggle");
                                     bindingToggle.RegisterValueChangedCallback(evt =>
                                     {
