@@ -17,7 +17,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
     private ColorField backgroundColorInput;
     private SliderInt fontSizeInput;
     
-    private bool isEditing = false;
+    private bool isEditing, isClosing;
     private string oldName;
     private ACC_SubtitleData lastSubtitleData;
     
@@ -234,7 +234,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         createSubtitleButton.AddToClassList("create-subtitle-button");
         createSubtitleButton.clicked += () =>
         {
-            HandleSave(false);
+            HandleSave();
         };
         bottomContainer.Add(createSubtitleButton);
 
@@ -320,7 +320,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         lastSubtitleData = subtitleData;
     }
 
-    private void HandleSave(bool isClosing)
+    private void HandleSave()
     {
         if (nameInput.value.Length > 0)
         {
@@ -343,6 +343,9 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
                     case 0:
                         ConfigureJSON();
                         break;
+                    case 1:
+                        if(isClosing) Cancel();
+                        break;
                 }
             }
             else if(!fileExists && isEditing)
@@ -358,6 +361,9 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
                 {
                     case 0:
                         ConfigureJSON();
+                        break;
+                    case 1:
+                        if(isClosing) Cancel();
                         break;
                     case 2:
                         ACC_JSONHelper.RenameFile("/ACC_JSONSubtitle/" + oldName, "/ACC_JSONSubtitle/" + nameInput.value);
@@ -428,7 +434,8 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             switch (result)
             {
                 case 0:
-                    HandleSave(true);
+                    isClosing = true;
+                    HandleSave();
                     OnCloseSubtitleWindow?.Invoke();
                     break;
                 case 1:

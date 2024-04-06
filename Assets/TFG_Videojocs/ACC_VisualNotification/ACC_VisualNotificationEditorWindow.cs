@@ -21,8 +21,9 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
     private ACC_AudioManager audioManager;
     private AudioClip audioClip;
 
-    private bool isEditing, isRenamingFile, isCreatingNewFile, isOverWriting;
+    private bool isEditing, isRenamingFile, isCreatingNewFile, isOverWriting, isClosing;
     private string oldName;
+    private ACC_VisualNotificationData lastVisualNotificationData;
     
     public delegate void SubtitleWindowDelegate();
     public static event SubtitleWindowDelegate OnCloseVisualNotificationWindow;
@@ -40,7 +41,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
 
     private void OnDestroy()
     {
-        OnCloseVisualNotificationWindow?.Invoke();
+        ConfirmSaveChangesIfNeeded();
     }
 
     public static void ShowWindow(string name)
@@ -188,59 +189,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
 
         createVisualNotificationButton.clicked += () =>
         {
-            if (nameInput.value.Length > 0 && selectedSounds.Count > 0)
-            {
-                var fileExists = ACC_JSONHelper.FileNameAlreadyExists("/ACC_JSONVisualNotification/" + nameInput.value);
-                if (!fileExists && !isEditing || fileExists && isEditing && nameInput.value == oldName)
-                {
-                    ConfigureJson();
-                }
-                else if(fileExists && !isEditing || fileExists && isEditing && nameInput.value != oldName)
-                {
-                    int option = EditorUtility.DisplayDialogComplex(
-                        "File name already exists",
-                        "The name \"" + nameInput.value + "\" already exists. What would you like to do?",
-                        "Overwrite",
-                        "Cancel",
-                        ""
-                    );
-                    switch (option)
-                    {
-                        case 0:
-                            isOverWriting = true;
-                            ConfigureJson();
-                            break;
-                    }
-                }
-                else if(!fileExists && isEditing)
-                {
-                    int option = EditorUtility.DisplayDialogComplex(
-                        "Name Change Detected",
-                        $"The name has been changed to \"{nameInput.value}\". What would you like to do?",
-                        "Create New File", 
-                        "Cancel",
-                        "Rename Existing File"
-                    );
-                    switch (option)
-                    {
-                        case 0:
-                            isCreatingNewFile = true;
-                            ConfigureJson();
-                            break;
-                        case 2:
-                            isRenamingFile = true;
-                            ACC_JSONHelper.RenameFile("/ACC_JSONVisualNotification/" + oldName, "/ACC_JSONVisualNotification/" + nameInput.value);
-                            ConfigureJson();
-                            break;
-                    }
-                }
-                if (!isEditing) Close();
-            }
-            else
-            {
-                if(nameInput.value.Length == 0) EditorUtility.DisplayDialog("Required field", "Please, introduce a name before saving.", "OK");
-                else if (selectedSounds.Count == 0) EditorUtility.DisplayDialog("Required field", "Please, introduce at least one sound name to create a visual notification", "OK");
-            }
+            HandleSave();
         };
         
         mainContainer.Add(soundsSelectedTitleLabel);
@@ -257,6 +206,17 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         mainContainer.Add(fontSizeContainer);
         mainContainer.Add(createVisualNotificationButton);
         rootVisualElement.Add(mainContainer);
+        
+        lastVisualNotificationData = new ACC_VisualNotificationData();
+        lastVisualNotificationData.soundsList = new List<ACC_Sound>(selectedSounds);
+        lastVisualNotificationData.name = nameInput.value;
+        lastVisualNotificationData.message = messageInput.value;
+        lastVisualNotificationData.horizontalAlignment = dropdownHorizontalAlignment.value;
+        lastVisualNotificationData.verticalAlignment = dropdownVerticalAlignment.value;
+        lastVisualNotificationData.timeOnScreen = timeOnScreen.value;
+        lastVisualNotificationData.fontColor = fontColorInput.value;
+        lastVisualNotificationData.backgroundColor = backgroundColorInput.value;
+        lastVisualNotificationData.fontSize = fontSizeInput.value;
     }
 
     private void ResetSoundsList()
@@ -356,6 +316,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
             isCreatingNewFile = false;
             isOverWriting = false;
             ACC_JSONHelper.CreateJson(accVisualNotificationData, "/ACC_JSONVisualNotification/");
+            lastVisualNotificationData = accVisualNotificationData;
             if(isEditing) oldName = nameInput.value;
         }
     }
@@ -377,6 +338,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         fontSizeInput.value = accVisualNotificationData.fontSize;
         
         LoadSelectedSounds();
+        lastVisualNotificationData = accVisualNotificationData;
     }
 
     private void LoadSelectedSounds()
@@ -426,6 +388,135 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
                 ACC_JSONHelper.CreateJson(accVisualNotificationData, "/ACC_JSONVisualNotification/");
                 if(isEditing) oldName = nameInput.value;
                 break;
+            case 1:
+                if(isClosing) Cancel();
+                break;
+        }
+    }
+
+    private void HandleSave()
+    {
+        if (nameInput.value.Length > 0 && selectedSounds.Count > 0)
+        {
+            var fileExists = ACC_JSONHelper.FileNameAlreadyExists("/ACC_JSONVisualNotification/" + nameInput.value);
+            if (!fileExists && !isEditing || fileExists && isEditing && nameInput.value == oldName)
+            {
+                ConfigureJson();
+            }
+            else if(fileExists && !isEditing || fileExists && isEditing && nameInput.value != oldName)
+            {
+                int option = EditorUtility.DisplayDialogComplex(
+                    "File name already exists",
+                    "The name \"" + nameInput.value + "\" already exists. What would you like to do?",
+                    "Overwrite",
+                    "Cancel",
+                    ""
+                );
+                switch (option)
+                {
+                    case 0:
+                        isOverWriting = true;
+                        ConfigureJson();
+                        break;
+                    case 1:
+                        if(isClosing) Cancel();
+                        break;
+                }
+            }
+            else if(!fileExists && isEditing)
+            {
+                int option = EditorUtility.DisplayDialogComplex(
+                    "Name Change Detected",
+                    $"The name has been changed to \"{nameInput.value}\". What would you like to do?",
+                    "Create New File", 
+                    "Cancel",
+                    "Rename Existing File"
+                );
+                switch (option)
+                {
+                    case 0:
+                        isCreatingNewFile = true;
+                        ConfigureJson();
+                        break;
+                    case 1:
+                        if(isClosing) Cancel();
+                        break;
+                    case 2:
+                        isRenamingFile = true;
+                        ACC_JSONHelper.RenameFile("/ACC_JSONVisualNotification/" + oldName, "/ACC_JSONVisualNotification/" + nameInput.value);
+                        ConfigureJson();
+                        break;
+                }
+            }
+            if (!isEditing && !isClosing) Close();
+        }
+        else
+        {
+            if(nameInput.value.Length == 0) EditorUtility.DisplayDialog("Required field", "Please, introduce a name before saving.", "OK");
+            else if (selectedSounds.Count == 0) EditorUtility.DisplayDialog("Required field", "Please, introduce at least one sound name to create a visual notification", "OK");
+            if(isClosing) Cancel();
+        }
+    }
+    
+    private bool IsThereAnyChange()
+    {
+        if (lastVisualNotificationData.name != nameInput.value) return true;
+        if (lastVisualNotificationData.message != messageInput.value) return true;
+        if (lastVisualNotificationData.horizontalAlignment != dropdownHorizontalAlignment.value) return true;
+        if (lastVisualNotificationData.verticalAlignment != dropdownVerticalAlignment.value) return true;
+        if (lastVisualNotificationData.timeOnScreen != timeOnScreen.value) return true;
+        if (lastVisualNotificationData.fontColor != fontColorInput.value) return true;
+        if (lastVisualNotificationData.backgroundColor != backgroundColorInput.value) return true;
+        if (lastVisualNotificationData.fontSize != fontSizeInput.value) return true;
+        if (!lastVisualNotificationData.soundsList.SequenceEqual(selectedSounds)) return true;
+        return false;
+    }
+
+    private void Cancel()
+    {
+        var window = Instantiate(this);
+        window.titleContent = new GUIContent("Visual Notification Creation");
+        window.minSize = new Vector2(600, 520);
+        window.maxSize = new Vector2(600, 520);
+        window.Show();
+        
+        window.nameInput.value = nameInput.value;
+        window.messageInput.value = messageInput.value;
+        window.dropdownHorizontalAlignment.value = dropdownHorizontalAlignment.value;
+        window.dropdownVerticalAlignment.value = dropdownVerticalAlignment.value;
+        window.timeOnScreen.value = timeOnScreen.value;
+        window.fontColorInput.value = fontColorInput.value;
+        window.backgroundColorInput.value = backgroundColorInput.value;
+        window.fontSizeInput.value = fontSizeInput.value;
+        window.selectedSounds = new List<ACC_Sound>(selectedSounds);
+        
+        if (isEditing)
+        {
+            window.oldName = oldName;
+            window.isEditing = true;
+        }
+        window.LoadSelectedSounds();
+    }
+    
+    private void ConfirmSaveChangesIfNeeded()
+    {
+        isClosing = true;
+        if (IsThereAnyChange())
+        {
+            var result = EditorUtility.DisplayDialogComplex("Visual notification file has been modified",
+                $"Do you want to save the changes you made in:\n./ACC_JSONSubtitle/{nameInput.value}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
+            switch (result)
+            {
+                case 0:
+                    HandleSave();
+                    OnCloseVisualNotificationWindow?.Invoke();
+                    break;
+                case 1:
+                    Cancel();
+                    break;
+                case 2:
+                    break;
+            }
         }
     }
 }
