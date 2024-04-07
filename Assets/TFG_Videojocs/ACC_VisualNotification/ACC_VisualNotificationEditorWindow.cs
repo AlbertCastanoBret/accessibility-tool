@@ -500,7 +500,6 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
     
     private void ConfirmSaveChangesIfNeeded()
     {
-        isClosing = true;
         if (IsThereAnyChange())
         {
             var result = EditorUtility.DisplayDialogComplex("Visual notification file has been modified",
@@ -508,6 +507,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
             switch (result)
             {
                 case 0:
+                    isClosing = true;
                     HandleSave();
                     OnCloseVisualNotificationWindow?.Invoke();
                     break;

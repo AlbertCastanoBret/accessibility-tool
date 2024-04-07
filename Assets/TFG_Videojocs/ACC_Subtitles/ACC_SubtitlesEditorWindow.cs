@@ -23,7 +23,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
     
     public delegate void SubtitleWindowDelegate();
     public static event SubtitleWindowDelegate OnCloseSubtitleWindow;
-    
+
     private void OnDestroy()
     {
         ConfirmSaveChangesIfNeeded();
@@ -88,7 +88,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         lastSubtitleData.backgroundColor = backgroundColorInput.value;
         lastSubtitleData.fontSize = fontSizeInput.value;
     }
-
+    
     private VisualElement CreateTable()
     {
         var table = new VisualElement();
@@ -119,18 +119,6 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             subtitleField.value = subtitle;
             subtitleField.AddToClassList("subtitles-new-cell");
             subtitleField[0].AddToClassList("subtitles-input-cell");
-            /*subtitleField.RegisterCallback<KeyDownEvent>(evt =>
-            {
-                if (evt.keyCode == KeyCode.Return)
-                {
-                    CreateRow(1);
-                    evt.StopPropagation();
-                }
-                else if (evt.keyCode == KeyCode.Backspace && subtitleField.value == "")
-                {
-                    table.Remove(newRow);
-                }
-            });*/
             
             newRow.Add(subtitleField);
             
@@ -408,8 +396,8 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         
         window.lastSubtitleData = lastSubtitleData;
         window.nameInput.value = nameInput.value;
-        window.fontColorInput.value = new Color(fontColorInput.value.r, fontColorInput.value.g, fontColorInput.value.b, fontColorInput.value.a);
-        window.backgroundColorInput.value = new Color(backgroundColorInput.value.r, backgroundColorInput.value.g, backgroundColorInput.value.b, backgroundColorInput.value.a);
+        window.fontColorInput.value = fontColorInput.value;
+        window.backgroundColorInput.value = backgroundColorInput.value;
         window.fontSizeInput.value = fontSizeInput.value;
         window.table.Remove(window.table[1]);
         for (int i = 1; i < table.childCount; i++)
