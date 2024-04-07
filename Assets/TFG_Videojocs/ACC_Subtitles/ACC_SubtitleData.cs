@@ -17,5 +17,4 @@ public class ACC_SubtitleData: ACC_AbstractData
         subtitleText = new List<ACC_KeyValuePairData<int, string>>();
         timeText = new List<ACC_KeyValuePairData<int, int>>();
     }
-    
 }
