@@ -77,7 +77,6 @@ namespace TFG_Videojocs.ACC_Utilities
         public Button CreateButton(string text, string classList, Action onClick = null)
         {
             var name = GenerateUniqueName(classList);
-            if(name.Contains("delete")) Debug.Log(name);
             
             var button = new Button(() => onClick?.Invoke()) { name = name, text = text };
             button.AddToClassList(classList);

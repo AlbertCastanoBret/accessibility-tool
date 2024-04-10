@@ -11,7 +11,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEditorWindowController>
+public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEditorWindowController, ACC_SubtitlesEditorWindow2>
 {
     private VisualElement table;
     private TextField nameInput;
@@ -26,15 +26,17 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
     public delegate void SubtitleWindowDelegate();
     public static event SubtitleWindowDelegate OnCloseSubtitleWindow;
 
-    /* void OnEnable()
+    void OnEnable()
     {
-        CompilationPipeline.compilationStarted += OnCompilationStarted;
+        Debug.Log("OnEnable");
+        //CompilationPipeline.compilationStarted += OnCompilationStarted;
     }
 
-    private void OnDisable()
+    /*private void OnDisable()
     {
         CompilationPipeline.compilationStarted -= OnCompilationStarted;
     }*/
+    
     
     private void OnCompilationStarted(object obj)
     {
@@ -75,7 +77,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         if (name != null)
         {
             window.isEditing = true;
-            window.LoadJson(name);
+            window.controller.LoadJson(name);
         }
         //window.ShowModal();
     }
@@ -167,7 +169,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         table.Add(mainRow);
     }
 
-    private void CreateRow(int numberOfRows, string subtitle, int time)
+    public void CreateRow(int numberOfRows, string subtitle, int time)
     {
         for (int i = 0; i < numberOfRows; i++)
         {
@@ -262,7 +264,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         return bottomContainer;
     }
 
-    private void ConfigureJSON()
+    /*private void ConfigureJSON()
     {
         ACC_SubtitleData subtitleData = new ACC_SubtitleData();
         for (int i = 1; i < table.childCount; i++)
@@ -284,7 +286,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         lastSubtitleData = subtitleData;
         
         if(isEditing) oldName = nameInput.value;
-    }
+    }*/
 
     public void LoadJson(string name)
     {
@@ -304,7 +306,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
             table.Remove(row);
         }
 
-        if (isEditing) oldName = subtitleData.name;
+        //if (isEditing) oldName = subtitleData.name;
 
         for (int i = 0; i < subtitleData.subtitleText.Count; i++)
         {
@@ -316,7 +318,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         backgroundColorInput.value = subtitleData.backgroundColor;
         fontSizeInput.value = subtitleData.fontSize;
         
-        lastSubtitleData = subtitleData;
+        //lastSubtitleData = subtitleData;
     }
 
     private void HandleSave()
@@ -326,7 +328,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
             var fileExists = ACC_JSONHelper.FileNameAlreadyExists("/ACC_JSONSubtitle/" + nameInput.value);
             if (!fileExists && !isEditing || fileExists && isEditing && nameInput.value == oldName)
             {
-                ConfigureJSON();
+                controller.ConfigureJson();
             }
             else if(fileExists && !isEditing || fileExists && isEditing && nameInput.value != oldName)
             {
@@ -340,7 +342,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
                 switch (option)
                 {
                     case 0:
-                        ConfigureJSON();
+                        controller.ConfigureJson();
                         break;
                     case 1:
                         if(isClosing) controller.Cancel(this);
@@ -359,14 +361,14 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
                 switch (option)
                 {
                     case 0:
-                        ConfigureJSON();
+                        controller.ConfigureJson();
                         break;
                     case 1:
                         if(isClosing) controller.Cancel(this);
                         break;
                     case 2:
                         ACC_JSONHelper.RenameFile("/ACC_JSONSubtitle/" + oldName, "/ACC_JSONSubtitle/" + nameInput.value);
-                        ConfigureJSON();
+                        controller.ConfigureJson();
                         break;
                 }
             }

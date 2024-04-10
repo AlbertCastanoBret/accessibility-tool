@@ -7,18 +7,18 @@ using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs
 {
-    public abstract class ACC_BaseFloatingWindow<TController>: EditorWindow where TController : ACC_FloatingWindowController, new()
+    public abstract class ACC_BaseFloatingWindow<TController,TWindow>: EditorWindow where TController : ACC_FloatingWindowController<TWindow>, new() where TWindow : EditorWindow
     {
         protected TController controller;
         protected ACC_UIElementFactory uiElementFactory => controller.uiElementFactory;
-        
-        protected virtual void OnEnable()
+
+        protected ACC_BaseFloatingWindow()
         {
             controller = new TController();
-            controller.Initialize(this);
+            controller.Initialize(this as TWindow);
         }
         
-        public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController>
+        public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController, TWindow>
         {
             foreach (var item in sourceWindow.controller.uiElementFactory.nameCounters)
             {

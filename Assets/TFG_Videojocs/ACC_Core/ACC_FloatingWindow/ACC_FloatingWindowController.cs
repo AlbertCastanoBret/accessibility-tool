@@ -11,30 +11,28 @@ using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs
 {
-    public abstract class ACC_FloatingWindowController
+    public abstract class ACC_FloatingWindowController<TWindow> where TWindow : EditorWindow
     {
-        protected EditorWindow window;
-        public  ACC_UIElementFactory uiElementFactory{get; private set;}
+        protected TWindow window;
+        public  ACC_UIElementFactory uiElementFactory{get; protected set;}
         protected ACC_AbstractData lastData;
         protected bool isEditing, isClosing;
         
-        public void Initialize(EditorWindow window)
+        public void Initialize(TWindow window)
         {
             this.window = window;
             uiElementFactory = new ACC_UIElementFactory();
         }
-        
-        public virtual void ConfigureJson()
-        {
-            
-        }
+
+        public abstract void ConfigureJson();
+        public abstract void LoadJson(string name);
         
         public virtual void HandleSave()
         {
             
         }
 
-        public void Cancel<TController>(ACC_BaseFloatingWindow<TController> window) where TController : ACC_FloatingWindowController, new()
+        public void Cancel<TController>(ACC_BaseFloatingWindow<TController, TWindow> window) where TController : ACC_FloatingWindowController<TWindow>, new()
         {
             var newWindow = Object.Instantiate(window);
             newWindow.titleContent = new GUIContent(window.titleContent.text);
@@ -48,7 +46,7 @@ namespace TFG_Videojocs
             UpdateVisualElementValues(window.rootVisualElement, newWindow.rootVisualElement);
         }
 
-        public void ConfirmSaveChangesIfNeeded<TController>(string name, ACC_BaseFloatingWindow<TController> window) where TController : ACC_FloatingWindowController, new()
+        public void ConfirmSaveChangesIfNeeded<TController>(string name, ACC_BaseFloatingWindow<TController, TWindow> window) where TController : ACC_FloatingWindowController<TWindow>, new()
         {
             if (IsThereAnyChange())
             {
