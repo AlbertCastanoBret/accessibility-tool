@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using TFG_Videojocs;
+using TFG_Videojocs.ACC_Subtitles;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Button = UnityEngine.UIElements.Button;
 
-public class ACC_SubtitlesEditorWindow : EditorWindow
+public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEditorWindowController>
 {
     private VisualElement table;
     private TextField nameInput;
@@ -19,14 +19,14 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
     private ColorField backgroundColorInput;
     private SliderInt fontSizeInput;
     
-    private bool isEditing, isClosing;
-    private string oldName;
-    private ACC_SubtitleData lastSubtitleData;
+    [SerializeField] private bool isEditing, isClosing;
+    [SerializeField] private string oldName;
+    [SerializeField] private ACC_SubtitleData lastSubtitleData;
     
     public delegate void SubtitleWindowDelegate();
     public static event SubtitleWindowDelegate OnCloseSubtitleWindow;
 
-    private void OnEnable()
+    /* void OnEnable()
     {
         CompilationPipeline.compilationStarted += OnCompilationStarted;
     }
@@ -34,7 +34,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
     private void OnDisable()
     {
         CompilationPipeline.compilationStarted -= OnCompilationStarted;
-    }
+    }*/
     
     private void OnCompilationStarted(object obj)
     {
@@ -63,12 +63,12 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
 
     private void OnDestroy()
     {
-        ConfirmSaveChangesIfNeeded();
+        controller.ConfirmSaveChangesIfNeeded(oldName, this);
     }
 
     public static void ShowWindow(string name)
     {
-        var window = GetWindow<ACC_SubtitlesEditorWindow>();
+        var window = GetWindow<ACC_SubtitlesEditorWindow2>();
         window.titleContent = new GUIContent("Subtitle Creation");
         window.minSize = new Vector2(600, 530);
         window.maxSize = new Vector2(600, 530);
@@ -83,31 +83,26 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
     private void CreateGUI()
     {
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Subtitles/ACC_SubtitlesWindowStyles.uss");
-        var mainContainer = new VisualElement();
-        var tableScrollView = new ScrollView();
-        tableScrollView.AddToClassList("table-scroll-view");
         
         rootVisualElement.styleSheets.Add(styleSheet);
+        rootVisualElement.name = "root-visual-element";
+        rootVisualElement.AddToClassList("main-container");
+        
         ColorUtility.TryParseHtmlString("#4f4f4f", out var backgroundColor);
         rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
-        mainContainer.AddToClassList("main-container");
-
-        var subtitlesTitle = new Label("Subtitles");
-        subtitlesTitle.AddToClassList("subtitles-title");
+        
+        var subtitlesTitle= uiElementFactory.CreateLabel("subtitles-title", "Subtitles");
             
-        table = CreateTable();
+        CreateTable();
         CreateRow(1, "Hello", 1);
-        tableScrollView.Add(table);
         
-        mainContainer.Add(subtitlesTitle);
-        mainContainer.Add(tableScrollView);
-
-        var settingsContainer = CreateSettingsContainer();
-        var bottomContainer = CreateBottomContainer();
+        var tableScrollView = uiElementFactory.CreateScrollView(table, "table-scroll-view");
         
-        mainContainer.Add(settingsContainer);
-        mainContainer.Add(bottomContainer);
-        rootVisualElement.Add(mainContainer);
+        rootVisualElement.Add(subtitlesTitle);
+        rootVisualElement.Add(tableScrollView);
+        
+        rootVisualElement.Add(CreateSettingsContainer());
+        rootVisualElement.Add(CreateBottomContainer());
         
         lastSubtitleData = new ACC_SubtitleData();
         for (int i = 1; i < table.childCount; i++)
@@ -124,7 +119,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         lastSubtitleData.backgroundColor = backgroundColorInput.value;
         lastSubtitleData.fontSize = fontSizeInput.value;
         
-        RestoreDataAfterCompilation();
+        //RestoreDataAfterCompilation();
     }
 
     private void RestoreDataAfterCompilation()
@@ -160,98 +155,59 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         
     }
     
-    private VisualElement CreateTable()
+    private void CreateTable()
     {
-        var table = new VisualElement();
-        var mainRow = new VisualElement();
-        var subtitles = new Label("Subtitles");
-        var time = new Label("Time");
-        
-        table.AddToClassList("table");
-        mainRow.AddToClassList("main-row");
-        subtitles.AddToClassList("subtitles-cell");
-        time.AddToClassList("time-cell");
+        table = uiElementFactory.CreateVisualElement("table");
+        var mainRow = uiElementFactory.CreateVisualElement("main-row");
+        var subtitles = uiElementFactory.CreateLabel("subtitles-cell", "Subtitles");
+        var time = uiElementFactory.CreateLabel("time-cell", "Time");
         
         mainRow.Add(subtitles);
         mainRow.Add(time);
         table.Add(mainRow);
-
-        return table;
     }
 
     private void CreateRow(int numberOfRows, string subtitle, int time)
     {
         for (int i = 0; i < numberOfRows; i++)
         {
-            var newRow = new VisualElement();
-            newRow.AddToClassList("row");
-            
-            var subtitleField = new TextField();
-            subtitleField.value = subtitle;
-            subtitleField.AddToClassList("subtitles-new-cell");
-            subtitleField[0].AddToClassList("subtitles-input-cell");
+            var newRow = uiElementFactory.CreateVisualElement("new-row");
+            var subtitleField = uiElementFactory.CreateTextField(value: subtitle, classList: "subtitles-new-cell", subClassList: "subtitles-input-cell");
+            var timeField = uiElementFactory.CreateIntegerField(value: time, classList: "time-new-cell", subClassList: "time-input-cell");
+            var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () => table.Q(name: newRow.name).RemoveFromHierarchy());
             
             newRow.Add(subtitleField);
-            
-            var timeField = new IntegerField();
-            timeField.value = time;
-            timeField.AddToClassList("time-new-cell");
-            timeField[0].AddToClassList("time-input-cell");
             newRow.Add(timeField); 
-            
-            var deleteButton = new Button(() => table.Remove(newRow)) { text = "-" };
-            deleteButton.AddToClassList("delete-row-button");
             newRow.Add(deleteButton);
             
             table.Add(newRow);
-            
-            rootVisualElement.schedule.Execute(() =>
-            {
-                subtitleField[0].Focus();
-            }).StartingIn((long)0.001);
+            rootVisualElement.schedule.Execute(() => { subtitleField[0].Focus(); }).StartingIn((long)0.001);
         }
     }
 
     private VisualElement CreateSettingsContainer()
     {
-        var settingsContainer = new VisualElement();
-        settingsContainer.AddToClassList("settings-container");
+        var settingsContainer = uiElementFactory.CreateVisualElement("settings-container");
         
-        var settingsTitle = new Label("Settings");
-        settingsTitle.AddToClassList("settings-title");
+        var settingsTitle = uiElementFactory.CreateLabel("settings-title", "Settings");
         
-        var nameContainer = new VisualElement();
-        nameContainer.AddToClassList("option-container");
-        var nameTitle = new Label("Name:");
-        nameTitle.AddToClassList("option-title");
-        nameInput = new TextField();
-        nameInput.AddToClassList("option-input");
+        var nameContainer = uiElementFactory.CreateVisualElement("option-container");
+        var nameTitle = uiElementFactory.CreateLabel("option-title", "Name:");
+        nameInput = uiElementFactory.CreateTextField(value: "", classList: "option-input");
         
-        var fontColorContainer = new VisualElement();
-        fontColorContainer.AddToClassList("option-container");
-        var fontColorTitle = new Label("Font color:");
-        fontColorTitle.AddToClassList("option-title");
-        fontColorInput = new ColorField();
-        fontColorInput.AddToClassList("option-input");
-        fontColorInput.value = new Color(0,0,0,1);
+        var fontColorContainer = uiElementFactory.CreateVisualElement("option-container");
+        var fontColorTitle = uiElementFactory.CreateLabel("option-title", "Font color:");
+        fontColorInput = uiElementFactory.CreateColorField("option-input", Color.black);
         
-        var backgroundColorContainer = new VisualElement();
-        backgroundColorContainer.AddToClassList("option-container");
-        var backgroundColorTitle = new Label("Background color:");
-        backgroundColorTitle.AddToClassList("option-title");
-        backgroundColorInput = new ColorField();
-        backgroundColorInput.AddToClassList("option-input");
-        backgroundColorInput.value = new Color(0,0,0,1);
+        var backgroundColorContainer = uiElementFactory.CreateVisualElement("option-container");
+        var backgroundColorTitle = uiElementFactory.CreateLabel("option-title", "Background color:");
+        backgroundColorInput = uiElementFactory.CreateColorField("option-input", Color.white);
         
-        var fontSizeContainer = new VisualElement();
-        fontSizeContainer.AddToClassList("font-size-container");
+        var fontSizeContainer = uiElementFactory.CreateVisualElement("option-container");
+        fontSizeInput = uiElementFactory.CreateSliderInt("font-size-slider","Font size:", 10, 60, 20,
+            "font-size-label");
         
-        fontSizeInput = new SliderInt("Font size:", 10, 60) { value = 20 };
-        fontSizeInput.AddToClassList("font-size-slider");
-        fontSizeInput[0].AddToClassList("font-size-label");
-        
-        var fontSizeField = new IntegerField { value = 20, name = "fontSizeField" };
-        fontSizeField.AddToClassList("font-size-field");
+        var fontSizeField = uiElementFactory.CreateIntegerField(value: 20, classList: "font-size-field");
         
         fontSizeInput.RegisterValueChangedCallback(evt =>
         {
@@ -286,37 +242,21 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
 
     private VisualElement CreateBottomContainer()
     {
-        var bottomContainer = new VisualElement();
-        bottomContainer.AddToClassList("bottom-container");
-        
-        var createSubtitleButton = new Button() { text = "Save" };
-        createSubtitleButton.AddToClassList("create-subtitle-button");
-        createSubtitleButton.clicked += () =>
-        {
-            HandleSave();
-        };
-        bottomContainer.Add(createSubtitleButton);
+        var bottomContainer = uiElementFactory.CreateVisualElement("bottom-container");
+        var createSubtitleButton = uiElementFactory.CreateButton("Save", "create-subtitle-button", HandleSave);
 
-        var addSubtitlesContainer = new VisualElement();
-        addSubtitlesContainer.AddToClassList("add-subtitles-container");
+        var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-subtitles-container");
+        var addSubtitlesLabel = uiElementFactory.CreateLabel("add-subtitles-label", "Add subtitles:");
         
-        var addSubtitlesLabel = new Label("Add Subtitles:");
-        addSubtitlesLabel.AddToClassList("add-subtitles-label");
-        
-        var addSubtitle1 = new Button(){text = "+1"};
-        addSubtitle1.AddToClassList("add-subtitle-button");
-        addSubtitle1.clicked += () => { CreateRow(1, "Hello", 1); };
-        var addSubtitle5 = new Button(){text = "+5"};
-        addSubtitle5.AddToClassList("add-subtitle-button");
-        addSubtitle5.clicked += () => { CreateRow(5, "Hello", 1); };
-        var addSubtitle10 = new Button(){text = "+10"};
-        addSubtitle10.AddToClassList("add-subtitle-button");
-        addSubtitle10.clicked += () => { CreateRow(10, "Hello", 1); };
+        var addSubtitle1 = uiElementFactory.CreateButton("+1", "add-subtitle-button", () => CreateRow(1, "Hello", 1));
+        var addSubtitle5 = uiElementFactory.CreateButton("+5", "add-subtitle-button", () => CreateRow(5, "Hello", 1));
+        var addSubtitle10 = uiElementFactory.CreateButton("+10", "add-subtitle-button", () => CreateRow(10, "Hello", 1));
         
         addSubtitlesContainer.Add(addSubtitlesLabel);
         addSubtitlesContainer.Add(addSubtitle1);
         addSubtitlesContainer.Add(addSubtitle5);
         addSubtitlesContainer.Add(addSubtitle10); 
+        bottomContainer.Add(createSubtitleButton);
         bottomContainer.Add(addSubtitlesContainer);
 
         return bottomContainer;
@@ -403,7 +343,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
                         ConfigureJSON();
                         break;
                     case 1:
-                        if(isClosing) Cancel();
+                        if(isClosing) controller.Cancel(this);
                         break;
                 }
             }
@@ -422,7 +362,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
                         ConfigureJSON();
                         break;
                     case 1:
-                        if(isClosing) Cancel();
+                        if(isClosing) controller.Cancel(this);
                         break;
                     case 2:
                         ACC_JSONHelper.RenameFile("/ACC_JSONSubtitle/" + oldName, "/ACC_JSONSubtitle/" + nameInput.value);
@@ -435,7 +375,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         else
         {
             EditorUtility.DisplayDialog("Required field", "Please, introduce a name before saving.", "OK");
-            if(isClosing) Cancel();
+            if(isClosing) controller.Cancel(this);
         }
     }
 
@@ -455,53 +395,5 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             if (lastSubtitleData.timeText[i - 1].value != timeElement.value) return true;
         }
         return false;
-    }
-
-    private void Cancel()
-    {
-        var window = Instantiate(this);
-        window.titleContent = new GUIContent("Subtitle Creation");
-        window.minSize = new Vector2(600, 530);
-        window.maxSize = new Vector2(600, 530);
-        window.Show();
-        
-        window.lastSubtitleData = lastSubtitleData;
-        window.nameInput.value = nameInput.value;
-        window.fontColorInput.value = fontColorInput.value;
-        window.backgroundColorInput.value = backgroundColorInput.value;
-        window.fontSizeInput.value = fontSizeInput.value;
-        window.table.Remove(window.table[1]);
-        for (int i = 1; i < table.childCount; i++)
-        {
-            window.CreateRow(1, table[i].Query<TextField>().First().text, table[i].Query<IntegerField>().First().value);
-        }
-        
-        if (isEditing)
-        {
-            window.oldName = oldName;
-            window.isEditing = true;
-        }
-    }
-    
-    private void ConfirmSaveChangesIfNeeded()
-    {
-        if (IsThereAnyChange())
-        {
-            var result = EditorUtility.DisplayDialogComplex("Subtitles file has been modified",
-                $"Do you want to save the changes you made in:\n./ACC_JSONSubtitle/{nameInput.value}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
-            switch (result)
-            {
-                case 0:
-                    isClosing = true;
-                    HandleSave();
-                    OnCloseSubtitleWindow?.Invoke();
-                    break;
-                case 1:
-                    Cancel();
-                    break;
-                case 2:
-                    break;
-            }
-        }
     }
 }

@@ -14,7 +14,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Editor;
 using UnityEngine.UIElements;
 
-public class ACC_Window : EditorWindow
+public class ACC_MainWindow : EditorWindow
 {
     private VisualElement accessibilityContainer;
     private const int numberOfColumns = 2;
@@ -29,23 +29,20 @@ public class ACC_Window : EditorWindow
     
     private void OnEnable()
     {
-        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += RefreshSubtititleWindow;
+        ACC_SubtitlesEditorWindow2.OnCloseSubtitleWindow += RefreshSubtititleWindow;
         ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow += RefreshVisualNotification;
-        //audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
-        //audioManager.OnSoundsChanged += CreateSoundList;
     }
 
     private void OnDisable()
     {
-        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= RefreshSubtititleWindow;
+        ACC_SubtitlesEditorWindow2.OnCloseSubtitleWindow -= RefreshSubtititleWindow;
         ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow -= RefreshVisualNotification;
-        //audioManager.OnSoundsChanged -= CreateSoundList;
     }
 
     [MenuItem("Tools/ACC/Accessibility Window")]
     public static void ShowWindow()
     {
-        var window = GetWindow<ACC_Window>("Accessibility Window");
+        var window = GetWindow<ACC_MainWindow>("Accessibility Window");
         window.minSize = new Vector2(520, 300);
     }
 
@@ -93,28 +90,12 @@ public class ACC_Window : EditorWindow
     
     private void UpdateAccessibilityContainer(Type featureType)
     {
-        //int numberOfRows = (Enum.GetNames(featureType).Length%2==0 ? Enum.GetNames(featureType).Length : Enum.GetNames(featureType).Length + 1) / numberOfColumns;
         accessibilityContainer.Clear();
         for (int i = 0; i < Enum.GetNames(featureType).Length; i++)
         {
             accessibilityContainer.Add(CreateFeatureBox(featureType, i));
         }
-        /*for (int i = 0; i < numberOfRows; i++)
-        {
-            CreateAccessibilityRow(featureType, i);
-        }*/
     }
-    
-    /*private void CreateAccessibilityRow(Type featureType, int rowIndex)
-    {
-        var row = new VisualElement();
-        row.AddToClassList("accessibility-row");
-        for (int i = 0; i < numberOfColumns; i++)
-        {
-            if(Enum.GetName(featureType, numberOfColumns*rowIndex+i)!=null) row.Add(CreateFeatureBox(featureType, numberOfColumns*rowIndex+i));
-        }
-        accessibilityContainer.Add(row);
-    }*/
 
     private VisualElement CreateFeatureBox(Type featuretype, int index)
     {
@@ -201,7 +182,7 @@ public class ACC_Window : EditorWindow
         
         createSubtitlesButton.clicked += () =>
         {
-            ACC_SubtitlesEditorWindow.ShowWindow(null);
+            ACC_SubtitlesEditorWindow2.ShowWindow(null);
         };
 
         return subtitleCreationContainer;
@@ -224,7 +205,7 @@ public class ACC_Window : EditorWindow
         loadSubtitlesButton.AddToClassList("button");
         loadSubtitlesButton.clicked += () =>
         {
-            if (!string.IsNullOrEmpty(subtitlesDropdown.value)) ACC_SubtitlesEditorWindow.ShowWindow(subtitlesDropdown.value);
+            if (!string.IsNullOrEmpty(subtitlesDropdown.value)) ACC_SubtitlesEditorWindow2.ShowWindow(subtitlesDropdown.value);
             else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to load.", "OK");
         };
 

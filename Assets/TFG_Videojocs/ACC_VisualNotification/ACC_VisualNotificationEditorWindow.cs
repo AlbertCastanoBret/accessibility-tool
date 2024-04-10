@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TFG_Videojocs.ACC_Utilities;
 using UnityEditor;
+using UnityEditor.Compilation;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -32,16 +34,37 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
     {
         audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
         audioManager.OnSoundsChanged += ResetSoundsList;
+        CompilationPipeline.compilationStarted += OnCompilationStarted;
     }
 
     private void OnDisable()
     {
         audioManager.OnSoundsChanged -= ResetSoundsList;
+        CompilationPipeline.compilationStarted -= OnCompilationStarted;
     }
 
     private void OnDestroy()
     {
         ConfirmSaveChangesIfNeeded();
+    }
+    
+    private void OnCompilationStarted(object obj)
+    {
+        var container = new ACC_PreCompilationDataStorage();
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", nameInput.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", messageInput.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", dropdownHorizontalAlignment.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", dropdownVerticalAlignment.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", timeOnScreen.value.ToString()));
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", fontSizeInput.value.ToString()));
+        
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", JsonUtility.ToJson(selectedSounds)));
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", JsonUtility.ToJson(lastVisualNotificationData)));
+        
+        var json = JsonUtility.ToJson(container);
+        SessionState.SetString("visual_notification_tempData", json);
     }
 
     public static void ShowWindow(string name)
@@ -217,6 +240,29 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         lastVisualNotificationData.fontColor = fontColorInput.value;
         lastVisualNotificationData.backgroundColor = backgroundColorInput.value;
         lastVisualNotificationData.fontSize = fontSizeInput.value;
+        
+        RestoreDataAfterCompilation();
+    }
+
+    private void RestoreDataAfterCompilation()
+    {
+        var serializedData = SessionState.GetString("visual_notification_tempData", "");
+        if (serializedData != "")
+        {
+            var tempData = JsonUtility.FromJson<ACC_PreCompilationDataStorage>(serializedData);
+            nameInput.value = tempData.keyValuePairs[0].value;
+            messageInput.value = tempData.keyValuePairs[1].value;
+            dropdownHorizontalAlignment.value = tempData.keyValuePairs[2].value;
+            dropdownVerticalAlignment.value = tempData.keyValuePairs[3].value;
+            timeOnScreen.value = int.Parse(tempData.keyValuePairs[4].value);
+            ColorUtility.TryParseHtmlString("#"+ tempData.keyValuePairs[5].value, out var fontColor);
+            fontColorInput.value = fontColor;
+            ColorUtility.TryParseHtmlString("#"+ tempData.keyValuePairs[6].value, out var backgroundColor);
+            backgroundColorInput.value = backgroundColor;
+            fontSizeInput.value = int.Parse(tempData.keyValuePairs[7].value);
+            
+        }
+        SessionState.EraseString("visual_notification_tempData");
     }
 
     private void ResetSoundsList()
