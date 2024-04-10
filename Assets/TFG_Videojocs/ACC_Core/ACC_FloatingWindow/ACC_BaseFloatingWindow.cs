@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs
@@ -17,7 +18,14 @@ namespace TFG_Videojocs
             controller = new TController();
             controller.Initialize(this as TWindow);
         }
-        
+
+        private void CreateGUI()
+        {
+            rootVisualElement.name = "root-visual-element";
+            ColorUtility.TryParseHtmlString("#4f4f4f", out var backgroundColor);
+            rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
+        }
+
         public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController, TWindow>
         {
             foreach (var item in sourceWindow.controller.uiElementFactory.nameCounters)

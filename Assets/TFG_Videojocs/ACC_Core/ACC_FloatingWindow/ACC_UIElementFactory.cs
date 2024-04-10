@@ -52,12 +52,13 @@ namespace TFG_Videojocs.ACC_Utilities
             return integerField;
         }
 
-        public ColorField CreateColorField(string classList, Color color = default, Action<Color> onValueChanged = null)
+        public ColorField CreateColorField(string classList, string label, Color color = default, string subClassList = "", Action<Color> onValueChanged = null)
         {
             var name = GenerateUniqueName(classList);
             
-            var colorField = new ColorField { name = name, value = color == default ? Color.white : color };
+            var colorField = new ColorField(label) { name = name, value = color == default ? Color.white : color };
             colorField.AddToClassList(classList);
+            colorField[0].AddToClassList(subClassList);
             colorField.RegisterValueChangedCallback(evt => onValueChanged?.Invoke(evt.newValue));
             return colorField;
         }

@@ -28,20 +28,22 @@ namespace TFG_Videojocs.ACC_Subtitles
                 subtitleData.timeText.Add(new ACC_KeyValuePairData<int, int>(i, timeElement.value));
             }
             
-            subtitleData.name = window.rootVisualElement.Query<TextField>(name: "option-input-0").First().value;
-            subtitleData.fontColor = window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value;
-            subtitleData.backgroundColor = window.rootVisualElement.Query<ColorField>(name: "option-input-2").First().value;
+            subtitleData.name = window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First().value;
+            subtitleData.fontColor = window.rootVisualElement.Query<ColorField>(name: "option-input-0").First().value;
+            subtitleData.backgroundColor = window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value;
             subtitleData.fontSize = window.rootVisualElement.Query<SliderInt>(name: "font-size-slider-0").First().value;
             
             ACC_JSONHelper.CreateJson(subtitleData, "/ACC_JSONSubtitle/");
+            lastData = subtitleData;
+            if (isEditing) oldName = subtitleData.name;
         }
 
         public override void LoadJson(string name)
         {
             ACC_SubtitleData subtitleData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>("/ACC_JSONSubtitle/" + name);
-            window.rootVisualElement.Query<TextField>(name: "option-input-0").First().value = subtitleData.name;
-            window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value = subtitleData.fontColor;
-            window.rootVisualElement.Query<ColorField>(name: "option-input-2").First().value = subtitleData.backgroundColor;
+            window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First().value = subtitleData.name;
+            window.rootVisualElement.Query<ColorField>(name: "option-input-0").First().value = subtitleData.fontColor;
+            window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value = subtitleData.backgroundColor;
             window.rootVisualElement.Query<SliderInt>(name: "font-size-slider-0").First().value = subtitleData.fontSize;
             
             var table = window.rootVisualElement.Query<VisualElement>(name: "table-0").First();
@@ -57,6 +59,8 @@ namespace TFG_Videojocs.ACC_Subtitles
             {
                 table.Remove(row);
             }
+            
+            if (isEditing) oldName = subtitleData.name;
             
             for (int i = 0; i < subtitleData.subtitleText.Count; i++)
             {

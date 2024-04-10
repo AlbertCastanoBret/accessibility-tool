@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using TFG_Videojocs.ACC_Utilities;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -15,21 +16,86 @@ namespace TFG_Videojocs
     {
         protected TWindow window;
         public  ACC_UIElementFactory uiElementFactory{get; protected set;}
+        public ACC_AbstractData currentData;
         protected ACC_AbstractData lastData;
-        protected bool isEditing, isClosing;
+        
+        protected string oldName;
+        public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile;
         
         public void Initialize(TWindow window)
         {
             this.window = window;
             uiElementFactory = new ACC_UIElementFactory();
+            isClosing = false;
         }
 
         public abstract void ConfigureJson();
         public abstract void LoadJson(string name);
         
-        public virtual void HandleSave()
+        public virtual void HandleSave<TController>(ACC_BaseFloatingWindow<TController, TWindow> window) where TController : ACC_FloatingWindowController<TWindow>, new()
         {
-            
+            var nameInput = window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First();
+            if (nameInput.value.Length > 0)
+            {
+                var fileExists = ACC_JSONHelper.FileNameAlreadyExists("/ACC_JSONSubtitle/" + nameInput.value);
+                if (!fileExists && !isEditing || fileExists && isEditing && nameInput.value == oldName)
+                {
+                    isCreatingNewFileOnCreation = true;
+                    ConfigureJson();
+                }
+                else if(fileExists && !isEditing || fileExists && isEditing && nameInput.value != oldName)
+                {
+                    int option = EditorUtility.DisplayDialogComplex(
+                        "File name already exists",
+                        "The name \"" + nameInput.value + "\" already exists. What would you like to do?",
+                        "Overwrite",
+                        "Cancel",
+                        ""
+                    );
+                    switch (option)
+                    {
+                        case 0:
+                            isOverWriting = true;
+                            isCreatingNewFileOnCreation = true;
+                            ConfigureJson();
+                            break;
+                        case 1:
+                            if(isClosing) Cancel(window);
+                            break;
+                    }
+                }
+                else if(!fileExists && isEditing)
+                {
+                    int option = EditorUtility.DisplayDialogComplex(
+                        "Name Change Detected",
+                        $"The name has been changed to \"{nameInput.value}\". What would you like to do?",
+                        "Create New File", 
+                        "Cancel",
+                        "Rename Existing File"
+                    );
+                    switch (option)
+                    {
+                        case 0:
+                            isCreatingNewFileOnEdition = true;
+                            ConfigureJson();
+                            break;
+                        case 1:
+                            if(isClosing) Cancel(window);
+                            break;
+                        case 2:
+                            isRenamingFile = true;
+                            ACC_JSONHelper.RenameFile("/ACC_JSONSubtitle/" + oldName, "/ACC_JSONSubtitle/" + nameInput.value);
+                            ConfigureJson();
+                            break;
+                    }
+                }
+                if (isCreatingNewFileOnCreation) window.Close();
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Required field", "Please, introduce a name before saving.", "OK");
+                if(isClosing) Cancel(window);
+            }
         }
 
         public void Cancel<TController>(ACC_BaseFloatingWindow<TController, TWindow> window) where TController : ACC_FloatingWindowController<TWindow>, new()
@@ -48,7 +114,7 @@ namespace TFG_Videojocs
 
         public void ConfirmSaveChangesIfNeeded<TController>(string name, ACC_BaseFloatingWindow<TController, TWindow> window) where TController : ACC_FloatingWindowController<TWindow>, new()
         {
-            if (IsThereAnyChange())
+            if (true)
             {
                 var result = EditorUtility.DisplayDialogComplex("Current configuration has been modified",
                     $"Do you want to save the changes you made in:\n./ACC_JSONSubtitle/{name}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
@@ -56,7 +122,7 @@ namespace TFG_Videojocs
                 {
                     case 0:
                         isClosing = true;
-                        HandleSave();
+                        HandleSave(window);
                         //OnCloseSubtitleWindow?.Invoke();
                         break;
                     case 1:
@@ -67,9 +133,10 @@ namespace TFG_Videojocs
                 }
             }
         }
-
+        
         private bool IsThereAnyChange()
         {
+            if(lastData.name != window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First().value) return true;
             return true;
         }
         
