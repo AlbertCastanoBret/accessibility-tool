@@ -64,31 +64,31 @@ namespace TFG_Videojocs.ACC_Utilities
         }
 
         public SliderInt CreateSliderInt(string classList, string label, int minValue, int maxValue, 
-            int defaultValue = 20, Action<int> onValueChanged = null)
+            int defaultValue = 20, string subClassList1 = "slider-secondary", string subClassList2 = "slider-main", Action<int> onValueChanged = null)
         {
             var name = GenerateUniqueName(classList);
             
             var slider = new SliderInt(label, minValue, maxValue) { name = name, value = defaultValue };
             slider.AddToClassList(classList);
-            slider[0].name = GenerateUniqueName("slider-secondary");
-            slider[0].AddToClassList("slider-secondary");
+            slider[0].name = GenerateUniqueName(subClassList1);
+            slider[0].AddToClassList(subClassList1);
             
-            var sliderName = GenerateUniqueName("slider-main");
-            slider[1].name = sliderName;
-            slider[1].AddToClassList("slider-main");
+            slider[1].name = GenerateUniqueName(GenerateUniqueName(subClassList2));
+            slider[1].AddToClassList(subClassList2);
             slider.RegisterValueChangedCallback(evt => onValueChanged?.Invoke(evt.newValue));
             return slider;
         }
         
-        public VisualElement CreateSliderWithIntegerField(string classList, string label, int min, int max, int defaultValue)
+        public VisualElement CreateSliderWithIntegerField(string classList, string label, int min, int max, int defaultValue,
+        string sliderClassList = "slider", string integerFieldClassList = "slider-input")
         {
             var name = GenerateUniqueName(classList);
             
             var container = new VisualElement(){name = name};
             container.AddToClassList(classList);
 
-            var slider = CreateSliderInt("slider", label, min, max, defaultValue);
-            var inputField = CreateIntegerField("slider-input", "", defaultValue);
+            var slider = CreateSliderInt(sliderClassList, label, min, max, defaultValue);
+            var inputField = CreateIntegerField(integerFieldClassList, "", defaultValue);
             
             slider.RegisterValueChangedCallback(evt =>
             {
