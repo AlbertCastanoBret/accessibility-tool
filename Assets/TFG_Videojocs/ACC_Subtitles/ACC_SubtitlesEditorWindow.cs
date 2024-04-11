@@ -37,7 +37,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("fontColor", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
         container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("backgroundColor", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
         container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("fontSize", fontSizeInput.ToString()));
-        
+
         for (int i = 1; i < table.childCount; i++)
         {
             var row = table[i];
@@ -46,15 +46,14 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
             container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("subtitleText" + i, subtitleElement.value));
             container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("timeText" + i, timeElement.value.ToString()));
         }
-        
+
         container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("isEditing", isEditing.ToString()));
         container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("oldName", oldName));
         container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("lastSubtitleData", JsonUtility.ToJson(lastSubtitleData)));
-        
+
         var json = JsonUtility.ToJson(container);
         SessionState.SetString("subtitle_tempData", json);
     }*/
-
     private void OnDestroy()
     {
         OnCloseSubtitleWindow?.Invoke();
@@ -97,41 +96,8 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         rootVisualElement.Add(CreateSettingsContainer());
         rootVisualElement.Add(CreateBottomContainer());
         
-        //RestoreDataAfterCompilation();
+        controller.RestoreDataAfterCompilation();
     }
-
-    /*private void RestoreDataAfterCompilation()
-    {
-        var serializedData = SessionState.GetString("subtitle_tempData", "");
-        if (serializedData != "")
-        {
-            var tempData = JsonUtility.FromJson<ACC_PreCompilationDataStorage>(serializedData);
-            nameInput.value = tempData.keyValuePairs[0].value;
-            
-            ColorUtility.TryParseHtmlString("#" + tempData.keyValuePairs[1].value, out var fontColor);
-            fontColorInput.value = fontColor;
-            
-            ColorUtility.TryParseHtmlString("#" + tempData.keyValuePairs[2].value, out var newBackgroundColor);
-            backgroundColorInput.value = newBackgroundColor;
-            
-            fontSizeInput = int.TryParse(tempData.keyValuePairs[3].value, out var fontSize) ? fontSize : 20;
-            table.Remove(table[1]);
-            
-            for (int i = 4; i < tempData.keyValuePairs.Count; i += 2)
-            {
-                if (tempData.keyValuePairs[i].key.Contains("subtitleText"))
-                {
-                    CreateRow(1, tempData.keyValuePairs[i].value, int.TryParse(tempData.keyValuePairs[i + 1].value, out var time) ? time : 1);
-                }
-            }
-            
-            isEditing = bool.TryParse(tempData.keyValuePairs[^3].value, out var editing) && editing;
-            oldName = tempData.keyValuePairs[^2].value;
-            lastSubtitleData = JsonUtility.FromJson<ACC_SubtitleData>(tempData.keyValuePairs[^1].value);
-        }
-        SessionState.EraseString("subtitle_tempData");
-        
-    }*/
 
     private void CreateTable()
     {

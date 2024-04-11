@@ -6,9 +6,10 @@ using UnityEngine.UIElements;
 
 namespace TFG_Videojocs.ACC_Utilities
 {
+    [System.Serializable]
     public class ACC_UIElementFactory
     {
-        public Dictionary<string, int> nameCounters { get; private set; } = new Dictionary<string, int>();
+        public ACC_SerializableDictiornary<string, int> nameCounters = new();
         public VisualElement CreateVisualElement(string classList)
         {
             var name = GenerateUniqueName(classList);
@@ -131,9 +132,14 @@ namespace TFG_Videojocs.ACC_Utilities
          
         private string GenerateUniqueName(string baseClass)
         {
-            nameCounters.TryAdd(baseClass, 0);
-            var name = $"{baseClass}-{nameCounters[baseClass]}";
-            nameCounters[baseClass]++;
+            nameCounters.AddOrUpdate(baseClass,
+                nameCounters.Items.Exists(item => item.key == baseClass)
+                    ? nameCounters.Items.Find(item => item.key == baseClass).value
+                    : 0);
+
+            var name = $"{baseClass}-{nameCounters.Items.Find(item => item.key == baseClass).value.ToString()}";
+            nameCounters.Items.Find(item => item.key == baseClass).value++;
+            
             return name;
         }
     }

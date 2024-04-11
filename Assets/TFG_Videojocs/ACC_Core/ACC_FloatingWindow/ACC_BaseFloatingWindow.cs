@@ -33,17 +33,8 @@ namespace TFG_Videojocs
             rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
         }
 
-        private void OnGUI()
-        {
-            //Debug.Log(controller.currentData.name);
-        }
-
         public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController, TWindow, TData>
         {
-            foreach (var item in sourceWindow.controller.uiElementFactory.nameCounters)
-            {
-                controller.uiElementFactory.nameCounters[item.Key] = item.Value;
-            }
             controller.CloneControllerAttributes(sourceWindow.controller);
         }
     }

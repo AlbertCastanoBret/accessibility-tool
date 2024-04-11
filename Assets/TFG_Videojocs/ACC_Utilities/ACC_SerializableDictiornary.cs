@@ -1,6 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TFG_Videojocs;
+using TFG_Videojocs.ACC_Utilities;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -64,5 +67,10 @@ public class ACC_SerializableDictiornary<TKey, TValue>: ICloneable
             clone.Items.Add(new ACC_KeyValuePair(item.key, item.value));
         }
         return clone;
+    }
+
+    public void AddOrUpdate<TData, TWindow>(string name, ACC_FloatingWindowController<TWindow, TData> value) where TData : ACC_AbstractData, ICloneable, new() where TWindow : EditorWindow
+    {
+        throw new NotImplementedException();
     }
 }

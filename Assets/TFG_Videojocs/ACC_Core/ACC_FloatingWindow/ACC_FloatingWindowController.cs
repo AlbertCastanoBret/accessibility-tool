@@ -13,10 +13,11 @@ using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs
 {
+    [System.Serializable]
     public abstract class ACC_FloatingWindowController<TWindow, TData> where TWindow : EditorWindow where TData : ACC_AbstractData, ICloneable, new()
     {
         protected TWindow window;
-        public  ACC_UIElementFactory uiElementFactory{get; protected set;}
+        public ACC_UIElementFactory uiElementFactory;
         public TData currentData;
         public TData lastData;
         
@@ -144,7 +145,12 @@ namespace TFG_Videojocs
         
         public void CloneControllerAttributes<TController>(TController sourceController) where TController : ACC_FloatingWindowController<TWindow, TData>
         {
+            foreach (var item in sourceController.uiElementFactory.nameCounters.Items)
+            {
+                uiElementFactory.nameCounters.AddOrUpdate(item.key, item.value);
+            }
             currentData = (TData)sourceController.currentData.Clone();
+            lastData = new TData();
             lastData = (TData)sourceController.lastData.Clone();
             oldName = sourceController.oldName;
             isEditing = sourceController.isEditing;
@@ -158,32 +164,43 @@ namespace TFG_Videojocs
         public void SerializeDataForCompilation(object obj)
         {
             var container = new ACC_PreCompilationDataStorage();
-            var type = currentData.GetType();
+            var type = GetType();
             var fields = type.GetFields();
-            
-            container.keyValuePairs.AddOrUpdate("name", currentData.name);
             
             foreach (var field in fields)
             {
-                var value = field.GetValue(currentData);
+                var value = field.GetValue(this);
                 if (value != null)
                 {
-                    string serializedValue;
-                    
-                    if (field.FieldType == typeof(Color))
-                    {
-                        serializedValue = ColorUtility.ToHtmlStringRGBA((Color)value);
-                    }
-                    else
-                    {
-                        serializedValue = value.ToString();
-                    }
+                    var serializedValue = JsonUtility.ToJson(value);
                     container.keyValuePairs.AddOrUpdate(field.Name, serializedValue);
                 }
             }
-
+            
             var json = JsonUtility.ToJson(container);
-            SessionState.SetString("subtitle_tempData", json);
+            SessionState.SetString(type + "_tempData", json);
+            
+        }
+
+        public virtual void RestoreDataAfterCompilation()
+        {
+            var type = GetType();
+            var json = SessionState.GetString(type + "_tempData", "");
+            if (json.Length > 0)
+            {
+                var container = JsonUtility.FromJson<ACC_PreCompilationDataStorage>(json);
+                var fields = type.GetFields();
+                
+                foreach (var field in fields)
+                {
+                    var serializedValue = container.keyValuePairs.Items.FirstOrDefault(item => item.key == field.Name)?.value;
+                    if (serializedValue != null)
+                    {
+                        var value = JsonUtility.FromJson(serializedValue, field.FieldType);
+                        field.SetValue(this, value);
+                    }
+                }
+            }
         }
         
         private bool IsThereAnyChange()

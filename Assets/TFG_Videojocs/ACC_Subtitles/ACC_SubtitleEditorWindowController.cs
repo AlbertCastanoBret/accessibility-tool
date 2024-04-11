@@ -8,6 +8,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using ColorUtility = UnityEngine.ColorUtility;
 using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs.ACC_Subtitles
@@ -17,6 +18,23 @@ namespace TFG_Videojocs.ACC_Subtitles
         public override void LoadJson(string name)
         {
             ACC_SubtitleData subtitleData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>("/ACC_JSONSubtitle/" + name);
+            RestoreFieldValues(subtitleData);
+
+            if (isEditing) oldName = subtitleData.name;
+            currentData = subtitleData;
+            lastData = subtitleData;
+            
+        }
+
+        public override void RestoreDataAfterCompilation()
+        {
+            base.RestoreDataAfterCompilation();
+            RestoreFieldValues(currentData);
+            SessionState.EraseString( GetType() + "_tempData");
+        }
+
+        private void RestoreFieldValues(ACC_SubtitleData subtitleData)
+        {
             window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First().value = subtitleData.name;
             window.rootVisualElement.Query<ColorField>(name: "option-input-0").First().value = subtitleData.fontColor;
             window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value = subtitleData.backgroundColor;
@@ -36,15 +54,10 @@ namespace TFG_Videojocs.ACC_Subtitles
                 table.Remove(row);
             }
             
-            if (isEditing) oldName = subtitleData.name;
-            
             for (int i = 0; i < subtitleData.subtitleText.Items.Count; i++)
             {
                 window.CreateRow(1, subtitleData.subtitleText.Items[i].value, subtitleData.timeText.Items[i].value);
             }
-
-            currentData = subtitleData;
-            lastData = subtitleData;
         }
     }
 }
