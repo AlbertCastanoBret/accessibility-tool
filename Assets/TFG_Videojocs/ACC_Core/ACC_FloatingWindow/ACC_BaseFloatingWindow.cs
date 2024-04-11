@@ -19,7 +19,7 @@ namespace TFG_Videojocs
             controller.Initialize(this as TWindow);
         }
 
-        private void CreateGUI()
+        protected void CreateGUI()
         {
             rootVisualElement.name = "root-visual-element";
             ColorUtility.TryParseHtmlString("#4f4f4f", out var backgroundColor);

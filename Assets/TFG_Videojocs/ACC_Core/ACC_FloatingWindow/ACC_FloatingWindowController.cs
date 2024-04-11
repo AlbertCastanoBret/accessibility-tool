@@ -206,6 +206,7 @@ namespace TFG_Videojocs
                 }
                 else if (sourceChild is SliderInt sourceSliderInt && targetChild is SliderInt targetSliderInt)
                 {
+                    targetSliderInt[1].style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
                     targetSliderInt.value = sourceSliderInt.value;
                 }
                 UpdateVisualElementValues(sourceChild, targetChild);
@@ -329,12 +330,12 @@ namespace TFG_Videojocs
                     name = sourceVisualElement.name
                 };
                 
-                foreach (var child in sourceVisualElement.Children())
+                foreach (var c in sourceVisualElement.Children())
                 {
-                    var clonedChild = CloneElement(child);
+                    var clonedChild = CloneElement(c);
                     newElement.Add(clonedChild);
                 }
-                
+
                 if (sourceElement.name != "unity-drag-container"
                     && sourceElement.name != "unity-tracker"
                     && sourceElement.name != "unity-dragger-border"
@@ -345,6 +346,7 @@ namespace TFG_Videojocs
                         newElement.AddToClassList(c);
                     }
                 }
+                
                 return newElement;
             }
             

@@ -174,22 +174,27 @@
     font-size: 12px;
 }
 
-.font-size-container{
+.option-slider{
     display: flex;
     flex-direction: row;
     margin-top: 6px;
 }
 
-.font-size-slider{
+.slider{
     width: 88%;
 }
 
-.font-size-label{
+.slider-main{
+    display: flex;
+    background-color: red;
+}
+
+.slider-secondary{
     margin-left: -2px;
     width: 57%;
 }
 
-.font-size-field{
+.slider-input{
     width: 10%;
 }
 

@@ -17,7 +17,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
     private TextField nameInput;
     private ColorField fontColorInput;
     private ColorField backgroundColorInput;
-    private SliderInt fontSizeInput;
+    private int fontSizeInput;
     
     [SerializeField] private bool isEditing, isClosing;
     [SerializeField] private string oldName;
@@ -44,7 +44,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("name", nameInput.value));
         container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("fontColor", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
         container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("backgroundColor", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("fontSize", fontSizeInput.value.ToString()));
+        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("fontSize", fontSizeInput.ToString()));
         
         for (int i = 1; i < table.childCount; i++)
         {
@@ -83,8 +83,9 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         //window.ShowModal();
     }
     
-    private void CreateGUI()
+    private new void CreateGUI()
     {
+        base.CreateGUI();
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Subtitles/ACC_SubtitlesWindowStyles.uss");
         
         rootVisualElement.styleSheets.Add(styleSheet);
@@ -116,7 +117,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         lastSubtitleData.name = nameInput.value;
         lastSubtitleData.fontColor = fontColorInput.value;
         lastSubtitleData.backgroundColor = backgroundColorInput.value;
-        lastSubtitleData.fontSize = fontSizeInput.value;
+        lastSubtitleData.fontSize = fontSizeInput;
         
         //RestoreDataAfterCompilation();
     }
@@ -135,7 +136,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
             ColorUtility.TryParseHtmlString("#" + tempData.keyValuePairs[2].value, out var newBackgroundColor);
             backgroundColorInput.value = newBackgroundColor;
             
-            fontSizeInput.value = int.TryParse(tempData.keyValuePairs[3].value, out var fontSize) ? fontSize : 20;
+            fontSizeInput = int.TryParse(tempData.keyValuePairs[3].value, out var fontSize) ? fontSize : 20;
             table.Remove(table[1]);
             
             for (int i = 4; i < tempData.keyValuePairs.Count; i += 2)
@@ -192,25 +193,9 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         nameInput = uiElementFactory.CreateTextField( "option-input-name", "Name: ", "", "option-input-name-label");
         fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, "option-input-label");
         backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label");
-        
-        var fontSizeContainer = uiElementFactory.CreateVisualElement("option-container");
-        fontSizeInput = uiElementFactory.CreateSliderInt("font-size-slider","Font size:", 10, 60, 20,
-            "font-size-label");
-        
-        var fontSizeField = uiElementFactory.CreateIntegerField(value: 20, classList: "font-size-field");
-        
-        fontSizeInput.RegisterValueChangedCallback(evt =>
-        {
-            fontSizeField.value = evt.newValue;
-        });
-        
-        fontSizeField.RegisterValueChangedCallback(evt =>
-        {
-            fontSizeInput.value = evt.newValue;
-        });
-
-        fontSizeContainer.Add(fontSizeInput);
-        fontSizeContainer.Add(fontSizeField);
+        var fontSizeContainer =
+            uiElementFactory.CreateSliderWithIntegerField("option-slider", "Font size:", 10, 60, 20);
+        fontSizeInput = fontSizeContainer.Query<SliderInt>().First().value;
         
         settingsContainer.Add(settingsTitle);
         settingsContainer.Add(nameInput);
@@ -295,7 +280,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         nameInput.value = subtitleData.name;
         fontColorInput.value = subtitleData.fontColor;
         backgroundColorInput.value = subtitleData.backgroundColor;
-        fontSizeInput.value = subtitleData.fontSize;
+        fontSizeInput = subtitleData.fontSize;
         
         //lastSubtitleData = subtitleData;
     }
@@ -365,7 +350,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         if (lastSubtitleData.name != nameInput.value) return true;
         if (lastSubtitleData.fontColor != fontColorInput.value) return true;
         if (lastSubtitleData.backgroundColor != backgroundColorInput.value) return true;
-        if (lastSubtitleData.fontSize != fontSizeInput.value) return true;
+        if (lastSubtitleData.fontSize != fontSizeInput) return true;
         if (lastSubtitleData.subtitleText.Count != table.childCount - 1) return true;
         for (int i = 1; i < table.childCount; i++)
         {

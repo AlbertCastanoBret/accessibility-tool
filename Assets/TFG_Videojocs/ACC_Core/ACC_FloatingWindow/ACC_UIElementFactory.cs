@@ -63,16 +63,47 @@ namespace TFG_Videojocs.ACC_Utilities
             return colorField;
         }
 
-        public SliderInt CreateSliderInt(string classList, string label, int minValue, int maxValue, int defaultValue = 20, 
-            string subClassList = "", Action<int> onValueChanged = null)
+        public SliderInt CreateSliderInt(string classList, string label, int minValue, int maxValue, 
+            int defaultValue = 20, Action<int> onValueChanged = null)
         {
             var name = GenerateUniqueName(classList);
             
             var slider = new SliderInt(label, minValue, maxValue) { name = name, value = defaultValue };
             slider.AddToClassList(classList);
-            slider[0].AddToClassList(subClassList);
+            slider[0].name = GenerateUniqueName("slider-secondary");
+            slider[0].AddToClassList("slider-secondary");
+            
+            var sliderName = GenerateUniqueName("slider-main");
+            slider[1].name = sliderName;
+            slider[1].AddToClassList("slider-main");
             slider.RegisterValueChangedCallback(evt => onValueChanged?.Invoke(evt.newValue));
             return slider;
+        }
+        
+        public VisualElement CreateSliderWithIntegerField(string classList, string label, int min, int max, int defaultValue)
+        {
+            var name = GenerateUniqueName(classList);
+            
+            var container = new VisualElement(){name = name};
+            container.AddToClassList(classList);
+
+            var slider = CreateSliderInt("slider", label, min, max, defaultValue);
+            var inputField = CreateIntegerField("slider-input", "", defaultValue);
+            
+            slider.RegisterValueChangedCallback(evt =>
+            {
+                inputField.value = evt.newValue;
+            });
+            
+            inputField.RegisterValueChangedCallback(evt =>
+            {
+                slider.value = evt.newValue;
+            });
+            
+            container.Add(slider);
+            container.Add(inputField);
+
+            return container;
         }
 
         public Button CreateButton(string text, string classList, Action onClick = null)

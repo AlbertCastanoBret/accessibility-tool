@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace TFG_Videojocs
@@ -17,7 +18,7 @@ namespace TFG_Videojocs
 
         public static Action CloneAction(List<VisualElement> visualElement)
         {
-            if(visualElement[0].name == "delete-row-button")
+            if(visualElement[0].name.Contains("delete-row-button"))
             {
                 return () => RemoveRowAction(visualElement[0].parent.parent, visualElement[0].parent.name);
             }
