@@ -23,7 +23,6 @@ namespace TFG_Videojocs.ACC_Subtitles
             if (isEditing) oldName = subtitleData.name;
             currentData = subtitleData;
             lastData = subtitleData;
-            
         }
 
         public override void RestoreDataAfterCompilation()
