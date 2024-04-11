@@ -12,12 +12,12 @@ using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs
 {
-    public abstract class ACC_FloatingWindowController<TWindow, TData> where TWindow : EditorWindow where TData : new()
+    public abstract class ACC_FloatingWindowController<TWindow, TData> where TWindow : EditorWindow where TData : ICloneable, new()
     {
         protected TWindow window;
         public  ACC_UIElementFactory uiElementFactory{get; protected set;}
         public TData currentData;
-        protected TData lastData;
+        public TData lastData;
         
         protected string oldName;
         public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile;
@@ -115,7 +115,7 @@ namespace TFG_Videojocs
 
         public void ConfirmSaveChangesIfNeeded<TController>(string name, ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
-            if (true)
+            if (IsThereAnyChange())
             {
                 var result = EditorUtility.DisplayDialogComplex("Current configuration has been modified",
                     $"Do you want to save the changes you made in:\n./ACC_JSONSubtitle/{name}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");

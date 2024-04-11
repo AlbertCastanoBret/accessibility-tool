@@ -8,12 +8,12 @@ using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs
 {
-    public abstract class ACC_BaseFloatingWindow<TController,TWindow, TData>: EditorWindow where TController : ACC_FloatingWindowController<TWindow, TData>, new() where TWindow : EditorWindow where TData : new()
+    public abstract class ACC_BaseFloatingWindow<TController,TWindow, TData>: EditorWindow where TController : ACC_FloatingWindowController<TWindow, TData>, new() where TWindow : EditorWindow where TData : ICloneable, new()
     {
         protected TController controller;
         protected ACC_UIElementFactory uiElementFactory => controller.uiElementFactory;
 
-        protected ACC_BaseFloatingWindow()
+        protected void OnEnable()
         {
             controller = new TController();
             controller.Initialize(this as TWindow);

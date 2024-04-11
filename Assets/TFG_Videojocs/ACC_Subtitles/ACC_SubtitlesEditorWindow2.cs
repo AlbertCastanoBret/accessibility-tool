@@ -103,6 +103,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         
         rootVisualElement.Add(CreateSettingsContainer());
         rootVisualElement.Add(CreateBottomContainer());
+        controller.lastData = (ACC_SubtitleData)controller.currentData.Clone();
         
         /*lastSubtitleData = new ACC_SubtitleData();
         for (int i = 1; i < table.childCount; i++)
@@ -154,7 +155,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         SessionState.EraseString("subtitle_tempData");
         
     }*/
-    
+
     private void CreateTable()
     {
         table = uiElementFactory.CreateVisualElement("table");
@@ -171,12 +172,12 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
     {
         for (int i = 0; i < numberOfRows; i++)
         {
+            int currentRow = table.childCount - 1;
             var newRow = uiElementFactory.CreateVisualElement("new-row");
             var subtitleField = uiElementFactory.CreateTextField(value: subtitle, classList: "subtitles-new-cell", subClassList: "subtitles-input-cell",
-                onValueChanged: value => controller.currentData.subtitleText.AddOrUpdate(table.childCount, value));
-
+                onValueChanged: value => { controller.currentData.subtitleText.AddOrUpdate(currentRow, value); });
             var timeField = uiElementFactory.CreateIntegerField(value: time, classList: "time-new-cell", subClassList: "time-input-cell",
-                onValueChanged: value => controller.currentData.timeText.AddOrUpdate(table.childCount, value));
+                onValueChanged: value => controller.currentData.timeText.AddOrUpdate(currentRow, value));
             var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () => table.Q(name: newRow.name).RemoveFromHierarchy());
             
             newRow.Add(subtitleField);

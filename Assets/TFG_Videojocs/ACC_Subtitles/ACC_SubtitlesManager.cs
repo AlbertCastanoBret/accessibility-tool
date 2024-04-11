@@ -35,9 +35,9 @@ public class ACC_SubtitlesManager : MonoBehaviour
             {
                 if (currentIndex < loadedData.subtitleText.Items.Count)
                 {
-                    subtitleText.text = loadedData.subtitleText.Items[currentIndex].Value;
+                    subtitleText.text = loadedData.subtitleText.Items[currentIndex].value;
                     startTime = currentTime;
-                    nextSubtitleTime = startTime + loadedData.timeText.Items[currentIndex].Value;
+                    nextSubtitleTime = startTime + loadedData.timeText.Items[currentIndex].value;
                     UpdateSize();
                 }
                 else if (currentIndex >= loadedData.subtitleText.Items.Count)

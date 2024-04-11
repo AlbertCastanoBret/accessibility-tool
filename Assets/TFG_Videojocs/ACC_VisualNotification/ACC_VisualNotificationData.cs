@@ -30,7 +30,8 @@ public class ACC_VisualNotificationData: ACC_AbstractData
 
         bool soundsEqual = soundsList.SequenceEqual(other.soundsList);
 
-        return soundsEqual
+        return name == other.name
+               && soundsEqual
                && message.Equals(other.message)
                && fontColor.Equals(other.fontColor)
                && backgroundColor.Equals(other.backgroundColor)
@@ -55,5 +56,23 @@ public class ACC_VisualNotificationData: ACC_AbstractData
             hash = (hash * 16777619) ^ timeOnScreen.GetHashCode();
             return hash;
         }
+    }
+
+    public override object Clone()
+    {
+        ACC_VisualNotificationData clone = new ACC_VisualNotificationData
+        {
+            name = name,
+            soundsList = new List<ACC_Sound>(soundsList),
+            message = message,
+            fontColor = fontColor,
+            backgroundColor = backgroundColor,
+            fontSize = fontSize,
+            horizontalAlignment = horizontalAlignment,
+            verticalAlignment = verticalAlignment,
+            timeOnScreen = timeOnScreen
+        };
+
+        return clone;
     }
 }

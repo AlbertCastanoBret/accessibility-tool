@@ -22,8 +22,9 @@ public class ACC_SubtitleData: ACC_AbstractData
 
         bool subtitleTextEqual = subtitleText.Items.SequenceEqual(other.subtitleText.Items);
         bool timeTextEqual = timeText.Items.SequenceEqual(other.timeText.Items);
-
-        return subtitleTextEqual
+        
+        return name == other.name
+               && subtitleTextEqual
                && timeTextEqual
                && fontColor.Equals(other.fontColor)
                && backgroundColor.Equals(other.backgroundColor)
@@ -42,5 +43,20 @@ public class ACC_SubtitleData: ACC_AbstractData
             hash = (hash * 16777619) ^ fontSize.GetHashCode();
             return hash;
         }
+    }
+
+    public override object Clone()
+    {
+        ACC_SubtitleData clone = new ACC_SubtitleData
+        {
+            name = name,
+            subtitleText = (ACC_SerializableDictiornary<int, string>) subtitleText.Clone(),
+            timeText = (ACC_SerializableDictiornary<int, int>)timeText.Clone(),
+            fontColor = fontColor,
+            backgroundColor = backgroundColor,
+            fontSize = fontSize
+        };
+
+        return clone;
     }
 }

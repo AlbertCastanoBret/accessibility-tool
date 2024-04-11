@@ -37,7 +37,7 @@ namespace TFG_Videojocs.ACC_Utilities
             textField.AddToClassList(classList);
             textField[0].AddToClassList(subClassList);
             textField.RegisterValueChangedCallback(evt => onValueChanged?.Invoke(evt.newValue));
-            //onValueChanged?.Invoke(textField.value);
+            onValueChanged?.Invoke(textField.value);
             return textField;
         }
         
@@ -50,7 +50,7 @@ namespace TFG_Videojocs.ACC_Utilities
             integerField.AddToClassList(classList);
             integerField[0].AddToClassList(subClassList);
             integerField.RegisterValueChangedCallback(evt => onValueChanged?.Invoke(evt.newValue));
-            //onValueChanged?.Invoke(integerField.value);
+            onValueChanged?.Invoke(integerField.value);
             return integerField;
         }
 

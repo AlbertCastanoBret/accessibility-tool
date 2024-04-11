@@ -16,26 +16,9 @@ namespace TFG_Videojocs.ACC_Subtitles
     {
         public override void ConfigureJson()
         {
-            ACC_SubtitleData subtitleData = new ACC_SubtitleData();
-            var table = window.rootVisualElement.Query<VisualElement>(name: "table-0").First(); 
-            for (int i = 1; i < table.childCount; i++)
-            {
-                var row = table[i];
-                var subtitleElement = row.Query<TextField>().First();
-                //subtitleData.subtitleText.Add(new ACC_KeyValuePair<int, string>(i, subtitleElement.value));
-
-                var timeElement = row.Query<IntegerField>().First();
-                //subtitleData.timeText.Add(new ACC_KeyValuePair<int, int>(i, timeElement.value));
-            }
-            
-            subtitleData.name = window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First().value;
-            subtitleData.fontColor = window.rootVisualElement.Query<ColorField>(name: "option-input-0").First().value;
-            subtitleData.backgroundColor = window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value;
-            subtitleData.fontSize = window.rootVisualElement.Query<SliderInt>(name: "slider-0").First().value;
-            
-            ACC_JSONHelper.CreateJson(subtitleData, "/ACC_JSONSubtitle/");
-            lastData = subtitleData;
-            if (isEditing) oldName = subtitleData.name;
+            ACC_JSONHelper.CreateJson(currentData, "/ACC_JSONSubtitle/");
+            lastData = (ACC_SubtitleData)currentData.Clone(); 
+            if (isEditing) oldName = currentData.name;
         }
 
         public override void LoadJson(string name)

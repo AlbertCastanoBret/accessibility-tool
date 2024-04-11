@@ -33,7 +33,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             bool controlSchemesEqual = controlSchemesList.Items.SequenceEqual(other.controlSchemesList.Items);
             bool bindingsEqual = bindingsList.Items.SequenceEqual(other.bindingsList.Items);
 
-            return controlSchemesEqual && bindingsEqual;
+            return name == other.name && controlSchemesEqual && bindingsEqual;
         }
 
         public override int GetHashCode()
@@ -45,6 +45,18 @@ namespace TFG_Videojocs.ACC_RemapControls
                 hash = (hash * 16777619) ^ bindingsList.GetHashCode();
                 return hash;
             }
+        }
+
+        public override object Clone()
+        {
+            ACC_ControlSchemeData clone = new ACC_ControlSchemeData
+            {
+                name = name,
+                inputActionAsset = inputActionAsset,
+                controlSchemesList = (ACC_SerializableDictiornary<string, bool>)controlSchemesList.Clone(),
+                bindingsList = (ACC_SerializableDictiornary<ACC_BindingData, bool>)bindingsList.Clone()
+            };
+            return clone;
         }
     }
 }
