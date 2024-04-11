@@ -29,13 +29,13 @@ public class ACC_MainWindow : EditorWindow
     
     private void OnEnable()
     {
-        ACC_SubtitlesEditorWindow2.OnCloseSubtitleWindow += RefreshSubtititleWindow;
+        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += RefreshSubtititleWindow;
         ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow += RefreshVisualNotification;
     }
 
     private void OnDisable()
     {
-        ACC_SubtitlesEditorWindow2.OnCloseSubtitleWindow -= RefreshSubtititleWindow;
+        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= RefreshSubtititleWindow;
         ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow -= RefreshVisualNotification;
     }
 
@@ -182,7 +182,7 @@ public class ACC_MainWindow : EditorWindow
         
         createSubtitlesButton.clicked += () =>
         {
-            ACC_SubtitlesEditorWindow2.ShowWindow(null);
+            ACC_SubtitlesEditorWindow.ShowWindow(null);
         };
 
         return subtitleCreationContainer;
@@ -205,7 +205,7 @@ public class ACC_MainWindow : EditorWindow
         loadSubtitlesButton.AddToClassList("button");
         loadSubtitlesButton.clicked += () =>
         {
-            if (!string.IsNullOrEmpty(subtitlesDropdown.value)) ACC_SubtitlesEditorWindow2.ShowWindow(subtitlesDropdown.value);
+            if (!string.IsNullOrEmpty(subtitlesDropdown.value)) ACC_SubtitlesEditorWindow.ShowWindow(subtitlesDropdown.value);
             else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to load.", "OK");
         };
 
@@ -250,11 +250,6 @@ public class ACC_MainWindow : EditorWindow
                 
         dropdown.AddToClassList("dropdown-container");
         dropdown[0].AddToClassList("dropdown-label");
-        
-        //soundContainer = new ScrollView();
-        //soundContainer.AddToClassList("sound-container");
-        //CreateSoundList();
-        //dynamicContainer.Add(soundContainer);
         
         var addVisualNotificationButton = new Button() { text = "Create" };
         addVisualNotificationButton.AddToClassList("create-button");
@@ -412,49 +407,6 @@ public class ACC_MainWindow : EditorWindow
         };
         
         remapControlsButtonContainer.Add(configureControlSchemesButton);
-        
-        /*var controlSchemesContainer = new VisualElement();
-        controlSchemesContainer.AddToClassList("control-schemes-container");
-        
-        var controlSchemesLabel = new Label("Control schemes:");
-        controlSchemesLabel.AddToClassList("control-schemes-label");
-        
-        var controlSchemesButton = new Button() { text = "" };
-        controlSchemesButton.AddToClassList("control-schemes-button");
-        var arrowLabel = new Label("▼")
-        {
-            style = {
-                unityTextAlign = TextAnchor.MiddleRight,
-                marginLeft = -15,
-                marginRight = 2,
-                fontSize = 8
-            }
-        };
-        controlSchemesButton.Add(arrowLabel);
-        
-        controlSchemesContainer.Add(controlSchemesLabel);
-        controlSchemesContainer.Add(controlSchemesButton);
-
-        controlSchemesButton.clicked += () =>
-        {
-            var actionMapsMenu = new GenericMenu();
-            if (inputActionAsset != null)
-            {
-                foreach (var controlScheme in inputActionAsset.controlSchemes)
-                {
-                    actionMapsMenu.AddItem(new GUIContent(controlScheme.name), false, () =>
-                    {
-                        controlSchemesButton.text = controlScheme.name;
-                    });
-                }
-                actionMapsMenu.AddSeparator("");
-                actionMapsMenu.AddItem(new GUIContent("Add Control Scheme..."), false, () =>
-                {
-                    //AddControlSchemeWindow
-                });
-            }
-            actionMapsMenu.ShowAsContext();
-        };*/
 
         inputAction.RegisterValueChangedCallback(evt =>
         {
@@ -466,18 +418,6 @@ public class ACC_MainWindow : EditorWindow
                 string json = inputActionAsset.ToJson();
                 File.WriteAllText("Assets/a.json", json);
                 AssetDatabase.Refresh();
-                
-                //inputActionAsset.LoadFromJson(json);
-                
-                //dynamicControlSchemesContainer.Add(controlSchemesContainer);
-                /*if (inputActionAsset.controlSchemes.Count > 0)
-                {
-                    //controlSchemesButton.text = inputActionAsset.controlSchemes[0].name;
-                }
-                else
-                {
-                    //controlSchemesButton.text = "No action map";
-                }*/
             }
             else
             {

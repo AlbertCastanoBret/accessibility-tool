@@ -12,15 +12,8 @@ using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs.ACC_Subtitles
 {
-    public class ACC_SubtitleEditorWindowController: ACC_FloatingWindowController<ACC_SubtitlesEditorWindow2, ACC_SubtitleData>
+    public class ACC_SubtitleEditorWindowController: ACC_FloatingWindowController<ACC_SubtitlesEditorWindow, ACC_SubtitleData>
     {
-        public override void ConfigureJson()
-        {
-            ACC_JSONHelper.CreateJson(currentData, "/ACC_JSONSubtitle/");
-            lastData = (ACC_SubtitleData)currentData.Clone(); 
-            if (isEditing) oldName = currentData.name;
-        }
-
         public override void LoadJson(string name)
         {
             ACC_SubtitleData subtitleData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>("/ACC_JSONSubtitle/" + name);
@@ -45,10 +38,13 @@ namespace TFG_Videojocs.ACC_Subtitles
             
             if (isEditing) oldName = subtitleData.name;
             
-            /*for (int i = 0; i < subtitleData.subtitleText.Count; i++)
+            for (int i = 0; i < subtitleData.subtitleText.Items.Count; i++)
             {
-                window.CreateRow(1, subtitleData.subtitleText[i].value, subtitleData.timeText[i].value);
-            }*/
+                window.CreateRow(1, subtitleData.subtitleText.Items[i].value, subtitleData.timeText.Items[i].value);
+            }
+
+            currentData = subtitleData;
+            lastData = subtitleData;
         }
     }
 }

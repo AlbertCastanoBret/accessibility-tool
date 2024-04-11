@@ -12,13 +12,9 @@ namespace TFG_Videojocs.ACC_RemapControls
         public InputActionAsset inputActionAsset;
         public ACC_SerializableDictiornary<string, bool> controlSchemesList;
         public ACC_SerializableDictiornary<ACC_BindingData, bool> bindingsList;
-        //public List<ACC_KeyValuePair<string, bool>> controlSchemesList;
-        //public List<ACC_KeyValuePair<ACC_BindingData, bool>> bindingsList;
 
         public ACC_ControlSchemeData()
         {
-            //controlSchemesList = new List<ACC_KeyValuePair<string, bool>>();
-            //bindingsList = new List<ACC_KeyValuePair<ACC_BindingData, bool>>();
             controlSchemesList = new ACC_SerializableDictiornary<string, bool>();
             bindingsList = new ACC_SerializableDictiornary<ACC_BindingData, bool>();
         }

@@ -8,18 +8,19 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using ColorUtility = UnityEngine.ColorUtility;
 using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs
 {
-    public abstract class ACC_FloatingWindowController<TWindow, TData> where TWindow : EditorWindow where TData : ICloneable, new()
+    public abstract class ACC_FloatingWindowController<TWindow, TData> where TWindow : EditorWindow where TData : ACC_AbstractData, ICloneable, new()
     {
         protected TWindow window;
         public  ACC_UIElementFactory uiElementFactory{get; protected set;}
         public TData currentData;
         public TData lastData;
         
-        protected string oldName;
+        public string oldName { get; protected set; }
         public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile;
         
         public void Initialize(TWindow window)
@@ -30,7 +31,13 @@ namespace TFG_Videojocs
             isClosing = false;
         }
 
-        public abstract void ConfigureJson();
+        public virtual void ConfigureJson()
+        {
+            ACC_JSONHelper.CreateJson(currentData, "/ACC_JSONSubtitle/");
+            lastData = (TData)currentData.Clone(); 
+            if (isEditing) oldName = currentData.name;
+        }
+
         public abstract void LoadJson(string name);
         
         public virtual void HandleSave<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
@@ -90,7 +97,7 @@ namespace TFG_Videojocs
                             break;
                     }
                 }
-                if (isCreatingNewFileOnCreation) window.Close();
+                if (isCreatingNewFileOnCreation && !isEditing) window.Close();
             }
             else
             {
@@ -133,6 +140,50 @@ namespace TFG_Videojocs
                         break;
                 }
             }
+        }
+        
+        public void CloneControllerAttributes<TController>(TController sourceController) where TController : ACC_FloatingWindowController<TWindow, TData>
+        {
+            currentData = (TData)sourceController.currentData.Clone();
+            lastData = (TData)sourceController.lastData.Clone();
+            oldName = sourceController.oldName;
+            isEditing = sourceController.isEditing;
+            isClosing = sourceController.isClosing;
+            isCreatingNewFileOnCreation = sourceController.isCreatingNewFileOnCreation;
+            isOverWriting = sourceController.isOverWriting;
+            isCreatingNewFileOnEdition = sourceController.isCreatingNewFileOnEdition;
+            isRenamingFile = sourceController.isRenamingFile;
+        }
+        
+        public void SerializeDataForCompilation(object obj)
+        {
+            var container = new ACC_PreCompilationDataStorage();
+            var type = currentData.GetType();
+            var fields = type.GetFields();
+            
+            container.keyValuePairs.AddOrUpdate("name", currentData.name);
+            
+            foreach (var field in fields)
+            {
+                var value = field.GetValue(currentData);
+                if (value != null)
+                {
+                    string serializedValue;
+                    
+                    if (field.FieldType == typeof(Color))
+                    {
+                        serializedValue = ColorUtility.ToHtmlStringRGBA((Color)value);
+                    }
+                    else
+                    {
+                        serializedValue = value.ToString();
+                    }
+                    container.keyValuePairs.AddOrUpdate(field.Name, serializedValue);
+                }
+            }
+
+            var json = JsonUtility.ToJson(container);
+            SessionState.SetString("subtitle_tempData", json);
         }
         
         private bool IsThereAnyChange()
