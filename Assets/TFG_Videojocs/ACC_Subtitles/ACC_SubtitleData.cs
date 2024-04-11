@@ -1,20 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEngine;
 
 [System.Serializable]
 public class ACC_SubtitleData: ACC_AbstractData
 {
-    public List<ACC_KeyValuePairData<int, string>> subtitleText;
-    public List<ACC_KeyValuePairData<int, int>> timeText;
+    public ACC_SerializableDictiornary<int ,string> subtitleText = new();
+    public ACC_SerializableDictiornary<int ,int> timeText = new();
     public Color fontColor;
     public Color backgroundColor;
     public int fontSize;
 
-    public ACC_SubtitleData()
+    public override bool Equals(object obj)
     {
-        subtitleText = new List<ACC_KeyValuePairData<int, string>>();
-        timeText = new List<ACC_KeyValuePairData<int, int>>();
+        if (obj == null || GetType() != obj.GetType())
+            return false;
+
+        var other = (ACC_SubtitleData)obj;
+
+        bool subtitleTextEqual = subtitleText.Items.SequenceEqual(other.subtitleText.Items);
+        bool timeTextEqual = timeText.Items.SequenceEqual(other.timeText.Items);
+
+        return subtitleTextEqual
+               && timeTextEqual
+               && fontColor.Equals(other.fontColor)
+               && backgroundColor.Equals(other.backgroundColor)
+               && fontSize == other.fontSize;
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
+        {
+            int hash = (int)2166136261;
+            hash = (hash * 16777619) ^ subtitleText.GetHashCode();
+            hash = (hash * 16777619) ^ timeText.GetHashCode();
+            hash = (hash * 16777619) ^ fontColor.GetHashCode();
+            hash = (hash * 16777619) ^ backgroundColor.GetHashCode();
+            hash = (hash * 16777619) ^ fontSize.GetHashCode();
+            return hash;
+        }
     }
 }

@@ -33,14 +33,14 @@ public class ACC_SubtitlesManager : MonoBehaviour
             float currentTime = Time.time;
             if (currentTime >= nextSubtitleTime)
             {
-                if (currentIndex < loadedData.subtitleText.Count)
+                if (currentIndex < loadedData.subtitleText.Items.Count)
                 {
-                    subtitleText.text = loadedData.subtitleText[currentIndex].value;
+                    subtitleText.text = loadedData.subtitleText.Items[currentIndex].Value;
                     startTime = currentTime;
-                    nextSubtitleTime = startTime + loadedData.timeText[currentIndex].value;
+                    nextSubtitleTime = startTime + loadedData.timeText.Items[currentIndex].Value;
                     UpdateSize();
                 }
-                else if (currentIndex >= loadedData.subtitleText.Count)
+                else if (currentIndex >= loadedData.subtitleText.Items.Count)
                 {
                     currentIndex = -1;
                     canPlaySubtitle = false;

@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs
 {
-    public abstract class ACC_BaseFloatingWindow<TController,TWindow>: EditorWindow where TController : ACC_FloatingWindowController<TWindow>, new() where TWindow : EditorWindow
+    public abstract class ACC_BaseFloatingWindow<TController,TWindow, TData>: EditorWindow where TController : ACC_FloatingWindowController<TWindow, TData>, new() where TWindow : EditorWindow where TData : new()
     {
         protected TController controller;
         protected ACC_UIElementFactory uiElementFactory => controller.uiElementFactory;
@@ -26,7 +26,7 @@ namespace TFG_Videojocs
             rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
         }
 
-        public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController, TWindow>
+        public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController, TWindow, TData>
         {
             foreach (var item in sourceWindow.controller.uiElementFactory.nameCounters)
             {

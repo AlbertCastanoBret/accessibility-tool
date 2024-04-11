@@ -11,7 +11,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEditorWindowController, ACC_SubtitlesEditorWindow2>
+public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEditorWindowController, ACC_SubtitlesEditorWindow2, ACC_SubtitleData>
 {
     private VisualElement table;
     private TextField nameInput;
@@ -38,30 +38,30 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
     }*/
     
     
-    private void OnCompilationStarted(object obj)
+    /*private void OnCompilationStarted(object obj)
     {
         var container = new ACC_PreCompilationDataStorage();
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("name", nameInput.value));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("fontColor", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("backgroundColor", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("fontSize", fontSizeInput.ToString()));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("name", nameInput.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("fontColor", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("backgroundColor", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("fontSize", fontSizeInput.ToString()));
         
         for (int i = 1; i < table.childCount; i++)
         {
             var row = table[i];
             var subtitleElement = row.Query<TextField>().First();
             var timeElement = row.Query<IntegerField>().First();
-            container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("subtitleText" + i, subtitleElement.value));
-            container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("timeText" + i, timeElement.value.ToString()));
+            container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("subtitleText" + i, subtitleElement.value));
+            container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("timeText" + i, timeElement.value.ToString()));
         }
         
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("isEditing", isEditing.ToString()));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("oldName", oldName));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("lastSubtitleData", JsonUtility.ToJson(lastSubtitleData)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("isEditing", isEditing.ToString()));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("oldName", oldName));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("lastSubtitleData", JsonUtility.ToJson(lastSubtitleData)));
         
         var json = JsonUtility.ToJson(container);
         SessionState.SetString("subtitle_tempData", json);
-    }
+    }*/
 
     private void OnDestroy()
     {
@@ -104,25 +104,25 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         rootVisualElement.Add(CreateSettingsContainer());
         rootVisualElement.Add(CreateBottomContainer());
         
-        lastSubtitleData = new ACC_SubtitleData();
+        /*lastSubtitleData = new ACC_SubtitleData();
         for (int i = 1; i < table.childCount; i++)
         {
             var row = table[i];
             var subtitleElement = row.Query<TextField>().First();
-            lastSubtitleData.subtitleText.Add(new ACC_KeyValuePairData<int, string>(i, subtitleElement.value));
+            lastSubtitleData.subtitleText.Add(new ACC_KeyValuePair<int, string>(i, subtitleElement.value));
 
             var timeElement = row.Query<IntegerField>().First();
-            lastSubtitleData.timeText.Add(new ACC_KeyValuePairData<int, int>(i, timeElement.value));
+            lastSubtitleData.timeText.Add(new ACC_KeyValuePair<int, int>(i, timeElement.value));
         }
         lastSubtitleData.name = nameInput.value;
         lastSubtitleData.fontColor = fontColorInput.value;
         lastSubtitleData.backgroundColor = backgroundColorInput.value;
-        lastSubtitleData.fontSize = fontSizeInput;
+        lastSubtitleData.fontSize = fontSizeInput;*/
         
         //RestoreDataAfterCompilation();
     }
 
-    private void RestoreDataAfterCompilation()
+    /*private void RestoreDataAfterCompilation()
     {
         var serializedData = SessionState.GetString("subtitle_tempData", "");
         if (serializedData != "")
@@ -153,7 +153,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         }
         SessionState.EraseString("subtitle_tempData");
         
-    }
+    }*/
     
     private void CreateTable()
     {
@@ -172,8 +172,11 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         for (int i = 0; i < numberOfRows; i++)
         {
             var newRow = uiElementFactory.CreateVisualElement("new-row");
-            var subtitleField = uiElementFactory.CreateTextField(value: subtitle, classList: "subtitles-new-cell", subClassList: "subtitles-input-cell");
-            var timeField = uiElementFactory.CreateIntegerField(value: time, classList: "time-new-cell", subClassList: "time-input-cell");
+            var subtitleField = uiElementFactory.CreateTextField(value: subtitle, classList: "subtitles-new-cell", subClassList: "subtitles-input-cell",
+                onValueChanged: value => controller.currentData.subtitleText.AddOrUpdate(table.childCount, value));
+
+            var timeField = uiElementFactory.CreateIntegerField(value: time, classList: "time-new-cell", subClassList: "time-input-cell",
+                onValueChanged: value => controller.currentData.timeText.AddOrUpdate(table.childCount, value));
             var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () => table.Q(name: newRow.name).RemoveFromHierarchy());
             
             newRow.Add(subtitleField);
@@ -190,11 +193,15 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         var settingsContainer = uiElementFactory.CreateVisualElement("settings-container");
         
         var settingsTitle = uiElementFactory.CreateLabel("settings-title", "Settings");
-        nameInput = uiElementFactory.CreateTextField( "option-input-name", "Name: ", "", "option-input-name-label");
-        fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, "option-input-label");
-        backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label");
+        nameInput = uiElementFactory.CreateTextField( "option-input-name", "Name: ", "", "option-input-name-label", 
+            value => controller.currentData.name = value);
+        fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, "option-input-label",
+            value => controller.currentData.fontColor = value);
+        backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label",
+            value => controller.currentData.backgroundColor = value);
         var fontSizeContainer =
-            uiElementFactory.CreateSliderWithIntegerField("option-slider", "Font size:", 10, 60, 20);
+            uiElementFactory.CreateSliderWithIntegerField("option-slider", "Font size:", 10, 60, 20,
+                onValueChanged: value => controller.currentData.fontSize = value);
         fontSizeInput = fontSizeContainer.Query<SliderInt>().First().value;
         
         settingsContainer.Add(settingsTitle);
@@ -252,7 +259,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         if(isEditing) oldName = nameInput.value;
     }*/
 
-    public void LoadJson(string name)
+    /*public void LoadJson(string name)
     {
         string path = "/ACC_JSONSubtitle/" + name;
         ACC_SubtitleData subtitleData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>(path);
@@ -283,7 +290,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         fontSizeInput = subtitleData.fontSize;
         
         //lastSubtitleData = subtitleData;
-    }
+    }*/
 
     private void HandleSave()
     {
@@ -345,7 +352,7 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
         }
     }
 
-    private bool IsThereAnyChange()
+    /*private bool IsThereAnyChange()
     {
         if (lastSubtitleData.name != nameInput.value) return true;
         if (lastSubtitleData.fontColor != fontColorInput.value) return true;
@@ -361,5 +368,5 @@ public class ACC_SubtitlesEditorWindow2 : ACC_BaseFloatingWindow<ACC_SubtitleEdi
             if (lastSubtitleData.timeText[i - 1].value != timeElement.value) return true;
         }
         return false;
-    }
+    }*/
 }

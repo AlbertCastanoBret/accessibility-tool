@@ -34,13 +34,13 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
     {
         audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
         audioManager.OnSoundsChanged += ResetSoundsList;
-        CompilationPipeline.compilationStarted += OnCompilationStarted;
+        //CompilationPipeline.compilationStarted += OnCompilationStarted;
     }
 
     private void OnDisable()
     {
         audioManager.OnSoundsChanged -= ResetSoundsList;
-        CompilationPipeline.compilationStarted -= OnCompilationStarted;
+        //CompilationPipeline.compilationStarted -= OnCompilationStarted;
     }
 
     private void OnDestroy()
@@ -48,24 +48,24 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         ConfirmSaveChangesIfNeeded();
     }
     
-    private void OnCompilationStarted(object obj)
+    /*private void OnCompilationStarted(object obj)
     {
         var container = new ACC_PreCompilationDataStorage();
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", nameInput.value));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", messageInput.value));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", dropdownHorizontalAlignment.value));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", dropdownVerticalAlignment.value));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", timeOnScreen.value.ToString()));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", fontSizeInput.value.ToString()));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", nameInput.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", messageInput.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", dropdownHorizontalAlignment.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", dropdownVerticalAlignment.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", timeOnScreen.value.ToString()));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", fontSizeInput.value.ToString()));
         
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", JsonUtility.ToJson(selectedSounds)));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("VisualNotification", JsonUtility.ToJson(lastVisualNotificationData)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", JsonUtility.ToJson(selectedSounds)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("VisualNotification", JsonUtility.ToJson(lastVisualNotificationData)));
         
         var json = JsonUtility.ToJson(container);
         SessionState.SetString("visual_notification_tempData", json);
-    }
+    }*/
 
     public static void ShowWindow(string name)
     {
@@ -241,10 +241,10 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
         lastVisualNotificationData.backgroundColor = backgroundColorInput.value;
         lastVisualNotificationData.fontSize = fontSizeInput.value;
         
-        RestoreDataAfterCompilation();
+        //RestoreDataAfterCompilation();
     }
 
-    private void RestoreDataAfterCompilation()
+    /*private void RestoreDataAfterCompilation()
     {
         var serializedData = SessionState.GetString("visual_notification_tempData", "");
         if (serializedData != "")
@@ -263,7 +263,7 @@ public class ACC_VisualNotificationEditorWindow : EditorWindow
             
         }
         SessionState.EraseString("visual_notification_tempData");
-    }
+    }*/
 
     private void ResetSoundsList()
     {

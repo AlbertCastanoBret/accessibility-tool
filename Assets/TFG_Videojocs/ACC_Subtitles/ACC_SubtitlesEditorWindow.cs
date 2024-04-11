@@ -28,42 +28,42 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
 
     private void OnEnable()
     {
-        CompilationPipeline.compilationStarted += OnCompilationStarted;
+        //CompilationPipeline.compilationStarted += OnCompilationStarted;
     }
 
     private void OnDisable()
     {
-        CompilationPipeline.compilationStarted -= OnCompilationStarted;
+        //CompilationPipeline.compilationStarted -= OnCompilationStarted;
     }
     
-    private void OnCompilationStarted(object obj)
+    /*private void OnCompilationStarted(object obj)
     {
         var container = new ACC_PreCompilationDataStorage();
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("name", nameInput.value));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("fontColor", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("backgroundColor", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("fontSize", fontSizeInput.value.ToString()));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("name", nameInput.value));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("fontColor", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("backgroundColor", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("fontSize", fontSizeInput.value.ToString()));
         
         for (int i = 1; i < table.childCount; i++)
         {
             var row = table[i];
             var subtitleElement = row.Query<TextField>().First();
             var timeElement = row.Query<IntegerField>().First();
-            container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("subtitleText" + i, subtitleElement.value));
-            container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("timeText" + i, timeElement.value.ToString()));
+            container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("subtitleText" + i, subtitleElement.value));
+            container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("timeText" + i, timeElement.value.ToString()));
         }
         
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("isEditing", isEditing.ToString()));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("oldName", oldName));
-        container.keyValuePairs.Add(new ACC_KeyValuePairData<string, string>("lastSubtitleData", JsonUtility.ToJson(lastSubtitleData)));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("isEditing", isEditing.ToString()));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("oldName", oldName));
+        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("lastSubtitleData", JsonUtility.ToJson(lastSubtitleData)));
         
         var json = JsonUtility.ToJson(container);
         SessionState.SetString("subtitle_tempData", json);
-    }
+    }*/
 
     private void OnDestroy()
     {
-        ConfirmSaveChangesIfNeeded();
+        //ConfirmSaveChangesIfNeeded();
     }
 
     public static void ShowWindow(string name)
@@ -75,7 +75,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         if (name != null)
         {
             window.isEditing = true;
-            window.LoadJson(name);
+            //window.LoadJson(name);
         }
         //window.ShowModal();
     }
@@ -114,20 +114,20 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         {
             var row = table[i];
             var subtitleElement = row.Query<TextField>().First();
-            lastSubtitleData.subtitleText.Add(new ACC_KeyValuePairData<int, string>(i, subtitleElement.value));
+            //lastSubtitleData.subtitleText.Add(new ACC_KeyValuePair<int, string>(i, subtitleElement.value));
 
             var timeElement = row.Query<IntegerField>().First();
-            lastSubtitleData.timeText.Add(new ACC_KeyValuePairData<int, int>(i, timeElement.value));
+            //lastSubtitleData.timeText.Add(new ACC_KeyValuePair<int, int>(i, timeElement.value));
         }
         lastSubtitleData.name = nameInput.value;
         lastSubtitleData.fontColor = fontColorInput.value;
         lastSubtitleData.backgroundColor = backgroundColorInput.value;
         lastSubtitleData.fontSize = fontSizeInput.value;
         
-        RestoreDataAfterCompilation();
+        //RestoreDataAfterCompilation();
     }
 
-    private void RestoreDataAfterCompilation()
+    /*private void RestoreDataAfterCompilation()
     {
         var serializedData = SessionState.GetString("subtitle_tempData", "");
         if (serializedData != "")
@@ -158,7 +158,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         }
         SessionState.EraseString("subtitle_tempData");
         
-    }
+    }*/
     
     private VisualElement CreateTable()
     {
@@ -329,10 +329,10 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         {
             var row = table[i];
             var subtitleElement = row.Query<TextField>().First();
-            subtitleData.subtitleText.Add(new ACC_KeyValuePairData<int, string>(i, subtitleElement.value));
+            //subtitleData.subtitleText.Add(new ACC_KeyValuePair<int, string>(i, subtitleElement.value));
 
             var timeElement = row.Query<IntegerField>().First();
-            subtitleData.timeText.Add(new ACC_KeyValuePairData<int, int>(i, timeElement.value));
+            //subtitleData.timeText.Add(new ACC_KeyValuePair<int, int>(i, timeElement.value));
         }
 
         subtitleData.name = nameInput.value;
@@ -346,7 +346,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         if(isEditing) oldName = nameInput.value;
     }
 
-    public void LoadJson(string name)
+    /*public void LoadJson(string name)
     {
         string path = "/ACC_JSONSubtitle/" + name;
         ACC_SubtitleData subtitleData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>(path);
@@ -377,7 +377,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         fontSizeInput.value = subtitleData.fontSize;
         
         lastSubtitleData = subtitleData;
-    }
+    }*/
 
     private void HandleSave()
     {
@@ -439,7 +439,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         }
     }
 
-    private bool IsThereAnyChange()
+    /*private bool IsThereAnyChange()
     {
         if (lastSubtitleData.name != nameInput.value) return true;
         if (lastSubtitleData.fontColor != fontColorInput.value) return true;
@@ -455,7 +455,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
             if (lastSubtitleData.timeText[i - 1].value != timeElement.value) return true;
         }
         return false;
-    }
+    }*/
 
     private void Cancel()
     {
@@ -483,7 +483,7 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
         }
     }
     
-    private void ConfirmSaveChangesIfNeeded()
+    /*private void ConfirmSaveChangesIfNeeded()
     {
         if (IsThereAnyChange())
         {
@@ -503,5 +503,5 @@ public class ACC_SubtitlesEditorWindow : EditorWindow
                     break;
             }
         }
-    }
+    }*/
 }

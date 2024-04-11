@@ -393,12 +393,12 @@ namespace TFG_Videojocs.ACC_RemapControls
             accControlSchemeData.inputActionAsset = inputActionAsset;
             foreach (KeyValuePair<string, bool> item in controlSchemeToggleValues)
             {
-                accControlSchemeData.controlSchemesList.Add(new ACC_KeyValuePairData<string, bool>(item.Key, item.Value));
+                //accControlSchemeData.controlSchemesList.Add(new ACC_KeyValuePair<string, bool>(item.Key, item.Value));
             }
 
             foreach (KeyValuePair<ACC_BindingData, bool> binding in bindingsToggleValues)
             {
-                accControlSchemeData.bindingsList.Add(new ACC_KeyValuePairData<ACC_BindingData, bool>(binding.Key, binding.Value));
+                //accControlSchemeData.bindingsList.Add(new ACC_KeyValuePair<ACC_BindingData, bool>(binding.Key, binding.Value));
             }
             
             ACC_JSONHelper.CreateJson(accControlSchemeData, "/ACC_JSONRemapControls/");
@@ -476,22 +476,22 @@ namespace TFG_Videojocs.ACC_RemapControls
                 ACC_JSONHelper.CreateJson(accControlSchemeData, "/ACC_JSONRemapControls/");*/
                 
                 currentControlSchemeToggleValues = new Dictionary<string, bool>();
-                foreach (var scheme in accControlSchemeData.controlSchemesList)
+                /*foreach (var scheme in accControlSchemeData.controlSchemesList)
                 {
                     if (controlSchemeToggleValues.ContainsKey(scheme.key))
                     {
                         controlSchemeToggleValues[scheme.key] = scheme.value;
                         currentControlSchemeToggleValues[scheme.key] = scheme.value;
                     }
-                }
+                }*/
                 
                 bindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
                 currentBindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
-                foreach (var binding in accControlSchemeData.bindingsList)
+                /*foreach (var binding in accControlSchemeData.bindingsList)
                 {
                     bindingsToggleValues[binding.key] = binding.value;
                     currentBindingsToggleValues[binding.key] = binding.value;
-                }
+                }*/
                 
                 lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
                 lastSaveBindingsToggleValues = new Dictionary<ACC_BindingData, bool>(bindingsToggleValues);

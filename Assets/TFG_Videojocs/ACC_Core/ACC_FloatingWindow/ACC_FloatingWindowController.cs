@@ -12,12 +12,12 @@ using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs
 {
-    public abstract class ACC_FloatingWindowController<TWindow> where TWindow : EditorWindow
+    public abstract class ACC_FloatingWindowController<TWindow, TData> where TWindow : EditorWindow where TData : new()
     {
         protected TWindow window;
         public  ACC_UIElementFactory uiElementFactory{get; protected set;}
-        public ACC_AbstractData currentData;
-        protected ACC_AbstractData lastData;
+        public TData currentData;
+        protected TData lastData;
         
         protected string oldName;
         public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile;
@@ -26,13 +26,14 @@ namespace TFG_Videojocs
         {
             this.window = window;
             uiElementFactory = new ACC_UIElementFactory();
+            currentData = new TData();
             isClosing = false;
         }
 
         public abstract void ConfigureJson();
         public abstract void LoadJson(string name);
         
-        public virtual void HandleSave<TController>(ACC_BaseFloatingWindow<TController, TWindow> window) where TController : ACC_FloatingWindowController<TWindow>, new()
+        public virtual void HandleSave<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
             var nameInput = window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First();
             if (nameInput.value.Length > 0)
@@ -98,7 +99,7 @@ namespace TFG_Videojocs
             }
         }
 
-        public void Cancel<TController>(ACC_BaseFloatingWindow<TController, TWindow> window) where TController : ACC_FloatingWindowController<TWindow>, new()
+        public void Cancel<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
             var newWindow = Object.Instantiate(window);
             newWindow.titleContent = new GUIContent(window.titleContent.text);
@@ -112,7 +113,7 @@ namespace TFG_Videojocs
             UpdateVisualElementValues(window.rootVisualElement, newWindow.rootVisualElement);
         }
 
-        public void ConfirmSaveChangesIfNeeded<TController>(string name, ACC_BaseFloatingWindow<TController, TWindow> window) where TController : ACC_FloatingWindowController<TWindow>, new()
+        public void ConfirmSaveChangesIfNeeded<TController>(string name, ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
             if (true)
             {
@@ -136,7 +137,7 @@ namespace TFG_Videojocs
         
         private bool IsThereAnyChange()
         {
-            if(lastData.name != window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First().value) return true;
+            if(currentData.Equals(lastData)) return false;
             return true;
         }
         
