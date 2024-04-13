@@ -132,7 +132,7 @@ namespace TFG_Videojocs
             newWindow.CloneWindowAttributes(window);
             SubtractRemainingVisualElements(window.rootVisualElement, newWindow.rootVisualElement);
             AddRemainingVisualElements(window.rootVisualElement, newWindow.rootVisualElement);
-            UpdateVisualElementValues(window.rootVisualElement, newWindow.rootVisualElement);
+            newWindow.controller.RestoreFieldValues();
         }
 
         public void ConfirmSaveChangesIfNeeded<TController>(string name, ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
@@ -293,6 +293,15 @@ namespace TFG_Videojocs
                 {
                     targetSliderInt[1].style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
                     targetSliderInt.value = sourceSliderInt.value;
+                }
+                else if (sourceChild is DropdownField sourceDropdownField && targetChild is DropdownField targetDropdownField)
+                {
+                    targetDropdownField.value = sourceDropdownField.value;
+                }
+                else if (sourceChild is Label sourceLabel && targetChild is Label targetLabel)
+                {
+                    sourceLabel.text = sourceLabel.text;
+                    sourceLabel.AddToClassList(targetLabel.GetClasses().ToArray().First());
                 }
                 UpdateVisualElementValues(sourceChild, targetChild);
             }

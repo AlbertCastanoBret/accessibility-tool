@@ -138,7 +138,7 @@ namespace TFG_Videojocs.ACC_Utilities
             {
                 onValueChanged?.Invoke(evt.newValue);
             });
-            onValueChanged?.Invoke(dropdownField.text);
+            onValueChanged?.Invoke(dropdownField.value);
             return dropdownField;
         }
         

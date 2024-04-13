@@ -11,7 +11,7 @@ namespace TFG_Videojocs
 {
     public abstract class ACC_BaseFloatingWindow<TController,TWindow, TData>: EditorWindow where TController : ACC_FloatingWindowController<TWindow, TData>, new() where TWindow : EditorWindow where TData : ACC_AbstractData, new()
     {
-        protected TController controller;
+        public TController controller { get; private set; }
         protected ACC_UIElementFactory uiElementFactory => controller.uiElementFactory;
 
         protected void OnEnable()

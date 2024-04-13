@@ -14,13 +14,6 @@ using UnityEngine.UIElements;
 
 public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationEditorWindow, ACC_VisualNotificationData>
 {
-    private List<ACC_Sound> selectedSounds;
-    private TextField nameInput, messageInput;
-    private DropdownField dropdownHorizontalAlignment, dropdownVerticalAlignment;
-    private IntegerField timeOnScreen;
-    private ColorField fontColorInput;
-    private ColorField backgroundColorInput;
-    private SliderInt fontSizeInput;
     private ScrollView soundContainer, soundScrollView;
     private ACC_AudioManager audioManager;
     private AudioClip audioClip;
@@ -58,8 +51,6 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         if (name != null)
         {
             window.controller.isEditing = true;
-            window.selectedSounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
-                "/ACC_VisualNotification/", name);
             window.controller.LoadJson(name);
         }
         window.controller.lastData = window.controller.currentData.Clone() as ACC_VisualNotificationData;
@@ -92,7 +83,8 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
 
     public void CreateSoundList()
     {
-        soundScrollView.Clear();
+        if(soundScrollView!=null) soundScrollView.Clear();
+        
         var SFXSounds = audioManager.GetSFXSounds();
         bool isFirst = true;
         foreach (var sound in SFXSounds)
@@ -168,27 +160,27 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         
         var settingsLabelTitle = uiElementFactory.CreateLabel("title", "Settings");
         
-        nameInput = uiElementFactory.CreateTextField("option-input-name", "Name: ", "", "option-input-name-label", 
+        var nameInput = uiElementFactory.CreateTextField("option-input-name", "Name: ", "", "option-input-name-label", 
             onValueChanged: value => controller.currentData.name = value);
         
-        messageInput = uiElementFactory.CreateTextField("option-input", "Message: ", "", "option-input-label",
+        var messageInput = uiElementFactory.CreateTextField("option-input", "Message: ", "", "option-input-label",
             onValueChanged: value => controller.currentData.message = value);
         
-        dropdownHorizontalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Horizontal alignment:", 
+        var dropdownHorizontalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Horizontal alignment:", 
             new List<string> { "Left", "Center", "Right" }, "option-input-label",
             onValueChanged: value => controller.currentData.horizontalAlignment = value);
         
-        var optionsVertical = new List<string> { "Top", "Center", "Down" };
-        dropdownVerticalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Vertical alignment:", optionsVertical, "option-input-label",
+        var dropdownVerticalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Vertical alignment:", 
+            new List<string> { "Top", "Center", "Down" }, "option-input-label",
             onValueChanged: value => controller.currentData.verticalAlignment = value);
 
-        timeOnScreen = uiElementFactory.CreateIntegerField("option-input", "Time on screen (seconds): ", 1, "option-input-label",
+        var timeOnScreen = uiElementFactory.CreateIntegerField("option-input", "Time on screen (seconds): ", 1, "option-input-label",
             onValueChanged: value => controller.currentData.timeOnScreen = value);
 
-        fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, "option-input-label",
+        var fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, "option-input-label",
             onValueChanged: value => controller.currentData.fontColor = value);
         
-        backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label",
+        var backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label",
             onValueChanged: value => controller.currentData.backgroundColor = value);
 
         var fontSizeContainer = uiElementFactory.CreateSliderWithIntegerField("option-multi-input", "Font size:", 10,
@@ -285,38 +277,4 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         LoadSelectedSounds();
         lastVisualNotificationData = accVisualNotificationData;
     }*/
-    
-    private void ShowDialogRepeatedSounds(Dictionary<string, List<ACC_Sound>> repeatedSounds, ACC_VisualNotificationData accVisualNotificationData)
-    {
-        string sounds = string.Join(", ", repeatedSounds);
-        int option = EditorUtility.DisplayDialogComplex(
-            "Some sounds already have a visual notification.",
-            "Sounds \"" + sounds + "\" already have been added to another visual notification. What would you like to do?",
-            "Move sounds",
-            "Cancel",
-            ""
-        );
-        switch (option)
-        {
-            case 0:
-                foreach (KeyValuePair<string, List<ACC_Sound>> kvp in repeatedSounds)
-                {
-                    foreach (ACC_Sound sound in kvp.Value)
-                    {
-                        ACC_JSONHelper.RemoveItemFromListInFile<ACC_VisualNotificationData, ACC_Sound>(
-                            "/ACC_VisualNotification",
-                            data => data.soundsList,
-                            (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
-                            sound
-                        );
-                    }
-                }
-                ACC_JSONHelper.CreateJson(accVisualNotificationData, "/ACC_JSONVisualNotification/");
-                if(isEditing) oldName = nameInput.value;
-                break;
-            case 1:
-                //if(isClosing) Cancel();
-                break;
-        }
-    }
 }
