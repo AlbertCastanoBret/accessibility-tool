@@ -26,11 +26,19 @@ namespace TFG_Videojocs
             CompilationPipeline.compilationStarted -= controller.SerializeDataForCompilation;
         }
 
+        protected void OnDestroy()
+        {
+            controller.ConfirmSaveChangesIfNeeded(controller.oldName, this);
+        }
+
         protected void CreateGUI()
         {
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Core/ACC_FloatingWindow/ACC_BaseFloatingWindowStyles.uss");
+            rootVisualElement.styleSheets.Add(styleSheet);
             rootVisualElement.name = "root-visual-element";
             ColorUtility.TryParseHtmlString("#4f4f4f", out var backgroundColor);
             rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
+            rootVisualElement.AddToClassList("main-container");
         }
 
         public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController, TWindow, TData>

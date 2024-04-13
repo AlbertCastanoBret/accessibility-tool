@@ -14,50 +14,13 @@ using UnityEngine.UIElements;
 public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEditorWindowController, ACC_SubtitlesEditorWindow, ACC_SubtitleData>
 {
     private VisualElement table;
-    
     public delegate void SubtitleWindowDelegate();
     public static event SubtitleWindowDelegate OnCloseSubtitleWindow;
-
-    /*void OnEnable()
-    {
-        Debug.Log("OnEnable");
-        //CompilationPipeline.compilationStarted += OnCompilationStarted;
-    }
-
-    private void OnDisable()
-    {
-        CompilationPipeline.compilationStarted -= OnCompilationStarted;
-    }*/
     
-    
-    /*private void OnCompilationStarted(object obj)
+    private new void OnDestroy()
     {
-        var container = new ACC_PreCompilationDataStorage();
-        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("name", nameInput.value));
-        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("fontColor", ColorUtility.ToHtmlStringRGBA(fontColorInput.value)));
-        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("backgroundColor", ColorUtility.ToHtmlStringRGBA(backgroundColorInput.value)));
-        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("fontSize", fontSizeInput.ToString()));
-
-        for (int i = 1; i < table.childCount; i++)
-        {
-            var row = table[i];
-            var subtitleElement = row.Query<TextField>().First();
-            var timeElement = row.Query<IntegerField>().First();
-            container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("subtitleText" + i, subtitleElement.value));
-            container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("timeText" + i, timeElement.value.ToString()));
-        }
-
-        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("isEditing", isEditing.ToString()));
-        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("oldName", oldName));
-        container.keyValuePairs.Add(new ACC_KeyValuePair<string, string>("lastSubtitleData", JsonUtility.ToJson(lastSubtitleData)));
-
-        var json = JsonUtility.ToJson(container);
-        SessionState.SetString("subtitle_tempData", json);
-    }*/
-    private void OnDestroy()
-    {
+        base.OnDestroy();
         OnCloseSubtitleWindow?.Invoke();
-        controller.ConfirmSaveChangesIfNeeded(controller.oldName, this);
     }
 
     public static void ShowWindow(string name)
@@ -79,28 +42,22 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
     {
         base.CreateGUI();
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Subtitles/ACC_SubtitlesWindowStyles.uss");
-        
         rootVisualElement.styleSheets.Add(styleSheet);
-        rootVisualElement.AddToClassList("main-container");
         
-        var subtitlesTitle= uiElementFactory.CreateLabel("subtitles-title", "Subtitles");
-            
         CreateTable();
         CreateRow(1, "Hello", 1);
-        
-        var tableScrollView = uiElementFactory.CreateScrollView(table, "table-scroll-view");
-        
-        rootVisualElement.Add(subtitlesTitle);
-        rootVisualElement.Add(tableScrollView);
-        
-        rootVisualElement.Add(CreateSettingsContainer());
-        rootVisualElement.Add(CreateBottomContainer());
+        CreateSettingsContainer();
+        CreateBottomContainer();
         
         controller.RestoreDataAfterCompilation();
     }
 
     private void CreateTable()
     {
+        var tableContainer = uiElementFactory.CreateVisualElement("container");
+        var subtitlesTitle = uiElementFactory.CreateLabel("title", "Subtitles");
+        var tableScrollView = uiElementFactory.CreateScrollView("table-scroll-view", table);
+        
         table = uiElementFactory.CreateVisualElement("table");
         var mainRow = uiElementFactory.CreateVisualElement("main-row");
         var subtitles = uiElementFactory.CreateLabel("subtitles-cell", "Subtitles");
@@ -109,6 +66,12 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         mainRow.Add(subtitles);
         mainRow.Add(time);
         table.Add(mainRow);
+        tableScrollView.Add(table);
+        
+        tableContainer.Add(subtitlesTitle);
+        tableContainer.Add(tableScrollView);
+        
+        rootVisualElement.Add(tableContainer);
     }
 
     public void CreateRow(int numberOfRows, string subtitle, int time)
@@ -132,11 +95,11 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         }
     }
 
-    private VisualElement CreateSettingsContainer()
+    private void CreateSettingsContainer()
     {
-        var settingsContainer = uiElementFactory.CreateVisualElement("settings-container");
+        var settingsContainer = uiElementFactory.CreateVisualElement("container-2");
         
-        var settingsTitle = uiElementFactory.CreateLabel("settings-title", "Settings");
+        var settingsTitle = uiElementFactory.CreateLabel("title", "Settings");
         var nameInput = uiElementFactory.CreateTextField( "option-input-name", "Name: ", "", "option-input-name-label", 
             value => controller.currentData.name = value);
         var fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, "option-input-label",
@@ -144,7 +107,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         var backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label",
             value => controller.currentData.backgroundColor = value);
         var fontSizeContainer =
-            uiElementFactory.CreateSliderWithIntegerField("option-slider", "Font size:", 10, 60, 20,
+            uiElementFactory.CreateSliderWithIntegerField("option-multi-input", "Font size:", 10, 60, 20,
                 onValueChanged: value => controller.currentData.fontSize = value);
         
         settingsContainer.Add(settingsTitle);
@@ -153,12 +116,12 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         settingsContainer.Add(backgroundColorInput);
         settingsContainer.Add(fontSizeContainer);
 
-        return settingsContainer;
+        rootVisualElement.Add(settingsContainer);
     }
 
-    private VisualElement CreateBottomContainer()
+    private void CreateBottomContainer()
     {
-        var bottomContainer = uiElementFactory.CreateVisualElement("bottom-container");
+        var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
         var createSubtitleButton = uiElementFactory.CreateButton("Save", "create-subtitle-button", () => controller.HandleSave(this));
 
         var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-subtitles-container");
@@ -175,6 +138,6 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         bottomContainer.Add(createSubtitleButton);
         bottomContainer.Add(addSubtitlesContainer);
 
-        return bottomContainer;
+        rootVisualElement.Add(bottomContainer);
     }
 }

@@ -30,13 +30,13 @@ public class ACC_MainWindow : EditorWindow
     private void OnEnable()
     {
         ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += RefreshSubtititleWindow;
-        ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow += RefreshVisualNotification;
+        ACC_VisualNotificationEditorWindow2.OnCloseVisualNotificationWindow += RefreshVisualNotification;
     }
 
     private void OnDisable()
     {
         ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= RefreshSubtititleWindow;
-        ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow -= RefreshVisualNotification;
+        ACC_VisualNotificationEditorWindow2.OnCloseVisualNotificationWindow -= RefreshVisualNotification;
     }
 
     [MenuItem("Tools/ACC/Accessibility Window")]
@@ -257,7 +257,7 @@ public class ACC_MainWindow : EditorWindow
 
         addVisualNotificationButton.clicked += () =>
         {
-            ACC_VisualNotificationEditorWindow.ShowWindow(null);
+            ACC_VisualNotificationEditorWindow2.ShowWindow(null);
         };
         
         dropdown.RegisterValueChangedCallback(evt =>
@@ -300,7 +300,7 @@ public class ACC_MainWindow : EditorWindow
             {
                 var sounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
                     "/ACC_JSONVisualNotification/", visualNotificationDropdown.value);
-                ACC_VisualNotificationEditorWindow.ShowWindow(visualNotificationDropdown.value);
+                ACC_VisualNotificationEditorWindow2.ShowWindow(visualNotificationDropdown.value);
             }
             else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to load.", "OK");
         };

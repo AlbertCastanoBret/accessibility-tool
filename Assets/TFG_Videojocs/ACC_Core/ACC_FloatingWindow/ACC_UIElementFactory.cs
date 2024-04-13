@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 namespace TFG_Videojocs.ACC_Utilities
 {
@@ -68,7 +69,7 @@ namespace TFG_Videojocs.ACC_Utilities
         }
 
         public SliderInt CreateSliderInt(string classList, string label, int minValue, int maxValue, 
-            int defaultValue = 20, string subClassList1 = "slider-secondary", string subClassList2 = "slider-main", Action<int> onValueChanged = null)
+            int defaultValue = 20, string subClassList1 = "multi-input-1-1", string subClassList2 = "multi-input-1-2", Action<int> onValueChanged = null)
         {
             var name = GenerateUniqueName(classList);
             
@@ -83,9 +84,64 @@ namespace TFG_Videojocs.ACC_Utilities
             onValueChanged?.Invoke(slider.value);
             return slider;
         }
+
+        public Button CreateButton(string text, string classList, Action onClick = null)
+        {
+            var name = GenerateUniqueName(classList);
+            
+            var button = new Button(() => onClick?.Invoke()) { name = name, text = text };
+            button.AddToClassList(classList);
+            return button;
+        } 
+        
+        public ScrollView CreateScrollView(string classList, VisualElement content=null)
+        {
+            var name = GenerateUniqueName(classList);
+
+            var scrollView = new ScrollView(ScrollViewMode.Vertical) { name = name };
+            scrollView.Add(content);
+            scrollView.AddToClassList(classList);
+            return scrollView;
+        }
+        
+        public VisualElement CreateObjectField(string classList, string label,  Type type,
+            string subClassList1 = "multi-input-1-1", string subClassList2 = "multi-input-1-2", 
+            Action<AudioClip> onValueChanged = null)
+        {
+            var name = GenerateUniqueName(classList);
+            
+            var objectField = new ObjectField(label) { name = name, objectType = type };
+            objectField.AddToClassList(classList);
+
+            objectField[0].name = GenerateUniqueName(subClassList1);
+            objectField[0].AddToClassList(subClassList1);
+            
+            objectField[1].name = GenerateUniqueName(subClassList2);
+            objectField[1].AddToClassList(subClassList2);
+            objectField.RegisterValueChangedCallback(evt =>
+            {
+                onValueChanged?.Invoke(evt.newValue as AudioClip);
+            });
+            return objectField;
+        }
+        
+        public VisualElement CreateDropdownField(string classList, string label, List<string> options, 
+            string subClassList = "", Action<string> onValueChanged = null)
+        {
+            var name = GenerateUniqueName(classList);
+            
+            var dropdownField = new DropdownField(label, options, 0) { name = name };
+            dropdownField.AddToClassList(classList);
+            dropdownField[0].AddToClassList(subClassList);
+            dropdownField.RegisterValueChangedCallback(evt =>
+            {
+                onValueChanged?.Invoke(evt.newValue);
+            });
+            return dropdownField;
+        }
         
         public VisualElement CreateSliderWithIntegerField(string classList, string label, int min, int max, int defaultValue,
-        string sliderClassList = "slider", string integerFieldClassList = "slider-input", Action<int> onValueChanged = null)
+            string sliderClassList = "multi-input-1", string integerFieldClassList = "multi-input-2", Action<int> onValueChanged = null)
         {
             var name = GenerateUniqueName(classList);
             
@@ -110,24 +166,23 @@ namespace TFG_Videojocs.ACC_Utilities
 
             return container;
         }
-
-        public Button CreateButton(string text, string classList, Action onClick = null)
+        
+        public VisualElement CreateObjectFieldAndButton(string classList, string label, string buttonLabel, 
+            Type type, Action<Object> onObjectField=null, Action onClick = null, 
+            string objectFieldClassList = "multi-input-1", string buttonClassList = "multi-input-2") 
         {
             var name = GenerateUniqueName(classList);
             
-            var button = new Button(() => onClick?.Invoke()) { name = name, text = text };
-            button.AddToClassList(classList);
-            return button;
-        } 
-        
-        public ScrollView CreateScrollView(VisualElement content, string classList)
-        {
-            var name = GenerateUniqueName(classList);
+            var container = new VisualElement(){name = name};
+            container.AddToClassList(classList);
 
-            var scrollView = new ScrollView(ScrollViewMode.Vertical) { name = name };
-            scrollView.Add(content);
-            scrollView.AddToClassList(classList);
-            return scrollView;
+            var objectField = CreateObjectField(objectFieldClassList, label, type, onValueChanged: onObjectField);
+            var button = CreateButton(buttonLabel, buttonClassList, onClick);
+            
+            container.Add(objectField);
+            container.Add(button);
+
+            return container;
         }
          
         private string GenerateUniqueName(string baseClass)

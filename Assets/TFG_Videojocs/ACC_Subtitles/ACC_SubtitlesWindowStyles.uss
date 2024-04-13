@@ -1,20 +1,9 @@
-.main-container{
-    padding: 16px 20px;
-    font-size: 12px;
-}
-
 .table-scroll-view {
-    width: 510px;
+    width: 90%;
     height: 300px;
     overflow: scroll;
     margin: auto;
     border-radius: 4px;
-}
-
-.subtitles-title{
-    -unity-font-style: bold;
-    margin-bottom: 10px;
-    margin-left: 4px;
 }
 
 .table{
@@ -44,13 +33,6 @@
     margin: auto;
     padding: 4px 0;
 }
-
-/*font-color-cell{
-    width: 25%;
-    -unity-text-align: middle-center;
-    margin: auto;
-    padding: 4px 0;
-}*/
 
 .new-row{
     display: flex;
@@ -88,67 +70,6 @@
     -unity-text-align: middle-center;
 }
 
-/*.font-color-new-cell{
-    width: 35%;
-    border-width: 1px 0 0 0;
-    margin: 0;
-    padding: 4px 4px 0;
-    border-color: #b2b2b2;
-    background-color: #3f3f3f;
-}*/
-
-.settings-container{
-    margin-top: 10px;
-    padding-top: 10px;
-    margin-left: 4px;
-    margin-right: 4px;
-    border-top-color: #343434;
-    border-top-width: 1px;
-}
-
-.settings-title{
-    margin-right: auto;
-    margin-bottom: 4px;
-    -unity-font-style: bold;
-}
-
-.option-input-name{
-    margin-top: 6px;
-    margin-left: auto;
-    width: 100%;
-}
-
-.option-input-name-label{
-    width: 50%;
-}
-
-.option-container{
-    display: flex;
-    flex-direction: row;
-    margin-top: 6px;
-}
-
-.option-title{
-    width: 50%;
-}
-
-.option-input{
-    margin-top: 6px;
-    margin-left: auto;
-    width: 100%;
-}
-
-.option-input-label{
-    width: 50%;
-}
-
-.bottom-container{
-    display: flex;
-    flex-direction: row;
-    margin-top: 12px;
-    margin-right: 4px;
-}
-
 .add-subtitles-container{
     display: flex;
     flex-direction: row;
@@ -156,44 +77,14 @@
     align-self: center;
 }
 
-.create-subtitle-button{
-    font-size: 12px;
-    padding: 4px 6px;
-}
-
 .add-subtitles-label{
     -unity-text-align: middle-center;
     margin-right: 6px;
-    font-size: 12px;
 }
 
 .add-subtitle-button{
-    margin: 0px;
+    margin: 0;
     margin-left: 1px;
     padding: 4px 6px;
-    font-size: 12px;
-}
-
-.option-slider{
-    display: flex;
-    flex-direction: row;
-    margin-top: 6px;
-}
-
-.slider{
-    width: 88%;
-}
-
-.slider-main{
-    display: flex;
-}
-
-.slider-secondary{
-    margin-left: -2px;
-    width: 57%;
-}
-
-.slider-input{
-    width: 10%;
 }
 
