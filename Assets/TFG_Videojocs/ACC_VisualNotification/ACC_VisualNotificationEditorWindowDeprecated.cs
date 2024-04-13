@@ -424,7 +424,7 @@ public class ACC_VisualNotificationEditorWindowDeprecated : EditorWindow
                     foreach (ACC_Sound sound in kvp.Value)
                     {
                         ACC_JSONHelper.RemoveItemFromListInFile<ACC_VisualNotificationData, ACC_Sound>(
-                            "/ACC_JSONVisualNotification",
+                            "/ACC_VisualNotification",
                             data => data.soundsList,
                             (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
                             sound

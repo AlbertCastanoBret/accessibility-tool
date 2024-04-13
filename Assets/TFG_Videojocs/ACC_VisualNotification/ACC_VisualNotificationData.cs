@@ -29,16 +29,6 @@ public class ACC_VisualNotificationData: ACC_AbstractData
         var other = (ACC_VisualNotificationData)obj;
 
         bool soundsEqual = soundsList.SequenceEqual(other.soundsList);
-
-        Debug.Log(name == other.name);
-        Debug.Log(soundsEqual);
-        Debug.Log(message.Equals(other.message));
-        Debug.Log(fontColor.Equals(other.fontColor));
-        Debug.Log(backgroundColor.Equals(other.backgroundColor));
-        Debug.Log(fontSize == other.fontSize);
-        Debug.Log(horizontalAlignment.Equals(other.horizontalAlignment));
-        Debug.Log(verticalAlignment.Equals(other.verticalAlignment));
-        Debug.Log(timeOnScreen == other.timeOnScreen);
         
         return name == other.name
                && soundsEqual

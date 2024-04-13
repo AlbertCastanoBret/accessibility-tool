@@ -40,7 +40,19 @@ namespace TFG_Videojocs
             if (isEditing) oldName = currentData.name;
         }
 
-        public abstract void LoadJson(string name);
+        public virtual void LoadJson(string name)
+        {
+            var path = "/" + window.GetType().Name.Replace("EditorWindow", "") + "/";
+            TData visualNotificationData = ACC_JSONHelper.LoadJson<TData>(path + name);
+
+            if (isEditing) oldName = visualNotificationData.name;
+            currentData = visualNotificationData;
+            lastData = visualNotificationData;
+            
+            RestoreFieldValues();
+        }
+        
+        protected abstract void RestoreFieldValues();
         
         public virtual void HandleSave<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
@@ -203,6 +215,8 @@ namespace TFG_Videojocs
                     }
                 }
             }
+            RestoreFieldValues();
+            SessionState.EraseString( GetType() + "_tempData");
         }
         
         private bool IsThereAnyChange()

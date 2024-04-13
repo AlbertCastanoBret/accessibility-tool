@@ -15,29 +15,12 @@ namespace TFG_Videojocs.ACC_Subtitles
 {
     public class ACC_SubtitleEditorWindowController: ACC_FloatingWindowController<ACC_SubtitlesEditorWindow, ACC_SubtitleData>
     {
-        public override void LoadJson(string name)
+        protected override void RestoreFieldValues()
         {
-            ACC_SubtitleData subtitleData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>("/ACC_JSONSubtitle/" + name);
-            RestoreFieldValues(subtitleData);
-
-            if (isEditing) oldName = subtitleData.name;
-            currentData = subtitleData;
-            lastData = subtitleData;
-        }
-
-        public override void RestoreDataAfterCompilation()
-        {
-            base.RestoreDataAfterCompilation();
-            RestoreFieldValues(currentData);
-            SessionState.EraseString( GetType() + "_tempData");
-        }
-
-        private void RestoreFieldValues(ACC_SubtitleData subtitleData)
-        {
-            window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First().value = subtitleData.name;
-            window.rootVisualElement.Query<ColorField>(name: "option-input-0").First().value = subtitleData.fontColor;
-            window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value = subtitleData.backgroundColor;
-            window.rootVisualElement.Query<SliderInt>(name: "multi-input-1-0").First().value = subtitleData.fontSize;
+            window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First().value = currentData.name;
+            window.rootVisualElement.Query<ColorField>(name: "option-input-0").First().value = currentData.fontColor;
+            window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value = currentData.backgroundColor;
+            window.rootVisualElement.Query<SliderInt>(name: "multi-input-1-0").First().value = currentData.fontSize;
             
             var table = window.rootVisualElement.Query<VisualElement>(name: "table-0").First();
             List<VisualElement> rows = new List<VisualElement>();
@@ -53,9 +36,9 @@ namespace TFG_Videojocs.ACC_Subtitles
                 table.Remove(row);
             }
             
-            for (int i = 0; i < subtitleData.subtitleText.Items.Count; i++)
+            for (int i = 0; i < currentData.subtitleText.Items.Count; i++)
             {
-                window.CreateRow(1, subtitleData.subtitleText.Items[i].value, subtitleData.timeText.Items[i].value);
+                window.CreateRow(1, currentData.subtitleText.Items[i].value, currentData.timeText.Items[i].value);
             }
         }
     }

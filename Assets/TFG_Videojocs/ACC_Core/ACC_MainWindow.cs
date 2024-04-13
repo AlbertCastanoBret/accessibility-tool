@@ -192,7 +192,7 @@ public class ACC_MainWindow : EditorWindow
     {
         var selectSubtitleContainer = new VisualElement();
 
-        var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("/ACC_JSONSubtitle/", data => data.name);
+        var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("/ACC_Subtitles/", data => data.name);
         
         subtitlesDropdown = new DropdownField("Select a subtitle:", options, 0);
         subtitlesDropdown.AddToClassList("dropdown-container");
@@ -215,7 +215,7 @@ public class ACC_MainWindow : EditorWindow
         {
             if (!string.IsNullOrEmpty(subtitlesDropdown.value))
             {
-                ACC_JSONHelper.DeleteFile("/ACC_JSONSubtitle/" + subtitlesDropdown.value);
+                ACC_JSONHelper.DeleteFile("/ACC_Subtitles/" + subtitlesDropdown.value);
                 RefreshSubtititleWindow();
             }
             else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to delete.", "OK");
@@ -234,7 +234,7 @@ public class ACC_MainWindow : EditorWindow
     {
         if (subtitlesDropdown != null)
         {
-            var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("/ACC_JSONSubtitle/", data => data.name);
+            var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("/ACC_Subtitles/", data => data.name);
             subtitlesDropdown.choices = options;
             subtitlesDropdown.value = options.Count > 0 ? options[0] : "";
         }
@@ -283,7 +283,7 @@ public class ACC_MainWindow : EditorWindow
     {
         var selectSubtitleContainer = new VisualElement();
 
-        var options = ACC_JSONHelper.GetFilesListByParam<ACC_VisualNotificationData, string>("/ACC_JSONVisualNotification/", data => data.name);
+        var options = ACC_JSONHelper.GetFilesListByParam<ACC_VisualNotificationData, string>("/ACC_VisualNotification/", data => data.name);
         
         visualNotificationDropdown = new DropdownField("Select a visual notification:", options, 0);
         visualNotificationDropdown.AddToClassList("dropdown-container");
@@ -299,7 +299,7 @@ public class ACC_MainWindow : EditorWindow
             if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
             {
                 var sounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
-                    "/ACC_JSONVisualNotification/", visualNotificationDropdown.value);
+                    "/ACC_VisualNotification/", visualNotificationDropdown.value);
                 ACC_VisualNotificationEditorWindow.ShowWindow(visualNotificationDropdown.value);
             }
             else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to load.", "OK");
@@ -311,7 +311,7 @@ public class ACC_MainWindow : EditorWindow
         {
             if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
             {
-                ACC_JSONHelper.DeleteFile("/ACC_JSONVisualNotification/" + visualNotificationDropdown.value);
+                ACC_JSONHelper.DeleteFile("/ACC_VisualNotification/" + visualNotificationDropdown.value);
                 RefreshVisualNotification();
             }
             else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to delete.", "OK");
@@ -330,7 +330,7 @@ public class ACC_MainWindow : EditorWindow
     {
         if (visualNotificationDropdown != null)
         {
-            var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("/ACC_JSONVisualNotification/", data => data.name);
+            var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("/ACC_VisualNotification/", data => data.name);
             visualNotificationDropdown.choices = options;
             visualNotificationDropdown.value = options.Count > 0 ? options[0] : "";
         }
