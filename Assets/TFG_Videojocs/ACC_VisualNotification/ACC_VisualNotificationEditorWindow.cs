@@ -14,13 +14,8 @@ using UnityEngine.UIElements;
 
 public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationEditorWindow, ACC_VisualNotificationData>
 {
-    private ScrollView soundContainer, soundScrollView;
+    private ScrollView soundScrollView;
     private ACC_AudioManager audioManager;
-    private AudioClip audioClip;
-
-    private bool isEditing, isRenamingFile, isCreatingNewFile, isOverWriting, isClosing;
-    private string oldName;
-    private ACC_VisualNotificationData lastVisualNotificationData;
     
     public delegate void SubtitleWindowDelegate();
     public static event SubtitleWindowDelegate OnCloseVisualNotificationWindow;
@@ -40,6 +35,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
     private new void OnDestroy()
     {
         base.OnDestroy();
+        OnCloseVisualNotificationWindow?.Invoke();
     }
 
     public static void ShowWindow(string name)
@@ -130,6 +126,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
     
     private VisualElement CreateAddNewSoundOption()
     {
+        AudioClip audioClip = null;
         return uiElementFactory.CreateObjectFieldAndButton("option-multi-input", "Add new sound:", "Add", typeof(AudioClip),
             onObjectField: value => audioClip = value as AudioClip,
             () =>
