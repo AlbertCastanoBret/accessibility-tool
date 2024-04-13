@@ -106,7 +106,7 @@ namespace TFG_Videojocs.ACC_Utilities
         
         public VisualElement CreateObjectField(string classList, string label,  Type type,
             string subClassList1 = "multi-input-1-1", string subClassList2 = "multi-input-1-2", 
-            Action<AudioClip> onValueChanged = null)
+            Action<Object> onValueChanged = null)
         {
             var name = GenerateUniqueName(classList);
             
@@ -120,8 +120,9 @@ namespace TFG_Videojocs.ACC_Utilities
             objectField[1].AddToClassList(subClassList2);
             objectField.RegisterValueChangedCallback(evt =>
             {
-                onValueChanged?.Invoke(evt.newValue as AudioClip);
+                onValueChanged?.Invoke(evt.newValue);
             });
+            onValueChanged?.Invoke(objectField.value);
             return objectField;
         }
         
@@ -137,6 +138,7 @@ namespace TFG_Videojocs.ACC_Utilities
             {
                 onValueChanged?.Invoke(evt.newValue);
             });
+            onValueChanged?.Invoke(dropdownField.text);
             return dropdownField;
         }
         

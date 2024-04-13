@@ -33,8 +33,9 @@ namespace TFG_Videojocs
         }
 
         public virtual void ConfigureJson()
-        {
-            ACC_JSONHelper.CreateJson(currentData, "/ACC_JSONSubtitle/");
+        { 
+            var path = "/" + window.GetType().Name.Replace("EditorWindow", "") + "/";
+            ACC_JSONHelper.CreateJson(currentData, path);
             lastData = (TData)currentData.Clone(); 
             if (isEditing) oldName = currentData.name;
         }
@@ -43,20 +44,21 @@ namespace TFG_Videojocs
         
         public virtual void HandleSave<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
-            var nameInput = window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First();
-            if (nameInput.value.Length > 0)
+            var name = currentData.name;
+            if (name.Length > 0)
             {
-                var fileExists = ACC_JSONHelper.FileNameAlreadyExists("/ACC_JSONSubtitle/" + nameInput.value);
-                if (!fileExists && !isEditing || fileExists && isEditing && nameInput.value == oldName)
+                var path = "/" + window.GetType().Name.Replace("EditorWindow", "") + "/";
+                var fileExists = ACC_JSONHelper.FileNameAlreadyExists(path + name);
+                if (!fileExists && !isEditing || fileExists && isEditing && name == oldName)
                 {
                     isCreatingNewFileOnCreation = true;
                     ConfigureJson();
                 }
-                else if(fileExists && !isEditing || fileExists && isEditing && nameInput.value != oldName)
+                else if(fileExists && !isEditing || fileExists && isEditing && name != oldName)
                 {
                     int option = EditorUtility.DisplayDialogComplex(
                         "File name already exists",
-                        "The name \"" + nameInput.value + "\" already exists. What would you like to do?",
+                        "The name \"" + name + "\" already exists. What would you like to do?",
                         "Overwrite",
                         "Cancel",
                         ""
@@ -77,7 +79,7 @@ namespace TFG_Videojocs
                 {
                     int option = EditorUtility.DisplayDialogComplex(
                         "Name Change Detected",
-                        $"The name has been changed to \"{nameInput.value}\". What would you like to do?",
+                        $"The name has been changed to \"{name}\". What would you like to do?",
                         "Create New File", 
                         "Cancel",
                         "Rename Existing File"
@@ -93,7 +95,7 @@ namespace TFG_Videojocs
                             break;
                         case 2:
                             isRenamingFile = true;
-                            ACC_JSONHelper.RenameFile("/ACC_JSONSubtitle/" + oldName, "/ACC_JSONSubtitle/" + nameInput.value);
+                            ACC_JSONHelper.RenameFile("/ACC_JSONSubtitle/" + oldName, "/ACC_JSONSubtitle/" +name);
                             ConfigureJson();
                             break;
                     }
@@ -126,7 +128,7 @@ namespace TFG_Videojocs
             if (IsThereAnyChange())
             {
                 var result = EditorUtility.DisplayDialogComplex("Current configuration has been modified",
-                    $"Do you want to save the changes you made in:\n./ACC_JSONSubtitle/{name}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
+                    $"Do you want to save the changes you made in:\n./ACC_JSONSubtitle/{oldName}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
                 switch (result)
                 {
                     case 0:

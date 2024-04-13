@@ -409,7 +409,7 @@ namespace TFG_Videojocs.ACC_RemapControls
         
         private void LoadJson()
         {
-            string path = "/ACC_JSONRemapControls/" + inputActionAsset.name;
+            string path = "/ACC_RemapControls/" + inputActionAsset.name;
             ACC_ControlSchemeData accControlSchemeData = ACC_JSONHelper.LoadJson<ACC_ControlSchemeData>(path);
             if(accControlSchemeData != null)
             {

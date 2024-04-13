@@ -33,6 +33,7 @@ namespace TFG_Videojocs
 
         protected void CreateGUI()
         {
+            rootVisualElement.Clear();
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Core/ACC_FloatingWindow/ACC_BaseFloatingWindowStyles.uss");
             rootVisualElement.styleSheets.Add(styleSheet);
             rootVisualElement.name = "root-visual-element";

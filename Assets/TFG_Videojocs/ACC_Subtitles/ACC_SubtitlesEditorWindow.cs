@@ -122,7 +122,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
-        var createSubtitleButton = uiElementFactory.CreateButton("Save", "create-subtitle-button", () => controller.HandleSave(this));
+        var createSubtitleButton = uiElementFactory.CreateButton("Save", "button", () => controller.HandleSave(this));
 
         var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-subtitles-container");
         var addSubtitlesLabel = uiElementFactory.CreateLabel("add-subtitles-label", "Add subtitles:");

@@ -3,16 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TFG_Videojocs;
 using TFG_Videojocs.ACC_Utilities;
-using TFG_Videojocs.ACC_VisualNotification;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ACC_VisualNotificationEditorWindow2 : ACC_BaseFloatingWindow<ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationEditorWindow2, ACC_VisualNotificationData>
+public class ACC_VisualNotificationEditorWindowDeprecated : EditorWindow
 {
     private List<ACC_Sound> selectedSounds;
     private TextField nameInput, messageInput;
@@ -21,7 +19,7 @@ public class ACC_VisualNotificationEditorWindow2 : ACC_BaseFloatingWindow<ACC_Vi
     private ColorField fontColorInput;
     private ColorField backgroundColorInput;
     private SliderInt fontSizeInput;
-    private ScrollView soundContainer, soundScrollView;
+    private ScrollView soundContainer;
     private ACC_AudioManager audioManager;
     private AudioClip audioClip;
 
@@ -32,21 +30,22 @@ public class ACC_VisualNotificationEditorWindow2 : ACC_BaseFloatingWindow<ACC_Vi
     public delegate void SubtitleWindowDelegate();
     public static event SubtitleWindowDelegate OnCloseVisualNotificationWindow;
 
-    private new void OnEnable()
+    private void OnEnable()
     {
-        base.OnEnable();
         audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
         audioManager.OnSoundsChanged += ResetSoundsList;
+        //CompilationPipeline.compilationStarted += OnCompilationStarted;
     }
 
     private void OnDisable()
     {
         audioManager.OnSoundsChanged -= ResetSoundsList;
+        //CompilationPipeline.compilationStarted -= OnCompilationStarted;
     }
 
-    private new void OnDestroy()
+    private void OnDestroy()
     {
-        base.OnDestroy();
+        ConfirmSaveChangesIfNeeded();
     }
     
     /*private void OnCompilationStarted(object obj)
@@ -70,26 +69,143 @@ public class ACC_VisualNotificationEditorWindow2 : ACC_BaseFloatingWindow<ACC_Vi
 
     public static void ShowWindow(string name)
     {
-        ACC_VisualNotificationEditorWindow2 window = GetWindow<ACC_VisualNotificationEditorWindow2>();
-        window.titleContent = new GUIContent("Visual Notification Creation");
-        window.minSize = new Vector2(600, 520);
-        window.maxSize = new Vector2(600, 520);
+        ACC_VisualNotificationEditorWindowDeprecated windowDeprecated = GetWindow<ACC_VisualNotificationEditorWindowDeprecated>();
+        windowDeprecated.titleContent = new GUIContent("Visual Notification Creation");
+        windowDeprecated.minSize = new Vector2(600, 520);
+        windowDeprecated.maxSize = new Vector2(600, 520);
         if (name != null)
         {
-            window.isEditing = true;
-            window.selectedSounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
+            windowDeprecated.isEditing = true;
+            windowDeprecated.selectedSounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
                 "/ACC_JSONVisualNotification/", name);
-            window.LoadJson(name);
+            windowDeprecated.LoadJson(name);
         }
     }
 
-    private new void CreateGUI()
+    private void CreateGUI()
     {
-        base.CreateGUI();
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_VisualNotification/ACC_VisualNotificationEditorWindow.uss");
+        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_VisualNotification/ACC_VisualNotificationEditorWindowDeprecated.uss");
         rootVisualElement.styleSheets.Add(styleSheet);
+        Color backgroundColor;
+        ColorUtility.TryParseHtmlString("#4f4f4f", out backgroundColor);
+        rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
         
-        CreateSoundContainer();
+        var mainContainer = new VisualElement();
+        mainContainer.AddToClassList("main-container");
+        
+        var soundsSelectedTitleLabel = new Label("Sounds");
+        soundsSelectedTitleLabel.style.unityFontStyleAndWeight = new StyleEnum<FontStyle>(FontStyle.Bold);
+        
+        soundContainer = new ScrollView();
+        soundContainer.AddToClassList("sound-container");
+        selectedSounds = new List<ACC_Sound>();
+        CreateSoundsList();
+
+        var audioClipContainer = new VisualElement();
+        audioClipContainer.AddToClassList("audio-clip-container");
+
+        var audioClipField = new ObjectField("Add new sound:")
+        {
+            objectType = typeof(AudioClip),
+            allowSceneObjects = false
+        };
+        audioClipField.AddToClassList("audio-field");
+        audioClipField[0].AddToClassList("audio-label");
+        
+        audioClipField.RegisterValueChangedCallback(evt =>
+        {
+            audioClip = evt.newValue as AudioClip;
+        });
+
+        var audioClipButton = new Button() { text = "Add" };
+        audioClipButton.AddToClassList("audio-button");
+        audioClipButton.clicked += () =>
+        {
+            if (audioClip != null && soundContainer.Children().OfType<Label>().All(label => label.text != audioClip.name))
+            {
+                ACC_Sound accSound = new ACC_Sound(audioClip.name, audioClip);
+                audioManager.AddSFXSound(accSound);
+                selectedSounds.Add(accSound);
+            }
+            else
+            {
+                if (audioClip == null)
+                {
+                    EditorUtility.DisplayDialog("No AudioClip Selected", "Please select an AudioClip to add.", "OK");
+                }
+                else
+                {
+                    EditorUtility.DisplayDialog("AudioClip Already Selected", "The selected AudioClip is already in the list.", "OK");
+                }
+            }
+        };
+        
+        audioClipContainer.Add(audioClipField);
+        audioClipContainer.Add(audioClipButton);
+
+        var settingsLabelTitle = new Label("Settings");
+        settingsLabelTitle.style.unityFontStyleAndWeight = new StyleEnum<FontStyle>(FontStyle.Bold);
+        settingsLabelTitle.style.marginTop = new Length(12, LengthUnit.Pixel);
+        
+        nameInput = new TextField("Name: ");
+        nameInput.AddToClassList("visual-notification-field");
+        nameInput[0].AddToClassList("visual-notification-label");
+        
+        messageInput = new TextField("Message: ");
+        messageInput.AddToClassList("visual-notification-field");
+        messageInput[0].AddToClassList("visual-notification-label");
+        
+        var optionsHorizontal = new List<string> { "Left", "Center", "Right" };
+        dropdownHorizontalAlignment = new DropdownField("Horizontal alignment:", optionsHorizontal, 0);
+        dropdownHorizontalAlignment.AddToClassList("visual-notification-dropdown");
+        dropdownHorizontalAlignment[0].AddToClassList("visual-notification-label");
+        
+        var optionsVertical = new List<string> { "Top", "Center", "Down" };
+        dropdownVerticalAlignment = new DropdownField("Horizontal alignment:", optionsVertical, 0);
+        dropdownVerticalAlignment.AddToClassList("visual-notification-dropdown");
+        dropdownVerticalAlignment[0].AddToClassList("visual-notification-label");
+
+        timeOnScreen = new IntegerField(){label = "Time on screen"};
+        timeOnScreen.AddToClassList("visual-notification-field");
+        timeOnScreen[0].AddToClassList("visual-notification-label");
+        timeOnScreen.value = 1;
+        
+        dropdownVerticalAlignment = new DropdownField("Vertical alignment:", optionsVertical, 0);
+        dropdownVerticalAlignment.AddToClassList("visual-notification-dropdown");
+        dropdownVerticalAlignment[0].AddToClassList("visual-notification-label");
+
+        fontColorInput = new ColorField("Font color:");
+        fontColorInput.value = new Color(0, 0, 0, 1);
+        fontColorInput.AddToClassList("visual-notification-dropdown");
+        fontColorInput[0].AddToClassList("visual-notification-label");
+        
+        backgroundColorInput = new ColorField("Background color:");
+        backgroundColorInput.value = new Color(0, 0, 0, 1);
+        backgroundColorInput.AddToClassList("visual-notification-dropdown");
+        backgroundColorInput[0].AddToClassList("visual-notification-label");
+
+        var fontSizeContainer = new VisualElement();
+        fontSizeContainer.AddToClassList("font-size-container");
+        
+        fontSizeInput = new SliderInt("Font size:", 10, 60) { value = 20 };
+        fontSizeInput.AddToClassList("font-size-slider");
+        fontSizeInput[0].AddToClassList("font-size-label");
+        
+        var fontSizeField = new IntegerField { value = 20, name = "fontSizeField" };
+        fontSizeField.AddToClassList("font-size-field");
+        
+        fontSizeInput.RegisterValueChangedCallback(evt =>
+        {
+            fontSizeField.value = evt.newValue;
+        });
+        
+        fontSizeField.RegisterValueChangedCallback(evt =>
+        {
+            fontSizeInput.value = evt.newValue;
+        });
+        
+        fontSizeContainer.Add(fontSizeInput);
+        fontSizeContainer.Add(fontSizeField);
         
         var createVisualNotificationButton = new Button() { text = "Save" };
         createVisualNotificationButton.AddToClassList("create-visual-notification-button");
@@ -98,9 +214,21 @@ public class ACC_VisualNotificationEditorWindow2 : ACC_BaseFloatingWindow<ACC_Vi
         {
             HandleSave();
         };
-
-        CreateSettingsContainer();
-        rootVisualElement.Add(createVisualNotificationButton);
+        
+        mainContainer.Add(soundsSelectedTitleLabel);
+        mainContainer.Add(soundContainer);
+        mainContainer.Add(audioClipContainer);
+        mainContainer.Add(settingsLabelTitle);
+        mainContainer.Add(nameInput);
+        mainContainer.Add(messageInput);
+        mainContainer.Add(dropdownHorizontalAlignment);
+        mainContainer.Add(dropdownVerticalAlignment);
+        mainContainer.Add(timeOnScreen);
+        mainContainer.Add(fontColorInput);
+        mainContainer.Add(backgroundColorInput);
+        mainContainer.Add(fontSizeContainer);
+        mainContainer.Add(createVisualNotificationButton);
+        rootVisualElement.Add(mainContainer);
         
         lastVisualNotificationData = new ACC_VisualNotificationData();
         lastVisualNotificationData.soundsList = new List<ACC_Sound>(selectedSounds);
@@ -139,63 +267,12 @@ public class ACC_VisualNotificationEditorWindow2 : ACC_BaseFloatingWindow<ACC_Vi
 
     private void ResetSoundsList()
     {
-        if(soundScrollView!= null) soundScrollView.Clear();
+        if(soundContainer!= null) soundContainer.Clear();
         selectedSounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
             "/ACC_JSONVisualNotification/", oldName);
         nameInput.value = oldName;
-        CreateSoundContainer();
+        CreateSoundsList();
         LoadSelectedSounds();
-    }
-    
-    private void CreateSoundContainer()
-    {
-        var soundContainer = uiElementFactory.CreateVisualElement("container");
-        var soundsSelectedTitleLabel = uiElementFactory.CreateLabel("title", "Sounds");
-        soundContainer.Add(soundsSelectedTitleLabel);
-        
-        soundScrollView = uiElementFactory.CreateScrollView("sound-container");
-        selectedSounds = new List<ACC_Sound>();
-        soundContainer.Add(soundScrollView);
-        soundContainer.Add(CreateAddNewSoundOption());
-        
-        var SFXSounds = audioManager.GetSFXSounds();
-        bool isFirst = true;
-        foreach (var sound in SFXSounds)
-        {
-            var soundLabel = new Label(sound.name);
-            soundLabel.AddToClassList("sound-label");
-            soundLabel.focusable = true;
-            soundLabel.userData = sound;
-    
-            if (isFirst)
-            {
-                soundLabel.AddToClassList("sound-label-first");
-                isFirst = false;
-            }
-
-            soundLabel.RegisterCallback<MouseDownEvent>(evt =>
-            {
-                var label = evt.currentTarget as Label;
-                if (label != null)
-                {
-                    ACC_Sound soundData = label.userData as ACC_Sound;
-
-                    if (selectedSounds.Contains(soundData))
-                    {
-                        selectedSounds.Remove(soundData);
-                        label.RemoveFromClassList("selected-sound");
-                    }
-                    else
-                    {
-                        selectedSounds.Add(soundData);
-                        label.AddToClassList("selected-sound");
-                    }
-                }
-            });
-
-            if (soundScrollView != null) soundScrollView.Add(soundLabel);
-        }
-        rootVisualElement.Add(soundContainer);
     }
     
     private void CreateSoundsList()
@@ -238,79 +315,6 @@ public class ACC_VisualNotificationEditorWindow2 : ACC_BaseFloatingWindow<ACC_Vi
 
             if (soundContainer != null) soundContainer.Add(soundLabel);
         }
-    }
-    
-    private VisualElement CreateAddNewSoundOption()
-    {
-        return uiElementFactory.CreateObjectFieldAndButton("option-multi-input", "Add new sound:", "Add", typeof(AudioClip),
-            obj => audioClip = obj as AudioClip,
-            () =>
-            {
-                if (audioClip != null && soundScrollView.Children().OfType<Label>().All(label => label.text != audioClip.name))
-                {
-                    ACC_Sound accSound = new ACC_Sound(audioClip.name, audioClip);
-                    audioManager.AddSFXSound(accSound);
-                    selectedSounds.Add(accSound);
-                }
-                else
-                {
-                    if (audioClip == null)
-                    {
-                        EditorUtility.DisplayDialog("No AudioClip Selected", "Please select an AudioClip to add.", "OK");
-                    }
-                    else
-                    {
-                        EditorUtility.DisplayDialog("AudioClip Already Selected", "The selected AudioClip is already in the list.", "OK");
-                    }
-                }
-            });
-    }
-    
-    private void CreateSettingsContainer()
-    {
-        var settingsContainer = uiElementFactory.CreateVisualElement("settings-container");
-        
-        var settingsLabelTitle = uiElementFactory.CreateLabel("title", "Settings");
-        
-        nameInput = uiElementFactory.CreateTextField("option-input-name", "Name: ", "", "option-input-name-label", 
-            onValueChanged: value => controller.currentData.name = value);
-        
-        messageInput = uiElementFactory.CreateTextField("option-input", "Message: ", "", "option-input-label",
-            onValueChanged: value => controller.currentData.message = value);
-        
-        dropdownHorizontalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Horizontal alignment:", 
-            new List<string> { "Left", "Center", "Right" }, "option-input-label",
-            onValueChanged: value => controller.currentData.horizontalAlignment = value);
-        
-        var optionsVertical = new List<string> { "Top", "Center", "Down" };
-        dropdownVerticalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Vertical alignment:", optionsVertical, "option-input-label",
-            onValueChanged: value => controller.currentData.verticalAlignment = value);
-
-        timeOnScreen = uiElementFactory.CreateIntegerField("option-input", "Time on screen (seconds): ", 1, "option-input-label",
-            onValueChanged: value => controller.currentData.timeOnScreen = value);
-
-        fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, "option-input-label",
-            onValueChanged: value => controller.currentData.fontColor = value);
-        
-        backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label",
-            onValueChanged: value => controller.currentData.backgroundColor = value);
-
-        var fontSizeContainer = uiElementFactory.CreateSliderWithIntegerField("option-multi-input", "Font size:", 10,
-            60, 20,
-            onValueChanged: value => controller.currentData.fontSize = value);
-        
-        settingsContainer.Add(settingsLabelTitle);
-        settingsContainer.Add(nameInput);
-        settingsContainer.Add(messageInput);
-        settingsContainer.Add(dropdownHorizontalAlignment);
-        settingsContainer.Add(dropdownVerticalAlignment);
-        settingsContainer.Add(timeOnScreen);
-        settingsContainer.Add(fontColorInput);
-        settingsContainer.Add(backgroundColorInput);
-        settingsContainer.Add(fontSizeContainer);
-        
-        
-        rootVisualElement.Add(settingsContainer);
     }
 
     private void ConfigureJson()
