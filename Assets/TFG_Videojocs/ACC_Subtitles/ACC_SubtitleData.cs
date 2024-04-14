@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ public class ACC_SubtitleData: ACC_AbstractData
         bool subtitleTextEqual = subtitleText.Items.SequenceEqual(other.subtitleText.Items);
         bool timeTextEqual = timeText.Items.SequenceEqual(other.timeText.Items);
         
-        return name == other.name
+        return string.Equals(name,other.name, StringComparison.OrdinalIgnoreCase)
                && subtitleTextEqual
                && timeTextEqual
                && fontColor.Equals(other.fontColor)

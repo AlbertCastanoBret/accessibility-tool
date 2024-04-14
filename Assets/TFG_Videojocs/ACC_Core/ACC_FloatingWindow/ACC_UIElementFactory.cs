@@ -142,6 +142,22 @@ namespace TFG_Videojocs.ACC_Utilities
             return dropdownField;
         }
         
+        public VisualElement CreateToggle(string classList, string label, bool value = false, 
+            string subClassList = "", Action<bool> onValueChanged = null)
+        {
+            var name = GenerateUniqueName(classList);
+            
+            var toggle = new Toggle(label) { name = name, value = value };
+            toggle.AddToClassList(classList);
+            toggle[0].AddToClassList(subClassList);
+            toggle.RegisterValueChangedCallback(evt =>
+            {
+                onValueChanged?.Invoke(evt.newValue);
+            });
+            onValueChanged?.Invoke(toggle.value);
+            return toggle;
+        }
+        
         public VisualElement CreateSliderWithIntegerField(string classList, string label, int min, int max, int defaultValue,
             string sliderClassList = "multi-input-1", string integerFieldClassList = "multi-input-2", Action<int> onValueChanged = null)
         {
@@ -169,7 +185,7 @@ namespace TFG_Videojocs.ACC_Utilities
             return container;
         }
         
-        public VisualElement CreateObjectFieldAndButton(string classList, string label, string buttonLabel, 
+        public VisualElement CreateObjectFieldWithButton(string classList, string label, string buttonLabel, 
             Type type, Action<Object> onObjectField=null, Action onClick = null, 
             string objectFieldClassList = "multi-input-1", string buttonClassList = "multi-input-2") 
         {

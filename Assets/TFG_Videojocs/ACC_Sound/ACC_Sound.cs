@@ -20,7 +20,7 @@ public class ACC_Sound : IEquatable<ACC_Sound>, ICloneable
     public bool Equals(ACC_Sound other)
     {
         if (other == null) return false;
-        return name == other.name && audioClip.name == other.audioClip.name;
+        return name == other.name;
     }
 
     public object Clone()

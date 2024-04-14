@@ -20,24 +20,37 @@ namespace TFG_Videojocs
         public ACC_UIElementFactory uiElementFactory;
         public TData currentData;
         public TData lastData;
-        
-        public string oldName { get; protected set; }
-        public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile;
+
+        [SerializeField] public string oldName;
+        [SerializeField] public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile;
         
         public void Initialize(TWindow window)
         {
             this.window = window;
             uiElementFactory = new ACC_UIElementFactory();
             currentData = new TData();
+            lastData = new TData();
             isClosing = false;
         }
 
+        public virtual void LoadOnlyEditableWindow(string name)
+        {
+            currentData.name = name;
+            
+            var path = "/" + window.GetType().Name.Replace("EditorWindow", "") + "/";
+            var exists = ACC_JSONHelper.FileNameAlreadyExists(path + name);
+            
+            if(exists) LoadJson(name);
+            else ConfigureJson();
+        }
+        
         public virtual void ConfigureJson()
-        { 
+        {
             var path = "/" + window.GetType().Name.Replace("EditorWindow", "") + "/";
             ACC_JSONHelper.CreateJson(currentData, path);
             lastData = (TData)currentData.Clone(); 
             if (isEditing) oldName = currentData.name;
+            
         }
 
         public virtual void LoadJson(string name)
@@ -61,12 +74,13 @@ namespace TFG_Videojocs
             {
                 var path = "/" + window.GetType().Name.Replace("EditorWindow", "") + "/";
                 var fileExists = ACC_JSONHelper.FileNameAlreadyExists(path + name);
-                if (!fileExists && !isEditing || fileExists && isEditing && name == oldName)
+                
+                if (!fileExists && !isEditing || fileExists && isEditing && string.Equals(name, oldName, StringComparison.OrdinalIgnoreCase))
                 {
-                    isCreatingNewFileOnCreation = true;
+                    if(!fileExists && !isEditing) isCreatingNewFileOnCreation = true;
                     ConfigureJson();
                 }
-                else if(fileExists && !isEditing || fileExists && isEditing && name != oldName)
+                else if(fileExists && !isEditing || fileExists && isEditing && !string.Equals(name, oldName, StringComparison.OrdinalIgnoreCase))
                 {
                     int option = EditorUtility.DisplayDialogComplex(
                         "File name already exists",
@@ -107,12 +121,12 @@ namespace TFG_Videojocs
                             break;
                         case 2:
                             isRenamingFile = true;
-                            ACC_JSONHelper.RenameFile("/ACC_JSONSubtitle/" + oldName, "/ACC_JSONSubtitle/" +name);
+                            ACC_JSONHelper.RenameFile(path + oldName, path + name);
                             ConfigureJson();
                             break;
                     }
                 }
-                if (isCreatingNewFileOnCreation && !isEditing) window.Close();
+                if (isCreatingNewFileOnCreation && !isEditing &&!isClosing) window.Close();
             }
             else
             {
@@ -130,17 +144,18 @@ namespace TFG_Videojocs
             newWindow.Show();
             
             newWindow.CloneWindowAttributes(window);
-            SubtractRemainingVisualElements(window.rootVisualElement, newWindow.rootVisualElement);
-            AddRemainingVisualElements(window.rootVisualElement, newWindow.rootVisualElement);
+            //SubtractRemainingVisualElements(window.rootVisualElement, newWindow.rootVisualElement);
+            //AddRemainingVisualElements(window.rootVisualElement, newWindow.rootVisualElement);
             newWindow.controller.RestoreFieldValues();
         }
 
-        public void ConfirmSaveChangesIfNeeded<TController>(string name, ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
+        public void ConfirmSaveChangesIfNeeded<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
             if (IsThereAnyChange())
             {
+                var path = "./" + window.GetType().Name.Replace("EditorWindow", "") + "/";
                 var result = EditorUtility.DisplayDialogComplex("Current configuration has been modified",
-                    $"Do you want to save the changes you made in:\n./ACC_JSONSubtitle/{oldName}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
+                    $"Do you want to save the changes you made in:\n{path}{oldName}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
                 switch (result)
                 {
                     case 0:
@@ -180,20 +195,20 @@ namespace TFG_Videojocs
             var container = new ACC_PreCompilationDataStorage();
             var type = GetType();
             var fields = type.GetFields();
-            
+
             foreach (var field in fields)
             {
                 var value = field.GetValue(this);
                 if (value != null)
                 {
-                    var serializedValue = JsonUtility.ToJson(value);
-                    container.keyValuePairs.AddOrUpdate(field.Name, serializedValue);
+                    var valueAsString = value is bool or int or float or string ? value.ToString() : JsonUtility.ToJson(value);
+                    container.keyValuePairs.AddOrUpdate(field.Name, valueAsString);
+                    
                 }
             }
-            
+
             var json = JsonUtility.ToJson(container);
             SessionState.SetString(type + "_tempData", json);
-            
         }
 
         public virtual void RestoreDataAfterCompilation()
@@ -204,19 +219,27 @@ namespace TFG_Videojocs
             {
                 var container = JsonUtility.FromJson<ACC_PreCompilationDataStorage>(json);
                 var fields = type.GetFields();
-                
+        
                 foreach (var field in fields)
                 {
                     var serializedValue = container.keyValuePairs.Items.FirstOrDefault(item => item.key == field.Name)?.value;
                     if (serializedValue != null)
                     {
-                        var value = JsonUtility.FromJson(serializedValue, field.FieldType);
+                        object value = IsJson(serializedValue) ? 
+                            JsonUtility.FromJson(serializedValue, field.FieldType) : 
+                            Convert.ChangeType(serializedValue, field.FieldType);
                         field.SetValue(this, value);
                     }
                 }
             }
             RestoreFieldValues();
-            SessionState.EraseString( GetType() + "_tempData");
+            SessionState.EraseString(GetType() + "_tempData");
+        }
+        
+        private bool IsJson(string input)
+        {
+            input = input.Trim();
+            return input.StartsWith("{") && input.EndsWith("}") || input.StartsWith("[") && input.EndsWith("]");
         }
         
         private bool IsThereAnyChange()

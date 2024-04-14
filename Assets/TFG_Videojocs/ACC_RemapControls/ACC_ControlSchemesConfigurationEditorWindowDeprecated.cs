@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TFG_Videojocs.ACC_Utilities;
-using TFG_Videojocs.ACC_VisualNotification;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -11,55 +10,52 @@ using UnityEngine.UIElements;
 
 namespace TFG_Videojocs.ACC_RemapControls
 {
-    public class ACC_ControlSchemesConfigurationEditorWindow:ACC_BaseFloatingWindow<ACC_ControlSchemesConfigurationEditorWindowController, ACC_ControlSchemesConfigurationEditorWindow, ACC_ControlSchemeData>
+    public class ACC_ControlSchemesConfigurationEditorWindowDeprecated:EditorWindow
     {
-        public InputActionAsset inputActionAsset { get; private set; }
-        private bool isReadyToCreateGUI;
+        private InputActionAsset inputActionAsset;
+        private bool isReadyToCreateGUI = false;
         
+        private VisualElement controlSchemesContainer;
         private ScrollView controlSchemesScrollView;
+        
+        private Dictionary<string, bool> controlSchemeToggleValues = new Dictionary<string, bool>();
+        private Dictionary<string, bool> currentControlSchemeToggleValues = new Dictionary<string, bool>();
+        private Dictionary<string, bool> lastSaveControlSchemeToggleValues = new Dictionary<string, bool>();
+        
+        private Dictionary<ACC_BindingData, bool> currentBindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
+        private Dictionary<ACC_BindingData, bool> bindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
+        private Dictionary<ACC_BindingData, bool> lastSaveBindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
+
+        private void OnDestroy()
+        {
+            ConfirmSaveChangesIfNeeded();
+        }
 
         public static void ShowWindow(InputActionAsset inputActionAsset)
         {
-            ACC_ControlSchemesConfigurationEditorWindow window =
-                GetWindow<ACC_ControlSchemesConfigurationEditorWindow>();
+            ACC_ControlSchemesConfigurationEditorWindowDeprecated window = GetWindow<ACC_ControlSchemesConfigurationEditorWindowDeprecated>();
             window.titleContent = new GUIContent("Control Schemes Configuration");
             window.minSize = new Vector2(600, 450);
             window.maxSize = new Vector2(600, 450);
             window.inputActionAsset = inputActionAsset;
-            window.controller.isEditing = true;
             window.isReadyToCreateGUI = true;
             window.CreateGUI();
-            
-            window.controller.isEditing = true;
-            window.controller.LoadOnlyEditableWindow(inputActionAsset.name);
-            
+            window.LoadJson();
             //window.ShowModal();
         }
 
-        private new void CreateGUI()
+        private void CreateGUI()
         {
-            if (!isReadyToCreateGUI) return;
-            base.CreateGUI();
+            if(!isReadyToCreateGUI) return;
+            isReadyToCreateGUI = false;
+            rootVisualElement.Clear();
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_ControlSchemesConfigurationEditorWindow.uss");
             rootVisualElement.styleSheets.Add(styleSheet);
+            rootVisualElement.AddToClassList("main-container");
 
-            var controlSchemesLabel = uiElementFactory.CreateLabel("title", "Control Schemes");
-            rootVisualElement.Add(controlSchemesLabel);
+            var controlSchemesLabel = new Label("Control Schemes");
+            controlSchemesLabel.AddToClassList("control-schemes-label");
             
-            CreateDropdownField();
-            controlSchemesScrollView = new ScrollView();
-            rootVisualElement.Add(controlSchemesScrollView);
-            CreateTable();
-            
-            var createButton = new Button() { text = "Save" };
-            createButton.AddToClassList("create-button");
-            createButton.clicked += () => controller.HandleSave(this);
-            
-            rootVisualElement.Add(createButton);
-        }
-
-        private void CreateDropdownField()
-        {
             var devices = inputActionAsset.controlSchemes
                 .Select(scheme => 
                 {
@@ -79,20 +75,21 @@ namespace TFG_Videojocs.ACC_RemapControls
                 .ToList();
             
             devices.Insert(0, "All devices");
-            var devicesDropdown = (DropdownField) uiElementFactory.CreateDropdownField("option-input", "Devices: ", 
-                devices, "option-input-label"); 
+            var devicesDropdown = new DropdownField("Devices:", devices, 0);
+            devicesDropdown.AddToClassList("devices-dropdown");
+            devicesDropdown[0].AddToClassList("devices-dropdown-label");
 
             var controlSchemes = inputActionAsset.controlSchemes.Select(scheme => scheme.name).ToList();
-            controlSchemes.ForEach(key => controller.onScreenControlSchemeToggleValues[key] = false);
+            controlSchemes.ForEach(key => currentControlSchemeToggleValues[key] = false);
             
             devicesDropdown.RegisterValueChangedCallback(evt =>
             {
                 if (evt.newValue == "All devices")
                 {
-                    controlSchemes = inputActionAsset.controlSchemes.Select(scheme => scheme.name).ToList(); 
-                    controller.onScreenControlSchemeToggleValues = new Dictionary<string, bool>();
-                    controller.onScreenBindingToggleValues = new Dictionary<ACC_BindingData, bool>();
-                    controlSchemes.ForEach(key => controller.onScreenControlSchemeToggleValues[key] = controller.currentData.controlSchemesList.Items.Find(item => item.key == key).value);
+                    controlSchemes = inputActionAsset.controlSchemes.Select(scheme => scheme.name).ToList();
+                    currentControlSchemeToggleValues = new Dictionary<string, bool>();
+                    currentBindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
+                    controlSchemes.ForEach(key => currentControlSchemeToggleValues[key] = controlSchemeToggleValues[key]);
                 }
                 else
                 {
@@ -103,19 +100,22 @@ namespace TFG_Videojocs.ACC_RemapControls
                             .OrderBy(device => device)) == evt.newValue)
                         .Select(scheme => scheme.name)
                         .ToList();
-                    controller.onScreenControlSchemeToggleValues = new Dictionary<string, bool>();
-                    controller.onScreenBindingToggleValues = new Dictionary<ACC_BindingData, bool>();
-                    controlSchemes.ForEach(key => controller.onScreenControlSchemeToggleValues[key] = controller.currentData.controlSchemesList.Items.Find(item => item.key == key).value);
+                    currentControlSchemeToggleValues = new Dictionary<string, bool>();
+                    currentBindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
+                    controlSchemes.ForEach(key => currentControlSchemeToggleValues[key] = controlSchemeToggleValues[key]);
                 }
                 CreateTable();
             });
             
+            controlSchemesScrollView = new ScrollView();
+            controlSchemesScrollView.AddToClassList("control-schemes-scroll-view");
+            
             for (int i = 0; i < controlSchemes.Count(); i++)
             {
-                controller.currentData.controlSchemesList.AddOrUpdate(controlSchemes[i], false);
+                controlSchemeToggleValues[controlSchemes[i]] = false;
             }
             
-            controller.onScreenBindingToggleValues = new Dictionary<ACC_BindingData, bool>();
+            bindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
             foreach (var controlScheme in controlSchemes)
             {
                 foreach (var actionMap in inputActionAsset.actionMaps)
@@ -130,63 +130,93 @@ namespace TFG_Videojocs.ACC_RemapControls
                                 if (group == controlScheme)
                                 {
                                     ACC_BindingData accBindingData = new ACC_BindingData(binding.id.ToString(), controlScheme);
-                                    controller.onScreenBindingToggleValues[accBindingData] = false;
-                                    controller.currentData.bindingsList.AddOrUpdate(accBindingData, false);
+                                    bindingsToggleValues[accBindingData] = false;
                                 }
                             }
                         }
                     }
                 }
             }
+
+            CreateTable();
+            
+            var createButton = new Button() { text = "Save" };
+            createButton.AddToClassList("create-button");
+            createButton.clicked += ConfigureJSON;
+            
+            rootVisualElement.Add(controlSchemesLabel);
             rootVisualElement.Add(devicesDropdown);
+            rootVisualElement.Add(controlSchemesScrollView);
+            rootVisualElement.Add(createButton);
+            
+            lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
+            lastSaveBindingsToggleValues = new Dictionary<ACC_BindingData, bool>(bindingsToggleValues);
         }
-        
-        public void CreateTable()
+
+        private void CreateTable()
         {
             controlSchemesScrollView.Clear();
-            var controlSchemesContainer = new VisualElement();
+            controlSchemesContainer = new VisualElement();
             controlSchemesContainer.AddToClassList("control-schemes-container");
             
-            var controlSchemeTitle = uiElementFactory.CreateVisualElement("control-scheme-title");
-            var controlSchemeNameTitle = uiElementFactory.CreateLabel("control-scheme-name-title", "Name");
-            var controlSchemeRebindTitle = uiElementFactory.CreateLabel("control-scheme-rebind-title", "Rebind");
+            var controlSchemeTitle = new VisualElement();
+            controlSchemeTitle.AddToClassList("control-scheme-title");
+
+            var controlSchemeNameTitle = new Label("Name");
+            controlSchemeNameTitle.AddToClassList("control-scheme-name-title");
+            
+            var controlSchemeRebindTitle = new Label("Can Rebind?");
+            controlSchemeRebindTitle.AddToClassList("control-scheme-rebind-title");
             
             controlSchemeTitle.Add(controlSchemeNameTitle);
             controlSchemeTitle.Add(controlSchemeRebindTitle);
             
             controlSchemesContainer.Add(controlSchemeTitle);
             
-            for (int i=0; i<controller.onScreenControlSchemeToggleValues.Count; i++)
+            for (int i=0; i<currentControlSchemeToggleValues.Count; i++)
             {
-                var controlScheme = uiElementFactory.CreateVisualElement("control-scheme");
+                var controlScheme = new VisualElement();
+                controlScheme.AddToClassList("control-scheme");
                 
-                var controlSchemeFirstRow = uiElementFactory.CreateVisualElement("control-scheme-first-row");
-                if (i == controller.onScreenControlSchemeToggleValues.Count - 1) controlSchemeFirstRow.AddToClassList("control-scheme-last");
+                var controlSchemeFirstRow = new VisualElement();
+                controlSchemeFirstRow.AddToClassList("control-scheme-first-row");
+                if (i == currentControlSchemeToggleValues.Count - 1)
+                {
+                    controlSchemeFirstRow.AddToClassList("control-scheme-last");
+                }
 
-                var arrowButton = uiElementFactory.CreateButton("\u25b6", "control-scheme-arrow");
-                arrowButton.clicked += () => ToggleControlSchemeDisplay(arrowButton, controlScheme);
+                var arrowButton = new Button() { text = "\u25b6" };
+                arrowButton.AddToClassList("control-scheme-arrow");
+                arrowButton.clicked += () =>
+                {
+                    ToggleControlSchemeDisplay(arrowButton, controlScheme);
+                };
                 
-                var controlSchemeLabel = uiElementFactory.CreateLabel("control-scheme-label", controller.onScreenControlSchemeToggleValues.Keys.ElementAt(i));
-                var controlSchemeToggleContainer = uiElementFactory.CreateVisualElement("control-scheme-toggle-container");
+                var controlSchemeLabel = new Label(){text = currentControlSchemeToggleValues.Keys.ToList()[i]};
+                controlSchemeLabel.AddToClassList("control-scheme-label");
+
+                var controlSchemeToggleContainer = new VisualElement();
+                controlSchemeToggleContainer.AddToClassList("control-scheme-toggle-container");
                 
-                var controlSchemeToggle = (Toggle) uiElementFactory.CreateToggle("control-scheme-toggle", "", controller.onScreenControlSchemeToggleValues.Values.ElementAt(i),
-                    onValueChanged: value =>
+                var controlSchemeToggle = new Toggle(){value = currentControlSchemeToggleValues[controlSchemeLabel.text]};
+                controlSchemeToggle.AddToClassList("control-scheme-toggle");
+                controlSchemeToggle.RegisterValueChangedCallback(evt =>
+                {
+                    controlSchemeToggleValues[controlSchemeLabel.text] = evt.newValue;
+                    for (int k = 1; k < controlScheme.childCount; k++)
                     {
-                        controller.onScreenControlSchemeToggleValues[controlSchemeLabel.text] = value;
-                        controller.currentData.controlSchemesList.AddOrUpdate(controlSchemeLabel.text, value);
-                        for (int k = 1; k < controlScheme.childCount; k++)
+                        for (int l = 1; l < controlScheme[k].childCount; l++)
                         {
-                            for (int l = 1; l < controlScheme[k].childCount; l++)
+                            for (int m = 1; m < controlScheme[k][l].childCount; m++)
                             {
-                                for (int m = 1; m < controlScheme[k][l].childCount; m++)
-                                {
-                                    controlScheme[k][l][m].Query<Toggle>().First().SetEnabled(value);
-                                }
+                                controlScheme[k][l][m].Query<Toggle>().First().SetEnabled(evt.newValue);
                             }
                         }
-                    });
+                    }
+                });
                 
                 controlSchemeToggleContainer.Add(controlSchemeToggle);
+                
                 controlSchemeFirstRow.Add(arrowButton);
                 controlSchemeFirstRow.Add(controlSchemeLabel);
                 controlSchemeFirstRow.Add(controlSchemeToggleContainer);
@@ -194,7 +224,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 controlSchemesContainer.Add(controlScheme);
                 CreateActionMaps(controlScheme);
             }
-
             controlSchemesScrollView.Add(controlSchemesContainer);
         }
 
@@ -203,14 +232,22 @@ namespace TFG_Videojocs.ACC_RemapControls
             var actionMaps = inputActionAsset.actionMaps;
             foreach (var actionMap in actionMaps)
             {
-                var mainContainer = uiElementFactory.CreateVisualElement("control-scheme-action-map-container");
+                var mainContainer = new VisualElement();
+                mainContainer.AddToClassList("control-scheme-action-map-container");
                 mainContainer.style.display = DisplayStyle.None;
                     
-                var firstRow = uiElementFactory.CreateVisualElement("control-scheme-action-map-first-row");
-                var arrowButton = uiElementFactory.CreateButton("\u25b6", "control-scheme-arrow");
-                arrowButton.clicked += () => ToggleControlSchemeDisplay(arrowButton, mainContainer);
+                var firstRow = new VisualElement();
+                firstRow.AddToClassList("control-scheme-action-map-first-row");
                     
-                var actionMapLabel = uiElementFactory.CreateLabel("control-scheme-action-map-label", actionMap.name);
+                var arrowButton = new Button() { text = "\u25b6" };
+                arrowButton.AddToClassList("control-scheme-arrow");
+                arrowButton.clicked += () =>
+                {
+                    ToggleControlSchemeDisplay(arrowButton, mainContainer);
+                };
+                    
+                var actionMapLabel = new Label(actionMap.name);
+                actionMapLabel.AddToClassList("control-scheme-action-map-label");
                     
                 firstRow.Add(arrowButton);
                 firstRow.Add(actionMapLabel);
@@ -229,15 +266,22 @@ namespace TFG_Videojocs.ACC_RemapControls
                 var actionMapActions = actionMap.actions;
                 foreach (var action in actionMapActions)
                 {
-                    var mainContainer = uiElementFactory.CreateVisualElement("control-scheme-action-container");
+                    var mainContainer = new VisualElement();
+                    mainContainer.AddToClassList("control-scheme-action-container");
                     mainContainer.style.display = DisplayStyle.None;
                     
-                    var firstRow = uiElementFactory.CreateVisualElement("control-scheme-action-first-row");
+                    var firstRow = new VisualElement();
+                    firstRow.AddToClassList("control-scheme-action-first-row");
                     
-                    var arrowButton = uiElementFactory.CreateButton("\u25b6", "control-scheme-arrow");
-                    arrowButton.clicked += () => ToggleControlSchemeDisplay(arrowButton, mainContainer);
+                    var arrowButton = new Button() { text = "\u25b6" };
+                    arrowButton.AddToClassList("control-scheme-arrow");
+                    arrowButton.clicked += () =>
+                    {
+                        ToggleControlSchemeDisplay(arrowButton, mainContainer);
+                    };
                     
-                    var actionLabel = uiElementFactory.CreateLabel("control-scheme-action-label", action.name);
+                    var actionLabel = new Label(action.name);
+                    actionLabel.AddToClassList("control-scheme-action-label");
                     
                     firstRow.Add(arrowButton);
                     firstRow.Add(actionLabel);
@@ -268,26 +312,31 @@ namespace TFG_Videojocs.ACC_RemapControls
                             if (group == controlScheme)
                             {
                                 var presentablePath = MakePathPresentable(binding.path);
-                                var mainContainer = uiElementFactory.CreateVisualElement("control-scheme-binding-container");
+                                var mainContainer = new VisualElement();
                                 mainContainer.style.display = DisplayStyle.None;
+                                mainContainer.AddToClassList("control-scheme-binding-container");
                     
-                                var firstRow = uiElementFactory.CreateVisualElement("control-scheme-binding-first-row");
+                                var firstRow = new VisualElement();
+                                firstRow.AddToClassList("control-scheme-binding-first-row");
                                 
-                                var bindingLabel = uiElementFactory.CreateLabel("control-scheme-binding-label", presentablePath);
+                                var bindingLabel = new Label(presentablePath);
+                                bindingLabel.AddToClassList("control-scheme-binding-label");
                                 
-                                var bindingToggleContainer = uiElementFactory.CreateVisualElement("binding-toggle-container");
+                                var bindingToggleContainer = new VisualElement();
+                                bindingToggleContainer.AddToClassList("binding-toggle-container");
                                 
-                                ACC_BindingData accBindingData = controller.currentData.bindingsList.Items.Find(item => item.key.id == binding.id.ToString() && item.key.controlScheme == controlScheme).key;
+                                ACC_BindingData accBindingData = bindingsToggleValues.Keys.FirstOrDefault(b => b.id == binding.id.ToString() && b.controlScheme == controlScheme);
                                 if (accBindingData != null)
                                 {
-                                    controller.onScreenBindingToggleValues[accBindingData] = controller.currentData.bindingsList.Items.Find(item => item.key == accBindingData).value;
-                                    var bindingToggle = uiElementFactory.CreateToggle("binding-toggle", "",
-                                        controller.currentData.bindingsList.Items.Find(item => item.key == accBindingData).value,
-                                        onValueChanged: value =>
-                                        {
-                                            controller.currentData.bindingsList.AddOrUpdate(accBindingData, value);
-                                        });
-                                    bindingToggle.SetEnabled(controller.currentData.controlSchemesList.Items.Find(item => item.key == controlScheme).value);
+                                    currentBindingsToggleValues[accBindingData] = bindingsToggleValues[accBindingData];
+                                    var bindingToggle = new Toggle() { value = bindingsToggleValues[accBindingData] };
+                                    bindingToggle.SetEnabled(controlSchemeToggleValues[controlScheme]);
+                                    bindingToggle.AddToClassList("binding-toggle");
+                                    bindingToggle.RegisterValueChangedCallback(evt =>
+                                    {
+                                        bindingsToggleValues[accBindingData] = evt.newValue;
+                                    });
+
                                     bindingToggleContainer.Add(bindingToggle);
                                 }
 
@@ -335,6 +384,27 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             var control = string.Join(" ", controlParts);
             return $"{control} [{device}]";
+        }
+
+        private void ConfigureJSON()
+        {
+            ACC_ControlSchemeData accControlSchemeData = new ACC_ControlSchemeData();
+            accControlSchemeData.name = inputActionAsset.name;
+            accControlSchemeData.inputActionAsset = inputActionAsset;
+            foreach (KeyValuePair<string, bool> item in controlSchemeToggleValues)
+            {
+                //accControlSchemeData.controlSchemesList.Add(new ACC_KeyValuePair<string, bool>(item.Key, item.Value));
+            }
+
+            foreach (KeyValuePair<ACC_BindingData, bool> binding in bindingsToggleValues)
+            {
+                //accControlSchemeData.bindingsList.Add(new ACC_KeyValuePair<ACC_BindingData, bool>(binding.Key, binding.Value));
+            }
+            
+            ACC_JSONHelper.CreateJson(accControlSchemeData, "/ACC_JSONRemapControls/");
+            lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
+            lastSaveBindingsToggleValues = new Dictionary<ACC_BindingData, bool>(bindingsToggleValues);
+            //ACC_AssetSaveProcessor.controlSchemesChanged.Find(x=>x.key == inputActionAsset.name).value = true;
         }
         
         private void LoadJson()
@@ -405,7 +475,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 
                 ACC_JSONHelper.CreateJson(accControlSchemeData, "/ACC_JSONRemapControls/");*/
                 
-                controller.onScreenControlSchemeToggleValues = new Dictionary<string, bool>();
+                currentControlSchemeToggleValues = new Dictionary<string, bool>();
                 /*foreach (var scheme in accControlSchemeData.controlSchemesList)
                 {
                     if (controlSchemeToggleValues.ContainsKey(scheme.key))
@@ -415,17 +485,63 @@ namespace TFG_Videojocs.ACC_RemapControls
                     }
                 }*/
                 
-                //bindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
-                //currentBindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
+                bindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
+                currentBindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
                 /*foreach (var binding in accControlSchemeData.bindingsList)
                 {
                     bindingsToggleValues[binding.key] = binding.value;
                     currentBindingsToggleValues[binding.key] = binding.value;
                 }*/
                 
-                //lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
-                //lastSaveBindingsToggleValues = new Dictionary<ACC_BindingData, bool>(bindingsToggleValues);
+                lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
+                lastSaveBindingsToggleValues = new Dictionary<ACC_BindingData, bool>(bindingsToggleValues);
                 CreateTable();
+            }
+        }
+        
+        private bool IsThereAnyChange()
+        {
+            return !controlSchemeToggleValues.SequenceEqual(lastSaveControlSchemeToggleValues) ||
+                   !bindingsToggleValues.SequenceEqual(lastSaveBindingsToggleValues);
+        }
+
+        private void Cancel()
+        {
+            var window = Instantiate(this);
+            window.titleContent = new GUIContent("Control Schemes Configuration");
+            window.minSize = new Vector2(600, 450);
+            window.maxSize = new Vector2(600, 450);
+            window.inputActionAsset = inputActionAsset;
+            window.isReadyToCreateGUI = true;
+            window.CreateGUI();
+            
+           
+            window.controlSchemeToggleValues = controlSchemeToggleValues;
+            window.currentControlSchemeToggleValues = controlSchemeToggleValues;
+            window.bindingsToggleValues = bindingsToggleValues;
+            window.currentBindingsToggleValues = bindingsToggleValues;
+            window.CreateTable();
+            
+            window.Show();
+        }
+        
+        private void ConfirmSaveChangesIfNeeded()
+        {
+            if (IsThereAnyChange())
+            {
+                var result = EditorUtility.DisplayDialogComplex("Control Schemes Configuration has been modified",
+                    $"Do you want to save the changes you made in:\n./JSONRemapControls/{inputActionAsset.name}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
+                switch (result)
+                {
+                    case 0:
+                        ConfigureJSON();
+                        break;
+                    case 1:
+                        Cancel();
+                        break;
+                    case 2:
+                        break;
+                }
             }
         }
     }

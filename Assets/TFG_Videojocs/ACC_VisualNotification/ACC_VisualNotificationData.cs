@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ public class ACC_VisualNotificationData: ACC_AbstractData
 
         bool soundsEqual = soundsList.SequenceEqual(other.soundsList);
         
-        return name == other.name
+        return string.Equals(name,other.name, StringComparison.OrdinalIgnoreCase)
                && soundsEqual
                && message.Equals(other.message)
                && fontColor.Equals(other.fontColor)

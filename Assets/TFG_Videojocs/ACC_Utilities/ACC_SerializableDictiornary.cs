@@ -58,6 +58,17 @@ public class ACC_SerializableDictiornary<TKey, TValue>: ICloneable
             Items.Add(new ACC_KeyValuePair(key, value));
         }
     }
+    
+    public bool Remove(TKey key)
+    {
+        var itemToRemove = Items.Find(item => item.key.Equals(key));
+        if (itemToRemove != null)
+        {
+            Items.Remove(itemToRemove);
+            return true;
+        }
+        return false;
+    }
 
     public object Clone()
     {
@@ -67,10 +78,5 @@ public class ACC_SerializableDictiornary<TKey, TValue>: ICloneable
             clone.Items.Add(new ACC_KeyValuePair(item.key, item.value));
         }
         return clone;
-    }
-
-    public void AddOrUpdate<TData, TWindow>(string name, ACC_FloatingWindowController<TWindow, TData> value) where TData : ACC_AbstractData, ICloneable, new() where TWindow : EditorWindow
-    {
-        throw new NotImplementedException();
     }
 }

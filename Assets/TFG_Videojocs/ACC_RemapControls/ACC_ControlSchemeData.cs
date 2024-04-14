@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TFG_Videojocs.ACC_Utilities;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace TFG_Videojocs.ACC_RemapControls
@@ -28,8 +29,8 @@ namespace TFG_Videojocs.ACC_RemapControls
 
             bool controlSchemesEqual = controlSchemesList.Items.SequenceEqual(other.controlSchemesList.Items);
             bool bindingsEqual = bindingsList.Items.SequenceEqual(other.bindingsList.Items);
-
-            return name == other.name && controlSchemesEqual && bindingsEqual;
+            
+            return string.Equals(name,other.name, StringComparison.OrdinalIgnoreCase) && controlSchemesEqual && bindingsEqual;
         }
 
         public override int GetHashCode()

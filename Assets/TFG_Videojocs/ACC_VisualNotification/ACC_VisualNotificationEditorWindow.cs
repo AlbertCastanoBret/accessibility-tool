@@ -127,7 +127,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
     private VisualElement CreateAddNewSoundOption()
     {
         AudioClip audioClip = null;
-        return uiElementFactory.CreateObjectFieldAndButton("option-multi-input", "Add new sound:", "Add", typeof(AudioClip),
+        return uiElementFactory.CreateObjectFieldWithButton("option-multi-input", "Add new sound:", "Add", typeof(AudioClip),
             onObjectField: value => audioClip = value as AudioClip,
             () =>
             {
@@ -165,11 +165,11 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         
         var dropdownHorizontalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Horizontal alignment:", 
             new List<string> { "Left", "Center", "Right" }, "option-input-label",
-            onValueChanged: value => controller.currentData.horizontalAlignment = value);
+            value => controller.currentData.horizontalAlignment = value);
         
         var dropdownVerticalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Vertical alignment:", 
             new List<string> { "Top", "Center", "Down" }, "option-input-label",
-            onValueChanged: value => controller.currentData.verticalAlignment = value);
+            value => controller.currentData.verticalAlignment = value);
 
         var timeOnScreen = uiElementFactory.CreateIntegerField("option-input", "Time on screen (seconds): ", 1, "option-input-label",
             onValueChanged: value => controller.currentData.timeOnScreen = value);
@@ -204,74 +204,4 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         bottomContainer.Add(createVisualNotificationButton);
         rootVisualElement.Add(bottomContainer);
     }
-
-    /*private void ConfigureJson()
-    {
-        ACC_VisualNotificationData accVisualNotificationData = new ACC_VisualNotificationData();
-        accVisualNotificationData.name = nameInput.value;
-        accVisualNotificationData.soundsList = new List<ACC_Sound>(selectedSounds);
-        accVisualNotificationData.message = messageInput.value;
-        accVisualNotificationData.horizontalAlignment = dropdownHorizontalAlignment.value;
-        accVisualNotificationData.verticalAlignment = dropdownVerticalAlignment.value;
-        accVisualNotificationData.timeOnScreen = timeOnScreen.value;
-        accVisualNotificationData.fontColor = fontColorInput.value;
-        accVisualNotificationData.backgroundColor = backgroundColorInput.value;
-        accVisualNotificationData.fontSize = fontSizeInput.value;
-
-        Dictionary<string, List<ACC_Sound>> repeatedSounds = new Dictionary<string, List<ACC_Sound>>(); 
-        for (int i = 0; i < selectedSounds.Count; i++)
-        {
-            string fileName = ACC_JSONHelper.GetFileNameByListParameter<ACC_VisualNotificationData, ACC_Sound>(
-                "/ACC_JSONVisualNotification/",
-                data => data.soundsList,
-                (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
-                selectedSounds[i]
-            );
-            if (fileName != null && fileName != oldName + ".json" || fileName != null && isCreatingNewFile || fileName != null && isOverWriting)
-            {
-                if (!repeatedSounds.ContainsKey(fileName))
-                {
-                    repeatedSounds.Add(fileName, new List<ACC_Sound>());
-                    repeatedSounds[fileName].Add(selectedSounds[i]);
-                }
-                else repeatedSounds[fileName].Add(selectedSounds[i]);
-            }
-        }
-        
-        if (repeatedSounds.Count > 0 && !isRenamingFile)
-        {
-            isCreatingNewFile = false;
-            isOverWriting = false;
-            ShowDialogRepeatedSounds(repeatedSounds, accVisualNotificationData);
-        }
-        else
-        {
-            isRenamingFile = false;
-            isCreatingNewFile = false;
-            isOverWriting = false;
-            ACC_JSONHelper.CreateJson(accVisualNotificationData, "/ACC_JSONVisualNotification/");
-            lastVisualNotificationData = accVisualNotificationData;
-            if(isEditing) oldName = nameInput.value;
-        }
-    }*/
-
-    /*public void LoadJson(string name)
-    {
-        string path = "/ACC_JSONVisualNotification/" + name;
-        ACC_VisualNotificationData accVisualNotificationData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>(path);
-
-        if (isEditing) oldName = accVisualNotificationData.name;
-        
-        nameInput.value = accVisualNotificationData.name;
-        messageInput.value = accVisualNotificationData.message;
-        dropdownHorizontalAlignment.value = accVisualNotificationData.horizontalAlignment;
-        dropdownVerticalAlignment.value = accVisualNotificationData.verticalAlignment;
-        timeOnScreen.value = accVisualNotificationData.timeOnScreen;
-        fontColorInput.value = accVisualNotificationData.fontColor;
-        backgroundColorInput.value = accVisualNotificationData.backgroundColor;
-        fontSizeInput.value = accVisualNotificationData.fontSize;
-        
-        LoadSelectedSounds();
-        lastVisualNotificationData = accVisualNotificationData;
-    }*/
 }

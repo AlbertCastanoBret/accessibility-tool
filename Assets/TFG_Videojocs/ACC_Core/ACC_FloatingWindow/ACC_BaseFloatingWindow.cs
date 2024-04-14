@@ -28,7 +28,7 @@ namespace TFG_Videojocs
 
         protected void OnDestroy()
         {
-            controller.ConfirmSaveChangesIfNeeded(controller.oldName, this);
+            controller.ConfirmSaveChangesIfNeeded(this);
         }
 
         protected void CreateGUI()

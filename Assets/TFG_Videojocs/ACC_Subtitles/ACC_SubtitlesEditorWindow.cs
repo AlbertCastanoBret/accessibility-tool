@@ -45,7 +45,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         rootVisualElement.styleSheets.Add(styleSheet);
         
         CreateTable();
-        CreateRow(1, "Hello", 1);
+        if(!controller.isEditing) CreateRow(1, "Hello", 1);
         CreateSettingsContainer();
         CreateBottomContainer();
         
@@ -79,12 +79,28 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         for (int i = 0; i < numberOfRows; i++)
         {
             int currentRow = table.childCount - 1;
+            
             var newRow = uiElementFactory.CreateVisualElement("new-row");
             var subtitleField = uiElementFactory.CreateTextField(value: subtitle, classList: "subtitles-new-cell", subClassList: "subtitles-input-cell",
                 onValueChanged: value => { controller.currentData.subtitleText.AddOrUpdate(currentRow, value); });
             var timeField = uiElementFactory.CreateIntegerField(value: time, classList: "time-new-cell", subClassList: "time-input-cell",
                 onValueChanged: value => controller.currentData.timeText.AddOrUpdate(currentRow, value));
-            var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () => table.Q(name: newRow.name).RemoveFromHierarchy());
+            var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () =>
+            {
+                table.Q(name: newRow.name).RemoveFromHierarchy();
+                controller.currentData.subtitleText.Remove(currentRow);
+                controller.currentData.timeText.Remove(currentRow);
+                if (table.childCount > currentRow + 1)
+                {
+                    for (var j = currentRow + 1; j < table.childCount; j++)
+                    {
+                        controller.currentData.subtitleText.AddOrUpdate(j - 1, controller.currentData.subtitleText.Items.Find(x => x.key == j).value);
+                        controller.currentData.timeText.AddOrUpdate(j - 1, controller.currentData.timeText.Items.Find(x => x.key == j).value);
+                        controller.currentData.subtitleText.Remove(j);
+                        controller.currentData.timeText.Remove(j);
+                    }
+                }
+            });
             
             newRow.Add(subtitleField);
             newRow.Add(timeField); 
