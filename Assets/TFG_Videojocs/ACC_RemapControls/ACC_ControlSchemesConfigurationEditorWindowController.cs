@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace TFG_Videojocs.ACC_RemapControls
 {
@@ -7,12 +8,7 @@ namespace TFG_Videojocs.ACC_RemapControls
     {
         public Dictionary<string, bool> onScreenControlSchemeToggleValues = new();
         public Dictionary<ACC_BindingData, bool> onScreenBindingToggleValues = new();
-
-        public override void ConfigureJson()
-        {
-            currentData.name = window.inputActionAsset.name;
-            base.ConfigureJson();
-        }
+        
         protected override void RestoreFieldValues()
         {
             foreach (var controlScheme in currentData.controlSchemesList.Items)

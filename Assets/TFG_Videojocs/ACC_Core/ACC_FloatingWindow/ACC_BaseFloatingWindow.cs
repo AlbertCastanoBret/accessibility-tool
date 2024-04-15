@@ -12,6 +12,7 @@ namespace TFG_Videojocs
     public abstract class ACC_BaseFloatingWindow<TController,TWindow, TData>: EditorWindow where TController : ACC_FloatingWindowController<TWindow, TData>, new() where TWindow : EditorWindow where TData : ACC_AbstractData, new()
     {
         public TController controller { get; private set; }
+        public bool isReadyToCreateGUI = false;
         protected ACC_UIElementFactory uiElementFactory => controller.uiElementFactory;
 
         protected void OnEnable()
@@ -44,6 +45,14 @@ namespace TFG_Videojocs
 
         public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController, TWindow, TData>
         {
+            var type = GetType();
+            var fields = type.GetFields();
+            
+            /*foreach (var field in fields)
+            {
+                field.SetValue(this, field.GetValue(sourceWindow));
+            }*/
+            
             controller.CloneControllerAttributes(sourceWindow.controller);
         }
     }

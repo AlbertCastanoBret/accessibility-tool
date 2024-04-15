@@ -41,7 +41,10 @@ namespace TFG_Videojocs
             var exists = ACC_JSONHelper.FileNameAlreadyExists(path + name);
             
             if(exists) LoadJson(name);
-            else ConfigureJson();
+            else
+            {
+                ConfigureJson();
+            }
         }
         
         public virtual void ConfigureJson()
@@ -59,8 +62,8 @@ namespace TFG_Videojocs
             TData visualNotificationData = ACC_JSONHelper.LoadJson<TData>(path + name);
 
             if (isEditing) oldName = visualNotificationData.name;
-            currentData = visualNotificationData;
-            lastData = visualNotificationData;
+            currentData = (TData) visualNotificationData.Clone();
+            lastData = (TData) visualNotificationData.Clone();
             
             RestoreFieldValues();
         }
@@ -142,6 +145,7 @@ namespace TFG_Videojocs
             newWindow.minSize = window.minSize;
             newWindow.maxSize = window.maxSize;
             newWindow.Show();
+            
             
             newWindow.CloneWindowAttributes(window);
             //SubtractRemainingVisualElements(window.rootVisualElement, newWindow.rootVisualElement);

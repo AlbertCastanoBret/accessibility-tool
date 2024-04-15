@@ -13,10 +13,9 @@ namespace TFG_Videojocs.ACC_RemapControls
 {
     public class ACC_ControlSchemesConfigurationEditorWindow:ACC_BaseFloatingWindow<ACC_ControlSchemesConfigurationEditorWindowController, ACC_ControlSchemesConfigurationEditorWindow, ACC_ControlSchemeData>
     {
-        public InputActionAsset inputActionAsset { get; private set; }
-        private bool isReadyToCreateGUI;
-        
-        private ScrollView controlSchemesScrollView;
+        public InputActionAsset inputActionAsset;
+
+        public ScrollView controlSchemesScrollView;
 
         public static void ShowWindow(InputActionAsset inputActionAsset)
         {
@@ -25,18 +24,18 @@ namespace TFG_Videojocs.ACC_RemapControls
             window.titleContent = new GUIContent("Control Schemes Configuration");
             window.minSize = new Vector2(600, 450);
             window.maxSize = new Vector2(600, 450);
-            window.inputActionAsset = inputActionAsset;
-            window.controller.isEditing = true;
-            window.isReadyToCreateGUI = true;
-            window.CreateGUI();
             
+            window.isReadyToCreateGUI = true;
             window.controller.isEditing = true;
+            window.inputActionAsset = inputActionAsset;
+            
+            window.CreateGUI();
             window.controller.LoadOnlyEditableWindow(inputActionAsset.name);
             
             //window.ShowModal();
         }
 
-        private new void CreateGUI()
+        protected new void CreateGUI()
         {
             if (!isReadyToCreateGUI) return;
             base.CreateGUI();
@@ -48,14 +47,16 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             CreateDropdownField();
             controlSchemesScrollView = new ScrollView();
-            rootVisualElement.Add(controlSchemesScrollView);
             CreateTable();
+            rootVisualElement.Add(controlSchemesScrollView);
             
             var createButton = new Button() { text = "Save" };
             createButton.AddToClassList("create-button");
             createButton.clicked += () => controller.HandleSave(this);
             
             rootVisualElement.Add(createButton);
+            
+            controller.RestoreDataAfterCompilation();
         }
 
         private void CreateDropdownField()
@@ -335,98 +336,6 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             var control = string.Join(" ", controlParts);
             return $"{control} [{device}]";
-        }
-        
-        private void LoadJson()
-        {
-            string path = "/ACC_RemapControls/" + inputActionAsset.name;
-            ACC_ControlSchemeData accControlSchemeData = ACC_JSONHelper.LoadJson<ACC_ControlSchemeData>(path);
-            if(accControlSchemeData != null)
-            {
-                /*for (int i=0; i<inputActionAsset.controlSchemes.Count; i++)
-                {
-                    if (accControlSchemeData.controlSchemesList.Count > i)
-                    {
-                        if (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name &&
-                            inputActionAsset.controlSchemes.Skip(i).Any(controlsScheme =>
-                                controlsScheme.name == accControlSchemeData.controlSchemesList[i].key))
-                        {
-                            accControlSchemeData.controlSchemesList.Remove(accControlSchemeData.controlSchemesList[i]);
-                            accControlSchemeData.controlSchemesList.Add(accControlSchemeData.controlSchemesList[i]);
-                            while (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name)
-                            {
-                                accControlSchemeData.controlSchemesList.Insert(i, new ACC_KeyValuePairData<string, bool>(inputActionAsset.controlSchemes[i].name, false));
-                                i++;
-                            
-                                if (accControlSchemeData.controlSchemesList.Count-1 == i)
-                                {
-                                    break;
-                                }
-                            
-                                if (accControlSchemeData.controlSchemesList[i].key ==
-                                    inputActionAsset.controlSchemes[i].name)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                        else if (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name &&
-                                 inputActionAsset.controlSchemes.Take(i).Any(controlsScheme => controlsScheme.name == accControlSchemeData.controlSchemesList[i].key))
-                        {
-                            accControlSchemeData.controlSchemesList.Remove(accControlSchemeData.controlSchemesList[i]);
-                            accControlSchemeData.controlSchemesList.Add(accControlSchemeData.controlSchemesList[i]);
-                            while (accControlSchemeData.controlSchemesList[i].key != inputActionAsset.controlSchemes[i].name)
-                            {
-                                accControlSchemeData.controlSchemesList.Insert(i, new ACC_KeyValuePairData<string, bool>(inputActionAsset.controlSchemes[i].name, false));
-                                i--;
-                            
-                                if (accControlSchemeData.controlSchemesList.Count-1 == i)
-                                {
-                                    break;
-                                }
-                            
-                                if (accControlSchemeData.controlSchemesList[i].key ==
-                                    inputActionAsset.controlSchemes[i].name)
-                                {
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            accControlSchemeData.controlSchemesList[i].key = inputActionAsset.controlSchemes[i].name;
-                        }
-                    }
-                    else
-                    {
-                        accControlSchemeData.controlSchemesList.Add(new ACC_KeyValuePairData<string, bool>(inputActionAsset.controlSchemes[i].name, false));
-                    }
-                }
-                
-                ACC_JSONHelper.CreateJson(accControlSchemeData, "/ACC_JSONRemapControls/");*/
-                
-                controller.onScreenControlSchemeToggleValues = new Dictionary<string, bool>();
-                /*foreach (var scheme in accControlSchemeData.controlSchemesList)
-                {
-                    if (controlSchemeToggleValues.ContainsKey(scheme.key))
-                    {
-                        controlSchemeToggleValues[scheme.key] = scheme.value;
-                        onScreenControlSchemeToggleValues[scheme.key] = scheme.value;
-                    }
-                }*/
-                
-                //bindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
-                //currentBindingsToggleValues = new Dictionary<ACC_BindingData, bool>();
-                /*foreach (var binding in accControlSchemeData.bindingsList)
-                {
-                    bindingsToggleValues[binding.key] = binding.value;
-                    currentBindingsToggleValues[binding.key] = binding.value;
-                }*/
-                
-                //lastSaveControlSchemeToggleValues = new Dictionary<string, bool>(controlSchemeToggleValues);
-                //lastSaveBindingsToggleValues = new Dictionary<ACC_BindingData, bool>(bindingsToggleValues);
-                CreateTable();
-            }
         }
     }
 }

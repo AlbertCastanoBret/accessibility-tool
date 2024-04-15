@@ -26,7 +26,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 return false;
 
             var other = (ACC_ControlSchemeData)obj;
-
+            
             bool controlSchemesEqual = controlSchemesList.Items.SequenceEqual(other.controlSchemesList.Items);
             bool bindingsEqual = bindingsList.Items.SequenceEqual(other.bindingsList.Items);
             
