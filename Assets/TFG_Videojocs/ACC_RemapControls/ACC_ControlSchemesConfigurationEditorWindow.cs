@@ -14,8 +14,14 @@ namespace TFG_Videojocs.ACC_RemapControls
     public class ACC_ControlSchemesConfigurationEditorWindow:ACC_BaseFloatingWindow<ACC_ControlSchemesConfigurationEditorWindowController, ACC_ControlSchemesConfigurationEditorWindow, ACC_ControlSchemeData>
     {
         public InputActionAsset inputActionAsset;
-
         public ScrollView controlSchemesScrollView;
+        private ACC_RebindControlsManager accRebindControlsManager;
+        
+        private new void OnEnable()
+        {
+            base.OnEnable();
+            accRebindControlsManager = GameObject.Find("ACC_RebindControlsManager").GetComponent<ACC_RebindControlsManager>();
+        }
 
         public static void ShowWindow(InputActionAsset inputActionAsset)
         {

@@ -28,6 +28,7 @@ public class ACC_AudioAccessibility
     {
         CreateSubtitleManager();
         CreateVisualNotificationManager();
+        
     }
     
     /// <summary>

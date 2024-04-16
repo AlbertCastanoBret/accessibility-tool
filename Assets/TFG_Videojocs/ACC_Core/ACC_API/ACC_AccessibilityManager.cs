@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
@@ -30,13 +31,20 @@ namespace TFG_Videojocs
     public class ACC_AccessibilityManager : MonoBehaviour
     {
         public static ACC_AccessibilityManager Instance { get; private set; }
-        private ACC_AudioAccessibility accAudioAccessibility;
 
         //private Queue<Action> pendingActions = new Queue<Action>();
         
         [Header("Audio Accessibility")]
         [SerializeField] private bool subtitlesEnabled;
         [SerializeField] private bool visualNotificationEnabled;
+        
+        private ACC_AudioAccessibility accAudioAccessibility;
+        
+        [Header("MobilityAccessibility")]
+        [SerializeField] private bool remapControlsEnabled;
+        [SerializeField] private PlayerInput playerInput;
+        
+        private ACC_MobilityAccessibility accMobilityAccessibility;
             
         private bool sceneLoaded;
 
@@ -48,6 +56,8 @@ namespace TFG_Videojocs
                 accAudioAccessibility = new ACC_AudioAccessibility();
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+                accMobilityAccessibility = new ACC_MobilityAccessibility(playerInput);
+                accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -58,7 +68,7 @@ namespace TFG_Videojocs
 
         private void Start()
         {
-            //AudioAccessibilityManager().PlaySubtitle("Ejemplo");
+            AudioAccessibilityManager().PlaySubtitle("A");
             //StartCoroutine(ChangeScene());
         }
 
@@ -79,6 +89,7 @@ namespace TFG_Videojocs
             {
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+                accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
             }
         }
 
@@ -98,6 +109,7 @@ namespace TFG_Videojocs
         {
             subtitlesEnabled = true;
             visualNotificationEnabled = true;
+            remapControlsEnabled = true;
         }
 
         /// <summary>
@@ -107,6 +119,15 @@ namespace TFG_Videojocs
         public ACC_AudioAccessibility AudioAccessibilityManager()
         {
             return accAudioAccessibility;
+        }
+        
+        /// <summary>
+        /// Retrieves the current instance of the mobility accessibility manager.
+        /// </summary>
+        /// <returns>The active ACC_MobilityAccessibility instance managing mobility accessibility features.</returns>
+        public ACC_MobilityAccessibility MobilityAccessibilityManager()
+        {
+            return accMobilityAccessibility;
         }
 
         /// <summary>
@@ -124,6 +145,9 @@ namespace TFG_Videojocs
                 accAudioAccessibility = new ACC_AudioAccessibility();
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+                
+                accMobilityAccessibility = new ACC_MobilityAccessibility(playerInput);
+                accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
             }
             sceneLoaded = true;
             /*while (pendingActions.Count > 0)

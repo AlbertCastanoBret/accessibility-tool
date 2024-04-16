@@ -40,13 +40,13 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     public void LoadVisualNotification(ACC_Sound soundToMatch)
     {
         string fileName = ACC_JSONHelper.GetFileNameByListParameter<ACC_VisualNotificationData, ACC_Sound>(
-            "/ACC_JSONVisualNotification/",
+            "/ACC_VisualNotification/",
             data => data.soundsList,
             (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
             soundToMatch
         );
         
-        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_JSONVisualNotification/" + fileName);
+        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_VisualNotification/" + fileName);
         loadedData = JsonUtility.FromJson<ACC_VisualNotificationData>(json);
     }
 

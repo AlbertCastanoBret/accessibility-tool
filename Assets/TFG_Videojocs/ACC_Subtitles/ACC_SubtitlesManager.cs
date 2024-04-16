@@ -54,9 +54,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
 
     public void LoadSubtitles(string jsonFile)
     {
-        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_JSONSubtitle/" + jsonFile + ".json");
+        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_Subtitles/" + jsonFile + ".json");
         loadedData = JsonUtility.FromJson<ACC_SubtitleData>(json);
     }
+    
 
     public void PlaySubtitle()
     {

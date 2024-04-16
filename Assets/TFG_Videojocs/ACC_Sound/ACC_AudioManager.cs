@@ -31,7 +31,7 @@ public class ACC_AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlaySFX("Jump");
+        //PlaySFX("Jump");
     }
 
     private void OnValidate()
