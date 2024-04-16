@@ -15,7 +15,7 @@ namespace TFG_Videojocs.ACC_RemapControls
     {
         public InputActionAsset inputActionAsset;
         public ScrollView controlSchemesScrollView;
-        private ACC_RebindControlsManager accRebindControlsManager;
+        public ACC_RebindControlsManager accRebindControlsManager { get; private set; }
         
         private new void OnEnable()
         {
@@ -287,13 +287,21 @@ namespace TFG_Videojocs.ACC_RemapControls
                                 ACC_BindingData accBindingData = controller.currentData.bindingsList.Items.Find(item => item.key.id == binding.id.ToString() && item.key.controlScheme == controlScheme).key;
                                 if (accBindingData != null)
                                 {
-                                    controller.onScreenBindingToggleValues[accBindingData] = controller.currentData.bindingsList.Items.Find(item => item.key == accBindingData).value;
-                                    var bindingToggle = uiElementFactory.CreateToggle("binding-toggle", "",
-                                        controller.currentData.bindingsList.Items.Find(item => item.key == accBindingData).value,
-                                        onValueChanged: value =>
+                                    controller.onScreenBindingToggleValues[accBindingData] = controller.currentData.bindingsList.Items.Find(item => Equals(item.key, accBindingData)).value;
+                                    Toggle bindingToggle = (Toggle) uiElementFactory.CreateToggle("binding-toggle", "",
+                                        controller.currentData.bindingsList.Items
+                                            .Find(item => Equals(item.key, accBindingData)).value);
+                                    
+                                    bindingToggle.RegisterValueChangedCallback(evt =>
+                                    {
+                                        if (binding.path.Contains("leftStick") && !binding.isPartOfComposite ||
+                                            binding.path.Contains("rightStick") && !binding.isPartOfComposite)
                                         {
-                                            controller.currentData.bindingsList.AddOrUpdate(accBindingData, value);
-                                        });
+                                            bindingToggle.value = false;
+                                        }
+
+                                        else controller.currentData.bindingsList.AddOrUpdate(accBindingData, evt.newValue);
+                                    });
                                     bindingToggle.SetEnabled(controller.currentData.controlSchemesList.Items.Find(item => item.key == controlScheme).value);
                                     bindingToggleContainer.Add(bindingToggle);
                                 }
@@ -333,14 +341,18 @@ namespace TFG_Videojocs.ACC_RemapControls
         {
             var parts = path.Split('/');
             var device = parts[0].Replace("<", "").Replace(">", "");
-            var controlParts = parts[1].Split(new[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
             
-            for (int i = 0; i < controlParts.Length; i++)
+            var controlParts = new List<string>();
+            for (int i = 1; i < parts.Length; i++)
             {
-                controlParts[i] = char.ToUpper(controlParts[0][0]) + controlParts[0].Substring(1);
+                var subParts = parts[i].Split(new[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var subPart in subParts)
+                {
+                    controlParts.Add(char.ToUpper(subPart[0]) + subPart.Substring(1).ToLower());
+                }
             }
             
-            var control = string.Join(" ", controlParts);
+            var control = string.Join("/", controlParts);
             return $"{control} [{device}]";
         }
     }

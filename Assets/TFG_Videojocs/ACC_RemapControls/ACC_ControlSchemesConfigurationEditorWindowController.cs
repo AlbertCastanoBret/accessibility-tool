@@ -8,7 +8,14 @@ namespace TFG_Videojocs.ACC_RemapControls
     {
         public Dictionary<string, bool> onScreenControlSchemeToggleValues = new();
         public Dictionary<ACC_BindingData, bool> onScreenBindingToggleValues = new();
-        
+
+        public override void ConfigureJson()
+        {
+            currentData.inputActionAsset = window.inputActionAsset;
+            base.ConfigureJson();
+            window.accRebindControlsManager.LoadRebindControlsManager(oldName);
+        }
+
         protected override void RestoreFieldValues()
         {
             foreach (var controlScheme in currentData.controlSchemesList.Items)
