@@ -56,7 +56,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             CreateTable();
             rootVisualElement.Add(controlSchemesScrollView);
             
-            var createButton = new Button() { text = "Save" };
+            var createButton = new Button() { text = "Create Template In Scene" };
             createButton.AddToClassList("create-button");
             createButton.clicked += () => controller.HandleSave(this);
             

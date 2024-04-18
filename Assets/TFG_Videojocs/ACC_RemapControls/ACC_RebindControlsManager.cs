@@ -17,8 +17,9 @@ namespace TFG_Videojocs.ACC_RemapControls
         
 #if UNITY_EDITOR
         [SerializeField] private GameObject defaultMenu;
-        [SerializeField] private GameObject rebindUIPrefab;  
-        private ACC_ControlSchemeData loadedData;
+        [SerializeField] private GameObject rebindUIPrefab;
+        [SerializeField] private GameObject rebindOverlay;
+        private TextMeshProUGUI rebindPrompt;
 #endif
         
         private Dictionary<GameObject, List<string>> controlSchemesOfEachDevice = new();
@@ -26,6 +27,9 @@ namespace TFG_Videojocs.ACC_RemapControls
 
         private void Awake()
         {
+            controlSchemesOfEachDevice = new();
+            currentControlSchemeOfEachDevice = new();
+            
             string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + inputActionAsset.name + ".json");
             var loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
             
@@ -42,7 +46,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                         .Select(scheme => scheme.name)
                         .ToList();
                     
-                    controlSchemesOfEachDevice.Add(deviceManager, controlSchemes);
+                    controlSchemesOfEachDevice.Add(deviceManager, controlSchemes.Count > 0 ? controlSchemes : new List<string> { "Default" });
                     currentControlSchemeOfEachDevice.Add(deviceManager, controlSchemesOfEachDevice[deviceManager][0]);
 
                     deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent")
@@ -67,12 +71,34 @@ namespace TFG_Videojocs.ACC_RemapControls
         public void CreateRebindControlsManager(string jsonFile)
         {
             string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + jsonFile + ".json");
-            loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
+            var loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
             
-            SetControlSchemes();
+            inputActionAsset = loadedData.inputActionAsset;
+            
+            if (Application.isPlaying)
+            {
+                Debug.LogError("DestroyAllChildrenInEditor should not be called during play mode.");
+                return;
+            }
+            
+            ResetRebindControlsManager();
+            SetControlSchemes(loadedData);
         }
-        
-        private void SetControlSchemes()
+        private void ResetRebindControlsManager()
+        {
+            while (transform.childCount > 0)
+            {
+                DestroyImmediate(transform.GetChild(0).gameObject);
+            }
+            
+            var waitForInputPanel = Instantiate(rebindOverlay, transform, true);
+            waitForInputPanel.transform.localScale = new Vector3(1, 1, 1);
+            waitForInputPanel.transform.localPosition = new Vector3(0, 0, 0);
+            waitForInputPanel.transform.SetParent(transform);
+            
+            rebindPrompt = waitForInputPanel.transform.Find("WaitForInputText").GetComponent<TextMeshProUGUI>();
+        }
+        private void SetControlSchemes(ACC_ControlSchemeData loadedData)
         {
             var devices = loadedData.inputActionAsset.controlSchemes
                 .Select(scheme => 
@@ -110,11 +136,11 @@ namespace TFG_Videojocs.ACC_RemapControls
                 deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent").Find("CurrentControlScheme").GetComponent<TextMeshProUGUI>().text =
                     controlSchemes[0];
                 
-                SetBindings(deviceManager, controlSchemes);
+                SetBindings(loadedData, deviceManager, controlSchemes);
             }
         }
         
-        private void SetBindings(GameObject deviceManager, List<string> controlSchemes)
+        private void SetBindings(ACC_ControlSchemeData loadedData, GameObject deviceManager, List<string> controlSchemes)
         {
             bool first = true;
             foreach (var controlScheme in controlSchemes)
@@ -143,8 +169,11 @@ namespace TFG_Videojocs.ACC_RemapControls
                 else controlSchemeParent.SetActive(false);
                 
                 var verticalLayoutGroup = controlSchemeParent.AddComponent<VerticalLayoutGroup>();
-                verticalLayoutGroup.padding.bottom = -20;
-                verticalLayoutGroup.spacing = -20;
+                verticalLayoutGroup.spacing = 0;
+                
+                var contentSizeFitter = controlSchemeParent.AddComponent<ContentSizeFitter>();
+                contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+                contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
                 
                 foreach (var binding in loadedData.bindingsList.Items)
                 {
@@ -160,9 +189,9 @@ namespace TFG_Videojocs.ACC_RemapControls
                         InputActionReference actionReference = ScriptableObject.CreateInstance<InputActionReference>();
                         actionReference.Set(action);
                         rebindUI.actionReference = actionReference;
-                        
                         rebindUI.bindingId = binding.key.id;
-
+                        rebindUI.rebindOverlay = rebindOverlay;
+                        rebindUI.rebindPrompt = rebindPrompt;
                         if (!binding.value || loadedData.controlSchemesList.Items.Find(scheme => scheme.key == controlScheme).value == false)
                         {
                             var button = uiPrefab.transform.Find("TriggerRebindButton");
@@ -195,6 +224,12 @@ namespace TFG_Videojocs.ACC_RemapControls
 
         private void PressRightButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
         {
+            Debug.Log(rebindsScroll);
+            foreach (var var in currentControlSchemeOfEachDevice)
+            {
+                Debug.Log( var.Key + " " + var.Value);
+            }
+            
             var currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
             if(currentRebindsList.CompareTag("RebindsList")) rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(false);
             
