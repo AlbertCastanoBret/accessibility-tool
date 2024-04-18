@@ -34,6 +34,7 @@ public class ACC_AudioManager : MonoBehaviour
         //PlaySFX("Jump");
     }
 
+    #if UNITY_EDITOR
     private void OnValidate()
     {
         UpdateSoundNames(musicSounds);
@@ -41,6 +42,7 @@ public class ACC_AudioManager : MonoBehaviour
         CheckIfSoundIsEliminated();
         OnSoundsChanged?.Invoke();
     }
+    #endif
 
     private void Reset()
     {
@@ -63,6 +65,7 @@ public class ACC_AudioManager : MonoBehaviour
         }
     }
 
+    #if UNITY_EDITOR
     private void CheckIfSoundIsEliminated()
     {
         if (sfxSounds != previousSfxSounds && sfxSounds!=null && previousSfxSounds !=null)
@@ -83,6 +86,7 @@ public class ACC_AudioManager : MonoBehaviour
             previousSfxSounds = sfxSounds.Select(sound => (ACC_Sound)sound.Clone()).ToList();
         }
     }
+    #endif
 
     public void PlayMusic(string name)
     {
@@ -115,6 +119,7 @@ public class ACC_AudioManager : MonoBehaviour
         return sfxSounds.GroupBy(sound => sound.name).Select(group => group.First()).ToList();
     }
 
+    #if UNITY_EDITOR
     public void AddMusicSound(ACC_Sound accSound)
     {
         musicSounds.Add(accSound);
@@ -136,4 +141,5 @@ public class ACC_AudioManager : MonoBehaviour
         sfxSounds.Add(new ACC_Sound(audioClip.name, audioClip));
         OnSoundsChanged?.Invoke();
     }
+    #endif
 }

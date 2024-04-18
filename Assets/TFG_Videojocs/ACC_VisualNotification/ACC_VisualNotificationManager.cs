@@ -108,6 +108,21 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         backgroundColor.GetComponent<RectTransform>().sizeDelta =
             new Vector2(0, text.preferredHeight);
     }
+    
+    public void SetTextFontColor(Color color)
+    {
+        text.color = new Color(color.r, color.g, color.b, color.a);
+    }
+    
+    public void SetBackgroundColor(Color color)
+    {
+        backgroundColor.color = new Color(color.r, color.g, color.b, color.a);
+    }
+    
+    public void SetFontSize(int size)
+    {
+        text.fontSize = size;
+    }
 
     private (float horizontalAnchorMin, float horizontalAnchorMax) GetHorizontalAlignment()
     {

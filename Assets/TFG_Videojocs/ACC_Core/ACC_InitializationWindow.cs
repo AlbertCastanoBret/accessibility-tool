@@ -1,7 +1,11 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using TFG_Videojocs;
+using TFG_Videojocs.ACC_RemapControls;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,43 +41,9 @@ public class ACC_InitializationWindow : EditorWindow
         createButton.AddToClassList("button");
         createButton.clicked += () =>
         {
-            if (!GameObject.Find("ACC_AccessibilityManager"))
-            {
-                var accessibilityManager = new GameObject("ACC_AccessibilityManager");
-                accessibilityManager.AddComponent<ACC_AccessibilityManager>();
-            }
-            
-            if (!GameObject.Find("ACC_AudioManager"))
-            {
-                var audioManager = new GameObject("ACC_AudioManager");
-
-                var musicSource = new GameObject("ACC_MusicSource");
-                musicSource.AddComponent<AudioSource>();
-                musicSource.transform.SetParent(audioManager.transform);
-                
-                var sfxSource = new GameObject("ACC_SFXSource");
-                sfxSource.AddComponent<AudioSource>();
-                sfxSource.transform.SetParent(audioManager.transform);
-                
-                audioManager.AddComponent<ACC_AudioManager>();
-            }
-            
-            var canvasObject = GameObject.Find("Canvas");
-        
-            if (canvasObject == null)
-            {
-                canvasObject = new GameObject("Canvas");
-                canvasObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-                var canvasScaler = canvasObject.AddComponent<CanvasScaler>();
-                canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                canvasScaler.referenceResolution = new Vector2(1920, 1080);
-                canvasObject.AddComponent<GraphicRaycaster>();
-            }
-            
-            var rebindControlsManager = new GameObject("ACC_RebindControlsManager");
-
-            RectTransform rebindControlsManagerRectTransform = rebindControlsManager.AddComponent<RectTransform>();
-            rebindControlsManagerRectTransform.SetParent(canvasObject.transform);
+            CreateAccessibilityManager();
+            CreateAudioManager();
+            CreateCanvas();
         };
         
         rootVisualElement.styleSheets.Add(styleSheet);
@@ -83,4 +53,149 @@ public class ACC_InitializationWindow : EditorWindow
         rootVisualElement.Add(createButton);
         rootVisualElement.AddToClassList("root");
     }
+    
+    private static void CreateAccessibilityManager()
+    {
+        var accessibilityManager = GameObject.Find("ACC_AccessibilityManager");
+        if (accessibilityManager) DestroyImmediate(accessibilityManager);
+        accessibilityManager = new GameObject("ACC_AccessibilityManager");
+        accessibilityManager.AddComponent<ACC_AccessibilityManager>();
+    }
+    private static void CreateAudioManager()
+    {
+        var audioManager = GameObject.Find("ACC_AudioManager");
+        if (audioManager) DestroyImmediate(audioManager);
+        audioManager = new GameObject("ACC_AudioManager");
+            
+        var musicSource = new GameObject("ACC_MusicSource");
+        musicSource.AddComponent<AudioSource>();
+        musicSource.transform.SetParent(audioManager.transform);
+            
+        var sfxSource = new GameObject("ACC_SFXSource");
+        sfxSource.AddComponent<AudioSource>();
+        sfxSource.transform.SetParent(audioManager.transform);
+            
+        audioManager.AddComponent<ACC_AudioManager>();
+    }
+    private static void CreateCanvas()
+    {
+        var canvasObject = GameObject.Find("ACC_Canvas");
+        if(canvasObject) DestroyImmediate(canvasObject);
+        
+        canvasObject = new GameObject("ACC_Canvas");
+        canvasObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+        var canvasScaler = canvasObject.AddComponent<CanvasScaler>();
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        canvasScaler.referenceResolution = new Vector2(1920, 1080);
+        canvasObject.AddComponent<GraphicRaycaster>();
+            
+        CreateRebindsControlManager(canvasObject);
+        CreateSubtitleManager(canvasObject);
+        CreateVisualNotificationManger(canvasObject);
+    }
+    private static void CreateRebindsControlManager(GameObject canvasObject)
+    {
+        var rebindControlsManager = new GameObject("ACC_RebindControlsManager");
+        
+        RectTransform rebindControlsManagerRectTransform = rebindControlsManager.AddComponent<RectTransform>();
+        rebindControlsManagerRectTransform.SetParent(canvasObject.transform);
+        rebindControlsManagerRectTransform.localPosition = Vector3.zero;
+        rebindControlsManagerRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+        rebindControlsManagerRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+        rebindControlsManagerRectTransform.pivot = new Vector2(0.5f, 0.5f);
+        rebindControlsManagerRectTransform.sizeDelta = new Vector2(1920, 1080);
+    
+        var rebindControlsManagerComponent = rebindControlsManager.AddComponent<ACC_RebindControlsManager>();
+        rebindControlsManagerComponent.defaultMenu = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_DeviceManager.prefab");
+        rebindControlsManagerComponent.rebindOverlay = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/WaitForInputPanel.prefab");
+        rebindControlsManagerComponent.rebindUIPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/Rebinding UI/RebindUIPrefab.prefab");
+    }
+    private static void CreateSubtitleManager(GameObject canvasObject)
+    {
+        var subtitleManager = new GameObject("ACC_SubtitleManager");
+        subtitleManager.transform.SetParent(canvasObject.transform, false);
+
+        RectTransform subtitleManagerTextRectTransform = subtitleManager.AddComponent<RectTransform>();
+        subtitleManagerTextRectTransform.anchorMin = new Vector2(0.1f, 0);
+        subtitleManagerTextRectTransform.anchorMax = new Vector2(0.9f, 0);
+        subtitleManagerTextRectTransform.pivot = new Vector2(0.5f, 0);
+        subtitleManagerTextRectTransform.anchoredPosition = new Vector2(0, 50);
+        subtitleManagerTextRectTransform.sizeDelta = new Vector2(0, 40);
+
+        var subtitleBackground = new GameObject("ACC_SubtitleBackground");
+        subtitleBackground.transform.SetParent(subtitleManager.transform, false);
+        var backgroundColorImage = subtitleBackground.AddComponent<UnityEngine.UI.Image>();
+        backgroundColorImage.color = new Color(0, 0, 0, 0);
+            
+        RectTransform backgroundTextRectTransform = subtitleBackground.GetComponent<RectTransform>();
+        backgroundTextRectTransform.anchorMin = new Vector2(0, 0.5f);
+        backgroundTextRectTransform.anchorMax = new Vector2(1, 0.5f);
+        backgroundTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
+        backgroundTextRectTransform.anchoredPosition = new Vector2(0, 0);
+        backgroundTextRectTransform.sizeDelta = new Vector2(0, 40);
+
+        var subtitleText = new GameObject("ACC_SubtitleText");
+        subtitleText.transform.SetParent(subtitleManager.transform, false);
+
+        TextMeshProUGUI subtitleTextMeshProUGUI = subtitleText.AddComponent<TextMeshProUGUI>();
+        subtitleTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+        subtitleTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
+        subtitleTextMeshProUGUI.enableWordWrapping = true;
+        subtitleTextMeshProUGUI.color = new Color(1f, 0f, 0f, 1);
+
+        RectTransform subtitleTextRectTransform = subtitleText.GetComponent<RectTransform>();
+        subtitleTextRectTransform.anchorMin = new Vector2(0, 0.5f);
+        subtitleTextRectTransform.anchorMax = new Vector2(1, 0.5f);
+        subtitleTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
+        subtitleTextRectTransform.anchoredPosition = new Vector2(0, 0);
+        subtitleTextRectTransform.sizeDelta = new Vector2(0, 40);
+
+        subtitleManager.AddComponent<ACC_SubtitlesManager>();
+    }
+    private static void CreateVisualNotificationManger(GameObject canvasObject)
+    {
+        var visualNotificationManager = new GameObject("ACC_VisualNotificationManager");
+        visualNotificationManager.transform.SetParent(canvasObject.transform, false);
+
+        RectTransform visualNotificationManagerTextRectTransform = visualNotificationManager.AddComponent<RectTransform>();
+        visualNotificationManagerTextRectTransform.anchorMin = new Vector2(0.1f, 1);
+        visualNotificationManagerTextRectTransform.anchorMax = new Vector2(0.5f, 1);
+        visualNotificationManagerTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
+        visualNotificationManagerTextRectTransform.anchoredPosition = new Vector2(0, -100);
+        visualNotificationManagerTextRectTransform.sizeDelta = new Vector2(0, 100);
+        
+        var visualNotificationBackground = new GameObject("ACC_VisualNotificationBackground");
+        visualNotificationBackground.transform.SetParent(visualNotificationManager.transform, false);
+        var backgroundColorImage = visualNotificationBackground.AddComponent<UnityEngine.UI.Image>();
+        backgroundColorImage.color = new Color(1, 1, 1, 0);
+        
+        RectTransform backgroundTextRectTransform = visualNotificationBackground.GetComponent<RectTransform>();
+        backgroundTextRectTransform.anchorMin = new Vector2(0, 0.5f);
+        backgroundTextRectTransform.anchorMax = new Vector2(1, 0.5f);
+        backgroundTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
+        backgroundTextRectTransform.anchoredPosition = new Vector2(0, 0);
+        backgroundTextRectTransform.sizeDelta = new Vector2(0, 100);
+
+        var visualNotificationText = new GameObject("ACC_VisualNotificationText");
+        visualNotificationText.transform.SetParent(visualNotificationManager.transform, false);
+        
+        TextMeshProUGUI visualNotificationTextMeshProUGUI = visualNotificationText.AddComponent<TextMeshProUGUI>();
+        visualNotificationTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+        visualNotificationTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
+        visualNotificationTextMeshProUGUI.enableWordWrapping = true;
+        visualNotificationTextMeshProUGUI.color = new Color(1f, 0f, 0f, 0);
+        //visualNotificationTextMeshProUGUI.enableAutoSizing = true;
+        //visualNotificationTextMeshProUGUI.fontSizeMin = 10;
+        //visualNotificationTextMeshProUGUI.fontSizeMax = 60;
+        
+        RectTransform visualNotificationTextRectTransform = visualNotificationText.GetComponent<RectTransform>();
+        visualNotificationTextRectTransform.anchorMin = new Vector2(0, 0.5f);
+        visualNotificationTextRectTransform.anchorMax = new Vector2(1, 0.5f);
+        visualNotificationTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
+        visualNotificationTextRectTransform.anchoredPosition = new Vector2(0, 0);
+        visualNotificationTextRectTransform.sizeDelta = new Vector2(0, 100);
+
+        visualNotificationManager.AddComponent<ACC_VisualNotificationManager>();
+    }
 }
+#endif

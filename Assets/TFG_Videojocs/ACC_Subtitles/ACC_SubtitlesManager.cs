@@ -94,5 +94,23 @@ public class ACC_SubtitlesManager : MonoBehaviour
             new Vector2(0, subtitleText.preferredHeight);
     }
     
+    public void SetTextFontColor(Color color)
+    {
+        subtitleText.color = new Color(color.r, color.g, color.b, color.a);
+    }
     
+    public void SetBackgroundColor(Color color)
+    {
+        backgroundColor.color = new Color(color.r, color.g, color.b, color.a);
+    }
+    
+    public void SetFontSize(int size)
+    {
+        subtitleText.fontSize = size;
+    }
+    
+    public void SetSubtitleFontStyle(FontStyles style)
+    {
+        subtitleText.fontStyle = style;
+    }
 }

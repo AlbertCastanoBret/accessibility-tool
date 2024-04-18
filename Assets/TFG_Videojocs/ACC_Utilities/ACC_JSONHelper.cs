@@ -13,12 +13,14 @@ public class ACC_JSONHelper
     public delegate bool ItemMatchDelegate<in TListItem>(TListItem item, TListItem toMatch);
     public delegate IEnumerable<TListItem> ExtractListDelegate<out TListItem, in TData>(TData data);
 
+    #if UNITY_EDITOR
     public static void CreateJson(ACC_AbstractData abstractData, string folder)
     {
         string json = JsonUtility.ToJson(abstractData, true);
         File.WriteAllText(basePath + folder + abstractData.name + ".json", json);
         AssetDatabase.Refresh();
     }
+    #endif
     
     public static T LoadJson<T>(string path)
     {
@@ -37,6 +39,7 @@ public class ACC_JSONHelper
         return File.Exists(filePath);
     }
 
+    #if UNITY_EDITOR
     public static void RenameFile(string oldName, string newName)
     {
         string oldPath = basePath + oldName + ".json";
@@ -60,6 +63,7 @@ public class ACC_JSONHelper
             Debug.LogError($"The file {oldName}.json does not exist.");
         }
     }
+    #endif
 
     public static string GetFileNameByListParameter<TData, TListItem>(
         string folder,
@@ -84,6 +88,7 @@ public class ACC_JSONHelper
         return null;
     }
     
+    #if UNITY_EDITOR
     public static void RemoveItemFromListInFile<TData, TListItem>(
         string folder,
         GetListDelegate<TListItem, TData> getList,
@@ -108,6 +113,7 @@ public class ACC_JSONHelper
         }
         AssetDatabase.Refresh();
     }
+    #endif
 
     public static TResult GetParamByFileName<TData, TResult>(GetCustomDelegate<TData, TResult> getCustom, string folder, string filename)
     {
@@ -150,6 +156,7 @@ public class ACC_JSONHelper
         return resultList;
     }
 
+    #if UNITY_EDITOR
     public static void DeleteFile(string name)
     {
         string path = basePath + name + ".json";
@@ -160,4 +167,5 @@ public class ACC_JSONHelper
             AssetDatabase.Refresh();
         }
     }
+    #endif
 }

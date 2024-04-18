@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -91,3 +92,4 @@ namespace TFG_Videojocs.ACC_VisualNotification
         }
     }
 }
+#endif

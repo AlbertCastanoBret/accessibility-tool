@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -32,3 +33,4 @@ namespace TFG_Videojocs.ACC_RemapControls
         }
     }
 }
+#endif

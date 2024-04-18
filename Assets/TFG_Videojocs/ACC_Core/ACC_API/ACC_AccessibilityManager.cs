@@ -69,18 +69,19 @@ namespace TFG_Videojocs
         private void Start()
         {
             AudioAccessibilityManager().PlaySubtitle("A");
-            //StartCoroutine(ChangeScene());
+            StartCoroutine(ChangeScene());
         }
 
         private IEnumerator ChangeScene()
         {
-            yield return new WaitForSeconds(1);
-            yield return new WaitForSeconds(6);
+            yield return new WaitForSeconds(2);
+            AudioAccessibilityManager().ChangeSubtitleFontSize(20);
+            //yield return new WaitForSeconds(6);
             //LoadUserPreferences();
             //yield return new WaitForSeconds(6);
             //SceneManager.LoadScene(1);
             //yield return new WaitForSeconds(1);
-            AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
+            //AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
         }
         
         private void OnValidate()

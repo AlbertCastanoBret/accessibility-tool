@@ -13,15 +13,15 @@ namespace TFG_Videojocs.ACC_RemapControls
 {
     public class ACC_RebindControlsManager:MonoBehaviour
     {
-        [SerializeField] private InputActionAsset inputActionAsset;
-        
 #if UNITY_EDITOR
-        [SerializeField] private GameObject defaultMenu;
-        [SerializeField] private GameObject rebindUIPrefab;
-        [SerializeField] private GameObject rebindOverlay;
+        [Header("Editor Only")]
+        public GameObject defaultMenu;
+        public GameObject rebindUIPrefab;
+        public GameObject rebindOverlay;
         private TextMeshProUGUI rebindPrompt;
 #endif
-        
+        [Header("Runtime Only")]
+        [SerializeField] private ACC_ControlSchemeData loadedData;
         private Dictionary<GameObject, List<string>> controlSchemesOfEachDevice = new();
         private Dictionary<GameObject, string> currentControlSchemeOfEachDevice = new();
 
@@ -29,9 +29,6 @@ namespace TFG_Videojocs.ACC_RemapControls
         {
             controlSchemesOfEachDevice = new();
             currentControlSchemeOfEachDevice = new();
-            
-            string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + inputActionAsset.name + ".json");
-            var loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
             
             for(int i=0; i < gameObject.transform.childCount; i++)
             {
@@ -62,6 +59,11 @@ namespace TFG_Videojocs.ACC_RemapControls
                                  deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent")
                                     .Find("CurrentControlScheme").gameObject,
                                  deviceManager.transform.Find("RebindsScroll").gameObject));
+                    
+                    deviceManager.transform.Find("ResetAllButton").GetComponent<Button>().onClick.AddListener(() =>
+                    {
+                        ResetControlSchemeBindings(currentControlSchemeOfEachDevice[deviceManager]);
+                    });
                 }
             }    
         }
@@ -73,7 +75,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + jsonFile + ".json");
             var loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
             
-            inputActionAsset = loadedData.inputActionAsset;
+            this.loadedData = loadedData;
             
             if (Application.isPlaying)
             {
@@ -209,6 +211,25 @@ namespace TFG_Videojocs.ACC_RemapControls
         
 #endif
 
+        public void ResetAllBindings()
+        {
+            foreach (InputActionMap map in loadedData.inputActionAsset.actionMaps)
+            {
+                map.RemoveAllBindingOverrides();
+            }
+        }
+        
+        public void ResetControlSchemeBindings(string controlScheme)
+        {
+            foreach (InputActionMap map in loadedData.inputActionAsset.actionMaps)
+            {
+                foreach (InputAction action in map.actions)
+                {
+                    action.RemoveBindingOverride(InputBinding.MaskByGroup(controlScheme));
+                }
+            }
+        }
+        
         private void PressLeftButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
         {
             var currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
@@ -224,12 +245,6 @@ namespace TFG_Videojocs.ACC_RemapControls
 
         private void PressRightButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
         {
-            Debug.Log(rebindsScroll);
-            foreach (var var in currentControlSchemeOfEachDevice)
-            {
-                Debug.Log( var.Key + " " + var.Value);
-            }
-            
             var currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
             if(currentRebindsList.CompareTag("RebindsList")) rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(false);
             

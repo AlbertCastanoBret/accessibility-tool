@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -13,3 +14,5 @@ public class ACC_ReadOnlyDrawer : PropertyDrawer
         GUI.enabled = true;
     }
 }
+#endif
+    

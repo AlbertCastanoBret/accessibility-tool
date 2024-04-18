@@ -1,10 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+#if UNITY_EDITOR
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_Subtitles;
-using TFG_Videojocs.ACC_Utilities;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEditor.UIElements;
@@ -157,3 +153,4 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         rootVisualElement.Add(bottomContainer);
     }
 }
+#endif

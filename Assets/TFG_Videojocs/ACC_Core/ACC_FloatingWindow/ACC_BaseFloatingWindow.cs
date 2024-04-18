@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using TFG_Videojocs.ACC_Utilities;
@@ -57,3 +58,4 @@ namespace TFG_Videojocs
         }
     }
 }
+#endif

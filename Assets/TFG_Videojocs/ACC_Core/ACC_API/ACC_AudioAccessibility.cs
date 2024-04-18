@@ -19,16 +19,12 @@ public class ACC_AudioAccessibility
 {
     private Dictionary<AudioFeatures, bool> audioFeatureStates = new Dictionary<AudioFeatures, bool>();
     
-    private GameObject subtitleText, subtitleBackground;
     private ACC_SubtitlesManager accSubtitlesManager;
-
-    private GameObject visualNotificationText,  visualNotificationBackground;
     private ACC_VisualNotificationManager accVisualNotificationManager;
     public ACC_AudioAccessibility()
     {
-        CreateSubtitleManager();
-        CreateVisualNotificationManager();
-        
+        accSubtitlesManager = GameObject.Find("ACC_SubtitleManager").GetComponent<ACC_SubtitlesManager>();
+        accVisualNotificationManager = GameObject.Find("ACC_VisualNotificationManager").GetComponent<ACC_VisualNotificationManager>();
     }
     
     /// <summary>
@@ -80,7 +76,7 @@ public class ACC_AudioAccessibility
     {
         PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor, ColorUtility.ToHtmlStringRGBA(newColor));
         PlayerPrefs.Save();
-        subtitleText.GetComponent<TextMeshProUGUI>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
+        accSubtitlesManager.SetTextFontColor(newColor);
     }
 
     /// <summary>
@@ -105,7 +101,7 @@ public class ACC_AudioAccessibility
     {
         PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor, ColorUtility.ToHtmlStringRGBA(newColor));
         PlayerPrefs.Save();
-        subtitleBackground.GetComponent<Image>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
+        accSubtitlesManager.SetBackgroundColor(newColor);
     }
     
     /// <summary>
@@ -130,7 +126,7 @@ public class ACC_AudioAccessibility
     {
         PlayerPrefs.SetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize, newFontSize);
         PlayerPrefs.Save();
-        subtitleText.GetComponent<TextMeshProUGUI>().fontSize = newFontSize;
+        accSubtitlesManager.SetFontSize(newFontSize);
         accSubtitlesManager.UpdateSize();
     }
 
@@ -152,75 +148,22 @@ public class ACC_AudioAccessibility
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedFontColor)
             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
         {
-            subtitleText.GetComponent<TextMeshProUGUI>().color = new Color(loadedFontColor.r, loadedFontColor.g, loadedFontColor.b, loadedFontColor.a);
+            accSubtitlesManager.SetTextFontColor(loadedFontColor);
         }
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor), out Color loadedBackgroundColor)
             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
         {
-            subtitleBackground.GetComponent<Image>().color = new Color(loadedBackgroundColor.r, loadedBackgroundColor.g, loadedBackgroundColor.b, loadedBackgroundColor.a);
+            accSubtitlesManager.SetBackgroundColor(loadedBackgroundColor);
         }
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize))
         {
-            subtitleText.GetComponent<TextMeshProUGUI>().fontSize = PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+            accSubtitlesManager.SetFontSize((int) PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize));
         }
     }
     
     private void EnableSubtitles(bool enabled)
     {
         accSubtitlesManager.gameObject.SetActive(enabled);
-    }
-    
-    private void CreateSubtitleManager()
-    {
-        GameObject canvasObject = GameObject.Find("Canvas");
-        
-        if (canvasObject == null)
-        {
-            canvasObject = new GameObject("Canvas");
-            canvasObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-            canvasObject.AddComponent<CanvasScaler>();
-            canvasObject.AddComponent<GraphicRaycaster>();
-        }
-
-        var subtitleManager = new GameObject("ACC_SubtitleManager");
-        subtitleManager.transform.SetParent(canvasObject.transform, false);
-
-        RectTransform subtitleManagerTextRectTransform = subtitleManager.AddComponent<RectTransform>();
-        subtitleManagerTextRectTransform.anchorMin = new Vector2(0.1f, 0);
-        subtitleManagerTextRectTransform.anchorMax = new Vector2(0.9f, 0);
-        subtitleManagerTextRectTransform.pivot = new Vector2(0.5f, 0);
-        subtitleManagerTextRectTransform.anchoredPosition = new Vector2(0, 50);
-        subtitleManagerTextRectTransform.sizeDelta = new Vector2(0, 40);
-        
-        subtitleBackground = new GameObject("ACC_SubtitleBackground");
-        subtitleBackground.transform.SetParent(subtitleManager.transform, false);
-        var backgroundColorImage = subtitleBackground.AddComponent<Image>();
-        backgroundColorImage.color = new Color(0, 0, 0, 0);
-        
-        RectTransform backgroundTextRectTransform = subtitleBackground.GetComponent<RectTransform>();
-        backgroundTextRectTransform.anchorMin = new Vector2(0, 0.5f);
-        backgroundTextRectTransform.anchorMax = new Vector2(1, 0.5f);
-        backgroundTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        backgroundTextRectTransform.anchoredPosition = new Vector2(0, 0);
-        backgroundTextRectTransform.sizeDelta = new Vector2(0, 40);
-
-        subtitleText = new GameObject("ACC_SubtitleText");
-        subtitleText.transform.SetParent(subtitleManager.transform, false);
-        
-        TextMeshProUGUI subtitleTextMeshProUGUI = subtitleText.AddComponent<TextMeshProUGUI>();
-        subtitleTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
-        subtitleTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
-        subtitleTextMeshProUGUI.enableWordWrapping = true;
-        subtitleTextMeshProUGUI.color = new Color(1f, 0f, 0f, 1);
-        
-        RectTransform subtitleTextRectTransform = subtitleText.GetComponent<RectTransform>();
-        subtitleTextRectTransform.anchorMin = new Vector2(0, 0.5f);
-        subtitleTextRectTransform.anchorMax = new Vector2(1, 0.5f);
-        subtitleTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        subtitleTextRectTransform.anchoredPosition = new Vector2(0, 0);
-        subtitleTextRectTransform.sizeDelta = new Vector2(0, 40);
-        
-        accSubtitlesManager = subtitleManager.AddComponent<ACC_SubtitlesManager>();
     }
     
     #endregion
@@ -353,7 +296,7 @@ public class ACC_AudioAccessibility
     {
         PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor, ColorUtility.ToHtmlStringRGBA(newColor));
         PlayerPrefs.Save();
-        visualNotificationText.GetComponent<TextMeshProUGUI>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
+        accVisualNotificationManager.SetTextFontColor(newColor);
     }
 
     /// <summary>
@@ -378,7 +321,7 @@ public class ACC_AudioAccessibility
     {
         PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor, ColorUtility.ToHtmlStringRGBA(newColor));
         PlayerPrefs.Save();
-        visualNotificationBackground.GetComponent<Image>().color = new Color(newColor.r, newColor.g, newColor.b, newColor.a);
+        accVisualNotificationManager.SetBackgroundColor(newColor);
     }
     
     /// <summary>
@@ -403,7 +346,7 @@ public class ACC_AudioAccessibility
     {
         PlayerPrefs.SetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize, newFontSize);
         PlayerPrefs.Save();
-        visualNotificationText.GetComponent<TextMeshProUGUI>().fontSize = newFontSize;
+        accVisualNotificationManager.SetFontSize(newFontSize);
         accVisualNotificationManager.UpdateSize();
     }
     
@@ -482,16 +425,16 @@ public class ACC_AudioAccessibility
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor), out Color loadedFontColor)
             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
         {
-            visualNotificationText.GetComponent<TextMeshProUGUI>().color = new Color(loadedFontColor.r, loadedFontColor.g, loadedFontColor.b, loadedFontColor.a);
+            accVisualNotificationManager.SetTextFontColor(loadedFontColor);
         }
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color loadedBackgroundColor)
             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
         {
-            visualNotificationBackground.GetComponent<Image>().color = new Color(loadedBackgroundColor.r, loadedBackgroundColor.g, loadedBackgroundColor.b, loadedBackgroundColor.a);
+            accVisualNotificationManager.SetBackgroundColor(loadedBackgroundColor);
         }
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize))
         {
-            visualNotificationText.GetComponent<TextMeshProUGUI>().fontSize = PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
+            accVisualNotificationManager.SetFontSize((int) PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize));
         }
     }
     
@@ -499,62 +442,5 @@ public class ACC_AudioAccessibility
     {
         accVisualNotificationManager.gameObject.SetActive(enabled);
     }
-    
-    private void CreateVisualNotificationManager()
-    {
-        GameObject canvasObject = GameObject.Find("Canvas");
-        
-        if (canvasObject == null)
-        {
-            canvasObject = new GameObject("Canvas");
-            canvasObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-            canvasObject.AddComponent<CanvasScaler>();
-            canvasObject.AddComponent<GraphicRaycaster>();
-        }
-        
-        var visualNotificationManager = new GameObject("ACC_VisualNotificationManager");
-        visualNotificationManager.transform.SetParent(canvasObject.transform, false);
-
-        RectTransform visualNotificationManagerTextRectTransform = visualNotificationManager.AddComponent<RectTransform>();
-        visualNotificationManagerTextRectTransform.anchorMin = new Vector2(0.1f, 1);
-        visualNotificationManagerTextRectTransform.anchorMax = new Vector2(0.5f, 1);
-        visualNotificationManagerTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        visualNotificationManagerTextRectTransform.anchoredPosition = new Vector2(0, -100);
-        visualNotificationManagerTextRectTransform.sizeDelta = new Vector2(0, 100);
-        
-        visualNotificationBackground = new GameObject("ACC_VisualNotificationBackground");
-        visualNotificationBackground.transform.SetParent(visualNotificationManager.transform, false);
-        var backgroundColorImage = visualNotificationBackground.AddComponent<Image>();
-        backgroundColorImage.color = new Color(1, 1, 1, 0);
-        
-        RectTransform backgroundTextRectTransform = visualNotificationBackground.GetComponent<RectTransform>();
-        backgroundTextRectTransform.anchorMin = new Vector2(0, 0.5f);
-        backgroundTextRectTransform.anchorMax = new Vector2(1, 0.5f);
-        backgroundTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        backgroundTextRectTransform.anchoredPosition = new Vector2(0, 0);
-        backgroundTextRectTransform.sizeDelta = new Vector2(0, 100);
-
-        visualNotificationText = new GameObject("ACC_VisualNotificationText");
-        visualNotificationText.transform.SetParent(visualNotificationManager.transform, false);
-        
-        TextMeshProUGUI visualNotificationTextMeshProUGUI = visualNotificationText.AddComponent<TextMeshProUGUI>();
-        visualNotificationTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
-        visualNotificationTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
-        visualNotificationTextMeshProUGUI.enableWordWrapping = true;
-        visualNotificationTextMeshProUGUI.color = new Color(1f, 0f, 0f, 0);
-        //visualNotificationTextMeshProUGUI.enableAutoSizing = true;
-        //visualNotificationTextMeshProUGUI.fontSizeMin = 10;
-        //visualNotificationTextMeshProUGUI.fontSizeMax = 60;
-        
-        RectTransform visualNotificationTextRectTransform = visualNotificationText.GetComponent<RectTransform>();
-        visualNotificationTextRectTransform.anchorMin = new Vector2(0, 0.5f);
-        visualNotificationTextRectTransform.anchorMax = new Vector2(1, 0.5f);
-        visualNotificationTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        visualNotificationTextRectTransform.anchoredPosition = new Vector2(0, 0);
-        visualNotificationTextRectTransform.sizeDelta = new Vector2(0, 100);
-
-        accVisualNotificationManager = visualNotificationManager.AddComponent<ACC_VisualNotificationManager>();
-    }
-
     #endregion
 }
