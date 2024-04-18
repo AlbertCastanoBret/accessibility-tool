@@ -46,7 +46,7 @@ namespace TFG_Videojocs
         
         private ACC_MobilityAccessibility accMobilityAccessibility;
             
-        //private bool sceneLoaded;
+        private bool sceneLoaded;
 
         private void Awake()
         {
@@ -74,14 +74,14 @@ namespace TFG_Videojocs
 
         private void Start()
         {
-            AudioAccessibilityManager().PlaySubtitle("A");
+            accAudioAccessibility.PlaySubtitle("A");
             StartCoroutine(ChangeScene());
         }
 
         private IEnumerator ChangeScene()
         {
             yield return new WaitForSeconds(2);
-            AudioAccessibilityManager().ChangeSubtitleFontSize(20);
+            accAudioAccessibility.ChangeSubtitleFontSize(20);
             //MobilityAccessibilityManager().ShowRemapControlsMenu("Gamepad");
             //yield return new WaitForSeconds(6);
             //LoadUserPreferences();
@@ -93,7 +93,7 @@ namespace TFG_Videojocs
         
         private void OnValidate()
         {
-            if (Application.isPlaying)
+            if (Application.isPlaying && sceneLoaded)
             {
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
@@ -101,17 +101,17 @@ namespace TFG_Videojocs
             }
         }
 
-        // private void OnEnable()
-        // {
-        //     SceneManager.sceneLoaded += OnSceneLoaded;
-        //     SceneManager.sceneUnloaded += OnSceneUnloading;
-        // }
-        //
-        // private void OnDisable()
-        // {
-        //     SceneManager.sceneLoaded -= OnSceneLoaded;
-        //     SceneManager.sceneUnloaded += OnSceneUnloading;
-        // }
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneUnloading;
+        }
+        
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+            SceneManager.sceneUnloaded += OnSceneUnloading;
+        }
 
         private void Reset()
         {
@@ -146,34 +146,14 @@ namespace TFG_Videojocs
             accAudioAccessibility.LoadUserPreferences();
         }
         
-        // private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        // {
-        //     // if (accAudioAccessibility == null)
-        //     // {
-        //     //     accAudioAccessibility = new ACC_AudioAccessibility();
-        //     //     accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
-        //     //     accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
-        //     //     
-        //     //     accMobilityAccessibility = new ACC_MobilityAccessibility();
-        //     //     accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
-        //     // }
-        //     // sceneLoaded = true;
-        //     /*while (pendingActions.Count > 0)
-        //     {
-        //         var action = pendingActions.Dequeue();
-        //         action();
-        //     }*/
-        // }
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            sceneLoaded = true;
+        }
         
-        // private void OnSceneUnloading(Scene current)
-        // {
-        //     // sceneLoaded = false;
-        //     // accAudioAccessibility = null;
-        // }
-
-        // public bool IsSceneLoaded()
-        // {
-        //     return sceneLoaded;
-        // }
+        private void OnSceneUnloading(Scene current)
+        {
+            sceneLoaded = false;
+        }
     }
 }
