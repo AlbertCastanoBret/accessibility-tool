@@ -30,7 +30,8 @@ namespace TFG_Videojocs
     
     public class ACC_AccessibilityManager : MonoBehaviour
     {
-        public static ACC_AccessibilityManager Instance { get; private set; }
+        public static ACC_AccessibilityManager Instance { get; private set; } 
+        internal GameObject accCanvas { get; private set; }
 
         //private Queue<Action> pendingActions = new Queue<Action>();
         
@@ -52,6 +53,10 @@ namespace TFG_Videojocs
             if (Instance == null)
             {
                 Instance = this;
+                
+                accCanvas = GameObject.Find("ACC_Canvas");
+                accCanvas.transform.SetParent(transform);
+                
                 accAudioAccessibility = new ACC_AudioAccessibility();
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);

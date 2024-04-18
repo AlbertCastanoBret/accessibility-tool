@@ -33,7 +33,7 @@ namespace TFG_Videojocs
             lastData = new TData();
             isClosing = false;
         }
-
+        
         public virtual void LoadOnlyEditableWindow(string name)
         {
             currentData.name = name;

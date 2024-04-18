@@ -14,7 +14,7 @@ namespace TFG_Videojocs
         private ACC_RebindControlsManager accRebindControlsManager;
         public ACC_MobilityAccessibility()
         {
-            accRebindControlsManager = GameObject.Find("ACC_RebindControlsManager").GetComponent<ACC_RebindControlsManager>();
+            accRebindControlsManager = ACC_AccessibilityManager.Instance.accCanvas.transform.Find("ACC_RebindControlsManager").GetComponent<ACC_RebindControlsManager>();
         }
 
         public void SetFeatureState(MobilityFeatures feature, bool state)

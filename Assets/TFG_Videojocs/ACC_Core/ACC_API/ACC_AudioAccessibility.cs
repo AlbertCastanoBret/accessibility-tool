@@ -23,8 +23,8 @@ public class ACC_AudioAccessibility
     private ACC_VisualNotificationManager accVisualNotificationManager;
     public ACC_AudioAccessibility()
     {
-        accSubtitlesManager = GameObject.Find("ACC_SubtitleManager").GetComponent<ACC_SubtitlesManager>();
-        accVisualNotificationManager = GameObject.Find("ACC_VisualNotificationManager").GetComponent<ACC_VisualNotificationManager>();
+        accSubtitlesManager = ACC_AccessibilityManager.Instance.accCanvas.transform.Find("ACC_SubtitleManager").GetComponent<ACC_SubtitlesManager>();
+        accVisualNotificationManager = ACC_AccessibilityManager.Instance.accCanvas.transform.Find("ACC_VisualNotificationManager").GetComponent<ACC_VisualNotificationManager>();
     }
     
     /// <summary>
