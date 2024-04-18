@@ -100,10 +100,10 @@ public class ACC_InitializationWindow : EditorWindow
         RectTransform rebindControlsManagerRectTransform = rebindControlsManager.AddComponent<RectTransform>();
         rebindControlsManagerRectTransform.SetParent(canvasObject.transform);
         rebindControlsManagerRectTransform.localPosition = Vector3.zero;
-        rebindControlsManagerRectTransform.anchorMin = new Vector2(0.5f, 0.5f);
-        rebindControlsManagerRectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+        rebindControlsManagerRectTransform.sizeDelta = new Vector2(0, 0);
+        rebindControlsManagerRectTransform.anchorMin = new Vector2(0, 0);
+        rebindControlsManagerRectTransform.anchorMax = new Vector2(1, 1);
         rebindControlsManagerRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        rebindControlsManagerRectTransform.sizeDelta = new Vector2(1920, 1080);
     
         var rebindControlsManagerComponent = rebindControlsManager.AddComponent<ACC_RebindControlsManager>();
         rebindControlsManagerComponent.defaultMenu = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_DeviceManager.prefab");
