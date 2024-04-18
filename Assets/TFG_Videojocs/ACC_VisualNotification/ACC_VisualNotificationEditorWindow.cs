@@ -27,7 +27,6 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
         audioManager.OnSoundsChanged += CreateSoundList;
     }
-
     private void OnDisable()
     {
         audioManager.OnSoundsChanged -= CreateSoundList;
@@ -135,8 +134,8 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
                 if (audioClip != null && soundScrollView.Children().OfType<Label>().All(label => label.text != audioClip.name))
                 {
                     ACC_Sound accSound = new ACC_Sound(audioClip.name, audioClip);
+                    //controller.currentData.soundsList.Add(accSound);
                     audioManager.AddSFXSound(accSound);
-                    controller.currentData.soundsList.Add(accSound);
                 }
                 else
                 {

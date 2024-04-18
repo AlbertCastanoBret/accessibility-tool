@@ -238,6 +238,14 @@ namespace TFG_Videojocs.ACC_RemapControls
             }
         }
         
+        public void HideRebindMenu()
+        {
+            foreach (var deviceManager in controlSchemesOfEachDevice.Keys)
+            {
+                deviceManager.SetActive(false);
+            }
+        }
+        
         private void PressLeftButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
         {
             var currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;

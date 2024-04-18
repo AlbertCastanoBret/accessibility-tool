@@ -36,6 +36,14 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
+        /// Hides the remap controls menu.
+        /// </summary>
+        public void HideRemapControlsMenu()
+        {
+            accRebindControlsManager.HideRebindMenu();
+        }
+        
+        /// <summary>
         /// Resets all bindings to their default settings using the AccRebindControlsManager.
         /// </summary>
         public void ResetAllBindings()

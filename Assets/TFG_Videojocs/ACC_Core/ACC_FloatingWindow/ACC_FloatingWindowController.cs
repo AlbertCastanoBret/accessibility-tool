@@ -54,7 +54,6 @@ namespace TFG_Videojocs
             ACC_JSONHelper.CreateJson(currentData, path);
             lastData = (TData)currentData.Clone(); 
             if (isEditing) oldName = currentData.name;
-            
         }
 
         public virtual void LoadJson(string name)

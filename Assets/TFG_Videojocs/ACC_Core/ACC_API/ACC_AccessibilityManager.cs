@@ -42,7 +42,6 @@ namespace TFG_Videojocs
         
         [Header("MobilityAccessibility")]
         [SerializeField] private bool remapControlsEnabled;
-        [SerializeField] private PlayerInput playerInput;
         
         private ACC_MobilityAccessibility accMobilityAccessibility;
             

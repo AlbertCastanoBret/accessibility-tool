@@ -11,6 +11,14 @@ namespace TFG_Videojocs.ACC_VisualNotification
     {
         public override void ConfigureJson()
         {
+            if(currentData.soundsList.Count == 0)
+            {
+                EditorUtility.DisplayDialog("Error", "You must add at least one sound to the visual notification.", "Ok");
+                if(isCreatingNewFileOnCreation) isCreatingNewFileOnCreation = false;
+                if(isClosing) Cancel(window);
+                return;
+            }
+            
             Dictionary<string, List<ACC_Sound>> repeatedSounds = new Dictionary<string, List<ACC_Sound>>(); 
             for (int i = 0; i < currentData.soundsList.Count; i++)
             {
