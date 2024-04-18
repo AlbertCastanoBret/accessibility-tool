@@ -31,17 +31,17 @@ public class ACC_AudioAccessibility
     /// Sets the state of a specified audio feature to either enabled or disabled.
     /// </summary>
     /// <param name="feature">The audio feature to modify. Use AudioFeatures enum to specify the feature.</param>
-    /// <param name="enable">A boolean value indicating whether the feature should be enabled (true) or disabled (false).</param>
-    public void SetFeatureState(AudioFeatures feature, bool enable)
+    /// <param name="state">A boolean value indicating whether the feature should be enabled (true) or disabled (false).</param>
+    public void SetFeatureState(AudioFeatures feature, bool state)
     {
-        audioFeatureStates[feature] = enable;
+        audioFeatureStates[feature] = state;
         switch (feature)
         {
             case AudioFeatures.Subtitles:
-                EnableSubtitles(enable);
+                accSubtitlesManager.gameObject.SetActive(state);
                 break;
             case AudioFeatures.VisualNotification:
-                EnableVisualNotification(enable);
+                accVisualNotificationManager.gameObject.SetActive(state);
                 break;
         }
     }
@@ -159,11 +159,6 @@ public class ACC_AudioAccessibility
         {
             accSubtitlesManager.SetFontSize((int) PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize));
         }
-    }
-    
-    private void EnableSubtitles(bool enabled)
-    {
-        accSubtitlesManager.gameObject.SetActive(enabled);
     }
     
     #endregion
@@ -436,11 +431,6 @@ public class ACC_AudioAccessibility
         {
             accVisualNotificationManager.SetFontSize((int) PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize));
         }
-    }
-    
-    private void EnableVisualNotification(bool enabled)
-    {
-        accVisualNotificationManager.gameObject.SetActive(enabled);
     }
     #endregion
 }

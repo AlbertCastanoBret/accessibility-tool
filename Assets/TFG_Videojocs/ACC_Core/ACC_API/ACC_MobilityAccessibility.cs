@@ -17,11 +17,17 @@ namespace TFG_Videojocs
             accRebindControlsManager = ACC_AccessibilityManager.Instance.accCanvas.transform.Find("ACC_RebindControlsManager").GetComponent<ACC_RebindControlsManager>();
         }
 
+        /// <summary>
+        /// Sets the state of a specified mobility feature to either enabled or disabled.
+        /// </summary>
+        /// <param name="feature">The mobility feature to modify. Use MobilityFeatures enum to specify the feature.</param>
+        /// <param name="state">A boolean value indicating whether the feature should be enabled (true) or disabled (false).</param>
         public void SetFeatureState(MobilityFeatures feature, bool state)
         {
             switch (feature)
             {
                 case MobilityFeatures.RemapControls:
+                    accRebindControlsManager.gameObject.SetActive(state);
                     break;
             }
         }

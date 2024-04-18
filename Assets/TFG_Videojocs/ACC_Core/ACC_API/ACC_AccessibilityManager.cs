@@ -46,7 +46,7 @@ namespace TFG_Videojocs
         
         private ACC_MobilityAccessibility accMobilityAccessibility;
             
-        private bool sceneLoaded;
+        //private bool sceneLoaded;
 
         private void Awake()
         {
@@ -82,7 +82,7 @@ namespace TFG_Videojocs
         {
             yield return new WaitForSeconds(2);
             AudioAccessibilityManager().ChangeSubtitleFontSize(20);
-            MobilityAccessibilityManager().ShowRemapControlsMenu("Gamepad");
+            //MobilityAccessibilityManager().ShowRemapControlsMenu("Gamepad");
             //yield return new WaitForSeconds(6);
             //LoadUserPreferences();
             //yield return new WaitForSeconds(6);
@@ -93,7 +93,7 @@ namespace TFG_Videojocs
         
         private void OnValidate()
         {
-            if (Application.isPlaying && sceneLoaded)
+            if (Application.isPlaying)
             {
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
@@ -101,17 +101,17 @@ namespace TFG_Videojocs
             }
         }
 
-        private void OnEnable()
-        {
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.sceneUnloaded += OnSceneUnloading;
-        }
-
-        private void OnDisable()
-        {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-            SceneManager.sceneUnloaded += OnSceneUnloading;
-        }
+        // private void OnEnable()
+        // {
+        //     SceneManager.sceneLoaded += OnSceneLoaded;
+        //     SceneManager.sceneUnloaded += OnSceneUnloading;
+        // }
+        //
+        // private void OnDisable()
+        // {
+        //     SceneManager.sceneLoaded -= OnSceneLoaded;
+        //     SceneManager.sceneUnloaded += OnSceneUnloading;
+        // }
 
         private void Reset()
         {
@@ -146,34 +146,34 @@ namespace TFG_Videojocs
             accAudioAccessibility.LoadUserPreferences();
         }
         
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            if (accAudioAccessibility == null)
-            {
-                accAudioAccessibility = new ACC_AudioAccessibility();
-                accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
-                accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
-                
-                accMobilityAccessibility = new ACC_MobilityAccessibility();
-                accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
-            }
-            sceneLoaded = true;
-            /*while (pendingActions.Count > 0)
-            {
-                var action = pendingActions.Dequeue();
-                action();
-            }*/
-        }
+        // private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        // {
+        //     // if (accAudioAccessibility == null)
+        //     // {
+        //     //     accAudioAccessibility = new ACC_AudioAccessibility();
+        //     //     accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+        //     //     accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+        //     //     
+        //     //     accMobilityAccessibility = new ACC_MobilityAccessibility();
+        //     //     accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
+        //     // }
+        //     // sceneLoaded = true;
+        //     /*while (pendingActions.Count > 0)
+        //     {
+        //         var action = pendingActions.Dequeue();
+        //         action();
+        //     }*/
+        // }
         
-        private void OnSceneUnloading(Scene current)
-        {
-            sceneLoaded = false;
-            accAudioAccessibility = null;
-        }
+        // private void OnSceneUnloading(Scene current)
+        // {
+        //     // sceneLoaded = false;
+        //     // accAudioAccessibility = null;
+        // }
 
-        public bool IsSceneLoaded()
-        {
-            return sceneLoaded;
-        }
+        // public bool IsSceneLoaded()
+        // {
+        //     return sceneLoaded;
+        // }
     }
 }
