@@ -13,7 +13,7 @@ namespace TFG_Videojocs.ACC_RemapControls
         {
             currentData.inputActionAsset = window.inputActionAsset;
             base.ConfigureJson();
-            window.accRebindControlsManager.LoadRebindControlsManager(oldName);
+            window.accRebindControlsManager.CreateRebindControlsManager(oldName);
         }
 
         protected override void RestoreFieldValues()

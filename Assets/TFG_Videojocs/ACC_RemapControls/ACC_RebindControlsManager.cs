@@ -1,24 +1,79 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Samples.RebindUI;
+using UnityEngine.UI;
 
 namespace TFG_Videojocs.ACC_RemapControls
 {
     public class ACC_RebindControlsManager:MonoBehaviour
     {
-        private List<GameObject> deviceManagerList = new List<GameObject>();
-        private ACC_ControlSchemeData loadedData;
-        [SerializeField] private GameObject defaultMenu;
-        [SerializeField] private GameObject rebindUIPrefab;
+        [SerializeField] private InputActionAsset inputActionAsset;
         
-        public void LoadRebindControlsManager(string jsonFile)
+#if UNITY_EDITOR
+        [SerializeField] private GameObject defaultMenu;
+        [SerializeField] private GameObject rebindUIPrefab;  
+        private ACC_ControlSchemeData loadedData;
+#endif
+        
+        private Dictionary<GameObject, List<string>> controlSchemesOfEachDevice = new();
+        private Dictionary<GameObject, string> currentControlSchemeOfEachDevice = new();
+
+        private void Awake()
+        {
+            string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + inputActionAsset.name + ".json");
+            var loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
+            
+            for(int i=0; i < gameObject.transform.childCount; i++)
+            {
+                var deviceManager = gameObject.transform.GetChild(i).gameObject;
+                if (deviceManager.CompareTag("DeviceManager"))
+                {
+                    var controlSchemes = loadedData.inputActionAsset.controlSchemes
+                        .Where(scheme => String.Join(", ", scheme.deviceRequirements
+                            .Select(requirement => requirement.controlPath.Replace("<", "").Replace(">", ""))
+                            .Distinct()
+                            .OrderBy(d => d)) == gameObject.transform.GetChild(i).name)
+                        .Select(scheme => scheme.name)
+                        .ToList();
+                    
+                    controlSchemesOfEachDevice.Add(deviceManager, controlSchemes);
+                    currentControlSchemeOfEachDevice.Add(deviceManager, controlSchemesOfEachDevice[deviceManager][0]);
+
+                    deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent")
+                        .Find("LeftArrow").GetComponent<Button>().onClick.AddListener(() =>
+                            PressLeftButton(deviceManager,
+                                deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent")
+                                    .Find("CurrentControlScheme").gameObject,
+                            deviceManager.transform.Find("RebindsScroll").gameObject));
+                    
+                    deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent")
+                        .Find("RightArrow").GetComponent<Button>().onClick.AddListener(() => 
+                            PressRightButton(deviceManager,
+                                 deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent")
+                                    .Find("CurrentControlScheme").gameObject,
+                                 deviceManager.transform.Find("RebindsScroll").gameObject));
+                }
+            }    
+        }
+
+#if UNITY_EDITOR
+        
+        public void CreateRebindControlsManager(string jsonFile)
         {
             string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + jsonFile + ".json");
             loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
             
+            SetControlSchemes();
+        }
+        
+        private void SetControlSchemes()
+        {
             var devices = loadedData.inputActionAsset.controlSchemes
                 .Select(scheme => 
                 {
@@ -31,6 +86,8 @@ namespace TFG_Videojocs.ACC_RemapControls
                 .Where(device => device != null)
                 .Distinct()
                 .ToList();
+
+            bool first = true;
             
             foreach (var device in devices)
             {
@@ -39,10 +96,110 @@ namespace TFG_Videojocs.ACC_RemapControls
                 deviceManager.transform.localScale = new Vector3(1, 1, 1);
                 deviceManager.transform.localPosition = new Vector3(0, 0, 0);
 
-                deviceManager.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>().text =
-                    loadedData.controlSchemesList.Items[0].key;
+                deviceManager.SetActive(first);
+                first = false;
+                
+                var controlSchemes = loadedData.inputActionAsset.controlSchemes
+                    .Where(scheme => String.Join(", ", scheme.deviceRequirements
+                        .Select(requirement => requirement.controlPath.Replace("<", "").Replace(">", ""))
+                        .Distinct()
+                        .OrderBy(d => d)) == device)
+                    .Select(scheme => scheme.name)
+                    .ToList();
+                
+                deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent").Find("CurrentControlScheme").GetComponent<TextMeshProUGUI>().text =
+                    controlSchemes[0];
+                
+                SetBindings(deviceManager, controlSchemes);
             }
+        }
+        
+        private void SetBindings(GameObject deviceManager, List<string> controlSchemes)
+        {
+            bool first = true;
+            foreach (var controlScheme in controlSchemes)
+            {
+                var rebindingsScroll = deviceManager.transform.Find("RebindsScroll");
+                
+                var controlSchemeParent = new GameObject
+                {
+                    name = controlScheme,
+                    tag = "RebindsList"
+                };
+                var rectTransform = controlSchemeParent.AddComponent<RectTransform>();
+                
+                rectTransform.SetParent(rebindingsScroll);
+                rectTransform.localScale = new Vector3(1, 1, 1);
+                rectTransform.anchorMin = new Vector2(0.5f, 1);
+                rectTransform.anchorMax = new Vector2(0.5f, 1);
+                rectTransform.pivot = new Vector2(0.5f, 1);
+                rectTransform.anchoredPosition = new Vector2(0, 0);
+                
+                if (first)
+                {
+                    rebindingsScroll.GetComponent<ScrollRect>().content = rectTransform;
+                    first = false;
+                }
+                else controlSchemeParent.SetActive(false);
+                
+                var verticalLayoutGroup = controlSchemeParent.AddComponent<VerticalLayoutGroup>();
+                verticalLayoutGroup.padding.bottom = -20;
+                verticalLayoutGroup.spacing = -20;
+                
+                foreach (var binding in loadedData.bindingsList.Items)
+                {
+                    if (controlScheme == binding.key.controlScheme)
+                    {
+                        var uiPrefab = Instantiate(rebindUIPrefab, controlSchemeParent.transform, true);
+                        uiPrefab.name = binding.key.id;
+                        uiPrefab.transform.localScale = new Vector3(1, 1, 1);
+                        
+                        var rebindUI = uiPrefab.GetComponent<RebindActionUI>();
+                        
+                        InputAction action = loadedData.inputActionAsset.FindAction(binding.key.actionId);
+                        InputActionReference actionReference = ScriptableObject.CreateInstance<InputActionReference>();
+                        actionReference.Set(action);
+                        rebindUI.actionReference = actionReference;
+                        
+                        rebindUI.bindingId = binding.key.id;
+
+                        if (!binding.value || loadedData.controlSchemesList.Items.Find(scheme => scheme.key == controlScheme).value == false)
+                        {
+                            var button = uiPrefab.transform.Find("TriggerRebindButton");
+                            button.GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
+                            button.GetComponent<Button>().enabled = false;
+                            
+                            var resetButton = uiPrefab.transform.Find("ResetToDefaultButton");
+                            resetButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
+                            resetButton.GetComponent<Button>().enabled = false;
+                        }
+                    }
+                }
+            }
+        }
+        
+#endif
+
+        private void PressLeftButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
+        {
+            rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(false);
             
+            currentControlScheme.GetComponent<TextMeshProUGUI>().text =
+                controlSchemesOfEachDevice[deviceManager][(controlSchemesOfEachDevice[deviceManager].IndexOf(currentControlSchemeOfEachDevice[deviceManager]) - 1 + controlSchemesOfEachDevice[deviceManager].Count) % controlSchemesOfEachDevice[deviceManager].Count];
+            currentControlSchemeOfEachDevice[deviceManager] = currentControlScheme.GetComponent<TextMeshProUGUI>().text;
+            
+            rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(true);
+        }
+
+        private void PressRightButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
+        {
+            rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(false);
+            
+            currentControlScheme.GetComponent<TextMeshProUGUI>().text =
+                controlSchemesOfEachDevice[deviceManager][(controlSchemesOfEachDevice[deviceManager].IndexOf(currentControlSchemeOfEachDevice[deviceManager]) + 1) % controlSchemesOfEachDevice[deviceManager].Count];
+            currentControlSchemeOfEachDevice[deviceManager] = currentControlScheme.GetComponent<TextMeshProUGUI>().text;
+            
+            rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(true);
         }
     }
 }

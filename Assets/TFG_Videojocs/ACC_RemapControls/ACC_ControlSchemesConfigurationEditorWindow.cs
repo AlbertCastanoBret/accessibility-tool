@@ -136,7 +136,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                             {
                                 if (group == controlScheme)
                                 {
-                                    ACC_BindingData accBindingData = new ACC_BindingData(binding.id.ToString(), controlScheme);
+                                    ACC_BindingData accBindingData = new ACC_BindingData(binding.id.ToString(), controlScheme, action.id.ToString());
                                     controller.onScreenBindingToggleValues[accBindingData] = false;
                                     controller.currentData.bindingsList.AddOrUpdate(accBindingData, false);
                                 }

@@ -19,7 +19,7 @@
                 {
                     "name": "",
                     "id": "564a2ef6-6ca7-48ea-a537-cb75aabe96ee",
-                    "path": "<Gamepad>/{Back}",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "A",
@@ -34,6 +34,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "B",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04dcff70-bc65-44f1-9a63-63c90a652cef",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "C",
                     "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -64,6 +75,17 @@
                 },
                 {
                     "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "C",
+            "bindingGroup": "C",
+            "devices": [
+                {
+                    "devicePath": "<Gamepad>",
                     "isOptional": false,
                     "isOR": false
                 }

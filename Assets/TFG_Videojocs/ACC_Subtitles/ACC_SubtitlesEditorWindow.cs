@@ -123,7 +123,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         var backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label",
             value => controller.currentData.backgroundColor = value);
         var fontSizeContainer =
-            uiElementFactory.CreateSliderWithIntegerField("option-multi-input", "Font size:", 10, 60, 20,
+            uiElementFactory.CreateSliderWithIntegerField("option-multi-input", "Font size:", 20, 100, 40,
                 onValueChanged: value => controller.currentData.fontSize = value);
         
         settingsContainer.Add(settingsTitle);

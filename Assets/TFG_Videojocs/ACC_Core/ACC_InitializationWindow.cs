@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using TFG_Videojocs;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Button = UnityEngine.UIElements.Button;
+using Image = UnityEngine.UIElements.Image;
 
 public class ACC_InitializationWindow : EditorWindow
 {
@@ -36,24 +39,41 @@ public class ACC_InitializationWindow : EditorWindow
         {
             if (!GameObject.Find("ACC_AccessibilityManager"))
             {
-                GameObject accessibilityManager = new GameObject("ACC_AccessibilityManager");
+                var accessibilityManager = new GameObject("ACC_AccessibilityManager");
                 accessibilityManager.AddComponent<ACC_AccessibilityManager>();
             }
             
             if (!GameObject.Find("ACC_AudioManager"))
             {
-                GameObject audioManager = new GameObject("ACC_AudioManager");
+                var audioManager = new GameObject("ACC_AudioManager");
 
-                GameObject musicSource = new GameObject("ACC_MusicSource");
+                var musicSource = new GameObject("ACC_MusicSource");
                 musicSource.AddComponent<AudioSource>();
                 musicSource.transform.SetParent(audioManager.transform);
                 
-                GameObject sfxSource = new GameObject("ACC_SFXSource");
+                var sfxSource = new GameObject("ACC_SFXSource");
                 sfxSource.AddComponent<AudioSource>();
                 sfxSource.transform.SetParent(audioManager.transform);
                 
                 audioManager.AddComponent<ACC_AudioManager>();
             }
+            
+            var canvasObject = GameObject.Find("Canvas");
+        
+            if (canvasObject == null)
+            {
+                canvasObject = new GameObject("Canvas");
+                canvasObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+                var canvasScaler = canvasObject.AddComponent<CanvasScaler>();
+                canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+                canvasScaler.referenceResolution = new Vector2(1920, 1080);
+                canvasObject.AddComponent<GraphicRaycaster>();
+            }
+            
+            var rebindControlsManager = new GameObject("ACC_RebindControlsManager");
+
+            RectTransform rebindControlsManagerRectTransform = rebindControlsManager.AddComponent<RectTransform>();
+            rebindControlsManagerRectTransform.SetParent(canvasObject.transform);
         };
         
         rootVisualElement.styleSheets.Add(styleSheet);
