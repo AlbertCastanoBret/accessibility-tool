@@ -44,6 +44,7 @@ public class ACC_InitializationWindow : EditorWindow
             CreateAccessibilityManager();
             CreateAudioManager();
             CreateCanvas();
+            Close();
         };
         
         rootVisualElement.styleSheets.Add(styleSheet);

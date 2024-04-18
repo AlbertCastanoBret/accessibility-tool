@@ -69,7 +69,6 @@ namespace TFG_Videojocs.ACC_RemapControls
         }
 
 #if UNITY_EDITOR
-        
         public void CreateRebindControlsManager(string jsonFile)
         {
             string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + jsonFile + ".json");
@@ -121,9 +120,15 @@ namespace TFG_Videojocs.ACC_RemapControls
             {
                 var deviceManager = Instantiate(defaultMenu, transform, true);
                 deviceManager.name = device;
-                deviceManager.transform.localScale = new Vector3(1, 1, 1);
-                deviceManager.transform.localPosition = new Vector3(0, 0, 0);
-
+                
+                RectTransform rectTransform = deviceManager.GetComponent<RectTransform>();
+                rectTransform.localScale = new Vector3(1, 1, 1);
+                rectTransform.localPosition = new Vector3(0, 0, 0);
+                rectTransform.sizeDelta = new Vector2(0, 0);
+                
+                deviceManager.transform.Find("Title").GetComponent<TextMeshProUGUI>().text =
+                    "CUSTOMIZE CONTROLS - " + device.ToUpper();
+                
                 deviceManager.SetActive(first);
                 first = false;
                 
@@ -141,7 +146,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 SetBindings(loadedData, deviceManager, controlSchemes);
             }
         }
-        
         private void SetBindings(ACC_ControlSchemeData loadedData, GameObject deviceManager, List<string> controlSchemes)
         {
             bool first = true;
@@ -208,9 +212,14 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }
         }
-        
 #endif
-
+        public void ShowRebindMenu(string device)
+        {
+            foreach (var deviceManager in controlSchemesOfEachDevice.Keys)
+            {
+                deviceManager.SetActive(deviceManager.name == device);
+            }
+        }
         public void ResetAllBindings()
         {
             foreach (InputActionMap map in loadedData.inputActionAsset.actionMaps)
@@ -218,7 +227,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 map.RemoveAllBindingOverrides();
             }
         }
-        
         public void ResetControlSchemeBindings(string controlScheme)
         {
             foreach (InputActionMap map in loadedData.inputActionAsset.actionMaps)
@@ -242,7 +250,6 @@ namespace TFG_Videojocs.ACC_RemapControls
             currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
             if(currentRebindsList.CompareTag("RebindsList")) rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(true);
         }
-
         private void PressRightButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
         {
             var currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;

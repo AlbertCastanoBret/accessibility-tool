@@ -56,8 +56,10 @@ namespace TFG_Videojocs
                 accAudioAccessibility = new ACC_AudioAccessibility();
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
-                accMobilityAccessibility = new ACC_MobilityAccessibility(playerInput);
+                
+                accMobilityAccessibility = new ACC_MobilityAccessibility();
                 accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
+                
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -76,6 +78,7 @@ namespace TFG_Videojocs
         {
             yield return new WaitForSeconds(2);
             AudioAccessibilityManager().ChangeSubtitleFontSize(20);
+            MobilityAccessibilityManager().ShowRemapControlsMenu("Gamepad");
             //yield return new WaitForSeconds(6);
             //LoadUserPreferences();
             //yield return new WaitForSeconds(6);
@@ -147,7 +150,7 @@ namespace TFG_Videojocs
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
-                accMobilityAccessibility = new ACC_MobilityAccessibility(playerInput);
+                accMobilityAccessibility = new ACC_MobilityAccessibility();
                 accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
             }
             sceneLoaded = true;
