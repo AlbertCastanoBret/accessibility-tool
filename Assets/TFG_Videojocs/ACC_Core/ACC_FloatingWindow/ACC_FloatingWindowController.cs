@@ -214,6 +214,14 @@ namespace TFG_Videojocs
             var json = JsonUtility.ToJson(container);
             SessionState.SetString(type + "_tempData", json);
         }
+        
+        public void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.ExitingEditMode)
+            {
+                SerializeDataForCompilation(null);
+            }
+        }
 
         public virtual void RestoreDataAfterCompilation()
         {

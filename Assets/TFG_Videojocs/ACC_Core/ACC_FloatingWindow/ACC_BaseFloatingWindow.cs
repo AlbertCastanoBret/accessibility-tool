@@ -21,6 +21,7 @@ namespace TFG_Videojocs
             controller = new TController();
             controller.Initialize(this as TWindow);
             CompilationPipeline.compilationStarted += controller.SerializeDataForCompilation;
+            EditorApplication.playModeStateChanged += controller.OnPlayModeStateChanged;
         }
 
         private void OnDisable()
