@@ -21,7 +21,10 @@ namespace TFG_Videojocs.ACC_Utilities
             GameObject gameObject = CreateGameObject(feature, jsonFile);
             gameObject.transform.SetParent(GameObject.Find("ACC_Canvas").transform, false);
             var folder = "ACC_ " + feature + "/";
-            var name = "ACC_" + feature + "Manager.prefab";
+            
+            string name;
+            if(jsonFile.Length == 0) name = "ACC_" + feature + "Manager.prefab";
+            else name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";
             
             Directory.CreateDirectory("Assets/Resources/ACC_Prefabs/" + folder);
             
@@ -29,10 +32,14 @@ namespace TFG_Videojocs.ACC_Utilities
             PrefabUtility.SaveAsPrefabAsset(gameObject, prefabPath);
             GameObject.DestroyImmediate(gameObject);
         }
-        public static GameObject InstantiatePrefabAsChild(string feature, GameObject parent)
+        public static GameObject InstantiatePrefabAsChild(string feature, GameObject parent, string jsonFile="")
         {
             var folder = "ACC_ " + feature + "/";
-            var name = "ACC_" + feature + "Manager";
+            
+            string name;
+            if(jsonFile.Length == 0) name = "ACC_" + feature + "Manager.prefab";
+            else name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";
+            
             var prefabPath = "ACC_Prefabs/" + folder + name;
             
             GameObject prefab = Resources.Load<GameObject>(prefabPath);

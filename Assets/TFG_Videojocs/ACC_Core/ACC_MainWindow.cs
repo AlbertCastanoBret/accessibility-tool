@@ -192,8 +192,13 @@ public class ACC_MainWindow : EditorWindow
             }
             else
             {
-                var prefabSelection = LoadPrefab("Subtitles");
-                dynamicContainer.Add(prefabSelection);
+                var loadPrefabContainer = new VisualElement();
+                var loadPrefabButton = new Button() { text = "Edit" };
+                loadPrefabButton.AddToClassList("create-button");
+                loadPrefabButton.clicked += () => { LoadPrefab("Subtitles"); };
+                
+                loadPrefabContainer.Add(loadPrefabButton);
+                dynamicContainer.Add(loadPrefabContainer);
             }
         });
     }
@@ -291,8 +296,13 @@ public class ACC_MainWindow : EditorWindow
             }
             else
             {
-                var prefabSelection = LoadPrefab("VisualNotification");
-                dynamicContainer.Add(prefabSelection);
+                var loadPrefabContainer = new VisualElement();
+                var loadPrefabButton = new Button() { text = "Edit" };
+                loadPrefabButton.AddToClassList("create-button");
+                loadPrefabButton.clicked += () => { LoadPrefab("VisualNotification"); };
+                
+                loadPrefabContainer.Add(loadPrefabButton);
+                dynamicContainer.Add(loadPrefabContainer);
             }
         });
         
@@ -488,6 +498,14 @@ public class ACC_MainWindow : EditorWindow
         };
         
         remapControlsButtonContainer.Add(configureControlSchemesButton);
+        
+        var loadPrefabContainer = new VisualElement();
+        var loadPrefabButton = new Button() { text = "Edit Prefab" };
+        loadPrefabButton.AddToClassList("create-button");
+        loadPrefabButton.clicked += () => { LoadPrefab("RemapControls", inputActionAsset.name); };
+                
+        loadPrefabContainer.Add(loadPrefabButton);
+        remapControlsButtonContainer.Add(loadPrefabContainer);
 
         inputAction.RegisterValueChangedCallback(evt =>
         {
@@ -543,31 +561,25 @@ public class ACC_MainWindow : EditorWindow
     }
 
     #region HelperMethods
-    private VisualElement LoadPrefab(string feature)
+    private void LoadPrefab(string feature, string jsonFile="")
     {
-        var loadPrefabContainer = new VisualElement();
+        var folder = "ACC_ " + feature + "/";
         
-        var loadPrefabButton = new Button() { text = "Edit" };
-        loadPrefabButton.AddToClassList("create-button");
-        loadPrefabContainer.Add(loadPrefabButton);
+        string name;
+        if(jsonFile.Length == 0) name = "ACC_" + feature + "Manager.prefab";
+        else name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";
         
-        loadPrefabButton.clicked += () =>
+        var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
+        
+        GameObject prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+        if (prefabAsset != null)
         {
-            var folder = "ACC_ " + feature + "/";
-            var name = "ACC_" + feature + "Manager.prefab";
-            var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
-            GameObject prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-            if (prefabAsset != null)
-            {
-                PrefabStageUtility.OpenPrefab(prefabPath);
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Prefab not found", "The prefab for the " + feature + " manager was not found.", "OK");
-            }
-        };
-        
-        return loadPrefabContainer;
+            PrefabStageUtility.OpenPrefab(prefabPath);
+        }
+        else
+        {
+            EditorUtility.DisplayDialog("Prefab not found", "The prefab for the " + feature + " manager was not found.", "OK");
+        }
     }
     #endregion
 }
