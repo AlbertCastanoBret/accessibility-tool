@@ -23,7 +23,7 @@ public class ACC_AudioAccessibility
     private ACC_VisualNotificationManager accVisualNotificationManager;
     public ACC_AudioAccessibility()
     {
-        accSubtitlesManager = ACC_AccessibilityManager.Instance.accCanvas.transform.Find("ACC_SubtitleManager").GetComponent<ACC_SubtitlesManager>();
+        accSubtitlesManager = ACC_PrefabHelper.InstantiatePrefabAsChild("Subtitles", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_SubtitlesManager>();
         accVisualNotificationManager = ACC_AccessibilityManager.Instance.accCanvas.transform.Find("ACC_VisualNotificationManager").GetComponent<ACC_VisualNotificationManager>();
     }
     

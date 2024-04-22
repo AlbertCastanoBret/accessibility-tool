@@ -10,6 +10,7 @@ using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_RemapControls;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
+using UnityEditor.SceneManagement;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -132,7 +133,6 @@ public class ACC_MainWindow : EditorWindow
                 break;
         }
     }
-    
     private void CreateVisibilityBox(VisualElement box, int index)
     {
         switch (Enum.GetName(typeof(VisualFeatures), index))
@@ -144,7 +144,6 @@ public class ACC_MainWindow : EditorWindow
                 break;
         }
     }
-    
     private void CreateMobilityBox(VisualElement box, int index)
     {
         switch (Enum.GetName(typeof(MobilityFeatures), index))
@@ -154,7 +153,6 @@ public class ACC_MainWindow : EditorWindow
                 break;
         }
     }
-    
     private void CreateMultifunctionalBox(VisualElement box, int index)
     {
         switch (Enum.GetName(typeof(MultifiunctionalFeatures), index))
@@ -168,7 +166,7 @@ public class ACC_MainWindow : EditorWindow
     private void SubtitlesBox(VisualElement box)
     {
         var dynamicContainer = new VisualElement();
-        var options = new List<string> { "Create a subtitle", /*"Add accessbility to existent subtitle",*/ "Edit subtitle" };
+        var options = new List<string> { "Create A Subtitle", "Edit Subtitle", "Edit Prefab" };
         var dropdown = new DropdownField("Options:", options, 0);
                 
         dropdown.AddToClassList("dropdown-container");
@@ -183,26 +181,25 @@ public class ACC_MainWindow : EditorWindow
         dropdown.RegisterValueChangedCallback(evt =>
         {
             dynamicContainer.Clear();
-            if (evt.newValue == "Create a subtitle")
+            if (evt.newValue == "Create A Subtitle")
             {
-                subtitleCreation = CreateASubtitle();
                 dynamicContainer.Add(subtitleCreation);
             }
-            else if (evt.newValue == "Add accessbility to existent subtitle")
-            {
-                
-            }
-            else if (evt.newValue == "Edit subtitle")
+            else if (evt.newValue == "Edit Subtitle")
             {
                 var subtitleSelection = LoadSubtitle();
                 dynamicContainer.Add(subtitleSelection);
+            }
+            else
+            {
+                var prefabSelection = LoadPrefab("Subtitles");
+                dynamicContainer.Add(prefabSelection);
             }
         });
     }
     private VisualElement CreateASubtitle()
     {
         var subtitleCreationContainer = new VisualElement();
-        subtitleCreationContainer.AddToClassList("subtitle-creation-container");
 
         var createSubtitlesButton = new Button() { text = "Create" };
         createSubtitlesButton.AddToClassList("create-button");
@@ -277,21 +274,14 @@ public class ACC_MainWindow : EditorWindow
         dropdown.AddToClassList("dropdown-container");
         dropdown[0].AddToClassList("dropdown-label");
         
-        var addVisualNotificationButton = new Button() { text = "Create" };
-        addVisualNotificationButton.AddToClassList("create-button");
+        var addVisualNotificationButton = CreateAVisualNotification();
         dynamicContainer.Add(addVisualNotificationButton);
-
-        addVisualNotificationButton.clicked += () =>
-        {
-            ACC_VisualNotificationEditorWindow.ShowWindow(null);
-        };
         
         dropdown.RegisterValueChangedCallback(evt =>
         {
             dynamicContainer.Clear();
             if (evt.newValue == "Create a visual notification")
             {
-                //dynamicContainer.Add(soundContainer);
                 dynamicContainer.Add(addVisualNotificationButton);
             }
             else if (evt.newValue == "Edit visual notification")
@@ -303,6 +293,21 @@ public class ACC_MainWindow : EditorWindow
         
         box.Add(dropdown);
         box.Add(dynamicContainer);
+    }
+    private VisualElement CreateAVisualNotification()
+    {
+        var visualNotificationContainer = new VisualElement();
+
+        var createVisualNotificationButton = new Button() { text = "Create" };
+        createVisualNotificationButton.AddToClassList("create-button");
+        visualNotificationContainer.Add(createVisualNotificationButton);
+        
+        createVisualNotificationButton.clicked += () =>
+        {
+            ACC_VisualNotificationEditorWindow.ShowWindow(null);
+        };
+
+        return visualNotificationContainer;
     }
     private VisualElement LoadVisualNotification()
     {
@@ -531,5 +536,34 @@ public class ACC_MainWindow : EditorWindow
     {
         
     }
+
+    #region HelperMethods
+    private VisualElement LoadPrefab(string feature)
+    {
+        var loadPrefabContainer = new VisualElement();
+        
+        var loadPrefabButton = new Button() { text = "Edit" };
+        loadPrefabButton.AddToClassList("create-button");
+        loadPrefabContainer.Add(loadPrefabButton);
+        
+        loadPrefabButton.clicked += () =>
+        {
+            var folder = "ACC_ " + feature + "/";
+            var name = "ACC_" + feature + "Manager.prefab";
+            var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
+            GameObject prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            if (prefabAsset != null)
+            {
+                PrefabStageUtility.OpenPrefab(prefabPath);
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Prefab not found", "The prefab for the " + feature + " manager was not found.", "OK");
+            }
+        };
+        
+        return loadPrefabContainer;
+    }
+    #endregion
 }
 #endif

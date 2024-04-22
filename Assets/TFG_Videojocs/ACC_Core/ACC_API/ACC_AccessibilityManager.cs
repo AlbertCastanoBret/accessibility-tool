@@ -76,7 +76,7 @@ namespace TFG_Videojocs
         private IEnumerator ChangeScene()
         {
             yield return new WaitForSeconds(2);
-            accAudioAccessibility.ChangeSubtitleFontSize(20);
+            //accAudioAccessibility.ChangeSubtitleFontSize(20);
             //MobilityAccessibilityManager().ShowRemapControlsMenu("Gamepad");
             //yield return new WaitForSeconds(6);
             //LoadUserPreferences();
