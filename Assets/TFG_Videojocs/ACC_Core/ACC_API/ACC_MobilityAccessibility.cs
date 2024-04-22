@@ -1,4 +1,5 @@
 using TFG_Videojocs.ACC_RemapControls;
+using TFG_Videojocs.ACC_Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,10 +12,10 @@ namespace TFG_Videojocs
 
     public class ACC_MobilityAccessibility
     {
-        private ACC_RebindControlsManager accRebindControlsManager;
+        private ACC_RemapControlsManager _accRemapControlsManager;
         public ACC_MobilityAccessibility()
         {
-            accRebindControlsManager = ACC_AccessibilityManager.Instance.accCanvas.transform.Find("ACC_RebindControlsManager").GetComponent<ACC_RebindControlsManager>();
+            _accRemapControlsManager = ACC_PrefabHelper.InstantiatePrefabAsChild("RemapControls", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_RemapControlsManager>();
         }
 
         /// <summary>
@@ -27,7 +28,7 @@ namespace TFG_Videojocs
             switch (feature)
             {
                 case MobilityFeatures.RemapControls:
-                    accRebindControlsManager.gameObject.SetActive(state);
+                    _accRemapControlsManager.gameObject.SetActive(state);
                     break;
             }
         }
@@ -38,7 +39,7 @@ namespace TFG_Videojocs
         /// <param name="device">The identifier for the device whose controls are to be rebound.</param>
         public void ShowRemapControlsMenu(string device)
         {
-            accRebindControlsManager.ShowRebindMenu(device);
+            _accRemapControlsManager.ShowRebindMenu(device);
         }
         
         /// <summary>
@@ -46,7 +47,7 @@ namespace TFG_Videojocs
         /// </summary>
         public void HideRemapControlsMenu()
         {
-            accRebindControlsManager.HideRebindMenu();
+            _accRemapControlsManager.HideRebindMenu();
         }
         
         /// <summary>
@@ -54,7 +55,7 @@ namespace TFG_Videojocs
         /// </summary>
         public void ResetAllBindings()
         {
-            accRebindControlsManager.ResetAllBindings();
+            _accRemapControlsManager.ResetAllBindings();
         }
         
         /// <summary>
@@ -63,7 +64,7 @@ namespace TFG_Videojocs
         /// <param name="controlScheme">The name of the control scheme to reset.</param>
         public void ResetControlSchemeBindings(string controlScheme)
         {
-            accRebindControlsManager.ResetControlSchemeBindings(controlScheme);
+            _accRemapControlsManager.ResetControlSchemeBindings(controlScheme);
         }
 
         public void ChangeControlScheme(string controlScheme)

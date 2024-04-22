@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
+using TFG_Videojocs.ACC_Utilities;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -49,6 +50,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
             {
                 isRenamingFile = false;
                 base.ConfigureJson();
+                ACC_PrefabHelper.CreatePrefab("VisualNotification");
             }
         }
 

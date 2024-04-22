@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
+using TFG_Videojocs.ACC_Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,7 +15,8 @@ namespace TFG_Videojocs.ACC_RemapControls
         {
             currentData.inputActionAsset = window.inputActionAsset;
             base.ConfigureJson();
-            window.accRebindControlsManager.CreateRebindControlsManager(oldName);
+            //window.AccRemapControlsManager.CreateRebindControlsManager(oldName);
+            ACC_PrefabHelper.CreatePrefab("RemapControls", oldName);
         }
 
         protected override void RestoreFieldValues()

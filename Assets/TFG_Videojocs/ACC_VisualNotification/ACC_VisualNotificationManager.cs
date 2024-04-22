@@ -17,8 +17,8 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     
     private void Awake()
     {
-        text = GameObject.Find("ACC_VisualNotificationManager/ACC_VisualNotificationText").GetComponent<TextMeshProUGUI>();
-        backgroundColor = GameObject.Find("ACC_VisualNotificationManager/ACC_VisualNotificationBackground").GetComponent<Image>();
+        text = GameObject.Find(gameObject.name + "/ACC_VisualNotificationText").GetComponent<TextMeshProUGUI>();
+        backgroundColor = GameObject.Find(gameObject.name + "/ACC_VisualNotificationBackground").GetComponent<Image>();
     }
 
     private void Update()

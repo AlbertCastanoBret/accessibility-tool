@@ -70,6 +70,7 @@ namespace TFG_Videojocs
         private void Start()
         {
             accAudioAccessibility.PlaySubtitle("A");
+            ACC_AudioManager.Instance.PlaySFX("Alarm");
             StartCoroutine(ChangeScene());
         }
 

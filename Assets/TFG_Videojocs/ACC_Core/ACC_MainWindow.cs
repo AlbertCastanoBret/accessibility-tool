@@ -268,7 +268,7 @@ public class ACC_MainWindow : EditorWindow
     {
         var dynamicContainer = new VisualElement();
         
-        var options = new List<string> { "Create a visual notification", "Edit visual notification" };
+        var options = new List<string> { "Create a visual notification", "Edit visual notification", "Edit Prefab" };
         var dropdown = new DropdownField("Options:", options, 0);
                 
         dropdown.AddToClassList("dropdown-container");
@@ -288,6 +288,11 @@ public class ACC_MainWindow : EditorWindow
             {
                 var visualNotificationSelection = LoadVisualNotification();
                 dynamicContainer.Add(visualNotificationSelection);
+            }
+            else
+            {
+                var prefabSelection = LoadPrefab("VisualNotification");
+                dynamicContainer.Add(prefabSelection);
             }
         });
         

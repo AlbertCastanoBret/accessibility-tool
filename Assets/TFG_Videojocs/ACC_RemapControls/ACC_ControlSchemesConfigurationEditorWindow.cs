@@ -16,12 +16,12 @@ namespace TFG_Videojocs.ACC_RemapControls
     {
         public InputActionAsset inputActionAsset;
         public ScrollView controlSchemesScrollView;
-        public ACC_RebindControlsManager accRebindControlsManager { get; private set; }
+        public ACC_RemapControlsManager AccRemapControlsManager { get; private set; }
         
         private new void OnEnable()
         {
             base.OnEnable();
-            accRebindControlsManager = GameObject.Find("ACC_RebindControlsManager").GetComponent<ACC_RebindControlsManager>();
+            //AccRemapControlsManager = GameObject.Find("ACC_RemapControlsManager").GetComponent<ACC_RemapControlsManager>();
         }
 
         public static void ShowWindow(InputActionAsset inputActionAsset)
