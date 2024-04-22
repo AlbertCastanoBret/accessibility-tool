@@ -46,7 +46,7 @@ namespace TFG_Videojocs.ACC_RemapControls
         {
             if (!isReadyToCreateGUI) return;
             base.CreateGUI();
-            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_ControlSchemesConfigurationEditorWindow.uss");
+            var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_ControlSchemesConfigurationEditorWindowStyles.uss");
             rootVisualElement.styleSheets.Add(styleSheet);
 
             var controlSchemesLabel = uiElementFactory.CreateLabel("title", "Control Schemes");

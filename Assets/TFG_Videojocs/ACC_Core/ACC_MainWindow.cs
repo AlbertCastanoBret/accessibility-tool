@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using TFG_Videojocs;
+using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_RemapControls;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
@@ -57,6 +58,7 @@ public class ACC_MainWindow : EditorWindow
         var audibleButton = new Button() { text = "Auditive" };
         var visualButton = new Button() { text = "Visual" };
         var cognitiveButton = new Button() { text = "Mobility" };
+        var multifunctionalButton = new Button() { text = "Multifunctional" };
         accessibilityContainer = new VisualElement();
         var accessibilityRow = new VisualElement();
         
@@ -67,6 +69,7 @@ public class ACC_MainWindow : EditorWindow
         audibleButton.AddToClassList("my-button");
         visualButton.AddToClassList("my-button");
         cognitiveButton.AddToClassList("my-button");
+        multifunctionalButton.AddToClassList("my-button");
         accessibilityContainer.AddToClassList("accessibility-container");
         accessibilityRow.AddToClassList("accessibility-row");
         
@@ -79,10 +82,12 @@ public class ACC_MainWindow : EditorWindow
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
         visualButton.clicked += () => { UpdateAccessibilityContainer(typeof(VisualFeatures)); };
         cognitiveButton.clicked += () => { UpdateAccessibilityContainer(typeof(MobilityFeatures)); };
+        multifunctionalButton.clicked += () => { UpdateAccessibilityContainer(typeof(MultifiunctionalFeatures)); };
         
         sidebar.Add(audibleButton);
         sidebar.Add(visualButton);
         sidebar.Add(cognitiveButton);
+        sidebar.Add(multifunctionalButton);
         mainContainer.Add(sidebar);
         mainContainer.Add(accessibilityContainer);
         rootVisualElement.Add(toolbar);
@@ -109,8 +114,9 @@ public class ACC_MainWindow : EditorWindow
         box.Add(titleBox);
 
         if(featuretype==typeof(AudioFeatures))CreateAudioBox(box, index);
+        else if (featuretype==typeof(VisualFeatures))CreateVisibilityBox(box, index);
         else if (featuretype==typeof(MobilityFeatures))CreateMobilityBox(box, index);
-
+        else if (featuretype==typeof(MultifiunctionalFeatures))CreateMultifunctionalBox(box, index);
         return box;
     }
 
@@ -127,12 +133,34 @@ public class ACC_MainWindow : EditorWindow
         }
     }
     
+    private void CreateVisibilityBox(VisualElement box, int index)
+    {
+        switch (Enum.GetName(typeof(VisualFeatures), index))
+        {
+            case "TextToVoice":
+                break;
+            case "HighContrast":
+                HighContrastBox(box);
+                break;
+        }
+    }
+    
     private void CreateMobilityBox(VisualElement box, int index)
     {
         switch (Enum.GetName(typeof(MobilityFeatures), index))
         {
             case "RemapControls":
                 RemapControlsBox(box);
+                break;
+        }
+    }
+    
+    private void CreateMultifunctionalBox(VisualElement box, int index)
+    {
+        switch (Enum.GetName(typeof(MultifiunctionalFeatures), index))
+        {
+            case "AudioManager":
+                AudioManagerBox(box);
                 break;
         }
     }
@@ -171,7 +199,6 @@ public class ACC_MainWindow : EditorWindow
             }
         });
     }
-
     private VisualElement CreateASubtitle()
     {
         var subtitleCreationContainer = new VisualElement();
@@ -188,7 +215,6 @@ public class ACC_MainWindow : EditorWindow
 
         return subtitleCreationContainer;
     }
-
     private VisualElement LoadSubtitle()
     {
         var selectSubtitleContainer = new VisualElement();
@@ -230,7 +256,6 @@ public class ACC_MainWindow : EditorWindow
         
         return selectSubtitleContainer;
     }
-
     private void RefreshSubtititleWindow()
     {
         if (subtitlesDropdown != null)
@@ -279,7 +304,6 @@ public class ACC_MainWindow : EditorWindow
         box.Add(dropdown);
         box.Add(dynamicContainer);
     }
-    
     private VisualElement LoadVisualNotification()
     {
         var selectSubtitleContainer = new VisualElement();
@@ -326,7 +350,6 @@ public class ACC_MainWindow : EditorWindow
         
         return selectSubtitleContainer;
     }
-    
     private void RefreshVisualNotification()
     {
         if (visualNotificationDropdown != null)
@@ -336,6 +359,53 @@ public class ACC_MainWindow : EditorWindow
             visualNotificationDropdown.value = options.Count > 0 ? options[0] : "";
         }
         Repaint();
+    }
+    
+    private void HighContrastBox(VisualElement box)
+    {
+        var dynamicContainer = new VisualElement();
+        var options = new List<string> { "Create a high-contrast configuration", /*"Add accessbility to existent subtitle",*/ "Edit high-contrast configuration" };
+        var dropdown = new DropdownField("Options:", options, 0);
+                
+        dropdown.AddToClassList("dropdown-container");
+        dropdown[0].AddToClassList("dropdown-label");
+        
+        var subtitleCreation = CreateAHighContrastConfiguration();
+        dynamicContainer.Add(subtitleCreation);
+                
+        box.Add(dropdown);
+        box.Add(dynamicContainer);
+                
+        dropdown.RegisterValueChangedCallback(evt =>
+        {
+            dynamicContainer.Clear();
+            if (evt.newValue == "Create a high-contrast configuration")
+            {
+                subtitleCreation = CreateAHighContrastConfiguration();
+                dynamicContainer.Add(subtitleCreation);
+            }
+            else if (evt.newValue == "Edit high-contrast configuration")
+            {
+                // var subtitleSelection = LoadSubtitle();
+                // dynamicContainer.Add(subtitleSelection);
+            }
+        });
+    }
+    private VisualElement CreateAHighContrastConfiguration()
+    {
+        var highContrastConfigurationContainer = new VisualElement();
+        highContrastConfigurationContainer.AddToClassList("subtitle-creation-container");
+
+        var createHighContrastConfigurationButton = new Button() { text = "Create" };
+        createHighContrastConfigurationButton.AddToClassList("create-button");
+        highContrastConfigurationContainer.Add(createHighContrastConfigurationButton);
+        
+        createHighContrastConfigurationButton.clicked += () =>
+        {
+            ACC_HighContrastEditorWindow.ShowWindow(null);
+        };
+
+        return highContrastConfigurationContainer;
     }
 
     private void RemapControlsBox(VisualElement box)
@@ -429,7 +499,6 @@ public class ACC_MainWindow : EditorWindow
         box.Add(inputAction);
         box.Add(dynamicControlSchemesContainer);
     }
-    
     private void CreateInputActionAsset()
     {
         string GenerateInputActionsJson()
@@ -456,6 +525,11 @@ public class ACC_MainWindow : EditorWindow
 
             inputAction.value = AssetDatabase.LoadAssetAtPath<InputActionAsset>(path);
         }
+    }
+    
+    private void AudioManagerBox(VisualElement box)
+    {
+        
     }
 }
 #endif

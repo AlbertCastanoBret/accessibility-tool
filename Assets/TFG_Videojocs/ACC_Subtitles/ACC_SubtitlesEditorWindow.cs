@@ -1,4 +1,6 @@
 #if UNITY_EDITOR
+using System;
+using System.Reflection;
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_Subtitles;
 using UnityEditor;
@@ -25,19 +27,21 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         window.titleContent = new GUIContent("Subtitle Creation");
         window.minSize = new Vector2(600, 530);
         window.maxSize = new Vector2(600, 530);
+        
         if (name != null)
         {
             window.controller.isEditing = true;
             window.controller.LoadJson(name);
         }
         window.controller.lastData = window.controller.currentData.Clone() as ACC_SubtitleData;
-        //window.ShowModal();
+        window.PositionWindowInBottomRight();
+        window.SetFixedPosition();
     }
     
     private new void CreateGUI()
     {
         base.CreateGUI();
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Subtitles/ACC_SubtitlesWindowStyles.uss");
+        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Subtitles/ACC_SubtitlesEditorWindowStyles.uss");
         rootVisualElement.styleSheets.Add(styleSheet);
         
         CreateTable();
@@ -54,7 +58,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         var subtitlesTitle = uiElementFactory.CreateLabel("title", "Subtitles");
         var tableScrollView = uiElementFactory.CreateScrollView("table-scroll-view", table);
         
-        table = uiElementFactory.CreateVisualElement("table");
+        table = uiElementFactory.CreateVisualElement("subtitles-table");
         var mainRow = uiElementFactory.CreateVisualElement("main-row");
         var subtitles = uiElementFactory.CreateLabel("subtitles-cell", "Subtitles");
         var time = uiElementFactory.CreateLabel("time-cell", "Time");

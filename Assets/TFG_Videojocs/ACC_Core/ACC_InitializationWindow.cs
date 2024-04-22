@@ -108,8 +108,8 @@ public class ACC_InitializationWindow : EditorWindow
     
         var rebindControlsManagerComponent = rebindControlsManager.AddComponent<ACC_RebindControlsManager>();
         rebindControlsManagerComponent.defaultMenu = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_DeviceManager.prefab");
+        rebindControlsManagerComponent.rebindUIPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/Rebinding UI/RebindUIPrefab.prefab");
         rebindControlsManagerComponent.rebindOverlay = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/WaitForInputPanel.prefab");
-        rebindControlsManagerComponent.rebindUIPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/Rebinding UI/RebindUIPrefab.prefab");
     }
     private static void CreateSubtitleManager(GameObject canvasObject)
     {

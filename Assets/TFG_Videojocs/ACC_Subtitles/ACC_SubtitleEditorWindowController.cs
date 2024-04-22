@@ -23,7 +23,7 @@ namespace TFG_Videojocs.ACC_Subtitles
             window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value = currentData.backgroundColor;
             window.rootVisualElement.Query<SliderInt>(name: "multi-input-1-0").First().value = currentData.fontSize;
             
-            var table = window.rootVisualElement.Query<VisualElement>(name: "table-0").First();
+            var table = window.rootVisualElement.Query<VisualElement>(name: "subtitles-table-0").First();
             List<VisualElement> rows = new List<VisualElement>();
             bool isFirstRow = true; 
             foreach (VisualElement child in table.Children())

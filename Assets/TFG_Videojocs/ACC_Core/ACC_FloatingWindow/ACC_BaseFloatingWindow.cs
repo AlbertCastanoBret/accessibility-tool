@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEditor;
 using UnityEditor.Compilation;
@@ -15,6 +16,10 @@ namespace TFG_Videojocs
         public TController controller { get; private set; }
         public bool isReadyToCreateGUI = false;
         protected ACC_UIElementFactory uiElementFactory => controller.uiElementFactory;
+        
+        private Vector2 fixedPosition = new Vector2(100, 100);
+        private bool positionSet = false;
+        
 
         protected void OnEnable()
         {
@@ -43,6 +48,46 @@ namespace TFG_Videojocs
             ColorUtility.TryParseHtmlString("#4f4f4f", out var backgroundColor);
             rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
             rootVisualElement.AddToClassList("main-container");
+        }
+        
+        protected void PositionWindowInBottomRight()
+        {
+            var mainWindow = GetEditorMainWindowPos();
+            var x = mainWindow.x + mainWindow.width - minSize.x;
+            var y = mainWindow.y + mainWindow.height - minSize.y;
+
+            position = new Rect(x-10, y-50, minSize.x, minSize.y);
+        }
+        private Rect GetEditorMainWindowPos()
+        {
+            var containerWinType = typeof(EditorWindow).Assembly.GetType("UnityEditor.ContainerWindow");
+            var showModeField = containerWinType.GetField("m_ShowMode", BindingFlags.NonPublic | BindingFlags.Instance);
+            var positionProperty = containerWinType.GetProperty("position", BindingFlags.Public | BindingFlags.Instance);
+            var windows = Resources.FindObjectsOfTypeAll(containerWinType);
+
+            foreach (var win in windows)
+            {
+                var showmode = (int)showModeField.GetValue(win);
+                if (showmode == 4)
+                {
+                    var position = (Rect)positionProperty.GetValue(win);
+                    return position;
+                }
+            }
+            throw new InvalidOperationException("Cannot find main editor window.");
+        }
+        protected void SetFixedPosition()
+        {
+            fixedPosition = new Vector2(position.x, position.y);
+            positionSet = true;
+        }
+        
+        void Update()
+        {
+            if (positionSet && (Math.Abs(position.x - fixedPosition.x) > 0.1f || Math.Abs(position.y - fixedPosition.y) > 0.1f))
+            {
+                PositionWindowInBottomRight();
+            }
         }
 
         public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController, TWindow, TData>

@@ -23,6 +23,50 @@ Button{
     margin-bottom: 12px;
 }
 
+.container-table-title{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #343434;
+    border-radius: 4px 4px 0 0;
+    border-bottom-color: #b2b2b2;
+    border-bottom-width: 1px;
+    padding: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-scroll-view{
+    overflow: scroll;
+    width: 100%;
+    border-radius: 4px;
+    height: 300px;
+}
+
+.table{
+    display: flex;
+    flex-direction: row;
+}
+
+.table-row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-cell{
+    background-color: #3F3F3F;
+    border-bottom-color: #b2b2b2;
+    border-bottom-width: 1px;
+    padding: 4px;
+}
+
+.table-delete-button{
+    margin-left: auto;
+}
+
 .option-input-name{
     margin-bottom: 6px;
     margin-left: auto;
@@ -82,4 +126,22 @@ Button{
     display: flex;
     flex-direction: row;
     margin-bottom: 6px;
+}
+
+.add-row-container{
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    align-self: center;
+}
+
+.add-row-label{
+    -unity-text-align: middle-center;
+    margin-right: 6px;
+}
+
+.add-row-button{
+    margin: 0;
+    margin-left: 1px;
+    padding: 4px 6px;
 }
