@@ -166,7 +166,11 @@ namespace TFG_Videojocs.ACC_Utilities
                 var loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
                 remapControlsManagerComponent.loadedData = loadedData;
                 SetControlSchemes(loadedData, remapControlsManager);
-            }catch (Exception e) { Debug.Log(e); }
+            }
+            catch (Exception e)
+            {
+                // ignored
+            }
         }
         private static void SetControlSchemes(ACC_ControlSchemeData loadedData, GameObject remapControlsManager)
         {
