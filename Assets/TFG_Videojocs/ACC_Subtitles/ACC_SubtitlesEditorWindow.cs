@@ -89,7 +89,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
                 table.Q(name: newRow.name).RemoveFromHierarchy();
                 controller.currentData.subtitleText.Remove(currentRow);
                 controller.currentData.timeText.Remove(currentRow);
-                if (table.childCount > currentRow + 1)
+                if (table.childCount-1 > currentRow + 1)
                 {
                     for (var j = currentRow + 1; j < table.childCount; j++)
                     {
