@@ -21,10 +21,7 @@ namespace TFG_Videojocs.ACC_Utilities
             GameObject gameObject = CreateGameObject(feature, jsonFile);
             gameObject.transform.SetParent(GameObject.Find("ACC_Canvas").transform, false);
             var folder = "ACC_ " + feature + "/";
-            
-            string name;
-            if(jsonFile.Length == 0) name = "ACC_" + feature + "Manager.prefab";
-            else name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";
+            var name = "ACC_" + feature + "Manager.prefab";
             
             Directory.CreateDirectory("Assets/Resources/ACC_Prefabs/" + folder);
             
@@ -35,11 +32,7 @@ namespace TFG_Videojocs.ACC_Utilities
         public static GameObject InstantiatePrefabAsChild(string feature, GameObject parent, string jsonFile="")
         {
             var folder = "ACC_ " + feature + "/";
-            
-            string name;
-            if(jsonFile.Length == 0) name = "ACC_" + feature + "Manager.prefab";
-            else name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";
-            
+            var name = "ACC_" + feature + "Manager";
             var prefabPath = "ACC_Prefabs/" + folder + name;
             
             GameObject prefab = Resources.Load<GameObject>(prefabPath);
@@ -163,14 +156,17 @@ namespace TFG_Videojocs.ACC_Utilities
             remapControlsManagerComponent.rebindUIPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/Rebinding UI/RebindUIPrefab.prefab");
             remapControlsManagerComponent.rebindOverlay = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/WaitForInputPanel.prefab");
             
-            string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + jsonFile + ".json");
-            var loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
-            remapControlsManagerComponent.loadedData = loadedData;
-            
             var waitForInputPanel = GameObject.Instantiate(remapControlsManagerComponent.rebindOverlay, remapControlsManager.transform, true);
             waitForInputPanel.transform.localScale = new Vector3(1, 1, 1);
             waitForInputPanel.transform.localPosition = new Vector3(0, 0, 0);
-            SetControlSchemes(loadedData, remapControlsManager);
+            
+            try
+            {
+                var json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + jsonFile + ".json");
+                var loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
+                remapControlsManagerComponent.loadedData = loadedData;
+                SetControlSchemes(loadedData, remapControlsManager);
+            }catch (Exception e) { Debug.Log(e); }
         }
         private static void SetControlSchemes(ACC_ControlSchemeData loadedData, GameObject remapControlsManager)
         {

@@ -81,7 +81,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
             switch (option)
             {
                 case 0:
-                    foreach (KeyValuePair<string, List<ACC_Sound>> kvp in repeatedSounds)
+                    foreach (KeyValuePair<string, List<global::ACC_Sound>> kvp in repeatedSounds)
                     {
                         foreach (ACC_Sound sound in kvp.Value)
                         {

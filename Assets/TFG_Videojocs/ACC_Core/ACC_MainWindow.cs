@@ -8,6 +8,7 @@ using System.Reflection;
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_RemapControls;
+using TFG_Videojocs.ACC_Utilities;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.SceneManagement;
@@ -510,6 +511,7 @@ public class ACC_MainWindow : EditorWindow
         inputAction.RegisterValueChangedCallback(evt =>
         {
             inputActionAsset = evt.newValue as InputActionAsset;
+            ACC_PrefabHelper.CreatePrefab("RemapControls", inputActionAsset.name);
             dynamicControlSchemesContainer.Clear();
             if (inputActionAsset != null)
             {
@@ -557,7 +559,18 @@ public class ACC_MainWindow : EditorWindow
     
     private void AudioManagerBox(VisualElement box)
     {
+        box.Add(LoadAudioManager());
+    }
+    private VisualElement LoadAudioManager()
+    {
+        var editContainer = new VisualElement();
+        var editButton = new Button() { text = "Edit" };
+        editButton.AddToClassList("create-button");
+        editButton.clicked+= () => { ACC_AudioManagerEditorWindow.ShowWindow(); };
         
+        editContainer.Add(editButton);
+        
+        return editContainer;
     }
 
     #region HelperMethods
