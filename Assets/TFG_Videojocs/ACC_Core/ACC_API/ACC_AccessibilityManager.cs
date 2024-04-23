@@ -27,8 +27,6 @@ namespace TFG_Videojocs
     {
         public static ACC_AccessibilityManager Instance { get; private set; } 
         internal GameObject accCanvas { get; private set; }
-
-        //private Queue<Action> pendingActions = new Queue<Action>();
         
         [Header("Audio Accessibility")]
         [SerializeField] private bool subtitlesEnabled;

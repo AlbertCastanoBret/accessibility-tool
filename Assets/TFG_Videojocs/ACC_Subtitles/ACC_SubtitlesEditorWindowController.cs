@@ -15,7 +15,7 @@ using Object = UnityEngine.Object;
 namespace TFG_Videojocs.ACC_Subtitles
 {
     public class
-        ACC_SubtitleEditorWindowController : ACC_FloatingWindowController<ACC_SubtitlesEditorWindow, ACC_SubtitleData>
+        ACC_SubtitlesEditorWindowController : ACC_FloatingWindowController<ACC_SubtitlesEditorWindow, ACC_SubtitleData>
     {
         public override void ConfigureJson()
         {

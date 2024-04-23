@@ -10,11 +10,13 @@ public class ACC_Sound : IEquatable<ACC_Sound>, ICloneable
 {
     [ACC_ReadOnly] public string name;
     public AudioClip audioClip;
+    public string currentVisualNotificationData;
 
     public ACC_Sound(string name, AudioClip audioClip)
     {
         this.name = name;
         this.audioClip = audioClip;
+        currentVisualNotificationData = "";
     }
 
     public bool Equals(ACC_Sound other)

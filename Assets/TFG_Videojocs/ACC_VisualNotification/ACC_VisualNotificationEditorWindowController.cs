@@ -24,7 +24,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
             for (int i = 0; i < currentData.soundsList.Count; i++)
             {
                 string fileName = ACC_JSONHelper.GetFileNameByListParameter<ACC_VisualNotificationData, ACC_Sound>(
-                    "/ACC_VisualNotification/",
+                    "ACC_VisualNotification/",
                     data => data.soundsList,
                     (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
                     currentData.soundsList[i]
@@ -49,6 +49,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
             else
             {
                 isRenamingFile = false;
+                currentData.soundsList.ForEach(sound => sound.currentVisualNotificationData = currentData.name);
                 base.ConfigureJson();
                 ACC_PrefabHelper.CreatePrefab("VisualNotification");
             }
@@ -86,7 +87,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
                         foreach (ACC_Sound sound in kvp.Value)
                         {
                             ACC_JSONHelper.RemoveItemFromListInFile<ACC_VisualNotificationData, ACC_Sound>(
-                                "/ACC_VisualNotification",
+                                "ACC_VisualNotification",
                                 data => data.soundsList,
                                 (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
                                 sound

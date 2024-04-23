@@ -162,8 +162,7 @@ namespace TFG_Videojocs.ACC_Utilities
             
             try
             {
-                var json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_ControlSchemesConfiguration/" + jsonFile + ".json");
-                var loadedData = JsonUtility.FromJson<ACC_ControlSchemeData>(json);
+                var loadedData = ACC_JSONHelper.LoadJson<ACC_ControlSchemeData>("ACC_ControlSchemesConfiguration/" + jsonFile);
                 remapControlsManagerComponent.loadedData = loadedData;
                 SetControlSchemes(loadedData, remapControlsManager);
             }

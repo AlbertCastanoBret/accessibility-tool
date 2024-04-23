@@ -7,16 +7,19 @@ using UnityEngine;
 
 public class ACC_JSONHelper
 {
-    private static string basePath = "Assets/TFG_Videojocs/ACC_JSON";
+    //private static string basePath = "Assets/TFG_Videojocs/ACC_JSON";
+    #if UNITY_EDITOR
+    private static string basePath = "Assets/Resources/ACC_JSON/";
     public delegate TResult GetCustomDelegate<in TData, out TResult>(TData data);
     public delegate List<TListItem> GetListDelegate<TListItem, in TData>(TData data);
     public delegate bool ItemMatchDelegate<in TListItem>(TListItem item, TListItem toMatch);
-    public delegate IEnumerable<TListItem> ExtractListDelegate<out TListItem, in TData>(TData data);
-
+    #endif
+    
     #if UNITY_EDITOR
     public static void CreateJson(ACC_AbstractData abstractData, string folder)
     {
         string json = JsonUtility.ToJson(abstractData, true);
+        Directory.CreateDirectory(basePath + folder);
         File.WriteAllText(basePath + folder + abstractData.name + ".json", json);
         AssetDatabase.Refresh();
     }
@@ -24,22 +27,18 @@ public class ACC_JSONHelper
     
     public static T LoadJson<T>(string path)
     {
-        string fullPath = basePath + path + ".json";
-        if (File.Exists(fullPath))
-        {
-            string json = File.ReadAllText(fullPath);
-            return JsonUtility.FromJson<T>(json);
-        }
-        return default(T);
+        string fullPath = "ACC_JSON/" + path;
+        TextAsset textAsset = Resources.Load<TextAsset>(fullPath);
+        return JsonUtility.FromJson<T>(textAsset.text);
     }
 
+    #if UNITY_EDITOR
     public static bool FileNameAlreadyExists(string filename)
     {
         string filePath = basePath + filename + ".json";
         return File.Exists(filePath);
     }
-
-    #if UNITY_EDITOR
+    
     public static void RenameFile(string oldName, string newName)
     {
         string oldPath = basePath + oldName + ".json";
@@ -63,7 +62,6 @@ public class ACC_JSONHelper
             Debug.LogError($"The file {oldName}.json does not exist.");
         }
     }
-    #endif
 
     public static string GetFileNameByListParameter<TData, TListItem>(
         string folder,
@@ -71,6 +69,7 @@ public class ACC_JSONHelper
         ItemMatchDelegate<TListItem> isMatch,
         TListItem toMatch)
     {
+        Directory.CreateDirectory(basePath + folder);
         string[] files = Directory.GetFiles(basePath + folder, "*.json");
         foreach (string filePath in files)
         {
@@ -88,13 +87,13 @@ public class ACC_JSONHelper
         return null;
     }
     
-    #if UNITY_EDITOR
     public static void RemoveItemFromListInFile<TData, TListItem>(
         string folder,
         GetListDelegate<TListItem, TData> getList,
         ItemMatchDelegate<TListItem> isMatch,
         TListItem toMatch) where TData : new()
     {
+        Directory.CreateDirectory(basePath + folder);
         string[] files = Directory.GetFiles(basePath + folder, "*.json");
         foreach (string filePath in files)
         {
@@ -113,10 +112,10 @@ public class ACC_JSONHelper
         }
         AssetDatabase.Refresh();
     }
-    #endif
 
     public static TResult GetParamByFileName<TData, TResult>(GetCustomDelegate<TData, TResult> getCustom, string folder, string filename)
     {
+        Directory.CreateDirectory(basePath + folder);
         string json = File.ReadAllText(basePath + folder + filename + ".json");
         TData data = JsonUtility.FromJson<TData>(json);
         return getCustom(data);
@@ -124,6 +123,7 @@ public class ACC_JSONHelper
 
     public static List<TResult> GetFilesListByParam<TData, TResult>(string folder, GetCustomDelegate<TData, TResult> getCustom)
     {
+        Directory.CreateDirectory(basePath + folder);
         var options = new List<TResult>();
         string[] files = Directory.GetFiles(basePath + folder, "*.json");
         foreach (string file in files)
@@ -136,31 +136,9 @@ public class ACC_JSONHelper
         return options;
     }
     
-    public static List<string> GetListFromJson<TData, TListItem>(
-        string folder,
-        ExtractListDelegate<TListItem, TData> extractList)
+    public static void DeleteFile(string folder, string name)
     {
-        List<string> resultList = new List<string>();
-        string[] files = Directory.GetFiles(basePath + folder, "*.json");
-        foreach (string filePath in files)
-        {
-            string json = File.ReadAllText(filePath);
-            TData data = JsonUtility.FromJson<TData>(json);
-            IEnumerable<TListItem> listItems = extractList(data);
-
-            foreach (TListItem item in listItems)
-            {
-                resultList.Add(item.ToString());
-            }
-        }
-        return resultList;
-    }
-
-    #if UNITY_EDITOR
-    public static void DeleteFile(string name)
-    {
-        string path = basePath + name + ".json";
-
+        string path = basePath + folder + name + ".json";
         if (File.Exists(path))
         {
             AssetDatabase.DeleteAsset(path);

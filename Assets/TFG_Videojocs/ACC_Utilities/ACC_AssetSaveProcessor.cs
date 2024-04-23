@@ -19,7 +19,7 @@ namespace TFG_Videojocs.ACC_Utilities
                 if (asset.EndsWith(".inputactions"))
                 {
                     string filename = Path.GetFileNameWithoutExtension(asset);
-                    ACC_JSONHelper.DeleteFile("/ACC_ControlSchemesConfiguration/" + filename);
+                    ACC_JSONHelper.DeleteFile("ACC_ControlSchemesConfiguration/", filename);
                 }
             }
         }

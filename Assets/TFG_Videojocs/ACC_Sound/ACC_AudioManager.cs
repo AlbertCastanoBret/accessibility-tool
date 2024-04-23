@@ -28,12 +28,7 @@ public class ACC_AudioManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    private void Start()
-    {
-        //PlaySFX("Jump");
-    }
-
+    
     #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -76,7 +71,7 @@ public class ACC_AudioManager : MonoBehaviour
                 {
                     Debug.Log(prevSound.name);
                     ACC_JSONHelper.RemoveItemFromListInFile<ACC_VisualNotificationData, ACC_Sound>(
-                        "/ACC_VisualNotification",
+                        "ACC_VisualNotification",
                         data => data.soundsList,
                         (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
                         prevSound

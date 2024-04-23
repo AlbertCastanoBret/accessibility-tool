@@ -58,7 +58,7 @@ namespace TFG_Videojocs
 
         public virtual void LoadJson(string name)
         {
-            var path = "/" + window.GetType().Name.Replace("EditorWindow", "") + "/";
+            var path = window.GetType().Name.Replace("EditorWindow", "") + "/";
             TData visualNotificationData = ACC_JSONHelper.LoadJson<TData>(path + name);
 
             if (isEditing) oldName = visualNotificationData.name;

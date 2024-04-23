@@ -9,7 +9,7 @@ using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEditorWindowController, ACC_SubtitlesEditorWindow, ACC_SubtitleData>
+public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEditorWindowController, ACC_SubtitlesEditorWindow, ACC_SubtitleData>
 {
     private VisualElement table;
     public delegate void SubtitleWindowDelegate();

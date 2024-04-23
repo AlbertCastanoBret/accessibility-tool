@@ -46,6 +46,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                     canPlaySubtitle = false;
                     subtitleText.text = "";
                     backgroundColor.gameObject.SetActive(false);
+                    Resources.UnloadUnusedAssets();
                 }
                 currentIndex++;
             }
@@ -54,8 +55,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
 
     public void LoadSubtitles(string jsonFile)
     {
-        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_Subtitles/" + jsonFile + ".json");
-        loadedData = JsonUtility.FromJson<ACC_SubtitleData>(json);
+        // string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_Subtitles/" + jsonFile + ".json");
+        // loadedData = JsonUtility.FromJson<ACC_SubtitleData>(json);
+        
+        loadedData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>("ACC_Subtitles/" + jsonFile);
     }
     
 

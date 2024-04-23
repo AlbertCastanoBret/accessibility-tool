@@ -33,21 +33,15 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                 canPlaySubtitleNotification = false;
                 text.text = "";
                 backgroundColor.gameObject.SetActive(false);
+                Resources.UnloadUnusedAssets();
             }
         }
     }
 
     public void LoadVisualNotification(ACC_Sound soundToMatch)
     {
-        string fileName = ACC_JSONHelper.GetFileNameByListParameter<ACC_VisualNotificationData, ACC_Sound>(
-            "/ACC_VisualNotification/",
-            data => data.soundsList,
-            (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
-            soundToMatch
-        );
-        
-        string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_VisualNotification/" + fileName);
-        loadedData = JsonUtility.FromJson<ACC_VisualNotificationData>(json);
+        loadedData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>("ACC_VisualNotification/C");
+        Debug.Log(loadedData);
     }
 
     public void PlayVisualNotification()
