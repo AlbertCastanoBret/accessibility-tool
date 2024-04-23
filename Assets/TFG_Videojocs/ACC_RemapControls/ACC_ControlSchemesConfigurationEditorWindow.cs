@@ -41,7 +41,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             //window.ShowModal();
         }
-
+        
         protected new void CreateGUI()
         {
             if (!isReadyToCreateGUI) return;
@@ -54,18 +54,15 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             CreateDropdownField();
             controlSchemesScrollView = new ScrollView();
+            controlSchemesScrollView.AddToClassList("control-schemes-scroll-view");
             CreateTable();
             rootVisualElement.Add(controlSchemesScrollView);
             
-            var createButton = new Button() { text = "Create Template In Scene" };
-            createButton.AddToClassList("create-button");
-            createButton.clicked += () => controller.HandleSave(this);
-            
-            rootVisualElement.Add(createButton);
+            CreateBottomContainer();
             
             controller.RestoreDataAfterCompilation();
         }
-
+        
         private void CreateDropdownField()
         {
             var devices = inputActionAsset.controlSchemes
@@ -148,7 +145,6 @@ namespace TFG_Videojocs.ACC_RemapControls
             }
             rootVisualElement.Add(devicesDropdown);
         }
-        
         public void CreateTable()
         {
             controlSchemesScrollView.Clear();
@@ -205,7 +201,6 @@ namespace TFG_Videojocs.ACC_RemapControls
 
             controlSchemesScrollView.Add(controlSchemesContainer);
         }
-
         private void CreateActionMaps(VisualElement parent)
         {
             var actionMaps = inputActionAsset.actionMaps;
@@ -227,7 +222,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 CreateActions(mainContainer);
             }
         }
-        
         private void CreateActions(VisualElement parent)
         {
             var actionMaps = inputActionAsset.actionMaps;
@@ -255,7 +249,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }
         }
-
         private void CreateBindings(VisualElement parent)
         {
             var actionMaps = inputActionAsset.actionMaps;
@@ -337,7 +330,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }
         }
-        
         private string MakePathPresentable(string path)
         {
             var parts = path.Split('/');
@@ -355,6 +347,14 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             var control = string.Join("/", controlParts);
             return $"{control} [{device}]";
+        }
+        private void CreateBottomContainer()
+        {
+            var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
+            bottomContainer.style.marginTop = new StyleLength(Length.Auto());
+            var createVisualNotificationButton = uiElementFactory.CreateButton("Create Template In Scene", "button", () => controller.HandleSave(this));
+            bottomContainer.Add(createVisualNotificationButton);
+            rootVisualElement.Add(bottomContainer);
         }
     }
 }

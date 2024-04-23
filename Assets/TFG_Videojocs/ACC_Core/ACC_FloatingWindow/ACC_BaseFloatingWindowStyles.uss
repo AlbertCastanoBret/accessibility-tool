@@ -41,6 +41,7 @@ Button{
     width: 100%;
     border-radius: 4px;
     height: 300px;
+    margin: auto;
 }
 
 .table{
@@ -73,6 +74,12 @@ Button{
     width: 100%;
 }
 
+.option-input-name-last{
+    margin-bottom: 0;
+    margin-left: auto;
+    width: 100%;
+}
+
 .option-input-name-label{
     width: 50%;
 }
@@ -94,6 +101,12 @@ Button{
     width: 100%;
 }
 
+.option-input-last{
+    margin-bottom: 0;
+    margin-left: auto;
+    width: 100%;
+}
+
 .option-input-label{
     width: 50%;
 }
@@ -102,6 +115,13 @@ Button{
     display: flex;
     flex-direction: row;
     margin-bottom: 6px;
+    height: 20px;
+}
+
+.option-multi-input-last{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
     height: 20px;
 }
 
@@ -128,6 +148,12 @@ Button{
     margin-bottom: 6px;
 }
 
+.option-object-field-last{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+}
+
 .add-row-container{
     display: flex;
     flex-direction: row;
@@ -143,5 +169,4 @@ Button{
 .add-row-button{
     margin: 0;
     margin-left: 1px;
-    padding: 4px 6px;
 }

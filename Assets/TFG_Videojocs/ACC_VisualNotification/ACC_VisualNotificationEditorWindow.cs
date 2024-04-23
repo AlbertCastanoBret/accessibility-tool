@@ -76,7 +76,6 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         soundContainer.Add(CreateAddNewSoundOption());
         rootVisualElement.Add(soundContainer);
     }
-
     public void CreateSoundList()
     {
         if(soundScrollView!=null) soundScrollView.Clear();
@@ -123,7 +122,6 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
             if (soundScrollView != null) soundScrollView.Add(soundLabel);
         }
     }
-    
     private VisualElement CreateAddNewSoundOption()
     {
         AudioClip audioClip = null;
@@ -150,7 +148,6 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
                 }
             });
     }
-    
     private void CreateSettingsContainer()
     {
         var settingsContainer = uiElementFactory.CreateVisualElement("container-2");
@@ -180,7 +177,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         var backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label",
             onValueChanged: value => controller.currentData.backgroundColor = value);
 
-        var fontSizeContainer = uiElementFactory.CreateSliderWithIntegerField("option-multi-input", "Font size:", 20,
+        var fontSizeContainer = uiElementFactory.CreateSliderWithIntegerField("option-multi-input-last", "Font size:", 20,
             100, 40,
             onValueChanged: value => controller.currentData.fontSize = value);
         
@@ -196,10 +193,10 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         
         rootVisualElement.Add(settingsContainer);
     }
-
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
+        bottomContainer.style.marginTop = new StyleLength(Length.Auto());
         var createVisualNotificationButton = uiElementFactory.CreateButton("Save", "button", () => controller.HandleSave(this));
         bottomContainer.Add(createVisualNotificationButton);
         rootVisualElement.Add(bottomContainer);

@@ -73,7 +73,6 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         
         rootVisualElement.Add(tableContainer);
     }
-
     public void CreateRow(int numberOfRows, string subtitle, int time)
     {
         for (int i = 0; i < numberOfRows; i++)
@@ -110,7 +109,6 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
             rootVisualElement.schedule.Execute(() => { subtitleField[0].Focus(); }).StartingIn((long)0.001);
         }
     }
-
     private void CreateSettingsContainer()
     {
         var settingsContainer = uiElementFactory.CreateVisualElement("container-2");
@@ -123,7 +121,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
         var backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label",
             value => controller.currentData.backgroundColor = value);
         var fontSizeContainer =
-            uiElementFactory.CreateSliderWithIntegerField("option-multi-input", "Font size:", 20, 100, 40,
+            uiElementFactory.CreateSliderWithIntegerField("option-multi-input-last", "Font size:", 20, 100, 40,
                 onValueChanged: value => controller.currentData.fontSize = value);
         
         settingsContainer.Add(settingsTitle);
@@ -134,18 +132,18 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitleEdit
 
         rootVisualElement.Add(settingsContainer);
     }
-
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
+        bottomContainer.style.marginTop = new StyleLength(Length.Auto());
         var createSubtitleButton = uiElementFactory.CreateButton("Save", "button", () => controller.HandleSave(this));
 
-        var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-subtitles-container");
-        var addSubtitlesLabel = uiElementFactory.CreateLabel("add-subtitles-label", "Add subtitles:");
+        var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-row-container");
+        var addSubtitlesLabel = uiElementFactory.CreateLabel("add-row-label", "Add subtitles:");
         
-        var addSubtitle1 = uiElementFactory.CreateButton("+1", "add-subtitle-button", () => CreateRow(1, "Hello", 1));
-        var addSubtitle5 = uiElementFactory.CreateButton("+5", "add-subtitle-button", () => CreateRow(5, "Hello", 1));
-        var addSubtitle10 = uiElementFactory.CreateButton("+10", "add-subtitle-button", () => CreateRow(10, "Hello", 1));
+        var addSubtitle1 = uiElementFactory.CreateButton("+1", "add-row-button", () => CreateRow(1, "Hello", 1));
+        var addSubtitle5 = uiElementFactory.CreateButton("+5", "add-row-button", () => CreateRow(5, "Hello", 1));
+        var addSubtitle10 = uiElementFactory.CreateButton("+10", "add-row-button", () => CreateRow(10, "Hello", 1));
         
         addSubtitlesContainer.Add(addSubtitlesLabel);
         addSubtitlesContainer.Add(addSubtitle1);
