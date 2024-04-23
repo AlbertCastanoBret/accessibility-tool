@@ -24,6 +24,9 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
     public static void ShowWindow(string name)
     {
         var window = GetWindow<ACC_SubtitlesEditorWindow>();
+        if(window.controller.isEditing) return;
+        if(window.controller.isCreatingNewFileOnCreation) return;
+        
         window.titleContent = new GUIContent("Subtitle Creation");
         window.minSize = new Vector2(600, 530);
         window.maxSize = new Vector2(600, 530);
@@ -33,9 +36,11 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             window.controller.isEditing = true;
             window.controller.LoadJson(name);
         }
-        window.controller.lastData = window.controller.currentData.Clone() as ACC_SubtitleData;
-        window.PositionWindowInBottomRight();
-        window.SetFixedPosition();
+        else
+        {
+            window.controller.isCreatingNewFileOnCreation = true;
+            window.controller.lastData = window.controller.currentData.Clone() as ACC_SubtitleData;
+        }
     }
     
     private new void CreateGUI()

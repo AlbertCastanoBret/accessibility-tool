@@ -16,7 +16,6 @@ namespace TFG_Videojocs.ACC_RemapControls
     {
         public InputActionAsset inputActionAsset;
         public ScrollView controlSchemesScrollView;
-        public ACC_RemapControlsManager AccRemapControlsManager { get; private set; }
         
         private new void OnEnable()
         {
@@ -26,25 +25,27 @@ namespace TFG_Videojocs.ACC_RemapControls
 
         public static void ShowWindow(InputActionAsset inputActionAsset)
         {
+            CloseWindowIfExists<ACC_ControlSchemesConfigurationEditorWindow>();
             ACC_ControlSchemesConfigurationEditorWindow window =
                 GetWindow<ACC_ControlSchemesConfigurationEditorWindow>();
             window.titleContent = new GUIContent("Control Schemes Configuration");
             window.minSize = new Vector2(600, 450);
+            
             window.maxSize = new Vector2(600, 450);
             
-            window.isReadyToCreateGUI = true;
+            window.controller.isReadyToCreateGUI = true;
             window.controller.isEditing = true;
             window.inputActionAsset = inputActionAsset;
             
             window.CreateGUI();
             window.controller.LoadOnlyEditableWindow(inputActionAsset.name);
-            
-            //window.ShowModal();
+            window.PositionWindowInBottomRight();
+            window.SetFixedPosition();
         }
         
         protected new void CreateGUI()
         {
-            if (!isReadyToCreateGUI) return;
+            if (!controller.isReadyToCreateGUI) return;
             base.CreateGUI();
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_ControlSchemesConfigurationEditorWindowStyles.uss");
             rootVisualElement.styleSheets.Add(styleSheet);

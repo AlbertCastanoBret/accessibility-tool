@@ -14,7 +14,6 @@ namespace TFG_Videojocs
     public abstract class ACC_BaseFloatingWindow<TController,TWindow, TData>: EditorWindow where TController : ACC_FloatingWindowController<TWindow, TData>, new() where TWindow : EditorWindow where TData : ACC_AbstractData, new()
     {
         public TController controller { get; private set; }
-        public bool isReadyToCreateGUI = false;
         protected ACC_UIElementFactory uiElementFactory => controller.uiElementFactory;
         
         private Vector2 fixedPosition = new Vector2(100, 100);
@@ -48,6 +47,15 @@ namespace TFG_Videojocs
             ColorUtility.TryParseHtmlString("#4f4f4f", out var backgroundColor);
             rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
             rootVisualElement.AddToClassList("main-container");
+        }
+        
+        public static void CloseWindowIfExists<T>() where T : EditorWindow
+        {
+            T window = (T)GetWindow(typeof(T), false);
+            if (window != null)
+            {
+                window.Close();
+            }
         }
         
         protected void PositionWindowInBottomRight()

@@ -511,7 +511,7 @@ public class ACC_MainWindow : EditorWindow
         inputAction.RegisterValueChangedCallback(evt =>
         {
             inputActionAsset = evt.newValue as InputActionAsset;
-            ACC_PrefabHelper.CreatePrefab("RemapControls", inputActionAsset.name);
+            if(inputActionAsset!=null) ACC_PrefabHelper.CreatePrefab("RemapControls", inputActionAsset.name);
             dynamicControlSchemesContainer.Clear();
             if (inputActionAsset != null)
             {

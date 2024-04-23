@@ -41,15 +41,26 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
     public static void ShowWindow(string name)
     {
         ACC_VisualNotificationEditorWindow window = GetWindow<ACC_VisualNotificationEditorWindow>();
+        if(window.controller.isEditing) return;
+        if(window.controller.isCreatingNewFileOnCreation) return;
+        
         window.titleContent = new GUIContent("Visual Notification Creation");
         window.minSize = new Vector2(600, 530);
         window.maxSize = new Vector2(600, 530);
+        
         if (name != null)
         {
             window.controller.isEditing = true;
             window.controller.LoadJson(name);
         }
-        window.controller.lastData = window.controller.currentData.Clone() as ACC_VisualNotificationData;
+        else
+        {
+            window.controller.isCreatingNewFileOnCreation = true;
+            window.controller.lastData = window.controller.currentData.Clone() as ACC_VisualNotificationData;
+        }
+        
+        window.PositionWindowInBottomRight();
+        window.SetFixedPosition();
     }
 
     public new void CreateGUI()

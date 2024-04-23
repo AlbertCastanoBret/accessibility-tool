@@ -23,7 +23,7 @@ namespace TFG_Videojocs
         public TData lastData;
 
         [SerializeField] public string oldName;
-        [SerializeField] public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile;
+        [SerializeField] public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile, isReadyToCreateGUI;
         
         public void Initialize(TWindow window)
         {
@@ -80,7 +80,6 @@ namespace TFG_Videojocs
                 
                 if (!fileExists && !isEditing || fileExists && isEditing && string.Equals(name, oldName, StringComparison.OrdinalIgnoreCase))
                 {
-                    if(!fileExists && !isEditing) isCreatingNewFileOnCreation = true;
                     ConfigureJson();
                 }
                 else if(fileExists && !isEditing || fileExists && isEditing && !string.Equals(name, oldName, StringComparison.OrdinalIgnoreCase))
@@ -96,7 +95,6 @@ namespace TFG_Videojocs
                     {
                         case 0:
                             isOverWriting = true;
-                            isCreatingNewFileOnCreation = true;
                             ConfigureJson();
                             break;
                         case 1:
@@ -207,11 +205,11 @@ namespace TFG_Videojocs
                 {
                     var valueAsString = value is bool or int or float or string ? value.ToString() : JsonUtility.ToJson(value);
                     container.keyValuePairs.AddOrUpdate(field.Name, valueAsString);
-                    
                 }
             }
 
             var json = JsonUtility.ToJson(container);
+            Debug.Log(json);
             SessionState.SetString(type + "_tempData", json);
         }
         
