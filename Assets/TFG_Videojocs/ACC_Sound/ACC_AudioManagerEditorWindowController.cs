@@ -7,6 +7,6 @@ public class ACC_AudioManagerEditorWindowController : ACC_FloatingWindowControll
 {
     protected override void RestoreFieldValues()
     {
-        
+        window.CreateTable();
     }
 }

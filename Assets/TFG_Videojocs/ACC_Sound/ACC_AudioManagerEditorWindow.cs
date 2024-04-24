@@ -8,8 +8,7 @@ using UnityEngine.UIElements;
 
 public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioManagerEditorWindowController, ACC_AudioManagerEditorWindow, ACC_AudioManagerData>
 {
-    private VisualElement tableContainer;
-    private ReorderableList reorderableList;
+    private VisualElement tableContainer, tableScrollView;
     public static void ShowWindow()
     {
         var window = GetWindow<ACC_AudioManagerEditorWindow>();
@@ -26,73 +25,98 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
     private new void CreateGUI()
     {
         base.CreateGUI();
-
-        CreateTable2();
+        
+        tableContainer = uiElementFactory.CreateVisualElement("container-2");
+        rootVisualElement.Add(tableContainer);
+        CreateTable();
+        CreateBottomContainer();
+        
         controller.RestoreDataAfterCompilation();
     }
     
-    private void CreateTable()
+    public void CreateTable()
     {
-        if(tableContainer == null) tableContainer = uiElementFactory.CreateVisualElement("container-2");
-        else tableContainer.Clear();
+        tableContainer.Clear();
             
         var highContrastTitle = uiElementFactory.CreateLabel("title", "Audio Settings");
-        var tableScrollView = uiElementFactory.CreateScrollView("table-scroll-view");
+        tableScrollView = uiElementFactory.CreateScrollView("table-scroll-view");
             
         var containerTableTitle = uiElementFactory.CreateVisualElement("table-row-title");
-        containerTableTitle.style.width = new StyleLength(Length.Percent(95));
         var containerTableNameTitle = uiElementFactory.CreateLabel("table-title-name", "Audio Sources");
             
         containerTableTitle.Add(containerTableNameTitle);
         tableScrollView.Add(containerTableTitle);
-            
-        for(int i=0; i<1; i++)
+        
+        for(int i=0; i<controller.currentData.audioSources.Items.Count; i++)
         {
-            var row = uiElementFactory.CreateVisualElement("table-row");
-            
-            var tableCell = uiElementFactory.CreateVisualElement("table-row-content");
-            var icon = uiElementFactory.CreateImage("table-cell-icon",
-                AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/TFG_Videojocs/ACC_Sound/d_AudioSource Icon.png"));
-            var name = uiElementFactory.CreateLabel("table-cell", "New Audio Source");
-            name.style.width = new StyleLength(Length.Percent(95));
-                
-            var deleteButton = uiElementFactory.CreateButton("-","table-delete-button");
-            
-            tableCell.Add(icon);
-            tableCell.Add(name);
-            row.Add(tableCell);
-            row.Add(deleteButton);
-            tableScrollView.Add(row);
+            AddNewAudioSource(controller.currentData.audioSources.Items.Find(x => x.key == i).value, i+1);
         }
             
         tableContainer.Add(highContrastTitle);
         tableContainer.Add(tableScrollView);
-        rootVisualElement.Add(tableContainer);
     }
-    
-    private void CreateTable2()
+    private void AddNewAudioSource(string name = "New Audio Source", int index=-1)
     {
-        if(tableContainer == null) tableContainer = uiElementFactory.CreateVisualElement("container-2");
-        else tableContainer.Clear();
-    
-        var highContrastTitle = uiElementFactory.CreateLabel("title", "Audio Settings");
-        var tableScrollView = uiElementFactory.CreateScrollView("table-scroll-view");
-    
-        reorderableList = new ReorderableList(controller.currentData.audioClips, typeof(ACC_Sound), true, true, true, true);
-        reorderableList.drawHeaderCallback = rect => EditorGUI.LabelField(rect, "Audio Sources");
-        reorderableList.drawElementCallback = (rect, index, isActive, isFocused) =>
+        var currentRow = tableScrollView.childCount-1;
+        var row = uiElementFactory.CreateVisualElement("table-row");
+            
+        var tableCell = uiElementFactory.CreateVisualElement("table-row-content");
+        var icon = uiElementFactory.CreateImage("table-cell-icon",
+            AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/TFG_Videojocs/ACC_Sound/d_AudioSource Icon.png"));
+        var nameField = uiElementFactory.CreateTextField("table-cell", "", name, "table-cell-input",
+            (value) => controller.currentData.audioSources.AddOrUpdate(index!=-1?index-1:currentRow, value));
+        nameField.style.width = new StyleLength(Length.Percent(95));
+            
+        var addButton = uiElementFactory.CreateButton("+","table-add-button", () =>
         {
-            var element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
-            rect.height = EditorGUIUtility.singleLineHeight;
-            rect.y += 2;
-            EditorGUI.PropertyField(rect, element, GUIContent.none);
-        };
+            var currentRow = tableScrollView.IndexOf(row)-1;
+            if (tableScrollView.childCount - 1 > currentRow + 1)
+            {
+                for(var j = tableScrollView.childCount-2; j>currentRow; j--)
+                {
+                    controller.currentData.audioSources.AddOrUpdate(j+1, controller.currentData.audioSources.Items.Find(x => x.key == j).value);
+                }
+            } 
+            AddNewAudioSource(index: tableScrollView.IndexOf(row)+1);
+        });
         
-        var reorderableListContainer = new IMGUIContainer(() => reorderableList.DoLayoutList());
+        var deleteButton = uiElementFactory.CreateButton("-","table-delete-button", () =>
+        {
+            var currentRow = tableScrollView.IndexOf(row)-1;
+            tableScrollView.Remove(row);
+            controller.currentData.audioSources.Remove(currentRow);
+            if (tableScrollView.childCount > currentRow + 1)
+            {
+                for (var j = currentRow + 1; j < tableScrollView.childCount; j++)
+                {
+                    controller.currentData.audioSources.AddOrUpdate(j - 1, controller.currentData.audioSources.Items.Find(x => x.key == j).value);
+                    controller.currentData.audioSources.Remove(j);
+                }
+            }
+        });
+            
+        tableCell.Add(icon);
+        tableCell.Add(nameField);
+        row.Add(tableCell);
+        row.Add(addButton);
+        row.Add(deleteButton);
+        if(index!=-1) tableScrollView.Insert(index, row);
+        else tableScrollView.Add(row);
+        rootVisualElement.schedule.Execute(() => { nameField[0].Focus(); }).StartingIn((long)0.001);
+    }
+    private void CreateBottomContainer()
+    {
+        var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
+        bottomContainer.style.marginTop = new StyleLength(Length.Auto());
+        var createSubtitleButton = uiElementFactory.CreateButton("Save", "button", () => controller.HandleSave(this));
+
+        var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-row-container");
+        var addSubtitle1 = uiElementFactory.CreateButton("Add New Audio Source", "add-row-button", () => AddNewAudioSource());
         
-        tableScrollView.Add(reorderableListContainer);
-        tableContainer.Add(highContrastTitle);
-        tableContainer.Add(tableScrollView);
-        rootVisualElement.Add(tableContainer);
+        addSubtitlesContainer.Add(addSubtitle1);
+        bottomContainer.Add(createSubtitleButton);
+        bottomContainer.Add(addSubtitlesContainer);
+
+        rootVisualElement.Add(bottomContainer);
     }
 }

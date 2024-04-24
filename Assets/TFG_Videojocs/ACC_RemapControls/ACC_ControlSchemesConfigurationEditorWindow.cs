@@ -24,7 +24,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 GetWindow<ACC_ControlSchemesConfigurationEditorWindow>();
             window.titleContent = new GUIContent("Control Schemes Configuration");
             window.minSize = new Vector2(600, 450);
-            
             window.maxSize = new Vector2(600, 450);
             
             window.controller.isReadyToCreateGUI = true;

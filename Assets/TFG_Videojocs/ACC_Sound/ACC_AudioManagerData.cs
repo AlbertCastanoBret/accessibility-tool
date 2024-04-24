@@ -1,19 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [System.Serializable]
 public class ACC_AudioManagerData : ACC_AbstractData
 {
-    public List<AudioSource> audioSources = new List<AudioSource>();
-    public List<ACC_Sound> audioClips = new List<ACC_Sound>();
+    public ACC_SerializableDictiornary<int, string> audioSources = new ACC_SerializableDictiornary<int, string>();
+    public ACC_SerializableDictiornary<int,string> audioClips = new ACC_SerializableDictiornary<int,string>();
     public override bool Equals(object obj)
     {
-        if (obj == null) return false;
-        ACC_AudioManagerData audioManagerData = obj as ACC_AudioManagerData;
-        if (audioManagerData == null) return false;
-        return audioSources == audioManagerData.audioSources && audioClips == audioManagerData.audioClips;
+        if (obj == null || GetType() != obj.GetType())
+            return false;
+        ACC_AudioManagerData other = (ACC_AudioManagerData)obj;
+        bool audioSourcesEqual = audioSources.Items.SequenceEqual(other.audioSources.Items);
+        bool audioClipsEqual = audioClips.Items.SequenceEqual(other.audioClips.Items);
+        
+        return string.Equals(name, other.name, StringComparison.OrdinalIgnoreCase)
+               && audioSourcesEqual
+               && audioClipsEqual;
     }
 
     public override int GetHashCode()
@@ -32,8 +40,8 @@ public class ACC_AudioManagerData : ACC_AbstractData
         ACC_AudioManagerData clone = new ACC_AudioManagerData
         {
             name = name,
-            audioSources = new List<AudioSource>(audioSources),
-            audioClips = new List<ACC_Sound>(audioClips)
+            audioSources = (ACC_SerializableDictiornary<int, string>)audioSources.Clone(),
+            audioClips = (ACC_SerializableDictiornary<int, string>)audioClips.Clone()
         };
         return clone;
     }

@@ -23,19 +23,6 @@ Button{
     margin-bottom: 12px;
 }
 
-.table-row-title{
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    background-color: #343434;
-    border-radius: 4px 4px 0 0;
-    border-bottom-color: #b2b2b2;
-    border-bottom-width: 1px;
-    padding: 4px;
-    align-items: center;
-    justify-content: center;
-}
-
 .table-scroll-view{
     overflow: scroll;
     width: 100%;
@@ -44,9 +31,17 @@ Button{
     margin: auto;
 }
 
-.table{
+.table-row-title{
     display: flex;
     flex-direction: row;
+    width: 90%;
+    background-color: #343434;
+    border-radius: 4px 4px 0 0;
+    border-bottom-color: #b2b2b2;
+    border-bottom-width: 1px;
+    padding: 4px;
+    align-items: center;
+    justify-content: center;
 }
 
 .table-row{
@@ -61,7 +56,7 @@ Button{
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 95%;
+    width: 90%;
     background-color: #3F3F3F;
     border-bottom-color: #b2b2b2;
     border-bottom-width: 1px;
@@ -73,8 +68,10 @@ Button{
     height: 18px;
 }
 
-.table-delete-button{
-    margin-left: auto;
+.table-cell-input{
+    background-color: #3f3f3f;
+    border-radius: 0px;
+    border-width: 0;
 }
 
 .option-input-name{
