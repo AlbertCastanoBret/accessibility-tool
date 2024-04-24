@@ -203,6 +203,15 @@ namespace TFG_Videojocs.ACC_Utilities
 
             return container;
         }
+        
+        public VisualElement CreateImage(string classList, Texture2D texture)
+        {
+            var name = GenerateUniqueName(classList);
+            
+            var image = new Image() { name = name, image = texture };
+            image.AddToClassList(classList);
+            return image;
+        }
          
         private string GenerateUniqueName(string baseClass)
         {

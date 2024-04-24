@@ -209,7 +209,6 @@ namespace TFG_Videojocs
             }
 
             var json = JsonUtility.ToJson(container);
-            Debug.Log(json);
             SessionState.SetString(type + "_tempData", json);
         }
         

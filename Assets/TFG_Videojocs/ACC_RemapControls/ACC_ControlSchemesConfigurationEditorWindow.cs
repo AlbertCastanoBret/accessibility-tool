@@ -16,12 +16,6 @@ namespace TFG_Videojocs.ACC_RemapControls
     {
         public InputActionAsset inputActionAsset;
         public ScrollView controlSchemesScrollView;
-        
-        private new void OnEnable()
-        {
-            base.OnEnable();
-            //AccRemapControlsManager = GameObject.Find("ACC_RemapControlsManager").GetComponent<ACC_RemapControlsManager>();
-        }
 
         public static void ShowWindow(InputActionAsset inputActionAsset)
         {

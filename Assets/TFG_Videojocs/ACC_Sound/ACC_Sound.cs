@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,6 +13,12 @@ public class ACC_Sound : IEquatable<ACC_Sound>, ICloneable
     public AudioClip audioClip;
     public string currentVisualNotificationData;
 
+    public ACC_Sound()
+    {
+        name = "New Sound";
+        audioClip = null;
+        currentVisualNotificationData = "";
+    }
     public ACC_Sound(string name, AudioClip audioClip)
     {
         this.name = name;
@@ -27,6 +34,12 @@ public class ACC_Sound : IEquatable<ACC_Sound>, ICloneable
 
     public object Clone()
     {
-        return MemberwiseClone();
+        ACC_Sound clone = new ACC_Sound
+        {
+            name = name,
+            audioClip = audioClip,
+            currentVisualNotificationData = currentVisualNotificationData
+        };
+        return clone;
     }
 }

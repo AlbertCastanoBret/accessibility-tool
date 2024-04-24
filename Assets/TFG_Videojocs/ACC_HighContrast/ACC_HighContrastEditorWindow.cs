@@ -41,17 +41,17 @@ namespace TFG_Videojocs.ACC_HighContrast
             var highContrastTitle = uiElementFactory.CreateLabel("title", "High Contrast Settings");
             var tableScrollView = uiElementFactory.CreateScrollView("table-scroll-view");
             
-            var controlSchemeTitle = uiElementFactory.CreateVisualElement("container-table-title");
-            controlSchemeTitle.style.width = new StyleLength(Length.Percent(95));
-            var controlSchemeNameTitle = uiElementFactory.CreateLabel("table-title-name", "Name");
+            var containerTableTitle = uiElementFactory.CreateVisualElement("table-row-title");
+            containerTableTitle.style.width = new StyleLength(Length.Percent(95));
+            var containerTableNameTitle = uiElementFactory.CreateLabel("table-title-name", "Name");
             
-            controlSchemeTitle.Add(controlSchemeNameTitle);
-            tableScrollView.Add(controlSchemeTitle);
+            containerTableTitle.Add(containerTableNameTitle);
+            tableScrollView.Add(containerTableTitle);
             
             for(int i=0; i<1; i++)
             {
                 var row = uiElementFactory.CreateVisualElement("table-row");
-                var name = uiElementFactory.CreateLabel("table-cell", "Hola");
+                var name = uiElementFactory.CreateLabel("table-row-content", "Hola");
                 name.style.width = new StyleLength(Length.Percent(95));
                 
                 var deleteButton = uiElementFactory.CreateButton("-","table-delete-button");

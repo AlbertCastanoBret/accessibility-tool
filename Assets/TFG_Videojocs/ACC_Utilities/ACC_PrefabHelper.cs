@@ -166,10 +166,11 @@ namespace TFG_Videojocs.ACC_Utilities
                 remapControlsManagerComponent.loadedData = loadedData;
                 SetControlSchemes(loadedData, remapControlsManager);
             }
+            #pragma warning disable 0168
             catch (Exception e)
             {
-                // ignored
             }
+            #pragma warning restore 0168
         }
         private static void SetControlSchemes(ACC_ControlSchemeData loadedData, GameObject remapControlsManager)
         {

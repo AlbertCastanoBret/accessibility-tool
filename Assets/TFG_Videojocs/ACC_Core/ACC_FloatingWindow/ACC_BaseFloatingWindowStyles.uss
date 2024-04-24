@@ -23,7 +23,7 @@ Button{
     margin-bottom: 12px;
 }
 
-.container-table-title{
+.table-row-title{
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -57,11 +57,20 @@ Button{
     justify-content: center;
 }
 
-.table-cell{
+.table-row-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 95%;
     background-color: #3F3F3F;
     border-bottom-color: #b2b2b2;
     border-bottom-width: 1px;
     padding: 4px;
+}
+
+.table-cell-icon{
+    width: 18px;
+    height: 18px;
 }
 
 .table-delete-button{

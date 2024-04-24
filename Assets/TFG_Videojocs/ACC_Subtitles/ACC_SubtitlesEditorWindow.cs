@@ -41,6 +41,9 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             window.controller.isCreatingNewFileOnCreation = true;
             window.controller.lastData = window.controller.currentData.Clone() as ACC_SubtitleData;
         }
+        
+        window.PositionWindowInBottomRight();
+        window.SetFixedPosition();
     }
     
     private new void CreateGUI()
@@ -78,23 +81,26 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         
         rootVisualElement.Add(tableContainer);
     }
-    public void CreateRow(int numberOfRows, string subtitle, int time)
+    public void CreateRow(int numberOfRows, string subtitle, int time, int index = -1)
     {
         for (int i = 0; i < numberOfRows; i++)
         {
             int currentRow = table.childCount - 1;
-            
+
             var newRow = uiElementFactory.CreateVisualElement("new-row");
+
+            var contententRow = uiElementFactory.CreateVisualElement("content-row");
             var subtitleField = uiElementFactory.CreateTextField(value: subtitle, classList: "subtitles-new-cell", subClassList: "subtitles-input-cell",
-                onValueChanged: value => { controller.currentData.subtitleText.AddOrUpdate(currentRow, value); });
+                onValueChanged: value => { controller.currentData.subtitleText.AddOrUpdate(index!=-1?index-1:currentRow, value); });
             var timeField = uiElementFactory.CreateIntegerField(value: time, classList: "time-new-cell", subClassList: "time-input-cell",
-                onValueChanged: value => controller.currentData.timeText.AddOrUpdate(currentRow, value));
+                onValueChanged: value => controller.currentData.timeText.AddOrUpdate(index!=-1?index-1:currentRow, value));
             var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () =>
             {
+                var currentRow = table.IndexOf(newRow)-1;
                 table.Q(name: newRow.name).RemoveFromHierarchy();
                 controller.currentData.subtitleText.Remove(currentRow);
                 controller.currentData.timeText.Remove(currentRow);
-                if (table.childCount-1 > currentRow + 1)
+                if (table.childCount > currentRow + 1)
                 {
                     for (var j = currentRow + 1; j < table.childCount; j++)
                     {
@@ -105,12 +111,29 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
                     }
                 }
             });
+            var addRowButton = uiElementFactory.CreateButton("+", "add-row-button", () =>
+            {
+                var currentRow = table.IndexOf(newRow)-1;
+                if (table.childCount - 1 > currentRow + 1)
+                {
+                    for (var j = table.childCount - 2; j > currentRow; j--)
+                    {
+                        controller.currentData.subtitleText.AddOrUpdate(j + 1, controller.currentData.subtitleText.Items.Find(x => x.key == j).value);
+                        controller.currentData.timeText.AddOrUpdate(j + 1, controller.currentData.timeText.Items.Find(x => x.key == j).value);
+                    }
+                }
+                
+                CreateRow(1, "Hello", 1, table.IndexOf(newRow)+1);
+            });
             
-            newRow.Add(subtitleField);
-            newRow.Add(timeField); 
+            contententRow.Add(subtitleField);
+            contententRow.Add(timeField);
+            newRow.Add(contententRow);
+            newRow.Add(addRowButton);
             newRow.Add(deleteButton);
             
-            table.Add(newRow);
+            if(index != -1) table.Insert(index, newRow);
+            else table.Add(newRow);
             rootVisualElement.schedule.Execute(() => { subtitleField[0].Focus(); }).StartingIn((long)0.001);
         }
     }
