@@ -60,12 +60,15 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         var currentRow = tableScrollView.childCount-1;
         var row = uiElementFactory.CreateVisualElement("table-row");
             
+        var mainRow = uiElementFactory.CreateVisualElement("table-main-row");
         var tableCell = uiElementFactory.CreateVisualElement("table-row-content");
+        var arrowButton = uiElementFactory.CreateButton("\u25b6", "table-arrow-button");
+        arrowButton.clicked += () => ToggleControlSchemeDisplay(arrowButton, row);
         var icon = uiElementFactory.CreateImage("table-cell-icon",
             AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/TFG_Videojocs/ACC_Sound/d_AudioSource Icon.png"));
         var nameField = uiElementFactory.CreateTextField("table-cell", "", name, "table-cell-input",
             (value) => controller.currentData.audioSources.AddOrUpdate(index!=-1?index-1:currentRow, value));
-        nameField.style.width = new StyleLength(Length.Percent(95));
+        nameField.style.width = new StyleLength(Length.Percent(90));
             
         var addButton = uiElementFactory.CreateButton("+","table-add-button", () =>
         {
@@ -94,16 +97,61 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                 }
             }
         });
-            
+        
+        tableCell.Add(arrowButton);
         tableCell.Add(icon);
         tableCell.Add(nameField);
-        row.Add(tableCell);
-        row.Add(addButton);
-        row.Add(deleteButton);
+        mainRow.Add(tableCell);
+        mainRow.Add(addButton);
+        mainRow.Add(deleteButton);
+        row.Add(mainRow);
+        CreateSounds(row);
         if(index!=-1) tableScrollView.Insert(index, row);
         else tableScrollView.Add(row);
         rootVisualElement.schedule.Execute(() => { nameField[0].Focus(); }).StartingIn((long)0.001);
     }
+    
+    private void CreateSounds(VisualElement row)
+    {
+        var soundsContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
+        soundsContainer.style.display = DisplayStyle.None;
+        
+        var soundCell = uiElementFactory.CreateVisualElement("table-row-content");
+        var soundTitle = uiElementFactory.CreateLabel("table-secondary-row-title", "Sounds: ");
+        var addNewSoundButton = uiElementFactory.CreateButton("Add New Sound", "table-cell-button");
+        addNewSoundButton.style.marginLeft = new StyleLength(Length.Auto());
+        
+        soundCell.Add(soundTitle);
+        soundCell.Add(addNewSoundButton);
+        soundsContainer.Add(soundCell);
+        row.Add(soundsContainer);
+        
+        foreach (var VARIABLE in controller.currentData.audioClips.Items)
+        {
+            
+        }
+    }
+    
+    private void ToggleControlSchemeDisplay(Button arrowButton, VisualElement audioSource)
+    {
+        if (arrowButton.text == "\u25b6")
+        {
+            arrowButton.text = "\u25bc";
+            for (int j = 1; j < audioSource.childCount; j++)
+            {
+                audioSource[j].style.display = DisplayStyle.Flex;
+            }
+        }
+        else
+        {
+            arrowButton.text = "\u25b6";
+            for (int j = 1; j < audioSource.childCount; j++)
+            {
+                audioSource[j].style.display = DisplayStyle.None;
+            }
+        }
+    }
+    
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
