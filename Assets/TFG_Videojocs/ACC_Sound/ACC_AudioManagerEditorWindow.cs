@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TFG_Videojocs;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -123,20 +124,35 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         soundTitleCell.Add(addNewSoundButton);
         soundsContainer.Add(soundTitleCell);
         row.Add(soundsContainer);
+
+        foreach (var audioSource in controller.currentData.audioSources.Items)
+        {
+            foreach (var audioSource2 in controller.currentData.audioClips.Items)
+            {
+                if (audioSource.key == audioSource2.key)
+                {
+                    foreach (var audioClip in controller.currentData.audioClips.Items.Find(x => x.key == audioSource.key).value.Items)
+                    {
+                        CreateSound(row, audioClip.value.audioClip);
+                    }
+                }
+            }
+        }
         
     }
 
-    private void CreateSound(VisualElement row)
+    private void CreateSound(VisualElement row, AudioClip audioClip = null)
     {
         var soundContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
+        soundContainer.style.display = DisplayStyle.None;
         
         var soundCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
-        var sound = uiElementFactory.CreateObjectField("table-row-multi-input", "Audio Clip:", typeof(AudioClip),
+        var sound = (ObjectField) uiElementFactory.CreateObjectField("table-row-multi-input", "Audio Clip:", typeof(AudioClip),
             onValueChanged: (value) =>
             {
-                if(value == null && controller.currentData.audioClips.Items.Exists(x=> x.key.Equals(row.parent.IndexOf(row) - 1)))
+                if(value == null && controller.currentData.audioClips.Items.Exists(x=> x.key.Equals(tableScrollView.IndexOf(row) - 1)))
                 {
-                    controller.currentData.audioClips.Items.Find(x => x.key.Equals(row.parent.IndexOf(row) - 1)).value.Remove(row.IndexOf(soundContainer) - 2);
+                    controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.Remove(row.IndexOf(soundContainer) - 2);
                     return;
                 }
                 if(value == null) return;
@@ -144,13 +160,14 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                 var audioClip = (AudioClip) value;
                 var accSound = new ACC_Sound(audioClip.name, audioClip);
                 
-                if(!controller.currentData.audioClips.Items.Exists(x=> x.key.Equals(row.parent.IndexOf(row) - 1)))
+                if(!controller.currentData.audioClips.Items.Exists(x=> x.key.Equals(tableScrollView.IndexOf(row) - 1)))
                 {
-                    controller.currentData.audioClips.AddOrUpdate(row.parent.IndexOf(row) - 1, new ACC_SerializableDictiornary<int, string>());
+                    controller.currentData.audioClips.AddOrUpdate(tableScrollView.IndexOf(row) - 1, new ACC_SerializableDictiornary<int, ACC_Sound>());
                 }
                 
-                controller.currentData.audioClips.Items.Find(x => x.key.Equals(row.parent.IndexOf(row) - 1)).value.AddOrUpdate(row.IndexOf(soundContainer) - 2, accSound.name);
+                controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.AddOrUpdate(row.IndexOf(soundContainer) - 2, accSound);
             });
+        if(audioClip != null) sound.value = audioClip;
         
         soundCell.Add(sound);
         soundContainer.Add(soundCell);
