@@ -18,8 +18,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         
         window.controller.isEditing = true;
         window.controller.LoadOnlyEditableWindow("AudioManager");
-        window.PositionWindowInBottomRight();
-        window.SetFixedPosition();
     }
     
     private new void CreateGUI()
@@ -116,20 +114,47 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         var soundsContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
         soundsContainer.style.display = DisplayStyle.None;
         
-        var soundCell = uiElementFactory.CreateVisualElement("table-row-content");
-        var soundTitle = uiElementFactory.CreateLabel("table-secondary-row-title", "Sounds: ");
-        var addNewSoundButton = uiElementFactory.CreateButton("Add New Sound", "table-cell-button");
+        var soundTitleCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
+        var soundTitle = uiElementFactory.CreateLabel("table-secondary-row-title", "Sounds");
+        var addNewSoundButton = uiElementFactory.CreateButton("Add New Sound", "table-cell-button", () => CreateSound(row));
         addNewSoundButton.style.marginLeft = new StyleLength(Length.Auto());
         
-        soundCell.Add(soundTitle);
-        soundCell.Add(addNewSoundButton);
-        soundsContainer.Add(soundCell);
+        soundTitleCell.Add(soundTitle);
+        soundTitleCell.Add(addNewSoundButton);
+        soundsContainer.Add(soundTitleCell);
         row.Add(soundsContainer);
         
-        foreach (var VARIABLE in controller.currentData.audioClips.Items)
-        {
-            
-        }
+    }
+
+    private void CreateSound(VisualElement row)
+    {
+        var soundContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
+        
+        var soundCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
+        var sound = uiElementFactory.CreateObjectField("table-row-multi-input", "Audio Clip:", typeof(AudioClip),
+            onValueChanged: (value) =>
+            {
+                if(value == null && controller.currentData.audioClips.Items.Exists(x=> x.key.Equals(row.parent.IndexOf(row) - 1)))
+                {
+                    controller.currentData.audioClips.Items.Find(x => x.key.Equals(row.parent.IndexOf(row) - 1)).value.Remove(row.IndexOf(soundContainer) - 2);
+                    return;
+                }
+                if(value == null) return;
+                
+                var audioClip = (AudioClip) value;
+                var accSound = new ACC_Sound(audioClip.name, audioClip);
+                
+                if(!controller.currentData.audioClips.Items.Exists(x=> x.key.Equals(row.parent.IndexOf(row) - 1)))
+                {
+                    controller.currentData.audioClips.AddOrUpdate(row.parent.IndexOf(row) - 1, new ACC_SerializableDictiornary<int, string>());
+                }
+                
+                controller.currentData.audioClips.Items.Find(x => x.key.Equals(row.parent.IndexOf(row) - 1)).value.AddOrUpdate(row.IndexOf(soundContainer) - 2, accSound.name);
+            });
+        
+        soundCell.Add(sound);
+        soundContainer.Add(soundCell);
+        row.Add(soundContainer);
     }
     
     private void ToggleControlSchemeDisplay(Button arrowButton, VisualElement audioSource)

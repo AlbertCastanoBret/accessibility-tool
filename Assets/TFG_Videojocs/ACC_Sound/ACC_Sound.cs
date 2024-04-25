@@ -11,7 +11,7 @@ public class ACC_Sound : IEquatable<ACC_Sound>, ICloneable
 {
     [ACC_ReadOnly] public string name;
     public AudioClip audioClip;
-    public string currentVisualNotificationData;
+    [HideInInspector] public string currentVisualNotificationData;
 
     public ACC_Sound()
     {

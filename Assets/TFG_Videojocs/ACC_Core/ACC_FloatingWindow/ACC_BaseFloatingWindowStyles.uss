@@ -77,6 +77,17 @@ Button{
     padding: 4px;
 }
 
+.table-secondary-row-content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+    background-color: #5e5e5e;
+    border-bottom-color: #b2b2b2;
+    border-bottom-width: 1px;
+    padding: 4px 6px;
+}
+
 .table-arrow-button{
     border-width: 0;
     background-color: rgba(0, 0, 0, 0);
@@ -100,6 +111,13 @@ Button{
     background-color: #3f3f3f;
     border-radius: 0px;
     border-width: 0;
+}
+
+.table-row-multi-input{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
 }
 
 .option-input-name{
