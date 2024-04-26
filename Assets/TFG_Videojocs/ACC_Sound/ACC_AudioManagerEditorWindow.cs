@@ -56,8 +56,9 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
     }
     private void AddNewAudioSource(string name = "New Audio Source", int index=-1)
     {
-        var currentRow = tableScrollView.childCount-1;
         var row = uiElementFactory.CreateVisualElement("table-row");
+        if(index!=-1) tableScrollView.Insert(index, row);
+        else tableScrollView.Add(row);
             
         var mainRow = uiElementFactory.CreateVisualElement("table-main-row");
         var tableCell = uiElementFactory.CreateVisualElement("table-row-content");
@@ -68,18 +69,19 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         var nameField = uiElementFactory.CreateTextField("table-cell", "", name, "table-cell-input",
             (value) =>
             {
-                controller.currentData.audioSources.AddOrUpdate(index != -1 ? index - 1 : currentRow, value);
+                var currentRow = tableScrollView.IndexOf(row)-1;
+                controller.currentData.audioSources.AddOrUpdate(currentRow, value);
 
                 if (!controller.currentData.audioClips.Items.Exists(x =>
                         x.key.Equals(index != -1 ? index - 1 : currentRow)))
                 {
-                    controller.currentData.audioClips.AddOrUpdate(index != -1 ? index - 1 : currentRow,
+                    controller.currentData.audioClips.AddOrUpdate(currentRow,
                         new ACC_SerializableDictiornary<int, ACC_Sound>());
                 }
 
                 else
                 {
-                    controller.currentData.audioClips.AddOrUpdate(index != -1 ? index - 1 : currentRow, 
+                    controller.currentData.audioClips.AddOrUpdate(currentRow, 
                         controller.currentData.audioClips.Items.Find(x => x.key == currentRow).value);
                 }
                 
@@ -125,8 +127,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         mainRow.Add(addButton);
         mainRow.Add(deleteButton);
         row.Add(mainRow);
-        if(index!=-1) tableScrollView.Insert(index, row);
-        else tableScrollView.Add(row);
         CreateSounds(row);
         rootVisualElement.schedule.Execute(() => { nameField[0].Focus(); }).StartingIn((long)0.001);
     }
@@ -166,13 +166,14 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
     {
         var soundContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
         if(accSound != null) soundContainer.style.display =  DisplayStyle.None;
-        
-        var currentRow = row.childCount - 2;
+        if (index != -1) row.Insert(index, soundContainer);
+        else row.Add(soundContainer);
         
         var soundCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
         var sound = (ObjectField) uiElementFactory.CreateObjectField("table-row-multi-input", "Audio Clip:", typeof(AudioClip),
             onValueChanged: (value) =>
             {
+                var currentSoundRow = row.IndexOf(soundContainer) - 2;
                 var audioClip = (AudioClip) value;
                 ACC_Sound accSound;
 
@@ -190,8 +191,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                     controller.currentData.audioClips.AddOrUpdate(tableScrollView.IndexOf(row) - 1, new ACC_SerializableDictiornary<int, ACC_Sound>());
                 }
                 
-                if(index != -1) controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.AddOrUpdate(index-2, accSound);
-                else controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.AddOrUpdate(currentRow, accSound);
+                controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.AddOrUpdate(currentSoundRow, accSound);
             });
         
         if(accSound != null) sound.value = accSound.audioClip;
@@ -233,8 +233,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         soundContainer.Add(soundCell);
         soundContainer.Add(addButton);
         soundContainer.Add(deleteButton);
-        if (index != -1) row.Insert(index, soundContainer);
-        else row.Add(soundContainer);
     }
     
     private void ToggleControlSchemeDisplay(Button arrowButton, VisualElement audioSource)
