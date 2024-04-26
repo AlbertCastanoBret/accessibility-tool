@@ -18,7 +18,7 @@ public class ACC_AudioManagerData : ACC_AbstractData
         ACC_AudioManagerData other = (ACC_AudioManagerData)obj;
         bool audioSourcesEqual = audioSources.Items.SequenceEqual(other.audioSources.Items);
         bool audioClipsEqual = audioClips.Items.SequenceEqual(other.audioClips.Items);
-        
+    
         return string.Equals(name, other.name, StringComparison.OrdinalIgnoreCase)
                && audioSourcesEqual
                && audioClipsEqual;

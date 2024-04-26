@@ -56,7 +56,6 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             controller.RestoreDataAfterCompilation();
         }
-        
         private void CreateDropdownField()
         {
             var devices = inputActionAsset.controlSchemes
