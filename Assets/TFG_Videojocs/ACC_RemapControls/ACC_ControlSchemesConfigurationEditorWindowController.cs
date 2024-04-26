@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
 using TFG_Videojocs.ACC_Utilities;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,12 @@ namespace TFG_Videojocs.ACC_RemapControls
             ACC_PrefabHelper.CreatePrefab("RemapControls", oldName);
         }
 
+        public override void LoadOnlyEditableWindow(string name, object objectToInitialize = null)
+        {
+            currentData.inputActionAsset = (InputActionAsset) objectToInitialize;
+            base.LoadOnlyEditableWindow(name, null);
+        }
+
         protected override void RestoreFieldValues()
         {
             foreach (var controlScheme in currentData.controlSchemesList.Items)
@@ -31,6 +38,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 onScreenBindingToggleValues[binding.key] = binding.value;
             }
             
+            //Debug.Log(currentData.inputActionAsset.name);
             window.CreateTable();
         }
     }

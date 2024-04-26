@@ -34,7 +34,7 @@ namespace TFG_Videojocs
             isClosing = false;
         }
         
-        public virtual void LoadOnlyEditableWindow(string name)
+        public virtual void LoadOnlyEditableWindow(string name, object objToInitialize = null)
         {
             currentData.name = name;
             

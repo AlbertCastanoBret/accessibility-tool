@@ -31,14 +31,14 @@ namespace TFG_Videojocs.ACC_RemapControls
             window.inputActionAsset = inputActionAsset;
             
             window.CreateGUI();
-            window.controller.LoadOnlyEditableWindow(inputActionAsset.name);
+            window.controller.LoadOnlyEditableWindow(inputActionAsset.name, inputActionAsset);
             window.PositionWindowInBottomRight();
             window.SetFixedPosition();
         }
         
         protected new void CreateGUI()
         {
-            if (!controller.isReadyToCreateGUI) return;
+            if(inputActionAsset == null) return;
             base.CreateGUI();
             var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_ControlSchemesConfigurationEditorWindowStyles.uss");
             rootVisualElement.styleSheets.Add(styleSheet);
@@ -346,7 +346,7 @@ namespace TFG_Videojocs.ACC_RemapControls
         {
             var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
             bottomContainer.style.marginTop = new StyleLength(Length.Auto());
-            var createVisualNotificationButton = uiElementFactory.CreateButton("Create Template In Scene", "button", () => controller.HandleSave(this));
+            var createVisualNotificationButton = uiElementFactory.CreateButton("Save", "button", () => controller.HandleSave(this));
             bottomContainer.Add(createVisualNotificationButton);
             rootVisualElement.Add(bottomContainer);
         }
