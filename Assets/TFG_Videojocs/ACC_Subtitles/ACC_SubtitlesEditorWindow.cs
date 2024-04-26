@@ -85,15 +85,23 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
     {
         for (int i = 0; i < numberOfRows; i++)
         {
-            int currentRow = table.childCount - 1;
-
             var newRow = uiElementFactory.CreateVisualElement("new-row");
+            if(index != -1) table.Insert(index, newRow);
+            else table.Add(newRow);
 
             var contententRow = uiElementFactory.CreateVisualElement("content-row");
             var subtitleField = uiElementFactory.CreateTextField(value: subtitle, classList: "subtitles-new-cell", subClassList: "subtitles-input-cell",
-                onValueChanged: value => { controller.currentData.subtitleText.AddOrUpdate(index!=-1?index-1:currentRow, value); });
+                onValueChanged: value =>
+                {
+                    var currentRow = table.IndexOf(newRow)-1;
+                    controller.currentData.subtitleText.AddOrUpdate(currentRow, value);
+                });
             var timeField = uiElementFactory.CreateIntegerField(value: time, classList: "time-new-cell", subClassList: "time-input-cell",
-                onValueChanged: value => controller.currentData.timeText.AddOrUpdate(index!=-1?index-1:currentRow, value));
+                onValueChanged: (value) =>
+                {
+                    var currentRow = table.IndexOf(newRow)-1;
+                    controller.currentData.timeText.AddOrUpdate(currentRow, value);
+                });
             var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () =>
             {
                 var currentRow = table.IndexOf(newRow)-1;
@@ -122,7 +130,6 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
                         controller.currentData.timeText.AddOrUpdate(j + 1, controller.currentData.timeText.Items.Find(x => x.key == j).value);
                     }
                 }
-                
                 CreateRow(1, "Hello", 1, table.IndexOf(newRow)+1);
             });
             
@@ -132,8 +139,6 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             newRow.Add(addRowButton);
             newRow.Add(deleteButton);
             
-            if(index != -1) table.Insert(index, newRow);
-            else table.Add(newRow);
             rootVisualElement.schedule.Execute(() => { subtitleField[0].Focus(); }).StartingIn((long)0.001);
         }
     }
