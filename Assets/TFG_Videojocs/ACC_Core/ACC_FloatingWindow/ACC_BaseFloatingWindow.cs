@@ -51,6 +51,7 @@ namespace TFG_Videojocs
         
         public static void CloseWindowIfExists<T>() where T : EditorWindow
         {
+            
             T window = (T)GetWindow(typeof(T), false);
             if (window != null)
             {

@@ -304,7 +304,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }
         }
-        
         private void ToggleControlSchemeDisplay(Button arrowButton, VisualElement controlScheme)
         {
             if (arrowButton.text == "\u25b6")

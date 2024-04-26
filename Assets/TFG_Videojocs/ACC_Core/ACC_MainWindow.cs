@@ -8,7 +8,9 @@ using System.Reflection;
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_RemapControls;
+using TFG_Videojocs.ACC_Subtitles;
 using TFG_Videojocs.ACC_Utilities;
+using TFG_Videojocs.ACC_VisualNotification;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.SceneManagement;
@@ -245,6 +247,7 @@ public class ACC_MainWindow : EditorWindow
         {
             if (!string.IsNullOrEmpty(subtitlesDropdown.value))
             {
+                ACC_BaseFloatingWindow<ACC_SubtitlesEditorWindowController, ACC_SubtitlesEditorWindow, ACC_SubtitleData>.CloseWindowIfExists<ACC_SubtitlesEditorWindow>();
                 ACC_JSONHelper.DeleteFile("ACC_Subtitles/", subtitlesDropdown.value);
                 RefreshSubtititleWindow();
             }
@@ -344,8 +347,6 @@ public class ACC_MainWindow : EditorWindow
         {
             if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
             {
-                var sounds = ACC_JSONHelper.GetParamByFileName<ACC_VisualNotificationData, List<ACC_Sound>>(data => data.soundsList,
-                    "ACC_VisualNotification/", visualNotificationDropdown.value);
                 ACC_VisualNotificationEditorWindow.ShowWindow(visualNotificationDropdown.value);
             }
             else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to load.", "OK");
@@ -357,6 +358,7 @@ public class ACC_MainWindow : EditorWindow
         {
             if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
             {
+                ACC_BaseFloatingWindow<ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationEditorWindow, ACC_VisualNotificationData>.CloseWindowIfExists<ACC_VisualNotificationEditorWindow>();
                 ACC_JSONHelper.DeleteFile("ACC_VisualNotification/", visualNotificationDropdown.value);
                 RefreshVisualNotification();
             }

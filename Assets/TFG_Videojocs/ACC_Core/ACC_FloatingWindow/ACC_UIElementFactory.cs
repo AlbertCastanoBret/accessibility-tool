@@ -56,6 +56,19 @@ namespace TFG_Videojocs.ACC_Utilities
             onValueChanged?.Invoke(integerField.value);
             return integerField;
         }
+        
+        public FloatField CreateFloatField(string classList, string label = "", float value = 0, 
+            string subClassList = "", Action<float> onValueChanged = null)
+        {
+            var name = GenerateUniqueName(classList);
+            
+            var floatField = new FloatField(label) { name = name, value = value };
+            floatField.AddToClassList(classList);
+            floatField[0].AddToClassList(subClassList);
+            floatField.RegisterValueChangedCallback(evt => onValueChanged?.Invoke(evt.newValue));
+            onValueChanged?.Invoke(floatField.value);
+            return floatField;
+        }
 
         public ColorField CreateColorField(string classList, string label, Color color = default, string subClassList = "", Action<Color> onValueChanged = null)
         {
@@ -75,6 +88,23 @@ namespace TFG_Videojocs.ACC_Utilities
             var name = GenerateUniqueName(classList);
             
             var slider = new SliderInt(label, minValue, maxValue) { name = name, value = defaultValue };
+            slider.AddToClassList(classList);
+            slider[0].name = GenerateUniqueName(subClassList1);
+            slider[0].AddToClassList(subClassList1);
+            
+            slider[1].name = GenerateUniqueName(GenerateUniqueName(subClassList2));
+            slider[1].AddToClassList(subClassList2);
+            slider.RegisterValueChangedCallback(evt => onValueChanged?.Invoke(evt.newValue));
+            onValueChanged?.Invoke(slider.value);
+            return slider;
+        }
+        
+        public Slider CreateSliderFloat(string classList, string label, float minValue, float maxValue, 
+            float defaultValue = 20, string subClassList1 = "multi-input-1-1", string subClassList2 = "multi-input-1-2", Action<float> onValueChanged = null)
+        {
+            var name = GenerateUniqueName(classList);
+            
+            var slider = new Slider(label, minValue, maxValue) { name = name, value = defaultValue };
             slider.AddToClassList(classList);
             slider[0].name = GenerateUniqueName(subClassList1);
             slider[0].AddToClassList(subClassList1);
@@ -169,6 +199,33 @@ namespace TFG_Videojocs.ACC_Utilities
 
             var slider = CreateSliderInt(sliderClassList, label, min, max, defaultValue, onValueChanged: onValueChanged);
             var inputField = CreateIntegerField(integerFieldClassList, "", defaultValue, onValueChanged: onValueChanged);
+            
+            slider.RegisterValueChangedCallback(evt =>
+            {
+                inputField.value = evt.newValue;
+            });
+            
+            inputField.RegisterValueChangedCallback(evt =>
+            {
+                slider.value = evt.newValue;
+            });
+            
+            container.Add(slider);
+            container.Add(inputField);
+
+            return container;
+        }
+        
+        public VisualElement CreateSliderWithFloatField(string classList, string label, float min, float max, float defaultValue,
+            string sliderClassList = "multi-input-1", string integerFieldClassList = "multi-input-2", Action<float> onValueChanged = null)
+        {
+            var name = GenerateUniqueName(classList);
+            
+            var container = new VisualElement(){name = name};
+            container.AddToClassList(classList);
+
+            var slider = CreateSliderFloat(sliderClassList, label, min, max, defaultValue, onValueChanged: onValueChanged);
+            var inputField = CreateFloatField(integerFieldClassList, "", defaultValue, onValueChanged: onValueChanged);
             
             slider.RegisterValueChangedCallback(evt =>
             {

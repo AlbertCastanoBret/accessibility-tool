@@ -59,7 +59,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         
         controller.RestoreDataAfterCompilation();
     }
-
+    
     private void CreateTable()
     {
         var tableContainer = uiElementFactory.CreateVisualElement("container");

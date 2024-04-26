@@ -14,8 +14,8 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
     {
         var window = GetWindow<ACC_AudioManagerEditorWindow>();
         window.titleContent = new GUIContent("Audio Manager");
-        window.minSize = new Vector2(600, 530);
-        window.maxSize = new Vector2(600, 530);
+        window.minSize = new Vector2(600, 560);
+        window.maxSize = new Vector2(600, 560);
         
         window.controller.isEditing = true;
         window.controller.LoadOnlyEditableWindow("AudioManager");
@@ -24,10 +24,13 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
     private new void CreateGUI()
     {
         base.CreateGUI();
+        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Sound/ACC_AudioManagerEditorWindowStyles.uss");
+        rootVisualElement.styleSheets.Add(styleSheet);
         
-        tableContainer = uiElementFactory.CreateVisualElement("container-2");
+        tableContainer = uiElementFactory.CreateVisualElement("container");
         rootVisualElement.Add(tableContainer);
         CreateTable();
+        CreateSettingsContainer();
         CreateBottomContainer();
         
         controller.RestoreDataAfterCompilation();
@@ -130,7 +133,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         CreateSounds(row);
         rootVisualElement.schedule.Execute(() => { nameField[0].Focus(); }).StartingIn((long)0.001);
     }
-    
     private void CreateSounds(VisualElement row)
     {
         var soundsContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
@@ -161,7 +163,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         }
         
     }
-
     private void CreateSound(VisualElement row, ACC_Sound accSound = null, int index = -1)
     {
         var soundContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
@@ -234,7 +235,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         soundContainer.Add(addButton);
         soundContainer.Add(deleteButton);
     }
-    
     private void ToggleControlSchemeDisplay(Button arrowButton, VisualElement audioSource)
     {
         if (arrowButton.text == "\u25b6")
@@ -254,7 +254,20 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
             }
         }
     }
-    
+    private void CreateSettingsContainer()
+    {
+        var settingsContainer = uiElementFactory.CreateVisualElement("container-2");
+        var settingsTitle = uiElementFactory.CreateLabel("title", "Settings");
+        var settingsScrollView = uiElementFactory.CreateScrollView("settings-scroll-view");
+
+        var sliderVolume = uiElementFactory.CreateSliderWithFloatField("option-multi-input", "Volume", 0, 1,
+            0.5f);
+        settingsScrollView.Add(sliderVolume);
+        
+        settingsContainer.Add(settingsTitle);
+        settingsContainer.Add(settingsScrollView);
+        rootVisualElement.Add(settingsContainer);
+    }
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
