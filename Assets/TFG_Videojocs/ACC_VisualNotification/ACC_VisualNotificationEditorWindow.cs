@@ -172,12 +172,12 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
             onValueChanged: value => controller.currentData.message = value);
         
         var dropdownHorizontalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Horizontal alignment:", 
-            new List<string> { "Left", "Center", "Right" }, "option-input-label",
-            value => controller.currentData.horizontalAlignment = value);
+            new List<string> { "Left", "Center", "Right" }, subClassList: "option-input-label",
+            onValueChanged: value => controller.currentData.horizontalAlignment = value);
         
         var dropdownVerticalAlignment = (DropdownField)uiElementFactory.CreateDropdownField("option-input", "Vertical alignment:", 
-            new List<string> { "Top", "Center", "Down" }, "option-input-label",
-            value => controller.currentData.verticalAlignment = value);
+            new List<string> { "Top", "Center", "Down" }, subClassList: "option-input-label",
+            onValueChanged:value => controller.currentData.verticalAlignment = value);
 
         var timeOnScreen = uiElementFactory.CreateIntegerField("option-input", "Time on screen (seconds): ", 1, "option-input-label",
             onValueChanged: value => controller.currentData.timeOnScreen = value);

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_HighContrast;
+using TFG_Videojocs.ACC_HighContrast.Toilet;
 using TFG_Videojocs.ACC_RemapControls;
 using TFG_Videojocs.ACC_Subtitles;
 using TFG_Videojocs.ACC_Utilities;
@@ -409,8 +410,8 @@ public class ACC_MainWindow : EditorWindow
             }
             else if (evt.newValue == "Edit high-contrast configuration")
             {
-                // var subtitleSelection = LoadSubtitle();
-                // dynamicContainer.Add(subtitleSelection);
+                var highContrastSelection = LoadHighContrastConfiguration();
+                dynamicContainer.Add(highContrastSelection);
             }
         });
     }
@@ -430,14 +431,13 @@ public class ACC_MainWindow : EditorWindow
 
         return highContrastConfigurationContainer;
     }
-
     private VisualElement LoadHighContrastConfiguration()
     {
         var selectSubtitleContainer = new VisualElement();
 
-        var options = ACC_JSONHelper.GetFilesListByParam<ACC_HighContrastData, string>("ACC_VisualNotification/", data => data.name);
+        var options = ACC_JSONHelper.GetFilesListByParam<ACC_HighContrastData, string>("ACC_HighContrast/", data => data.name);
         
-        visualNotificationDropdown = new DropdownField("Select a visual notification:", options, 0);
+        visualNotificationDropdown = new DropdownField("Select a configuration:", options, 0);
         visualNotificationDropdown.AddToClassList("dropdown-container");
         visualNotificationDropdown[0].AddToClassList("dropdown-label");
 
@@ -450,9 +450,9 @@ public class ACC_MainWindow : EditorWindow
         {
             if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
             {
-                ACC_VisualNotificationEditorWindow.ShowWindow(visualNotificationDropdown.value);
+                ACC_HighContrastEditorWindow.ShowWindow(visualNotificationDropdown.value);
             }
-            else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to load.", "OK");
+            else EditorUtility.DisplayDialog("Required Field", "Please select a high contrast configuration to load.", "OK");
         };
 
         var deleteSubtitleButton = new Button() { text = "Delete" };
@@ -461,11 +461,11 @@ public class ACC_MainWindow : EditorWindow
         {
             if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
             {
-                ACC_BaseFloatingWindow<ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationEditorWindow, ACC_VisualNotificationData>.CloseWindowIfExists<ACC_VisualNotificationEditorWindow>();
-                ACC_JSONHelper.DeleteFile("ACC_VisualNotification/", visualNotificationDropdown.value);
+                ACC_BaseFloatingWindow<ACC_HighContrastEditorWindowController, ACC_HighContrastEditorWindow, ACC_HighContrastData>.CloseWindowIfExists<ACC_HighContrastEditorWindow>();
+                ACC_JSONHelper.DeleteFile("ACC_HighContrast/", visualNotificationDropdown.value);
                 RefreshVisualNotification();
             }
-            else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to delete.", "OK");
+            else EditorUtility.DisplayDialog("Required Field", "Please select a high contrast configuration to delete.", "OK");
         };
         
         editSubtitleBottomContainer.Add(loadSubtitlesButton);

@@ -78,7 +78,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             devices.Insert(0, "All devices");
             var devicesDropdown = (DropdownField) uiElementFactory.CreateDropdownField("option-input", "Devices: ", 
-                devices, "option-input-label"); 
+                devices, subClassList: "option-input-label"); 
 
             var controlSchemes = inputActionAsset.controlSchemes.Select(scheme => scheme.name).ToList();
             controlSchemes.ForEach(key => controller.onScreenControlSchemeToggleValues[key] = false);

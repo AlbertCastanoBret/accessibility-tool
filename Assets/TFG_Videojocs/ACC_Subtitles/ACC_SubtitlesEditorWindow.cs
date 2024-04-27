@@ -149,10 +149,10 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         var settingsTitle = uiElementFactory.CreateLabel("title", "Settings");
         var nameInput = uiElementFactory.CreateTextField( "option-input", "Name: ", "", "option-input-label", 
             value => controller.currentData.name = value);
-        var fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, "option-input-label",
-            value => controller.currentData.fontColor = value);
-        var backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, "option-input-label",
-            value => controller.currentData.backgroundColor = value);
+        var fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, subClassList: "option-input-label",
+            onValueChanged: value => controller.currentData.fontColor = value);
+        var backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, subClassList: "option-input-label",
+            onValueChanged: value => controller.currentData.backgroundColor = value);
         var fontSizeContainer =
             uiElementFactory.CreateSliderWithIntegerField("option-multi-input-last", "Font size:", 20, 100, 40,
                 onValueChanged: value => controller.currentData.fontSize = value);

@@ -29,7 +29,6 @@ namespace TFG_Videojocs.ACC_HighContrast
                 window.controller.lastData = window.controller.currentData.Clone() as ACC_HighContrastData;
             }
         }
-        
         private new void CreateGUI()
         {
             base.CreateGUI();
@@ -44,7 +43,7 @@ namespace TFG_Videojocs.ACC_HighContrast
             
             controller.RestoreDataAfterCompilation();
         }
-
+        
         public void CreateTable()
         {
             tableContainer.Clear();
@@ -61,15 +60,6 @@ namespace TFG_Videojocs.ACC_HighContrast
             for(int i=0; i<controller.currentData.highContrastConfigurations.Items.Count; i++)
             {
                 CreateHighContrastConfiguration(controller.currentData.highContrastConfigurations.Items[i].value.name);
-                var row = uiElementFactory.CreateVisualElement("table-row");
-                var name = uiElementFactory.CreateLabel("table-row-content", "Hola");
-                name.style.width = new StyleLength(Length.Percent(95));
-                
-                var deleteButton = uiElementFactory.CreateButton("-","table-delete-button");
-                
-                row.Add(name);
-                row.Add(deleteButton);
-                tableScrollView.Add(row);
             }
             
             tableContainer.Add(highContrastTitle);
@@ -90,6 +80,11 @@ namespace TFG_Videojocs.ACC_HighContrast
                 {
                     var currentRow = tableScrollView.IndexOf(row)-1;
                     ACC_HighContrastConfiguration newHighContrastData = new ACC_HighContrastConfiguration();
+                    if(controller.currentData.highContrastConfigurations.Items.Exists(x => x.key == currentRow && x.value.name == name))
+                    {
+                        Debug.Log("A");
+                        newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
+                    }
                     newHighContrastData.name = value;
                     controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, newHighContrastData);
                 });
@@ -141,8 +136,10 @@ namespace TFG_Videojocs.ACC_HighContrast
             
             var tagList = UnityEditorInternal.InternalEditorUtility.tags.ToList();
             var tagCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
-            var dropdownTag = (DropdownField)uiElementFactory.CreateDropdownField("table-row-option-input", "Tag:", tagList, "table-row-option-input-label",
-                value =>
+            var tag = controller.currentData.highContrastConfigurations.Items
+                .Find(x => x.key == tableScrollView.IndexOf(row) - 1).value.tag;
+            var dropdownTag = (DropdownField)uiElementFactory.CreateDropdownField("table-row-option-input", "Tag:", tagList, tag, "table-row-option-input-label",
+                onValueChanged: value =>
                 {
                     var currentRow = tableScrollView.IndexOf(row)-1;
                     ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
@@ -154,7 +151,9 @@ namespace TFG_Videojocs.ACC_HighContrast
             colorContainer.style.display = DisplayStyle.None;
             
             var colorCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
-            var colorField = uiElementFactory.CreateColorField("table-row-option-input", "Color:", Color.white, "table-row-option-input-label",
+            var color = controller.currentData.highContrastConfigurations.Items
+                .Find(x => x.key == tableScrollView.IndexOf(row) - 1).value.color;
+            var colorField = uiElementFactory.CreateColorField("table-row-option-input", "Color:", color,  "table-row-option-input-label",
                 value =>
                 {
                     var currentRow = tableScrollView.IndexOf(row)-1;
@@ -167,7 +166,9 @@ namespace TFG_Videojocs.ACC_HighContrast
             outlineColorContainer.style.display = DisplayStyle.None;
             
             var outlineColorCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
-            var outlineColorField = uiElementFactory.CreateColorField("table-row-option-input", "Outline Color:", Color.white, "table-row-option-input-label",
+            var outlineColor = controller.currentData.highContrastConfigurations.Items
+                .Find(x => x.key == tableScrollView.IndexOf(row) - 1).value.outlineColor;
+            var outlineColorField = uiElementFactory.CreateColorField("table-row-option-input", "Outline Color:", outlineColor, "table-row-option-input-label",
                 value =>
                 {
                     var currentRow = tableScrollView.IndexOf(row)-1;
@@ -180,8 +181,10 @@ namespace TFG_Videojocs.ACC_HighContrast
             outlineThicknessContainer.style.display = DisplayStyle.None;
             
             var outlineThicknessCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
+            var outlineThickness = controller.currentData.highContrastConfigurations.Items
+                .Find(x => x.key == tableScrollView.IndexOf(row) - 1).value.outlineThickness;
             var outlineThicknessField =
-                uiElementFactory.CreateSliderWithFloatField("table-row-multi-input", "Outline Thickness:", 0, 1, 0.6f, onValueChanged:
+                uiElementFactory.CreateSliderWithFloatField("table-row-multi-input", "Outline Thickness:", 0, 1, outlineThickness, onValueChanged:
                     value =>
                     {
                         var currentRow = tableScrollView.IndexOf(row)-1;

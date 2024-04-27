@@ -158,11 +158,11 @@ namespace TFG_Videojocs.ACC_Utilities
         }
         
         public VisualElement CreateDropdownField(string classList, string label, List<string> options, 
-            string subClassList = "", Action<string> onValueChanged = null)
+            string value = "Default", string subClassList = "", Action<string> onValueChanged = null)
         {
             var name = GenerateUniqueName(classList);
             
-            var dropdownField = new DropdownField(label, options, 0) { name = name };
+            var dropdownField = new DropdownField(label, options, 0) { name = name, value = value};
             dropdownField.AddToClassList(classList);
             dropdownField[0].AddToClassList(subClassList);
             dropdownField.RegisterValueChangedCallback(evt =>
