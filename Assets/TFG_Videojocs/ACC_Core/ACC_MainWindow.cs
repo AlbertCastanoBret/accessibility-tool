@@ -431,6 +431,52 @@ public class ACC_MainWindow : EditorWindow
         return highContrastConfigurationContainer;
     }
 
+    private VisualElement LoadHighContrastConfiguration()
+    {
+        var selectSubtitleContainer = new VisualElement();
+
+        var options = ACC_JSONHelper.GetFilesListByParam<ACC_HighContrastData, string>("ACC_VisualNotification/", data => data.name);
+        
+        visualNotificationDropdown = new DropdownField("Select a visual notification:", options, 0);
+        visualNotificationDropdown.AddToClassList("dropdown-container");
+        visualNotificationDropdown[0].AddToClassList("dropdown-label");
+
+        var editSubtitleBottomContainer = new VisualElement();
+        editSubtitleBottomContainer.AddToClassList("button-container");
+        
+        var loadSubtitlesButton = new Button() { text = "Load" };
+        loadSubtitlesButton.AddToClassList("button");
+        loadSubtitlesButton.clicked += () =>
+        {
+            if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
+            {
+                ACC_VisualNotificationEditorWindow.ShowWindow(visualNotificationDropdown.value);
+            }
+            else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to load.", "OK");
+        };
+
+        var deleteSubtitleButton = new Button() { text = "Delete" };
+        deleteSubtitleButton.AddToClassList("button");
+        deleteSubtitleButton.clicked += () =>
+        {
+            if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
+            {
+                ACC_BaseFloatingWindow<ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationEditorWindow, ACC_VisualNotificationData>.CloseWindowIfExists<ACC_VisualNotificationEditorWindow>();
+                ACC_JSONHelper.DeleteFile("ACC_VisualNotification/", visualNotificationDropdown.value);
+                RefreshVisualNotification();
+            }
+            else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to delete.", "OK");
+        };
+        
+        editSubtitleBottomContainer.Add(loadSubtitlesButton);
+        editSubtitleBottomContainer.Add(deleteSubtitleButton);
+        
+        selectSubtitleContainer.Add(visualNotificationDropdown);
+        selectSubtitleContainer.Add(editSubtitleBottomContainer);
+        
+        return selectSubtitleContainer;
+    }
+
     private void RemapControlsBox(VisualElement box)
     {
         inputAction = new ObjectField("Select an input action: ")

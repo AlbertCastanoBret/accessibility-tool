@@ -147,7 +147,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         var settingsContainer = uiElementFactory.CreateVisualElement("container-2");
         
         var settingsTitle = uiElementFactory.CreateLabel("title", "Settings");
-        var nameInput = uiElementFactory.CreateTextField( "option-input-name", "Name: ", "", "option-input-name-label", 
+        var nameInput = uiElementFactory.CreateTextField( "option-input", "Name: ", "", "option-input-label", 
             value => controller.currentData.name = value);
         var fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, "option-input-label",
             value => controller.currentData.fontColor = value);

@@ -25,9 +25,9 @@ namespace TFG_Videojocs.ACC_Subtitles
         
         protected override void RestoreFieldValues()
         {
-            window.rootVisualElement.Query<TextField>(name: "option-input-name-0").First().value = currentData.name;
-            window.rootVisualElement.Query<ColorField>(name: "option-input-0").First().value = currentData.fontColor;
-            window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value =
+            window.rootVisualElement.Query<TextField>(name: "option-input-0").First().value = currentData.name;
+            window.rootVisualElement.Query<ColorField>(name: "option-input-1").First().value = currentData.fontColor;
+            window.rootVisualElement.Query<ColorField>(name: "option-input-2").First().value =
                 currentData.backgroundColor;
             window.rootVisualElement.Query<SliderInt>(name: "multi-input-1-0").First().value = currentData.fontSize;
 

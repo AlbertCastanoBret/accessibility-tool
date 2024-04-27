@@ -165,7 +165,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         
         var settingsLabelTitle = uiElementFactory.CreateLabel("title", "Settings");
         
-        var nameInput = uiElementFactory.CreateTextField("option-input-name", "Name: ", "", "option-input-name-label", 
+        var nameInput = uiElementFactory.CreateTextField("option-input", "Name: ", "", "option-input-label", 
             onValueChanged: value => controller.currentData.name = value);
         
         var messageInput = uiElementFactory.CreateTextField("option-input", "Message: ", "", "option-input-label",

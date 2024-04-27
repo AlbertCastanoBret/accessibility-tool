@@ -40,7 +40,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
     {
         tableContainer.Clear();
             
-        var highContrastTitle = uiElementFactory.CreateLabel("title", "Audio Settings");
+        var highContrastTitle = uiElementFactory.CreateLabel("title", "Sounds:");
         tableScrollView = uiElementFactory.CreateScrollView("table-scroll-view");
             
         var containerTableTitle = uiElementFactory.CreateVisualElement("table-row-title");
@@ -179,7 +179,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         }
         
         var soundCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
-        var sound = (ObjectField)uiElementFactory.CreateObjectField("table-row-multi-input", "Audio Clip:", typeof(AudioClip), 
+        var sound = (ObjectField)uiElementFactory.CreateObjectField("table-row-option-input", "Audio Clip:", typeof(AudioClip), 
             onValueChanged: value => { RegisterChangeSoundValue(row, soundContainer, value); });
         if (accSound != null)
         {

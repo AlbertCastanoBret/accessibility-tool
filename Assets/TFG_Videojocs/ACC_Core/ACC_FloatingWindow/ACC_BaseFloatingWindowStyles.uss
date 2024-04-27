@@ -81,6 +81,7 @@ Button{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     width: 90%;
     background-color: #5e5e5e;
     border-bottom-color: #b2b2b2;
@@ -113,27 +114,20 @@ Button{
     border-width: 0;
 }
 
+.table-row-option-input{
+    margin-left: auto;
+    width: 100%;
+}
+
+.table-row-option-input-label{
+    width: 50%;
+}
+
 .table-row-multi-input{
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: center;
-}
-
-.option-input-name{
-    margin-bottom: 6px;
-    margin-left: auto;
-    width: 100%;
-}
-
-.option-input-name-last{
-    margin-bottom: 0;
-    margin-left: auto;
-    width: 100%;
-}
-
-.option-input-name-label{
-    width: 50%;
 }
 
 .option-container{

@@ -4,7 +4,7 @@ namespace TFG_Videojocs.ACC_HighContrast.Toilet
     {
         protected override void RestoreFieldValues()
         {
-            
+            window.CreateTable();
         }
     }
 }
