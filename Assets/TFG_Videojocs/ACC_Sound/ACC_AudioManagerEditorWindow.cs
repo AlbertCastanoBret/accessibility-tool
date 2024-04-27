@@ -20,7 +20,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         window.controller.isEditing = true;
         window.controller.LoadOnlyEditableWindow("AudioManager");
     }
-    
     private new void CreateGUI()
     {
         base.CreateGUI();
@@ -179,13 +178,30 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         }
         
         var soundCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
-        var sound = (ObjectField)uiElementFactory.CreateObjectField("table-row-option-input", "Audio Clip:", typeof(AudioClip), 
-            onValueChanged: value => { RegisterChangeSoundValue(row, soundContainer, value); });
-        if (accSound != null)
-        {
-            sound.value = accSound.audioClip;
-            RegisterChangeSoundValue(row, soundContainer, sound.value);
-        }
+        var sound = (ObjectField)uiElementFactory.CreateObjectField("table-row-option-input", "Audio Clip:", typeof(AudioClip), accSound?.audioClip,
+            onValueChanged: value => {  
+                var currentSoundRow = row.IndexOf(soundContainer) - 2;
+                var newValue = value;
+                
+                var audioClip = newValue as AudioClip;
+                ACC_Sound accSound;
+
+                if(audioClip != null)
+                {
+                    accSound = new ACC_Sound(audioClip.name, audioClip);
+                }
+                else
+                {
+                    accSound = new ACC_Sound("Default Name", null);
+                }
+                    
+                if(!controller.currentData.audioClips.Items.Exists(x=> x.key.Equals(tableScrollView.IndexOf(row) - 1)))
+                {
+                    controller.currentData.audioClips.AddOrUpdate(tableScrollView.IndexOf(row) - 1, new ACC_SerializableDictiornary<int, ACC_Sound>());
+                }
+                    
+                controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.AddOrUpdate(currentSoundRow, accSound); 
+            });
         
         var addButton = uiElementFactory.CreateButton("+", "table-add-button", () =>
         {
@@ -244,30 +260,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                 audioSource[j].style.display = DisplayStyle.None;
             }
         }
-    }
-    private void RegisterChangeSoundValue(VisualElement row, VisualElement soundContainer, Object value)
-    {
-        var currentSoundRow = row.IndexOf(soundContainer) - 2;
-        var newValue = value;
-                
-        var audioClip = newValue as AudioClip;
-        ACC_Sound accSound;
-
-        if(audioClip != null)
-        {
-            accSound = new ACC_Sound(audioClip.name, audioClip);
-        }
-        else
-        {
-            accSound = new ACC_Sound("Default Name", null);
-        }
-                    
-        if(!controller.currentData.audioClips.Items.Exists(x=> x.key.Equals(tableScrollView.IndexOf(row) - 1)))
-        {
-            controller.currentData.audioClips.AddOrUpdate(tableScrollView.IndexOf(row) - 1, new ACC_SerializableDictiornary<int, ACC_Sound>());
-        }
-                    
-        controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.AddOrUpdate(currentSoundRow, accSound);
     }
     private void CreateSettingsContainer()
     {

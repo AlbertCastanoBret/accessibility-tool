@@ -135,13 +135,13 @@ namespace TFG_Videojocs.ACC_Utilities
             return scrollView;
         }
         
-        public VisualElement CreateObjectField(string classList, string label,  Type type,
+        public VisualElement CreateObjectField(string classList, string label,  Type type, Object value = null,
             string subClassList1 = "multi-input-1-1", string subClassList2 = "multi-input-1-2", 
             Action<Object> onValueChanged = null)
         {
             var name = GenerateUniqueName(classList);
             
-            var objectField = new ObjectField(label) { name = name, objectType = type };
+            var objectField = new ObjectField(label) { name = name, objectType = type, value = value};
             objectField.AddToClassList(classList);
 
             objectField[0].name = GenerateUniqueName(subClassList1);
