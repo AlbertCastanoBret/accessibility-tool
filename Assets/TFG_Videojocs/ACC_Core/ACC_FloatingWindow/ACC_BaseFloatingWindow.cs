@@ -15,6 +15,8 @@ namespace TFG_Videojocs
     {
         public TController controller { get; private set; }
         protected ACC_UIElementFactory uiElementFactory => controller.uiElementFactory;
+
+        public delegate void WindowDelegate(string directory);
         
         private Vector2 fixedPosition = new Vector2(100, 100);
         private bool positionSet = false;
@@ -51,11 +53,12 @@ namespace TFG_Videojocs
         
         public static void CloseWindowIfExists<T>() where T : EditorWindow
         {
-            
             T window = (T)GetWindow(typeof(T), false);
-            if (window != null)
+            ACC_BaseFloatingWindow<TController,TWindow, TData> floatingWindow = window as ACC_BaseFloatingWindow<TController, TWindow, TData>;
+            if (floatingWindow != null)
             {
-                window.Close();
+                floatingWindow.controller.isDiscarting = true;
+                floatingWindow.Close();
             }
         }
         

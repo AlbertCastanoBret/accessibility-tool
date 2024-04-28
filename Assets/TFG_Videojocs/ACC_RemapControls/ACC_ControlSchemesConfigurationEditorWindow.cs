@@ -26,7 +26,6 @@ namespace TFG_Videojocs.ACC_RemapControls
             window.minSize = new Vector2(600, 450);
             window.maxSize = new Vector2(600, 450);
             
-            window.controller.isReadyToCreateGUI = true;
             window.controller.isEditing = true;
             window.inputActionAsset = inputActionAsset;
             
@@ -35,7 +34,6 @@ namespace TFG_Videojocs.ACC_RemapControls
             window.PositionWindowInBottomRight();
             window.SetFixedPosition();
         }
-        
         protected new void CreateGUI()
         {
             if(inputActionAsset == null) return;
@@ -56,6 +54,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             
             controller.RestoreDataAfterCompilation();
         }
+        
         private void CreateDropdownField()
         {
             var devices = inputActionAsset.controlSchemes

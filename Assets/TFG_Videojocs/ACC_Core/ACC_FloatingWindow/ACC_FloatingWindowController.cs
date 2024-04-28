@@ -23,7 +23,7 @@ namespace TFG_Videojocs
         public TData lastData;
 
         [SerializeField] public string oldName;
-        [SerializeField] public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile, isReadyToCreateGUI;
+        [SerializeField] public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile, isDiscarting;
         
         public void Initialize(TWindow window)
         {
@@ -47,7 +47,6 @@ namespace TFG_Videojocs
                 ConfigureJson();
             }
         }
-        
         public virtual void ConfigureJson()
         {
             var path = "/" + window.GetType().Name.Replace("EditorWindow", "") + "/";
@@ -55,7 +54,6 @@ namespace TFG_Videojocs
             lastData = (TData)currentData.Clone(); 
             if (isEditing) oldName = currentData.name;
         }
-
         public virtual void LoadJson(string name)
         {
             var path = window.GetType().Name.Replace("EditorWindow", "") + "/";
@@ -67,9 +65,7 @@ namespace TFG_Videojocs
             
             RestoreFieldValues();
         }
-        
         protected abstract void RestoreFieldValues();
-        
         public virtual void HandleSave<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
             var name = currentData.name;
@@ -135,7 +131,6 @@ namespace TFG_Videojocs
                 if(isClosing) Cancel(window);
             }
         }
-
         public void Cancel<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
             var newWindow = Object.Instantiate(window);
@@ -150,9 +145,9 @@ namespace TFG_Videojocs
             //AddRemainingVisualElements(window.rootVisualElement, newWindow.rootVisualElement);
             newWindow.controller.RestoreFieldValues();
         }
-
         public void ConfirmSaveChangesIfNeeded<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
-        {
+        {   
+            if(isDiscarting) return;
             if (IsThereAnyChange())
             {
                 var path = "./" + window.GetType().Name.Replace("EditorWindow", "") + "/";

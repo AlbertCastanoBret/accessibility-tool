@@ -12,13 +12,12 @@ using UnityEngine.UIElements;
 public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEditorWindowController, ACC_SubtitlesEditorWindow, ACC_SubtitleData>
 {
     private VisualElement table;
-    public delegate void SubtitleWindowDelegate();
-    public static event SubtitleWindowDelegate OnCloseSubtitleWindow;
+    public new static event WindowDelegate OnCloseWindow;
     
     private new void OnDestroy()
     {
         base.OnDestroy();
-        OnCloseSubtitleWindow?.Invoke();
+        OnCloseWindow?.Invoke("ACC_Subtitles/");
     }
 
     public static void ShowWindow(string name)

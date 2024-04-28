@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_HighContrast.Toilet;
@@ -31,19 +32,25 @@ public class ACC_MainWindow : EditorWindow
     private ScrollView soundContainer;
     private DropdownField visualNotificationDropdown;
 
+    private DropdownField highContrastDropdown;
+
     private InputActionAsset inputActionAsset;
     private ObjectField inputAction;
     
     private void OnEnable()
     {
-        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow += RefreshSubtititleWindow;
-        ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow += RefreshVisualNotification;
+        ACC_SubtitlesEditorWindow.OnCloseWindow += RefreshDropdown<ACC_SubtitleData>;
+        // ACC_VisualNotificationEditorWindow.OnCloseWindow += RefreshDropdown<ACC_VisualNotificationData>;
+        subtitlesDropdown = new();
+        visualNotificationDropdown = new();
+        highContrastDropdown = new();
+        
     }
 
     private void OnDisable()
     {
-        ACC_SubtitlesEditorWindow.OnCloseSubtitleWindow -= RefreshSubtititleWindow;
-        ACC_VisualNotificationEditorWindow.OnCloseVisualNotificationWindow -= RefreshVisualNotification;
+        ACC_SubtitlesEditorWindow.OnCloseWindow -= RefreshDropdown<ACC_SubtitleData>;
+        // ACC_VisualNotificationEditorWindow.OnCloseWindow -= RefreshDropdown<ACC_VisualNotificationData>;
     }
 
     [MenuItem("Tools/ACC/Accessibility Window")]
@@ -98,7 +105,6 @@ public class ACC_MainWindow : EditorWindow
         rootVisualElement.Add(toolbar);
         rootVisualElement.Add(mainContainer);
     }
-    
     private void UpdateAccessibilityContainer(Type featureType)
     {
         accessibilityContainer.Clear();
@@ -107,7 +113,6 @@ public class ACC_MainWindow : EditorWindow
             accessibilityContainer.Add(CreateFeatureBox(featureType, i));
         }
     }
-
     private VisualElement CreateFeatureBox(Type featuretype, int index)
     {
         var box = new VisualElement();
@@ -130,10 +135,20 @@ public class ACC_MainWindow : EditorWindow
         switch (Enum.GetName(typeof(AudioFeatures), index))
         {
             case "Subtitles":
-                SubtitlesBox(box);
+                DefaultBox(box, 
+                    new List<string> {"Create A Subtitle", "Edit Subtitle", "Edit Prefab" }, 
+                    () => DefaultCreateAction("Create", ACC_SubtitlesEditorWindow.ShowWindow),
+                    () => DefaultLoadAction<ACC_SubtitlesEditorWindow, ACC_SubtitlesEditorWindowController, ACC_SubtitleData>(
+                        subtitlesDropdown, "ACC_Subtitles/", "Select a subtitle:", ACC_SubtitlesEditorWindow.ShowWindow),
+                    "Subtitles");
                 break;
             case "VisualNotification":
-                VisualContainerBox(box);
+                DefaultBox(box, 
+                    new List<string> {"Create a visual notification", "Edit visual notification", "Edit Prefab" }, 
+                    () => DefaultCreateAction("Create", ACC_VisualNotificationEditorWindow.ShowWindow),
+                    () => DefaultLoadAction<ACC_VisualNotificationEditorWindow, ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationData>(
+                        visualNotificationDropdown, "ACC_VisualNotification/", "Select a visual notification:", ACC_VisualNotificationEditorWindow.ShowWindow),
+                    "VisualNotification");
                 break;
         }
     }
@@ -144,7 +159,12 @@ public class ACC_MainWindow : EditorWindow
             case "TextToVoice":
                 break;
             case "HighContrast":
-                HighContrastBox(box);
+                DefaultBox( box, 
+                    new List<string> {"Create a high-contrast configuration", "Edit high-contrast configuration"}, 
+                    () => DefaultCreateAction("Create", ACC_VisualNotificationEditorWindow.ShowWindow), 
+                    () => DefaultLoadAction<ACC_HighContrastEditorWindow, ACC_HighContrastEditorWindowController, ACC_HighContrastData>(
+                        highContrastDropdown, "ACC_HighContrast/", "Select a configuration:", ACC_HighContrastEditorWindow.ShowWindow),
+                    "");
                 break;
         }
     }
@@ -166,317 +186,6 @@ public class ACC_MainWindow : EditorWindow
                 break;
         }
     }
-
-    private void SubtitlesBox(VisualElement box)
-    {
-        var dynamicContainer = new VisualElement();
-        var options = new List<string> { "Create A Subtitle", "Edit Subtitle", "Edit Prefab" };
-        var dropdown = new DropdownField("Options:", options, 0);
-                
-        dropdown.AddToClassList("dropdown-container");
-        dropdown[0].AddToClassList("dropdown-label");
-        
-        var subtitleCreation = CreateASubtitle();
-        dynamicContainer.Add(subtitleCreation);
-                
-        box.Add(dropdown);
-        box.Add(dynamicContainer);
-                
-        dropdown.RegisterValueChangedCallback(evt =>
-        {
-            dynamicContainer.Clear();
-            if (evt.newValue == "Create A Subtitle")
-            {
-                dynamicContainer.Add(subtitleCreation);
-            }
-            else if (evt.newValue == "Edit Subtitle")
-            {
-                var subtitleSelection = LoadSubtitle();
-                dynamicContainer.Add(subtitleSelection);
-            }
-            else
-            {
-                var loadPrefabContainer = new VisualElement();
-                var loadPrefabButton = new Button() { text = "Edit" };
-                loadPrefabButton.AddToClassList("create-button");
-                loadPrefabButton.clicked += () => { LoadPrefab("Subtitles"); };
-                
-                loadPrefabContainer.Add(loadPrefabButton);
-                dynamicContainer.Add(loadPrefabContainer);
-            }
-        });
-    }
-    private VisualElement CreateASubtitle()
-    {
-        var subtitleCreationContainer = new VisualElement();
-
-        var createSubtitlesButton = new Button() { text = "Create" };
-        createSubtitlesButton.AddToClassList("create-button");
-        subtitleCreationContainer.Add(createSubtitlesButton);
-        
-        createSubtitlesButton.clicked += () =>
-        {
-            ACC_SubtitlesEditorWindow.ShowWindow(null);
-        };
-
-        return subtitleCreationContainer;
-    }
-    private VisualElement LoadSubtitle()
-    {
-        var selectSubtitleContainer = new VisualElement();
-
-        var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("ACC_Subtitles/", data => data.name);
-        
-        subtitlesDropdown = new DropdownField("Select a subtitle:", options, 0);
-        subtitlesDropdown.AddToClassList("dropdown-container");
-        subtitlesDropdown[0].AddToClassList("dropdown-label");
-
-        var editSubtitleBottomContainer = new VisualElement();
-        editSubtitleBottomContainer.AddToClassList("button-container");
-        
-        var loadSubtitlesButton = new Button() { text = "Load" };
-        loadSubtitlesButton.AddToClassList("button");
-        loadSubtitlesButton.clicked += () =>
-        {
-            if (!string.IsNullOrEmpty(subtitlesDropdown.value)) ACC_SubtitlesEditorWindow.ShowWindow(subtitlesDropdown.value);
-            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to load.", "OK");
-        };
-
-        var deleteSubtitleButton = new Button() { text = "Delete" };
-        deleteSubtitleButton.AddToClassList("button");
-        deleteSubtitleButton.clicked += () =>
-        {
-            if (!string.IsNullOrEmpty(subtitlesDropdown.value))
-            {
-                ACC_BaseFloatingWindow<ACC_SubtitlesEditorWindowController, ACC_SubtitlesEditorWindow, ACC_SubtitleData>.CloseWindowIfExists<ACC_SubtitlesEditorWindow>();
-                ACC_JSONHelper.DeleteFile("ACC_Subtitles/", subtitlesDropdown.value);
-                RefreshSubtititleWindow();
-            }
-            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to delete.", "OK");
-        };
-        
-        editSubtitleBottomContainer.Add(loadSubtitlesButton);
-        editSubtitleBottomContainer.Add(deleteSubtitleButton);
-        
-        selectSubtitleContainer.Add(subtitlesDropdown);
-        selectSubtitleContainer.Add(editSubtitleBottomContainer);
-        
-        return selectSubtitleContainer;
-    }
-    private void RefreshSubtititleWindow()
-    {
-        if (subtitlesDropdown != null)
-        {
-            var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("ACC_Subtitles/", data => data.name);
-            subtitlesDropdown.choices = options;
-            subtitlesDropdown.value = options.Count > 0 ? options[0] : "";
-        }
-        Repaint();
-    }
-
-    private void VisualContainerBox(VisualElement box)
-    {
-        var dynamicContainer = new VisualElement();
-        
-        var options = new List<string> { "Create a visual notification", "Edit visual notification", "Edit Prefab" };
-        var dropdown = new DropdownField("Options:", options, 0);
-                
-        dropdown.AddToClassList("dropdown-container");
-        dropdown[0].AddToClassList("dropdown-label");
-        
-        var addVisualNotificationButton = CreateAVisualNotification();
-        dynamicContainer.Add(addVisualNotificationButton);
-        
-        dropdown.RegisterValueChangedCallback(evt =>
-        {
-            dynamicContainer.Clear();
-            if (evt.newValue == "Create a visual notification")
-            {
-                dynamicContainer.Add(addVisualNotificationButton);
-            }
-            else if (evt.newValue == "Edit visual notification")
-            {
-                var visualNotificationSelection = LoadVisualNotification();
-                dynamicContainer.Add(visualNotificationSelection);
-            }
-            else
-            {
-                var loadPrefabContainer = new VisualElement();
-                var loadPrefabButton = new Button() { text = "Edit" };
-                loadPrefabButton.AddToClassList("create-button");
-                loadPrefabButton.clicked += () => { LoadPrefab("VisualNotification"); };
-                
-                loadPrefabContainer.Add(loadPrefabButton);
-                dynamicContainer.Add(loadPrefabContainer);
-            }
-        });
-        
-        box.Add(dropdown);
-        box.Add(dynamicContainer);
-    }
-    private VisualElement CreateAVisualNotification()
-    {
-        var visualNotificationContainer = new VisualElement();
-
-        var createVisualNotificationButton = new Button() { text = "Create" };
-        createVisualNotificationButton.AddToClassList("create-button");
-        visualNotificationContainer.Add(createVisualNotificationButton);
-        
-        createVisualNotificationButton.clicked += () =>
-        {
-            ACC_VisualNotificationEditorWindow.ShowWindow(null);
-        };
-
-        return visualNotificationContainer;
-    }
-    private VisualElement LoadVisualNotification()
-    {
-        var selectSubtitleContainer = new VisualElement();
-
-        var options = ACC_JSONHelper.GetFilesListByParam<ACC_VisualNotificationData, string>("ACC_VisualNotification/", data => data.name);
-        
-        visualNotificationDropdown = new DropdownField("Select a visual notification:", options, 0);
-        visualNotificationDropdown.AddToClassList("dropdown-container");
-        visualNotificationDropdown[0].AddToClassList("dropdown-label");
-
-        var editSubtitleBottomContainer = new VisualElement();
-        editSubtitleBottomContainer.AddToClassList("button-container");
-        
-        var loadSubtitlesButton = new Button() { text = "Load" };
-        loadSubtitlesButton.AddToClassList("button");
-        loadSubtitlesButton.clicked += () =>
-        {
-            if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
-            {
-                ACC_VisualNotificationEditorWindow.ShowWindow(visualNotificationDropdown.value);
-            }
-            else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to load.", "OK");
-        };
-
-        var deleteSubtitleButton = new Button() { text = "Delete" };
-        deleteSubtitleButton.AddToClassList("button");
-        deleteSubtitleButton.clicked += () =>
-        {
-            if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
-            {
-                ACC_BaseFloatingWindow<ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationEditorWindow, ACC_VisualNotificationData>.CloseWindowIfExists<ACC_VisualNotificationEditorWindow>();
-                ACC_JSONHelper.DeleteFile("ACC_VisualNotification/", visualNotificationDropdown.value);
-                RefreshVisualNotification();
-            }
-            else EditorUtility.DisplayDialog("Required Field", "Please select a visual notification to delete.", "OK");
-        };
-        
-        editSubtitleBottomContainer.Add(loadSubtitlesButton);
-        editSubtitleBottomContainer.Add(deleteSubtitleButton);
-        
-        selectSubtitleContainer.Add(visualNotificationDropdown);
-        selectSubtitleContainer.Add(editSubtitleBottomContainer);
-        
-        return selectSubtitleContainer;
-    }
-    private void RefreshVisualNotification()
-    {
-        if (visualNotificationDropdown != null)
-        {
-            var options = ACC_JSONHelper.GetFilesListByParam<ACC_SubtitleData, string>("ACC_VisualNotification/", data => data.name);
-            visualNotificationDropdown.choices = options;
-            visualNotificationDropdown.value = options.Count > 0 ? options[0] : "";
-        }
-        Repaint();
-    }
-    
-    private void HighContrastBox(VisualElement box)
-    {
-        var dynamicContainer = new VisualElement();
-        var options = new List<string> { "Create a high-contrast configuration", /*"Add accessbility to existent subtitle",*/ "Edit high-contrast configuration" };
-        var dropdown = new DropdownField("Options:", options, 0);
-                
-        dropdown.AddToClassList("dropdown-container");
-        dropdown[0].AddToClassList("dropdown-label");
-        
-        var subtitleCreation = CreateAHighContrastConfiguration();
-        dynamicContainer.Add(subtitleCreation);
-                
-        box.Add(dropdown);
-        box.Add(dynamicContainer);
-                
-        dropdown.RegisterValueChangedCallback(evt =>
-        {
-            dynamicContainer.Clear();
-            if (evt.newValue == "Create a high-contrast configuration")
-            {
-                subtitleCreation = CreateAHighContrastConfiguration();
-                dynamicContainer.Add(subtitleCreation);
-            }
-            else if (evt.newValue == "Edit high-contrast configuration")
-            {
-                var highContrastSelection = LoadHighContrastConfiguration();
-                dynamicContainer.Add(highContrastSelection);
-            }
-        });
-    }
-    private VisualElement CreateAHighContrastConfiguration()
-    {
-        var highContrastConfigurationContainer = new VisualElement();
-        highContrastConfigurationContainer.AddToClassList("subtitle-creation-container");
-
-        var createHighContrastConfigurationButton = new Button() { text = "Create" };
-        createHighContrastConfigurationButton.AddToClassList("create-button");
-        highContrastConfigurationContainer.Add(createHighContrastConfigurationButton);
-        
-        createHighContrastConfigurationButton.clicked += () =>
-        {
-            ACC_HighContrastEditorWindow.ShowWindow(null);
-        };
-
-        return highContrastConfigurationContainer;
-    }
-    private VisualElement LoadHighContrastConfiguration()
-    {
-        var selectSubtitleContainer = new VisualElement();
-
-        var options = ACC_JSONHelper.GetFilesListByParam<ACC_HighContrastData, string>("ACC_HighContrast/", data => data.name);
-        
-        visualNotificationDropdown = new DropdownField("Select a configuration:", options, 0);
-        visualNotificationDropdown.AddToClassList("dropdown-container");
-        visualNotificationDropdown[0].AddToClassList("dropdown-label");
-
-        var editSubtitleBottomContainer = new VisualElement();
-        editSubtitleBottomContainer.AddToClassList("button-container");
-        
-        var loadSubtitlesButton = new Button() { text = "Load" };
-        loadSubtitlesButton.AddToClassList("button");
-        loadSubtitlesButton.clicked += () =>
-        {
-            if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
-            {
-                ACC_HighContrastEditorWindow.ShowWindow(visualNotificationDropdown.value);
-            }
-            else EditorUtility.DisplayDialog("Required Field", "Please select a high contrast configuration to load.", "OK");
-        };
-
-        var deleteSubtitleButton = new Button() { text = "Delete" };
-        deleteSubtitleButton.AddToClassList("button");
-        deleteSubtitleButton.clicked += () =>
-        {
-            if (!string.IsNullOrEmpty(visualNotificationDropdown.value))
-            {
-                ACC_BaseFloatingWindow<ACC_HighContrastEditorWindowController, ACC_HighContrastEditorWindow, ACC_HighContrastData>.CloseWindowIfExists<ACC_HighContrastEditorWindow>();
-                ACC_JSONHelper.DeleteFile("ACC_HighContrast/", visualNotificationDropdown.value);
-                RefreshVisualNotification();
-            }
-            else EditorUtility.DisplayDialog("Required Field", "Please select a high contrast configuration to delete.", "OK");
-        };
-        
-        editSubtitleBottomContainer.Add(loadSubtitlesButton);
-        editSubtitleBottomContainer.Add(deleteSubtitleButton);
-        
-        selectSubtitleContainer.Add(visualNotificationDropdown);
-        selectSubtitleContainer.Add(editSubtitleBottomContainer);
-        
-        return selectSubtitleContainer;
-    }
-
     private void RemapControlsBox(VisualElement box)
     {
         inputAction = new ObjectField("Select an input action: ")
@@ -604,7 +313,6 @@ public class ACC_MainWindow : EditorWindow
             inputAction.value = AssetDatabase.LoadAssetAtPath<InputActionAsset>(path);
         }
     }
-    
     private void AudioManagerBox(VisualElement box)
     {
         box.Add(LoadAudioManager());
@@ -622,6 +330,124 @@ public class ACC_MainWindow : EditorWindow
     }
 
     #region HelperMethods
+    private void DefaultBox(VisualElement box, List<string> options, Func<VisualElement> createAction, Func<VisualElement> loadAction, string prefabName)
+    {
+        var dynamicContainer = new VisualElement();
+        var dropdown = new DropdownField("Options:", options, 0);
+                
+        dropdown.AddToClassList("dropdown-container");
+        dropdown[0].AddToClassList("dropdown-label");
+        
+        VisualElement createActionContainer = createAction();
+        dynamicContainer.Add(createActionContainer);
+        
+        box.Add(dropdown);
+        box.Add(dynamicContainer);
+                
+        dropdown.RegisterValueChangedCallback(evt =>
+        {
+            dynamicContainer.Clear();
+            if (evt.newValue == options[0])
+            {
+                dynamicContainer.Add(createActionContainer);
+            }
+            else if (evt.newValue == options[1])
+            {
+                var selection = loadAction.Invoke();
+                dynamicContainer.Add(selection);
+            }
+            else
+            {
+                var loadPrefabContainer = new VisualElement();
+                var loadPrefabButton = new Button() { text = "Edit" };
+                loadPrefabButton.AddToClassList("create-button");
+                loadPrefabButton.clicked += () => { LoadPrefab(prefabName); };
+                
+                loadPrefabContainer.Add(loadPrefabButton);
+                dynamicContainer.Add(loadPrefabContainer);
+            }
+        });
+    }
+    private VisualElement DefaultCreateAction(string buttonText, Action<string> action)
+    {
+        var container = new VisualElement();
+
+        var button = new Button() { text = buttonText };
+        button.AddToClassList("create-button");
+        container.Add(button);
+    
+        button.clicked += () =>
+        {
+            action.Invoke(null);
+        };
+
+        return container;
+    }
+    private VisualElement DefaultLoadAction<TWindow, TController, TData>(DropdownField dropdown, string directory, string dropdownLabel, Action<string> action) 
+        where TWindow : EditorWindow where TController : ACC_FloatingWindowController<TWindow, TData>, new() where TData : ACC_AbstractData, new()
+    {
+        if (dropdown == null) throw new ArgumentNullException(nameof(dropdown));
+        var selectContainer = new VisualElement();
+
+        var options = ACC_JSONHelper.GetFilesListByParam<TData, string>(directory, data => data.name);
+        
+        dropdown = new DropdownField(dropdownLabel, options, 0);
+        dropdown.AddToClassList("dropdown-container");
+        dropdown[0].AddToClassList("dropdown-label");
+
+        var editBottomContainer = new VisualElement();
+        editBottomContainer.AddToClassList("button-container");
+        
+        var loadButton = new Button() { text = "Load" };
+        loadButton.AddToClassList("button");
+        loadButton.clicked += () =>
+        {
+            if (!string.IsNullOrEmpty(dropdown.value)) action.Invoke(dropdown.value);
+            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to load.", "OK");
+        };
+
+        var deleteButton = new Button() { text = "Delete" };
+        deleteButton.AddToClassList("button");
+        deleteButton.clicked += () =>
+        {
+            if (!string.IsNullOrEmpty(dropdown.value))
+            {
+                ACC_BaseFloatingWindow<TController, TWindow, TData>.CloseWindowIfExists<TWindow>();
+                ACC_JSONHelper.DeleteFile("ACC_Subtitles/", dropdown.value);
+                //RefreshSubtititleWindow();
+            }
+            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to delete.", "OK");
+        };
+        
+        editBottomContainer.Add(loadButton);
+        editBottomContainer.Add(deleteButton);
+        
+        selectContainer.Add(dropdown);
+        selectContainer.Add(editBottomContainer);
+        
+        return selectContainer;
+    }
+    private void RefreshDropdown<TData>(string directory) where TData : ACC_AbstractData, new()
+    {
+        DropdownField dropdown = null;
+        switch (directory)
+        {
+            case "ACC_Subtitles/":
+                dropdown = subtitlesDropdown;
+                break;
+            case "ACC_VisualNotification/":
+                dropdown = visualNotificationDropdown;
+                break;
+        }
+
+        if (dropdown != null)
+        {
+            var options = ACC_JSONHelper.GetFilesListByParam<TData, string>(directory, data => data.name);
+            dropdown.choices = options;
+            dropdown.value = options.Count > 0 ? options[0] : "Select Option";
+            Repaint();
+        }
+    }
     private void LoadPrefab(string feature, string jsonFile="")
     {
         var folder = "ACC_ " + feature + "/";
