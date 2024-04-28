@@ -37,13 +37,13 @@ public class ACC_MainWindow : EditorWindow
     {
         ACC_SubtitlesEditorWindow.OnCloseWindow += RefreshDropdown<ACC_SubtitleData>;
         ACC_VisualNotificationEditorWindow.OnCloseWindow += RefreshDropdown<ACC_VisualNotificationData>;
-        
+        ACC_HighContrastEditorWindow.OnCloseWindow += RefreshDropdown<ACC_HighContrastData>;
     }
-
     private void OnDisable()
     {
         ACC_SubtitlesEditorWindow.OnCloseWindow -= RefreshDropdown<ACC_SubtitleData>;
         ACC_VisualNotificationEditorWindow.OnCloseWindow -= RefreshDropdown<ACC_VisualNotificationData>;
+        ACC_HighContrastEditorWindow.OnCloseWindow -= RefreshDropdown<ACC_HighContrastData>;
     }
 
     [MenuItem("Tools/ACC/Accessibility Window")]
@@ -52,7 +52,6 @@ public class ACC_MainWindow : EditorWindow
         var window = GetWindow<ACC_MainWindow>("Accessibility Window");
         window.minSize = new Vector2(520, 300);
     }
-
     public void CreateGUI()
     {
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Core/ACC_WindowStyles.uss");
@@ -98,6 +97,7 @@ public class ACC_MainWindow : EditorWindow
         rootVisualElement.Add(toolbar);
         rootVisualElement.Add(mainContainer);
     }
+    
     private void UpdateAccessibilityContainer(Type featureType)
     {
         accessibilityContainer.Clear();
@@ -122,7 +122,6 @@ public class ACC_MainWindow : EditorWindow
         else if (featuretype==typeof(MultifiunctionalFeatures))CreateMultifunctionalBox(box, index);
         return box;
     }
-
     private void CreateAudioBox(VisualElement box, int index)
     {
         switch (Enum.GetName(typeof(AudioFeatures), index))

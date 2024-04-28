@@ -65,8 +65,8 @@ namespace TFG_Videojocs
             
             RestoreFieldValues();
         }
-        protected abstract void RestoreFieldValues();
         
+        protected abstract void RestoreFieldValues();
         public virtual void HandleSave<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
             var name = currentData.name;
@@ -166,6 +166,7 @@ namespace TFG_Videojocs
                 }
             }
         }
+        
         public void CloneControllerAttributes<TController>(TController sourceController) where TController : ACC_FloatingWindowController<TWindow, TData>
         {
             foreach (var item in sourceController.uiElementFactory.nameCounters.Items)

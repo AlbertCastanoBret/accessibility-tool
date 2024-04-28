@@ -10,6 +10,13 @@ namespace TFG_Videojocs.ACC_HighContrast
     public class ACC_HighContrastEditorWindow:ACC_BaseFloatingWindow<ACC_HighContrastEditorWindowController, ACC_HighContrastEditorWindow, ACC_HighContrastData>
     {
         private VisualElement tableContainer, tableScrollView;
+        public static event WindowDelegate OnCloseWindow;
+        
+        private new void OnDestroy()
+        {
+            base.OnDestroy();
+            OnCloseWindow?.Invoke("ACC_HighContrast/");
+        }
         public static void ShowWindow(string name)
         {
             var window = GetWindow<ACC_HighContrastEditorWindow>();

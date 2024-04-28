@@ -27,17 +27,14 @@ namespace TFG_Videojocs
             CompilationPipeline.compilationStarted += controller.SerializeDataForCompilation;
             EditorApplication.playModeStateChanged += controller.OnPlayModeStateChanged;
         }
-
         private void OnDisable()
         {
             CompilationPipeline.compilationStarted -= controller.SerializeDataForCompilation;
         }
-
         protected void OnDestroy()
         {
             controller.ConfirmSaveChangesIfNeeded(this);
         }
-
         protected void CreateGUI()
         {
             rootVisualElement.Clear();
@@ -47,6 +44,13 @@ namespace TFG_Videojocs
             ColorUtility.TryParseHtmlString("#4f4f4f", out var backgroundColor);
             rootVisualElement.style.backgroundColor = new StyleColor(backgroundColor);
             rootVisualElement.AddToClassList("main-container");
+        }
+        private void Update()
+        {
+            if (positionSet && (Math.Abs(position.x - fixedPosition.x) > 0.1f || Math.Abs(position.y - fixedPosition.y) > 0.1f))
+            {
+                PositionWindowInBottomRight();
+            }
         }
         
         public static void CloseWindowIfExists<T>() where T : EditorWindow
@@ -59,7 +63,6 @@ namespace TFG_Videojocs
                 floatingWindow.Close();
             }
         }
-        
         protected void PositionWindowInBottomRight()
         {
             var mainWindow = GetEditorMainWindowPos();
@@ -91,15 +94,6 @@ namespace TFG_Videojocs
             fixedPosition = new Vector2(position.x, position.y);
             positionSet = true;
         }
-        
-        void Update()
-        {
-            if (positionSet && (Math.Abs(position.x - fixedPosition.x) > 0.1f || Math.Abs(position.y - fixedPosition.y) > 0.1f))
-            {
-                PositionWindowInBottomRight();
-            }
-        }
-
         public void CloneWindowAttributes<T>(T sourceWindow) where T : ACC_BaseFloatingWindow<TController, TWindow, TData>
         {
             var type = GetType();
