@@ -9,7 +9,7 @@ namespace TFG_Videojocs.ACC_HighContrast
 {
     public class ACC_HighContrastEditorWindow:ACC_BaseFloatingWindow<ACC_HighContrastEditorWindowController, ACC_HighContrastEditorWindow, ACC_HighContrastData>
     {
-        private VisualElement tableContainer, tableScrollView;
+        private VisualElement tableContainer, tableScrollView, settingsContainer;
         public static event WindowDelegate OnCloseWindow;
         
         private new void OnDestroy()
@@ -45,12 +45,15 @@ namespace TFG_Videojocs.ACC_HighContrast
             tableContainer = uiElementFactory.CreateVisualElement("container");
             rootVisualElement.Add(tableContainer);
             CreateTable();
+            
+            settingsContainer = uiElementFactory.CreateVisualElement("container-2");
+            rootVisualElement.Add(settingsContainer);
             CreateSettingsContainer();
+            
             CreateBottomContainer();
             
             controller.RestoreDataAfterCompilation();
         }
-        
         public void CreateTable()
         {
             tableContainer.Clear();
@@ -236,17 +239,21 @@ namespace TFG_Videojocs.ACC_HighContrast
                 }
             }
         }
-        private void CreateSettingsContainer()
+        public void CreateSettingsContainer()
         {
-            var settingsContainer = uiElementFactory.CreateVisualElement("container-2");
+            settingsContainer.Clear();
             var settingsTitle = uiElementFactory.CreateLabel("title", "Settings");
             
-            var nameInput = uiElementFactory.CreateTextField( "option-input", "Name: ", "", "option-input-label", 
+            var nameInput = uiElementFactory.CreateTextField( "option-input", "Name: ", controller.currentData.name, "option-input-label", 
                 value => controller.currentData.name = value);
+
+            var previsualizationToggle =
+                uiElementFactory.CreateToggle("option-input", "Previsualization: ", false, "option-input-label");
             
             settingsContainer.Add(settingsTitle);
             settingsContainer.Add(nameInput);
-            rootVisualElement.Add(settingsContainer); }
+            settingsContainer.Add(previsualizationToggle);
+        }
         private void CreateBottomContainer()
         {
             var bottomContainer = uiElementFactory.CreateVisualElement("container-row");

@@ -34,12 +34,22 @@ namespace TFG_Videojocs
         
         private ACC_AudioAccessibility accAudioAccessibility;
         
+        [Header("Visual Accessibility")]
+        [SerializeField] private bool highContrastEnabled;
+        
         [Header("MobilityAccessibility")]
         [SerializeField] private bool remapControlsEnabled;
         
         private ACC_MobilityAccessibility accMobilityAccessibility;
             
         private bool sceneLoaded;
+        
+        #if UNITY_EDITOR
+        ACC_AccessibilityManager()
+        {
+            EditorApplication.hierarchyChanged += OnHierarchyChanged;
+        }
+        #endif
 
         private void Awake()
         {
@@ -149,5 +159,119 @@ namespace TFG_Videojocs
         {
             sceneLoaded = false;
         }
+        
+        #if UNITY_EDITOR
+        private void OnHierarchyChanged() 
+        {
+            Material highContrastColorMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast-Color.mat");
+            Material highContrastOutlineMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast_Outline.mat");
+            if (highContrastEnabled)
+            {
+                GameObject[] goArray = FindObjectsOfType<GameObject>();
+                foreach (GameObject go in goArray)
+                {
+                    if (go.activeInHierarchy)
+                    {
+                        Renderer renderer = go.GetComponent<Renderer>();
+                        if (renderer != null && !AlreadyHasHighContrastColorMaterial(renderer))
+                        {
+                            var ambientOcclusionTexture = GetAmbientOcclusionTexture(renderer);
+                            var materials = renderer.sharedMaterials;
+                            var newMaterials = new Material[materials.Length + 1];
+                            materials.CopyTo(newMaterials, 0);
+                            newMaterials[materials.Length] = highContrastColorMaterial;
+                            renderer.sharedMaterials = newMaterials;
+                            
+                            if(ambientOcclusionTexture != null)
+                            {
+                                MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+                                renderer.GetPropertyBlock(propBlock, materials.Length);
+                                propBlock.SetTexture("_AmbientOcclusion", ambientOcclusionTexture);
+                                renderer.SetPropertyBlock(propBlock, materials.Length);
+                            }
+                        }
+                        if(renderer != null && !AlreadyHasHighContrastOutlineMaterial(renderer))
+                        {
+                            var materials = renderer.sharedMaterials;
+                            var newMaterials = new Material[materials.Length + 1];
+                            materials.CopyTo(newMaterials, 0);
+                            newMaterials[materials.Length] = highContrastOutlineMaterial;
+                            renderer.sharedMaterials = newMaterials;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                GameObject[] goArray = FindObjectsOfType<GameObject>();
+                foreach (GameObject go in goArray)
+                {
+                    if (go.activeInHierarchy)
+                    {
+                        Renderer meshRenderer = go.GetComponent<Renderer>();
+                        if (meshRenderer != null && AlreadyHasHighContrastOutlineMaterial(meshRenderer))
+                        {
+                            var materials = meshRenderer.sharedMaterials;
+                            var newMaterials = new Material[materials.Length - 1];
+                            int j = 0;
+                            for (int i = 0; i < materials.Length; i++)
+                            {
+                                if (materials[i] != highContrastOutlineMaterial)
+                                {
+                                    newMaterials[j] = materials[i];
+                                    j++;
+                                }
+                            }
+                            meshRenderer.sharedMaterials = newMaterials;
+                        }
+                        if (meshRenderer != null && AlreadyHasHighContrastColorMaterial(meshRenderer))
+                        {
+                            var materials = meshRenderer.sharedMaterials;
+                            var newMaterials = new Material[materials.Length - 1];
+                            int j = 0;
+                            for (int i = 0; i < materials.Length; i++)
+                            {
+                                if (materials[i] != highContrastColorMaterial)
+                                {
+                                    newMaterials[j] = materials[i];
+                                    j++;
+                                }
+                            }
+                            meshRenderer.sharedMaterials = newMaterials;
+                        }
+                    }
+                }
+            }
+        }
+        private Texture GetAmbientOcclusionTexture(Renderer renderer)
+        {
+            foreach (var material in renderer.sharedMaterials)
+            {
+                if (material.HasProperty("_OcclusionMap") && material.GetTexture("_OcclusionMap") != null)
+                    return material.GetTexture("_OcclusionMap");
+            }
+            return null;
+        }
+        private bool AlreadyHasHighContrastColorMaterial(Renderer renderer)
+        {
+            Material highContrastMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast-Color.mat");
+            foreach (var mat in renderer.sharedMaterials)
+            {
+                if (mat == highContrastMaterial)
+                    return true;
+            }
+            return false;
+        }
+        private bool AlreadyHasHighContrastOutlineMaterial(Renderer renderer)
+        {
+            Material highContrastMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast_Outline.mat");
+            foreach (var mat in renderer.sharedMaterials)
+            {
+                if (mat == highContrastMaterial)
+                    return true;
+            }
+            return false;
+        }
+        #endif
     }
 }
