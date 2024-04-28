@@ -15,12 +15,10 @@ namespace TFG_Videojocs
     {
         public TController controller { get; private set; }
         protected ACC_UIElementFactory uiElementFactory => controller.uiElementFactory;
-
         public delegate void WindowDelegate(string directory);
         
         private Vector2 fixedPosition = new Vector2(100, 100);
         private bool positionSet = false;
-        
 
         protected void OnEnable()
         {
