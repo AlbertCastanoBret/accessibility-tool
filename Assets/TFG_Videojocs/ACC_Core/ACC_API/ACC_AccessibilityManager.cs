@@ -36,6 +36,7 @@ namespace TFG_Videojocs
         
         [Header("Visual Accessibility")]
         [SerializeField] private bool highContrastEnabled;
+        [HideInInspector] public bool shadersAdded;
         
         [Header("MobilityAccessibility")]
         [SerializeField] private bool remapControlsEnabled;
@@ -161,11 +162,11 @@ namespace TFG_Videojocs
         }
         
         #if UNITY_EDITOR
-        private void OnHierarchyChanged() 
+        public void OnHierarchyChanged() 
         {
             Material highContrastColorMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast-Color.mat");
             Material highContrastOutlineMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast_Outline.mat");
-            if (highContrastEnabled)
+            if (shadersAdded)
             {
                 GameObject[] goArray = FindObjectsOfType<GameObject>();
                 foreach (GameObject go in goArray)

@@ -132,7 +132,7 @@ public class ACC_MainWindow : EditorWindow
                     () => DefaultCreateAction("Create", ACC_SubtitlesEditorWindow.ShowWindow),
                     () => DefaultLoadAction<ACC_SubtitlesEditorWindow, ACC_SubtitlesEditorWindowController, ACC_SubtitleData>(
                         "ACC_Subtitles/", "Select a subtitle:", ACC_SubtitlesEditorWindow.ShowWindow),
-                    "Subtitles");
+                    prefabName: "Subtitles");
                 break;
             case "VisualNotification":
                 DefaultBox(box, 
@@ -140,7 +140,7 @@ public class ACC_MainWindow : EditorWindow
                     () => DefaultCreateAction("Create", ACC_VisualNotificationEditorWindow.ShowWindow),
                     () => DefaultLoadAction<ACC_VisualNotificationEditorWindow, ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationData>(
                         "ACC_VisualNotification/", "Select a visual notification:", ACC_VisualNotificationEditorWindow.ShowWindow),
-                    "VisualNotification");
+                    prefabName: "VisualNotification");
                 break;
         }
     }
@@ -152,11 +152,11 @@ public class ACC_MainWindow : EditorWindow
                 break;
             case "HighContrast":
                 DefaultBox( box, 
-                    new List<string> {"Create a high-contrast configuration", "Edit high-contrast configuration"}, 
+                    new List<string> {"Create a high-contrast configuration", "Edit high-contrast configuration", "Settings"}, 
                     () => DefaultCreateAction("Create", ACC_HighContrastEditorWindow.ShowWindow), 
                     () => DefaultLoadAction<ACC_HighContrastEditorWindow, ACC_HighContrastEditorWindowController, ACC_HighContrastData>(
                         "ACC_HighContrast/", "Select a configuration:", ACC_HighContrastEditorWindow.ShowWindow),
-                    "");
+                    HighContrastSettings);
                 break;
         }
     }
@@ -177,6 +177,41 @@ public class ACC_MainWindow : EditorWindow
                 AudioManagerBox(box);
                 break;
         }
+    }
+    
+    private VisualElement HighContrastSettings()
+    {
+        var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
+        
+        var container = new VisualElement();
+        var toggle = new Toggle("Shaders Added: ");
+        toggle.AddToClassList("object-field");
+        toggle[0].AddToClassList("object-label");
+        toggle.value = accessibilityManager.shadersAdded;
+        
+        var refreshButton = new Button() { text = "Refresh" };
+        refreshButton.AddToClassList("create-button");
+        
+        toggle.RegisterValueChangedCallback(evt =>
+        {
+            accessibilityManager.shadersAdded = evt.newValue;
+            EditorUtility.SetDirty(accessibilityManager);
+            if (evt.newValue) refreshButton.style.display = DisplayStyle.Flex;
+            else refreshButton.style.display = DisplayStyle.None;
+           
+        });
+        
+        refreshButton.clicked += () =>
+        {
+            accessibilityManager.shadersAdded = false;
+            accessibilityManager.OnHierarchyChanged();
+            accessibilityManager.shadersAdded = true;
+            accessibilityManager.OnHierarchyChanged();
+        };
+        
+        container.Add(toggle);
+        container.Add(refreshButton);
+        return container;
     }
     private void RemapControlsBox(VisualElement box)
     {
@@ -322,7 +357,7 @@ public class ACC_MainWindow : EditorWindow
     }
 
     #region HelperMethods
-    private void DefaultBox(VisualElement box, List<string> options, Func<VisualElement> createAction, Func<VisualElement> loadAction, string prefabName)
+    private void DefaultBox(VisualElement box, List<string> options, Func<VisualElement> createAction, Func<VisualElement> loadAction, Func<VisualElement> extraAction = null, string prefabName = "")
     {
         var dynamicContainer = new VisualElement();
         var dropdown = new DropdownField("Options:", options, 0);
@@ -330,8 +365,7 @@ public class ACC_MainWindow : EditorWindow
         dropdown.AddToClassList("dropdown-container");
         dropdown[0].AddToClassList("dropdown-label");
         
-        VisualElement createActionContainer = createAction();
-        dynamicContainer.Add(createActionContainer);
+        dynamicContainer.Add(createAction());
         
         box.Add(dropdown);
         box.Add(dynamicContainer);
@@ -341,7 +375,7 @@ public class ACC_MainWindow : EditorWindow
             dynamicContainer.Clear();
             if (evt.newValue == options[0])
             {
-                dynamicContainer.Add(createActionContainer);
+                dynamicContainer.Add(createAction());
             }
             else if (evt.newValue == options[1])
             {
@@ -350,13 +384,17 @@ public class ACC_MainWindow : EditorWindow
             }
             else
             {
-                var loadPrefabContainer = new VisualElement();
-                var loadPrefabButton = new Button() { text = "Edit" };
-                loadPrefabButton.AddToClassList("create-button");
-                loadPrefabButton.clicked += () => { LoadPrefab(prefabName); };
-                
-                loadPrefabContainer.Add(loadPrefabButton);
-                dynamicContainer.Add(loadPrefabContainer);
+                if (extraAction != null) dynamicContainer.Add(extraAction.Invoke());
+                else
+                {
+                    var loadPrefabContainer = new VisualElement();
+                    var loadPrefabButton = new Button() { text = "Edit" };
+                    loadPrefabButton.AddToClassList("create-button");
+                    loadPrefabButton.clicked += () => { LoadPrefab(prefabName); };
+
+                    loadPrefabContainer.Add(loadPrefabButton);
+                    dynamicContainer.Add(loadPrefabContainer);
+                }
             }
         });
     }
