@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
+using TFG_Videojocs.ACC_HighContrast;
 using UnityEditor; // UnityEditor solo está disponible en el Editor de Unity.
 #endif
 
@@ -36,7 +37,7 @@ namespace TFG_Videojocs
         
         [Header("Visual Accessibility")]
         [SerializeField] private bool highContrastEnabled;
-        [HideInInspector] public bool shadersAdded;
+        [HideInInspector] public bool shadersAdded, isPrevisualizing;
         
         [Header("MobilityAccessibility")]
         [SerializeField] private bool remapControlsEnabled;
@@ -142,7 +143,7 @@ namespace TFG_Videojocs
         {
             return accMobilityAccessibility;
         }
-
+        
         /// <summary>
         /// Loads user preferences for all accessibility modules.
         /// </summary>
@@ -155,7 +156,6 @@ namespace TFG_Videojocs
         {
             sceneLoaded = true;
         }
-        
         private void OnSceneUnloading(Scene current)
         {
             sceneLoaded = false;
@@ -209,10 +209,10 @@ namespace TFG_Videojocs
                 {
                     if (go.activeInHierarchy)
                     {
-                        Renderer meshRenderer = go.GetComponent<Renderer>();
-                        if (meshRenderer != null && AlreadyHasHighContrastOutlineMaterial(meshRenderer))
+                        Renderer renderer = go.GetComponent<Renderer>();
+                        if (renderer != null && AlreadyHasHighContrastOutlineMaterial(renderer))
                         {
-                            var materials = meshRenderer.sharedMaterials;
+                            var materials = renderer.sharedMaterials;
                             var newMaterials = new Material[materials.Length - 1];
                             int j = 0;
                             for (int i = 0; i < materials.Length; i++)
@@ -223,11 +223,11 @@ namespace TFG_Videojocs
                                     j++;
                                 }
                             }
-                            meshRenderer.sharedMaterials = newMaterials;
+                            renderer.sharedMaterials = newMaterials;
                         }
-                        if (meshRenderer != null && AlreadyHasHighContrastColorMaterial(meshRenderer))
+                        if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer))
                         {
-                            var materials = meshRenderer.sharedMaterials;
+                            var materials = renderer.sharedMaterials;
                             var newMaterials = new Material[materials.Length - 1];
                             int j = 0;
                             for (int i = 0; i < materials.Length; i++)
@@ -238,7 +238,67 @@ namespace TFG_Videojocs
                                     j++;
                                 }
                             }
-                            meshRenderer.sharedMaterials = newMaterials;
+                            renderer.sharedMaterials = newMaterials;
+                        }
+                    }
+                }
+            }
+        }
+        public void Previsualize(ACC_HighContrastData highContrastData)
+        {
+            if (shadersAdded)
+            {
+                GameObject[] goArray = FindObjectsOfType<GameObject>();
+                foreach (GameObject go in goArray)
+                {
+                    if (go.activeInHierarchy)
+                    {
+                        Renderer renderer = go.GetComponent<Renderer>();
+                        var highContrastConfiguration = highContrastData.highContrastConfigurations.Items.Find(x => go.CompareTag(x.value.tag));
+                        if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer) && highContrastConfiguration != null)
+                        {
+                            var materials = renderer.sharedMaterials;
+                            
+                            MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
+                            renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
+                            propColorBlock.SetColor("_Color", highContrastConfiguration.value.color);
+                            renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
+                            
+                            MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
+                            renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
+                            propOutlineBlock.SetColor("_OutlineColor", highContrastConfiguration.value.outlineColor);
+                            propOutlineBlock.SetFloat("_OutlineThickness", highContrastConfiguration.value.outlineThickness);
+                            renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
+                        }
+                    }
+                }
+            }
+        }
+
+        public void StopPrevisualize()
+        {
+            if (shadersAdded)
+            {
+                GameObject[] goArray = FindObjectsOfType<GameObject>();
+                foreach (GameObject go in goArray)
+                {
+                    if (go.activeInHierarchy)
+                    {
+                        Renderer renderer = go.GetComponent<Renderer>();
+                        if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer))
+                        {
+                            var materials = renderer.sharedMaterials;
+                            
+                            MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
+                            renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
+                            propColorBlock.SetColor("_Color", new Color(0.3679245f, 0.3679245f, 0.3679245f, 1));
+                            renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
+                            
+                            MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
+                            renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
+                            propOutlineBlock.SetColor("_OutlineColor", Color.white);
+                            propOutlineBlock.SetFloat("_OutlineThickness", 0.6f);
+                            renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                         }
                     }
                 }

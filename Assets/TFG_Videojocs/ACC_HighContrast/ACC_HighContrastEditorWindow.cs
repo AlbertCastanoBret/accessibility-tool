@@ -11,11 +11,15 @@ namespace TFG_Videojocs.ACC_HighContrast
     {
         private VisualElement tableContainer, tableScrollView, settingsContainer;
         public static event WindowDelegate OnCloseWindow;
-        
         private new void OnDestroy()
         {
             base.OnDestroy();
             OnCloseWindow?.Invoke("ACC_HighContrast/");
+            
+            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
+            accessibilityManager.StopPrevisualize();
+            EditorUtility.SetDirty(accessibilityManager);
+            
         }
         public static void ShowWindow(string name)
         {
@@ -92,7 +96,6 @@ namespace TFG_Videojocs.ACC_HighContrast
                     ACC_HighContrastConfiguration newHighContrastData = new ACC_HighContrastConfiguration();
                     if(controller.currentData.highContrastConfigurations.Items.Exists(x => x.key == currentRow && x.value.name == name))
                     {
-                        Debug.Log("A");
                         newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
                     }
                     newHighContrastData.name = value;
@@ -141,6 +144,7 @@ namespace TFG_Videojocs.ACC_HighContrast
         }
         private void CreateHighContrastSettings(VisualElement row)
         {
+            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
             var tagContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
             tagContainer.style.display = DisplayStyle.None;
             
@@ -155,6 +159,11 @@ namespace TFG_Videojocs.ACC_HighContrast
                     ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
                     newHighContrastData.tag = value;
                     controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, newHighContrastData);
+                    if (controller.isPrevisualizing)
+                    {
+                        accessibilityManager.Previsualize(controller.currentData);
+                        EditorUtility.SetDirty(accessibilityManager);
+                    }
                 });
             
             var colorContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
@@ -166,10 +175,16 @@ namespace TFG_Videojocs.ACC_HighContrast
             var colorField = uiElementFactory.CreateColorField("table-row-option-input", "Color:", color,  "table-row-option-input-label",
                 value =>
                 {
+                    
                     var currentRow = tableScrollView.IndexOf(row)-1;
                     ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
                     newHighContrastData.color = new Color(value.r, value.g, value.b, value.a);
                     controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, newHighContrastData);
+                    if (controller.isPrevisualizing)
+                    {
+                        accessibilityManager.Previsualize(controller.currentData);
+                        EditorUtility.SetDirty(accessibilityManager);
+                    }
                 });
             
             var outlineColorContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
@@ -185,6 +200,11 @@ namespace TFG_Videojocs.ACC_HighContrast
                     ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
                     newHighContrastData.outlineColor = new Color(value.r, value.g, value.b, value.a);
                     controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, newHighContrastData);
+                    if (controller.isPrevisualizing)
+                    {
+                        accessibilityManager.Previsualize(controller.currentData);
+                        EditorUtility.SetDirty(accessibilityManager);
+                    }
                 });
             
             var outlineThicknessContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
@@ -201,6 +221,11 @@ namespace TFG_Videojocs.ACC_HighContrast
                         ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
                         newHighContrastData.outlineThickness = value;
                         controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, newHighContrastData);
+                        if (controller.isPrevisualizing)
+                        {
+                            accessibilityManager.Previsualize(controller.currentData);
+                            EditorUtility.SetDirty(accessibilityManager);
+                        }
                     });
             
             tagCell.Add(dropdownTag);
@@ -243,12 +268,26 @@ namespace TFG_Videojocs.ACC_HighContrast
         {
             settingsContainer.Clear();
             var settingsTitle = uiElementFactory.CreateLabel("title", "Settings");
+            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
             
             var nameInput = uiElementFactory.CreateTextField( "option-input", "Name: ", controller.currentData.name, "option-input-label", 
                 value => controller.currentData.name = value);
 
-            var previsualizationToggle =
-                uiElementFactory.CreateToggle("option-input", "Previsualization: ", false, "option-input-label");
+            var previsualizationToggle = uiElementFactory.CreateToggle("option-input", "Previsualization: ", false, "option-input-label",
+                    value =>
+                    {
+                        controller.isPrevisualizing = value;
+                        if (controller.isPrevisualizing)
+                        {
+                            accessibilityManager.Previsualize(controller.currentData);
+                            EditorUtility.SetDirty(accessibilityManager);
+                        }
+                        else
+                        {
+                            accessibilityManager.StopPrevisualize();
+                            EditorUtility.SetDirty(accessibilityManager);
+                        }
+                    });
             
             settingsContainer.Add(settingsTitle);
             settingsContainer.Add(nameInput);
