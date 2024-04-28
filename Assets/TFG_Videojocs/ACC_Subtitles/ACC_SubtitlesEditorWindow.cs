@@ -12,7 +12,7 @@ using UnityEngine.UIElements;
 public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEditorWindowController, ACC_SubtitlesEditorWindow, ACC_SubtitleData>
 {
     private VisualElement table;
-    public new static event WindowDelegate OnCloseWindow;
+    public static event WindowDelegate OnCloseWindow;
     
     private new void OnDestroy()
     {

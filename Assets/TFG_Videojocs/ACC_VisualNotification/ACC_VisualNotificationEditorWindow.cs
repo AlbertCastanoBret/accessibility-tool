@@ -17,9 +17,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
 {
     private ScrollView soundScrollView;
     private ACC_AudioManager audioManager;
-    
-    public delegate void SubtitleWindowDelegate();
-    public static event SubtitleWindowDelegate OnCloseVisualNotificationWindow;
+    public static event WindowDelegate OnCloseWindow;
 
     private new void OnEnable()
     {
@@ -35,7 +33,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
     private new void OnDestroy()
     {
         base.OnDestroy();
-        OnCloseVisualNotificationWindow?.Invoke();
+        OnCloseWindow?.Invoke("ACC_VisualNotification/");
     }
 
     public static void ShowWindow(string name)

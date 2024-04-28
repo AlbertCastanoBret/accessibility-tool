@@ -26,13 +26,9 @@ public class ACC_MainWindow : EditorWindow
 {
     private VisualElement accessibilityContainer;
     private const int numberOfColumns = 2;
-    private DropdownField subtitlesDropdown;
 
     private ACC_AudioManager audioManager;
     private ScrollView soundContainer;
-    private DropdownField visualNotificationDropdown;
-
-    private DropdownField highContrastDropdown;
 
     private InputActionAsset inputActionAsset;
     private ObjectField inputAction;
@@ -40,17 +36,14 @@ public class ACC_MainWindow : EditorWindow
     private void OnEnable()
     {
         ACC_SubtitlesEditorWindow.OnCloseWindow += RefreshDropdown<ACC_SubtitleData>;
-        // ACC_VisualNotificationEditorWindow.OnCloseWindow += RefreshDropdown<ACC_VisualNotificationData>;
-        subtitlesDropdown = new();
-        visualNotificationDropdown = new();
-        highContrastDropdown = new();
+        ACC_VisualNotificationEditorWindow.OnCloseWindow += RefreshDropdown<ACC_VisualNotificationData>;
         
     }
 
     private void OnDisable()
     {
         ACC_SubtitlesEditorWindow.OnCloseWindow -= RefreshDropdown<ACC_SubtitleData>;
-        // ACC_VisualNotificationEditorWindow.OnCloseWindow -= RefreshDropdown<ACC_VisualNotificationData>;
+        ACC_VisualNotificationEditorWindow.OnCloseWindow -= RefreshDropdown<ACC_VisualNotificationData>;
     }
 
     [MenuItem("Tools/ACC/Accessibility Window")]
@@ -139,7 +132,7 @@ public class ACC_MainWindow : EditorWindow
                     new List<string> {"Create A Subtitle", "Edit Subtitle", "Edit Prefab" }, 
                     () => DefaultCreateAction("Create", ACC_SubtitlesEditorWindow.ShowWindow),
                     () => DefaultLoadAction<ACC_SubtitlesEditorWindow, ACC_SubtitlesEditorWindowController, ACC_SubtitleData>(
-                        subtitlesDropdown, "ACC_Subtitles/", "Select a subtitle:", ACC_SubtitlesEditorWindow.ShowWindow),
+                        "ACC_Subtitles/", "Select a subtitle:", ACC_SubtitlesEditorWindow.ShowWindow),
                     "Subtitles");
                 break;
             case "VisualNotification":
@@ -147,7 +140,7 @@ public class ACC_MainWindow : EditorWindow
                     new List<string> {"Create a visual notification", "Edit visual notification", "Edit Prefab" }, 
                     () => DefaultCreateAction("Create", ACC_VisualNotificationEditorWindow.ShowWindow),
                     () => DefaultLoadAction<ACC_VisualNotificationEditorWindow, ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationData>(
-                        visualNotificationDropdown, "ACC_VisualNotification/", "Select a visual notification:", ACC_VisualNotificationEditorWindow.ShowWindow),
+                        "ACC_VisualNotification/", "Select a visual notification:", ACC_VisualNotificationEditorWindow.ShowWindow),
                     "VisualNotification");
                 break;
         }
@@ -161,9 +154,9 @@ public class ACC_MainWindow : EditorWindow
             case "HighContrast":
                 DefaultBox( box, 
                     new List<string> {"Create a high-contrast configuration", "Edit high-contrast configuration"}, 
-                    () => DefaultCreateAction("Create", ACC_VisualNotificationEditorWindow.ShowWindow), 
+                    () => DefaultCreateAction("Create", ACC_HighContrastEditorWindow.ShowWindow), 
                     () => DefaultLoadAction<ACC_HighContrastEditorWindow, ACC_HighContrastEditorWindowController, ACC_HighContrastData>(
-                        highContrastDropdown, "ACC_HighContrast/", "Select a configuration:", ACC_HighContrastEditorWindow.ShowWindow),
+                        "ACC_HighContrast/", "Select a configuration:", ACC_HighContrastEditorWindow.ShowWindow),
                     "");
                 break;
         }
@@ -383,15 +376,15 @@ public class ACC_MainWindow : EditorWindow
 
         return container;
     }
-    private VisualElement DefaultLoadAction<TWindow, TController, TData>(DropdownField dropdown, string directory, string dropdownLabel, Action<string> action) 
+    private VisualElement DefaultLoadAction<TWindow, TController, TData>(string directory, string dropdownLabel, Action<string> action) 
         where TWindow : EditorWindow where TController : ACC_FloatingWindowController<TWindow, TData>, new() where TData : ACC_AbstractData, new()
     {
-        if (dropdown == null) throw new ArgumentNullException(nameof(dropdown));
         var selectContainer = new VisualElement();
 
         var options = ACC_JSONHelper.GetFilesListByParam<TData, string>(directory, data => data.name);
         
-        dropdown = new DropdownField(dropdownLabel, options, 0);
+        var dropdown = new DropdownField(dropdownLabel, options, 0);
+        dropdown.name = directory;
         dropdown.AddToClassList("dropdown-container");
         dropdown[0].AddToClassList("dropdown-label");
 
@@ -403,7 +396,7 @@ public class ACC_MainWindow : EditorWindow
         loadButton.clicked += () =>
         {
             if (!string.IsNullOrEmpty(dropdown.value)) action.Invoke(dropdown.value);
-            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to load.", "OK");
+            else EditorUtility.DisplayDialog("Required Field", "Please select an existing file to load.", "OK");
         };
 
         var deleteButton = new Button() { text = "Delete" };
@@ -413,10 +406,10 @@ public class ACC_MainWindow : EditorWindow
             if (!string.IsNullOrEmpty(dropdown.value))
             {
                 ACC_BaseFloatingWindow<TController, TWindow, TData>.CloseWindowIfExists<TWindow>();
-                ACC_JSONHelper.DeleteFile("ACC_Subtitles/", dropdown.value);
-                //RefreshSubtititleWindow();
+                ACC_JSONHelper.DeleteFile(directory, dropdown.value);
+                RefreshDropdown<TData>(directory);
             }
-            else EditorUtility.DisplayDialog("Required Field", "Please select a subtitle to delete.", "OK");
+            else EditorUtility.DisplayDialog("Required Field", "Please select an existing file to load.", "OK");
         };
         
         editBottomContainer.Add(loadButton);
@@ -429,22 +422,13 @@ public class ACC_MainWindow : EditorWindow
     }
     private void RefreshDropdown<TData>(string directory) where TData : ACC_AbstractData, new()
     {
-        DropdownField dropdown = null;
-        switch (directory)
-        {
-            case "ACC_Subtitles/":
-                dropdown = subtitlesDropdown;
-                break;
-            case "ACC_VisualNotification/":
-                dropdown = visualNotificationDropdown;
-                break;
-        }
-
+        DropdownField dropdown = rootVisualElement.Q<DropdownField>(name: directory);
+        
         if (dropdown != null)
         {
             var options = ACC_JSONHelper.GetFilesListByParam<TData, string>(directory, data => data.name);
             dropdown.choices = options;
-            dropdown.value = options.Count > 0 ? options[0] : "Select Option";
+            dropdown.value = options.Count > 0 ? options[0] : "";
             Repaint();
         }
     }
