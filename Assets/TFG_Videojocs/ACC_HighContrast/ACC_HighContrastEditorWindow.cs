@@ -10,16 +10,19 @@ namespace TFG_Videojocs.ACC_HighContrast
     public class ACC_HighContrastEditorWindow:ACC_BaseFloatingWindow<ACC_HighContrastEditorWindowController, ACC_HighContrastEditorWindow, ACC_HighContrastData>
     {
         private VisualElement tableContainer, tableScrollView, settingsContainer;
+        private Button refreshButton;
         public static event WindowDelegate OnCloseWindow;
         private new void OnDestroy()
         {
             base.OnDestroy();
             OnCloseWindow?.Invoke("ACC_HighContrast/");
-            
-            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
-            accessibilityManager.StopPrevisualize();
-            EditorUtility.SetDirty(accessibilityManager);
-            
+
+            if (controller.isCreatingNewFileOnCreation || controller.isEditing)
+            {
+                var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
+                accessibilityManager.StopPrevisualize();
+                EditorUtility.SetDirty(accessibilityManager);
+            }
         }
         public static void ShowWindow(string name)
         {
@@ -273,31 +276,57 @@ namespace TFG_Videojocs.ACC_HighContrast
             var nameInput = uiElementFactory.CreateTextField( "option-input", "Name: ", controller.currentData.name, "option-input-label", 
                 value => controller.currentData.name = value);
 
-            var previsualizationToggle = uiElementFactory.CreateToggle("option-input", "Previsualization: ", false, "option-input-label",
+            var previsualizationToggle = uiElementFactory.CreateToggle("option-input", "Previsualize: ", false, "option-input-label",
                     value =>
                     {
                         controller.isPrevisualizing = value;
                         if (controller.isPrevisualizing)
                         {
-                            accessibilityManager.Previsualize(controller.currentData);
-                            EditorUtility.SetDirty(accessibilityManager);
+                            if (controller.isCreatingNewFileOnCreation || controller.isEditing)
+                            {
+                                accessibilityManager.Previsualize(controller.currentData);
+                                EditorUtility.SetDirty(accessibilityManager);
+                                if(refreshButton!=null) refreshButton.style.display = DisplayStyle.Flex;
+                            }
                         }
                         else
                         {
-                            accessibilityManager.StopPrevisualize();
-                            EditorUtility.SetDirty(accessibilityManager);
+                            if (controller.isCreatingNewFileOnCreation || controller.isEditing)
+                            {
+                                accessibilityManager.StopPrevisualize();
+                                EditorUtility.SetDirty(accessibilityManager);
+                                if(refreshButton!=null) refreshButton.style.display = DisplayStyle.None;
+                            }
                         }
                     });
             
             settingsContainer.Add(settingsTitle);
             settingsContainer.Add(nameInput);
             settingsContainer.Add(previsualizationToggle);
+            
         }
         private void CreateBottomContainer()
         {
             var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
+            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
             bottomContainer.style.marginTop = new StyleLength(Length.Auto());
             var createSubtitleButton = uiElementFactory.CreateButton("Save", "button", () => controller.HandleSave(this));
+            
+            refreshButton = uiElementFactory.CreateButton("Refresh", "button", () =>
+            {
+                if (controller.isCreatingNewFileOnCreation || controller.isEditing)
+                {
+                    accessibilityManager.shadersAdded = false;
+                    accessibilityManager.OnHierarchyChanged();
+                    accessibilityManager.shadersAdded = true;
+                    accessibilityManager.OnHierarchyChanged();
+                    
+                    accessibilityManager.StopPrevisualize();
+                    accessibilityManager.Previsualize(controller.currentData);
+                    
+                    EditorUtility.SetDirty(accessibilityManager);
+                }
+            });
 
             var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-row-container");
             var addSubtitlesLabel = uiElementFactory.CreateLabel("add-row-label", "Add new configuration:");
@@ -313,6 +342,7 @@ namespace TFG_Videojocs.ACC_HighContrast
             addSubtitlesContainer.Add(addSubtitle5);
             addSubtitlesContainer.Add(addSubtitle10); 
             bottomContainer.Add(createSubtitleButton);
+            bottomContainer.Add(refreshButton);
             bottomContainer.Add(addSubtitlesContainer);
 
             rootVisualElement.Add(bottomContainer);

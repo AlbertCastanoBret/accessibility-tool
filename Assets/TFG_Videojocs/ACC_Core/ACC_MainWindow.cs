@@ -27,6 +27,8 @@ public class ACC_MainWindow : EditorWindow
     private VisualElement accessibilityContainer;
     private const int numberOfColumns = 2;
 
+    private bool isWindowOpen = false;
+
     private ACC_AudioManager audioManager;
     private ScrollView soundContainer;
 
@@ -38,6 +40,7 @@ public class ACC_MainWindow : EditorWindow
         ACC_SubtitlesEditorWindow.OnCloseWindow += RefreshDropdown<ACC_SubtitleData>;
         ACC_VisualNotificationEditorWindow.OnCloseWindow += RefreshDropdown<ACC_VisualNotificationData>;
         ACC_HighContrastEditorWindow.OnCloseWindow += RefreshDropdown<ACC_HighContrastData>;
+        ACC_HighContrastEditorWindow.OnCloseWindow += RefreshHighContrastSettings;
     }
     private void OnDisable()
     {
@@ -84,7 +87,7 @@ public class ACC_MainWindow : EditorWindow
         
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
-        visualButton.clicked += () => { UpdateAccessibilityContainer(typeof(VisualFeatures)); };
+        visualButton.clicked += () => { UpdateAccessibilityContainer(typeof(VisibilityFeatures)); };
         cognitiveButton.clicked += () => { UpdateAccessibilityContainer(typeof(MobilityFeatures)); };
         multifunctionalButton.clicked += () => { UpdateAccessibilityContainer(typeof(MultifiunctionalFeatures)); };
         
@@ -117,7 +120,7 @@ public class ACC_MainWindow : EditorWindow
         box.Add(titleBox);
 
         if(featuretype==typeof(AudioFeatures))CreateAudioBox(box, index);
-        else if (featuretype==typeof(VisualFeatures))CreateVisibilityBox(box, index);
+        else if (featuretype==typeof(VisibilityFeatures))CreateVisibilityBox(box, index);
         else if (featuretype==typeof(MobilityFeatures))CreateMobilityBox(box, index);
         else if (featuretype==typeof(MultifiunctionalFeatures))CreateMultifunctionalBox(box, index);
         return box;
@@ -146,7 +149,7 @@ public class ACC_MainWindow : EditorWindow
     }
     private void CreateVisibilityBox(VisualElement box, int index)
     {
-        switch (Enum.GetName(typeof(VisualFeatures), index))
+        switch (Enum.GetName(typeof(VisibilityFeatures), index))
         {
             case "TextToVoice":
                 break;
@@ -181,24 +184,57 @@ public class ACC_MainWindow : EditorWindow
     
     private VisualElement HighContrastSettings()
     {
+        ACC_HighContrastEditorWindow window = (ACC_HighContrastEditorWindow)GetWindow(typeof(ACC_HighContrastEditorWindow), false);
+        isWindowOpen = window != null;
+        if (isWindowOpen
+            && !window.controller.isCreatingNewFileOnCreation
+            && !window.controller.isEditing)
+        {
+            isWindowOpen = false;
+            window.Close();
+        }
+        
         var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
         
         var container = new VisualElement();
-        var toggle = new Toggle("Shaders Added: ");
-        toggle.AddToClassList("object-field");
-        toggle[0].AddToClassList("object-label");
-        toggle.value = accessibilityManager.shadersAdded;
+        var addShadersToggle = new Toggle("Shaders Added: ");
+        addShadersToggle.AddToClassList("object-field");
+        addShadersToggle[0].AddToClassList("object-label");
+        addShadersToggle.SetEnabled(!isWindowOpen);
+        addShadersToggle.value = accessibilityManager.shadersAdded;
+        
+        var previsualizeToggle = new Toggle("Previsualize: ");
+        previsualizeToggle.AddToClassList("object-field");
+        previsualizeToggle[0].AddToClassList("object-label");
+        previsualizeToggle.SetEnabled(!isWindowOpen);
+        previsualizeToggle.style.display = accessibilityManager.shadersAdded ? DisplayStyle.Flex : DisplayStyle.None;
+        previsualizeToggle.value = accessibilityManager.isPrevisualizing;
         
         var refreshButton = new Button() { text = "Refresh" };
         refreshButton.AddToClassList("create-button");
+        refreshButton.SetEnabled(!isWindowOpen);
+        refreshButton.style.display = accessibilityManager.shadersAdded ? DisplayStyle.Flex : DisplayStyle.None;
         
-        toggle.RegisterValueChangedCallback(evt =>
+        addShadersToggle.RegisterValueChangedCallback(evt =>
         {
             accessibilityManager.shadersAdded = evt.newValue;
             EditorUtility.SetDirty(accessibilityManager);
-            if (evt.newValue) refreshButton.style.display = DisplayStyle.Flex;
-            else refreshButton.style.display = DisplayStyle.None;
-           
+            if (evt.newValue)
+            {
+                previsualizeToggle.style.display = DisplayStyle.Flex;
+                refreshButton.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                previsualizeToggle.style.display = DisplayStyle.None;
+                refreshButton.style.display = DisplayStyle.None;
+            }
+        });
+        
+        previsualizeToggle.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue) accessibilityManager.Previsualize();
+            else accessibilityManager.StopPrevisualize();
         });
         
         refreshButton.clicked += () =>
@@ -207,11 +243,29 @@ public class ACC_MainWindow : EditorWindow
             accessibilityManager.OnHierarchyChanged();
             accessibilityManager.shadersAdded = true;
             accessibilityManager.OnHierarchyChanged();
+
+            if (accessibilityManager.isPrevisualizing)
+            {
+                accessibilityManager.StopPrevisualize();
+                accessibilityManager.Previsualize();
+            }
         };
         
-        container.Add(toggle);
+        container.Add(addShadersToggle);
+        container.Add(previsualizeToggle);
         container.Add(refreshButton);
         return container;
+    }
+    private void RefreshHighContrastSettings(string directory)
+    {
+        var dropdownField = rootVisualElement.Query<DropdownField>().ToList().Find(dropdownField => dropdownField.value == "Settings");
+        if(dropdownField != null && isWindowOpen)
+        {
+            foreach (var child in dropdownField.parent[2][0].Children())
+            {
+                child.SetEnabled(true);
+            }
+        }
     }
     private void RemapControlsBox(VisualElement box)
     {

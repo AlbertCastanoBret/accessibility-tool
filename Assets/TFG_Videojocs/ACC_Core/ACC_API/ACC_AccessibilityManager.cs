@@ -39,6 +39,8 @@ namespace TFG_Videojocs
         [SerializeField] private bool highContrastEnabled;
         [HideInInspector] public bool shadersAdded, isPrevisualizing;
         
+        private ACC_VisualAccessibility accVisualAccessibility;
+        
         [Header("MobilityAccessibility")]
         [SerializeField] private bool remapControlsEnabled;
         
@@ -65,6 +67,9 @@ namespace TFG_Videojocs
                 accAudioAccessibility = new ACC_AudioAccessibility();
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+                
+                accVisualAccessibility = new ACC_VisualAccessibility();
+                //  accVisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 
                 accMobilityAccessibility = new ACC_MobilityAccessibility();
                 accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
@@ -182,6 +187,7 @@ namespace TFG_Videojocs
                             materials.CopyTo(newMaterials, 0);
                             newMaterials[materials.Length] = highContrastColorMaterial;
                             renderer.sharedMaterials = newMaterials;
+                            renderer.sharedMaterials[^1].renderQueue = 50;
                             
                             if(ambientOcclusionTexture != null)
                             {
@@ -198,6 +204,11 @@ namespace TFG_Videojocs
                             materials.CopyTo(newMaterials, 0);
                             newMaterials[materials.Length] = highContrastOutlineMaterial;
                             renderer.sharedMaterials = newMaterials;
+                            
+                            MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+                            renderer.GetPropertyBlock(propBlock, materials.Length);
+                            propBlock.SetFloat("_OutlineThickness", 0);
+                            renderer.SetPropertyBlock(propBlock, materials.Length);
                         }
                     }
                 }
@@ -244,20 +255,26 @@ namespace TFG_Videojocs
                 }
             }
         }
-        public void Previsualize(ACC_HighContrastData highContrastData)
+        public void Previsualize(ACC_HighContrastData highContrastData=null)
         {
             if (shadersAdded)
             {
+                isPrevisualizing = true;
                 GameObject[] goArray = FindObjectsOfType<GameObject>();
                 foreach (GameObject go in goArray)
                 {
                     if (go.activeInHierarchy)
                     {
                         Renderer renderer = go.GetComponent<Renderer>();
-                        var highContrastConfiguration = highContrastData.highContrastConfigurations.Items.Find(x => go.CompareTag(x.value.tag));
+                        ACC_SerializableDictiornary<int, ACC_HighContrastConfiguration>.ACC_KeyValuePair highContrastConfiguration = null;
+                        if (highContrastData != null)
+                        {
+                            highContrastConfiguration = highContrastData.highContrastConfigurations.Items.Find(x => go.CompareTag(x.value.tag));
+                        }
                         if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer) && highContrastConfiguration != null)
                         {
                             var materials = renderer.sharedMaterials;
+                            materials[^2].renderQueue = -50;
                             
                             MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
@@ -270,24 +287,11 @@ namespace TFG_Videojocs
                             propOutlineBlock.SetFloat("_OutlineThickness", highContrastConfiguration.value.outlineThickness);
                             renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                         }
-                    }
-                }
-            }
-        }
-
-        public void StopPrevisualize()
-        {
-            if (shadersAdded)
-            {
-                GameObject[] goArray = FindObjectsOfType<GameObject>();
-                foreach (GameObject go in goArray)
-                {
-                    if (go.activeInHierarchy)
-                    {
-                        Renderer renderer = go.GetComponent<Renderer>();
-                        if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer))
+                        else if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer) &&
+                                 highContrastConfiguration == null)
                         {
                             var materials = renderer.sharedMaterials;
+                            materials[^2].renderQueue = -50;
                             
                             MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
@@ -298,6 +302,37 @@ namespace TFG_Videojocs
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             propOutlineBlock.SetColor("_OutlineColor", Color.white);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0.6f);
+                            renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
+                        }
+                    }
+                }
+            }
+        }
+        public void StopPrevisualize()
+        {
+            if (shadersAdded)
+            {
+                isPrevisualizing = false;
+                GameObject[] goArray = FindObjectsOfType<GameObject>();
+                foreach (GameObject go in goArray)
+                {
+                    if (go.activeInHierarchy)
+                    {
+                        Renderer renderer = go.GetComponent<Renderer>();
+                        if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer))
+                        {
+                            var materials = renderer.sharedMaterials;
+                            materials[^2].renderQueue = 50;
+                            
+                            MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
+                            renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
+                            propColorBlock.SetColor("_Color", new Color(0.3679245f, 0.3679245f, 0.3679245f, 1));
+                            renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
+                            
+                            MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
+                            renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
+                            propOutlineBlock.SetColor("_OutlineColor", Color.white);
+                            propOutlineBlock.SetFloat("_OutlineThickness", 0);
                             renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                         }
                     }

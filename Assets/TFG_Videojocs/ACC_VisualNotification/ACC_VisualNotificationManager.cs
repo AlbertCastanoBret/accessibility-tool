@@ -40,7 +40,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
 
     public void LoadVisualNotification(ACC_Sound soundToMatch)
     {
-        loadedData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>("ACC_VisualNotification/C");
+        loadedData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>("ACC_VisualNotification/A");
         Debug.Log(loadedData);
     }
 

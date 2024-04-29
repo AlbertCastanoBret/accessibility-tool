@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_RemapControls;
 using TMPro;
 using UnityEditor;
@@ -57,6 +58,9 @@ namespace TFG_Videojocs.ACC_Utilities
                     break;
                 case "VisualNotification":
                     CreateVisualNotificationManager(gameObject);
+                    break;
+                case "HighContrast":
+                    gameObject.AddComponent<ACC_HighContrastManager>();
                     break;
                 case "RemapControls":
                     CreateRemapControlsManager(gameObject, jsonFile);
