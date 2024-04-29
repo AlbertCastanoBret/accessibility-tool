@@ -23,7 +23,7 @@ namespace TFG_Videojocs
         public TData lastData;
 
         [SerializeField] public string oldName;
-        [SerializeField] public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCreatingNewFileOnEdition, isRenamingFile, isDiscarting;
+        [SerializeField] public bool isEditing, isClosing, isCreatingNewFileOnCreation, isOverWriting, isCancelingOverWriting, isCreatingNewFileOnEdition, isRenamingFile, isDiscarting;
         
         public void Initialize(TWindow window)
         {
@@ -41,10 +41,7 @@ namespace TFG_Videojocs
             var exists = ACC_JSONHelper.FileNameAlreadyExists(path + name);
             
             if(exists) LoadJson(name);
-            else
-            {
-                ConfigureJson();
-            }
+            else ConfigureJson();
         }
         public virtual void ConfigureJson()
         {
@@ -95,10 +92,12 @@ namespace TFG_Videojocs
                     switch (option)
                     {
                         case 0:
+                            if (isCreatingNewFileOnCreation) isCancelingOverWriting = false;
                             isOverWriting = true;
                             ConfigureJson();
                             break;
                         case 1:
+                            isCancelingOverWriting = true;
                             if(isClosing) Cancel(window);
                             break;
                     }
@@ -128,7 +127,11 @@ namespace TFG_Videojocs
                             break;
                     }
                 }
-                if (isCreatingNewFileOnCreation && !isEditing &&!isClosing) window.Close();
+
+                if (isCreatingNewFileOnCreation && !isEditing && !isClosing && !isCancelingOverWriting)
+                {
+                    window.Close();
+                }
             }
             else
             {
@@ -154,7 +157,7 @@ namespace TFG_Videojocs
             {
                 var path = "./" + window.GetType().Name.Replace("EditorWindow", "") + "/";
                 var result = EditorUtility.DisplayDialogComplex("Current configuration has been modified",
-                    $"Do you want to save the changes you made in:\n{path}{oldName}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
+                    $"Do you want to save the changes you made in:\n{path}{currentData.name}.json\n\nYour changes will be lost if you don't save them.", "Save", "Cancel", "Don't Save");
                 switch (result)
                 {
                     case 0:
@@ -185,6 +188,7 @@ namespace TFG_Videojocs
             isClosing = sourceController.isClosing;
             isCreatingNewFileOnCreation = sourceController.isCreatingNewFileOnCreation;
             isOverWriting = sourceController.isOverWriting;
+            isCancelingOverWriting = sourceController.isCancelingOverWriting;
             isCreatingNewFileOnEdition = sourceController.isCreatingNewFileOnEdition;
             isRenamingFile = sourceController.isRenamingFile;
         }
