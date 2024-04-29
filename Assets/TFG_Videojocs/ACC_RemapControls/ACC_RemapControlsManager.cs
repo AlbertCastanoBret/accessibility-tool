@@ -91,7 +91,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }
         }
-        
         public void HideRebindMenu()
         {
             foreach (var deviceManager in controlSchemesOfEachDevice.Keys)

@@ -31,6 +31,13 @@ public class ACC_JSONHelper
         TextAsset textAsset = Resources.Load<TextAsset>(fullPath);
         return JsonUtility.FromJson<T>(textAsset.text);
     }
+    
+    public static T[] LoadAllFiles<T>(string path)
+    {
+        string fullPath = "ACC_JSON/" + path;
+        TextAsset[] textAssets = Resources.LoadAll<TextAsset>(fullPath);
+        return System.Array.ConvertAll(textAssets, item => JsonUtility.FromJson<T>(item.text));
+    }
 
     #if UNITY_EDITOR
     public static bool FileNameAlreadyExists(string filename)
