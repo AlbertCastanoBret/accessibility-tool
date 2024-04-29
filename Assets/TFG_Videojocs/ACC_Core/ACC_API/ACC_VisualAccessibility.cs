@@ -30,7 +30,7 @@ namespace TFG_Videojocs
         
         public void SetHighContrastMode(bool state)
         {
-            //accHighContrastManager.SetHighContrastMode(state);
+            accHighContrastManager.SetHighContrastMode(state);
         }
     }
 }

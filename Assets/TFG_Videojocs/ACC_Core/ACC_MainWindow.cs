@@ -226,6 +226,7 @@ public class ACC_MainWindow : EditorWindow
             }
             else
             {
+                if (accessibilityManager.isPrevisualizing) accessibilityManager.StopPrevisualize();
                 previsualizeToggle.style.display = DisplayStyle.None;
                 refreshButton.style.display = DisplayStyle.None;
             }

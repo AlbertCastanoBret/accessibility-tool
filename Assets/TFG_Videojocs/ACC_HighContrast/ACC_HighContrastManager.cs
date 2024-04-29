@@ -59,5 +59,9 @@ namespace TFG_Videojocs.ACC_HighContrast
                 }
             }
         }
+        public void ChangeHighContrastConfiguration(string configuration)
+        {
+            
+        }
     }
 }
