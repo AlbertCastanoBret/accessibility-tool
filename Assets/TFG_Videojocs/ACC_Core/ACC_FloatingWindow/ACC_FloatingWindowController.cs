@@ -128,10 +128,7 @@ namespace TFG_Videojocs
                     }
                 }
 
-                if (isCreatingNewFileOnCreation && !isEditing && !isClosing && !isCancelingOverWriting)
-                {
-                    window.Close();
-                }
+                if (isCreatingNewFileOnCreation && !isEditing && !isClosing && !isCancelingOverWriting) window.Close();
             }
             else
             {
