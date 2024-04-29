@@ -69,7 +69,12 @@ namespace TFG_Videojocs
         public virtual void HandleSave<TController>(ACC_BaseFloatingWindow<TController, TWindow, TData> window) where TController : ACC_FloatingWindowController<TWindow, TData>, new()
         {
             var name = currentData.name;
-            if (name.Length > 0)
+            if (name == null)
+            {
+                EditorUtility.DisplayDialog("Required field", "Please, introduce a name before saving.", "OK");
+                if(isClosing) Cancel(window);
+            }
+            else if (name.Length > 0)
             {
                 var path = "/" + window.GetType().Name.Replace("EditorWindow", "") + "/";
                 var fileExists = ACC_JSONHelper.FileNameAlreadyExists(path + name);

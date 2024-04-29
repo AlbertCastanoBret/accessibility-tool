@@ -501,8 +501,9 @@ public class ACC_MainWindow : EditorWindow
         {
             if (!string.IsNullOrEmpty(dropdown.value))
             {
+                var fileName = dropdown.value;
                 ACC_BaseFloatingWindow<TController, TWindow, TData>.CloseWindowIfExists<TWindow>();
-                ACC_JSONHelper.DeleteFile(directory, dropdown.value);
+                ACC_JSONHelper.DeleteFile(directory, fileName);
                 RefreshDropdown<TData>(directory);
             }
             else EditorUtility.DisplayDialog("Required Field", "Please select an existing file to load.", "OK");
