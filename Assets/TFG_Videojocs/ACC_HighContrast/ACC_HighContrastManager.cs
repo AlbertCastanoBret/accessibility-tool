@@ -27,12 +27,21 @@ namespace TFG_Videojocs.ACC_HighContrast
                         Renderer renderer = go.GetComponent<Renderer>();
                         if (renderer != null)
                         {
+                            var ambientOcclusionTexture = GetAmbientOcclusionTexture(renderer);
                             var materials = renderer.sharedMaterials;
                             materials[^2].renderQueue = -50;
                             
                             MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0.6f);
+                            
+                            if(ambientOcclusionTexture != null)
+                            {
+                                MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+                                renderer.GetPropertyBlock(propBlock, materials.Length - 2);
+                                propBlock.SetTexture("_AmbientOcclusion", ambientOcclusionTexture);
+                                renderer.SetPropertyBlock(propBlock, materials.Length -2);
+                            }
                         }
                     }
                 }
@@ -92,8 +101,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                                 propOutlineBlock.SetFloat("_OutlineThickness", highContrastConfiguration.value.outlineThickness);
                                 renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             }
-                            else if (renderer != null &&
-                                     highContrastConfiguration == null)
+                            else if (renderer != null && highContrastConfiguration == null)
                             {
                                 var materials = renderer.sharedMaterials;
                                 materials[^2].renderQueue = -50;
@@ -123,6 +131,15 @@ namespace TFG_Videojocs.ACC_HighContrast
                 configurationNames.Add(configuration.name);
             }
             return configurationNames;
+        }
+        private Texture GetAmbientOcclusionTexture(Renderer renderer)
+        {
+            foreach (var material in renderer.sharedMaterials)
+            {
+                if (material.HasProperty("_OcclusionMap") && material.GetTexture("_OcclusionMap") != null)
+                    return material.GetTexture("_OcclusionMap");
+            }
+            return null;
         }
     }
 }

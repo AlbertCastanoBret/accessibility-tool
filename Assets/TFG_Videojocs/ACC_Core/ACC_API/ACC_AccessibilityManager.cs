@@ -92,6 +92,8 @@ namespace TFG_Videojocs
         private IEnumerator ChangeScene()
         {
             yield return new WaitForSeconds(2);
+            accVisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, true);
+            accVisualAccessibility.ChangeHighContrastConfiguration("A");
             //accAudioAccessibility.ChangeSubtitleFontSize(20);
             //MobilityAccessibilityManager().ShowRemapControlsMenu("Gamepad");
             //yield return new WaitForSeconds(6);
@@ -181,21 +183,12 @@ namespace TFG_Videojocs
                         Renderer renderer = go.GetComponent<Renderer>();
                         if (renderer != null && !AlreadyHasHighContrastColorMaterial(renderer))
                         {
-                            var ambientOcclusionTexture = GetAmbientOcclusionTexture(renderer);
                             var materials = renderer.sharedMaterials;
                             var newMaterials = new Material[materials.Length + 1];
                             materials.CopyTo(newMaterials, 0);
                             newMaterials[materials.Length] = highContrastColorMaterial;
                             renderer.sharedMaterials = newMaterials;
                             renderer.sharedMaterials[^1].renderQueue = 50;
-                            
-                            if(ambientOcclusionTexture != null)
-                            {
-                                MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
-                                renderer.GetPropertyBlock(propBlock, materials.Length);
-                                propBlock.SetTexture("_AmbientOcclusion", ambientOcclusionTexture);
-                                renderer.SetPropertyBlock(propBlock, materials.Length);
-                            }
                         }
                         if(renderer != null && !AlreadyHasHighContrastOutlineMaterial(renderer))
                         {
@@ -273,6 +266,7 @@ namespace TFG_Videojocs
                         }
                         if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer) && highContrastConfiguration != null)
                         {
+                            var ambientOcclusionTexture = GetAmbientOcclusionTexture(renderer);
                             var materials = renderer.sharedMaterials;
                             materials[^2].renderQueue = -50;
                             
@@ -286,10 +280,19 @@ namespace TFG_Videojocs
                             propOutlineBlock.SetColor("_OutlineColor", highContrastConfiguration.value.outlineColor);
                             propOutlineBlock.SetFloat("_OutlineThickness", highContrastConfiguration.value.outlineThickness);
                             renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
+                            
+                            if(ambientOcclusionTexture != null)
+                            {
+                                MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+                                renderer.GetPropertyBlock(propBlock, materials.Length-1);
+                                propBlock.SetTexture("_AmbientOcclusion", ambientOcclusionTexture);
+                                renderer.SetPropertyBlock(propBlock, materials.Length-1);
+                            }
                         }
                         else if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer) &&
                                  highContrastConfiguration == null)
                         {
+                            var ambientOcclusionTexture = GetAmbientOcclusionTexture(renderer);
                             var materials = renderer.sharedMaterials;
                             materials[^2].renderQueue = -50;
                             
@@ -303,6 +306,13 @@ namespace TFG_Videojocs
                             propOutlineBlock.SetColor("_OutlineColor", Color.white);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0.6f);
                             renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
+                            if(ambientOcclusionTexture != null)
+                            {
+                                MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+                                renderer.GetPropertyBlock(propBlock, materials.Length - 2);
+                                propBlock.SetTexture("_AmbientOcclusion", ambientOcclusionTexture);
+                                renderer.SetPropertyBlock(propBlock, materials.Length - 2);
+                            }
                         }
                     }
                 }
