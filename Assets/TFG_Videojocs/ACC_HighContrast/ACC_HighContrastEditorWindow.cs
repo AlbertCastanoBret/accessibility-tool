@@ -310,7 +310,20 @@ namespace TFG_Videojocs.ACC_HighContrast
             var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
             var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
             bottomContainer.style.marginTop = new StyleLength(Length.Auto());
-            var createSubtitleButton = uiElementFactory.CreateButton("Save", "button", () => controller.HandleSave(this));
+            var createSubtitleButton = uiElementFactory.CreateButton("Save", "button", () =>
+            {
+                if (controller.isCreatingNewFileOnCreation || controller.isEditing)
+                {
+                    controller.HandleSave(this);
+                    if (accessibilityManager.isPrevisualizing)
+                    {
+                        accessibilityManager.StopPrevisualize();
+                        EditorUtility.SetDirty(accessibilityManager);
+                        
+                        rootVisualElement.Q<Toggle>().value = false;
+                    }
+                }
+            });
             
             refreshButton = uiElementFactory.CreateButton("Refresh", "button", () =>
             {

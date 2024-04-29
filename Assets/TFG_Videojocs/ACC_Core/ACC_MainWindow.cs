@@ -217,8 +217,6 @@ public class ACC_MainWindow : EditorWindow
         
         addShadersToggle.RegisterValueChangedCallback(evt =>
         {
-            accessibilityManager.shadersAdded = evt.newValue;
-            EditorUtility.SetDirty(accessibilityManager);
             if (evt.newValue)
             {
                 previsualizeToggle.style.display = DisplayStyle.Flex;
@@ -226,10 +224,16 @@ public class ACC_MainWindow : EditorWindow
             }
             else
             {
-                if (accessibilityManager.isPrevisualizing) accessibilityManager.StopPrevisualize();
+                if (accessibilityManager.isPrevisualizing)
+                {
+                    accessibilityManager.StopPrevisualize();
+                    previsualizeToggle.value = false;
+                }
                 previsualizeToggle.style.display = DisplayStyle.None;
                 refreshButton.style.display = DisplayStyle.None;
             }
+            accessibilityManager.shadersAdded = evt.newValue;
+            EditorUtility.SetDirty(accessibilityManager);
         });
         
         previsualizeToggle.RegisterValueChangedCallback(evt =>
