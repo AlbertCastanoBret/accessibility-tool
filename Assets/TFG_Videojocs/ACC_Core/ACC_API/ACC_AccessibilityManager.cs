@@ -52,8 +52,9 @@ namespace TFG_Videojocs
         ACC_AccessibilityManager()
         {
             EditorApplication.hierarchyChanged += OnHierarchyChanged;
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
-        #endif
+#endif
 
         private void Awake()
         {
@@ -377,6 +378,13 @@ namespace TFG_Videojocs
                     return true;
             }
             return false;
+        }
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.ExitingEditMode || state == PlayModeStateChange.EnteredEditMode)
+            {
+                if (shadersAdded) StopPrevisualize();
+            }
         }
         #endif
     }
