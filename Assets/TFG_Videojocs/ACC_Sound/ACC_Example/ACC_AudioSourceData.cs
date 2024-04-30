@@ -7,17 +7,6 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
     {
         public float volume;
         
-        public ACC_AudioSourceData()
-        {
-            name = "";
-            volume = 1;
-        }
-        
-        public ACC_AudioSourceData(string name)
-        {
-            this.name = name;
-            volume = 1;
-        }
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())

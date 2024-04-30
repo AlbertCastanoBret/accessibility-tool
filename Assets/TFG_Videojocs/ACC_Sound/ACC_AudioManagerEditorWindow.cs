@@ -75,8 +75,12 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         var nameField = uiElementFactory.CreateTextField("table-cell", "", name, "table-cell-input",
             (value) =>
             {
-                var currentRow = tableScrollView.IndexOf(row)-1; 
-                controller.currentData.audioSources.AddOrUpdate(currentRow, new ACC_AudioSourceData(value));
+                var currentRow = tableScrollView.IndexOf(row)-1;
+                var volume = 0.5f;
+                if(controller.currentData.audioSources.Items.Exists(x => x.key == currentRow))
+                    volume = controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.volume;
+                
+                controller.currentData.audioSources.AddOrUpdate(currentRow, new ACC_AudioSourceData(){name = value, volume = volume});
 
                 if (!controller.currentData.audioClips.Items.Exists(x =>
                         x.key.Equals(index != -1 ? index - 1 : currentRow)))
@@ -92,11 +96,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                 }
             });
         nameField.style.width = new StyleLength(Length.Percent(90));
-        nameField.RegisterValueChangedCallback( (evt) =>
-        {
-            var currentRow = tableScrollView.IndexOf(row)-1;
-            settingsScrollView[currentRow].Q<Label>().text = evt.newValue;
-        });
             
         var addButton = uiElementFactory.CreateButton("+","table-add-button", () =>
         {
@@ -131,6 +130,13 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
             settingsScrollView.RemoveAt(currentRow);
         });
         
+        CreateAudioSourceSetting(controller.currentData.audioSources.Items.Find(x => x.key == tableScrollView.IndexOf(row)-1).value.name, tableScrollView.IndexOf(row)-1);
+        nameField.RegisterValueChangedCallback((evt) =>
+        {
+            var currentRow = tableScrollView.IndexOf(row)-1;
+            settingsScrollView[currentRow].Q<Label>().text = evt.newValue;
+        });
+        
         tableCell.Add(arrowButton);
         tableCell.Add(icon);
         tableCell.Add(nameField);
@@ -140,7 +146,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         row.Add(mainRow);
         CreateSounds(row);
         rootVisualElement.schedule.Execute(() => { nameField[0].Focus(); }).StartingIn((long)0.001);
-        CreateAudioSourceSetting(controller.currentData.audioSources.Items.Find(x => x.key == tableScrollView.IndexOf(row)-1).value.name);
     }
     private void CreateSounds(VisualElement row)
     {
@@ -279,21 +284,26 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         settingsContainer.Add(settingsScrollView);
         rootVisualElement.Add(settingsContainer);
     }
-
-    private void CreateAudioSourceSetting(string name)
+    private void CreateAudioSourceSetting(string name, int row)
     {
         var settingContainer = uiElementFactory.CreateVisualElement("setting-container");
+        settingsScrollView.Insert(row, settingContainer);
+        
         var label = uiElementFactory.CreateLabel("subtitle", name);
         label.style.color = new Color(0.9921569f, 0.7490196f, 0.03529412f, 1);
         
+        var currentVolume = controller.currentData.audioSources.Items.Find(x => x.key == settingsScrollView.IndexOf(settingContainer)).value.volume;
         var sliderVolume = uiElementFactory.CreateSliderWithFloatField("option-multi-input", "Volume", 0, 1,
-            0.5f);
+            currentVolume, onValueChanged: value =>
+            {
+                var currentRow = settingsScrollView.IndexOf(settingContainer);
+                controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.volume = value;
+            });
         var audioToggle = uiElementFactory.CreateToggle("option-input", "3D Audio: ", false, "option-input-label");
         
         settingContainer.Add(label);
         settingContainer.Add(sliderVolume);
         settingContainer.Add(audioToggle);
-        settingsScrollView.Add(settingContainer);
     }
     private void CreateBottomContainer()
     {
