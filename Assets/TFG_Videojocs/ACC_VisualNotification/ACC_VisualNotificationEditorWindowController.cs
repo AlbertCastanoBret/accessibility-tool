@@ -20,10 +20,10 @@ namespace TFG_Videojocs.ACC_VisualNotification
                 return;
             }
             
-            Dictionary<string, List<ACC_Sound>> repeatedSounds = new Dictionary<string, List<ACC_Sound>>(); 
+            Dictionary<string, List<ACC_Sound.ACC_Sound>> repeatedSounds = new Dictionary<string, List<ACC_Sound.ACC_Sound>>(); 
             for (int i = 0; i < currentData.soundsList.Count; i++)
             {
-                string fileName = ACC_JSONHelper.GetFileNameByListParameter<ACC_VisualNotificationData, ACC_Sound>(
+                string fileName = ACC_JSONHelper.GetFileNameByListParameter<ACC_VisualNotificationData, ACC_Sound.ACC_Sound>(
                     "ACC_VisualNotification/",
                     data => data.soundsList,
                     (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
@@ -33,7 +33,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
                 {
                     if (!repeatedSounds.ContainsKey(fileName))
                     {
-                        repeatedSounds.Add(fileName, new List<ACC_Sound>());
+                        repeatedSounds.Add(fileName, new List<ACC_Sound.ACC_Sound>());
                         repeatedSounds[fileName].Add(currentData.soundsList[i]);
                     }
                     else repeatedSounds[fileName].Add(currentData.soundsList[i]);
@@ -68,7 +68,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
             window.rootVisualElement.Query<SliderInt>(name: "multi-input-1-1").First().value = currentData.fontSize;
         }
 
-        private void ShowDialogRepeatedSounds(Dictionary<string, List<ACC_Sound>> repeatedSounds)
+        private void ShowDialogRepeatedSounds(Dictionary<string, List<ACC_Sound.ACC_Sound>> repeatedSounds)
         {
             string sounds = string.Join(", ", repeatedSounds);
             int option = EditorUtility.DisplayDialogComplex(
@@ -82,11 +82,11 @@ namespace TFG_Videojocs.ACC_VisualNotification
             switch (option)
             {
                 case 0:
-                    foreach (KeyValuePair<string, List<global::ACC_Sound>> kvp in repeatedSounds)
+                    foreach (KeyValuePair<string, List<ACC_Sound.ACC_Sound>> kvp in repeatedSounds)
                     {
-                        foreach (ACC_Sound sound in kvp.Value)
+                        foreach (ACC_Sound.ACC_Sound sound in kvp.Value)
                         {
-                            ACC_JSONHelper.RemoveItemFromListInFile<ACC_VisualNotificationData, ACC_Sound>(
+                            ACC_JSONHelper.RemoveItemFromListInFile<ACC_VisualNotificationData, ACC_Sound.ACC_Sound>(
                                 "ACC_VisualNotification",
                                 data => data.soundsList,
                                 (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,

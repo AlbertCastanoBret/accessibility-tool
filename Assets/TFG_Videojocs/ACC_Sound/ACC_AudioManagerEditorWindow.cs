@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TFG_Videojocs;
+using TFG_Videojocs.ACC_Sound;
+using TFG_Videojocs.ACC_Sound.ACC_Example;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEditorInternal;
@@ -9,13 +11,13 @@ using UnityEngine.UIElements;
 
 public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioManagerEditorWindowController, ACC_AudioManagerEditorWindow, ACC_AudioManagerData>
 {
-    private VisualElement tableContainer, tableScrollView;
+    private VisualElement tableContainer, tableScrollView, settingsScrollView;
     public static void ShowWindow()
     {
         var window = GetWindow<ACC_AudioManagerEditorWindow>();
         window.titleContent = new GUIContent("Audio Manager");
-        window.minSize = new Vector2(600, 560);
-        window.maxSize = new Vector2(600, 560);
+        window.minSize = new Vector2(600, 660);
+        window.maxSize = new Vector2(600, 660);
         
         window.controller.isEditing = true;
         window.controller.LoadOnlyEditableWindow("AudioManager");
@@ -50,7 +52,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         
         for(int i=0; i<controller.currentData.audioSources.Items.Count; i++)
         {
-            CreateAudioSource(controller.currentData.audioSources.Items.Find(x => x.key == i).value, i+1);
+            CreateAudioSource(controller.currentData.audioSources.Items.Find(x => x.key == i).value.name, i+1);
         }
             
         tableContainer.Add(highContrastTitle);
@@ -73,8 +75,8 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         var nameField = uiElementFactory.CreateTextField("table-cell", "", name, "table-cell-input",
             (value) =>
             {
-                var currentRow = tableScrollView.IndexOf(row)-1;
-                controller.currentData.audioSources.AddOrUpdate(currentRow, value);
+                var currentRow = tableScrollView.IndexOf(row)-1; 
+                controller.currentData.audioSources.AddOrUpdate(currentRow, new ACC_AudioSourceData(value));
 
                 if (!controller.currentData.audioClips.Items.Exists(x =>
                         x.key.Equals(index != -1 ? index - 1 : currentRow)))
@@ -88,9 +90,13 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                     controller.currentData.audioClips.AddOrUpdate(currentRow, 
                         controller.currentData.audioClips.Items.Find(x => x.key == currentRow).value);
                 }
-                
             });
         nameField.style.width = new StyleLength(Length.Percent(90));
+        nameField.RegisterValueChangedCallback( (evt) =>
+        {
+            var currentRow = tableScrollView.IndexOf(row)-1;
+            settingsScrollView[currentRow].Q<Label>().text = evt.newValue;
+        });
             
         var addButton = uiElementFactory.CreateButton("+","table-add-button", () =>
         {
@@ -122,6 +128,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                     controller.currentData.audioClips.Remove(j);
                 }
             }
+            settingsScrollView.RemoveAt(currentRow);
         });
         
         tableCell.Add(arrowButton);
@@ -133,6 +140,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         row.Add(mainRow);
         CreateSounds(row);
         rootVisualElement.schedule.Execute(() => { nameField[0].Focus(); }).StartingIn((long)0.001);
+        CreateAudioSourceSetting(controller.currentData.audioSources.Items.Find(x => x.key == tableScrollView.IndexOf(row)-1).value.name);
     }
     private void CreateSounds(VisualElement row)
     {
@@ -265,24 +273,39 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
     {
         var settingsContainer = uiElementFactory.CreateVisualElement("container-2");
         var settingsTitle = uiElementFactory.CreateLabel("title", "Settings");
-        var settingsScrollView = uiElementFactory.CreateScrollView("settings-scroll-view");
-
-        var sliderVolume = uiElementFactory.CreateSliderWithFloatField("option-multi-input", "Volume", 0, 1,
-            0.5f);
-        settingsScrollView.Add(sliderVolume);
+        settingsScrollView = uiElementFactory.CreateScrollView("settings-scroll-view");
         
         settingsContainer.Add(settingsTitle);
         settingsContainer.Add(settingsScrollView);
         rootVisualElement.Add(settingsContainer);
+    }
+
+    private void CreateAudioSourceSetting(string name)
+    {
+        var settingContainer = uiElementFactory.CreateVisualElement("setting-container");
+        var label = uiElementFactory.CreateLabel("subtitle", name);
+        label.style.color = new Color(0.9921569f, 0.7490196f, 0.03529412f, 1);
+        
+        var sliderVolume = uiElementFactory.CreateSliderWithFloatField("option-multi-input", "Volume", 0, 1,
+            0.5f);
+        var audioToggle = uiElementFactory.CreateToggle("option-input", "3D Audio: ", false, "option-input-label");
+        
+        settingContainer.Add(label);
+        settingContainer.Add(sliderVolume);
+        settingContainer.Add(audioToggle);
+        settingsScrollView.Add(settingContainer);
     }
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
         bottomContainer.style.marginTop = new StyleLength(Length.Auto());
         var createSubtitleButton = uiElementFactory.CreateButton("Save", "button", () => controller.HandleSave(this));
-
+        
         var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-row-container");
-        var addSubtitle1 = uiElementFactory.CreateButton("Add New Audio Source", "add-row-button", () => CreateAudioSource());
+        var addSubtitle1 = uiElementFactory.CreateButton("Add New Audio Source", "add-row-button", () =>
+        {
+            CreateAudioSource();
+        });
         
         addSubtitlesContainer.Add(addSubtitle1);
         bottomContainer.Add(createSubtitleButton);

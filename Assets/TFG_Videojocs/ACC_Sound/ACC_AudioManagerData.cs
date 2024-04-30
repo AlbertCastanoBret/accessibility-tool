@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TFG_Videojocs.ACC_Sound;
+using TFG_Videojocs.ACC_Sound.ACC_Example;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -9,7 +11,7 @@ using UnityEngine.Rendering;
 [System.Serializable]
 public class ACC_AudioManagerData : ACC_AbstractData
 {
-    public ACC_SerializableDictiornary<int, string> audioSources = new ACC_SerializableDictiornary<int, string>();
+    public ACC_SerializableDictiornary<int, ACC_AudioSourceData> audioSources = new ACC_SerializableDictiornary<int, ACC_AudioSourceData>();
     public ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, ACC_Sound>> audioClips = new ACC_SerializableDictiornary<int,  ACC_SerializableDictiornary<int, ACC_Sound>>();
     public override bool Equals(object obj)
     {
@@ -40,7 +42,7 @@ public class ACC_AudioManagerData : ACC_AbstractData
         ACC_AudioManagerData clone = new ACC_AudioManagerData
         {
             name = name,
-            audioSources = (ACC_SerializableDictiornary<int, string>)audioSources.Clone(),
+            audioSources = (ACC_SerializableDictiornary<int, ACC_AudioSourceData>)audioSources.Clone(),
             audioClips = (ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, ACC_Sound>>)audioClips.Clone()
         };
         return clone;

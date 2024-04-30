@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TFG_Videojocs;
+using TFG_Videojocs.ACC_Sound;
 using TFG_Videojocs.ACC_Utilities;
 using TMPro;
 using Unity.VisualScripting;
