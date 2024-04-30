@@ -285,9 +285,9 @@ namespace TFG_Videojocs
                             if(ambientOcclusionTexture != null)
                             {
                                 MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
-                                renderer.GetPropertyBlock(propBlock, materials.Length-1);
+                                renderer.GetPropertyBlock(propBlock, materials.Length - 2);
                                 propBlock.SetTexture("_AmbientOcclusion", ambientOcclusionTexture);
-                                renderer.SetPropertyBlock(propBlock, materials.Length-1);
+                                renderer.SetPropertyBlock(propBlock, materials.Length - 2);
                             }
                         }
                         else if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer) &&

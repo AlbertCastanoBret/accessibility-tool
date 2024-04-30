@@ -333,10 +333,12 @@ namespace TFG_Videojocs.ACC_HighContrast
                     accessibilityManager.OnHierarchyChanged();
                     accessibilityManager.shadersAdded = true;
                     accessibilityManager.OnHierarchyChanged();
-                    
-                    accessibilityManager.StopPrevisualize();
-                    accessibilityManager.Previsualize(controller.currentData);
-                    
+
+                    if (controller.isPrevisualizing)
+                    {
+                        accessibilityManager.StopPrevisualize();
+                        accessibilityManager.Previsualize(controller.currentData);
+                    }
                     EditorUtility.SetDirty(accessibilityManager);
                 }
             });
