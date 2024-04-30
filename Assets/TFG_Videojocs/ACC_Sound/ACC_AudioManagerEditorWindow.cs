@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TFG_Videojocs;
@@ -8,6 +9,7 @@ using UnityEditor.UIElements;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioManagerEditorWindowController, ACC_AudioManagerEditorWindow, ACC_AudioManagerData>
 {
@@ -299,12 +301,57 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                 var currentRow = settingsScrollView.IndexOf(settingContainer);
                 controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.volume = value;
             });
-        var audioToggle = uiElementFactory.CreateToggle("option-input", "3D Audio: ", false, "option-input-label");
+        var audioToggle = (Toggle) uiElementFactory.CreateToggle("option-input", "3D Audio: ", false, "option-input-label");
+        
+        var gameObjectField = uiElementFactory.CreateObjectField("option-input", "Game Object: ", typeof(GameObject));
+        gameObjectField[0].style.width = new Length(50, LengthUnit.Percent);
+        gameObjectField.style.display = DisplayStyle.None;
+        
+        audioToggle.RegisterValueChangedCallback(evt =>
+        {
+            if (evt.newValue)
+            {
+                gameObjectField.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                gameObjectField.style.display = DisplayStyle.None;
+            }
+        });
+
+        var gameObjectFieldContainer = uiElementFactory.CreateVisualElement("");
+        gameObjectFieldContainer.Add(gameObjectField);
+        
+        var items = new List<Object> {null};
+        ListView listView = new ListView(items, 30, () =>
+            {
+                return new ObjectField { allowSceneObjects = true, objectType = typeof(GameObject)};
+            },
+            (visualElement, i) =>
+            {
+                ((ObjectField)visualElement).value = items[i];
+                ((ObjectField)visualElement).RegisterValueChangedCallback(evt =>
+                {
+                    items[i] = evt.newValue;
+                });
+            });
+
+        listView.selectionType = SelectionType.Single;
+        listView.reorderMode = ListViewReorderMode.Simple;
+        listView.showAddRemoveFooter = true;
         
         settingContainer.Add(label);
         settingContainer.Add(sliderVolume);
         settingContainer.Add(audioToggle);
+        settingContainer.Add(gameObjectField);
+        settingContainer.Add(listView);
     }
+
+    private void Create3DAudioObjectField()
+    {
+        
+    }
+    
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
@@ -323,4 +370,5 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
 
         rootVisualElement.Add(bottomContainer);
     }
+    
 }
