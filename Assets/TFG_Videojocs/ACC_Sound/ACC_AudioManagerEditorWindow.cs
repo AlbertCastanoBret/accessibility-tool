@@ -303,53 +303,67 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
             });
         var audioToggle = (Toggle) uiElementFactory.CreateToggle("option-input", "3D Audio: ", false, "option-input-label");
         
-        var gameObjectField = uiElementFactory.CreateObjectField("option-input", "Game Object: ", typeof(GameObject));
-        gameObjectField[0].style.width = new Length(50, LengthUnit.Percent);
-        gameObjectField.style.display = DisplayStyle.None;
+        List<VisualElement> items = new List<VisualElement>(){Create3DAudioObjectField()};
+        ListView listView = new ListView(items, 50, Create3DAudioObjectField,
+            (visualElement, i) => { });
+        listView.AddToClassList("list-view");
+        listView.style.display = DisplayStyle.None;
+        listView.selectionType = SelectionType.Single;
+        listView.reorderMode = ListViewReorderMode.Simple;
+        listView.showAddRemoveFooter = true;
         
         audioToggle.RegisterValueChangedCallback(evt =>
         {
             if (evt.newValue)
             {
-                gameObjectField.style.display = DisplayStyle.Flex;
+                listView.style.display = DisplayStyle.Flex;
             }
             else
             {
-                gameObjectField.style.display = DisplayStyle.None;
+                listView.style.display = DisplayStyle.None;
             }
         });
-
-        var gameObjectFieldContainer = uiElementFactory.CreateVisualElement("");
-        gameObjectFieldContainer.Add(gameObjectField);
         
-        var items = new List<Object> {null};
-        ListView listView = new ListView(items, 30, () =>
-            {
-                return new ObjectField { allowSceneObjects = true, objectType = typeof(GameObject)};
-            },
-            (visualElement, i) =>
-            {
-                ((ObjectField)visualElement).value = items[i];
-                ((ObjectField)visualElement).RegisterValueChangedCallback(evt =>
-                {
-                    items[i] = evt.newValue;
-                });
-            });
-
-        listView.selectionType = SelectionType.Single;
-        listView.reorderMode = ListViewReorderMode.Simple;
-        listView.showAddRemoveFooter = true;
+        rootVisualElement.Add(listView);
         
         settingContainer.Add(label);
         settingContainer.Add(sliderVolume);
         settingContainer.Add(audioToggle);
-        settingContainer.Add(gameObjectField);
         settingContainer.Add(listView);
+        
+        rootVisualElement.schedule.Execute(() =>
+        {
+            var addButton = listView.Q<Button>(className: "unity-list-view__add-button");
+            var removeButton = listView.Q<Button>(className: "unity-list-view__remove-button");
+
+            if (addButton != null)
+            {
+                addButton.style.backgroundColor = new Color(0.2f, 0.8f, 0.2f, 1.0f);
+                addButton.text = "Custom Add"; // Cambiar texto si necesario
+            }
+
+            if (removeButton != null)
+            {
+                removeButton.style.backgroundColor = new Color(0.8f, 0.2f, 0.2f, 1.0f);
+                removeButton.text = "Custom Remove"; // Cambiar texto si necesario
+            }
+        }).StartingIn(100);
     }
 
-    private void Create3DAudioObjectField()
+    private VisualElement Create3DAudioObjectField()
     {
+        var container = new VisualElement();
+        container.style.borderBottomWidth = new StyleFloat(1);
+        container.style.borderBottomColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f, 1));
         
+        var gameObjectField = uiElementFactory.CreateObjectField("option-input", "Game Object: ", typeof(GameObject));
+        gameObjectField[0].style.width = new Length(50, LengthUnit.Percent);
+        
+        var createPrefab = uiElementFactory.CreateToggle("option-input", "Create Prefab: ", false, "option-input-label");
+        
+        container.Add(gameObjectField);
+        container.Add(createPrefab);
+        return container;
     }
     
     private void CreateBottomContainer()

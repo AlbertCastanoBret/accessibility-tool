@@ -221,3 +221,31 @@ Button{
     margin: 0;
     margin-left: 1px;
 }
+
+.list-view{
+    border-radius: 4px;
+}
+
+.list-view > *{
+    background-color: #3F3F3F;
+    border-bottom-width: 1px;
+    border-bottom-color: #b2b2b2;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.list-view *{
+    background-color: #3F3F3F;
+}
+
+.unity-list-view__footer{
+    background-color: #343434;
+    border-left-width: 1px;
+    border-left-color: #b2b2b2;
+    border-right-width: 1px;
+    border-right-color: #b2b2b2;
+}
+
+.unity-list-view__footer > *{
+    background-color: #343434;
+}
