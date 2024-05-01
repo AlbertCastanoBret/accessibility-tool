@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_RemapControls;
+using TFG_Videojocs.ACC_Sound;
+using TFG_Videojocs.ACC_Sound.ACC_Example;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -45,7 +47,6 @@ namespace TFG_Videojocs.ACC_Utilities
 
             return GameObject.Instantiate(prefab, parent.transform);
         }
-
         private static GameObject CreateGameObject(string feature, string jsonFile = "")
         {
             string name = "ACC_" + feature + "Manager";
@@ -64,6 +65,9 @@ namespace TFG_Videojocs.ACC_Utilities
                     break;
                 case "RemapControls":
                     CreateRemapControlsManager(gameObject, jsonFile);
+                    break;
+                case "Audio":
+                    CreateAudioManager(gameObject, jsonFile);
                     break;
             }
             return gameObject;
@@ -247,7 +251,7 @@ namespace TFG_Videojocs.ACC_Utilities
                 var controlSchemeParent = new GameObject
                 {
                     name = controlScheme,
-                    tag = "RebindsList"
+                    tag = "ACC_ScrollList"
                 };
                 var rectTransform = controlSchemeParent.AddComponent<RectTransform>();
 
@@ -304,6 +308,37 @@ namespace TFG_Videojocs.ACC_Utilities
                     }
                 }
             }
+        }
+        private static void CreateAudioManager(GameObject audioManager, string jsonFile)
+        {
+            RectTransform audioManagerManagerRectTransform = audioManager.AddComponent<RectTransform>();
+            audioManagerManagerRectTransform.anchorMin = new Vector2(0, 0);
+            audioManagerManagerRectTransform.anchorMax = new Vector2(1, 1);
+            audioManagerManagerRectTransform.pivot = new Vector2(0.5f, 0.5f);
+            audioManagerManagerRectTransform.anchoredPosition = Vector3.zero;
+            audioManagerManagerRectTransform.sizeDelta = new Vector2(0, 0);
+            
+            GameObject audioSettings = GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_Sound/ACC_AudioSettings.prefab"), audioManager.transform, true);
+            
+            var loadedData = ACC_JSONHelper.LoadJson<ACC_AudioManagerData>("ACC_AudioManagerDeprecated/" + jsonFile);
+            if(loadedData == null) return;
+            for (int i = 0; i < loadedData.audioSources.Items.Count; i++)
+            {
+                SetAudioVolume(audioSettings, loadedData.audioSources.Items[i].value);
+            }
+            
+            audioManager.AddComponent<ACC_AudioManager>();
+        }
+        private static void SetAudioVolume(GameObject audioSettings, ACC_AudioSourceData audioSourceData)
+        {
+            var audioSourcesList = audioSettings.transform.Find("AudioSourcesScroll").transform.Find("AudioSourcesList");
+            var audioSourceSlider = GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_Sound/ACC_AudioSourceVolumeSlider.prefab"), audioSourcesList.transform, true);
+            
+            audioSourceSlider.name = audioSourceData.name;
+            audioSourceSlider.transform.Find("ACC_AudioSourceName").GetComponent<TextMeshProUGUI>().text = audioSourceData.name;
+            audioSourceSlider.transform.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>().value = audioSourceData.volume;
+            
+            
         }
     }
 }

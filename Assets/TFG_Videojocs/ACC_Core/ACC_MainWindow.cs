@@ -13,6 +13,7 @@ using TFG_Videojocs.ACC_RemapControls;
 using TFG_Videojocs.ACC_Subtitles;
 using TFG_Videojocs.ACC_Utilities;
 using TFG_Videojocs.ACC_VisualNotification;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEditor.SceneManagement;
@@ -29,7 +30,7 @@ public class ACC_MainWindow : EditorWindow
 
     private bool isWindowOpen = false;
 
-    private ACC_AudioManager audioManager;
+    private ACC_AudioManagerDeprecated _audioManagerDeprecated;
     private ScrollView soundContainer;
 
     private InputActionAsset inputActionAsset;
@@ -176,8 +177,12 @@ public class ACC_MainWindow : EditorWindow
     {
         switch (Enum.GetName(typeof(MultifiunctionalFeatures), index))
         {
-            case "AudioManager":
-                AudioManagerBox(box);
+            case "ACC_AudioManager":
+                DefaultBox( box, 
+                    new List<string> {"Edit Audio Manager", "Edit Prefab" }, 
+                    loadAction:() => DefaultLoadAction<ACC_AudioManagerEditorWindow, ACC_AudioManagerEditorWindowController, ACC_AudioManagerData>(
+                        "ACC_AudioManagerDeprecated/", "Select an audio manager:", ACC_AudioManagerEditorWindow.ShowWindow, true),
+                    prefabName: "Audio");
                 break;
         }
     }
@@ -399,24 +404,9 @@ public class ACC_MainWindow : EditorWindow
             inputAction.value = AssetDatabase.LoadAssetAtPath<InputActionAsset>(path);
         }
     }
-    private void AudioManagerBox(VisualElement box)
-    {
-        box.Add(LoadAudioManager());
-    }
-    private VisualElement LoadAudioManager()
-    {
-        var editContainer = new VisualElement();
-        var editButton = new Button() { text = "Edit" };
-        editButton.AddToClassList("create-button");
-        editButton.clicked+= () => { ACC_AudioManagerEditorWindow.ShowWindow(); };
-        
-        editContainer.Add(editButton);
-        
-        return editContainer;
-    }
 
     #region HelperMethods
-    private void DefaultBox(VisualElement box, List<string> options, Func<VisualElement> createAction, Func<VisualElement> loadAction, Func<VisualElement> extraAction = null, string prefabName = "")
+    private void DefaultBox(VisualElement box, List<string> options, Func<VisualElement> createAction = null, Func<VisualElement> loadAction = null, Func<VisualElement> extraAction = null, string prefabName = "")
     {
         var dynamicContainer = new VisualElement();
         var dropdown = new DropdownField("Options:", options, 0);
@@ -424,7 +414,8 @@ public class ACC_MainWindow : EditorWindow
         dropdown.AddToClassList("dropdown-container");
         dropdown[0].AddToClassList("dropdown-label");
         
-        dynamicContainer.Add(createAction());
+        if(createAction != null) dynamicContainer.Add(createAction());
+        else if(loadAction != null) dynamicContainer.Add(loadAction());
         
         box.Add(dropdown);
         box.Add(dynamicContainer);
@@ -432,11 +423,11 @@ public class ACC_MainWindow : EditorWindow
         dropdown.RegisterValueChangedCallback(evt =>
         {
             dynamicContainer.Clear();
-            if (evt.newValue == options[0])
+            if (evt.newValue == options[0] && createAction != null)
             {
                 dynamicContainer.Add(createAction());
             }
-            else if (evt.newValue == options[1])
+            else if (evt.newValue == options[1] && loadAction != null && createAction !=null || evt.newValue == options[0] && createAction == null && loadAction != null)
             {
                 var selection = loadAction.Invoke();
                 dynamicContainer.Add(selection);
@@ -472,7 +463,7 @@ public class ACC_MainWindow : EditorWindow
 
         return container;
     }
-    private VisualElement DefaultLoadAction<TWindow, TController, TData>(string directory, string dropdownLabel, Action<string> action) 
+    private VisualElement DefaultLoadAction<TWindow, TController, TData>(string directory, string dropdownLabel, Action<string> action, bool onlyEditWindow = false) 
         where TWindow : EditorWindow where TController : ACC_FloatingWindowController<TWindow, TData>, new() where TData : ACC_AbstractData, new()
     {
         var selectContainer = new VisualElement();
@@ -487,7 +478,8 @@ public class ACC_MainWindow : EditorWindow
         var editBottomContainer = new VisualElement();
         editBottomContainer.AddToClassList("button-container");
         
-        var loadButton = new Button() { text = "Load" };
+        var loadButton = new Button();
+        loadButton.text = ! onlyEditWindow ? "Load" : "Edit";
         loadButton.AddToClassList("button");
         loadButton.clicked += () =>
         {
@@ -510,9 +502,9 @@ public class ACC_MainWindow : EditorWindow
         };
         
         editBottomContainer.Add(loadButton);
-        editBottomContainer.Add(deleteButton);
+        if (!onlyEditWindow) editBottomContainer.Add(deleteButton);
         
-        selectContainer.Add(dropdown);
+        if (!onlyEditWindow) selectContainer.Add(dropdown);
         selectContainer.Add(editBottomContainer);
         
         return selectContainer;

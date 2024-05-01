@@ -12,7 +12,7 @@ using UnityEngine.Rendering;
 public class ACC_AudioManagerData : ACC_AbstractData
 {
     public ACC_SerializableDictiornary<int, ACC_AudioSourceData> audioSources = new ACC_SerializableDictiornary<int, ACC_AudioSourceData>();
-    public ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, ACC_Sound>> audioClips = new ACC_SerializableDictiornary<int,  ACC_SerializableDictiornary<int, ACC_Sound>>();
+    public ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, string>> audioClips = new ACC_SerializableDictiornary<int,  ACC_SerializableDictiornary<int, string>>();
     public override bool Equals(object obj)
     {
         if (obj == null || GetType() != obj.GetType())
@@ -43,7 +43,7 @@ public class ACC_AudioManagerData : ACC_AbstractData
         {
             name = name,
             audioSources = (ACC_SerializableDictiornary<int, ACC_AudioSourceData>)audioSources.Clone(),
-            audioClips = (ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, ACC_Sound>>)audioClips.Clone()
+            audioClips = (ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, string>>)audioClips.Clone()
         };
         return clone;
     }

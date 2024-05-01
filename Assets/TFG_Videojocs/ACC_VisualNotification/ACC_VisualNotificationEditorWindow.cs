@@ -12,18 +12,18 @@ using UnityEngine.UIElements;
 public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationEditorWindow, ACC_VisualNotificationData>
 {
     private ScrollView soundScrollView;
-    private ACC_AudioManager audioManager;
+    private ACC_AudioManagerDeprecated _audioManagerDeprecated;
     public static event WindowDelegate OnCloseWindow;
 
     private new void OnEnable()
     {
         base.OnEnable();
-        audioManager = GameObject.Find("ACC_AudioManager").GetComponent<ACC_AudioManager>();
-        audioManager.OnSoundsChanged += CreateSoundList;
+        _audioManagerDeprecated = GameObject.Find("ACC_AudioManagerDeprecated").GetComponent<ACC_AudioManagerDeprecated>();
+        _audioManagerDeprecated.OnSoundsChanged += CreateSoundList;
     }
     private void OnDisable()
     {
-        audioManager.OnSoundsChanged -= CreateSoundList;
+        _audioManagerDeprecated.OnSoundsChanged -= CreateSoundList;
     }
 
     private new void OnDestroy()
@@ -85,7 +85,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
     {
         if(soundScrollView!=null) soundScrollView.Clear();
         
-        var SFXSounds = audioManager.GetSFXSounds();
+        var SFXSounds = _audioManagerDeprecated.GetSFXSounds();
         bool isFirst = true;
         foreach (var sound in SFXSounds)
         {
@@ -138,7 +138,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
                 {
                     ACC_Sound accSound = new ACC_Sound(audioClip.name, audioClip);
                     //controller.currentData.soundsList.Add(accSound);
-                    audioManager.AddSFXSound(accSound);
+                    _audioManagerDeprecated.AddSFXSound(accSound);
                 }
                 else
                 {

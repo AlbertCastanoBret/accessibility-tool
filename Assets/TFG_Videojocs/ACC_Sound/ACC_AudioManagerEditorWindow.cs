@@ -14,15 +14,16 @@ using Object = UnityEngine.Object;
 public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioManagerEditorWindowController, ACC_AudioManagerEditorWindow, ACC_AudioManagerData>
 {
     private VisualElement tableContainer, tableScrollView, settingsScrollView;
-    public static void ShowWindow()
+    public static void ShowWindow(string name)
     {
+        CloseWindowIfExists<ACC_AudioManagerEditorWindow>();
         var window = GetWindow<ACC_AudioManagerEditorWindow>();
         window.titleContent = new GUIContent("Audio Manager");
         window.minSize = new Vector2(600, 660);
         window.maxSize = new Vector2(600, 660);
         
         window.controller.isEditing = true;
-        window.controller.LoadOnlyEditableWindow("AudioManager");
+        window.controller.LoadOnlyEditableWindow("ACC_AudioManager");
     }
     private new void CreateGUI()
     {
@@ -88,7 +89,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                         x.key.Equals(index != -1 ? index - 1 : currentRow)))
                 {
                     controller.currentData.audioClips.AddOrUpdate(currentRow,
-                        new ACC_SerializableDictiornary<int, ACC_Sound>());
+                        new ACC_SerializableDictiornary<int, string>());
                 }
 
                 else
@@ -179,43 +180,28 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         }
         
     }
-    private void CreateSound(VisualElement row, ACC_Sound accSound = null, int index = -1)
+    private void CreateSound(VisualElement row, string soundGuid = null, int index = -1)
     {
         var soundContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
-        if(accSound != null) soundContainer.style.display =  DisplayStyle.None;
+        if(soundGuid != null) soundContainer.style.display =  DisplayStyle.None;
         if (index != -1) row.Insert(index, soundContainer);
         else row.Add(soundContainer);
-
-        if (accSound != null)
-        {
-            // var audioClipPath = AssetDatabase.GetAssetPath(accSound.audioClip);
-            // Debug.Log(AssetDatabase.AssetPathToGUID(audioClipPath));
-        }
         
         var soundCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
-        var sound = (ObjectField)uiElementFactory.CreateObjectField("table-row-option-input", "Audio Clip:", typeof(AudioClip), accSound?.audioClip,
+        var audioClipPath = AssetDatabase.GUIDToAssetPath(soundGuid);
+        var audioClip = AssetDatabase.LoadAssetAtPath<AudioClip>(audioClipPath);
+        
+        var sound = (ObjectField)uiElementFactory.CreateObjectField("table-row-option-input", "Audio Clip:", typeof(AudioClip), audioClip,
             onValueChanged: value => {  
                 var currentSoundRow = row.IndexOf(soundContainer) - 2;
-                var newValue = value;
-                
-                var audioClip = newValue as AudioClip;
-                ACC_Sound accSound;
-
-                if(audioClip != null)
-                {
-                    accSound = new ACC_Sound(audioClip.name, audioClip);
-                }
-                else
-                {
-                    accSound = new ACC_Sound("Default Name", null);
-                }
+                var assetGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(value));
                     
                 if(!controller.currentData.audioClips.Items.Exists(x=> x.key.Equals(tableScrollView.IndexOf(row) - 1)))
                 {
-                    controller.currentData.audioClips.AddOrUpdate(tableScrollView.IndexOf(row) - 1, new ACC_SerializableDictiornary<int, ACC_Sound>());
+                    controller.currentData.audioClips.AddOrUpdate(tableScrollView.IndexOf(row) - 1, new ACC_SerializableDictiornary<int, string>());
                 }
                     
-                controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.AddOrUpdate(currentSoundRow, accSound); 
+                controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.AddOrUpdate(currentSoundRow, assetGuid); 
             });
         
         var addButton = uiElementFactory.CreateButton("+", "table-add-button", () =>
@@ -324,32 +310,11 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
             }
         });
         
-        rootVisualElement.Add(listView);
-        
         settingContainer.Add(label);
         settingContainer.Add(sliderVolume);
         settingContainer.Add(audioToggle);
         settingContainer.Add(listView);
-        
-        rootVisualElement.schedule.Execute(() =>
-        {
-            var addButton = listView.Q<Button>(className: "unity-list-view__add-button");
-            var removeButton = listView.Q<Button>(className: "unity-list-view__remove-button");
-
-            if (addButton != null)
-            {
-                addButton.style.backgroundColor = new Color(0.2f, 0.8f, 0.2f, 1.0f);
-                addButton.text = "Custom Add"; // Cambiar texto si necesario
-            }
-
-            if (removeButton != null)
-            {
-                removeButton.style.backgroundColor = new Color(0.8f, 0.2f, 0.2f, 1.0f);
-                removeButton.text = "Custom Remove"; // Cambiar texto si necesario
-            }
-        }).StartingIn(100);
     }
-
     private VisualElement Create3DAudioObjectField()
     {
         var container = new VisualElement();
@@ -365,7 +330,6 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         container.Add(createPrefab);
         return container;
     }
-    
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");

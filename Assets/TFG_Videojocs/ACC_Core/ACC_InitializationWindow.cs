@@ -64,9 +64,9 @@ public class ACC_InitializationWindow : EditorWindow
     }
     private static void CreateAudioManager()
     {
-        var audioManager = GameObject.Find("ACC_AudioManager");
+        var audioManager = GameObject.Find("ACC_AudioManagerDeprecated");
         if (audioManager) DestroyImmediate(audioManager);
-        audioManager = new GameObject("ACC_AudioManager");
+        audioManager = new GameObject("ACC_AudioManagerDeprecated");
             
         var musicSource = new GameObject("ACC_MusicSource");
         musicSource.AddComponent<AudioSource>();
@@ -76,7 +76,7 @@ public class ACC_InitializationWindow : EditorWindow
         sfxSource.AddComponent<AudioSource>();
         sfxSource.transform.SetParent(audioManager.transform);
             
-        audioManager.AddComponent<ACC_AudioManager>();
+        audioManager.AddComponent<ACC_AudioManagerDeprecated>();
     }
     private static void CreateCanvas()
     {

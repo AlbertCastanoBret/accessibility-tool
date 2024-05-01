@@ -32,7 +32,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             for(int i=0; i < gameObject.transform.childCount; i++)
             {
                 var deviceManager = gameObject.transform.GetChild(i).gameObject;
-                if (deviceManager.CompareTag("DeviceManager"))
+                if (deviceManager.CompareTag("ACC_DeviceManager"))
                 {
                     var controlSchemes = loadedData.inputActionAsset.controlSchemes
                         .Where(scheme => String.Join(", ", scheme.deviceRequirements
@@ -102,26 +102,34 @@ namespace TFG_Videojocs.ACC_RemapControls
         private void PressLeftButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
         {
             var currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
-            if(currentRebindsList.CompareTag("RebindsList")) rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(false);
+            if(currentRebindsList.CompareTag("ACC_ScrollList")) rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(false);
             
             currentControlScheme.GetComponent<TextMeshProUGUI>().text =
                 controlSchemesOfEachDevice[deviceManager][(controlSchemesOfEachDevice[deviceManager].IndexOf(currentControlSchemeOfEachDevice[deviceManager]) - 1 + controlSchemesOfEachDevice[deviceManager].Count) % controlSchemesOfEachDevice[deviceManager].Count];
             currentControlSchemeOfEachDevice[deviceManager] = currentControlScheme.GetComponent<TextMeshProUGUI>().text;
             
             currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
-            if(currentRebindsList.CompareTag("RebindsList")) rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(true);
+            if (currentRebindsList.CompareTag("ACC_ScrollList"))
+            {
+                rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(true);
+                rebindsScroll.GetComponent<ScrollRect>().content = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).GetComponent<RectTransform>();
+            }
         }
         private void PressRightButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
         {
             var currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
-            if(currentRebindsList.CompareTag("RebindsList")) rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(false);
+            if(currentRebindsList.CompareTag("ACC_ScrollList")) rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(false);
             
             currentControlScheme.GetComponent<TextMeshProUGUI>().text =
                 controlSchemesOfEachDevice[deviceManager][(controlSchemesOfEachDevice[deviceManager].IndexOf(currentControlSchemeOfEachDevice[deviceManager]) + 1) % controlSchemesOfEachDevice[deviceManager].Count];
             currentControlSchemeOfEachDevice[deviceManager] = currentControlScheme.GetComponent<TextMeshProUGUI>().text;
             
             currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
-            if(currentRebindsList.CompareTag("RebindsList")) rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(true);
+            if (currentRebindsList.CompareTag("ACC_ScrollList"))
+            {
+                rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject.SetActive(true);
+                rebindsScroll.GetComponent<ScrollRect>().content = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).GetComponent<RectTransform>();
+            }
         }
     }
 }
