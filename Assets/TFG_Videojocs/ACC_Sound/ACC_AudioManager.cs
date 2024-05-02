@@ -51,6 +51,13 @@ namespace TFG_Videojocs.ACC_Sound
             
         }
         
+        public void ShowAudioSettingsMenu(bool state)
+        {
+            if (audioSettingsContainer != null)
+            {
+                audioSettingsContainer.SetActive(state);
+            }
+        }
         public void SetAudioManager(bool state)
         {
             if (state) isEnabled = true;

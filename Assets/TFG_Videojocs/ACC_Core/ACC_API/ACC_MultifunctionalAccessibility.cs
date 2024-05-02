@@ -40,6 +40,22 @@ namespace TFG_Videojocs
         {
             LoadPreferencesAudioSourceVolumes();
         }
+        
+        /// <summary>
+        /// Displays the audio settings menu by invoking the AudioManager's method to show the menu.
+        /// </summary>
+        public void ShowAudioSettingsMenu()
+        {
+            accAudioManager.ShowAudioSettingsMenu(true);
+        }
+        
+        /// <summary>
+        /// Hides the audio settings menu by invoking the AudioManager's method to hide the menu.
+        /// </summary>
+        public void HideAudioSettingsMenu()
+        {
+            accAudioManager.ShowAudioSettingsMenu(false);
+        }
 
         /// <summary>
         /// Retrieves an AudioSource object based on a specified identifier.
