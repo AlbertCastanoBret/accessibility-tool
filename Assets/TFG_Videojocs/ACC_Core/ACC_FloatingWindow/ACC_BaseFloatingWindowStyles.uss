@@ -70,6 +70,7 @@ Button{
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
     width: 90%;
     background-color: #3F3F3F;
     border-bottom-color: #b2b2b2;
@@ -81,12 +82,17 @@ Button{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     width: 90%;
     background-color: #5e5e5e;
     border-bottom-color: #b2b2b2;
     border-bottom-width: 1px;
-    padding: 4px 6px;
+    padding: 4px 8px;
+}
+
+.table-secondary-row-content-hover:hover{
+    background-color: #575757;
+    cursor: link;
 }
 
 .table-arrow-button{
@@ -103,15 +109,18 @@ Button{
     height: 16px;
 }
 
-.table-cell{
-    padding: 0;
-    background-color: red;
+.table-cell-icon-hover:hover{
+    cursor: link;
 }
 
 .table-cell-input{
     background-color: #3f3f3f;
     border-radius: 0px;
     border-width: 0;
+}
+
+.table-cell-label-hover:hover{
+    cursor: link;
 }
 
 .table-row-option-input{

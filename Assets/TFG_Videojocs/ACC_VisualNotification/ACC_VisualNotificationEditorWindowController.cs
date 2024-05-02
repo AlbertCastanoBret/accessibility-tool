@@ -57,7 +57,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
 
         protected override void RestoreFieldValues()
         {
-            window.CreateSoundList();
+            window.CreateTable();
             window.rootVisualElement.Query<TextField>(name: "option-input-0").First().value = currentData.name;
             window.rootVisualElement.Query<TextField>(name: "option-input-1").First().value = currentData.message;
             window.rootVisualElement.Query<DropdownField>(name: "option-input-2").First().value = currentData.horizontalAlignment;
