@@ -29,6 +29,11 @@ public class ACC_JSONHelper
     {
         string fullPath = "ACC_JSON/" + path;
         TextAsset textAsset = Resources.Load<TextAsset>(fullPath);
+        if (textAsset == null)
+        {
+            Debug.LogError($"The file {path}.json does not exist.");
+            return default;
+        }
         return JsonUtility.FromJson<T>(textAsset.text);
     }
     
@@ -36,6 +41,11 @@ public class ACC_JSONHelper
     {
         string fullPath = "ACC_JSON/" + path;
         TextAsset[] textAssets = Resources.LoadAll<TextAsset>(fullPath);
+        if (textAssets.Length == 0)
+        {
+            Debug.LogError($"No files found in {path}.");
+            return default;
+        }
         return System.Array.ConvertAll(textAssets, item => JsonUtility.FromJson<T>(item.text));
     }
 
