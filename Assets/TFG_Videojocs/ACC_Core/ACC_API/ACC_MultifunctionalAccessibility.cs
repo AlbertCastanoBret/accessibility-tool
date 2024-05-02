@@ -15,7 +15,7 @@ namespace TFG_Videojocs
         private ACC_AudioManager accAudioManager;
         public ACC_MultifunctionalAccessibility()
         {
-            accAudioManager = ACC_PrefabHelper.InstantiatePrefabAsChild("Audio", ACC_AccessibilityManager.Instance.gameObject).GetComponent<ACC_AudioManager>();
+            accAudioManager = ACC_PrefabHelper.InstantiatePrefabAsChild("Audio", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_AudioManager>();
         }
         
         /// <summary>

@@ -6,34 +6,63 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 namespace TFG_Videojocs.ACC_Sound
 {
     public class ACC_AudioManager: MonoBehaviour
     {
+        private GameObject audioSettingsContainer;
         private GameObject audioSourcesContainer;
-        private bool enabled;
+        private bool isEnabled;
         [HideInInspector] public ACC_SerializableDictiornary<int, ACC_AudioSourceData> audioSources = new ();
         [HideInInspector] public ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, AudioClip>> audioClips = new ();
 
         private void Awake()
         {
+            for(int i=0; i<transform.childCount; i++)
+            {
+                if(transform.GetChild(i).CompareTag("ACC_AudioSettings"))
+                {
+                    audioSettingsContainer = transform.GetChild(i).gameObject;
+                    for(int j=0; j<audioSettingsContainer.transform.childCount; j++)
+                    {
+                        var scroll = audioSettingsContainer.transform.GetChild(j);
+                        if(scroll.CompareTag("ACC_Scroll"))
+                        {
+                            for (int k = 0; k < scroll.childCount; k++)
+                            {
+                                var scrollList = scroll.GetChild(k);
+                                if (scrollList.CompareTag("ACC_ScrollList"))
+                                {
+                                    for (int l = 0; l < scrollList.childCount; l++)
+                                    {
+                                        var audioSource = scrollList.GetChild(l);
+                                        var slider = audioSource.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>();
+                                        slider.onValueChanged.AddListener(delegate { SetVolume(audioSource.name, slider.value); });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             audioSourcesContainer = transform.Find("ACC_AudioSources")?.gameObject;
+            
         }
         
         public void SetAudioManager(bool state)
         {
-            if (state) enabled = true;
+            if (state) isEnabled = true;
             else
             {
                 StopAllSounds();
-                enabled = false;
+                isEnabled = false;
             }
         }
-        
         public AudioSource GetAudioSource(string audioSource)
         {
-            if (!enabled) return null;
+            if (!isEnabled) return null;
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -42,10 +71,9 @@ namespace TFG_Videojocs.ACC_Sound
             Debug.LogError("Audio source not found");
             return null;
         }
-
         public List<AudioSource> GetAllAudioSources()
         {
-            if (!enabled) return null;
+            if (!isEnabled) return null;
             List<AudioSource> audioSourcesList = new ();
             foreach (Transform audioSource in audioSourcesContainer.transform)
             {
@@ -53,10 +81,9 @@ namespace TFG_Videojocs.ACC_Sound
             }
             return audioSourcesList;
         }
-
         public void PlaySound(string audioSource, string audioClip)
         {
-            if (!enabled) return;
+            if (!isEnabled) return;
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -72,10 +99,9 @@ namespace TFG_Videojocs.ACC_Sound
             }
             else Debug.LogError("Audio source not found");
         }
-
         public void PlayOneShot(string audioSource, string audioClip)
         {
-            if (!enabled) return;
+            if (!isEnabled) return;
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -90,10 +116,9 @@ namespace TFG_Videojocs.ACC_Sound
             }
             else Debug.LogError("Audio source not found");
         }
-        
         public void StopSound(string audioSource)
         {
-            if (!enabled) return;
+            if (!isEnabled) return;
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -101,19 +126,17 @@ namespace TFG_Videojocs.ACC_Sound
             }
             else Debug.LogError("Audio source not found");
         }
-        
         public void StopAllSounds()
         {
-            if (!enabled) return;
+            if (!isEnabled) return;
             foreach (Transform audioSource in audioSourcesContainer.transform)
             {
                 audioSource.GetComponent<AudioSource>().Stop();
             }
         }
-        
         public void SetVolume(string audioSource, float volume)
         {
-            if (!enabled) return;
+            if (!isEnabled) return;
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -123,10 +146,9 @@ namespace TFG_Videojocs.ACC_Sound
             }
             else Debug.LogError("Audio source not found");
         }
-        
         public float GetVolume(string audioSource)
         {
-            if (!enabled) return 0;
+            if (!isEnabled) return 0;
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -139,10 +161,9 @@ namespace TFG_Videojocs.ACC_Sound
             Debug.LogError("Audio source not found");
             return 0;
         }
-        
         public void SetAllVolumes()
         {
-            if (!enabled) return;
+            if (!isEnabled) return;
             foreach (Transform audioSource in audioSourcesContainer.transform)
             {
                 var currentAudioSource = audioSource.GetComponent<AudioSource>();
@@ -158,7 +179,7 @@ namespace TFG_Videojocs.ACC_Sound
         
         // public void SetPitch(string audioSource, float pitch)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -169,7 +190,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetLoop(string audioSource, bool loop)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -180,7 +201,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetMute(string audioSource, bool mute)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -191,7 +212,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetSpatialBlend(string audioSource, float spatialBlend)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -202,7 +223,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetReverbZoneMix(string audioSource, float reverbZoneMix)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -213,7 +234,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetDopplerLevel(string audioSource, float dopplerLevel)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -224,7 +245,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetSpread(string audioSource, float spread)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -235,7 +256,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetPriority(string audioSource, int priority)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -246,7 +267,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetMinDistance(string audioSource, float minDistance)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -257,7 +278,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetMaxDistance(string audioSource, float maxDistance)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -268,7 +289,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetPanStereo(string audioSource, float panStereo)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -279,7 +300,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetSpatialize(string audioSource, bool spatialize)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -290,7 +311,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetSpatializePostEffects(string audioSource, bool spatializePostEffects)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -301,7 +322,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetBypassEffects(string audioSource, bool bypassEffects)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -312,7 +333,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetBypassListenerEffects(string audioSource, bool bypassListenerEffects)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
@@ -323,7 +344,7 @@ namespace TFG_Videojocs.ACC_Sound
         //
         // public void SetBypassReverbZones(string audioSource, bool bypassReverbZones)
         // {
-        //     if (!enabled) return;
+        //     if (!isEnabled) return;
         //     var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
         //     if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
         //     {
