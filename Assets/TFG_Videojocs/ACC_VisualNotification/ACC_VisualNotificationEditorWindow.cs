@@ -18,7 +18,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
     private new void OnEnable()
     {
         base.OnEnable();
-        _audioManagerDeprecated = GameObject.Find("ACC_AudioManagerDeprecated").GetComponent<ACC_AudioManagerDeprecated>();
+        //_audioManagerDeprecated = GameObject.Find("ACC_AudioManagerDeprecated").GetComponent<ACC_AudioManagerDeprecated>();
         _audioManagerDeprecated.OnSoundsChanged += CreateSoundList;
     }
     private void OnDisable()

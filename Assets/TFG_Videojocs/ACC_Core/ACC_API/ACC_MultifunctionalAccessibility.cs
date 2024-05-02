@@ -32,7 +32,12 @@ namespace TFG_Videojocs
                     break;
             }
         }
-        
+
+        public void LoadUserPreferences()
+        {
+            LoadPreferencesAudioSourceVolumes();
+        }
+
         /// <summary>
         /// Retrieves an AudioSource object based on a specified identifier.
         /// </summary>
@@ -100,33 +105,24 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
-        /// Adjusts the pitch of the specified audio source.
+        /// Retrieves the volume level for a specified audio source using the AudioManager.
+        /// If a PlayerPrefs key exists for the audio source, it returns the saved value.
         /// </summary>
-        /// <param name="audioSource">The name of the audio source.</param>
-        /// <param name="pitch">The pitch level to set.</param>
-        public void SetPitch(string audioSource, float pitch)
+        /// <param name="audioSource">The name of the audio source for which the volume is queried.</param>
+        /// <returns>The volume level of the specified audio source as a float.</returns>
+        public float GetVolume(string audioSource)
         {
-            accAudioManager.SetPitch(audioSource, pitch);
+            return accAudioManager.GetVolume(audioSource);
         }
         
         /// <summary>
-        /// Enables or disables looping for the specified audio source.
+        /// Loads and applies volume settings from PlayerPrefs to all managed audio sources.
+        /// This function first checks if the audio manager is enabled before applying settings. If a PlayerPrefs key exists 
+        /// for an audio source, it sets that source's volume to the saved value.
         /// </summary>
-        /// <param name="audioSource">The name of the audio source.</param>
-        /// <param name="loop">Whether to loop the sound (true to loop, false to not loop).</param>
-        public void SetLoop(string audioSource, bool loop)
+        private void LoadPreferencesAudioSourceVolumes()
         {
-            accAudioManager.SetLoop(audioSource, loop);
-        }
-        
-        /// <summary>
-        /// Mutes or unmutes the specified audio source.
-        /// </summary>
-        /// <param name="audioSource">The name of the audio source.</param>
-        /// <param name="mute">Whether to mute the sound (true to mute, false to unmute).</param>
-        public void SetMute(string audioSource, bool mute)
-        {
-            accAudioManager.SetMute(audioSource, mute);
+            accAudioManager.SetAllVolumes();
         }
     }
 }

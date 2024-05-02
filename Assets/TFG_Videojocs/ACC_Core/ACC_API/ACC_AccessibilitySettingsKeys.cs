@@ -13,4 +13,6 @@ public class ACC_AccessibilitySettingsKeys
     public const string VisualNotificationFontSize = "VisualNotificationFontSize";
     public const string VisualNotificationFontColor = "VisualNotificationFontColor";
     public const string VisualNotificationBackgroundColor = "VisualNotificationBackgroundColor";
+    
+    public const string AudioSourceVolume = "AudioSourceVolume";
 }

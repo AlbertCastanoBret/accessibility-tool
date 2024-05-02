@@ -95,7 +95,6 @@ namespace TFG_Videojocs
         {
             accAudioAccessibility.PlaySubtitle("A");
             accMultifunctionalAccessibility.PlaySound("SFX", "Alarm");
-            //ACC_AudioManagerDeprecated.Instance.PlaySFX("Alarm");
             StartCoroutine(ChangeScene());
         }
 
