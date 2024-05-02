@@ -69,10 +69,18 @@ namespace TFG_Videojocs.ACC_RemapControls
         
         public void ShowRebindMenu(string device)
         {
+            bool found = false;
             foreach (var deviceManager in controlSchemesOfEachDevice.Keys)
             {
-                deviceManager.SetActive(deviceManager.name == device);
+                if (deviceManager.name == device)
+                {
+                    found = true;
+                    deviceManager.SetActive(true);
+                }
+                else deviceManager.SetActive(false);
             }
+            if (!found) Debug.LogError("Device not found");
+            
         }
         public void ResetAllBindings()
         {
