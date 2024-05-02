@@ -176,9 +176,26 @@ namespace TFG_Videojocs.ACC_Sound
                 var currentAudioSource = audioSource.GetComponent<AudioSource>();
                 if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
                 {
-                    if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume + audioSource.name))
+                    currentAudioSource.volume = GetVolume(audioSource.name);
+                }
+            }
+
+            foreach (Transform child in audioSettingsContainer.transform)
+            {
+                if (child.CompareTag("ACC_Scroll"))
+                {
+                    for (int i = 0; i < child.childCount; i++)
                     {
-                        currentAudioSource.volume = PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.AudioSourceVolume + audioSource.name);
+                        var scrollList = child.GetChild(i);
+                        if (scrollList.CompareTag("ACC_ScrollList"))
+                        {
+                            for (int j = 0; j < scrollList.childCount; j++)
+                            {
+                                var audioSource = scrollList.GetChild(j);
+                                var slider = audioSource.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>();
+                                slider.value = GetVolume(audioSource.name);
+                            }
+                        }
                     }
                 }
             }

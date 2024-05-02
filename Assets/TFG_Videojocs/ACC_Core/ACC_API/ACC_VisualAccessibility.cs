@@ -6,7 +6,6 @@ namespace TFG_Videojocs
 {
     public enum VisibilityFeatures
     {
-        TextToVoice,
         HighContrast,
     }
     

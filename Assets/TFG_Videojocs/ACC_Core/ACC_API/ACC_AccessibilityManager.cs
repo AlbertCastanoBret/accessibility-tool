@@ -95,7 +95,7 @@ namespace TFG_Videojocs
         {
             accAudioAccessibility.PlaySubtitle("A");
             accMultifunctionalAccessibility.PlaySound("SFX", "Alarm");
-            //LoadAllUserPreferences();
+            LoadAllUserPreferences();
             //accVisualAccessibility.ChangeHighContrastConfiguration("A");
             StartCoroutine(ChangeScene());
         }

@@ -169,16 +169,15 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         {
             foreach (var audioSource2 in controller.currentData.audioClips.Items)
             {
-                if (audioSource.key == audioSource2.key && tableScrollView.IndexOf(row)-1 == audioSource.key)
+                if (audioSource.key == audioSource2.key && tableScrollView.IndexOf(row) - 1 == audioSource.key)
                 {
-                    foreach (var accSound in controller.currentData.audioClips.Items.Find(x => x.key == audioSource.key).value.Items)
+                    foreach (var sound in controller.currentData.audioClips.Items.Find(x => x.key == audioSource.key).value.Items)
                     {
-                        CreateSound(row, accSound.value);
+                        CreateSound(row, sound.value);
                     }
                 }
             }
         }
-        
     }
     private void CreateSound(VisualElement row, string soundGuid = null, int index = -1)
     {
