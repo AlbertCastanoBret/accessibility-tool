@@ -33,7 +33,7 @@ namespace TFG_Videojocs
                     break;
             }
         }
-        
+
         /// <summary>
         /// Changes the high contrast configuration based on the provided JSON configuration file.
         /// </summary>

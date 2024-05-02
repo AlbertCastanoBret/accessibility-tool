@@ -169,6 +169,7 @@ namespace TFG_Videojocs
         public void LoadAllUserPreferences()
         {
             accAudioAccessibility.LoadUserPreferences();
+            accMultifunctionalAccessibility.LoadUserPreferences();
         }
         
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

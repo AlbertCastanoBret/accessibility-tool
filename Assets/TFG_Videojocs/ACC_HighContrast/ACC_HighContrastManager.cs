@@ -45,6 +45,10 @@ namespace TFG_Videojocs.ACC_HighContrast
                         }
                     }
                 }
+                if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration))
+                {
+                    ChangeHighContrastConfiguration(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
+                }
             }
         }
         private void DisableHighContrastMode()
@@ -78,6 +82,8 @@ namespace TFG_Videojocs.ACC_HighContrast
             {
                 if (ACC_AccessibilityManager.Instance.shadersAdded)
                 {
+                    PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration, configuration);
+                    PlayerPrefs.Save();
                     GameObject[] goArray = FindObjectsOfType<GameObject>();
                     foreach (GameObject go in goArray)
                     {

@@ -33,6 +33,9 @@ namespace TFG_Videojocs
             }
         }
 
+        /// <summary>
+        /// Loads and applies the user's accessibility preferences related to multifunctional features.
+        /// </summary>
         public void LoadUserPreferences()
         {
             LoadPreferencesAudioSourceVolumes();
