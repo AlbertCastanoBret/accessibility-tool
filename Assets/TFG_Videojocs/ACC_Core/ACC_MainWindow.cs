@@ -177,11 +177,11 @@ public class ACC_MainWindow : EditorWindow
     {
         switch (Enum.GetName(typeof(MultifiunctionalFeatures), index))
         {
-            case "ACC_AudioManager":
+            case "AudioManager":
                 DefaultBox( box, 
                     new List<string> {"Edit Audio Manager", "Edit Prefab" }, 
                     loadAction:() => DefaultLoadAction<ACC_AudioManagerEditorWindow, ACC_AudioManagerEditorWindowController, ACC_AudioManagerData>(
-                        "ACC_AudioManagerDeprecated/", "Select an audio manager:", ACC_AudioManagerEditorWindow.ShowWindow, true),
+                        "ACC_AudioManager/", "Select an audio manager:", ACC_AudioManagerEditorWindow.ShowWindow, true),
                     prefabName: "Audio");
                 break;
         }
@@ -483,7 +483,7 @@ public class ACC_MainWindow : EditorWindow
         loadButton.AddToClassList("button");
         loadButton.clicked += () =>
         {
-            if (!string.IsNullOrEmpty(dropdown.value)) action.Invoke(dropdown.value);
+            if (!string.IsNullOrEmpty(dropdown.value) || onlyEditWindow) action.Invoke(dropdown.value);
             else EditorUtility.DisplayDialog("Required Field", "Please select an existing file to load.", "OK");
         };
 

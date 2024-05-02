@@ -320,14 +320,38 @@ namespace TFG_Videojocs.ACC_Utilities
             
             GameObject audioSettings = GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_Sound/ACC_AudioSettings.prefab"), audioManager.transform, true);
             
-            var loadedData = ACC_JSONHelper.LoadJson<ACC_AudioManagerData>("ACC_AudioManagerDeprecated/" + jsonFile);
+            var loadedData = ACC_JSONHelper.LoadJson<ACC_AudioManagerData>("ACC_AudioManager/" + jsonFile);
             if(loadedData == null) return;
             for (int i = 0; i < loadedData.audioSources.Items.Count; i++)
             {
                 SetAudioVolume(audioSettings, loadedData.audioSources.Items[i].value);
             }
             
-            audioManager.AddComponent<ACC_AudioManager>();
+            var audioManagerComponent = audioManager.AddComponent<ACC_AudioManager>();
+            audioManagerComponent.audioSources = loadedData.audioSources;
+
+            for (int i = 0; i < loadedData.audioClips.Items.Count; i++)
+            {
+                var audioClips = new ACC_SerializableDictiornary<int, AudioClip>();
+                for (int j = 0; j < loadedData.audioClips.Items[i].value.Items.Count; j++)
+                {
+                    var audioClipPath = AssetDatabase.GUIDToAssetPath(loadedData.audioClips.Items[i].value.Items[j].value);
+                    var audioClip = AssetDatabase.LoadAssetAtPath<AudioClip>(audioClipPath);
+                    audioClips.AddOrUpdate(j, audioClip);
+                }
+                audioManagerComponent.audioClips.AddOrUpdate(i, audioClips);
+            }
+
+            GameObject audioSources = new GameObject("ACC_AudioSources");
+            audioSources.transform.SetParent(audioManager.transform);
+            
+            for (int i=0; i<loadedData.audioSources.Items.Count; i++) {
+                GameObject audioSource = new GameObject(loadedData.audioSources.Items[i].value.name);
+                audioSource.transform.SetParent(audioSources.transform);
+                
+                var audioSourceComponent = audioSource.AddComponent<AudioSource>();
+                audioSourceComponent.volume = loadedData.audioSources.Items[i].value.volume;
+            }
         }
         private static void SetAudioVolume(GameObject audioSettings, ACC_AudioSourceData audioSourceData)
         {
@@ -337,8 +361,6 @@ namespace TFG_Videojocs.ACC_Utilities
             audioSourceSlider.name = audioSourceData.name;
             audioSourceSlider.transform.Find("ACC_AudioSourceName").GetComponent<TextMeshProUGUI>().text = audioSourceData.name;
             audioSourceSlider.transform.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>().value = audioSourceData.volume;
-            
-            
         }
     }
 }

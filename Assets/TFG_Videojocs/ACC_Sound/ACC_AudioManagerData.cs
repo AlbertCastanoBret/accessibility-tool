@@ -11,8 +11,9 @@ using UnityEngine.Rendering;
 [System.Serializable]
 public class ACC_AudioManagerData : ACC_AbstractData
 {
-    public ACC_SerializableDictiornary<int, ACC_AudioSourceData> audioSources = new ACC_SerializableDictiornary<int, ACC_AudioSourceData>();
-    public ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, string>> audioClips = new ACC_SerializableDictiornary<int,  ACC_SerializableDictiornary<int, string>>();
+    public ACC_SerializableDictiornary<int, ACC_AudioSourceData> audioSources = new ();
+    public ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, string>> audioClips = new ();
+    
     public override bool Equals(object obj)
     {
         if (obj == null || GetType() != obj.GetType())

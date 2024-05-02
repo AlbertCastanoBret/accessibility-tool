@@ -8,7 +8,7 @@ namespace TFG_Videojocs.ACC_HighContrast
     public class ACC_HighContrastManager:MonoBehaviour
     {
         private ACC_HighContrastData loadedData;
-        public bool isEnabled;
+        private bool isEnabled;
         public void SetHighContrastMode(bool state)
         {
             if (state) EnableHighContrastMode();

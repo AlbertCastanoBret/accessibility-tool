@@ -70,7 +70,7 @@ namespace TFG_Videojocs
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
                 accVisualAccessibility = new ACC_VisualAccessibility();
-                //  accVisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                accVisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 
                 accMobilityAccessibility = new ACC_MobilityAccessibility();
                 accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
@@ -93,8 +93,7 @@ namespace TFG_Videojocs
         private IEnumerator ChangeScene()
         {
             yield return new WaitForSeconds(2);
-            accVisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, true);
-            accVisualAccessibility.ChangeHighContrastConfiguration("A");
+            //accVisualAccessibility.ChangeHighContrastConfiguration("A");
             //accAudioAccessibility.ChangeSubtitleFontSize(20);
             //MobilityAccessibilityManager().ShowRemapControlsMenu("Gamepad");
             //yield return new WaitForSeconds(6);
@@ -112,6 +111,7 @@ namespace TFG_Videojocs
                 accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
+                accVisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
             }
         }
 
