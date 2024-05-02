@@ -59,7 +59,7 @@ namespace TFG_Videojocs
             EditorApplication.hierarchyChanged += OnHierarchyChanged;
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
         }
-#endif
+        #endif
 
         private void Awake()
         {
