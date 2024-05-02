@@ -45,6 +45,11 @@ namespace TFG_Videojocs
         [SerializeField] private bool remapControlsEnabled;
         
         private ACC_MobilityAccessibility accMobilityAccessibility;
+        
+        [Header("MultfunctionalAccessibility")]
+        [SerializeField] private bool audioManagerEnabled;
+        
+        private ACC_MultifunctionalAccessibility accMultifunctionalAccessibility;
             
         private bool sceneLoaded;
         
@@ -75,6 +80,9 @@ namespace TFG_Videojocs
                 accMobilityAccessibility = new ACC_MobilityAccessibility();
                 accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 
+                accMultifunctionalAccessibility = new ACC_MultifunctionalAccessibility();
+                accMultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
+                
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -86,7 +94,8 @@ namespace TFG_Videojocs
         private void Start()
         {
             accAudioAccessibility.PlaySubtitle("A");
-            ACC_AudioManagerDeprecated.Instance.PlaySFX("Alarm");
+            accMultifunctionalAccessibility.PlaySound("SFX", "Alarm");
+            //ACC_AudioManagerDeprecated.Instance.PlaySFX("Alarm");
             StartCoroutine(ChangeScene());
         }
 
@@ -112,6 +121,7 @@ namespace TFG_Videojocs
                 accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 accVisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                accMultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
             }
         }
 
@@ -132,6 +142,8 @@ namespace TFG_Videojocs
             subtitlesEnabled = true;
             visualNotificationEnabled = true;
             remapControlsEnabled = true;
+            highContrastEnabled = true;
+            audioManagerEnabled = true;
         }
 
         /// <summary>
