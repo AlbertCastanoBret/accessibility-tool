@@ -13,20 +13,8 @@ using UnityEngine.UIElements;
 public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_VisualNotificationEditorWindowController, ACC_VisualNotificationEditorWindow, ACC_VisualNotificationData>
 {
     private VisualElement tableScrollView, tableContainer;
-    //private ACC_AudioManagerDeprecated _audioManagerDeprecated;
     public static event WindowDelegate OnCloseWindow;
-
-    private new void OnEnable()
-    {
-        base.OnEnable();
-        //_audioManagerDeprecated = GameObject.Find("ACC_AudioManagerDeprecated").GetComponent<ACC_AudioManagerDeprecated>();
-        //_audioManagerDeprecated.OnSoundsChanged += CreateSoundList;
-    }
-    private void OnDisable()
-    {
-        //_audioManagerDeprecated.OnSoundsChanged -= CreateSoundList;
-    }
-
+    
     private new void OnDestroy()
     {
         base.OnDestroy();

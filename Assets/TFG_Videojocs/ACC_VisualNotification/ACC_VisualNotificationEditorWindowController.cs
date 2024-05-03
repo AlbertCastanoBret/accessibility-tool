@@ -26,7 +26,9 @@ namespace TFG_Videojocs.ACC_VisualNotification
                 string fileName = ACC_JSONHelper.GetFileNameByListParameter<ACC_VisualNotificationData, ACC_Sound.ACC_Sound>(
                     "ACC_VisualNotification/",
                     data => data.soundsList,
-                    (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
+                    (itemInList, itemToMatch) => itemInList.audioSourceKey == itemToMatch.audioSourceKey 
+                                                 && itemInList.name == itemToMatch.name 
+                                                 && itemInList.guid == itemToMatch.guid,
                     currentData.soundsList[i]
                 );
                 if (fileName != null && fileName != oldName + ".json" || fileName != null && isCreatingNewFileOnEdition || fileName != null && isOverWriting)
@@ -65,7 +67,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
             window.rootVisualElement.Query<IntegerField>(name: "option-input-4").First().value = currentData.timeOnScreen;
             window.rootVisualElement.Query<ColorField>(name: "option-input-5").First().value = currentData.fontColor;
             window.rootVisualElement.Query<ColorField>(name: "option-input-6").First().value = currentData.backgroundColor;
-            window.rootVisualElement.Query<SliderInt>(name: "multi-input-1-1").First().value = currentData.fontSize;
+            window.rootVisualElement.Query<SliderInt>(name: "multi-input-1-0").First().value = currentData.fontSize;
         }
 
         private void ShowDialogRepeatedSounds(Dictionary<string, List<ACC_Sound.ACC_Sound>> repeatedSounds)
@@ -89,7 +91,9 @@ namespace TFG_Videojocs.ACC_VisualNotification
                             ACC_JSONHelper.RemoveItemFromListInFile<ACC_VisualNotificationData, ACC_Sound.ACC_Sound>(
                                 "ACC_VisualNotification",
                                 data => data.soundsList,
-                                (itemInList, itemToMatch) => itemInList.name == itemToMatch.name,
+                                (itemInList, itemToMatch) => itemInList.audioSourceKey == itemToMatch.audioSourceKey 
+                                                             && itemInList.name == itemToMatch.name 
+                                                             && itemInList.guid == itemToMatch.guid,
                                 sound
                             );
                         }
