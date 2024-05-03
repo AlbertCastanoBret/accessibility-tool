@@ -8,22 +8,11 @@ using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
 using TFG_Videojocs.ACC_HighContrast;
-using UnityEditor; // UnityEditor solo está disponible en el Editor de Unity.
+using UnityEditor;
 #endif
 
 namespace TFG_Videojocs
 {
-    public enum AccessibilityFeature
-    {
-        Subtitles,
-        HighContrast,
-        TextSizeAdjustment,
-        RemapControls,
-        Audio3D,
-        SimplifyTutorials,
-        ContextualReminders
-    }
-    
     public class ACC_AccessibilityManager : MonoBehaviour
     {
         public static ACC_AccessibilityManager Instance { get; private set; } 
