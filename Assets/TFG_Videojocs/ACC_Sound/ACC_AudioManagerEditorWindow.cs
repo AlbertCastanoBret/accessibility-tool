@@ -80,6 +80,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
             {
                 var currentRow = tableScrollView.IndexOf(row)-1;
                 var volume = 0.5f;
+
                 if(controller.currentData.audioSources.Items.Exists(x => x.key == currentRow))
                     volume = controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.volume;
                 
@@ -98,6 +99,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                         controller.currentData.audioClips.Items.Find(x => x.key == currentRow).value);
                 }
             });
+        
         nameField.style.width = new StyleLength(Length.Percent(90));
             
         var addButton = uiElementFactory.CreateButton("+","table-add-button", () =>
@@ -202,6 +204,18 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                     
                 controller.currentData.audioClips.Items.Find(x => x.key.Equals(tableScrollView.IndexOf(row) - 1)).value.AddOrUpdate(currentSoundRow, assetGuid); 
             });
+        sound.RegisterValueChangedCallback( evt =>
+        {
+            var currentRow = tableScrollView.IndexOf(row) - 1;
+            var currentSoundRow = row.IndexOf(soundContainer) - 2;
+            var assetGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(evt.newValue));
+            
+            if(controller.currentData.audioClips.Items[currentRow].value.Items.Exists(x => x.key != currentSoundRow && x.value == assetGuid && x.value != ""))
+            {
+                EditorUtility.DisplayDialog("Error", "This audio clip is already in use", "Ok");
+                sound.value = null;
+            }
+        });
         
         var addButton = uiElementFactory.CreateButton("+", "table-add-button", () =>
         {
