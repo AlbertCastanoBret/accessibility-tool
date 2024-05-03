@@ -348,7 +348,7 @@ namespace TFG_Videojocs.ACC_Utilities
         }
         private static void CreateAudioSource(GameObject audioSources, GameObject audioSettings, ACC_AudioSourceData audioSourceData)
         {
-            GameObject audioSource = new GameObject(audioSourceData.name);
+            GameObject audioSource = new GameObject {tag = "ACC_AudioSource", name = audioSourceData.name};
             audioSource.transform.SetParent(audioSources.transform);
                 
             var audioSourceComponent = audioSource.AddComponent<AudioSource>();

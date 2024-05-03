@@ -166,14 +166,17 @@ public class ACC_AudioAccessibility
 
     #region VisualNotification
 
-    /// <summary>
-    /// Plays a visual notification based on the provided ACC_Sound parameter, after loading the user's visual notification preferences.
-    /// </summary>
-    /// <param name="accSound">The ACC_Sound object that determines which visual notification to play. This should correspond to a specific sound or event for which a visual notification is configured.</param>
-    public void PlayVisualNotification(ACC_Sound accSound)
+    public void PlayVisualNotification(string visualNotification)
     {
         LoadUserPreferencesVisualNotification();
-        accVisualNotificationManager.LoadVisualNotification(accSound);
+        accVisualNotificationManager.LoadVisualNotification(visualNotification);
+        accVisualNotificationManager.PlayVisualNotification();  
+    }
+    
+    internal void PlayVisualNotification(string audioSource, string audioClip)
+    {
+        LoadUserPreferencesVisualNotification();
+        accVisualNotificationManager.LoadVisualNotification(audioSource, audioClip);
         accVisualNotificationManager.PlayVisualNotification();
     }
 

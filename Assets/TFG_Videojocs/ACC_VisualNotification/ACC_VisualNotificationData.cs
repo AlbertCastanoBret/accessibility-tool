@@ -9,7 +9,6 @@ using UnityEngine;
 [System.Serializable]
 public class ACC_VisualNotificationData: ACC_AbstractData
 {
-    public ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, string>> selectedAudioClips = new ();
     public List<ACC_Sound> soundsList;
     public string message;
     public Color fontColor;

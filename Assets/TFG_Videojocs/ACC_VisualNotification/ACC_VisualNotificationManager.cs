@@ -39,9 +39,25 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         }
     }
 
-    public void LoadVisualNotification(ACC_Sound soundToMatch)
+    public void LoadVisualNotification(string jsonFile)
     {
-        loadedData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>("ACC_VisualNotification/A");
+        loadedData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>("ACC_VisualNotification/" + jsonFile);
+    }
+
+    public void LoadVisualNotification(string audioSource, string audioClip)
+    {
+        var allFiles = ACC_JSONHelper.LoadAllFiles<ACC_VisualNotificationData>("ACC_VisualNotification");
+        foreach (var file in allFiles)
+        {
+            var audioSourceGameObject = FindGameObject(audioSource, "ACC_AudioSource");
+            var audioSourceIndex = audioSourceGameObject.transform.GetSiblingIndex();
+            
+            if(file.soundsList.Exists(x => x.audioSourceKey == audioSourceIndex && x.name == audioClip))
+            {
+                loadedData = file;
+                break;
+            }
+        }
     }
 
     public void PlayVisualNotification()
@@ -167,4 +183,16 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         return (verticalAnchorMin, verticalAnchorMax, posY);
     }
     
+    GameObject FindGameObject(string name, string tag)
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag(tag);
+        foreach (GameObject obj in gameObjects)
+        {
+            if (obj.name == name)
+            {
+                return obj;
+            }
+        }
+        return null;
+    }
 }

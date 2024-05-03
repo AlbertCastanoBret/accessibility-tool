@@ -101,6 +101,7 @@ namespace TFG_Videojocs.ACC_Sound
                     var currentAudioClip = audioClips.Items[indexCurrentAudioSource].value.Items.FirstOrDefault(x => x.value.name == audioClip)?.value;
                     currentAudioSource.clip = currentAudioClip;
                     currentAudioSource.Play();
+                    ACC_AccessibilityManager.Instance.AudioAccessibilityManager().PlayVisualNotification(audioSource, audioClip);
                 }
                 else Debug.LogError("Audio clip not found");
             }
@@ -118,6 +119,7 @@ namespace TFG_Videojocs.ACC_Sound
                 {
                     var currentAudioClip = audioClips.Items[indexCurrentAudioSource].value.Items.FirstOrDefault(x => x.value.name == audioClip)?.value;
                     currentAudioSource.PlayOneShot(currentAudioClip);
+                    ACC_AccessibilityManager.Instance.AudioAccessibilityManager().PlayVisualNotification(audioSource, audioClip);
                 }
                 else Debug.LogError("Audio clip not found");
             }
