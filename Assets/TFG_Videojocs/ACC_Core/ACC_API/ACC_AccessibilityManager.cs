@@ -33,23 +33,23 @@ namespace TFG_Videojocs
         [SerializeField] private bool subtitlesEnabled;
         [SerializeField] private bool visualNotificationEnabled;
         
-        private ACC_AudioAccessibility accAudioAccessibility;
+        public ACC_AudioAccessibility AudioAccessibility { get; private set;}
         
         [Header("Visual Accessibility")]
         [SerializeField] private bool highContrastEnabled;
         [HideInInspector] public bool shadersAdded, isPrevisualizing;
         
-        private ACC_VisualAccessibility accVisualAccessibility;
+        public ACC_VisualAccessibility VisualAccessibility { get; private set; }
         
         [Header("MobilityAccessibility")]
         [SerializeField] private bool remapControlsEnabled;
         
-        private ACC_MobilityAccessibility accMobilityAccessibility;
+        public ACC_MobilityAccessibility MobilityAccessibility { get; private set; }
         
         [Header("MultfunctionalAccessibility")]
         [SerializeField] private bool audioManagerEnabled;
         
-        private ACC_MultifunctionalAccessibility accMultifunctionalAccessibility;
+        public ACC_MultifunctionalAccessibility MultifunctionalAccessibility { get; private set; }
             
         private bool sceneLoaded;
         
@@ -70,18 +70,18 @@ namespace TFG_Videojocs
                 accCanvas = GameObject.Find("ACC_Canvas");
                 accCanvas.transform.SetParent(transform);
                 
-                accAudioAccessibility = new ACC_AudioAccessibility();
-                accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
-                accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+                AudioAccessibility = new ACC_AudioAccessibility();
+                AudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+                AudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
-                accVisualAccessibility = new ACC_VisualAccessibility();
-                accVisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                VisualAccessibility = new ACC_VisualAccessibility();
+                VisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 
-                accMobilityAccessibility = new ACC_MobilityAccessibility();
-                accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
+                MobilityAccessibility = new ACC_MobilityAccessibility();
+                MobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 
-                accMultifunctionalAccessibility = new ACC_MultifunctionalAccessibility();
-                accMultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
+                MultifunctionalAccessibility = new ACC_MultifunctionalAccessibility();
+                MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
                 
                 DontDestroyOnLoad(gameObject);
             }
@@ -93,18 +93,18 @@ namespace TFG_Videojocs
 
         private void Start()
         {
-            accAudioAccessibility.PlaySubtitle("A");
-            accMultifunctionalAccessibility.PlaySound("SFX", "Alarm");
+            AudioAccessibility.PlaySubtitle("A");
+            MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             LoadAllUserPreferences();
-            //accVisualAccessibility.ChangeHighContrastConfiguration("A");
+            //VisualAccessibility.ChangeHighContrastConfiguration("A");
             StartCoroutine(ChangeScene());
         }
 
         private IEnumerator ChangeScene()
         {
             yield return new WaitForSeconds(2);
-            //accVisualAccessibility.ChangeHighContrastConfiguration("A");
-            //accAudioAccessibility.ChangeSubtitleFontSize(20);
+            //VisualAccessibility.ChangeHighContrastConfiguration("A");
+            //AudioAccessibility.ChangeSubtitleFontSize(20);
             //MobilityAccessibilityManager().ShowRemapControlsMenu("Gamepad");
             //yield return new WaitForSeconds(6);
             //LoadUserPreferences();
@@ -118,11 +118,11 @@ namespace TFG_Videojocs
         {
             if (Application.isPlaying && sceneLoaded)
             {
-                accAudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
-                accAudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
-                accMobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
-                accVisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
-                accMultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
+                AudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
+                AudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+                MobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
+                VisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
             }
         }
 
@@ -146,32 +146,14 @@ namespace TFG_Videojocs
             highContrastEnabled = true;
             audioManagerEnabled = true;
         }
-
-        /// <summary>
-        /// Retrieves the current instance of the audio accessibility manager.
-        /// </summary>
-        /// <returns>The active ACC_AudioAccessibility instance managing audio accessibility features.</returns>
-        public ACC_AudioAccessibility AudioAccessibilityManager()
-        {
-            return accAudioAccessibility;
-        }
-        
-        /// <summary>
-        /// Retrieves the current instance of the mobility accessibility manager.
-        /// </summary>
-        /// <returns>The active ACC_MobilityAccessibility instance managing mobility accessibility features.</returns>
-        public ACC_MobilityAccessibility MobilityAccessibilityManager()
-        {
-            return accMobilityAccessibility;
-        }
         
         /// <summary>
         /// Loads user preferences for all accessibility modules.
         /// </summary>
         public void LoadAllUserPreferences()
         {
-            accAudioAccessibility.LoadUserPreferences();
-            accMultifunctionalAccessibility.LoadUserPreferences();
+            AudioAccessibility.LoadUserPreferences();
+            MultifunctionalAccessibility.LoadUserPreferences();
         }
         
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
