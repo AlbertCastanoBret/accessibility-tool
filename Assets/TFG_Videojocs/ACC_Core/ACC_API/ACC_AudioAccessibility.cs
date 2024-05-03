@@ -166,6 +166,11 @@ public class ACC_AudioAccessibility
 
     #region VisualNotification
 
+    /// <summary>
+    /// Plays a visual notification based on a specified type.
+    /// This function loads user preferences for visual notifications, then loads and plays the specified visual notification using the VisualNotificationManager.
+    /// </summary>
+    /// <param name="visualNotification">The identifier for the type of visual notification to be played.</param>
     public void PlayVisualNotification(string visualNotification)
     {
         LoadUserPreferencesVisualNotification();
@@ -173,6 +178,12 @@ public class ACC_AudioAccessibility
         accVisualNotificationManager.PlayVisualNotification();  
     }
     
+    /// <summary>
+    /// Plays a visual notification using specified audio source and clip.
+    /// This overloaded function first loads user preferences for visual notifications, then configures the VisualNotificationManager with a specific audio source and clip, and finally plays the visual notification.
+    /// </summary>
+    /// <param name="audioSource">The audio source to use for the visual notification.</param>
+    /// <param name="audioClip">The audio clip to be played alongside the visual notification.</param>
     internal void PlayVisualNotification(string audioSource, string audioClip)
     {
         LoadUserPreferencesVisualNotification();

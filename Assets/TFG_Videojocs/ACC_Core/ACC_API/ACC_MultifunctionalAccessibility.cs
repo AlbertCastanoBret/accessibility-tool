@@ -134,6 +134,10 @@ namespace TFG_Videojocs
             return accAudioManager.GetVolume(audioSource);
         }
         
+        /// <summary>
+        /// Resets the volumes of all audio sources managed by the AudioManager.
+        /// This function calls the ResetAudioSourceVolumes method on the AudioManager instance to revert audio source volumes to their default settings.
+        /// </summary>
         public void ResetAudioSourceVolumes()
         {
             accAudioManager.ResetAudioSourceVolumes();
