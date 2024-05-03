@@ -70,22 +70,7 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         
         CreateSettingsContainer();
         CreateBottomContainer();
-        // controller.RestoreDataAfterCompilation();
-    }
-    
-    private void CreateSoundContainer()
-    {
-        var soundContainer = uiElementFactory.CreateVisualElement("container");
-        var soundsSelectedTitleLabel = uiElementFactory.CreateLabel("title", "Sounds");
-        soundContainer.Add(soundsSelectedTitleLabel);
-        
-        tableContainer = uiElementFactory.CreateVisualElement("container");
-        
-        tableScrollView = uiElementFactory.CreateScrollView("sound-container");
-        CreateSoundList();
-        soundContainer.Add(tableScrollView);
-        soundContainer.Add(CreateAddNewSoundOption());
-        rootVisualElement.Add(soundContainer);
+        controller.RestoreDataAfterCompilation();
     }
 
     public void CreateTable()
@@ -145,13 +130,13 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
                 {
                     foreach (var guid in audioData.audioClips.Items.Find(x => x.key == audioSource.key).value.Items)
                     {
-                        CreateSound(row, guid.value);
+                        CreateSound(row, guid.value, audioSource.key);
                     }
                 }
             }
         }
     }
-    private void CreateSound(VisualElement row, string soundGuid)
+    private void CreateSound(VisualElement row, string soundGuid, int key)
     {
         var soundContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
         soundContainer.style.display = DisplayStyle.None;
@@ -169,19 +154,24 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         
         var soundLabel = uiElementFactory.CreateLabel("table-cell-label-hover", audioClip.name);
         
+        if(controller.currentData.soundsList.Find(s => s.name == soundLabel.text && s.audioSourceKey == key && s.guid == soundGuid) != null)
+        {
+            soundCell.AddToClassList("selected-sound");
+        }
+        
         soundCell.RegisterCallback<MouseDownEvent>(evt =>
         {
             var soundCell = evt.currentTarget as VisualElement;
             if (soundCell != null)
             {
-                if(controller.currentData.soundsList.Find(s => s.name == soundLabel.text) != null)
+                if(controller.currentData.soundsList.Find(s => s.name == soundLabel.text && s.audioSourceKey == key && s.guid == soundGuid) != null)
                 {
-                    controller.currentData.soundsList.Remove(controller.currentData.soundsList.Find(s => s.name == soundLabel.text));
+                    controller.currentData.soundsList.Remove(controller.currentData.soundsList.Find(s => s.name == soundLabel.text && s.audioSourceKey == key && s.guid == soundGuid));
                     soundCell.RemoveFromClassList("selected-sound");
                 }
                 else
                 {
-                    controller.currentData.soundsList.Add(new ACC_Sound(soundLabel.text, AssetDatabase.LoadAssetAtPath<AudioClip>(AssetDatabase.GUIDToAssetPath(soundGuid))));
+                    controller.currentData.soundsList.Add(new ACC_Sound(key, soundLabel.text, soundGuid));
                     soundCell.AddToClassList("selected-sound");
                 }
             }
@@ -192,7 +182,6 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         soundContainer.Add(soundCell);
         row.Add(soundContainer);
     }
-    
     private void ToggleControlSchemeDisplay(Button arrowButton, VisualElement audioSource)
     {
         if (arrowButton.text == "\u25b6")
@@ -211,79 +200,6 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
                 audioSource[j].style.display = DisplayStyle.None;
             }
         }
-    }
-    
-    public void CreateSoundList()
-    {
-        if(tableScrollView!=null) tableScrollView.Clear();
-        
-        /*var SFXSounds = _audioManagerDeprecated.GetSFXSounds();
-        bool isFirst = true;
-        foreach (var sound in SFXSounds)
-        {
-            var soundLabel = new Label(sound.name);
-            soundLabel.AddToClassList("sound-label");
-            if (controller.currentData.soundsList.Find(s => s.name == soundLabel.text) != null)
-            {
-                soundLabel.AddToClassList("selected-sound");
-            }
-            soundLabel.focusable = true;
-            soundLabel.userData = sound;
-    
-            if (isFirst)
-            {
-                soundLabel.AddToClassList("sound-label-first");
-                isFirst = false;
-            }
-
-            soundLabel.RegisterCallback<MouseDownEvent>(evt =>
-            {
-                var label = evt.currentTarget as Label;
-                if (label != null)
-                {
-                    ACC_Sound soundData = label.userData as ACC_Sound;
-
-                    if (controller.currentData.soundsList.Contains(soundData))
-                    {
-                        controller.currentData.soundsList.Remove(soundData);
-                        label.RemoveFromClassList("selected-sound");
-                    }
-                    else
-                    {
-                        controller.currentData.soundsList.Add(soundData);
-                        label.AddToClassList("selected-sound");
-                    }
-                }
-            });
-
-            if (tableScrollView != null) tableScrollView.Add(soundLabel);
-        }*/
-    }
-    private VisualElement CreateAddNewSoundOption()
-    {
-        AudioClip audioClip = null;
-        return uiElementFactory.CreateObjectFieldWithButton("option-multi-input", "Add new sound:", "Add", typeof(AudioClip),
-            onObjectField: value => audioClip = value as AudioClip,
-            () =>
-            {
-                if (audioClip != null && tableScrollView.Children().OfType<Label>().All(label => label.text != audioClip.name))
-                {
-                    ACC_Sound accSound = new ACC_Sound(audioClip.name, audioClip);
-                    //controller.currentData.soundsList.Add(accSound);
-                    //_audioManagerDeprecated.AddSFXSound(accSound);
-                }
-                else
-                {
-                    if (audioClip == null)
-                    {
-                        EditorUtility.DisplayDialog("No AudioClip Selected", "Please select an AudioClip to add.", "OK");
-                    }
-                    else
-                    {
-                        EditorUtility.DisplayDialog("AudioClip Already Selected", "The selected AudioClip is already in the list.", "OK");
-                    }
-                }
-            });
     }
     private void CreateSettingsContainer()
     {

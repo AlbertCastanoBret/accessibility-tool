@@ -175,7 +175,7 @@ public class Accessibility_InspectorShared : Editor
 			{
 				++EditorGUI.indentLevel;
 				EditorGUILayout.PropertyField(m_Hint, new GUIContent("Hint Text", "Specify a custom hint text to be read if the user stays on this element for a few seconds."));
-				EditorGUILayout.PropertyField(m_HintIsLocalizationKey, new GUIContent("Is Localization Key", "If checked, the plugin will treat the hint text as a localization key and request a translation from the localization system at runtime."));
+				EditorGUILayout.PropertyField(m_HintIsLocalizationKey, new GUIContent("Is Localization Key", "If checked, the plugin will treat the hint text as a localization audioSourceKey and request a translation from the localization system at runtime."));
 				// Display localized text if needed
 				if (m_HintIsLocalizationKey.boolValue)
 				{
@@ -281,7 +281,7 @@ public class Accessibility_InspectorShared : Editor
 				{
 					// Read the element's name from a reference label
 					EditorGUILayout.PropertyField(m_Prefix, new GUIContent("Combine String", "Will automatically be added in front of the name if a label is set.\nYou can use the wildcard {0} to insert the label into your text instead.\nUse {1}, {2}, ... to access additional labels."));
-					EditorGUILayout.PropertyField(m_PrefixIsLocalizationKey, new GUIContent("Is Localization Key", "If set to true, the plugin will treat the name as a localization key and request the localization at runtime."));
+					EditorGUILayout.PropertyField(m_PrefixIsLocalizationKey, new GUIContent("Is Localization Key", "If set to true, the plugin will treat the name as a localization audioSourceKey and request the localization at runtime."));
 					if (m_AdditionalNameLabels.arraySize == 0)
 						EditorGUILayout.PropertyField(m_PrefixIsPostFix, new GUIContent("Is Postfix", "If set to true, the combination string will be add behind the label's content, not in front of it."));
 					string nameText = baseItem.GetTextToRead();
@@ -294,7 +294,7 @@ public class Accessibility_InspectorShared : Editor
 				{
 					// Manual setup of the name
 					m_Text.stringValue = EditorGUILayout.TextArea(m_Text.stringValue, myTextAreaInputStyle);
-					EditorGUILayout.PropertyField(m_IsLocalizationKey, new GUIContent("Is Localization Key", "If set to true, the plugin will treat the name as a localization key and request the localization at runtime."));
+					EditorGUILayout.PropertyField(m_IsLocalizationKey, new GUIContent("Is Localization Key", "If set to true, the plugin will treat the name as a localization audioSourceKey and request the localization at runtime."));
 					// Display localized text if needed
 					if (m_IsLocalizationKey.boolValue)
 					{
@@ -334,7 +334,7 @@ public class Accessibility_InspectorShared : Editor
 				// Manual setup of the name
 				EditorGUILayout.HelpBox("(Optional) The plugin can read out the name of this UI group if one of it's elements receives focus. The name is not repeated while the focus stays within the container.", MessageType.Info);
 				m_ContainerName.stringValue = EditorGUILayout.TextArea(m_ContainerName.stringValue, myTextAreaInputStyle);
-				EditorGUILayout.PropertyField(m_IsLocalizationKey, new GUIContent("Is Localization Key", "If set to true, the plugin will treat the name as a localization key and request the localization at runtime."));
+				EditorGUILayout.PropertyField(m_IsLocalizationKey, new GUIContent("Is Localization Key", "If set to true, the plugin will treat the name as a localization audioSourceKey and request the localization at runtime."));
 				// Display localized text if needed
 				if (m_IsLocalizationKey.boolValue)
 				{
@@ -367,7 +367,7 @@ public class Accessibility_InspectorShared : Editor
 
 			if (isInteractive)
 			{
-				EditorGUILayout.PropertyField(m_OnInteractionStart, new GUIContent("Interact Start", "UAP will call any function assigned here when the user interacts with this element (double tap or return key)."));
+				EditorGUILayout.PropertyField(m_OnInteractionStart, new GUIContent("Interact Start", "UAP will call any function assigned here when the user interacts with this element (double tap or return audioSourceKey)."));
 				EditorGUILayout.PropertyField(m_OnInteractionEnd, new GUIContent("Interact Finish", "UAP will call any function assigned here when the user finishes the interaction."));
 				EditorGUILayout.PropertyField(m_OnInteractionAbort, new GUIContent("Interact Cancel", "UAP will call any function assigned here when the user cancels the interaction."));
 			}

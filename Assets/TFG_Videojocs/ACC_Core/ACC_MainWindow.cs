@@ -29,8 +29,7 @@ public class ACC_MainWindow : EditorWindow
     private const int numberOfColumns = 2;
 
     private bool isWindowOpen = false;
-
-    private ACC_AudioManagerDeprecated _audioManagerDeprecated;
+    
     private ScrollView soundContainer;
 
     private InputActionAsset inputActionAsset;

@@ -42,7 +42,7 @@ public class ACC_InitializationWindow : EditorWindow
         createButton.clicked += () =>
         {
             CreateAccessibilityManager();
-            CreateAudioManager();
+            //CreateAudioManager();
             CreateCanvas();
             Close();
         };
@@ -62,22 +62,22 @@ public class ACC_InitializationWindow : EditorWindow
         accessibilityManager = new GameObject("ACC_AccessibilityManager");
         accessibilityManager.AddComponent<ACC_AccessibilityManager>();
     }
-    private static void CreateAudioManager()
-    {
-        var audioManager = GameObject.Find("ACC_AudioManagerDeprecated");
-        if (audioManager) DestroyImmediate(audioManager);
-        audioManager = new GameObject("ACC_AudioManagerDeprecated");
-            
-        var musicSource = new GameObject("ACC_MusicSource");
-        musicSource.AddComponent<AudioSource>();
-        musicSource.transform.SetParent(audioManager.transform);
-            
-        var sfxSource = new GameObject("ACC_SFXSource");
-        sfxSource.AddComponent<AudioSource>();
-        sfxSource.transform.SetParent(audioManager.transform);
-            
-        audioManager.AddComponent<ACC_AudioManagerDeprecated>();
-    }
+    // private static void CreateAudioManager()
+    // {
+    //     var audioManager = GameObject.Find("ACC_AudioManagerDeprecated");
+    //     if (audioManager) DestroyImmediate(audioManager);
+    //     audioManager = new GameObject("ACC_AudioManagerDeprecated");
+    //         
+    //     var musicSource = new GameObject("ACC_MusicSource");
+    //     musicSource.AddComponent<AudioSource>();
+    //     musicSource.transform.SetParent(audioManager.transform);
+    //         
+    //     var sfxSource = new GameObject("ACC_SFXSource");
+    //     sfxSource.AddComponent<AudioSource>();
+    //     sfxSource.transform.SetParent(audioManager.transform);
+    //         
+    //     audioManager.AddComponent<ACC_AudioManagerDeprecated>();
+    // }
     private static void CreateCanvas()
     {
         var canvasObject = GameObject.Find("ACC_Canvas");

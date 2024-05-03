@@ -222,7 +222,7 @@ public class Accessibility_Inspector : Accessibility_InspectorShared
 			if (!m_HandleUI.boolValue)
 				DrawErrorBox("Attention:\nIf you just want the plugin to stop handling swipes, use PauseAccessibility() instead.");
 			m_ExploreByTouch.boolValue = EditorGUILayout.ToggleLeft(new GUIContent("Explore By Touch", "If true (Default) the plugin reads out the UI element that is under the user's finger. If 'Handle UI' is not active, this setting will be ignored."), m_ExploreByTouch.boolValue);
-			m_MouseSwipes.boolValue = EditorGUILayout.ToggleLeft(new GUIContent("Mouse Swiping", "Default is false.. If true, the plugin reads mouse swipes as finger swipes. Using the ALT key emulates two finger swipes.\nThis is very useful if developing a mobile application, but probably undesirable in a Desktop app."), m_MouseSwipes.boolValue);
+			m_MouseSwipes.boolValue = EditorGUILayout.ToggleLeft(new GUIContent("Mouse Swiping", "Default is false.. If true, the plugin reads mouse swipes as finger swipes. Using the ALT audioSourceKey emulates two finger swipes.\nThis is very useful if developing a mobile application, but probably undesirable in a Desktop app."), m_MouseSwipes.boolValue);
 			EditorGUILayout.Separator();
 			m_HandleMagicGestures.boolValue = EditorGUILayout.ToggleLeft(new GUIContent("Magic Gestures", "If true (Default), the plugin will recognize magic gestures for functions like Back, Exit and Pause, and call the appropriate callbacks to your game."), m_HandleMagicGestures.boolValue);
 			if (!m_HandleMagicGestures.boolValue)
@@ -260,12 +260,12 @@ public class Accessibility_Inspector : Accessibility_InspectorShared
 		showSounds = DrawSectionHeader("Sounds", showSounds);
 		if (showSounds)
 		{
-			EditorGUILayout.PropertyField(m_GoogleTTSAPIKey, new GUIContent("Google TTS API key", "You can provide your Google Cloud API key to activate " +
-				"Google TTS for WebGL. The UAP documentation contains step-by-step instructions on how to get an API key.\nThis is optional - if no key is provided, " +
+			EditorGUILayout.PropertyField(m_GoogleTTSAPIKey, new GUIContent("Google TTS API audioSourceKey", "You can provide your Google Cloud API audioSourceKey to activate " +
+				"Google TTS for WebGL. The UAP documentation contains step-by-step instructions on how to get an API audioSourceKey.\nThis is optional - if no audioSourceKey is provided, " +
 				"UAP will use the browser Web Speech API to generate speech (most browsers support this)"));
 
-			// If there is nothing, or only a very short key in the text field (invalid) show some help on how to get the key
-			// The key should be 39 characters long - but it's not a hard requirement
+			// If there is nothing, or only a very short audioSourceKey in the text field (invalid) show some help on how to get the audioSourceKey
+			// The audioSourceKey should be 39 characters long - but it's not a hard requirement
 			if (m_GoogleTTSAPIKey.stringValue == null || m_GoogleTTSAPIKey.stringValue.Length < 39) 
 			{
 				if (GUILayout.Button("Get API Key", GUILayout.MaxWidth(120)))

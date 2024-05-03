@@ -125,7 +125,7 @@ namespace TFG_Videojocs
         
         /// <summary>
         /// Retrieves the volume level for a specified audio source using the AudioManager.
-        /// If a PlayerPrefs key exists for the audio source, it returns the saved value.
+        /// If a PlayerPrefs audioSourceKey exists for the audio source, it returns the saved value.
         /// </summary>
         /// <param name="audioSource">The name of the audio source for which the volume is queried.</param>
         /// <returns>The volume level of the specified audio source as a float.</returns>
@@ -136,7 +136,7 @@ namespace TFG_Videojocs
         
         /// <summary>
         /// Loads and applies volume settings from PlayerPrefs to all managed audio sources.
-        /// This function first checks if the audio manager is enabled before applying settings. If a PlayerPrefs key exists 
+        /// This function first checks if the audio manager is enabled before applying settings. If a PlayerPrefs audioSourceKey exists 
         /// for an audio source, it sets that source's volume to the saved value.
         /// </summary>
         private void LoadPreferencesAudioSourceVolumes()

@@ -107,7 +107,7 @@ public class UAP_AccessibilityManager : MonoBehaviour
 	[Header("WebGL")]
 	public bool m_WebGLTTS = true;
 	/// <summary>
-	/// Google Cloud Text-To-Speech API key. Please see documentation for step-by-step instructions on how to get this value
+	/// Google Cloud Text-To-Speech API audioSourceKey. Please see documentation for step-by-step instructions on how to get this value
 	/// </summary>
 	public string m_GoogleTTSAPIKey = "";
 	static public string GoogleTTSAPIKey
@@ -673,7 +673,7 @@ public class UAP_AccessibilityManager : MonoBehaviour
 		if (Application.platform == RuntimePlatform.IPhonePlayer)
 			return true;
 
-		// The Virtual keyboard is only used on mobile, but allows to be tested in the Editor (regular keyboard will still work, use Shift-Return to simulate a return key press)
+		// The Virtual keyboard is only used on mobile, but allows to be tested in the Editor (regular keyboard will still work, use Shift-Return to simulate a return audioSourceKey press)
 #if UNITY_ANDROID || UNITY_IOS
 		// Allow testing with overlay keyboard in Editor
 		if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.OSXEditor)
@@ -2369,7 +2369,7 @@ public class UAP_AccessibilityManager : MonoBehaviour
 		if (m_ContinuousReading && !m_ContinuousReading_WaitInputClear)
 		{
 #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_WEBGL
-			// Any mouse or key press cancels continuous reading
+			// Any mouse or audioSourceKey press cancels continuous reading
 			if (Input.anyKey)
 #else
 			if (Input.touchCount > 0)
@@ -2384,7 +2384,7 @@ public class UAP_AccessibilityManager : MonoBehaviour
 		if (m_ContinuousReading_WaitInputClear)
 		{
 #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_WEBGL
-			// Any mouse or key press cancels continuous reading
+			// Any mouse or audioSourceKey press cancels continuous reading
 			if (!Input.anyKey)
 #else
 			if (!(Input.touchCount > 0))
@@ -4057,14 +4057,14 @@ public class UAP_AccessibilityManager : MonoBehaviour
 	{
 #if UNITY_STANDALONE || UNITY_EDITOR || UNITY_WEBGL
 
-		// The left ALT (Left Command on a Mac) key is held, this emulates a second finger
+		// The left ALT (Left Command on a Mac) audioSourceKey is held, this emulates a second finger
 		if (Input.GetMouseButton(0) && (Input.GetKey(KeyCode.LeftAlt) == true || Input.GetKey(KeyCode.LeftCommand) == true))
 		{
 			//Debug.Log("Emulating second finger");
 			return 2;
 		}
 
-		// If this is the Editor, clicking the RIGHT mouse button and the left ALT (Left Command on a Mac) key is held, this emulates a three finger tap
+		// If this is the Editor, clicking the RIGHT mouse button and the left ALT (Left Command on a Mac) audioSourceKey is held, this emulates a three finger tap
 		if (Input.GetMouseButton(1) && (Input.GetKey(KeyCode.LeftAlt) == true || Input.GetKey(KeyCode.LeftCommand) == true))
 		{
 			//Debug.Log("Emulating third finger");
@@ -4717,8 +4717,8 @@ public class UAP_AccessibilityManager : MonoBehaviour
 	static public string Localize(string key)
 	{
 #if ACCESS_NGUI
-		if (key.Length > 0 && Localization.Has(key))
-			return Localization.Get(key);
+		if (audioSourceKey.Length > 0 && Localization.Has(audioSourceKey))
+			return Localization.Get(audioSourceKey);
 #endif
 
 		// Try internal localization next
@@ -4738,7 +4738,7 @@ public class UAP_AccessibilityManager : MonoBehaviour
 		if (m_CurrentLocalizationTable.ContainsKey(key))
 			return m_CurrentLocalizationTable[key];
 
-		Debug.LogWarning("[Accessibility] No localization available for key '" + key + "'");
+		Debug.LogWarning("[Accessibility] No localization available for audioSourceKey '" + key + "'");
 		return key;
 	}
 

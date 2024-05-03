@@ -108,14 +108,14 @@ public class UAP_VirtualKeyboard : MonoBehaviour
 		// Support actual keyboard input coming from a Bluetooth keyboard or similar
 		if (Input.GetKeyDown(KeyCode.Backspace))
 		{
-			// #UAP_Keyboard_Backlog Handle backspace key being held continuously (use a sensible repeat rate)
+			// #UAP_Keyboard_Backlog Handle backspace audioSourceKey being held continuously (use a sensible repeat rate)
 			OnBackSpacePressed();
 		}
 		else if (Input.GetKeyDown(KeyCode.Return))
 		{
 			// Return is needed to activate items - at least on Desktop. 
 			// For Bluetooth keyboards on mobile Return will have the actual effect, since it can be assumed it is used
-			// for text input and NOT to control the UI. To enter a new line on Desktop platform, the left shift key can be held
+			// for text input and NOT to control the UI. To enter a new line on Desktop platform, the left shift audioSourceKey can be held
 			if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.Android || Input.GetKey(KeyCode.LeftShift))
 				OnReturnPressed();
 		}
@@ -242,9 +242,9 @@ public class UAP_VirtualKeyboard : MonoBehaviour
 
 	public void OnShiftKeyPressed()
 	{
-		// On the numbers page, this key leads to symbols
-		// On the symbols page, this key leads to numbers
-		// On the letters page, this key toggles upper case/lower case
+		// On the numbers page, this audioSourceKey leads to symbols
+		// On the symbols page, this audioSourceKey leads to numbers
+		// On the letters page, this audioSourceKey toggles upper case/lower case
 		switch (m_CurrentKeyboardPage)
 		{
 			case EKeyboardPage.Numbers:
@@ -268,9 +268,9 @@ public class UAP_VirtualKeyboard : MonoBehaviour
 
 	public void OnToggleKeyPressed()
 	{
-		// On the letters page, this key leads to numbers
-		// On the numbers page, this key leads to letters
-		// On the symbols page, this key leads to letters
+		// On the letters page, this audioSourceKey leads to numbers
+		// On the numbers page, this audioSourceKey leads to letters
+		// On the symbols page, this audioSourceKey leads to letters
 		switch (m_CurrentKeyboardPage)
 		{
 			case EKeyboardPage.Letters:
@@ -377,7 +377,7 @@ public class UAP_VirtualKeyboard : MonoBehaviour
 
 	public void OnSpacePressed()
 	{
-		// #UAP_Keyboard_Backlog Handle virtual key being held continuously (use a sensible repeat rate) (not in accessibility mode)
+		// #UAP_Keyboard_Backlog Handle virtual audioSourceKey being held continuously (use a sensible repeat rate) (not in accessibility mode)
 
 		AddLetter(" ");
 
@@ -388,7 +388,7 @@ public class UAP_VirtualKeyboard : MonoBehaviour
 
 	public void OnBackSpacePressed()
 	{
-		// #UAP_Keyboard_Backlog Handle virtual key being held continuously (use a sensible repeat rate) (not in accessibility mode)
+		// #UAP_Keyboard_Backlog Handle virtual audioSourceKey being held continuously (use a sensible repeat rate) (not in accessibility mode)
 		// #UAP_Keyboard_Backlog Long press also deletes entire words (not in accessibility mode)
 
 		if (m_EditedText.Length == 0)
@@ -401,7 +401,7 @@ public class UAP_VirtualKeyboard : MonoBehaviour
 
 	public void OnReturnPressed()
 	{
-		// #UAP_Keyboard_Backlog Handle virtual key being held continuously (use a sensible repeat rate) (not in accessibility mode)
+		// #UAP_Keyboard_Backlog Handle virtual audioSourceKey being held continuously (use a sensible repeat rate) (not in accessibility mode)
 
 		if (m_AllowMutliLine)
 		{
@@ -409,7 +409,7 @@ public class UAP_VirtualKeyboard : MonoBehaviour
 		}
 		else
 		{
-			// If multiline is not allowed, the return key ends the interaction and finalizes the input
+			// If multiline is not allowed, the return audioSourceKey ends the interaction and finalizes the input
 			OnDonePressed();
 		}
 	}
@@ -486,13 +486,13 @@ public class UAP_VirtualKeyboard : MonoBehaviour
 			m_PreferredLanguage = SystemLanguage.English;
 		SetKeyboardLayoutForLanguage(m_PreferredLanguage);
 
-		// Depending on whether this is multiline or not, change the description of the Return key
+		// Depending on whether this is multiline or not, change the description of the Return audioSourceKey
 		m_ReturnKey.GetComponent<UAP_BaseElement>().SetCustomText(alllowMultiline ? UAP_AccessibilityManager.Localize_Internal("Keyboard_Return") : UAP_AccessibilityManager.Localize_Internal("Keyboard_Done"));
 
 		// Start with shift pressed, but only when the 
 		AutoSetShiftMode();
 
-		// Make voice announcement 'keyboard visible' (localized) and whether shift key is on
+		// Make voice announcement 'keyboard visible' (localized) and whether shift audioSourceKey is on
 		UAP_AccessibilityManager.Say(UAP_AccessibilityManager.Localize_Internal("Keyboard_Showing"));
 		UAP_AccessibilityManager.Say(UAP_AccessibilityManager.Localize_Internal(m_ShiftModeActive ? "Keyboard_ShiftOn" : "Keyboard_ShiftOff"));
 

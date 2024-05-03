@@ -249,7 +249,7 @@ public class UAP_AudioQueue : MonoBehaviour
 		//////////////////////////////////////////////////////////////////////////
 		// For WebGL, we need a custom TTS solution
 		// The following code makes sure that there is either a custom TTS already set up, or it tries to 
-		// initialize the included Google Cloud TTS API. This can only be done if an API key is provided.
+		// initialize the included Google Cloud TTS API. This can only be done if an API audioSourceKey is provided.
 #if UNITY_WEBGL
 		if (Application.platform == RuntimePlatform.WebGLPlayer && UAP_AccessibilityManager.UseWebGLTTS())
 		{

@@ -49,7 +49,7 @@ namespace TFG_Videojocs.ACC_VisualNotification
             else
             {
                 isRenamingFile = false;
-                currentData.soundsList.ForEach(sound => sound.currentVisualNotificationData = currentData.name);
+                //currentData.soundsList.ForEach(sound => sound.currentVisualNotificationData = currentData.name);
                 base.ConfigureJson();
                 ACC_PrefabHelper.CreatePrefab("VisualNotification");
             }

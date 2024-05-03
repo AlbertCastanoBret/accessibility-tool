@@ -508,7 +508,7 @@ public abstract class UAP_BaseElement : MonoBehaviour
 
 	/// <summary>
 	/// Convenience function to set the text on this element manually and disable the automatic label reading at the same time
-	/// Text is expected to be localized (if applicable). This function will disable the setting treating the text as a localization key
+	/// Text is expected to be localized (if applicable). This function will disable the setting treating the text as a localization audioSourceKey
 	/// </summary>
 	/// <param name="itemText"></param>
 	public void SetCustomText(string itemText)

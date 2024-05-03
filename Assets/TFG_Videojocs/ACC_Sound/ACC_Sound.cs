@@ -1,41 +1,44 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace TFG_Videojocs.ACC_Sound
 {
     [System.Serializable]
     public class ACC_Sound : IEquatable<ACC_Sound>, ICloneable
     {
+        [ACC_ReadOnly] public int audioSourceKey;
         [ACC_ReadOnly] public string name;
-        public AudioClip audioClip;
-        [HideInInspector] public string currentVisualNotificationData;
+        [ACC_ReadOnly] public string guid;
+        //[HideInInspector] public string currentVisualNotificationData;
 
-        public ACC_Sound()
+        public ACC_Sound() { }
+        
+        public ACC_Sound(int audioSourceKey, string name, string guid)
         {
-            name = "New Sound";
-            audioClip = null;
-            currentVisualNotificationData = "";
-        }
-        public ACC_Sound(string name, AudioClip audioClip)
-        {
+            this.audioSourceKey = audioSourceKey;
             this.name = name;
-            this.audioClip = audioClip;
-            currentVisualNotificationData = "";
+            this.guid = guid;
+            //currentVisualNotificationData = "";
         }
 
         public bool Equals(ACC_Sound other)
         {
             if (other == null) return false;
-            return name == other.name;
+            return audioSourceKey == other.audioSourceKey
+                   && name == other.name
+                   && guid == other.guid;
+            //&& currentVisualNotificationData == other.currentVisualNotificationData;
         }
 
         public object Clone()
         {
             ACC_Sound clone = new ACC_Sound
             {
+                audioSourceKey = audioSourceKey,
                 name = name,
-                audioClip = audioClip,
-                currentVisualNotificationData = currentVisualNotificationData
+                guid = guid
+                //currentVisualNotificationData = currentVisualNotificationData
             };
             return clone;
         }

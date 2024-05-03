@@ -50,8 +50,8 @@ public class Google_TTS : UAP_CustomTTS
 
 		string payload = "{\"input\":{\"text\":\"" + textToSay + "\"},\"voice\":{\"languageCode\":\"" + languageCode + "\",\"name\":\"en-US-Wavenet-D\",\"ssmlGender\":1},\"audioConfig\":{\"audioEncoding\":1,\"speakingRate\":" + speakingRate.ToString("0.0") + ",\"pitch\":1.0,\"volumeGainDb\":0.0,\"sampleRateHertz\":24000.0}}";
 		byte[] payloadAsBytes = Encoding.UTF8.GetBytes(payload);
-		//string url = "https://texttospeech.googleapis.com/v1beta1/text:synthesize?key=" + apiKey;
-		string url = "https://texttospeech.googleapis.com/v1/text:synthesize?key=" + apiKey;
+		//string url = "https://texttospeech.googleapis.com/v1beta1/text:synthesize?audioSourceKey=" + apiKey;
+		string url = "https://texttospeech.googleapis.com/v1/text:synthesize?audioSourceKey=" + apiKey;
 
 		if (m_CurrentRequest != null)
 		{
@@ -95,7 +95,7 @@ public class Google_TTS : UAP_CustomTTS
 			// Were there any errors?
 			if (m_CurrentRequest.responseCode == 403)
 			{
-				Debug.LogWarning("[Google TTS] Received response FORBIDDEN from Google. Please check whether your API key restrictions might be blocking this call. You might have set this to only be allowed from your website. If so, you might want to create an unrestricted Editor-only API key which you're using for development.");
+				Debug.LogWarning("[Google TTS] Received response FORBIDDEN from Google. Please check whether your API audioSourceKey restrictions might be blocking this call. You might have set this to only be allowed from your website. If so, you might want to create an unrestricted Editor-only API audioSourceKey which you're using for development.");
 			}
 
 			if (!string.IsNullOrEmpty(m_CurrentRequest.error))
