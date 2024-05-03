@@ -134,11 +134,11 @@ namespace TFG_Videojocs
             return accAudioManager.GetVolume(audioSource);
         }
         
-        /// <summary>
-        /// Loads and applies volume settings from PlayerPrefs to all managed audio sources.
-        /// This function first checks if the audio manager is enabled before applying settings. If a PlayerPrefs audioSourceKey exists 
-        /// for an audio source, it sets that source's volume to the saved value.
-        /// </summary>
+        public void ResetAudioSourceVolumes()
+        {
+            accAudioManager.ResetAudioSourceVolumes();
+        }
+        
         private void LoadPreferencesAudioSourceVolumes()
         {
             accAudioManager.SetAllVolumes();

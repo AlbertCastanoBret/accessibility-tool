@@ -27,22 +27,29 @@ namespace TFG_Videojocs.ACC_Sound
                     audioSettingsContainer = transform.GetChild(i).gameObject;
                     for(int j=0; j<audioSettingsContainer.transform.childCount; j++)
                     {
-                        var scroll = audioSettingsContainer.transform.GetChild(j);
-                        if(scroll.CompareTag("ACC_Scroll"))
+                        var child = audioSettingsContainer.transform.GetChild(j);
+                        if(child.CompareTag("ACC_Scroll"))
                         {
-                            for (int k = 0; k < scroll.childCount; k++)
+                            for (int k = 0; k < child.childCount; k++)
                             {
-                                var scrollList = scroll.GetChild(k);
+                                var scrollList = child.GetChild(k);
                                 if (scrollList.CompareTag("ACC_ScrollList"))
                                 {
                                     for (int l = 0; l < scrollList.childCount; l++)
                                     {
                                         var audioSource = scrollList.GetChild(l);
                                         var slider = audioSource.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>();
+                                        slider.value = GetVolume(audioSource.name);
                                         slider.onValueChanged.AddListener(delegate { SetVolume(audioSource.name, slider.value); });
                                     }
                                 }
                             }
+                        }
+                        
+                        if(child.CompareTag("ACC_Button"))
+                        {
+                            var button = child.GetComponent<Button>();
+                            button.onClick.AddListener(ResetAudioSourceVolumes);
                         }
                     }
                 }
@@ -196,6 +203,40 @@ namespace TFG_Videojocs.ACC_Sound
                                 var audioSource = scrollList.GetChild(j);
                                 var slider = audioSource.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>();
                                 slider.value = GetVolume(audioSource.name);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void ResetAudioSourceVolumes()
+        {
+            if (!isEnabled) return;
+            foreach (Transform audioSource in audioSourcesContainer.transform)
+            {
+                var currentAudioSource = audioSource.GetComponent<AudioSource>();
+                if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
+                {
+                    currentAudioSource.volume = audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name)!.value.volume;
+                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume + audioSource.name);
+                    PlayerPrefs.Save();
+                }
+            }
+
+            foreach (Transform child in audioSettingsContainer.transform)
+            {
+                if (child.CompareTag("ACC_Scroll"))
+                {
+                    for (int i = 0; i < child.childCount; i++)
+                    {
+                        var scrollList = child.GetChild(i);
+                        if (scrollList.CompareTag("ACC_ScrollList"))
+                        {
+                            for (int j = 0; j < scrollList.childCount; j++)
+                            {
+                                var audioSource = scrollList.GetChild(j);
+                                var slider = audioSource.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>();
+                                slider.value = audioSources.Items.FirstOrDefault(x => x.value.name == audioSource.name)!.value.volume;
                             }
                         }
                     }
