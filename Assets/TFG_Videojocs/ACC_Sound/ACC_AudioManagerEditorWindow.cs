@@ -48,17 +48,17 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         tableScrollView = uiElementFactory.CreateScrollView("table-scroll-view");
             
         var containerTableTitle = uiElementFactory.CreateVisualElement("table-row-title");
-        var containerTableNameTitle = uiElementFactory.CreateLabel("table-title-name", "Audio Sources");
-            
-        containerTableTitle.Add(containerTableNameTitle);
+        var tableNameLabel = uiElementFactory.CreateLabel("table-title-name", "Audio Sources");
+        
+        tableContainer.Add(highContrastTitle);
+        containerTableTitle.Add(tableNameLabel);
         tableScrollView.Add(containerTableTitle);
         
         for(int i=0; i<controller.currentData.audioSources.Items.Count; i++)
         {
             CreateAudioSource(controller.currentData.audioSources.Items.Find(x => x.key == i).value.name, i+1);
         }
-            
-        tableContainer.Add(highContrastTitle);
+        
         tableContainer.Add(tableScrollView);
     }
     private void CreateAudioSource(string name = "New Audio Source", int index=-1)

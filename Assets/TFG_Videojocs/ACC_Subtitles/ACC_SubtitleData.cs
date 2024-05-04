@@ -8,12 +8,14 @@ using UnityEngine;
 [System.Serializable]
 public class ACC_SubtitleData: ACC_AbstractData
 {
-    public ACC_SerializableDictiornary<int ,string> actorText = new();
     public ACC_SerializableDictiornary<int ,string> subtitleText = new();
     public ACC_SerializableDictiornary<int ,int> timeText = new();
+    public ACC_SerializableDictiornary<int ,string> actorText = new();
+    public ACC_SerializableDictiornary<int, Color> actorColor = new();
     public Color fontColor;
     public Color backgroundColor;
     public int fontSize;
+    public bool showActors = false;
 
     public override bool Equals(object obj)
     {
@@ -21,18 +23,21 @@ public class ACC_SubtitleData: ACC_AbstractData
             return false;
 
         var other = (ACC_SubtitleData)obj;
-
-        bool actorTextEqual = actorText.Items.SequenceEqual(other.actorText.Items);
+        
         bool subtitleTextEqual = subtitleText.Items.SequenceEqual(other.subtitleText.Items);
         bool timeTextEqual = timeText.Items.SequenceEqual(other.timeText.Items);
+        bool actorTextEqual = actorText.Items.SequenceEqual(other.actorText.Items);
+        bool actorColorEqual = actorColor.Items.SequenceEqual(other.actorColor.Items);
         
         return string.Equals(name,other.name, StringComparison.OrdinalIgnoreCase)
-               && actorTextEqual
                && subtitleTextEqual
                && timeTextEqual
+               && actorTextEqual
+               && actorColorEqual
                && fontColor.Equals(other.fontColor)
                && backgroundColor.Equals(other.backgroundColor)
-               && fontSize == other.fontSize;
+               && fontSize == other.fontSize
+               && showActors == other.showActors;
     }
 
     public override int GetHashCode()
@@ -41,12 +46,14 @@ public class ACC_SubtitleData: ACC_AbstractData
         {
             int hash = (int)2166136261;
             hash = (hash * 16777619) ^ name.GetHashCode();
-            hash = (hash * 16777619) ^ actorText.GetHashCode();
             hash = (hash * 16777619) ^ subtitleText.GetHashCode();
             hash = (hash * 16777619) ^ timeText.GetHashCode();
+            hash = (hash * 16777619) ^ actorText.GetHashCode();
+            hash = (hash * 16777619) ^ actorColor.GetHashCode();
             hash = (hash * 16777619) ^ fontColor.GetHashCode();
             hash = (hash * 16777619) ^ backgroundColor.GetHashCode();
             hash = (hash * 16777619) ^ fontSize.GetHashCode();
+            hash = (hash * 16777619) ^ showActors.GetHashCode();
             return hash;
         }
     }
@@ -56,12 +63,14 @@ public class ACC_SubtitleData: ACC_AbstractData
         ACC_SubtitleData clone = new ACC_SubtitleData
         {
             name = name,
-            actorText = (ACC_SerializableDictiornary<int, string>) actorText.Clone(),
             subtitleText = (ACC_SerializableDictiornary<int, string>) subtitleText.Clone(),
             timeText = (ACC_SerializableDictiornary<int, int>)timeText.Clone(),
+            actorText = (ACC_SerializableDictiornary<int, string>) actorText.Clone(),
+            actorColor = (ACC_SerializableDictiornary<int, Color>) actorColor.Clone(),
             fontColor = fontColor,
             backgroundColor = backgroundColor,
-            fontSize = fontSize
+            fontSize = fontSize,
+            showActors = showActors,
         };
 
         return clone;

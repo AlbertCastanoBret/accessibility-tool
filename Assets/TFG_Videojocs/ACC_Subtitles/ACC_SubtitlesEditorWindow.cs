@@ -14,7 +14,8 @@ using UnityEngine.UIElements;
 
 public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEditorWindowController, ACC_SubtitlesEditorWindow, ACC_SubtitleData>
 {
-    private VisualElement table, tableContainer, tableScrollView, selectedItem = null;
+    private VisualElement table, actorTableContainer, actorTableScrollView;
+    //private VisualElement tableContainer, tableScrollView, selectedItem = null;
     private ListView listView;
     public static event WindowDelegate OnCloseWindow;
     
@@ -31,8 +32,8 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         if(window.controller.isCreatingNewFileOnCreation) return;
         
         window.titleContent = new GUIContent("Subtitle Creation");
-        window.minSize = new Vector2(600, 530);
-        window.maxSize = new Vector2(600, 530);
+        window.minSize = new Vector2(600, 550);
+        window.maxSize = new Vector2(600, 780);
         
         if (name != null)
         {
@@ -55,112 +56,13 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Subtitles/ACC_SubtitlesEditorWindowStyles.uss");
         rootVisualElement.styleSheets.Add(styleSheet);
         
-        // tableContainer = uiElementFactory.CreateVisualElement("container");
-        // rootVisualElement.Add(tableContainer);
-        
-        //CreateTable2();
         CreateTable();
-        if(!controller.isEditing) CreateRow(1, "","Hello", 1);
+        if(!controller.isEditing) CreateRow(1, "Hello", 1);
         CreateSettingsContainer();
         CreateBottomContainer();
         
-        //controller.RestoreDataAfterCompilation();
+        controller.RestoreDataAfterCompilation();
     }
-
-    // private void CreateTable2()
-    // {
-    //     tableContainer.Clear();
-    //     
-    //     var subtitlesTitle = uiElementFactory.CreateLabel("title", "Subtitles");
-    //     tableScrollView = uiElementFactory.CreateScrollView("table-scroll-view", table);
-    //     
-    //     var containerTableTitle = uiElementFactory.CreateVisualElement("table-row-title");
-    //     containerTableTitle.style.width = new StyleLength(Length.Percent(100));
-    //     var containerTableNameTitle = uiElementFactory.CreateLabel("table-title-name", "Subtitles");
-    //     var containerTableTimeTitle = uiElementFactory.CreateLabel("table-title-time", "Time");
-    //     
-    //     containerTableTitle.Add(containerTableNameTitle);
-    //     containerTableTitle.Add(containerTableTimeTitle);
-    //     tableScrollView.Add(containerTableTitle);
-    //     
-    //     List<VisualElement> items = new List<VisualElement>(){CreateRow()};
-    //     listView = new ListView(items, 24, CreateRow, BindItem);
-    //     listView.AddToClassList("list-view");
-    //     listView.selectionType = SelectionType.Single;
-    //     listView.reorderable = true;
-    //     listView.reorderMode = ListViewReorderMode.Animated;
-    //     listView.showAddRemoveFooter = true;
-    //     listView.unbindItem += UnbindItem;
-    //     listView.selectionChanged += objects =>
-    //     {
-    //         if (!objects.Any()) return;
-    //         selectedItem = objects.First() as VisualElement;
-    //     };
-    //     listView.Q<Button>(BaseListView.footerRemoveButtonName).clicked += () =>
-    //     {
-    //         Debug.Log(selectedItem);
-    //         if (selectedItem != null)
-    //         {
-    //             Debug.Log("Removing item");
-    //             int index = items.IndexOf(selectedItem);
-    //             listView.RemoveAt(index);
-    //             listView.RefreshItems();
-    //             listView.Rebuild();
-    //             selectedItem = null;
-    //         }
-    //     };
-    //     
-    //     tableScrollView.Add(listView);
-    //     tableContainer.Add(subtitlesTitle);
-    //     tableContainer.Add(tableScrollView);
-    //     rootVisualElement.Add(tableContainer);
-    // }
-
-    // private VisualElement CreateRow()
-    // {
-    //     var newRow = uiElementFactory.CreateVisualElement("new-row");
-    //     var subtitleField = uiElementFactory.CreateTextField("subtitles-new-cell", subClassList: "subtitles-input-cell");
-    //     var timeField = uiElementFactory.CreateIntegerField("time-new-cell", subClassList: "time-input-cell");
-    //     
-    //     newRow.Add(subtitleField);
-    //     newRow.Add(timeField);
-    //     return newRow;
-    // }
-    //
-    // private void BindItem(VisualElement row, int index)
-    // {
-    //     if (index == 0)
-    //     {
-    //         controller.currentData.subtitleText = new ACC_SerializableDictiornary<int, string>();
-    //         controller.currentData.timeText = new ACC_SerializableDictiornary<int, int>();
-    //     }
-    //     
-    //     var subtitleField = row.Q<TextField>();
-    //     var timeField = row.Q<IntegerField>();
-    //     
-    //     controller.currentData.subtitleText.AddOrUpdate(index, subtitleField.value);
-    //     controller.currentData.timeText.AddOrUpdate(index, timeField.value);
-    //     
-    //     subtitleField.RegisterValueChangedCallback(evt =>
-    //     {
-    //         controller.currentData.subtitleText.AddOrUpdate(index, evt.newValue);
-    //     });
-    //     
-    //     timeField.RegisterValueChangedCallback(evt =>
-    //     {
-    //         controller.currentData.timeText.AddOrUpdate(index, evt.newValue);
-    //     });
-    // }
-    //
-    // private void UnbindItem(VisualElement row, int index)
-    // {
-    //     var subtitleField = row.Q<TextField>();
-    //     var timeField = row.Q<IntegerField>();
-    //     
-    //     subtitleField.UnregisterValueChangedCallback(evt => { });
-    //     
-    //     timeField.UnregisterValueChangedCallback(evt => { });
-    // }
     
     private void CreateTable()
     {
@@ -185,7 +87,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         
         rootVisualElement.Add(tableContainer);
     }
-    public void CreateRow(int numberOfRows, string actor, string subtitle, int time, int index = -1)
+    public void CreateRow(int numberOfRows, string subtitle, int time, int index = -1)
     {
         for (int i = 0; i < numberOfRows; i++)
         {
@@ -194,11 +96,10 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             else table.Add(newRow);
 
             var contentRow = uiElementFactory.CreateVisualElement("content-row");
-            var actorField = uiElementFactory.CreateTextField(value: actor, classList: "actor-new-cell", subClassList: "actor-input-cell",
+            var actorField = uiElementFactory.CreateTextField(value: "New Actor", classList: "actor-new-cell", subClassList: "actor-input-cell",
                 onValueChanged: value =>
                 {
                     var currentRow = table.IndexOf(newRow)-1;
-                    controller.currentData.actorText.AddOrUpdate(currentRow, value);
                 });
             
             var subtitleField = uiElementFactory.CreateTextField(value: subtitle, classList: "subtitles-new-cell", subClassList: "subtitles-input-cell",
@@ -217,17 +118,14 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             {
                 var currentRow = table.IndexOf(newRow)-1;
                 table.Q(name: newRow.name).RemoveFromHierarchy();
-                controller.currentData.actorText.Remove(currentRow);
                 controller.currentData.subtitleText.Remove(currentRow);
                 controller.currentData.timeText.Remove(currentRow);
                 if (table.childCount > currentRow + 1)
                 {
                     for (var j = currentRow + 1; j < table.childCount; j++)
                     {
-                        controller.currentData.actorText.AddOrUpdate(j - 1, controller.currentData.actorText.Items.Find(x => x.key == j).value);
                         controller.currentData.subtitleText.AddOrUpdate(j - 1, controller.currentData.subtitleText.Items.Find(x => x.key == j).value);
                         controller.currentData.timeText.AddOrUpdate(j - 1, controller.currentData.timeText.Items.Find(x => x.key == j).value);
-                        controller.currentData.actorText.Remove(j);
                         controller.currentData.subtitleText.Remove(j);
                         controller.currentData.timeText.Remove(j);
                     }
@@ -240,12 +138,11 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
                 {
                     for (var j = table.childCount - 2; j > currentRow; j--)
                     {
-                        controller.currentData.actorText.AddOrUpdate(j + 1, controller.currentData.actorText.Items.Find(x => x.key == j).value);
                         controller.currentData.subtitleText.AddOrUpdate(j + 1, controller.currentData.subtitleText.Items.Find(x => x.key == j).value);
                         controller.currentData.timeText.AddOrUpdate(j + 1, controller.currentData.timeText.Items.Find(x => x.key == j).value);
                     }
                 }
-                CreateRow(1, "", "Hello", 1, table.IndexOf(newRow)+1);
+                CreateRow(1,  "Hello", 1, table.IndexOf(newRow)+1);
             });
             
             contentRow.Add(actorField);
@@ -267,38 +164,151 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             value => controller.currentData.name = value);
         var fontColorInput = uiElementFactory.CreateColorField("option-input", "Font Color:", Color.black, subClassList: "option-input-label",
             onValueChanged: value => controller.currentData.fontColor = value);
-        var backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background color:", Color.white, subClassList: "option-input-label",
+        var backgroundColorInput = uiElementFactory.CreateColorField("option-input", "Background Color:", Color.white, subClassList: "option-input-label",
             onValueChanged: value => controller.currentData.backgroundColor = value);
         var fontSizeContainer =
-            uiElementFactory.CreateSliderWithIntegerField("option-multi-input-last", "Font size:", 20, 100, 40,
+            uiElementFactory.CreateSliderWithIntegerField("option-multi-input", "Font Size:", 20, 100, 40,
                 onValueChanged: value => controller.currentData.fontSize = value);
+        
+        
+        actorTableContainer = uiElementFactory.CreateVisualElement("container-2");
+        CreateActors();
+        
+        var showActors = uiElementFactory.CreateToggle("option-input", "Show Actors:", false, "option-input-label",
+            value =>
+            {
+                controller.currentData.showActors = value;
+                actorTableContainer.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
+                minSize = value ? new Vector2(600, 780) : new Vector2(600, 550);
+                var addRowContainer = rootVisualElement.Q<VisualElement>("add-row-container-0");
+                if (addRowContainer != null) addRowContainer.style.visibility = value ? Visibility.Visible : Visibility.Hidden;
+            });
         
         settingsContainer.Add(settingsTitle);
         settingsContainer.Add(nameInput);
         settingsContainer.Add(fontColorInput);
         settingsContainer.Add(backgroundColorInput);
         settingsContainer.Add(fontSizeContainer);
+        settingsContainer.Add(showActors);
 
         rootVisualElement.Add(settingsContainer);
+        rootVisualElement.Add(actorTableContainer);
     }
+    public void CreateActors()
+    {
+        actorTableContainer.Clear();
+        actorTableContainer.style.display = controller.currentData.showActors ? DisplayStyle.Flex : DisplayStyle.None;
+        actorTableScrollView = uiElementFactory.CreateScrollView("table-scroll-view");
+        actorTableScrollView.style.height = new Length(200, LengthUnit.Pixel);
+        
+        var containerTableTitle = uiElementFactory.CreateVisualElement("table-row-title");
+        var tableNameLabel = uiElementFactory.CreateLabel("table-title-actor-name", "Actors");
+        var tableColorLabel = uiElementFactory.CreateLabel("table-title-color", "Font Color");
+        
+        containerTableTitle.Add(tableNameLabel);
+        containerTableTitle.Add(tableColorLabel);
+        actorTableScrollView.Add(containerTableTitle);
+        
+        for (int i = 0; i < controller.currentData.actorText.Items.Count; i++)
+        {
+            CreateActor(controller.currentData.actorText.Items.Find(x => x.key == i).value,
+                controller.currentData.actorColor.Items.Find(x => x.key == i).value, i+1);
+        }
+        
+        actorTableContainer.Add(actorTableScrollView);
+    }
+    public void CreateActor(string name = "New Actor", Color color = default, int index = -1)
+    {
+        var row = uiElementFactory.CreateVisualElement("table-row");
+        if(index != -1) actorTableScrollView.Insert(index, row);
+        else actorTableScrollView.Add(row);
+        
+        var mainRow = uiElementFactory.CreateVisualElement("table-main-row");
+        var tableCell = uiElementFactory.CreateVisualElement("table-row-content");
+        
+        var actorField = uiElementFactory.CreateTextField(value: name, classList: "table-cell-actor-name", subClassList: "table-cell-input",
+            onValueChanged: value =>
+            {
+                var currentRow = actorTableScrollView.IndexOf(row)-1;
+                controller.currentData.actorText.AddOrUpdate(currentRow, value);
+            });
+        
+        var colorField = uiElementFactory.CreateColorField("table-cell-color", "", color, subClassList: "table-cell-input",
+            onValueChanged: value =>
+            {
+                var currentRow = actorTableScrollView.IndexOf(row)-1;
+                controller.currentData.actorColor.AddOrUpdate(currentRow, value);
+            });
+
+        var addButton = uiElementFactory.CreateButton("+", "add-row-button", 
+            () =>
+        {
+            var currentRow = actorTableScrollView.IndexOf(row)-1;
+            if (actorTableScrollView.childCount - 1 > currentRow + 1)
+            {
+                for (var j = actorTableScrollView.childCount - 2; j > currentRow; j--)
+                {
+                    controller.currentData.actorText.AddOrUpdate(j + 1, controller.currentData.actorText.Items.Find(x => x.key == j).value);
+                    controller.currentData.actorColor.AddOrUpdate(j + 1, controller.currentData.actorColor.Items.Find(x => x.key == j).value);
+                }
+            }
+            CreateActor(index: actorTableScrollView.IndexOf(row)+1);
+        });
+        
+        var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () =>
+        {
+            var currentRow = actorTableScrollView.IndexOf(row)-1;
+            actorTableScrollView.Q(name: row.name).RemoveFromHierarchy();
+            controller.currentData.actorText.Remove(currentRow);
+            controller.currentData.actorColor.Remove(currentRow);
+            if (actorTableScrollView.childCount > currentRow + 1)
+            {
+                for (var j = currentRow + 1; j < actorTableScrollView.childCount; j++)
+                {
+                    controller.currentData.actorText.AddOrUpdate(j - 1, controller.currentData.actorText.Items.Find(x => x.key == j).value);
+                    controller.currentData.actorColor.AddOrUpdate(j - 1, controller.currentData.actorColor.Items.Find(x => x.key == j).value);
+                    controller.currentData.actorText.Remove(j);
+                    controller.currentData.actorColor.Remove(j);
+                }
+            }
+        });
+        
+        tableCell.Add(actorField);
+        tableCell.Add(colorField);
+        mainRow.Add(tableCell);
+        mainRow.Add(addButton);
+        mainRow.Add(deleteButton);
+        row.Add(mainRow);
+    }
+    
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
         bottomContainer.style.marginTop = new StyleLength(Length.Auto());
         var createSubtitleButton = uiElementFactory.CreateButton("Save", "button", () => controller.HandleSave(this));
 
+        var addActorContainer = uiElementFactory.CreateVisualElement("add-row-container");
+        addActorContainer.style.marginRight = new Length(-200, LengthUnit.Pixel);
+        addActorContainer.style.visibility = controller.currentData.showActors ? Visibility.Hidden : Visibility.Visible;
+        var addActorLabel = uiElementFactory.CreateLabel("add-row-label", "Add actor:");
+        
+        var addActor1 = uiElementFactory.CreateButton("+1", "add-row-button", () => CreateActor());
+        
         var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-row-container");
         var addSubtitlesLabel = uiElementFactory.CreateLabel("add-row-label", "Add subtitles:");
         
-        var addSubtitle1 = uiElementFactory.CreateButton("+1", "add-row-button", () => CreateRow(1, "","Hello", 1));
-        var addSubtitle5 = uiElementFactory.CreateButton("+5", "add-row-button", () => CreateRow(5, "", "Hello", 1));
-        var addSubtitle10 = uiElementFactory.CreateButton("+10", "add-row-button", () => CreateRow(10, "", "Hello", 1));
+        var addSubtitle1 = uiElementFactory.CreateButton("+1", "add-row-button", () => CreateRow(1, "Hello", 1));
+        var addSubtitle5 = uiElementFactory.CreateButton("+5", "add-row-button", () => CreateRow(5, "Hello", 1));
+        var addSubtitle10 = uiElementFactory.CreateButton("+10", "add-row-button", () => CreateRow(10, "Hello", 1));
         
+        addActorContainer.Add(addActorLabel);
+        addActorContainer.Add(addActor1);
         addSubtitlesContainer.Add(addSubtitlesLabel);
         addSubtitlesContainer.Add(addSubtitle1);
         addSubtitlesContainer.Add(addSubtitle5);
         addSubtitlesContainer.Add(addSubtitle10); 
         bottomContainer.Add(createSubtitleButton);
+        bottomContainer.Add(addActorContainer);
         bottomContainer.Add(addSubtitlesContainer);
 
         rootVisualElement.Add(bottomContainer);

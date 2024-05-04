@@ -30,6 +30,7 @@ namespace TFG_Videojocs.ACC_Subtitles
             window.rootVisualElement.Query<ColorField>(name: "option-input-2").First().value =
                 currentData.backgroundColor;
             window.rootVisualElement.Query<SliderInt>(name: "multi-input-1-0").First().value = currentData.fontSize;
+            window.rootVisualElement.Query<Toggle>(name: "option-input-3").First().value = currentData.showActors;
 
             var table = window.rootVisualElement.Query<VisualElement>(name: "subtitles-table-0").First();
             List<VisualElement> rows = new List<VisualElement>();
@@ -44,12 +45,13 @@ namespace TFG_Videojocs.ACC_Subtitles
             {
                 table.Remove(row);
             }
-
-            Debug.Log(currentData.actorText.Items.Count);
+            
             for (int i = 0; i < currentData.subtitleText.Items.Count; i++)
             {
-                window.CreateRow(1, currentData.actorText.Items[i].value, currentData.subtitleText.Items[i].value, currentData.timeText.Items[i].value);
+                window.CreateRow(1, currentData.subtitleText.Items[i].value, currentData.timeText.Items[i].value);
             }
+            
+            window.CreateActors();
         }
     }
 }
