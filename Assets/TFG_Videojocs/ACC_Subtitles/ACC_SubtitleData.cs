@@ -15,7 +15,7 @@ public class ACC_SubtitleData: ACC_AbstractData
     public Color fontColor;
     public Color backgroundColor;
     public int fontSize;
-    public bool showActors = false;
+    public bool showActors;
 
     public override bool Equals(object obj)
     {
@@ -27,6 +27,10 @@ public class ACC_SubtitleData: ACC_AbstractData
         bool subtitlesEqual = subtitles.Items.SequenceEqual(other.subtitles.Items);
         bool actorTextEqual = actorText.Items.SequenceEqual(other.actorText.Items);
         bool actorColorEqual = actorColor.Items.SequenceEqual(other.actorColor.Items);
+        
+        Debug.Log(subtitlesEqual);
+        Debug.Log(actorTextEqual);
+        Debug.Log(actorColorEqual);
         
         return string.Equals(name,other.name, StringComparison.OrdinalIgnoreCase)
                && subtitlesEqual

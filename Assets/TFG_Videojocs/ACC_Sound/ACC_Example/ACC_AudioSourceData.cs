@@ -11,6 +11,7 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
         {
             if (obj == null || GetType() != obj.GetType())
                 return false;
+            
             ACC_AudioSourceData other = (ACC_AudioSourceData)obj;
             return string.Equals(name, other.name, System.StringComparison.OrdinalIgnoreCase)
                    && volume.Equals(other.volume);
