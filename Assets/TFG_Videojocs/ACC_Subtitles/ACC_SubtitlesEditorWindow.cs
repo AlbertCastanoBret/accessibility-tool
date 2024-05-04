@@ -57,7 +57,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         rootVisualElement.styleSheets.Add(styleSheet);
         
         CreateTable();
-        if(!controller.isEditing) CreateRow(1, "Hello", 1);
+        if(!controller.isEditing) CreateRow(1);
         CreateSettingsContainer();
         CreateBottomContainer();
         
@@ -87,7 +87,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         
         rootVisualElement.Add(tableContainer);
     }
-    public void CreateRow(int numberOfRows, string subtitle, int time, int index = -1)
+    public void CreateRow(int numberOfRows, string actor = "New Actor", string subtitle = "Hello", int time = 1, int index = -1)
     {
         for (int i = 0; i < numberOfRows; i++)
         {
@@ -96,41 +96,64 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             else table.Add(newRow);
 
             var contentRow = uiElementFactory.CreateVisualElement("content-row");
-            var actorField = uiElementFactory.CreateTextField(value: "New Actor", classList: "actor-new-cell", subClassList: "actor-input-cell",
+            var actorField = uiElementFactory.CreateDropdownField("actor-new-cell", options: new List<string>(){}, subClassList: "actor-input-cell", value: actor,
                 onValueChanged: value =>
                 {
                     var currentRow = table.IndexOf(newRow)-1;
+                    var subtitle = "Hello";
+                    var time = 1;
+                    
+                    if (controller.currentData.subtitles.Items.Exists(x => x.key == currentRow))
+                    {
+                        subtitle = controller.currentData.subtitles.Items.Find(x => x.key == currentRow).value.subtitle;
+                        time = controller.currentData.subtitles.Items.Find(x => x.key == currentRow).value.time;
+                    }
+                    controller.currentData.subtitles.AddOrUpdate(currentRow, new ACC_SubtitleRowData
+                    {
+                        actor = value,
+                        subtitle = subtitle,
+                        time = time
+                    });
                 });
             
             var subtitleField = uiElementFactory.CreateTextField(value: subtitle, classList: "subtitles-new-cell", subClassList: "subtitles-input-cell",
                 onValueChanged: value =>
                 {
                     var currentRow = table.IndexOf(newRow)-1;
-                    controller.currentData.subtitleText.AddOrUpdate(currentRow, value);
+                    var actor = "New Actor";
+                    var time = 1;
+                    
+                    if (controller.currentData.subtitles.Items.Exists(x => x.key == currentRow))
+                    {
+                        actor = controller.currentData.subtitles.Items.Find(x => x.key == currentRow).value.actor;
+                        time = controller.currentData.subtitles.Items.Find(x => x.key == currentRow).value.time;
+                    }
+                    controller.currentData.subtitles.AddOrUpdate(currentRow, new ACC_SubtitleRowData
+                    {
+                        actor = actor,
+                        subtitle = value,
+                        time = time
+                    });
                 });
             var timeField = uiElementFactory.CreateIntegerField(value: time, classList: "time-new-cell", subClassList: "time-input-cell",
                 onValueChanged: (value) =>
                 {
                     var currentRow = table.IndexOf(newRow)-1;
-                    controller.currentData.timeText.AddOrUpdate(currentRow, value);
-                });
-            var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () =>
-            {
-                var currentRow = table.IndexOf(newRow)-1;
-                table.Q(name: newRow.name).RemoveFromHierarchy();
-                controller.currentData.subtitleText.Remove(currentRow);
-                controller.currentData.timeText.Remove(currentRow);
-                if (table.childCount > currentRow + 1)
-                {
-                    for (var j = currentRow + 1; j < table.childCount; j++)
+                    var actor = "New Actor";
+                    var subtitle = "Hello";
+                    
+                    if (controller.currentData.subtitles.Items.Exists(x => x.key == currentRow))
                     {
-                        controller.currentData.subtitleText.AddOrUpdate(j - 1, controller.currentData.subtitleText.Items.Find(x => x.key == j).value);
-                        controller.currentData.timeText.AddOrUpdate(j - 1, controller.currentData.timeText.Items.Find(x => x.key == j).value);
-                        controller.currentData.subtitleText.Remove(j);
-                        controller.currentData.timeText.Remove(j);
+                        actor = controller.currentData.subtitles.Items.Find(x => x.key == currentRow).value.actor;
+                        subtitle = controller.currentData.subtitles.Items.Find(x => x.key == currentRow).value.subtitle;
                     }
-                }
-            });
+                    controller.currentData.subtitles.AddOrUpdate(currentRow, new ACC_SubtitleRowData
+                    {
+                        actor = actor,
+                        subtitle = subtitle,
+                        time = value
+                    });
+                });
             var addRowButton = uiElementFactory.CreateButton("+", "add-row-button", () =>
             {
                 var currentRow = table.IndexOf(newRow)-1;
@@ -138,11 +161,24 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
                 {
                     for (var j = table.childCount - 2; j > currentRow; j--)
                     {
-                        controller.currentData.subtitleText.AddOrUpdate(j + 1, controller.currentData.subtitleText.Items.Find(x => x.key == j).value);
-                        controller.currentData.timeText.AddOrUpdate(j + 1, controller.currentData.timeText.Items.Find(x => x.key == j).value);
+                        controller.currentData.subtitles.AddOrUpdate(j + 1, controller.currentData.subtitles.Items.Find(x => x.key == j).value);
                     }
                 }
-                CreateRow(1,  "Hello", 1, table.IndexOf(newRow)+1);
+                CreateRow(1, index: table.IndexOf(newRow)+1);
+            });
+            var deleteButton = uiElementFactory.CreateButton("-", "delete-row-button", () =>
+            {
+                var currentRow = table.IndexOf(newRow)-1;
+                table.Remove(newRow);
+                controller.currentData.subtitles.Remove(currentRow);
+                if (table.childCount > currentRow + 1)
+                {
+                    for (var j = currentRow + 1; j < table.childCount; j++)
+                    {
+                        controller.currentData.subtitles.AddOrUpdate(j - 1, controller.currentData.subtitles.Items.Find(x => x.key == j).value);
+                        controller.currentData.subtitles.Remove(j);
+                    }
+                }
             });
             
             contentRow.Add(actorField);
@@ -231,6 +267,29 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             {
                 var currentRow = actorTableScrollView.IndexOf(row)-1;
                 controller.currentData.actorText.AddOrUpdate(currentRow, value);
+                var actors = rootVisualElement.Query<DropdownField>().Class("actor-new-cell").ToList();
+
+                bool newActor = false;
+                foreach (var actor in actors)
+                {
+                    if (currentRow >= 0 && currentRow < actor.choices.Count)
+                    {
+                        if (index != -1 && currentRow + 1 != actorTableScrollView.childCount-1)
+                        {
+                            newActor = true;
+                            actor.choices.Insert(currentRow, value);
+                        }
+                        else
+                        {
+                            actor.choices[currentRow] = value;
+                        }
+                    }
+                    else
+                    {
+                        actor.choices.Add(value);
+                    }
+                }
+                if (newActor) index = -1;
             });
         
         var colorField = uiElementFactory.CreateColorField("table-cell-color", "", color, subClassList: "table-cell-input",
@@ -271,6 +330,13 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
                     controller.currentData.actorColor.Remove(j);
                 }
             }
+            
+            var actors = rootVisualElement.Query<DropdownField>().Class("actor-new-cell").ToList();
+            foreach (var actor in actors)
+            {
+                if (currentRow >= 0 && currentRow < actor.choices.Count) actor.choices.RemoveAt(currentRow);
+                if (actorTableScrollView.childCount == 1) actor.value = "No Actors";
+            }
         });
         
         tableCell.Add(actorField);
@@ -280,7 +346,6 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         mainRow.Add(deleteButton);
         row.Add(mainRow);
     }
-    
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
@@ -297,9 +362,9 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         var addSubtitlesContainer = uiElementFactory.CreateVisualElement("add-row-container");
         var addSubtitlesLabel = uiElementFactory.CreateLabel("add-row-label", "Add subtitles:");
         
-        var addSubtitle1 = uiElementFactory.CreateButton("+1", "add-row-button", () => CreateRow(1, "Hello", 1));
-        var addSubtitle5 = uiElementFactory.CreateButton("+5", "add-row-button", () => CreateRow(5, "Hello", 1));
-        var addSubtitle10 = uiElementFactory.CreateButton("+10", "add-row-button", () => CreateRow(10, "Hello", 1));
+        var addSubtitle1 = uiElementFactory.CreateButton("+1", "add-row-button", () => CreateRow(1));
+        var addSubtitle5 = uiElementFactory.CreateButton("+5", "add-row-button", () => CreateRow(5));
+        var addSubtitle10 = uiElementFactory.CreateButton("+10", "add-row-button", () => CreateRow(10));
         
         addActorContainer.Add(addActorLabel);
         addActorContainer.Add(addActor1);

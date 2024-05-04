@@ -2,14 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TFG_Videojocs.ACC_Subtitles;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEngine;
 
 [System.Serializable]
 public class ACC_SubtitleData: ACC_AbstractData
 {
-    public ACC_SerializableDictiornary<int ,string> subtitleText = new();
-    public ACC_SerializableDictiornary<int ,int> timeText = new();
+    public ACC_SerializableDictiornary<int, ACC_SubtitleRowData> subtitles = new();
     public ACC_SerializableDictiornary<int ,string> actorText = new();
     public ACC_SerializableDictiornary<int, Color> actorColor = new();
     public Color fontColor;
@@ -24,14 +24,12 @@ public class ACC_SubtitleData: ACC_AbstractData
 
         var other = (ACC_SubtitleData)obj;
         
-        bool subtitleTextEqual = subtitleText.Items.SequenceEqual(other.subtitleText.Items);
-        bool timeTextEqual = timeText.Items.SequenceEqual(other.timeText.Items);
+        bool subtitlesEqual = subtitles.Items.SequenceEqual(other.subtitles.Items);
         bool actorTextEqual = actorText.Items.SequenceEqual(other.actorText.Items);
         bool actorColorEqual = actorColor.Items.SequenceEqual(other.actorColor.Items);
         
         return string.Equals(name,other.name, StringComparison.OrdinalIgnoreCase)
-               && subtitleTextEqual
-               && timeTextEqual
+               && subtitlesEqual
                && actorTextEqual
                && actorColorEqual
                && fontColor.Equals(other.fontColor)
@@ -46,8 +44,7 @@ public class ACC_SubtitleData: ACC_AbstractData
         {
             int hash = (int)2166136261;
             hash = (hash * 16777619) ^ name.GetHashCode();
-            hash = (hash * 16777619) ^ subtitleText.GetHashCode();
-            hash = (hash * 16777619) ^ timeText.GetHashCode();
+            hash = (hash * 16777619) ^ subtitles.GetHashCode();
             hash = (hash * 16777619) ^ actorText.GetHashCode();
             hash = (hash * 16777619) ^ actorColor.GetHashCode();
             hash = (hash * 16777619) ^ fontColor.GetHashCode();
@@ -63,8 +60,7 @@ public class ACC_SubtitleData: ACC_AbstractData
         ACC_SubtitleData clone = new ACC_SubtitleData
         {
             name = name,
-            subtitleText = (ACC_SerializableDictiornary<int, string>) subtitleText.Clone(),
-            timeText = (ACC_SerializableDictiornary<int, int>)timeText.Clone(),
+            subtitles = (ACC_SerializableDictiornary<int, ACC_SubtitleRowData>) subtitles.Clone(),
             actorText = (ACC_SerializableDictiornary<int, string>) actorText.Clone(),
             actorColor = (ACC_SerializableDictiornary<int, Color>) actorColor.Clone(),
             fontColor = fontColor,
