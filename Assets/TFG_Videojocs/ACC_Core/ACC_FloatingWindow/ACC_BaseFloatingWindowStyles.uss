@@ -233,6 +233,7 @@ Button{
 
 .list-view{
     border-radius: 4px;
+    
 }
 
 .list-view > *{
@@ -240,11 +241,13 @@ Button{
     border-bottom-width: 1px;
     border-bottom-color: #b2b2b2;
     border-radius: 4px;
-    padding: 4px;
+    padding: 0 4px 4px 4px;
 }
 
-.list-view *{
+.unity-list-view__item{
     background-color: #3F3F3F;
+    border-bottom-width: 1px;
+    border-bottom-color: #b2b2b2;
 }
 
 .unity-list-view__footer{

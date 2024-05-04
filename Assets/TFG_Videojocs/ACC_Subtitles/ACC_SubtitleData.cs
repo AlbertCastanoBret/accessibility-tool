@@ -8,6 +8,7 @@ using UnityEngine;
 [System.Serializable]
 public class ACC_SubtitleData: ACC_AbstractData
 {
+    public ACC_SerializableDictiornary<int ,string> actorText = new();
     public ACC_SerializableDictiornary<int ,string> subtitleText = new();
     public ACC_SerializableDictiornary<int ,int> timeText = new();
     public Color fontColor;
@@ -21,10 +22,12 @@ public class ACC_SubtitleData: ACC_AbstractData
 
         var other = (ACC_SubtitleData)obj;
 
+        bool actorTextEqual = actorText.Items.SequenceEqual(other.actorText.Items);
         bool subtitleTextEqual = subtitleText.Items.SequenceEqual(other.subtitleText.Items);
         bool timeTextEqual = timeText.Items.SequenceEqual(other.timeText.Items);
         
         return string.Equals(name,other.name, StringComparison.OrdinalIgnoreCase)
+               && actorTextEqual
                && subtitleTextEqual
                && timeTextEqual
                && fontColor.Equals(other.fontColor)
@@ -37,6 +40,8 @@ public class ACC_SubtitleData: ACC_AbstractData
         unchecked
         {
             int hash = (int)2166136261;
+            hash = (hash * 16777619) ^ name.GetHashCode();
+            hash = (hash * 16777619) ^ actorText.GetHashCode();
             hash = (hash * 16777619) ^ subtitleText.GetHashCode();
             hash = (hash * 16777619) ^ timeText.GetHashCode();
             hash = (hash * 16777619) ^ fontColor.GetHashCode();
@@ -51,6 +56,7 @@ public class ACC_SubtitleData: ACC_AbstractData
         ACC_SubtitleData clone = new ACC_SubtitleData
         {
             name = name,
+            actorText = (ACC_SerializableDictiornary<int, string>) actorText.Clone(),
             subtitleText = (ACC_SerializableDictiornary<int, string>) subtitleText.Clone(),
             timeText = (ACC_SerializableDictiornary<int, int>)timeText.Clone(),
             fontColor = fontColor,

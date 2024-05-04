@@ -45,9 +45,10 @@ namespace TFG_Videojocs.ACC_Subtitles
                 table.Remove(row);
             }
 
+            Debug.Log(currentData.actorText.Items.Count);
             for (int i = 0; i < currentData.subtitleText.Items.Count; i++)
             {
-                window.CreateRow(1, currentData.subtitleText.Items[i].value, currentData.timeText.Items[i].value);
+                window.CreateRow(1, currentData.actorText.Items[i].value, currentData.subtitleText.Items[i].value, currentData.timeText.Items[i].value);
             }
         }
     }

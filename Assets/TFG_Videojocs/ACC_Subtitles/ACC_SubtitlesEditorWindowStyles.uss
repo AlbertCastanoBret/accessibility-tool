@@ -11,8 +11,16 @@
     border-radius: 4px 4px 0 0;
 }
 
+.actor-cell{
+    width: 15%;
+    -unity-text-align: middle-center;
+    padding: 4px 0;
+    border-right-color: #b2b2b2;
+    border-right-width: 1px;
+}
+
 .subtitles-cell{
-    width: 85%;
+    width: 75%;
     -unity-text-align: middle-center;
     padding: 4px 0;
     border-right-color: #b2b2b2;
@@ -20,7 +28,7 @@
 }
 
 .time-cell{
-    width: 15%;
+    width: 5%;
     -unity-text-align: middle-center;
     margin: auto;
     padding: 4px 0;
@@ -38,16 +46,27 @@
     width: 90%;
 }
 
-.drag-button{
+
+.new-row{
+    /*height: 100%;*/
+}
+
+.actor-new-cell{
+    width: 15%;
+    height: 100%;
+    margin: 0;
+}
+
+.actor-input-cell{
     background-color: #3f3f3f;
-    width: 5%;
     padding: 4px 6px;
-    border-width: 1px 0 0 0;
+    border-radius: 0;
+    border-width: 1px 1px 0 0;
     border-color: #b2b2b2;
 }
 
 .subtitles-new-cell{
-    width: 85%;
+    width: 75%;
     height: 100%;
     margin: 0;
 }
@@ -55,13 +74,13 @@
 .subtitles-input-cell{
     background-color: #3f3f3f;
     padding: 4px 6px;
-    border-radius: 0px;
+    border-radius: 0;
     border-width: 1px 1px 0 0;
     border-color: #b2b2b2;
 }
 
 .time-new-cell{
-    width: 15%;
+    width: 10%;
     height: 100%;
     margin: 0;
 }
@@ -69,8 +88,20 @@
 .time-input-cell{
     background-color: #3f3f3f;
     padding: 4px 2px;
-    border-radius: 0px;
+    border-radius: 0;
     border-width: 1px 0 0 0;
     border-color: #b2b2b2;
+    -unity-text-align: middle-center;
+}
+
+.table-title-name{
+    width:85%;
+    border-right-width: 1px;
+    border-right-color: #b2b2b2;
+    -unity-text-align: middle-center;
+}
+
+.table-title-time{
+    width:15%;
     -unity-text-align: middle-center;
 }
