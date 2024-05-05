@@ -23,7 +23,7 @@ namespace TFG_Videojocs.ACC_Utilities
             if(Application.isPlaying) return;
             GameObject gameObject = CreateGameObject(feature, jsonFile);
             gameObject.transform.SetParent(GameObject.Find("ACC_Canvas").transform, false);
-            var folder = "ACC_ " + feature + "/";
+            var folder = "ACC_" + feature + "/";
             var name = "ACC_" + feature + "Manager.prefab";
             
             Directory.CreateDirectory("Assets/Resources/ACC_Prefabs/" + folder);
@@ -31,10 +31,11 @@ namespace TFG_Videojocs.ACC_Utilities
             var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
             PrefabUtility.SaveAsPrefabAsset(gameObject, prefabPath);
             GameObject.DestroyImmediate(gameObject);
+            AssetDatabase.Refresh();
         }
         public static GameObject InstantiatePrefabAsChild(string feature, GameObject parent, string jsonFile="")
         {
-            var folder = "ACC_ " + feature + "/";
+            var folder = "ACC_" + feature + "/";
             var name = "ACC_" + feature + "Manager";
             var prefabPath = "ACC_Prefabs/" + folder + name;
             
@@ -331,11 +332,17 @@ namespace TFG_Videojocs.ACC_Utilities
             
             for (int i = 0; i < loadedData.audioSources.Items.Count; i++)
             {
+                if (loadedData.audioSources.Items[i].value.is3D)
+                {
+                    //Create3DAudioSource(loadedData.audioSources.Items[i].value);
+                    continue;
+                }
                 CreateAudioSource(audioSources, audioSettings, loadedData.audioSources.Items[i].value);
             }
 
             for (int i = 0; i < loadedData.audioClips.Items.Count; i++)
             {
+                if (loadedData.audioSources.Items[i].value.is3D) { continue; }
                 var audioClips = new ACC_SerializableDictiornary<int, AudioClip>();
                 for (int j = 0; j < loadedData.audioClips.Items[i].value.Items.Count; j++)
                 {
@@ -367,6 +374,31 @@ namespace TFG_Videojocs.ACC_Utilities
             {
                 audioSourceComponent.volume = value;
             });
+        }
+
+        public static void Create3DAudioSource(ACC_AudioSourceData audioSourceData)
+        {
+            var objectGUID = audioSourceData.sourceObjectGUID;
+            var sourceObject = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(objectGUID));
+            
+            GameObject parentObject =  GameObject.Instantiate(sourceObject);
+            
+            GameObject audioSource = new GameObject {tag = "ACC_AudioSource", name = "ACC_AudioSource_" + sourceObject.name + "_3D"};
+            audioSource.transform.SetParent(parentObject.transform);
+            
+            var audioSourceComponent = audioSource.AddComponent<AudioSource>();
+            audioSourceComponent.volume = audioSourceData.volume;
+            audioSourceComponent.spatialBlend = 1;
+            
+            var folder = "ACC_Audio/ACC_3DAudioSources/";
+            var name = sourceObject.name + "ACC_3D.prefab"; 
+            
+            Directory.CreateDirectory("Assets/Resources/ACC_Prefabs/" + folder);
+            
+            var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
+            PrefabUtility.SaveAsPrefabAsset(parentObject, prefabPath);
+            GameObject.DestroyImmediate(parentObject);
+            AssetDatabase.Refresh();
         }
     }
 }

@@ -522,7 +522,7 @@ public class ACC_MainWindow : EditorWindow
     }
     private void LoadPrefab(string feature, string jsonFile="")
     {
-        var folder = "ACC_ " + feature + "/";
+        var folder = "ACC_" + feature + "/";
         var name = "ACC_" + feature + "Manager.prefab";
         var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
         

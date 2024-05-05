@@ -80,11 +80,17 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
             {
                 var currentRow = tableScrollView.IndexOf(row)-1;
                 var volume = 0.5f;
+                var isAudio3D = false;
+                var sourceObjectGUID = "";
 
-                if(controller.currentData.audioSources.Items.Exists(x => x.key == currentRow))
+                if (controller.currentData.audioSources.Items.Exists(x => x.key == currentRow))
+                {
                     volume = controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.volume;
+                    isAudio3D = controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.is3D;
+                    sourceObjectGUID = controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.sourceObjectGUID;
+                }
                 
-                controller.currentData.audioSources.AddOrUpdate(currentRow, new ACC_AudioSourceData(){name = value, volume = volume});
+                controller.currentData.audioSources.AddOrUpdate(currentRow, new ACC_AudioSourceData(){name = value, volume = volume, is3D = isAudio3D, sourceObjectGUID = sourceObjectGUID});
 
                 if (!controller.currentData.audioClips.Items.Exists(x =>
                         x.key.Equals(index != -1 ? index - 1 : currentRow)))
@@ -279,6 +285,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
     {
         var settingsContainer = uiElementFactory.CreateVisualElement("container-2");
         var settingsTitle = uiElementFactory.CreateLabel("title", "Settings");
+        settingsTitle.style.marginBottom = new Length(0);
         settingsScrollView = uiElementFactory.CreateScrollView("settings-scroll-view");
         
         settingsContainer.Add(settingsTitle);
@@ -289,6 +296,10 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
     {
         var settingContainer = uiElementFactory.CreateVisualElement("setting-container");
         settingsScrollView.Insert(row, settingContainer);
+        settingContainer.style.borderBottomWidth = new StyleFloat(1);
+        settingContainer.style.borderBottomColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f, 1));
+        settingContainer.style.paddingBottom = new StyleLength(6);
+        settingContainer.style.paddingTop = new StyleLength(6);
         
         var label = uiElementFactory.CreateLabel("subtitle", name);
         label.style.color = new Color(0.9921569f, 0.7490196f, 0.03529412f, 1);
@@ -300,49 +311,82 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                 var currentRow = settingsScrollView.IndexOf(settingContainer);
                 controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.volume = value;
             });
-        var audioToggle = (Toggle) uiElementFactory.CreateToggle("option-input", "3D Audio: ", false, "option-input-label");
         
-        List<VisualElement> items = new List<VisualElement>(){Create3DAudioObjectField()};
-        ListView listView = new ListView(items, 50, Create3DAudioObjectField,
-            (visualElement, i) => { });
-        listView.AddToClassList("list-view");
-        listView.style.display = DisplayStyle.None;
-        listView.selectionType = SelectionType.Single;
-        listView.reorderMode = ListViewReorderMode.Simple;
-        listView.showAddRemoveFooter = true;
+        var gameObjectGuid = controller.currentData.audioSources.Items.Find(x => x.key == settingsScrollView.IndexOf(settingContainer)).value.sourceObjectGUID;
+        var gameObjectPath = AssetDatabase.GUIDToAssetPath(gameObjectGuid);
+        var gameObject = AssetDatabase.LoadAssetAtPath<GameObject>(gameObjectPath);
         
-        audioToggle.RegisterValueChangedCallback(evt =>
-        {
-            if (evt.newValue)
+        var gameObjectField = (ObjectField) uiElementFactory.CreateObjectField("option-input", "Game Object: ", typeof(GameObject), gameObject, onValueChanged:
+            value =>
             {
-                listView.style.display = DisplayStyle.Flex;
+                var currentRow = settingsScrollView.IndexOf(settingContainer);
+                var gameObjectPath = AssetDatabase.GetAssetPath(value);
+                var gameObjectGuid = AssetDatabase.AssetPathToGUID(gameObjectPath);
+                controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.sourceObjectGUID = gameObjectGuid;
+            });
+        gameObjectField.allowSceneObjects = false;
+        gameObjectField.style.display = DisplayStyle.None;
+        gameObjectField[0].style.width = new Length(50, LengthUnit.Percent);
+        
+        var create3DAudio = controller.currentData.audioSources.Items.Find(x => x.key == settingsScrollView.IndexOf(settingContainer)).value.is3D;
+        var audioToggle = (Toggle) uiElementFactory.CreateToggle("option-input", "3D Audio: ", create3DAudio, "option-input-label", onValueChanged: value =>
+        {
+            var currentRow = settingsScrollView.IndexOf(settingContainer);
+            controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.is3D = value;
+            if (value)
+            {
+                gameObjectField.style.display = DisplayStyle.Flex;
             }
             else
             {
-                listView.style.display = DisplayStyle.None;
+                gameObjectField.style.display = DisplayStyle.None;
             }
         });
+        
+        // List<VisualElement> items = new List<VisualElement>(){Create3DAudioObjectField()};
+        // ListView listView = new ListView(items, 50, Create3DAudioObjectField,
+        //     (visualElement, i) => { });
+        // listView.AddToClassList("list-view");
+        // listView.style.display = DisplayStyle.None;
+        // listView.selectionType = SelectionType.Single;
+        // listView.reorderMode = ListViewReorderMode.Simple;
+        // listView.showAddRemoveFooter = true;
+        
+        // audioToggle.RegisterValueChangedCallback(evt =>
+        // {
+        //     if (evt.newValue)
+        //     {
+        //         gameObjectField.style.display = DisplayStyle.Flex;
+        //         //listView.style.display = DisplayStyle.Flex;
+        //     }
+        //     else
+        //     {
+        //         gameObjectField.style.display = DisplayStyle.None;
+        //         //listView.style.display = DisplayStyle.None;
+        //     }
+        // });
         
         settingContainer.Add(label);
         settingContainer.Add(sliderVolume);
         settingContainer.Add(audioToggle);
-        settingContainer.Add(listView);
+        settingContainer.Add(gameObjectField);
+        //settingContainer.Add(listView);
     }
-    private VisualElement Create3DAudioObjectField()
-    {
-        var container = new VisualElement();
-        container.style.borderBottomWidth = new StyleFloat(1);
-        container.style.borderBottomColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f, 1));
-        
-        var gameObjectField = uiElementFactory.CreateObjectField("option-input", "Game Object: ", typeof(GameObject));
-        gameObjectField[0].style.width = new Length(50, LengthUnit.Percent);
-        
-        var createPrefab = uiElementFactory.CreateToggle("option-input", "Create Prefab: ", false, "option-input-label");
-        
-        container.Add(gameObjectField);
-        container.Add(createPrefab);
-        return container;
-    }
+    // private VisualElement Create3DAudioObjectField()
+    // {
+    //     var container = new VisualElement();
+    //     container.style.borderBottomWidth = new StyleFloat(1);
+    //     container.style.borderBottomColor = new StyleColor(new Color(0.5f, 0.5f, 0.5f, 1));
+    //     
+    //     var gameObjectField = uiElementFactory.CreateObjectField("option-input", "Game Object: ", typeof(GameObject));
+    //     gameObjectField[0].style.width = new Length(50, LengthUnit.Percent);
+    //     
+    //     var createPrefab = uiElementFactory.CreateToggle("option-input", "Create Prefab: ", false, "option-input-label");
+    //     
+    //     container.Add(gameObjectField);
+    //     container.Add(createPrefab);
+    //     return container;
+    // }
     private void CreateBottomContainer()
     {
         var bottomContainer = uiElementFactory.CreateVisualElement("container-row");

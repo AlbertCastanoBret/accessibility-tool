@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEditor;
@@ -24,8 +25,17 @@ public class ACC_AudioManagerEditorWindowController : ACC_FloatingWindowControll
         {
             base.ConfigureJson();
             ACC_PrefabHelper.CreatePrefab("Audio", oldName);
+            foreach (var audioSource in currentData.audioSources.Items)
+            {
+                if (audioSource.value.is3D)
+                {
+                    ACC_PrefabHelper.Create3DAudioSource(audioSource.value);
+                }
+            }
+            ACC_PrefabHelper.CreatePrefab("Audio", oldName);
         }
     }
+    
     protected override void RestoreFieldValues()
     {
         window.CreateTable();

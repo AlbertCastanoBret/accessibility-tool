@@ -1,4 +1,5 @@
 using TFG_Videojocs.ACC_Utilities;
+using UnityEngine;
 
 namespace TFG_Videojocs.ACC_Sound.ACC_Example
 {
@@ -6,6 +7,8 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
     public class ACC_AudioSourceData:ACC_AbstractData
     {
         public float volume;
+        public bool is3D;
+        public string sourceObjectGUID;
         
         public override bool Equals(object obj)
         {
@@ -14,7 +17,9 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
             
             ACC_AudioSourceData other = (ACC_AudioSourceData)obj;
             return string.Equals(name, other.name, System.StringComparison.OrdinalIgnoreCase)
-                   && volume.Equals(other.volume);
+                   && volume.Equals(other.volume)
+                   && is3D.Equals(other.is3D)
+                   && string.Equals(sourceObjectGUID, other.sourceObjectGUID, System.StringComparison.OrdinalIgnoreCase);
         }
 
         public override int GetHashCode()
@@ -23,6 +28,8 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
             {
                 int hash = (int)2166136261;
                 hash = (hash * 16777619) ^ volume.GetHashCode();
+                hash = (hash * 16777619) ^ is3D.GetHashCode();
+                hash = (hash * 16777619) ^ sourceObjectGUID.GetHashCode();
                 return hash;
             }
         }
@@ -32,7 +39,9 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
             ACC_AudioSourceData clone = new ACC_AudioSourceData
             {
                 name = name,
-                volume = volume
+                volume = volume,
+                is3D = is3D,
+                sourceObjectGUID = sourceObjectGUID
             };
             return clone;
         }

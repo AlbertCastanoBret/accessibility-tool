@@ -83,7 +83,7 @@ namespace TFG_Videojocs
         private void Start()
         {
             LoadAllUserPreferences();
-            AudioAccessibility.ResetVisualNotificationSettings();
+            //AudioAccessibility.ResetVisualNotificationSettings();
             AudioAccessibility.PlaySubtitle("A");
             MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             //AudioAccessibility.ResetSubtitleSettings();
