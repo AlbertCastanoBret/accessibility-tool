@@ -69,6 +69,10 @@ public class ACC_AudioAccessibility
         accSubtitlesManager.PlaySubtitle();
     }
     
+    /// <summary>
+    /// Changes the actor font color to the new specified color and saves this preference for future sessions.
+    /// </summary>
+    /// <param name="newColor">The new color to be applied to the actor text font. This color will also be saved in the user's preferences.</param>
     public void ChangeActorFontColor(Color newColor)
     {
         PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.ActorFontColor, ColorUtility.ToHtmlStringRGBA(newColor));
@@ -76,6 +80,10 @@ public class ACC_AudioAccessibility
         accSubtitlesManager.SetActorFontColor(newColor);
     }
     
+    /// <summary>
+    /// Retrieves the user's preferred actor text font color from PlayerPrefs.
+    /// </summary>
+    /// <returns>The Color object representing the user's preferred actor text font color. Returns black with full opacity if no preference is saved.</returns>
     public Color GetActorFontColor()
     {
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.ActorFontColor), out Color loadedFontColor)
@@ -89,7 +97,7 @@ public class ACC_AudioAccessibility
     /// <summary>
     /// Changes the subtitle font color to the new specified color and saves this preference for future sessions.
     /// </summary>
-    /// <param name="newColor">The new color to be applied to the subtitle font. This color will also be saved in the user's preferences.</param>
+    /// <param name="newColor">The new color to be applied to the subtitle text font. This color will also be saved in the user's preferences.</param>
     public void ChangeSubtitleFontColor(Color newColor)
     {
         PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor, ColorUtility.ToHtmlStringRGBA(newColor));
@@ -98,9 +106,9 @@ public class ACC_AudioAccessibility
     }
 
     /// <summary>
-    /// Retrieves the user's preferred subtitle font color from PlayerPrefs.
+    /// Retrieves the user's preferred subtitle text font color from PlayerPrefs.
     /// </summary>
-    /// <returns>The Color object representing the user's preferred subtitle font color. Returns black with full opacity if no preference is saved.</returns>
+    /// <returns>The Color object representing the user's preferred subtitle text font color. Returns black with full opacity if no preference is saved.</returns>
     public Color GetSubtitleFontColor()
     {
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedFontColor)
@@ -159,6 +167,23 @@ public class ACC_AudioAccessibility
             return PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
         }
         return 30;
+    }
+    
+    /// <summary>
+    /// Resets the subtitle settings to their default values by deleting specific PlayerPrefs keys related to subtitle appearance and updating the subtitle manager.
+    /// </summary>
+    /// <remarks>
+    /// This function deletes PlayerPrefs entries for actor font color, subtitle font color, subtitle background color, and subtitle font size.
+    /// It concludes by calling accSubtitlesManager.ResetSubtitlesSettings() to apply default settings to the subtitle system. 
+    /// </remarks>
+    public void ResetSubtitleSettings()
+    {
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorFontColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+        PlayerPrefs.Save();
+        accSubtitlesManager.ResetSubtitlesSettings();
     }
 
     private void LoadUserPreferencesSubtitles()
@@ -315,9 +340,28 @@ public class ACC_AudioAccessibility
         return "Top";
     }
     
+    /// <summary>
+    /// Changes the duration for which visual notifications remain visible on the screen.
+    /// </summary>
+    /// <param name="newTime">The new time duration (in seconds) for visual notifications to be displayed.</param>
     public void ChangeVisualNotificationTimeOnScreen(int newTime)
     {
-        
+        PlayerPrefs.SetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationTimeOnScreen, newTime);
+        PlayerPrefs.Save();
+        accVisualNotificationManager.SetTimeOnScreen(newTime);
+    }
+    
+    /// <summary>
+    /// Retrieves the current duration time for which visual notifications are displayed on the screen.
+    /// </summary>
+    /// <returns>The duration time in seconds. Returns -1 if the setting has not been previously set.</returns>
+    public float GetVisualNotificationTimeOnScreen()
+    {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationTimeOnScreen))
+        {
+            return PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationTimeOnScreen);
+        }
+        return -1;
     }
     
     /// <summary>
@@ -393,6 +437,24 @@ public class ACC_AudioAccessibility
             return PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
         }
         return 30;
+    }
+    
+    /// <summary>
+    /// Resets the visual notification settings to their default values by deleting specific PlayerPrefs keys related to visual notifications and updating the visual notification manager.
+    /// </summary>
+    /// <remarks>
+    /// This function removes PlayerPrefs entries for the horizontal alignment, vertical alignment, font color, background color, and font size of visual notifications.
+    /// After deleting these keys, it invokes accVisualNotificationManager.ResetVisualNotificationSettings() to reapply default settings.
+    /// </remarks>
+    public void ResetVisualNotificationSettings()
+    {
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
+        PlayerPrefs.Save();
+        accVisualNotificationManager.ResetVisualNotificationSettings();
     }
     
     private void LoadUserPreferencesVisualNotification()

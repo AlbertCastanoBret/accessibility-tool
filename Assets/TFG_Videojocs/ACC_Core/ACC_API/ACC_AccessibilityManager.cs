@@ -82,10 +82,12 @@ namespace TFG_Videojocs
 
         private void Start()
         {
-            AudioAccessibility.PlaySubtitle("A");
-            AudioAccessibility.ChangeActorFontColor(Color.red);
-            MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             LoadAllUserPreferences();
+            AudioAccessibility.ResetVisualNotificationSettings();
+            AudioAccessibility.PlaySubtitle("A");
+            MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
+            //AudioAccessibility.ResetSubtitleSettings();
+            //AudioAccessibility.ChangeVisualNotificationTimeOnScreen(4);
             //VisualAccessibility.ChangeHighContrastConfiguration("A");
             StartCoroutine(ChangeScene());
         }

@@ -11,7 +11,6 @@ using UnityEngine.UI;
 
 public class ACC_SubtitlesManager : MonoBehaviour
 {
-    private Dictionary<string, bool> featuresCanBeLoaded = new Dictionary<string, bool>();
     private TextMeshProUGUI subtitleText;
     private Image backgroundColor;
     private Color? actorFontColor;
@@ -60,6 +59,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                     canPlaySubtitle = false;
                     subtitleText.text = "";
                     backgroundColor.gameObject.SetActive(false);
+                    loadedData = null;
                     Resources.UnloadUnusedAssets();
                 }
                 currentIndex++;
@@ -69,9 +69,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
 
     public void LoadSubtitles(string jsonFile)
     {
-        // string json = File.ReadAllText("Assets/TFG_Videojocs/ACC_JSON/ACC_Subtitles/" + jsonFile + ".json");
-        // loadedData = JsonUtility.FromJson<ACC_SubtitleData>(json);
-        
         loadedData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>("ACC_Subtitles/" + jsonFile);
     }
     
@@ -130,9 +127,17 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         subtitleText.fontSize = size;
     }
-    
-    public void SetSubtitleFontStyle(FontStyles style)
+
+    public void ResetSubtitlesSettings()
     {
-        subtitleText.fontStyle = style;
+        actorFontColor = null;
+        if (loadedData != null)
+        {
+            subtitleText.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
+                loadedData.fontColor.b, loadedData.fontColor.a);
+            backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+            subtitleText.fontSize = loadedData.fontSize;
+        }
     }
 }

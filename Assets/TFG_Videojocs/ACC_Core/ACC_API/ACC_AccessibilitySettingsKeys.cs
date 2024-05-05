@@ -11,6 +11,7 @@ public class ACC_AccessibilitySettingsKeys
 
     public const string VisualNotificationHorizontalAlignment = "VisualNotificationHorizontalAlignment";
     public const string VisualNotificationVerticalAlignment = "VisualNotificationVerticalAlignment";
+    public const string VisualNotificationTimeOnScreen = "VisualNotificationTimeOnScreen";
     public const string VisualNotificationFontSize = "VisualNotificationFontSize";
     public const string VisualNotificationFontColor = "VisualNotificationFontColor";
     public const string VisualNotificationBackgroundColor = "VisualNotificationBackgroundColor";

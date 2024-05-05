@@ -11,6 +11,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
 {
     private TextMeshProUGUI text;
     private Image backgroundColor;
+    private int timeOnScreen;
     
     private float startTime;
     private bool canPlaySubtitleNotification;
@@ -20,6 +21,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     {
         text = GameObject.Find(gameObject.name + "/ACC_VisualNotificationText").GetComponent<TextMeshProUGUI>();
         backgroundColor = GameObject.Find(gameObject.name + "/ACC_VisualNotificationBackground").GetComponent<Image>();
+        timeOnScreen = -1;
     }
 
     private void Update()
@@ -29,7 +31,14 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             float currentTime = Time.time;
             float elapsedTime = currentTime - startTime;
             
-            if (!(elapsedTime <= loadedData.timeOnScreen))
+            if (!(elapsedTime <= loadedData.timeOnScreen) && timeOnScreen == -1)
+            {
+                canPlaySubtitleNotification = false;
+                text.text = "";
+                backgroundColor.gameObject.SetActive(false);
+                Resources.UnloadUnusedAssets();
+            }
+            else if (!(elapsedTime <= timeOnScreen) && timeOnScreen != -1)
             {
                 canPlaySubtitleNotification = false;
                 text.text = "";
@@ -119,6 +128,11 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             new Vector2(0, text.preferredHeight);
     }
     
+    public void SetTimeOnScreen(int time)
+    {
+        timeOnScreen = time;
+    }
+    
     public void SetTextFontColor(Color color)
     {
         text.color = new Color(color.r, color.g, color.b, color.a);
@@ -132,6 +146,19 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     public void SetFontSize(int size)
     {
         text.fontSize = size;
+    }
+    
+    public void ResetVisualNotificationSettings()
+    {
+        timeOnScreen = -1;
+        if (loadedData != null)
+        {
+            text.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
+                loadedData.fontColor.b, loadedData.fontColor.a);
+            backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+            text.fontSize = loadedData.fontSize;
+        }
     }
 
     private (float horizontalAnchorMin, float horizontalAnchorMax) GetHorizontalAlignment()
