@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using TFG_Videojocs;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,7 +37,11 @@ public class ACC_SubtitlesManager : MonoBehaviour
                 if (currentIndex < loadedData.subtitles.Items.Count)
                 {
                     if (loadedData.showActors)
-                        subtitleText.text = "<color=#ff0000>" + loadedData.subtitles.Items[currentIndex].value.actor + ": </color> " +  loadedData.subtitles.Items[currentIndex].value.subtitle;
+                    {
+                        var color = loadedData.actors.Items.Find(actor => actor.value.actor == loadedData.subtitles.Items[currentIndex].value.actor).value.color;
+                        var hexColor = color.ToHexString();
+                        subtitleText.text = "<color=#" + hexColor + ">" + loadedData.subtitles.Items[currentIndex].value.actor + ": </color> " +  loadedData.subtitles.Items[currentIndex].value.subtitle;
+                    }
                     else
                         subtitleText.text = loadedData.subtitles.Items[currentIndex].value.subtitle;
                     startTime = currentTime;
