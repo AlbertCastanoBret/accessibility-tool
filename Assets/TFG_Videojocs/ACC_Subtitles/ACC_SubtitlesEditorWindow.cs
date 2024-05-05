@@ -93,6 +93,11 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             if(index != -1) table.Insert(index, newRow);
             else table.Add(newRow);
 
+            if (!controller.currentData.showActors)
+            {
+                actor = "No Actor";
+                actors = null;
+            }
             var contentRow = uiElementFactory.CreateVisualElement("content-row");
             var actorField = uiElementFactory.CreateDropdownField("actor-new-cell", options: actors ?? new List<string>(){}, subClassList: "actor-input-cell", value: actor,
                 onValueChanged: value =>
@@ -295,7 +300,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
                     color = color
                 });
                 
-                
+                if(!controller.currentData.showActors) return;
                 var actors = rootVisualElement.Query<DropdownField>().Class("actor-new-cell").ToList();
 
                 bool newActor = false;
