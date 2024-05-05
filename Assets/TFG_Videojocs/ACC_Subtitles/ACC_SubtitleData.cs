@@ -10,8 +10,7 @@ using UnityEngine;
 public class ACC_SubtitleData: ACC_AbstractData
 {
     public ACC_SerializableDictiornary<int, ACC_SubtitleRowData> subtitles = new();
-    public ACC_SerializableDictiornary<int ,string> actorText = new();
-    public ACC_SerializableDictiornary<int, Color> actorColor = new();
+    public ACC_SerializableDictiornary<int, ACC_ActorData> actors = new();
     public Color fontColor;
     public Color backgroundColor;
     public int fontSize;
@@ -25,17 +24,11 @@ public class ACC_SubtitleData: ACC_AbstractData
         var other = (ACC_SubtitleData)obj;
         
         bool subtitlesEqual = subtitles.Items.SequenceEqual(other.subtitles.Items);
-        bool actorTextEqual = actorText.Items.SequenceEqual(other.actorText.Items);
-        bool actorColorEqual = actorColor.Items.SequenceEqual(other.actorColor.Items);
-        
-        Debug.Log(subtitlesEqual);
-        Debug.Log(actorTextEqual);
-        Debug.Log(actorColorEqual);
+        bool actorsEqual = actors.Items.SequenceEqual(other.actors.Items);
         
         return string.Equals(name,other.name, StringComparison.OrdinalIgnoreCase)
                && subtitlesEqual
-               && actorTextEqual
-               && actorColorEqual
+               && actorsEqual
                && fontColor.Equals(other.fontColor)
                && backgroundColor.Equals(other.backgroundColor)
                && fontSize == other.fontSize
@@ -49,8 +42,7 @@ public class ACC_SubtitleData: ACC_AbstractData
             int hash = (int)2166136261;
             hash = (hash * 16777619) ^ name.GetHashCode();
             hash = (hash * 16777619) ^ subtitles.GetHashCode();
-            hash = (hash * 16777619) ^ actorText.GetHashCode();
-            hash = (hash * 16777619) ^ actorColor.GetHashCode();
+            hash = (hash * 16777619) ^ actors.GetHashCode();
             hash = (hash * 16777619) ^ fontColor.GetHashCode();
             hash = (hash * 16777619) ^ backgroundColor.GetHashCode();
             hash = (hash * 16777619) ^ fontSize.GetHashCode();
@@ -65,8 +57,7 @@ public class ACC_SubtitleData: ACC_AbstractData
         {
             name = name,
             subtitles = (ACC_SerializableDictiornary<int, ACC_SubtitleRowData>) subtitles.Clone(),
-            actorText = (ACC_SerializableDictiornary<int, string>) actorText.Clone(),
-            actorColor = (ACC_SerializableDictiornary<int, Color>) actorColor.Clone(),
+            actors = (ACC_SerializableDictiornary<int, ACC_ActorData>) actors.Clone(),
             fontColor = fontColor,
             backgroundColor = backgroundColor,
             fontSize = fontSize,

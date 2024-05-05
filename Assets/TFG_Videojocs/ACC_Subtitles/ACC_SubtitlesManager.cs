@@ -35,7 +35,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
             {
                 if (currentIndex < loadedData.subtitles.Items.Count)
                 {
-                    subtitleText.text = loadedData.subtitles.Items[currentIndex].value.subtitle;
+                    if (loadedData.showActors)
+                        subtitleText.text = "<color=#ff0000>" + loadedData.subtitles.Items[currentIndex].value.actor + ": </color> " +  loadedData.subtitles.Items[currentIndex].value.subtitle;
+                    else
+                        subtitleText.text = loadedData.subtitles.Items[currentIndex].value.subtitle;
                     startTime = currentTime;
                     nextSubtitleTime = startTime + loadedData.subtitles.Items[currentIndex].value.time;
                     UpdateSize();

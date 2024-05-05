@@ -7,7 +7,7 @@
                 "value": {
                     "actor": "John",
                     "subtitle": "Hello",
-                    "time": 2
+                    "time": 1
                 }
             },
             {
@@ -15,48 +15,50 @@
                 "value": {
                     "actor": "Charles",
                     "subtitle": "Bye",
-                    "time": 2
+                    "time": 1
+                }
+            },
+            {
+                "key": 2,
+                "value": {
+                    "actor": "John",
+                    "subtitle": "Hello",
+                    "time": 1
                 }
             }
         ]
     },
-    "actorText": {
-        "Items": [
-            {
-                "key": 0,
-                "value": "John"
-            },
-            {
-                "key": 1,
-                "value": "Charles"
-            }
-        ]
-    },
-    "actorColor": {
+    "actors": {
         "Items": [
             {
                 "key": 0,
                 "value": {
-                    "r": 1.0,
-                    "g": 0.0,
-                    "b": 0.0,
-                    "a": 1.0
+                    "actor": "John",
+                    "color": {
+                        "r": 0.0,
+                        "g": 1.0,
+                        "b": 0.08161616325378418,
+                        "a": 1.0
+                    }
                 }
             },
             {
                 "key": 1,
                 "value": {
-                    "r": 0.0,
-                    "g": 0.13646817207336427,
-                    "b": 1.0,
-                    "a": 1.0
+                    "actor": "Charles",
+                    "color": {
+                        "r": 0.0,
+                        "g": 0.42557764053344729,
+                        "b": 1.0,
+                        "a": 1.0
+                    }
                 }
             }
         ]
     },
     "fontColor": {
-        "r": 0.0,
-        "g": 0.0,
+        "r": 1.0,
+        "g": 0.3706115484237671,
         "b": 0.0,
         "a": 1.0
     },
@@ -66,6 +68,6 @@
         "b": 1.0,
         "a": 1.0
     },
-    "fontSize": 40,
+    "fontSize": 60,
     "showActors": true
 }
