@@ -73,6 +73,12 @@ namespace TFG_Videojocs.ACC_Utilities
             }
             return gameObject;
         }
+        public static bool FileNameAlreadyExists(string feature, string name)
+        {
+            var folder = "ACC_" + feature + "/";
+            string filePath = "Assets/Resources/ACC_Prefabs/" + folder + name + ".prefab";
+            return File.Exists(filePath);
+        }
         private static void CreateSubtitleManager(GameObject subtitleManager)
         {
             RectTransform subtitleManagerTextRectTransform = subtitleManager.AddComponent<RectTransform>();
@@ -380,25 +386,54 @@ namespace TFG_Videojocs.ACC_Utilities
         {
             var objectGUID = audioSourceData.sourceObjectGUID;
             var sourceObject = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(objectGUID));
+            if (audioSourceData.prefabGUID != "") AssetDatabase.DeleteAsset(AssetDatabase.GUIDToAssetPath(audioSourceData.prefabGUID));
+
+            GameObject parentObject;
+            AudioSource audioSourceComponent;
+            var gameObjectName = sourceObject != null ? sourceObject.name : "EmptyObject";
             
-            GameObject parentObject =  GameObject.Instantiate(sourceObject);
+            if (sourceObject != null)
+            {
+                parentObject =  GameObject.Instantiate(sourceObject);
+                
+                GameObject audioSource = new GameObject {tag = "ACC_AudioSource", name = "ACC_AudioSource_" + gameObjectName + "_3D"};
+                audioSource.transform.SetParent(parentObject.transform);
             
-            GameObject audioSource = new GameObject {tag = "ACC_AudioSource", name = "ACC_AudioSource_" + sourceObject.name + "_3D"};
-            audioSource.transform.SetParent(parentObject.transform);
+                audioSourceComponent = audioSource.AddComponent<AudioSource>();
+            }
+            else
+            {
+                audioSourceData.sourceObjectGUID = "-1";
+                parentObject = new GameObject {tag = "ACC_AudioSource", name = "ACC_AudioSource_" + gameObjectName + "_3D"};
+
+                audioSourceComponent = parentObject.AddComponent<AudioSource>();
+            }
             
-            var audioSourceComponent = audioSource.AddComponent<AudioSource>();
             audioSourceComponent.volume = audioSourceData.volume;
             audioSourceComponent.spatialBlend = 1;
             
             var folder = "ACC_Audio/ACC_3DAudioSources/";
-            var name = sourceObject.name + "ACC_3D.prefab"; 
+            var name = "ACC_3DAS-" + audioSourceData.name + "_GO-" + gameObjectName + ".prefab"; 
             
             Directory.CreateDirectory("Assets/Resources/ACC_Prefabs/" + folder);
-            
             var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
+            
             PrefabUtility.SaveAsPrefabAsset(parentObject, prefabPath);
             GameObject.DestroyImmediate(parentObject);
             AssetDatabase.Refresh();
+            
+            var guid = AssetDatabase.AssetPathToGUID(prefabPath);
+            audioSourceData.prefabGUID = guid;
+        }
+        
+        public static void Delete3DAudioSource(ACC_AudioSourceData audioSourceData)
+        {
+            if (string.IsNullOrEmpty(audioSourceData.prefabGUID)) return;
+            var prefabPath = AssetDatabase.GUIDToAssetPath(audioSourceData.prefabGUID);
+            AssetDatabase.DeleteAsset(prefabPath);
+            AssetDatabase.Refresh();
+            audioSourceData.prefabGUID = "";
+            
         }
     }
 }

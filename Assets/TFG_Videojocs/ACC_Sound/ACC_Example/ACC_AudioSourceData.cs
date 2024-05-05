@@ -9,6 +9,7 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
         public float volume;
         public bool is3D;
         public string sourceObjectGUID;
+        public string prefabGUID;
         
         public override bool Equals(object obj)
         {
@@ -19,7 +20,8 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
             return string.Equals(name, other.name, System.StringComparison.OrdinalIgnoreCase)
                    && volume.Equals(other.volume)
                    && is3D.Equals(other.is3D)
-                   && string.Equals(sourceObjectGUID, other.sourceObjectGUID, System.StringComparison.OrdinalIgnoreCase);
+                   && string.Equals(sourceObjectGUID, other.sourceObjectGUID, System.StringComparison.OrdinalIgnoreCase)
+                   && string.Equals(prefabGUID, other.prefabGUID, System.StringComparison.OrdinalIgnoreCase);
         }
 
         public override int GetHashCode()
@@ -30,6 +32,7 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
                 hash = (hash * 16777619) ^ volume.GetHashCode();
                 hash = (hash * 16777619) ^ is3D.GetHashCode();
                 hash = (hash * 16777619) ^ sourceObjectGUID.GetHashCode();
+                hash = (hash * 16777619) ^ prefabGUID.GetHashCode();
                 return hash;
             }
         }
@@ -41,7 +44,8 @@ namespace TFG_Videojocs.ACC_Sound.ACC_Example
                 name = name,
                 volume = volume,
                 is3D = is3D,
-                sourceObjectGUID = sourceObjectGUID
+                sourceObjectGUID = sourceObjectGUID,
+                prefabGUID = prefabGUID
             };
             return clone;
         }

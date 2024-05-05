@@ -82,15 +82,20 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                 var volume = 0.5f;
                 var isAudio3D = false;
                 var sourceObjectGUID = "";
+                var prefabGUID = "";
 
                 if (controller.currentData.audioSources.Items.Exists(x => x.key == currentRow))
                 {
                     volume = controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.volume;
                     isAudio3D = controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.is3D;
                     sourceObjectGUID = controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.sourceObjectGUID;
+                    prefabGUID = controller.currentData.audioSources.Items.Find(x => x.key == currentRow).value.prefabGUID;
                 }
                 
-                controller.currentData.audioSources.AddOrUpdate(currentRow, new ACC_AudioSourceData(){name = value, volume = volume, is3D = isAudio3D, sourceObjectGUID = sourceObjectGUID});
+                controller.currentData.audioSources.AddOrUpdate(currentRow, new ACC_AudioSourceData()
+                {
+                    name = value, volume = volume, is3D = isAudio3D, sourceObjectGUID = sourceObjectGUID, prefabGUID = prefabGUID
+                });
 
                 if (!controller.currentData.audioClips.Items.Exists(x =>
                         x.key.Equals(index != -1 ? index - 1 : currentRow)))
@@ -342,6 +347,7 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
                 gameObjectField.style.display = DisplayStyle.None;
             }
         });
+        
         
         // List<VisualElement> items = new List<VisualElement>(){Create3DAudioObjectField()};
         // ListView listView = new ListView(items, 50, Create3DAudioObjectField,
