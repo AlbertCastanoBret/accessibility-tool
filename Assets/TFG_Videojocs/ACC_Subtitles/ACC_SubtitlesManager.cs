@@ -14,6 +14,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
     private Dictionary<string, bool> featuresCanBeLoaded = new Dictionary<string, bool>();
     private TextMeshProUGUI subtitleText;
     private Image backgroundColor;
+    private Color? actorFontColor;
     
     private bool canPlaySubtitle;
     private int currentIndex;
@@ -25,6 +26,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         subtitleText = GameObject.Find(gameObject.name + "/ACC_SubtitleText").GetComponent<TextMeshProUGUI>();
         backgroundColor = GameObject.Find(gameObject.name + "/ACC_SubtitleBackground").GetComponent<Image>();
+        actorFontColor = null;
     }
 
     void Update()
@@ -38,7 +40,11 @@ public class ACC_SubtitlesManager : MonoBehaviour
                 {
                     if (loadedData.showActors)
                     {
-                        var color = loadedData.actors.Items.Find(actor => actor.value.actor == loadedData.subtitles.Items[currentIndex].value.actor).value.color;
+                        Color color;
+                        if (actorFontColor != null)
+                            color = (Color) actorFontColor;
+                        else color = loadedData.actors.Items.Find(actor => actor.value.actor == loadedData.subtitles.Items[currentIndex].value.actor).value.color;
+                        
                         var hexColor = color.ToHexString();
                         subtitleText.text = "<color=#" + hexColor + ">" + loadedData.subtitles.Items[currentIndex].value.actor + ": </color> " +  loadedData.subtitles.Items[currentIndex].value.subtitle;
                     }
@@ -103,6 +109,11 @@ public class ACC_SubtitlesManager : MonoBehaviour
             new Vector2(0, subtitleText.preferredHeight);
         backgroundColor.GetComponent<RectTransform>().sizeDelta =
             new Vector2(0, subtitleText.preferredHeight);
+    }
+
+    public void SetActorFontColor(Color color)
+    {
+        actorFontColor = new Color(color.r, color.g, color.b, color.a);
     }
     
     public void SetTextFontColor(Color color)

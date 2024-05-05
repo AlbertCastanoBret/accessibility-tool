@@ -68,6 +68,23 @@ public class ACC_AudioAccessibility
         accSubtitlesManager.LoadSubtitles(name);
         accSubtitlesManager.PlaySubtitle();
     }
+    
+    public void ChangeActorFontColor(Color newColor)
+    {
+        PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.ActorFontColor, ColorUtility.ToHtmlStringRGBA(newColor));
+        PlayerPrefs.Save();
+        accSubtitlesManager.SetActorFontColor(newColor);
+    }
+    
+    public Color GetActorFontColor()
+    {
+        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.ActorFontColor), out Color loadedFontColor)
+            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorFontColor))
+        {
+            return loadedFontColor;
+        }
+        return new Color(0,0,0,1);
+    }
 
     /// <summary>
     /// Changes the subtitle font color to the new specified color and saves this preference for future sessions.
@@ -146,10 +163,15 @@ public class ACC_AudioAccessibility
 
     private void LoadUserPreferencesSubtitles()
     {
-        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedFontColor)
+        if (ColorUtility.TryParseHtmlString("#"+PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.ActorFontColor), out Color loadedActorFontColor)
+            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorFontColor))
+        {
+            accSubtitlesManager.SetActorFontColor(loadedActorFontColor);
+        }
+        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedTextFontColor)
             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
         {
-            accSubtitlesManager.SetTextFontColor(loadedFontColor);
+            accSubtitlesManager.SetTextFontColor(loadedTextFontColor);
         }
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor), out Color loadedBackgroundColor)
             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))

@@ -83,6 +83,7 @@ namespace TFG_Videojocs
         private void Start()
         {
             AudioAccessibility.PlaySubtitle("A");
+            AudioAccessibility.ChangeActorFontColor(Color.red);
             MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             LoadAllUserPreferences();
             //VisualAccessibility.ChangeHighContrastConfiguration("A");
