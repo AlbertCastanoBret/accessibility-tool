@@ -274,7 +274,7 @@ public class ACC_AudioAccessibility
     /// <param name="alignment">An integer representing the desired horizontal alignment: 0 for Left, 1 for Center, and 2 for Right. Any other value logs an error.</param>
     public void ChangeVisualNotificationHorizontalAlignment(int alignment)
     {
-        if (alignment is 0 or 1 or 2)
+        if (alignment is 0 or 1 or 2 or -1)
         {
             accVisualNotificationManager.SetHorizontalAlignment(alignment);
             PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, alignment switch
@@ -282,7 +282,7 @@ public class ACC_AudioAccessibility
                 0 => "Left",
                 1 => "Center",
                 2 => "Right",
-                _ => "Error"
+                -1 => "Default"
             });
         }
         else Debug.LogError("Wrong parameter entered");
@@ -298,8 +298,7 @@ public class ACC_AudioAccessibility
         {
             return PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
         }
-        return "Left";
-        //return "Value not saved";
+        return accVisualNotificationManager.GetCurrentHorizontalAlignment();
     }
     
     /// <summary>
@@ -316,7 +315,7 @@ public class ACC_AudioAccessibility
                  0 => "Top",
                  1 => "Center",
                  2 => "Down",
-                 _ => "Error"
+                 _ => "Default"
              });
         }
         else Debug.LogError("Wrong parameter entered");
@@ -332,7 +331,7 @@ public class ACC_AudioAccessibility
         {
             return PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
         }
-        return "Top";
+        return accVisualNotificationManager.GetCurrentVerticalAlignment();
     }
     
     /// <summary>
@@ -356,7 +355,7 @@ public class ACC_AudioAccessibility
         {
             return PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationTimeOnScreen);
         }
-        return -1;
+        return accVisualNotificationManager.GetTimeOnScreen();
     }
     
     /// <summary>
@@ -381,7 +380,7 @@ public class ACC_AudioAccessibility
         {
             return loadedFontColor;
         }
-        return new Color(0,0,0,1);
+        return accVisualNotificationManager.GetTextFontColor();
     }
     
     /// <summary>
@@ -406,7 +405,7 @@ public class ACC_AudioAccessibility
         {
             return loadedBackgroundColor;
         }
-        return new Color(1,1,1,0);
+        return accVisualNotificationManager.GetBackgroundColor();
     }
     
     /// <summary>
@@ -431,7 +430,7 @@ public class ACC_AudioAccessibility
         {
             return PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
         }
-        return 30;
+        return accVisualNotificationManager.GetFontSize();
     }
     
     /// <summary>

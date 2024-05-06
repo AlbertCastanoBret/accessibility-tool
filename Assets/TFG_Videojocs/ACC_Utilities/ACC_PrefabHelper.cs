@@ -67,7 +67,7 @@ namespace TFG_Videojocs.ACC_Utilities
                     gameObject = CreateSubtitleManager(gameObject, newPrefab);
                     break;
                 case "VisualNotification":
-                    CreateVisualNotificationManager(gameObject);
+                    gameObject = CreateVisualNotificationManager(gameObject, newPrefab);
                     break;
                 case "HighContrast":
                     gameObject.AddComponent<ACC_HighContrastManager>();
@@ -99,7 +99,6 @@ namespace TFG_Videojocs.ACC_Utilities
             }
             return null;
         }
-        
         private static GameObject CreateSubtitleManager(GameObject subtitleManager, bool newPrefab)
         {
             if (!newPrefab)
@@ -142,6 +141,7 @@ namespace TFG_Videojocs.ACC_Utilities
             }
 
             TextMeshProUGUI subtitleTextMeshProUGUI = subtitleText.GetComponent<TextMeshProUGUI>() ?? subtitleText.AddComponent<TextMeshProUGUI>();
+            subtitleTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
             subtitleTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
             subtitleTextMeshProUGUI.enableWordWrapping = true;
             subtitleTextMeshProUGUI.color = new Color(1f, 0f, 0f, 1);
@@ -157,44 +157,63 @@ namespace TFG_Videojocs.ACC_Utilities
 
             return subtitleManager;
         }
-        private static void CreateVisualNotificationManager(GameObject visualNotificationManager)
+        private static GameObject CreateVisualNotificationManager(GameObject visualNotificationManager, bool newPrefab)
         {
-            RectTransform visualNotificationManagerTextRectTransform = visualNotificationManager.AddComponent<RectTransform>();
-            visualNotificationManagerTextRectTransform.anchorMin = new Vector2(0.1f, 1);
-            visualNotificationManagerTextRectTransform.anchorMax = new Vector2(0.5f, 1);
-            visualNotificationManagerTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-            visualNotificationManagerTextRectTransform.anchoredPosition = new Vector2(0, -100);
-            visualNotificationManagerTextRectTransform.sizeDelta = new Vector2(0, 100);
+            if (!newPrefab)
+            {
+                visualNotificationManager = GameObject.Instantiate(visualNotificationManager);
+            }
             
-            var visualNotificationBackground = new GameObject("ACC_VisualNotificationBackground");
-            visualNotificationBackground.transform.SetParent(visualNotificationManager.transform, false);
-            var backgroundColorImage = visualNotificationBackground.AddComponent<UnityEngine.UI.Image>();
+            RectTransform visualNotificationManagerTextRectTransform = visualNotificationManager.GetComponent<RectTransform>() == null ? 
+                visualNotificationManager.AddComponent<RectTransform>() : visualNotificationManager.GetComponent<RectTransform>();
+            visualNotificationManagerTextRectTransform.anchorMin = new Vector2(0, 0);
+            visualNotificationManagerTextRectTransform.anchorMax = new Vector2(1, 1);
+            visualNotificationManagerTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
+            visualNotificationManagerTextRectTransform.anchoredPosition = Vector3.zero;
+            visualNotificationManagerTextRectTransform.sizeDelta = new Vector2(0, 0);
+            
+            if (GetChildWithTag(visualNotificationManager, "ACC_Prefab") == null) GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_VisualNotification/ACC_VisualNotificationSettings.prefab"), visualNotificationManager.transform, true);
+            
+            var visualNotificationBackground = GetChildWithTag(visualNotificationManager, "ACC_VisualNotificationBackground");
+            if (visualNotificationBackground == null)
+            {
+                visualNotificationBackground = new GameObject(){name = "ACC_VisualNotificationBackground", tag = "ACC_VisualNotificationBackground"};
+                visualNotificationBackground.transform.SetParent(visualNotificationManager.transform, false);
+            }
+            
+            var backgroundColorImage = visualNotificationBackground.GetComponent<Image>() ?? visualNotificationBackground.AddComponent<Image>();
             backgroundColorImage.color = new Color(1, 1, 1, 0);
             
-            RectTransform backgroundTextRectTransform = visualNotificationBackground.GetComponent<RectTransform>();
+            RectTransform backgroundTextRectTransform = visualNotificationBackground.GetComponent<RectTransform>() ?? visualNotificationBackground.AddComponent<RectTransform>();
             backgroundTextRectTransform.anchorMin = new Vector2(0, 0.5f);
             backgroundTextRectTransform.anchorMax = new Vector2(1, 0.5f);
             backgroundTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
             backgroundTextRectTransform.anchoredPosition = new Vector2(0, 0);
             backgroundTextRectTransform.sizeDelta = new Vector2(0, 100);
-    
-            var visualNotificationText = new GameObject("ACC_VisualNotificationText");
-            visualNotificationText.transform.SetParent(visualNotificationManager.transform, false);
             
-            TextMeshProUGUI visualNotificationTextMeshProUGUI = visualNotificationText.AddComponent<TextMeshProUGUI>();
+            var visualNotificationText = GetChildWithTag(visualNotificationManager, "ACC_VisualNotificationText");
+            if (visualNotificationText == null)
+            {
+                visualNotificationText = new GameObject(){name = "ACC_VisualNotificationText", tag = "ACC_VisualNotificationText"};
+                visualNotificationText.transform.SetParent(visualNotificationManager.transform, false);
+            }
+            
+            TextMeshProUGUI visualNotificationTextMeshProUGUI = visualNotificationText.GetComponent<TextMeshProUGUI>() ?? visualNotificationText.AddComponent<TextMeshProUGUI>();
             visualNotificationTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
             visualNotificationTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
             visualNotificationTextMeshProUGUI.enableWordWrapping = true;
             visualNotificationTextMeshProUGUI.color = new Color(1f, 0f, 0f, 0);
             
-            RectTransform visualNotificationTextRectTransform = visualNotificationText.GetComponent<RectTransform>();
+            RectTransform visualNotificationTextRectTransform = visualNotificationText.GetComponent<RectTransform>() ?? visualNotificationText.AddComponent<RectTransform>();
             visualNotificationTextRectTransform.anchorMin = new Vector2(0, 0.5f);
             visualNotificationTextRectTransform.anchorMax = new Vector2(1, 0.5f);
             visualNotificationTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
             visualNotificationTextRectTransform.anchoredPosition = new Vector2(0, 0);
             visualNotificationTextRectTransform.sizeDelta = new Vector2(0, 100);
     
-            visualNotificationManager.AddComponent<ACC_VisualNotificationManager>();
+            var accVisualNotificationManager = visualNotificationManager.GetComponent<ACC_VisualNotificationManager>() ?? visualNotificationManager.AddComponent<ACC_VisualNotificationManager>();
+
+            return visualNotificationManager;
         }
         private static void CreateRemapControlsManager(GameObject remapControlsManager, string jsonFile)
         {

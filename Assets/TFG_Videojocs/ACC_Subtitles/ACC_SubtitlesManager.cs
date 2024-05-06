@@ -12,10 +12,10 @@ using ColorUtility = UnityEngine.ColorUtility;
 
 public class ACC_SubtitlesManager : MonoBehaviour
 {
-    private GameObject subtitleSettings;
     private TextMeshProUGUI subtitleText;
     private Image backgroundColor;
     private bool showActorsName, showActorNameColors;
+    private GameObject subtitleSettings;
     // private Color? actorFontColor;
     
     private bool canPlaySubtitle;
@@ -53,7 +53,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ShowActorsName(value);
                                         });
                                     }
-                            
                                     if (settingsOption.name == "ACC_ShowActorsColors")
                                     {
                                         var toggle = settingsOption.Find("Toggle");
@@ -64,7 +63,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ShowActorsNameColors(value);
                                         });
                                     }
-
                                     if (settingsOption.name == "ACC_ColorSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
@@ -105,7 +103,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ChangeSubtitleFontColor(color);
                                         });
                                     }
-                                    
                                     if (settingsOption.name == "ACC_BackgroundColor")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
@@ -142,7 +139,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ChangeSubtitleBackgroundColor(color);
                                         });
                                     }
-
                                     if (settingsOption.name == "ACC_FontSizeSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
