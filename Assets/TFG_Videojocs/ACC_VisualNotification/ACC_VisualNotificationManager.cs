@@ -14,7 +14,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     private TextMeshProUGUI text;
     private Image backgroundColor;
     private int timeOnScreen;
-    private GameObject visualNotificationSettings;
+    private GameObject visualNotificationSettings, visualNotificationToggle;
     
     private float startTime;
     private bool canPlaySubtitleNotification;
@@ -41,6 +41,15 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                             {
                                 foreach (Transform settingsOption in scrollComponent)
                                 {
+                                    if (settingsOption.name == "ACC_VisualNotificationEnable")
+                                    {
+                                        visualNotificationToggle = settingsOption.Find("Toggle").gameObject;
+                                        visualNotificationToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
+                                        {
+                                            ACC_AccessibilityManager.Instance.AudioAccessibility.
+                                                SetFeatureState(AudioFeatures.VisualNotification, value);
+                                        });
+                                    }
                                     if (settingsOption.name == "ACC_HorizontalAlignment")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
@@ -70,7 +79,8 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                                             _ => -1
                                                         };
                                                     }
-                                                    break;
+                                                    SetHorizontalAlignment(newValue);
+                                                    return;
                                                 case 1:
                                                     newValue = 0;
                                                     break;
@@ -114,7 +124,8 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                                             _ => -1
                                                         };
                                                     }
-                                                    break;
+                                                    SetHorizontalAlignment(newValue);
+                                                    return;
                                                 case 1:
                                                     newValue = 0;
                                                     break;
@@ -151,7 +162,8 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                             {
                                                 case 0:
                                                     color = loadedData != null ? new Color(loadedData.fontColor.r, loadedData.fontColor.g, loadedData.fontColor.b, loadedData.fontColor.a) : Color.black;
-                                                    break;
+                                                    text.color = color;
+                                                    return;
                                                 case 1:
                                                     color = Color.red;
                                                     break;
@@ -189,9 +201,9 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                             switch (value)
                                             {
                                                 case 0:
-                                                    color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : 
-                                                            new Color(0,0,0,0);
-                                                    break;
+                                                    color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : Color.black;
+                                                    backgroundColor.color = color;
+                                                    return;
                                                 case 1:
                                                     color = Color.white;
                                                     break;
@@ -228,7 +240,8 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                             {
                                                 case 0:
                                                     size = loadedData?.fontSize ?? 50;
-                                                    break;
+                                                    text.fontSize = size;
+                                                    return;
                                                 case 1:
                                                     size = 20;
                                                     break;
@@ -259,7 +272,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             }
         }
     }
-    
     private void Update()
     {
         if (canPlaySubtitleNotification)
@@ -284,6 +296,35 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         }
     }
 
+    public void SetVisualNotification(bool state)
+    {
+        text.gameObject.SetActive(state);
+        backgroundColor.gameObject.SetActive(state);
+        if (state)
+        {
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
+            {
+                ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color backgroundColor);
+                this.backgroundColor.color = new Color(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+            }
+            else if (loadedData != null)
+            {
+                backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                    loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+            }
+        }
+        else
+        {
+            backgroundColor.color = new Color(0, 0, 0, 0);
+        }
+        
+        PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled, state ? 1 : 0);
+        PlayerPrefs.Save();
+        
+        if(visualNotificationToggle != null) visualNotificationToggle.GetComponent<Toggle>().isOn = state;
+        ACC_AccessibilityManager.Instance.visualNotificationEnabled = state;
+    }
+    
     public void LoadVisualNotification(string jsonFile)
     {
         loadedData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>("ACC_VisualNotification/" + jsonFile);
@@ -307,7 +348,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     {
         canPlaySubtitleNotification = true;
         text.text = loadedData.message;
-        backgroundColor.gameObject.SetActive(true);
         startTime = Time.time;
         
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))

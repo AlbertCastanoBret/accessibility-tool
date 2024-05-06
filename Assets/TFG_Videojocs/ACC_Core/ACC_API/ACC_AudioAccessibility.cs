@@ -42,7 +42,7 @@ public class ACC_AudioAccessibility
                 accSubtitlesManager.SetSubtitles(state);
                 break;
             case AudioFeatures.VisualNotification:
-                accVisualNotificationManager.gameObject.SetActive(state);
+                accVisualNotificationManager.SetVisualNotification(state);
                 break;
         }
     }

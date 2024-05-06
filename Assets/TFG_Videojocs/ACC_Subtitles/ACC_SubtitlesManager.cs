@@ -246,7 +246,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
             }
         }
     }
-
+    
     public void SetSubtitles(bool state)
     {
         subtitleText.gameObject.SetActive(state);

@@ -12,6 +12,7 @@ public class ACC_AccessibilitySettingsKeys
     public const string SubtitleBackgroundColor = "SubtitleBackgroundColor";
     public const string SubtitleFontSize = "SubtitleFontSize";
 
+    public const string VisualNotificationEnabled = "VisualNotificationEnabled";
     public const string VisualNotificationHorizontalAlignment = "VisualNotificationHorizontalAlignment";
     public const string VisualNotificationVerticalAlignment = "VisualNotificationVerticalAlignment";
     public const string VisualNotificationTimeOnScreen = "VisualNotificationTimeOnScreen";
