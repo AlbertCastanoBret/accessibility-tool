@@ -15,6 +15,7 @@ public class ACC_SubtitleData: ACC_AbstractData
     public Color backgroundColor;
     public int fontSize;
     public bool showActors;
+    public bool showActorsColors;
 
     public override bool Equals(object obj)
     {
@@ -32,7 +33,8 @@ public class ACC_SubtitleData: ACC_AbstractData
                && fontColor.Equals(other.fontColor)
                && backgroundColor.Equals(other.backgroundColor)
                && fontSize == other.fontSize
-               && showActors == other.showActors;
+               && showActors == other.showActors
+               && showActorsColors == other.showActorsColors;
     }
 
     public override int GetHashCode()
@@ -47,6 +49,7 @@ public class ACC_SubtitleData: ACC_AbstractData
             hash = (hash * 16777619) ^ backgroundColor.GetHashCode();
             hash = (hash * 16777619) ^ fontSize.GetHashCode();
             hash = (hash * 16777619) ^ showActors.GetHashCode();
+            hash = (hash * 16777619) ^ showActorsColors.GetHashCode();
             return hash;
         }
     }
@@ -62,6 +65,7 @@ public class ACC_SubtitleData: ACC_AbstractData
             backgroundColor = backgroundColor,
             fontSize = fontSize,
             showActors = showActors,
+            showActorsColors = showActorsColors
         };
 
         return clone;

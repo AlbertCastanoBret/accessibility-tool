@@ -32,7 +32,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             for(int i=0; i < gameObject.transform.childCount; i++)
             {
                 var deviceManager = gameObject.transform.GetChild(i).gameObject;
-                if (deviceManager.CompareTag("ACC_DeviceManager"))
+                if (deviceManager.CompareTag("ACC_Prefab"))
                 {
                     var controlSchemes = loadedData.inputActionAsset.controlSchemes
                         .Where(scheme => String.Join(", ", scheme.deviceRequirements

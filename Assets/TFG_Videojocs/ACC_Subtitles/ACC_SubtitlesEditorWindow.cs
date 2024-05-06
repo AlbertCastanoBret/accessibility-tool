@@ -213,11 +213,17 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
             uiElementFactory.CreateSliderWithIntegerField("option-multi-input", "Font Size:", 20, 100, 40,
                 onValueChanged: value => controller.currentData.fontSize = value);
         
+        var showActorsColorsToggle = (Toggle) uiElementFactory.CreateToggle("option-input", "Show Actors Colors:", false, "option-input-label",
+            value =>
+            {
+                controller.currentData.showActorsColors = value;
+            });
+        showActorsColorsToggle.style.display = DisplayStyle.None;
         
         actorTableContainer = uiElementFactory.CreateVisualElement("container-2");
         CreateActors();
         
-        var showActors = uiElementFactory.CreateToggle("option-input", "Show Actors:", false, "option-input-label",
+        var showActors = (Toggle) uiElementFactory.CreateToggle("option-input", "Show Actors:", false, "option-input-label",
             value =>
             {
                 controller.currentData.showActors = value;
@@ -225,6 +231,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
                 minSize = value ? new Vector2(600, 780) : new Vector2(600, 550);
                 var addRowContainer = rootVisualElement.Q<VisualElement>("add-row-container-0");
                 if (addRowContainer != null) addRowContainer.style.visibility = value ? Visibility.Visible : Visibility.Hidden;
+                showActorsColorsToggle.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
                 
                 var actors = rootVisualElement.Query<DropdownField>().Class("actor-new-cell").ToList();
                 foreach (var actor in actors)
@@ -248,6 +255,7 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         settingsContainer.Add(backgroundColorInput);
         settingsContainer.Add(fontSizeContainer);
         settingsContainer.Add(showActors);
+        settingsContainer.Add(showActorsColorsToggle);
 
         rootVisualElement.Add(settingsContainer);
         rootVisualElement.Add(actorTableContainer);

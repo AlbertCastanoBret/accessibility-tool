@@ -5,6 +5,7 @@ using UnityEngine;
 public class ACC_AccessibilitySettingsKeys 
 {
     public const string ActorsNameEnabled = "ActorsNameEnabled";
+    public const string ActorsNameColorsEnabled = "ActorsNameColorsEnabled";
     public const string ActorFontColor = "ActorFontColor";
     public const string SubtitleFontColor = "SubtitleFontColor";
     public const string SubtitleBackgroundColor = "SubtitleBackgroundColor";

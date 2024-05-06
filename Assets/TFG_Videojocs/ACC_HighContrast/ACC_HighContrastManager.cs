@@ -34,6 +34,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                             MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0.6f);
+                            renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             
                             if(ambientOcclusionTexture != null)
                             {

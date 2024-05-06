@@ -29,7 +29,8 @@ namespace TFG_Videojocs.ACC_Subtitles
             window.rootVisualElement.Query<ColorField>(name: "option-input-2").First().value =
                 currentData.backgroundColor;
             window.rootVisualElement.Query<SliderInt>(name: "multi-input-1-0").First().value = currentData.fontSize;
-            window.rootVisualElement.Query<Toggle>(name: "option-input-3").First().value = currentData.showActors;
+            window.rootVisualElement.Query<Toggle>(name: "option-input-3").First().value = currentData.showActorsColors;
+            window.rootVisualElement.Query<Toggle>(name: "option-input-4").First().value = currentData.showActors;
 
             var table = window.rootVisualElement.Query<VisualElement>(name: "subtitles-table-0").First();
             List<VisualElement> rows = new List<VisualElement>();

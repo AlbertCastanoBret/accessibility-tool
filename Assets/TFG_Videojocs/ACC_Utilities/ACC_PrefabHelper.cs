@@ -7,6 +7,7 @@ using TFG_Videojocs.ACC_RemapControls;
 using TFG_Videojocs.ACC_Sound;
 using TFG_Videojocs.ACC_Sound.ACC_Example;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,8 +22,9 @@ namespace TFG_Videojocs.ACC_Utilities
         public static void CreatePrefab(string feature, string jsonFile = "")
         {
             if(Application.isPlaying) return;
-            GameObject gameObject = CreateGameObject(feature, jsonFile);
-            gameObject.transform.SetParent(GameObject.Find("ACC_Canvas").transform, false);
+            var gameObject = CreateGameObject(feature, jsonFile);
+            
+            //gameObject.transform.SetParent(GameObject.Find("ACC_Canvas").transform, false);
             var folder = "ACC_" + feature + "/";
             var name = "ACC_" + feature + "Manager.prefab";
             
@@ -30,7 +32,7 @@ namespace TFG_Videojocs.ACC_Utilities
             
             var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
             PrefabUtility.SaveAsPrefabAsset(gameObject, prefabPath);
-            GameObject.DestroyImmediate(gameObject);
+            GameObject.DestroyImmediate(gameObject, true);
             AssetDatabase.Refresh();
         }
         public static GameObject InstantiatePrefabAsChild(string feature, GameObject parent, string jsonFile="")
@@ -51,12 +53,18 @@ namespace TFG_Videojocs.ACC_Utilities
         private static GameObject CreateGameObject(string feature, string jsonFile = "")
         {
             string name = "ACC_" + feature + "Manager";
-            GameObject gameObject = new GameObject(name);
+            bool newPrefab = false;
+            GameObject gameObject = GetPrefabWithTag("ACC_" + feature + "Manager", "Assets/Resources/ACC_Prefabs/"+ "ACC_" + feature + "/");
+            if (gameObject == null)
+            {
+                newPrefab = true;
+                gameObject = new GameObject(){name = name, tag = "ACC_" + feature + "Manager"};
+            }
             
             switch (feature)
             {
                 case "Subtitles":
-                    CreateSubtitleManager(gameObject);
+                    gameObject = CreateSubtitleManager(gameObject, newPrefab);
                     break;
                 case "VisualNotification":
                     CreateVisualNotificationManager(gameObject);
@@ -79,44 +87,76 @@ namespace TFG_Videojocs.ACC_Utilities
             string filePath = "Assets/Resources/ACC_Prefabs/" + folder + name + ".prefab";
             return File.Exists(filePath);
         }
-        private static void CreateSubtitleManager(GameObject subtitleManager)
+        
+        public static GameObject GetPrefabWithTag(string tag, string directoryPath)
         {
-            RectTransform subtitleManagerTextRectTransform = subtitleManager.AddComponent<RectTransform>();
-            subtitleManagerTextRectTransform.anchorMin = new Vector2(0.1f, 0);
-            subtitleManagerTextRectTransform.anchorMax = new Vector2(0.9f, 0);
-            subtitleManagerTextRectTransform.pivot = new Vector2(0.5f, 0);
-            subtitleManagerTextRectTransform.anchoredPosition = new Vector2(0, 50);
-            subtitleManagerTextRectTransform.sizeDelta = new Vector2(0, 40);
+            var guids = AssetDatabase.FindAssets("t:GameObject", new[] {directoryPath});
+            foreach (var guid in guids)
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var gameObject = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                if (gameObject.CompareTag(tag)) return gameObject;
+            }
+            return null;
+        }
+        
+        private static GameObject CreateSubtitleManager(GameObject subtitleManager, bool newPrefab)
+        {
+            if (!newPrefab)
+            {
+                subtitleManager = GameObject.Instantiate(subtitleManager);
+            }
             
-            var subtitleBackground = new GameObject("ACC_SubtitleBackground");
-            subtitleBackground.transform.SetParent(subtitleManager.transform, false);
-            var backgroundColorImage = subtitleBackground.AddComponent<UnityEngine.UI.Image>();
+            RectTransform subtitleManagerTextRectTransform = subtitleManager.GetComponent<RectTransform>() ?? subtitleManager.AddComponent<RectTransform>();
+
+            if (GetChildWithTag(subtitleManager, "ACC_Prefab") == null) GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_Subtitles/ACC_SubtitleSettings.prefab"), subtitleManager.transform, true);
+
+            var subtitleBackground = GetChildWithTag(subtitleManager, "ACC_SubtitleBackground");
+            if (subtitleBackground == null)
+            {
+                subtitleBackground = new GameObject()
+                    { name = "ACC_SubtitleBackground", tag = "ACC_SubtitleBackground" };
+                subtitleBackground.transform.SetParent(subtitleManager.transform, false);
+            }
+            
+            var backgroundColorImage = subtitleBackground.GetComponent<Image>() ?? subtitleBackground.AddComponent<Image>();
             backgroundColorImage.color = new Color(0, 0, 0, 0);
             
-            RectTransform backgroundTextRectTransform = subtitleBackground.GetComponent<RectTransform>();
-            backgroundTextRectTransform.anchorMin = new Vector2(0, 0.5f);
-            backgroundTextRectTransform.anchorMax = new Vector2(1, 0.5f);
-            backgroundTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-            backgroundTextRectTransform.anchoredPosition = new Vector2(0, 0);
+            RectTransform backgroundTextRectTransform = subtitleBackground.GetComponent<RectTransform>() ?? subtitleBackground.AddComponent<RectTransform>();
+            backgroundTextRectTransform.anchorMin = new Vector2(0.15f, 0);
+            backgroundTextRectTransform.anchorMax = new Vector2(0.85f, 0);
+            backgroundTextRectTransform.pivot = new Vector2(0.5f, 0);
+            backgroundTextRectTransform.anchoredPosition = new Vector2(0, 70);
             backgroundTextRectTransform.sizeDelta = new Vector2(0, 40);
 
-            var subtitleText = new GameObject("ACC_SubtitleText");
-            subtitleText.transform.SetParent(subtitleManager.transform, false);
+            var subtitleText = GetChildWithTag(subtitleManager, "ACC_SubtitleText");
+            if (subtitleText == null)
+            {
+                subtitleText = new GameObject() { name = "ACC_SubtitleText", tag = "ACC_SubtitleText" };
+                subtitleText.transform.SetParent(subtitleManager.transform, false);
+            }
 
-            TextMeshProUGUI subtitleTextMeshProUGUI = subtitleText.AddComponent<TextMeshProUGUI>();
-            subtitleTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
+            TextMeshProUGUI subtitleTextMeshProUGUI = subtitleText.GetComponent<TextMeshProUGUI>() ?? subtitleText.AddComponent<TextMeshProUGUI>();
             subtitleTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
             subtitleTextMeshProUGUI.enableWordWrapping = true;
             subtitleTextMeshProUGUI.color = new Color(1f, 0f, 0f, 1);
 
-            RectTransform subtitleTextRectTransform = subtitleText.GetComponent<RectTransform>();
-            subtitleTextRectTransform.anchorMin = new Vector2(0, 0.5f);
-            subtitleTextRectTransform.anchorMax = new Vector2(1, 0.5f);
-            subtitleTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-            subtitleTextRectTransform.anchoredPosition = new Vector2(0, 0);
+            RectTransform subtitleTextRectTransform = subtitleText.GetComponent<RectTransform>() ?? subtitleText.AddComponent<RectTransform>();
+            subtitleTextRectTransform.anchorMin = new Vector2(0.15f, 0);
+            subtitleTextRectTransform.anchorMax = new Vector2(0.85f, 0);
+            subtitleTextRectTransform.pivot = new Vector2(0.5f, 0);
+            subtitleTextRectTransform.anchoredPosition = new Vector2(0, 70);
             subtitleTextRectTransform.sizeDelta = new Vector2(0, 40);
             
-            subtitleManager.AddComponent<ACC_SubtitlesManager>();
+            subtitleManagerTextRectTransform.anchorMin = new Vector2(0, 0);
+            subtitleManagerTextRectTransform.anchorMax = new Vector2(1, 1);
+            subtitleManagerTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
+            subtitleManagerTextRectTransform.anchoredPosition = new Vector2(0, 0);
+            subtitleManagerTextRectTransform.sizeDelta = new Vector2(0, 0);
+
+            var accSubtitlesManager = subtitleManager.GetComponent<ACC_SubtitlesManager>() ?? subtitleManager.AddComponent<ACC_SubtitlesManager>();
+
+            return subtitleManager;
         }
         private static void CreateVisualNotificationManager(GameObject visualNotificationManager)
         {
@@ -377,7 +417,6 @@ namespace TFG_Videojocs.ACC_Utilities
                 audioSourceComponent.volume = value;
             });
         }
-
         public static void Create3DAudioSource(ACC_AudioSourceData audioSourceData)
         {
             var objectGUID = audioSourceData.sourceObjectGUID;
@@ -422,7 +461,6 @@ namespace TFG_Videojocs.ACC_Utilities
             var guid = AssetDatabase.AssetPathToGUID(prefabPath);
             audioSourceData.prefabGUID = guid;
         }
-        
         public static void Delete3DAudioSource(ACC_AudioSourceData audioSourceData)
         {
             if (string.IsNullOrEmpty(audioSourceData.prefabGUID)) return;
@@ -431,6 +469,17 @@ namespace TFG_Videojocs.ACC_Utilities
             AssetDatabase.Refresh();
             audioSourceData.prefabGUID = "";
             
+        }
+        private static GameObject GetChildWithTag(GameObject parent, string tag)
+        {
+            foreach (Transform child in parent.transform)
+            {
+                if (child.CompareTag(tag))
+                {
+                    return child.gameObject;
+                }
+            }
+            return null;
         }
     }
 }

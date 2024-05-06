@@ -13,8 +13,8 @@ public class ACC_SubtitlesManager : MonoBehaviour
 {
     private TextMeshProUGUI subtitleText;
     private Image backgroundColor;
-    private bool showActorsName;
-    private Color? actorFontColor;
+    private bool showActorsName, showActorNameColors;
+    // private Color? actorFontColor;
     
     private bool canPlaySubtitle;
     private int currentIndex;
@@ -26,7 +26,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         subtitleText = GameObject.Find(gameObject.name + "/ACC_SubtitleText").GetComponent<TextMeshProUGUI>();
         backgroundColor = GameObject.Find(gameObject.name + "/ACC_SubtitleBackground").GetComponent<Image>();
-        actorFontColor = null;
+        //actorFontColor = null;
     }
 
     void Update()
@@ -40,13 +40,21 @@ public class ACC_SubtitlesManager : MonoBehaviour
                 {
                     if (showActorsName)
                     {
-                        Color color;
-                        if (actorFontColor != null)
-                            color = (Color) actorFontColor;
-                        else color = loadedData.actors.Items.Find(actor => actor.value.actor == loadedData.subtitles.Items[currentIndex].value.actor).value.color;
+                        Color color = loadedData.actors.Items.Find(actor => actor.value.actor == loadedData.subtitles.Items[currentIndex].value.actor).value.color;
+                        // if (actorFontColor != null)
+                        //     color = (Color) actorFontColor;
+                        // else color = loadedData.actors.Items.Find(actor => actor.value.actor == loadedData.subtitles.Items[currentIndex].value.actor).value.color;
                         
-                        var hexColor = color.ToHexString();
-                        subtitleText.text = "<color=#" + hexColor + ">" + loadedData.subtitles.Items[currentIndex].value.actor + ": </color> " +  loadedData.subtitles.Items[currentIndex].value.subtitle;
+                        if (showActorNameColors)
+                        {
+                            var hexColor = color.ToHexString();
+                            subtitleText.text = "<color=#" + hexColor + ">" + loadedData.subtitles.Items[currentIndex].value.actor + ": </color> " +  loadedData.subtitles.Items[currentIndex].value.subtitle;
+                        }
+                        else
+                        {
+                            subtitleText.text = loadedData.subtitles.Items[currentIndex].value.actor + ": " + loadedData.subtitles.Items[currentIndex].value.subtitle;
+                        
+                        }
                     }
                     else
                         subtitleText.text = loadedData.subtitles.Items[currentIndex].value.subtitle;
@@ -86,10 +94,15 @@ public class ACC_SubtitlesManager : MonoBehaviour
             showActorsName = loadedData.showActors;
         }
         
-        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorFontColor))
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled))
         {
-            actorFontColor = loadedData.actors.Items[0].value.color;
+            showActorNameColors = loadedData.showActorsColors;
         }
+        
+        // if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorFontColor))
+        // {
+        //     actorFontColor = loadedData.actors.Items[0].value.color;
+        // }
         
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
         {
@@ -119,15 +132,20 @@ public class ACC_SubtitlesManager : MonoBehaviour
             new Vector2(0, subtitleText.preferredHeight);
     }
     
-    public void SetShowActorsName(bool showActors)
+    public void SetShowActorsName(bool showActorsName)
     {
-        showActorsName = showActors;
+        this.showActorsName = showActorsName;
+    }
+    
+    public void SetShowActorsNameColors(bool showActorNameColors)
+    {
+        this.showActorNameColors = showActorNameColors;
     }
 
-    public void SetActorFontColor(Color color)
-    {
-        actorFontColor = new Color(color.r, color.g, color.b, color.a);
-    }
+    // public void SetActorFontColor(Color color)
+    // {
+    //     actorFontColor = new Color(color.r, color.g, color.b, color.a);
+    // }
     
     public void SetTextFontColor(Color color)
     {
@@ -146,9 +164,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
 
     public void ResetSubtitlesSettings()
     {
-        actorFontColor = null;
         if (loadedData != null)
         {
+            showActorsName = loadedData.showActors;
+            showActorNameColors = loadedData.showActorsColors;
             subtitleText.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
                 loadedData.fontColor.b, loadedData.fontColor.a);
             backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,

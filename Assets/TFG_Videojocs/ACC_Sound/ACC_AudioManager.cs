@@ -22,7 +22,7 @@ namespace TFG_Videojocs.ACC_Sound
         {
             for(int i=0; i<transform.childCount; i++)
             {
-                if(transform.GetChild(i).CompareTag("ACC_AudioSettings"))
+                if(transform.GetChild(i).CompareTag("ACC_Prefab"))
                 {
                     audioSettingsContainer = transform.GetChild(i).gameObject;
                     for(int j=0; j<audioSettingsContainer.transform.childCount; j++)
@@ -214,6 +214,7 @@ namespace TFG_Videojocs.ACC_Sound
                 }
             }
 
+            if (audioSettingsContainer == null) return;
             foreach (Transform child in audioSettingsContainer.transform)
             {
                 if (child.CompareTag("ACC_Scroll"))
@@ -248,6 +249,7 @@ namespace TFG_Videojocs.ACC_Sound
                 }
             }
 
+            if (audioSettingsContainer == null) return;
             foreach (Transform child in audioSettingsContainer.transform)
             {
                 if (child.CompareTag("ACC_Scroll"))
