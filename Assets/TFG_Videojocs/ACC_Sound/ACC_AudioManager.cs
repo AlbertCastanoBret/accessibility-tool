@@ -46,7 +46,7 @@ namespace TFG_Videojocs.ACC_Sound
                             }
                         }
                         
-                        if(child.CompareTag("ACC_Button"))
+                        if(child.name == "ACC_ResetButton")
                         {
                             var button = child.GetComponent<Button>();
                             button.onClick.AddListener(ResetAudioSourceVolumes);

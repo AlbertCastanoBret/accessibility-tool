@@ -107,7 +107,12 @@ namespace TFG_Videojocs.ACC_Utilities
                 subtitleManager = GameObject.Instantiate(subtitleManager);
             }
             
-            RectTransform subtitleManagerTextRectTransform = subtitleManager.GetComponent<RectTransform>() ?? subtitleManager.AddComponent<RectTransform>();
+            RectTransform subtitleManagerTextRectTransform = subtitleManager.GetComponent<RectTransform>() == null ? subtitleManager.AddComponent<RectTransform>() : subtitleManager.GetComponent<RectTransform>();
+            subtitleManagerTextRectTransform.anchorMin = new Vector2(0, 0);
+            subtitleManagerTextRectTransform.anchorMax = new Vector2(1, 1);
+            subtitleManagerTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
+            subtitleManagerTextRectTransform.anchoredPosition = Vector3.zero;
+            subtitleManagerTextRectTransform.sizeDelta = new Vector2(0, 0);
 
             if (GetChildWithTag(subtitleManager, "ACC_Prefab") == null) GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_Subtitles/ACC_SubtitleSettings.prefab"), subtitleManager.transform, true);
 
@@ -147,12 +152,6 @@ namespace TFG_Videojocs.ACC_Utilities
             subtitleTextRectTransform.pivot = new Vector2(0.5f, 0);
             subtitleTextRectTransform.anchoredPosition = new Vector2(0, 70);
             subtitleTextRectTransform.sizeDelta = new Vector2(0, 40);
-            
-            subtitleManagerTextRectTransform.anchorMin = new Vector2(0, 0);
-            subtitleManagerTextRectTransform.anchorMax = new Vector2(1, 1);
-            subtitleManagerTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
-            subtitleManagerTextRectTransform.anchoredPosition = new Vector2(0, 0);
-            subtitleManagerTextRectTransform.sizeDelta = new Vector2(0, 0);
 
             var accSubtitlesManager = subtitleManager.GetComponent<ACC_SubtitlesManager>() ?? subtitleManager.AddComponent<ACC_SubtitlesManager>();
 
