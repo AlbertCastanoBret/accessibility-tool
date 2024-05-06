@@ -56,11 +56,10 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                         var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment) : null;
                                         dropdown.value = key switch
                                         {
-                                            "Default" => 0,
-                                            "Left" => 1,
-                                            "Center" => 2,
-                                            "Right" => 3,
-                                            _ => 0
+                                            "Left" => 0,
+                                            "Center" => 1,
+                                            "Right" => 2,
+                                            _ => -1
                                         };
                                         dropdown.onValueChanged.AddListener((value) =>
                                         {
@@ -80,6 +79,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                                         };
                                                     }
                                                     SetHorizontalAlignment(newValue);
+                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
                                                     return;
                                                 case 1:
                                                     newValue = 0;
@@ -101,11 +101,10 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                         var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment) : null;
                                         dropdown.value = key switch
                                         {
-                                            "Default" => 0,
-                                            "Top" => 1,
-                                            "Center" => 2,
-                                            "Down" => 3,
-                                            _ => 0
+                                            "Top" => 0,
+                                            "Center" => 1,
+                                            "Down" => 2,
+                                            _ => -1
                                         };
                                         dropdown.onValueChanged.AddListener((value) =>
                                         {
@@ -125,6 +124,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                                         };
                                                     }
                                                     SetHorizontalAlignment(newValue);
+                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
                                                     return;
                                                 case 1:
                                                     newValue = 0;
@@ -143,9 +143,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_ColorSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor) : null;
-                                        if (key == "Default") dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        else if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor), out Color loadedFontColor)
+                                        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor), out Color loadedFontColor)
                                             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
                                         {
                                             dropdown.GetComponent<TMP_Dropdown>().value = loadedFontColor == Color.red ? 1 : loadedFontColor == Color.green ? 2 : loadedFontColor == Color.blue ? 3 : 4;
@@ -163,6 +161,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                                 case 0:
                                                     color = loadedData != null ? new Color(loadedData.fontColor.r, loadedData.fontColor.g, loadedData.fontColor.b, loadedData.fontColor.a) : Color.black;
                                                     text.color = color;
+                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
                                                     return;
                                                 case 1:
                                                     color = Color.red;
@@ -184,9 +183,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_BackgroundColor")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor) : null;
-                                        if (key == "Default") dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        else if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color loadedBackgroundColor)
+                                        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color loadedBackgroundColor)
                                                  && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
                                         {
                                             dropdown.GetComponent<TMP_Dropdown>().value = loadedBackgroundColor == Color.white ? 1 : loadedBackgroundColor == Color.red ? 2 : loadedBackgroundColor ==  Color.green ? 3 : 4;
@@ -203,6 +200,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                                 case 0:
                                                     color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : Color.black;
                                                     backgroundColor.color = color;
+                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor);
                                                     return;
                                                 case 1:
                                                     color = Color.white;
@@ -220,9 +218,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_FontSizeSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize) : null;
-                                        if (key == "Default") dropdown.GetComponent<TMP_Dropdown>().value = 1;
-                                        else if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize))
+                                        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize))
                                         {
                                             double TOLERANCE = 0.00001f;
                                             dropdown.GetComponent<TMP_Dropdown>().value = Math.Abs(PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize) - 20) < TOLERANCE ? 1 : 
@@ -241,6 +237,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                                 case 0:
                                                     size = loadedData?.fontSize ?? 50;
                                                     text.fontSize = size;
+                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
                                                     return;
                                                 case 1:
                                                     size = 20;
@@ -324,7 +321,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         if(visualNotificationToggle != null) visualNotificationToggle.GetComponent<Toggle>().isOn = state;
         ACC_AccessibilityManager.Instance.visualNotificationEnabled = state;
     }
-    
     public void LoadVisualNotification(string jsonFile)
     {
         loadedData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>("ACC_VisualNotification/" + jsonFile);

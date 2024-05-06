@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,6 +39,31 @@ namespace TFG_Videojocs.ACC_HighContrast
                                             {
                                                 ACC_AccessibilityManager.Instance.VisualAccessibility.
                                                     SetFeatureState(VisibilityFeatures.HighContrast, value);
+                                            });
+                                        }
+
+                                        if (settingsOption.name == "ACC_HighContrastSelector")
+                                        {
+                                            var allFiles = ACC_JSONHelper
+                                                .LoadAllFiles<ACC_HighContrastData>("ACC_HighContrast").ToList();
+                                            var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                                            dropdown.ClearOptions();
+                                            dropdown.AddOptions(allFiles.Select(x => x.name).ToList());
+                                            
+                                            var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration)
+                                                ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration)
+                                                : string.Empty;
+                                            if (!String.IsNullOrEmpty(key))
+                                            {
+                                                var index = allFiles.FindIndex(x => x.name == key);
+                                                dropdown.value = index;
+                                            }
+                                            else dropdown.value = 0;
+                                            
+                                            dropdown.onValueChanged.AddListener((value) =>
+                                            {
+                                               ACC_AccessibilityManager.Instance.VisualAccessibility.
+                                                   ChangeHighContrastConfiguration(allFiles[value].name);
                                             });
                                         }
                                     }

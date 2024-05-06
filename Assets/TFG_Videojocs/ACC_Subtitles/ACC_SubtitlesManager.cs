@@ -75,9 +75,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_ColorSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor) : null;
-                                        if (key == "Default") dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        else if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedFontColor)
+                                        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedFontColor)
                                             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
                                         {
                                             dropdown.GetComponent<TMP_Dropdown>().value = loadedFontColor == Color.red ? 1 : loadedFontColor == Color.green ? 2 : loadedFontColor == Color.blue ? 3 : 4;
@@ -95,6 +93,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                                 case 0:
                                                     color = loadedData != null ? new Color(loadedData.fontColor.r, loadedData.fontColor.g, loadedData.fontColor.b, loadedData.fontColor.a) : Color.black;
                                                     subtitleText.color = color;
+                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
                                                     return;
                                                 case 1:
                                                     color = Color.red;
@@ -116,9 +115,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_BackgroundColor")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor) : null;
-                                        if (key == "Default") dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        else if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor), out Color loadedBackgroundColor)
+                                        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor), out Color loadedBackgroundColor)
                                                  && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
                                         {
                                             dropdown.GetComponent<TMP_Dropdown>().value = loadedBackgroundColor == Color.white ? 1 : loadedBackgroundColor == Color.red ? 2 : loadedBackgroundColor ==  Color.green ? 3 : 4;
@@ -135,6 +132,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                                 case 0:
                                                     color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : Color.black;
                                                     backgroundColor.color = color;
+                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
                                                     return;
                                                 case 1:
                                                     color = Color.white;
@@ -152,9 +150,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_FontSizeSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontSize) : null;
-                                        if (key == "Default") dropdown.GetComponent<TMP_Dropdown>().value = 1;
-                                        else if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize))
+                                        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize))
                                         {
                                             double TOLERANCE = 0.00001f;
                                             dropdown.GetComponent<TMP_Dropdown>().value = Math.Abs(PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize) - 20) < TOLERANCE ? 1 : 
@@ -173,6 +169,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                                 case 0:
                                                     size = loadedData?.fontSize ?? 50;
                                                     subtitleText.fontSize = size;
+                                                       PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
                                                     return;
                                                 case 1:
                                                     size = 20;

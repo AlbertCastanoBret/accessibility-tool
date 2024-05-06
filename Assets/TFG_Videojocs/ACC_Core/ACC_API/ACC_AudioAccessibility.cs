@@ -274,7 +274,7 @@ public class ACC_AudioAccessibility
     /// <param name="alignment">An integer representing the desired horizontal alignment: 0 for Left, 1 for Center, and 2 for Right. Any other value logs an error.</param>
     public void ChangeVisualNotificationHorizontalAlignment(int alignment)
     {
-        if (alignment is 0 or 1 or 2 or -1)
+        if (alignment is 0 or 1 or 2)
         {
             accVisualNotificationManager.SetHorizontalAlignment(alignment);
             PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, alignment switch
@@ -282,7 +282,6 @@ public class ACC_AudioAccessibility
                 0 => "Left",
                 1 => "Center",
                 2 => "Right",
-                _ => "Default"
             });
         }
         else Debug.LogError("Wrong parameter entered");
@@ -307,7 +306,7 @@ public class ACC_AudioAccessibility
     /// <param name="alignment">An integer representing the desired vertical alignment: 0 for Top, 1 for Center, and 2 for Down. Any other value results in an error.</param>
     public void ChangeVisualNotificationVerticalAlignment(int alignment)
     {
-        if (alignment is 0 or 1 or 2 or -1)
+        if (alignment is 0 or 1 or 2)
         {
              accVisualNotificationManager.SetVerticalAlignment(alignment);
              PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, alignment switch
@@ -315,7 +314,6 @@ public class ACC_AudioAccessibility
                  0 => "Top",
                  1 => "Center",
                  2 => "Down",
-                 _ => "Default"
              });
         }
         else Debug.LogError("Wrong parameter entered");
