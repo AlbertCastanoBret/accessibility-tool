@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TFG_Videojocs.ACC_HighContrast
 {
@@ -9,10 +10,53 @@ namespace TFG_Videojocs.ACC_HighContrast
     {
         private ACC_HighContrastData loadedData;
         private bool isEnabled;
+        private GameObject highContrastSettings, highContrastToggle;
+
+        private void Awake()
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.CompareTag("ACC_Prefab"))
+                {
+                    highContrastSettings = child.gameObject;
+                    foreach (Transform settingComponent in highContrastSettings.transform)
+                    {
+                        if (settingComponent.CompareTag("ACC_Scroll"))
+                        {
+                            foreach (Transform scrollComponent in settingComponent)
+                            {
+                                if (scrollComponent.CompareTag("ACC_ScrollList"))
+                                {
+                                    foreach (Transform settingsOption in scrollComponent)
+                                    {
+                                        if (settingsOption.name == "ACC_HighContrastEnable")
+                                        {
+                                            highContrastToggle = settingsOption.Find("Toggle").gameObject;
+                                            var toggleComponent = highContrastToggle.GetComponent<Toggle>();
+                                            toggleComponent.onValueChanged.AddListener((value) =>
+                                            {
+                                                ACC_AccessibilityManager.Instance.VisualAccessibility.
+                                                    SetFeatureState(VisibilityFeatures.HighContrast, value);
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         public void SetHighContrastMode(bool state)
         {
             if (state) EnableHighContrastMode();
             else DisableHighContrastMode();
+            PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled, state ? 1 : 0);
+            PlayerPrefs.Save();
+            
+            if (highContrastToggle != null) highContrastToggle.GetComponent<Toggle>().isOn = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+            ACC_AccessibilityManager.Instance.highContrastEnabled = state;
         }
         private void EnableHighContrastMode()
         {
@@ -71,6 +115,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                             MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0);
+                            renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                         }
                     }
                 }

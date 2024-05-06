@@ -155,11 +155,11 @@ public class ACC_MainWindow : EditorWindow
                 break;
             case "HighContrast":
                 DefaultBox( box, 
-                    new List<string> {"Create a high-contrast configuration", "Edit high-contrast configuration", "Settings"}, 
+                    new List<string> {"Create a high-contrast configuration", "Edit high-contrast configuration", "Edit Prefab", "Settings"}, 
                     () => DefaultCreateAction("Create", ACC_HighContrastEditorWindow.ShowWindow), 
                     () => DefaultLoadAction<ACC_HighContrastEditorWindow, ACC_HighContrastEditorWindowController, ACC_HighContrastData>(
                         "ACC_HighContrast/", "Select a configuration:", ACC_HighContrastEditorWindow.ShowWindow),
-                    HighContrastSettings);
+                    HighContrastSettings, "HighContrast");
                 break;
         }
     }
@@ -433,7 +433,20 @@ public class ACC_MainWindow : EditorWindow
             }
             else
             {
-                if (extraAction != null) dynamicContainer.Add(extraAction.Invoke());
+                if (evt.newValue == options[2])
+                {
+                    var loadPrefabContainer = new VisualElement();
+                    var loadPrefabButton = new Button() { text = "Edit Prefab" };
+                    loadPrefabButton.AddToClassList("create-button");
+                    loadPrefabButton.clicked += () => { LoadPrefab(prefabName); };
+
+                    loadPrefabContainer.Add(loadPrefabButton);
+                    dynamicContainer.Add(loadPrefabContainer);
+                }
+                else if (extraAction != null)
+                {
+                    dynamicContainer.Add(extraAction.Invoke());
+                }
                 else
                 {
                     var loadPrefabContainer = new VisualElement();

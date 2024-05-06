@@ -25,7 +25,7 @@ namespace TFG_Videojocs
         public ACC_AudioAccessibility AudioAccessibility { get; private set;}
         
         [Header("Visual Accessibility")]
-        [SerializeField] private bool highContrastEnabled;
+        [SerializeField] internal bool highContrastEnabled;
         [HideInInspector] public bool shadersAdded, isPrevisualizing;
         
         public ACC_VisualAccessibility VisualAccessibility { get; private set; }

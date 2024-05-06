@@ -70,7 +70,7 @@ namespace TFG_Videojocs.ACC_Utilities
                     gameObject = CreateVisualNotificationManager(gameObject, newPrefab);
                     break;
                 case "HighContrast":
-                    gameObject.AddComponent<ACC_HighContrastManager>();
+                    gameObject = CreateHighContrastManager(gameObject, newPrefab);
                     break;
                 case "RemapControls":
                     CreateRemapControlsManager(gameObject, jsonFile);
@@ -214,6 +214,27 @@ namespace TFG_Videojocs.ACC_Utilities
             var accVisualNotificationManager = visualNotificationManager.GetComponent<ACC_VisualNotificationManager>() ?? visualNotificationManager.AddComponent<ACC_VisualNotificationManager>();
 
             return visualNotificationManager;
+        }
+
+        private static GameObject CreateHighContrastManager(GameObject highContrastManager, bool newPrefab)
+        {
+            if (!newPrefab)
+            {
+                highContrastManager = GameObject.Instantiate(highContrastManager);
+            }
+            
+            RectTransform subtitleManagerTextRectTransform = highContrastManager.GetComponent<RectTransform>() == null ? highContrastManager.AddComponent<RectTransform>() : highContrastManager.GetComponent<RectTransform>();
+            subtitleManagerTextRectTransform.anchorMin = new Vector2(0, 0);
+            subtitleManagerTextRectTransform.anchorMax = new Vector2(1, 1);
+            subtitleManagerTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
+            subtitleManagerTextRectTransform.anchoredPosition = Vector3.zero;
+            subtitleManagerTextRectTransform.sizeDelta = new Vector2(0, 0);
+            
+            if (GetChildWithTag(highContrastManager, "ACC_Prefab") == null) GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_HighContrast/ACC_HighContrastSettings.prefab"), highContrastManager.transform, true);
+            
+            var accHighContrastManager = highContrastManager.GetComponent<ACC_HighContrastManager>() ?? highContrastManager.AddComponent<ACC_HighContrastManager>();
+            
+            return highContrastManager;
         }
         private static void CreateRemapControlsManager(GameObject remapControlsManager, string jsonFile)
         {

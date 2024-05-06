@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_Utilities;
+using UnityEngine;
 
 namespace TFG_Videojocs
 {
@@ -15,7 +16,7 @@ namespace TFG_Videojocs
         
         public ACC_VisualAccessibility()
         {
-            accHighContrastManager = ACC_PrefabHelper.InstantiatePrefabAsChild("HighContrast", ACC_AccessibilityManager.Instance.gameObject).GetComponent<ACC_HighContrastManager>();
+            accHighContrastManager = ACC_PrefabHelper.InstantiatePrefabAsChild("HighContrast", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_HighContrastManager>();
         }
         
         /// <summary>
@@ -32,6 +33,22 @@ namespace TFG_Videojocs
                     break;
             }
         }
+        
+        /// <summary>
+        /// Retrieves the enabled state of a specified visibility feature.
+        /// </summary>
+        /// <param name="feature">The visibility feature to check, e.g., high contrast.</param>
+        /// <returns>True if the specified feature is enabled, false otherwise.</returns>
+        public bool GetFeatureState(VisibilityFeatures feature)
+        {
+            switch (feature)
+            {
+                case VisibilityFeatures.HighContrast:
+                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+                default:
+                    return false;
+            }
+        }
 
         /// <summary>
         /// Changes the high contrast configuration based on the provided JSON configuration file.
@@ -46,10 +63,6 @@ namespace TFG_Videojocs
         /// Retrieves a list of available high contrast configurations.
         /// </summary>
         /// <returns>A list of strings representing the names of available high contrast configurations.</returns>
-        /// <remarks>
-        /// Delegates the call to the 'accHighContrastManager' to fetch the actual configurations.
-        /// This method can be useful for displaying configuration options in a user interface or for debugging purposes.
-        /// </remarks>
         public List<string> GetHighContrastConfigurations()
         {
             return accHighContrastManager.GetHighContrastConfigurations();

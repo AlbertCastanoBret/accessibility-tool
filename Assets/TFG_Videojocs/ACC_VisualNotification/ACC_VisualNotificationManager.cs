@@ -259,7 +259,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             }
         }
     }
-
+    
     private void Update()
     {
         if (canPlaySubtitleNotification)

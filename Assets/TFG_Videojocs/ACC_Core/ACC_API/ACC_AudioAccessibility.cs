@@ -282,7 +282,7 @@ public class ACC_AudioAccessibility
                 0 => "Left",
                 1 => "Center",
                 2 => "Right",
-                -1 => "Default"
+                _ => "Default"
             });
         }
         else Debug.LogError("Wrong parameter entered");
@@ -307,7 +307,7 @@ public class ACC_AudioAccessibility
     /// <param name="alignment">An integer representing the desired vertical alignment: 0 for Top, 1 for Center, and 2 for Down. Any other value results in an error.</param>
     public void ChangeVisualNotificationVerticalAlignment(int alignment)
     {
-        if (alignment is 0 or 1 or 2)
+        if (alignment is 0 or 1 or 2 or -1)
         {
              accVisualNotificationManager.SetVerticalAlignment(alignment);
              PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, alignment switch
