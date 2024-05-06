@@ -41,7 +41,6 @@ namespace TFG_Videojocs.ACC_HighContrast
                                                     SetFeatureState(VisibilityFeatures.HighContrast, value);
                                             });
                                         }
-
                                         if (settingsOption.name == "ACC_HighContrastSelector")
                                         {
                                             var allFiles = ACC_JSONHelper
@@ -70,6 +69,15 @@ namespace TFG_Videojocs.ACC_HighContrast
                                 }
                             }
                         }
+                        
+                        if(settingComponent.name == "ACC_ResetButton")
+                        {
+                            var button = settingComponent.GetComponent<Button>();
+                            button.onClick.AddListener(() =>
+                            {
+                                ACC_AccessibilityManager.Instance.VisualAccessibility.ResetHighContrastConfiguration();
+                            });
+                        }
                     }
                 }
             }
@@ -79,6 +87,7 @@ namespace TFG_Videojocs.ACC_HighContrast
         {
             if (state) EnableHighContrastMode();
             else DisableHighContrastMode();
+            
             PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled, state ? 1 : 0);
             PlayerPrefs.Save();
             
@@ -102,8 +111,14 @@ namespace TFG_Videojocs.ACC_HighContrast
                             var materials = renderer.sharedMaterials;
                             materials[^2].renderQueue = -50;
                             
+                            MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
+                            renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
+                            propColorBlock.SetColor("_Color", new Color(0.3679245f, 0.3679245f, 0.3679245f, 1));
+                            renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
+                            
                             MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
+                            propOutlineBlock.SetColor("_OutlineColor", Color.white);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0.6f);
                             renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             
@@ -219,6 +234,19 @@ namespace TFG_Videojocs.ACC_HighContrast
                     return material.GetTexture("_OcclusionMap");
             }
             return null;
+        }
+        public void ResetHighContrastConfiguration()
+        {
+            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
+            PlayerPrefs.Save();
+            DisableHighContrastMode();
+            
+            if(PlayerPrefs.HasKey( ACC_AccessibilitySettingsKeys.HighContrastEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1)
+            {
+                EnableHighContrastMode();
+            }
+            
+            if (highContrastToggle != null) highContrastToggle.GetComponent<Toggle>().isOn = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
         }
     }
 }

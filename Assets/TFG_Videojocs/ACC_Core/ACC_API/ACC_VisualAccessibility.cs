@@ -67,5 +67,10 @@ namespace TFG_Videojocs
         {
             return accHighContrastManager.GetHighContrastConfigurations();
         }
+        
+        public void ResetHighContrastConfiguration()
+        {
+            accHighContrastManager.ResetHighContrastConfiguration();
+        }
     }
 }
