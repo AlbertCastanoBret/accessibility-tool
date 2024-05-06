@@ -197,7 +197,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
             }
         }
     }
-
     void Update()
     {
         if (canPlaySubtitle)
@@ -245,8 +244,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         loadedData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>("ACC_Subtitles/" + jsonFile);
     }
-    
-
     public void PlaySubtitle()
     {
         canPlaySubtitle = true;
@@ -281,7 +278,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
             subtitleText.fontSize = loadedData.fontSize;
         }
     }
-
     public void UpdateSize()
     {
         subtitleText.GetComponent<RectTransform>().sizeDelta = 
@@ -289,33 +285,47 @@ public class ACC_SubtitlesManager : MonoBehaviour
         backgroundColor.GetComponent<RectTransform>().sizeDelta =
             new Vector2(0, subtitleText.preferredHeight);
     }
-    
     public void SetShowActorsName(bool showActorsName)
     {
         this.showActorsName = showActorsName;
         
     }
-    
+    public bool GetShowActorsName()
+    {
+        return showActorsName;
+    }
     public void SetShowActorsNameColors(bool showActorNameColors)
     {
         this.showActorNameColors = showActorNameColors;
     }
-    
+    public bool GetShowActorsNameColors()
+    {
+        return showActorNameColors;
+    }
     public void SetTextFontColor(Color color)
     {
         subtitleText.color = new Color(color.r, color.g, color.b, color.a);
     }
-    
+    public Color GetTextFontColor()
+    {
+        return subtitleText.color;
+    }
     public void SetBackgroundColor(Color color)
     {
         backgroundColor.color = new Color(color.r, color.g, color.b, color.a);
     }
-    
+    public Color GetBackgroundColor()
+    {
+        return backgroundColor.color;
+    }
     public void SetFontSize(int size)
     {
         subtitleText.fontSize = size;
     }
-
+    public float GetFontSize()
+    {
+        return subtitleText.fontSize;
+    }
     public void ResetSubtitlesSettings()
     {
         if (loadedData != null)

@@ -90,7 +90,7 @@ public class ACC_AudioAccessibility
         {
             return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameEnabled) == 1;
         }
-        return false;
+        return accSubtitlesManager.GetShowActorsName();
     }
     
     /// <summary>
@@ -114,33 +114,8 @@ public class ACC_AudioAccessibility
         {
             return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled) == 1;
         }
-        return false;
+        return accSubtitlesManager.GetShowActorsNameColors();
     }
-    
-    // /// <summary>
-    // /// Changes the actor font color to the new specified color and saves this preference for future sessions.
-    // /// </summary>
-    // /// <param name="newColor">The new color to be applied to the actor text font. This color will also be saved in the user's preferences.</param>
-    // public void ChangeActorFontColor(Color newColor)
-    // {
-    //     PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.ActorFontColor, ColorUtility.ToHtmlStringRGBA(newColor));
-    //     PlayerPrefs.Save();
-    //     accSubtitlesManager.SetActorFontColor(newColor);
-    // }
-    
-    // /// <summary>
-    // /// Retrieves the user's preferred actor text font color from PlayerPrefs.
-    // /// </summary>
-    // /// <returns>The Color object representing the user's preferred actor text font color. Returns black with full opacity if no preference is saved.</returns>
-    // public Color GetActorFontColor()
-    // {
-    //     if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.ActorFontColor), out Color loadedFontColor)
-    //         && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorFontColor))
-    //     {
-    //         return loadedFontColor;
-    //     }
-    //     return new Color(0,0,0,1);
-    // }
 
     /// <summary>
     /// Changes the subtitle font color to the new specified color and saves this preference for future sessions.
@@ -154,9 +129,9 @@ public class ACC_AudioAccessibility
     }
 
     /// <summary>
-    /// Retrieves the user's preferred subtitle text font color from PlayerPrefs.
+    /// Retrieves the preferred subtitle font color from user settings.
     /// </summary>
-    /// <returns>The Color object representing the user's preferred subtitle text font color. Returns black with full opacity if no preference is saved.</returns>
+    /// <returns>The Color object for the subtitle text. Defaults to the subtitle manager's color if no specific preference is set.</returns>
     public Color GetSubtitleFontColor()
     {
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedFontColor)
@@ -164,7 +139,7 @@ public class ACC_AudioAccessibility
         {
             return loadedFontColor;
         }
-        return new Color(0,0,0,1);
+        return accSubtitlesManager.GetTextFontColor();
     }
 
     /// <summary>
@@ -189,7 +164,7 @@ public class ACC_AudioAccessibility
         {
             return loadedBackgroundColor;
         }
-        return new Color(1,1,1,0);
+        return accSubtitlesManager.GetBackgroundColor();
     }
     
     /// <summary>
@@ -205,16 +180,16 @@ public class ACC_AudioAccessibility
     }
 
     /// <summary>
-    /// Retrieves the user's preferred subtitle font size from PlayerPrefs.
+    /// Retrieves the user's preferred subtitle font size from settings.
     /// </summary>
-    /// <returns>The font size of subtitles as a float. Returns a default size of 30 if no preference has been saved.</returns>
+    /// <returns>The font size for subtitles as a float. Returns the default size if no preference is set.</returns>
     public float GetSubtitleFontSize()
     {
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize))
         {
             return PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
         }
-        return 30;
+        return accSubtitlesManager.GetFontSize();
     }
     
     /// <summary>
@@ -247,12 +222,6 @@ public class ACC_AudioAccessibility
         {
             accSubtitlesManager.SetShowActorsNameColors(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled) == 1);
         }
-        
-        // if (ColorUtility.TryParseHtmlString("#"+PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.ActorFontColor), out Color loadedActorFontColor)
-        //     && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorFontColor))
-        // {
-        //     accSubtitlesManager.SetActorFontColor(loadedActorFontColor);
-        // }
         
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedTextFontColor)
             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
