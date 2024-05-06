@@ -84,6 +84,8 @@ namespace TFG_Videojocs
         {
             LoadAllUserPreferences();
             //AudioAccessibility.ResetVisualNotificationSettings();
+            //AudioAccessibility.ChangeSubtitleFontSize(20);
+            //AudioAccessibility.ShowActorsName(false);
             AudioAccessibility.PlaySubtitle("A");
             MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             //AudioAccessibility.ResetSubtitleSettings();

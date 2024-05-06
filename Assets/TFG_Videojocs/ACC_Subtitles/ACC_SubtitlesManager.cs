@@ -13,6 +13,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
 {
     private TextMeshProUGUI subtitleText;
     private Image backgroundColor;
+    private bool showActorsName;
     private Color? actorFontColor;
     
     private bool canPlaySubtitle;
@@ -37,7 +38,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
             {
                 if (currentIndex < loadedData.subtitles.Items.Count)
                 {
-                    if (loadedData.showActors)
+                    if (showActorsName)
                     {
                         Color color;
                         if (actorFontColor != null)
@@ -80,6 +81,16 @@ public class ACC_SubtitlesManager : MonoBehaviour
         backgroundColor.gameObject.SetActive(true);
         currentIndex = 0;
 
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled))
+        {
+            showActorsName = loadedData.showActors;
+        }
+        
+        if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorFontColor))
+        {
+            actorFontColor = loadedData.actors.Items[0].value.color;
+        }
+        
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
         {
             subtitleText.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
@@ -106,6 +117,11 @@ public class ACC_SubtitlesManager : MonoBehaviour
             new Vector2(0, subtitleText.preferredHeight);
         backgroundColor.GetComponent<RectTransform>().sizeDelta =
             new Vector2(0, subtitleText.preferredHeight);
+    }
+    
+    public void SetShowActorsName(bool showActors)
+    {
+        showActorsName = showActors;
     }
 
     public void SetActorFontColor(Color color)

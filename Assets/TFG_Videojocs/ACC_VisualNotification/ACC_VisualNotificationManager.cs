@@ -75,7 +75,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         text.text = loadedData.message;
         backgroundColor.gameObject.SetActive(true);
         startTime = Time.time;
-
+        
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
         {
             text.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
@@ -93,14 +93,13 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             text.fontSize = loadedData.fontSize;
         }
         
-        
         RectTransform rectTransform = GetComponent<RectTransform>();
         float horizontalAnchorMin = rectTransform.anchorMin.x;
         float horizontalAnchorMax = rectTransform.anchorMax.x;
         float verticalAnchorMin = rectTransform.anchorMin.y;
         float verticalAnchorMax = rectTransform.anchorMax.y;
         float posY = rectTransform.anchoredPosition.y;
-
+        
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
         {
             (horizontalAnchorMin, horizontalAnchorMax) = GetHorizontalAlignment();
@@ -146,6 +145,47 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     public void SetFontSize(int size)
     {
         text.fontSize = size;
+    }
+    
+    public void SetHorizontalAlignment(int alignment)
+    {
+        switch (alignment)
+        {
+            case 0:
+                GetComponent<RectTransform>().anchorMin = new Vector2(0.1f, GetComponent<RectTransform>().anchorMin.y);
+                GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, GetComponent<RectTransform>().anchorMax.y);
+                break;
+            case 1:
+                GetComponent<RectTransform>().anchorMin = new Vector2(0.3f, GetComponent<RectTransform>().anchorMin.y);
+                GetComponent<RectTransform>().anchorMax = new Vector2(0.7f, GetComponent<RectTransform>().anchorMax.y);
+                break;
+            case 2:
+                GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, GetComponent<RectTransform>().anchorMin.y);
+                GetComponent<RectTransform>().anchorMax = new Vector2(0.9f, GetComponent<RectTransform>().anchorMax.y);
+                break;
+        }
+    }
+    
+    public void SetVerticalAlignment(int alignment)
+    {
+        switch (alignment)
+        {
+            case 0:
+                GetComponent<RectTransform>().anchorMin = new Vector2(GetComponent<RectTransform>().anchorMin.x, 1);
+                GetComponent<RectTransform>().anchorMax = new Vector2(GetComponent<RectTransform>().anchorMax.x, 1);
+                GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
+                break;
+            case 1:
+                GetComponent<RectTransform>().anchorMin = new Vector2(GetComponent<RectTransform>().anchorMin.x, 0.5f);
+                GetComponent<RectTransform>().anchorMax = new Vector2(GetComponent<RectTransform>().anchorMax.x, 0.5f);
+                GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                break;
+            case 2:
+                GetComponent<RectTransform>().anchorMin = new Vector2(GetComponent<RectTransform>().anchorMin.x, 0);
+                GetComponent<RectTransform>().anchorMax = new Vector2(GetComponent<RectTransform>().anchorMax.x, 0);
+                GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
+                break;
+        }
     }
     
     public void ResetVisualNotificationSettings()

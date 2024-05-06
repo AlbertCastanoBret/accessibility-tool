@@ -70,6 +70,30 @@ public class ACC_AudioAccessibility
     }
     
     /// <summary>
+    /// Toggles the display of actors' names based on the provided boolean value and saves this setting.
+    /// </summary>
+    /// <param name="show">If true, enables the display of actors' names; if false, disables it.</param>
+    public void ShowActorsName(bool show)
+    {
+        PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.ActorsNameEnabled, show ? 1 : 0);
+        PlayerPrefs.Save();
+        accSubtitlesManager.SetShowActorsName(show);
+    }
+    
+    /// <summary>
+    /// Retrieves the current setting for displaying actors' names.
+    /// </summary>
+    /// <returns>Returns true if the display of actors' names is enabled, otherwise returns false.</returns>
+    public bool GetActorsNameEnabled()
+    {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled))
+        {
+            return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameEnabled) == 1;
+        }
+        return false;
+    }
+    
+    /// <summary>
     /// Changes the actor font color to the new specified color and saves this preference for future sessions.
     /// </summary>
     /// <param name="newColor">The new color to be applied to the actor text font. This color will also be saved in the user's preferences.</param>
@@ -188,6 +212,10 @@ public class ACC_AudioAccessibility
 
     private void LoadUserPreferencesSubtitles()
     {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled))
+        {
+            accSubtitlesManager.SetShowActorsName(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameEnabled) == 1);
+        }
         if (ColorUtility.TryParseHtmlString("#"+PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.ActorFontColor), out Color loadedActorFontColor)
             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorFontColor))
         {
@@ -244,32 +272,16 @@ public class ACC_AudioAccessibility
     /// <param name="alignment">An integer representing the desired horizontal alignment: 0 for Left, 1 for Center, and 2 for Right. Any other value logs an error.</param>
     public void ChangeVisualNotificationHorizontalAlignment(int alignment)
     {
-        if (alignment == 0)
+        if (alignment is 0 or 1 or 2)
         {
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(0.1f,
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.y);
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f,
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y);
-            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, "Left");
-            PlayerPrefs.Save();
-        }
-        else if (alignment == 1)
-        {
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(0.3f,
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.y);
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(0.7f,
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y);
-            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, "Center");
-            PlayerPrefs.Save();
-        }
-        else if (alignment == 2)
-        {
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f,
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.y);
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(0.9f,
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y);
-            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, "Right");
-            PlayerPrefs.Save();
+            accVisualNotificationManager.SetHorizontalAlignment(alignment);
+            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, alignment switch
+            {
+                0 => "Left",
+                1 => "Center",
+                2 => "Right",
+                _ => "Error"
+            });
         }
         else Debug.LogError("Wrong parameter entered");
     }
@@ -294,35 +306,16 @@ public class ACC_AudioAccessibility
     /// <param name="alignment">An integer representing the desired vertical alignment: 0 for Top, 1 for Center, and 2 for Down. Any other value results in an error.</param>
     public void ChangeVisualNotificationVerticalAlignment(int alignment)
     {
-        if (alignment == 0)
+        if (alignment is 0 or 1 or 2)
         {
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 1);
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.x, 1);
-            accVisualNotificationManager.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
-            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, "Top");
-            PlayerPrefs.Save();
-        }
-        else if (alignment == 1)
-        {
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 0.5f);
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.x, 0.5f);
-            accVisualNotificationManager.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, "Center");
-            PlayerPrefs.Save();
-        }
-        else if (alignment == 2)
-        {
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 0);
-            accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.x, 0);
-            accVisualNotificationManager.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
-            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, "Down");
-            PlayerPrefs.Save();
+             accVisualNotificationManager.SetVerticalAlignment(alignment);
+             PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, alignment switch
+             {
+                 0 => "Top",
+                 1 => "Center",
+                 2 => "Down",
+                 _ => "Error"
+             });
         }
         else Debug.LogError("Wrong parameter entered");
     }
@@ -461,59 +454,24 @@ public class ACC_AudioAccessibility
     {
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
         {
-            string horizontalAlignment =
-                PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
-            if (horizontalAlignment == "Left")
+            accVisualNotificationManager.SetHorizontalAlignment(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment) switch
             {
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(0.1f,
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.y);
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f,
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y);
-            }
-            else if (horizontalAlignment == "Center")
-            {
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(0.3f,
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.y);
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(0.7f,
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y);
-            }
-            else if (horizontalAlignment == "Right")
-            {
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f,
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.y);
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(0.9f,
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.y);
-            }
+                "Left" => 0,
+                "Center" => 1,
+                "Right" => 2,
+                _ => 0
+            });
         }
 
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment))
         {
-            string verticalAlignment =
-                PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
-            if (verticalAlignment == "Top")
+            accVisualNotificationManager.SetVerticalAlignment(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment) switch
             {
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 1);
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.x, 1);
-                accVisualNotificationManager.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -100);
-            }
-            else if (verticalAlignment == "Center")
-            {
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 0.5f);
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.x, 0.5f);
-                accVisualNotificationManager.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-            }
-            else if (verticalAlignment == "Down")
-            {
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMin = new Vector2(
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMin.x, 0);
-                accVisualNotificationManager.GetComponent<RectTransform>().anchorMax = new Vector2(
-                    accVisualNotificationManager.GetComponent<RectTransform>().anchorMax.x, 0);
-                accVisualNotificationManager.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 100);
-            }
+                "Top" => 0,
+                "Center" => 1,
+                "Down" => 2,
+                _ => 0
+            });
         }
         
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor), out Color loadedFontColor)

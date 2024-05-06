@@ -338,11 +338,7 @@ namespace TFG_Videojocs.ACC_Utilities
             
             for (int i = 0; i < loadedData.audioSources.Items.Count; i++)
             {
-                if (loadedData.audioSources.Items[i].value.is3D)
-                {
-                    //Create3DAudioSource(loadedData.audioSources.Items[i].value);
-                    continue;
-                }
+                if (loadedData.audioSources.Items[i].value.is3D) { continue; }
                 CreateAudioSource(audioSources, audioSettings, loadedData.audioSources.Items[i].value);
             }
 
@@ -398,6 +394,7 @@ namespace TFG_Videojocs.ACC_Utilities
                 
                 GameObject audioSource = new GameObject {tag = "ACC_AudioSource", name = "ACC_AudioSource_" + gameObjectName + "_3D"};
                 audioSource.transform.SetParent(parentObject.transform);
+                audioSource.transform.localPosition = Vector3.zero;
             
                 audioSourceComponent = audioSource.AddComponent<AudioSource>();
             }

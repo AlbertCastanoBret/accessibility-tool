@@ -15,8 +15,8 @@ namespace TFG_Videojocs.ACC_Sound
         private GameObject audioSettingsContainer;
         private GameObject audioSourcesContainer;
         private bool isEnabled;
-        [HideInInspector] public ACC_SerializableDictiornary<int, ACC_AudioSourceData> audioSources = new ();
-        [HideInInspector] public ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, AudioClip>> audioClips = new ();
+        public ACC_SerializableDictiornary<int, ACC_AudioSourceData> audioSources = new ();
+        public ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, AudioClip>> audioClips = new ();
 
         private void Awake()
         {
@@ -98,6 +98,11 @@ namespace TFG_Videojocs.ACC_Sound
         public void PlaySound(string audioSource, string audioClip)
         {
             if (!isEnabled) return;
+            if (audioSourcesContainer.transform.Find(audioSource) == null)
+            {
+                Debug.LogError("Audio source not found");
+                return;
+            }
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -117,6 +122,11 @@ namespace TFG_Videojocs.ACC_Sound
         public void PlayOneShot(string audioSource, string audioClip)
         {
             if (!isEnabled) return;
+            if (audioSourcesContainer.transform.Find(audioSource) == null)
+            {
+                Debug.LogError("Audio source not found");
+                return;
+            }
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -135,6 +145,11 @@ namespace TFG_Videojocs.ACC_Sound
         public void StopSound(string audioSource)
         {
             if (!isEnabled) return;
+            if (audioSourcesContainer.transform.Find(audioSource) == null)
+            {
+                Debug.LogError("Audio source not found");
+                return;
+            }
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -153,6 +168,11 @@ namespace TFG_Videojocs.ACC_Sound
         public void SetVolume(string audioSource, float volume)
         {
             if (!isEnabled) return;
+            if (audioSourcesContainer.transform.Find(audioSource) == null)
+            {
+                Debug.LogError("Audio source not found");
+                return;
+            }
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
@@ -165,6 +185,11 @@ namespace TFG_Videojocs.ACC_Sound
         public float GetVolume(string audioSource)
         {
             if (!isEnabled) return 0;
+            if (audioSourcesContainer.transform.Find(audioSource) == null)
+            {
+                Debug.LogError("Audio source not found");
+                return 0;
+            }
             var currentAudioSource = audioSourcesContainer.transform.Find(audioSource).GetComponent<AudioSource>();
             if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
             {
