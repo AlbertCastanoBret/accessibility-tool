@@ -39,7 +39,7 @@ public class ACC_AudioAccessibility
         switch (feature)
         {
             case AudioFeatures.Subtitles:
-                accSubtitlesManager.gameObject.SetActive(state);
+                accSubtitlesManager.SetSubtitles(state);
                 break;
             case AudioFeatures.VisualNotification:
                 accVisualNotificationManager.gameObject.SetActive(state);

@@ -19,8 +19,8 @@ namespace TFG_Videojocs
         internal GameObject accCanvas { get; private set; }
         
         [Header("Audio Accessibility")]
-        [SerializeField] private bool subtitlesEnabled;
-        [SerializeField] private bool visualNotificationEnabled;
+        [SerializeField] internal bool subtitlesEnabled;
+        [SerializeField] internal bool visualNotificationEnabled;
         
         public ACC_AudioAccessibility AudioAccessibility { get; private set;}
         

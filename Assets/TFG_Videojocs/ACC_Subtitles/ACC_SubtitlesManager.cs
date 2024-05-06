@@ -15,7 +15,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
     private TextMeshProUGUI subtitleText;
     private Image backgroundColor;
     private bool showActorsName, showActorNameColors;
-    private GameObject subtitleSettings;
+    private GameObject subtitleSettings, subtitlesToggle;
     // private Color? actorFontColor;
     
     private bool canPlaySubtitle;
@@ -43,6 +43,15 @@ public class ACC_SubtitlesManager : MonoBehaviour
                             {
                                 foreach (Transform settingsOption in scrollComponent)
                                 {
+                                    if (settingsOption.name == "ACC_SubtitlesEnable")
+                                    {
+                                        subtitlesToggle = settingsOption.Find("Toggle").gameObject;
+                                        subtitlesToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
+                                        {
+                                            ACC_AccessibilityManager.Instance.AudioAccessibility.
+                                                SetFeatureState(AudioFeatures.Subtitles, value);
+                                        });
+                                    }
                                     if (settingsOption.name == "ACC_ShowActors")
                                     {
                                         var toggle = settingsOption.Find("Toggle");
@@ -85,7 +94,8 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                             {
                                                 case 0:
                                                     color = loadedData != null ? new Color(loadedData.fontColor.r, loadedData.fontColor.g, loadedData.fontColor.b, loadedData.fontColor.a) : Color.black;
-                                                    break;
+                                                    subtitleText.color = color;
+                                                    return;
                                                 case 1:
                                                     color = Color.red;
                                                     break;
@@ -123,9 +133,9 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                             switch (value)
                                             {
                                                 case 0:
-                                                    color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : 
-                                                            new Color(0,0,0,0);
-                                                    break;
+                                                    color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : Color.black;
+                                                    backgroundColor.color = color;
+                                                    return;
                                                 case 1:
                                                     color = Color.white;
                                                     break;
@@ -162,7 +172,8 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                             {
                                                 case 0:
                                                     size = loadedData?.fontSize ?? 50;
-                                                    break;
+                                                    subtitleText.fontSize = size;
+                                                    return;
                                                 case 1:
                                                     size = 20;
                                                     break;
@@ -236,6 +247,34 @@ public class ACC_SubtitlesManager : MonoBehaviour
         }
     }
 
+    public void SetSubtitles(bool state)
+    {
+        subtitleText.gameObject.SetActive(state);
+        backgroundColor.gameObject.SetActive(state);
+        if (state)
+        {
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
+            {
+                ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color fontColor);
+                backgroundColor.color = new Color(fontColor.r, fontColor.g, fontColor.b, fontColor.a);
+            }
+            else if (loadedData != null)
+            {
+                backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                    loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+            }
+        }
+        else
+        {
+            backgroundColor.color = new Color(0, 0, 0, 0);
+        }
+        
+        PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled, state ? 1 : 0);
+        PlayerPrefs.Save();
+        
+        if (subtitlesToggle != null) subtitlesToggle.GetComponent<Toggle>().isOn = state;
+        ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
+    }
     public void LoadSubtitles(string jsonFile)
     {
         loadedData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>("ACC_Subtitles/" + jsonFile);
@@ -244,7 +283,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         canPlaySubtitle = true;
         subtitleText.text = "";
-        backgroundColor.gameObject.SetActive(true);
         currentIndex = 0;
 
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled))
