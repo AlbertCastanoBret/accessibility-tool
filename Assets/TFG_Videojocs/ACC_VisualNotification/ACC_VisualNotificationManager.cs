@@ -151,9 +151,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
 
                                             if (value == 0)
                                             {
-                                                color = loadedData != null ? new Color(loadedData.fontColor.r, loadedData.fontColor.g, loadedData.fontColor.b, loadedData.fontColor.a) : Color.black;
-                                                this.text.color = color;
-                                                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
+                                                ACC_AccessibilityManager.Instance.AudioAccessibility.ResetVisualNotificationFontColor();
                                                 return;
                                             }
                                             color = ACC_ColorManager.ConvertTextToColor(text);
@@ -180,9 +178,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
 
                                             if (value == 0)
                                             {
-                                                color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : Color.black;
-                                                backgroundColor.color = color;
-                                                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
+                                                ACC_AccessibilityManager.Instance.AudioAccessibility.ResetVisualNotificationBackgroundColor();
                                                 return;
                                             }
                                             color = ACC_ColorManager.ConvertTextToColor(text);
@@ -206,9 +202,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                             switch (value)
                                             {
                                                 case 0:
-                                                    size = loadedData?.fontSize ?? 50;
-                                                    text.fontSize = size;
-                                                       PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+                                                    ACC_AccessibilityManager.Instance.AudioAccessibility.ResetVisualNotificationFontSize();
                                                     return;
                                                 case 1:
                                                     size = 20;
@@ -434,6 +428,40 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     {
         return text.color;
     }
+    public void ResetTextFontColor()
+    {
+        if (loadedData != null)
+        {
+            text.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
+                loadedData.fontColor.b, loadedData.fontColor.a);
+        }
+        
+        if (visualNotificationSettings != null)
+        {
+            foreach (Transform settingComponent in visualNotificationSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_ColorSelector")
+                                {
+                                    var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                                    dropdown.value = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
+        PlayerPrefs.Save();
+    }
     public void SetBackgroundColor(Color color)
     {
         backgroundColor.color = new Color(color.r, color.g, color.b, color.a);
@@ -442,6 +470,40 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     {
         return backgroundColor.color;
     }
+    public void ResetBackgroundColor()
+    {
+        if (loadedData != null)
+        {
+            backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+        }
+        
+        if (visualNotificationSettings != null)
+        {
+            foreach (Transform settingComponent in visualNotificationSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_BackgroundColor")
+                                {
+                                    var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                                    dropdown.value = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor);
+        PlayerPrefs.Save();
+    }
     public void SetFontSize(int size)
     {
         text.fontSize = size;
@@ -449,6 +511,39 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     public float GetFontSize()
     {
         return text.fontSize;
+    }
+    public void ResetTextFontSize()
+    {
+        if (loadedData != null)
+        {
+            text.fontSize = loadedData.fontSize;
+        }
+        
+        if (visualNotificationSettings != null)
+        {
+            foreach (Transform settingComponent in visualNotificationSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_FontSizeSelector")
+                                {
+                                    var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                                    dropdown.value = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
+        PlayerPrefs.Save();
     }
     public void SetHorizontalAlignment(int alignment)
     {
@@ -603,6 +698,12 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                 }
             }
         }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
+        PlayerPrefs.Save();
     }
     private (float horizontalAnchorMin, float horizontalAnchorMax) GetHorizontalAlignment()
     {

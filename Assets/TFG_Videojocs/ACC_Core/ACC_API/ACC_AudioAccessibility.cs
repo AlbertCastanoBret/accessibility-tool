@@ -198,8 +198,8 @@ public class ACC_AudioAccessibility
     }
     
     /// <summary>
-    /// Resets the actor name colors setting to the loaded value if available,
-    /// updates the relevant UI elements, and deletes the associated key from player preferences.
+    /// Resets the text font color setting to the loaded value if available,
+    /// updates the relevant UI elements, and removes the corresponding key from player preferences.
     /// </summary>
     public void ResetSubtitleFontColor()
     {
@@ -372,6 +372,11 @@ public class ACC_AudioAccessibility
         }
         return accVisualNotificationManager.GetCurrentHorizontalAlignment();
     }
+
+    public void ResetVisualNotificationHorizontalAlignment()
+    {
+        
+    }
     
     /// <summary>
     /// Adjusts the vertical alignment of visual notifications based on the specified alignment parameter and saves the preference.
@@ -400,6 +405,11 @@ public class ACC_AudioAccessibility
             return PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
         }
         return accVisualNotificationManager.GetCurrentVerticalAlignment();
+    }
+    
+    public void ResetVisualNotificationVerticalAlignment()
+    {
+        
     }
     
     /// <summary>
@@ -452,6 +462,15 @@ public class ACC_AudioAccessibility
     }
     
     /// <summary>
+    /// Resets the font size setting to the loaded value if available,
+    /// updates the relevant UI elements, and deletes the associated key from player preferences.
+    /// </summary>
+    public void ResetVisualNotificationFontColor()
+    {
+        accVisualNotificationManager.ResetTextFontColor();
+    }
+    
+    /// <summary>
     /// Changes the background color of visual notifications to a new specified color and saves this preference for future use.
     /// </summary>
     /// <param name="newColor">The new color to be applied to the background of visual notifications. This color will be saved in the user's preferences and applied immediately to the visual notification background.</param>
@@ -474,6 +493,15 @@ public class ACC_AudioAccessibility
             return loadedBackgroundColor;
         }
         return accVisualNotificationManager.GetBackgroundColor();
+    }
+    
+    /// <summary>
+    /// Resets the background color setting to the loaded value if available,
+    /// updates the relevant UI elements, and removes the associated key from player preferences.
+    /// </summary>
+    public void ResetVisualNotificationBackgroundColor()
+    {
+        accVisualNotificationManager.ResetBackgroundColor();
     }
     
     /// <summary>
@@ -502,6 +530,15 @@ public class ACC_AudioAccessibility
     }
     
     /// <summary>
+    /// Resets the font size setting to the loaded value if available,
+    /// updates the relevant UI elements, and deletes the associated key from player preferences.
+    /// </summary>
+    public void ResetVisualNotificationFontSize()
+    {
+        accVisualNotificationManager.ResetTextFontSize();
+    }
+    
+    /// <summary>
     /// Resets the visual notification settings to their default values by deleting specific PlayerPrefs keys related to visual notifications and updating the visual notification manager.
     /// </summary>
     /// <remarks>
@@ -510,12 +547,6 @@ public class ACC_AudioAccessibility
     /// </remarks>
     public void ResetVisualNotificationSettings()
     {
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor);
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
-        PlayerPrefs.Save();
         accVisualNotificationManager.ResetVisualNotificationSettings();
     }
     
