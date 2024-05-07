@@ -372,10 +372,14 @@ public class ACC_AudioAccessibility
         }
         return accVisualNotificationManager.GetCurrentHorizontalAlignment();
     }
-
+    
+    /// <summary>
+    /// Resets the horizontal alignment setting to the loaded value if available,
+    /// updates the relevant UI elements, and removes the corresponding key from player preferences.
+    /// </summary>
     public void ResetVisualNotificationHorizontalAlignment()
     {
-        
+        accVisualNotificationManager.ResetHorizontalAlignment();
     }
     
     /// <summary>
@@ -407,9 +411,13 @@ public class ACC_AudioAccessibility
         return accVisualNotificationManager.GetCurrentVerticalAlignment();
     }
     
+    /// <summary>
+    /// Resets the vertical alignment setting to the loaded value if available,
+    /// updates the relevant UI elements, and removes the corresponding key from player preferences.
+    /// </summary>
     public void ResetVisualNotificationVerticalAlignment()
     {
-        
+        accVisualNotificationManager.ResetVerticalAlignment();
     }
     
     /// <summary>

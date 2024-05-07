@@ -76,18 +76,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                             var newValue = -1;
                                             if (value == 0)
                                             {
-                                                if (loadedData != null)
-                                                {
-                                                    newValue = loadedData.horizontalAlignment switch
-                                                    {
-                                                        "Left" => 0,
-                                                        "Center" => 1,
-                                                        "Right" => 2,
-                                                        _ => -1
-                                                    };
-                                                }
-                                                SetHorizontalAlignment(newValue);
-                                                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
+                                                ACC_AccessibilityManager.Instance.AudioAccessibility.ResetVisualNotificationHorizontalAlignment();
                                                 return;
                                             }
                                             newValue = value - 1;
@@ -112,18 +101,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                             var newValue = -1;
                                             if (value == 0)
                                             {
-                                                if (loadedData != null)
-                                                {
-                                                    newValue = loadedData.verticalAlignment switch
-                                                    {
-                                                        "Top" => 0,
-                                                        "Center" => 1,
-                                                        "Down" => 2,
-                                                        _ => -1
-                                                    };
-                                                }
-                                                SetVerticalAlignment(newValue);
-                                                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
+                                                ACC_AccessibilityManager.Instance.AudioAccessibility.ResetVisualNotificationVerticalAlignment();
                                                 return;
                                             }
                                             newValue = value - 1;
@@ -591,6 +569,46 @@ public class ACC_VisualNotificationManager : MonoBehaviour
 
         return "Default";
     }
+    public void ResetHorizontalAlignment()
+    {
+        if (loadedData != null)
+        {
+            SetHorizontalAlignment(loadedData.horizontalAlignment switch
+            {
+                "Left" => 0,
+                "Center" => 1,
+                "Right" => 2,
+                _ => -1
+            });
+        }
+        
+        if (visualNotificationSettings != null)
+        {
+            foreach (Transform settingComponent in visualNotificationSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_HorizontalAlignment")
+                                {
+                                    var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                                    dropdown.value = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
+        PlayerPrefs.Save();
+    }
     public void SetVerticalAlignment(int alignment)
     {
         switch (alignment)
@@ -642,6 +660,46 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         }
 
         return "Default";
+    }
+    public void ResetVerticalAlignment()
+    {
+        if (loadedData != null)
+        {
+            SetVerticalAlignment(loadedData.verticalAlignment switch
+            {
+                "Top" => 0,
+                "Center" => 1,
+                "Down" => 2,
+                _ => -1
+            });
+        }
+        
+        if (visualNotificationSettings != null)
+        {
+            foreach (Transform settingComponent in visualNotificationSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_VerticalAlignment")
+                                {
+                                    var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                                    dropdown.value = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
+        PlayerPrefs.Save();
     }
     public void ResetVisualNotificationSettings()
     {
