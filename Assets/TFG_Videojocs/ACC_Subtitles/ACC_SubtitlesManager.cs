@@ -268,6 +268,15 @@ public class ACC_SubtitlesManager : MonoBehaviour
         ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
     }
     #endif
+    public void EnableSubtitlesMenu()
+    {
+        if (subtitleSettings != null) subtitleSettings.SetActive(true);
+    }
+    
+    public void DisableSubtitlesMenu()
+    {
+        if (subtitleSettings != null) subtitleSettings.SetActive(false);
+    }
     
     public void SetSubtitles(bool state)
     {

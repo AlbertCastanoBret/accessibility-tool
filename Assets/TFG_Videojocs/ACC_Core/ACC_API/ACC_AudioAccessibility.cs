@@ -94,7 +94,23 @@ public class ACC_AudioAccessibility
     }
 
     #region Subtitles
-    
+
+    /// <summary>
+    /// Enables the subtitles menu through the associated subtitles manager.
+    /// </summary>
+    public void EnableSubtitlesMenu()
+    {
+        accSubtitlesManager.EnableSubtitlesMenu();
+    }
+
+    /// <summary>
+    /// Disables the subtitles menu through the associated subtitles manager.
+    /// </summary>
+    public void DisableSubtitlesMenu()
+    {
+        accSubtitlesManager.DisableSubtitlesMenu();
+    }
+
     /// <summary>
     /// Plays the subtitle with the specified name after loading the user's subtitle preferences.
     /// </summary>
@@ -105,7 +121,7 @@ public class ACC_AudioAccessibility
         accSubtitlesManager.LoadSubtitles(name);
         accSubtitlesManager.PlaySubtitle();
     }
-    
+
     /// <summary>
     /// Toggles the display of actors' names based on the provided boolean value and saves this setting.
     /// </summary>
@@ -319,6 +335,22 @@ public class ACC_AudioAccessibility
 
     #region VisualNotification
 
+    /// <summary>
+    /// Enables the visual notification menu through the associated visual notification manager.
+    /// </summary>
+    public void EnableVisualNotificationMenu()
+    {
+        accVisualNotificationManager.EnableVisualNotificationMenu();
+    }
+
+    /// <summary>
+    /// Disables the visual notification menu through the associated visual notification manager.
+    /// </summary>
+    public void DisableVisualNotificationMenu()
+    {
+        accVisualNotificationManager.EnableVisualNotificationMenu();
+    }
+    
     /// <summary>
     /// Plays a visual notification based on a specified type.
     /// This function loads user preferences for visual notifications, then loads and plays the specified visual notification using the VisualNotificationManager.

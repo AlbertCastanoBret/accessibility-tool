@@ -73,6 +73,22 @@ namespace TFG_Videojocs
         #region HighContrast
 
         /// <summary>
+        /// Enables the visual notification menu through the associated visual notification manager.
+        /// </summary>
+        public void EnableVisualNotificationMenu()
+        {
+            accHighContrastManager.EnableHighContrastMenu();
+        }
+
+        /// <summary>
+        /// Disables the visual notification menu through the associated visual notification manager.
+        /// </summary>
+        public void DisableVisualNotificationMenu()
+        {
+            accHighContrastManager.DisableHighContrastMenu();
+        }
+        
+        /// <summary>
         /// Changes the high contrast configuration based on the provided JSON configuration file.
         /// </summary>
         /// <param name="configuration">The name of the configuration file within the 'ACC_HighContrast' directory.</param>

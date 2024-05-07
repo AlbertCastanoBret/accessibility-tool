@@ -99,6 +99,14 @@ namespace TFG_Videojocs.ACC_HighContrast
             ACC_AccessibilityManager.Instance.highContrastEnabled = state;
         }
 #endif
+        public void EnableHighContrastMenu()
+        {
+            if (highContrastSettings != null) highContrastSettings.SetActive(true);
+        }
+        public void DisableHighContrastMenu()
+        {
+            if(highContrastSettings != null) highContrastSettings.SetActive(false);
+        }
         public void SetHighContrastMode(bool state)
         {
             if (state) EnableHighContrastMode();

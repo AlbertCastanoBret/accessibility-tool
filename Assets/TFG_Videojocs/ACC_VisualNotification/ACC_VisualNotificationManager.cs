@@ -212,7 +212,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             }
         }
     }
-
     private void Update()
     {
         if (canPlaySubtitleNotification)
@@ -239,6 +238,14 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     }
 
     #if UNITY_EDITOR
+    public void EnableVisualNotificationMenu()
+    {
+        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(true);
+    }
+    public void DisableVisualNotificationMenu()
+    {
+        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(false);
+    }
     public void InitializeVisualNotification(bool state)
     {
         text.gameObject.SetActive(state);
