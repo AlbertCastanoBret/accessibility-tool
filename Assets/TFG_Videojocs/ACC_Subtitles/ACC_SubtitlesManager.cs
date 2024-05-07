@@ -38,6 +38,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
         {
             if (child.CompareTag("ACC_SubtitleText")) subtitleText = child.GetComponent<TextMeshProUGUI>();
             if (child.CompareTag("ACC_SubtitleBackground")) backgroundColor = child.GetComponent<Image>();
+            if (child.CompareTag("ACC_Prefab")) subtitleSettings = child.gameObject;
         }
     }
 
@@ -47,7 +48,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
         {
             if (child.CompareTag("ACC_Prefab"))
             {
-                subtitleSettings = child.gameObject;
                 foreach (Transform settingComponent in subtitleSettings.transform)
                 {
                     if (settingComponent.CompareTag("ACC_Scroll"))
@@ -191,7 +191,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
             }
         }
     }
-
     void Update()
     {
         if (canPlaySubtitle)
@@ -272,12 +271,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         if (subtitleSettings != null) subtitleSettings.SetActive(true);
     }
-    
     public void DisableSubtitlesMenu()
     {
         if (subtitleSettings != null) subtitleSettings.SetActive(false);
     }
-    
     public void SetSubtitles(bool state)
     {
         subtitleText.gameObject.SetActive(state);

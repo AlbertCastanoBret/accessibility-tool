@@ -14,13 +14,22 @@ namespace TFG_Videojocs.ACC_HighContrast
         private bool isEnabled;
         private GameObject highContrastSettings, highContrastToggle;
 
-        private void Start()
+        private void Awake()
         {
             foreach (Transform child in transform)
             {
                 if (child.CompareTag("ACC_Prefab"))
                 {
                     highContrastSettings = child.gameObject;
+                }
+            }
+        }
+        private void Start()
+        {
+            foreach (Transform child in transform)
+            {
+                if (child.CompareTag("ACC_Prefab"))
+                {
                     foreach (Transform settingComponent in highContrastSettings.transform)
                     {
                         if (settingComponent.CompareTag("ACC_Scroll"))
@@ -105,7 +114,7 @@ namespace TFG_Videojocs.ACC_HighContrast
         }
         public void DisableHighContrastMenu()
         {
-            if(highContrastSettings != null) highContrastSettings.SetActive(false);
+            if (highContrastSettings != null) highContrastSettings.SetActive(false);
         }
         public void SetHighContrastMode(bool state)
         {

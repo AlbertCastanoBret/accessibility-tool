@@ -73,7 +73,7 @@ namespace TFG_Videojocs
         #region HighContrast
 
         /// <summary>
-        /// Enables the visual notification menu through the associated visual notification manager.
+        /// Enables the high contrast menu through the associated high contrast manager.
         /// </summary>
         public void EnableVisualNotificationMenu()
         {
@@ -81,7 +81,7 @@ namespace TFG_Videojocs
         }
 
         /// <summary>
-        /// Disables the visual notification menu through the associated visual notification manager.
+        /// Disables the high contrast menu through the associated high contrast manager.
         /// </summary>
         public void DisableVisualNotificationMenu()
         {

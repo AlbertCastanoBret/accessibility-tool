@@ -28,6 +28,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         {
             if (child.CompareTag("ACC_VisualNotificationText")) text = child.GetComponent<TextMeshProUGUI>();
             if (child.CompareTag("ACC_VisualNotificationBackground")) backgroundColor = child.GetComponent<Image>();
+            if (child.CompareTag("ACC_Prefab")) visualNotificationSettings = child.gameObject;
         }
     }
 
@@ -37,7 +38,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         {
             if (child.CompareTag("ACC_Prefab"))
             {
-                visualNotificationSettings = child.gameObject;
                 foreach (Transform settingComponent in visualNotificationSettings.transform)
                 {
                     if (settingComponent.CompareTag("ACC_Scroll"))
@@ -238,14 +238,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     }
 
     #if UNITY_EDITOR
-    public void EnableVisualNotificationMenu()
-    {
-        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(true);
-    }
-    public void DisableVisualNotificationMenu()
-    {
-        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(false);
-    }
     public void InitializeVisualNotification(bool state)
     {
         text.gameObject.SetActive(state);
@@ -276,6 +268,14 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
     }
 #endif
+    public void EnableVisualNotificationMenu()
+    {
+        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(true);
+    }
+    public void DisableVisualNotificationMenu()
+    {
+        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(false);
+    }
     public void SetVisualNotification(bool state)
     {
         text.gameObject.SetActive(state);

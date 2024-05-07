@@ -348,7 +348,7 @@ public class ACC_AudioAccessibility
     /// </summary>
     public void DisableVisualNotificationMenu()
     {
-        accVisualNotificationManager.EnableVisualNotificationMenu();
+        accVisualNotificationManager.DisableVisualNotificationMenu();
     }
     
     /// <summary>
