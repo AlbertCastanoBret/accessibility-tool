@@ -282,6 +282,7 @@ public class ACC_AudioAccessibility
                 0 => "Left",
                 1 => "Center",
                 2 => "Right",
+                _ => "Default"
             });
         }
         else Debug.LogError("Wrong parameter entered");
@@ -314,6 +315,7 @@ public class ACC_AudioAccessibility
                  0 => "Top",
                  1 => "Center",
                  2 => "Down",
+                 _ => "Default"
              });
         }
         else Debug.LogError("Wrong parameter entered");

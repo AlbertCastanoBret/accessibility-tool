@@ -8,13 +8,13 @@ using UnityEngine.UI;
 
 namespace TFG_Videojocs.ACC_HighContrast
 {
-    public class ACC_HighContrastManager:MonoBehaviour
+    public class ACC_HighContrastManager : MonoBehaviour
     {
         private ACC_HighContrastData loadedData;
         private bool isEnabled;
         private GameObject highContrastSettings, highContrastToggle;
 
-        private void Awake()
+        private void Start()
         {
             foreach (Transform child in transform)
             {
@@ -35,47 +35,49 @@ namespace TFG_Videojocs.ACC_HighContrast
                                         {
                                             highContrastToggle = settingsOption.Find("Toggle").gameObject;
                                             var toggleComponent = highContrastToggle.GetComponent<Toggle>();
+                                            toggleComponent.isOn =
+                                                ACC_AccessibilityManager.Instance.VisualAccessibility.GetFeatureState(
+                                                    VisibilityFeatures.HighContrast);
                                             toggleComponent.onValueChanged.AddListener((value) =>
                                             {
-                                                ACC_AccessibilityManager.Instance.VisualAccessibility.
-                                                    SetFeatureState(VisibilityFeatures.HighContrast, value);
+                                                ACC_AccessibilityManager.Instance.VisualAccessibility
+                                                    .SetFeatureState(VisibilityFeatures.HighContrast, value);
                                             });
                                         }
                                         if (settingsOption.name == "ACC_HighContrastSelector")
                                         {
-                                            var allFiles = ACC_JSONHelper
-                                                .LoadAllFiles<ACC_HighContrastData>("ACC_HighContrast").ToList();
+                                            var allFiles = ACC_AccessibilityManager.Instance.VisualAccessibility
+                                                .GetHighContrastConfigurations();
                                             var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                                             dropdown.ClearOptions();
-                                            dropdown.AddOptions(allFiles.Select(x => x.name).ToList());
-                                            
-                                            var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration)
-                                                ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration)
-                                                : string.Empty;
-                                            if (!String.IsNullOrEmpty(key))
+                                            dropdown.AddOptions(allFiles);
+
+                                            var key = ACC_AccessibilityManager.Instance.VisualAccessibility
+                                                .GetCurrentHighContrastConfiguration();
+                                            if (key != default)
                                             {
-                                                var index = allFiles.FindIndex(x => x.name == key);
+                                                var index = allFiles.FindIndex(x => x == key);
                                                 dropdown.value = index;
                                             }
                                             else dropdown.value = 0;
-                                            
+
                                             dropdown.onValueChanged.AddListener((value) =>
                                             {
-                                               ACC_AccessibilityManager.Instance.VisualAccessibility.
-                                                   ChangeHighContrastConfiguration(allFiles[value].name);
+                                                ACC_AccessibilityManager.Instance.VisualAccessibility
+                                                    .ChangeHighContrastConfiguration(allFiles[value]);
                                             });
                                         }
                                     }
                                 }
                             }
                         }
-                        
-                        if(settingComponent.name == "ACC_ResetButton")
+                        if (settingComponent.name == "ACC_ResetButton")
                         {
                             var button = settingComponent.GetComponent<Button>();
                             button.onClick.AddListener(() =>
                             {
-                                ACC_AccessibilityManager.Instance.VisualAccessibility.ResetHighContrastConfiguration();
+                                ACC_AccessibilityManager.Instance.VisualAccessibility
+                                    .ResetHighContrastConfiguration();
                             });
                         }
                     }
@@ -83,15 +85,28 @@ namespace TFG_Videojocs.ACC_HighContrast
             }
         }
 
+#if UNITY_EDITOR
+        public void InitializeHighContrastMode(bool state)
+        {
+            if (state) EnableHighContrastMode();
+            else DisableHighContrastMode();
+
+            if (highContrastToggle != null) highContrastToggle.GetComponent<Toggle>().isOn = state;
+            ACC_AccessibilityManager.Instance.highContrastEnabled = state;
+        }
+#endif
         public void SetHighContrastMode(bool state)
         {
             if (state) EnableHighContrastMode();
             else DisableHighContrastMode();
-            
+
             PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled, state ? 1 : 0);
             PlayerPrefs.Save();
-            
-            if (highContrastToggle != null) highContrastToggle.GetComponent<Toggle>().isOn = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+
+            if (highContrastToggle != null)
+                highContrastToggle.GetComponent<Toggle>().isOn =
+                    PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
+                    PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
             ACC_AccessibilityManager.Instance.highContrastEnabled = state;
         }
         private void EnableHighContrastMode()
@@ -110,31 +125,33 @@ namespace TFG_Videojocs.ACC_HighContrast
                             var ambientOcclusionTexture = GetAmbientOcclusionTexture(renderer);
                             var materials = renderer.sharedMaterials;
                             materials[^2].renderQueue = -50;
-                            
+
                             MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
                             propColorBlock.SetColor("_Color", new Color(0.3679245f, 0.3679245f, 0.3679245f, 1));
                             renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
-                            
+
                             MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             propOutlineBlock.SetColor("_OutlineColor", Color.white);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0.6f);
                             renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
-                            
-                            if(ambientOcclusionTexture != null)
+
+                            if (ambientOcclusionTexture != null)
                             {
                                 MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
                                 renderer.GetPropertyBlock(propBlock, materials.Length - 2);
                                 propBlock.SetTexture("_AmbientOcclusion", ambientOcclusionTexture);
-                                renderer.SetPropertyBlock(propBlock, materials.Length -2);
+                                renderer.SetPropertyBlock(propBlock, materials.Length - 2);
                             }
                         }
                     }
                 }
+
                 if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration))
                 {
-                    ChangeHighContrastConfiguration(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
+                    ChangeHighContrastConfiguration(
+                        PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
                 }
             }
         }
@@ -153,7 +170,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                         {
                             var materials = renderer.sharedMaterials;
                             materials[^2].renderQueue = 50;
-                            
+
                             MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0);
@@ -178,33 +195,36 @@ namespace TFG_Videojocs.ACC_HighContrast
                         if (go.activeInHierarchy)
                         {
                             Renderer renderer = go.GetComponent<Renderer>();
-                            var highContrastConfiguration = loadedData.highContrastConfigurations.Items.Find(x => go.CompareTag(x.value.tag));
+                            var highContrastConfiguration =
+                                loadedData.highContrastConfigurations.Items.Find(x => go.CompareTag(x.value.tag));
                             if (renderer != null && highContrastConfiguration != null)
                             {
                                 var materials = renderer.sharedMaterials;
                                 materials[^2].renderQueue = -50;
-                            
+
                                 MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
                                 renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
                                 propColorBlock.SetColor("_Color", highContrastConfiguration.value.color);
                                 renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
-                            
+
                                 MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                                 renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
-                                propOutlineBlock.SetColor("_OutlineColor", highContrastConfiguration.value.outlineColor);
-                                propOutlineBlock.SetFloat("_OutlineThickness", highContrastConfiguration.value.outlineThickness);
+                                propOutlineBlock.SetColor("_OutlineColor",
+                                    highContrastConfiguration.value.outlineColor);
+                                propOutlineBlock.SetFloat("_OutlineThickness",
+                                    highContrastConfiguration.value.outlineThickness);
                                 renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             }
                             else if (renderer != null && highContrastConfiguration == null)
                             {
                                 var materials = renderer.sharedMaterials;
                                 materials[^2].renderQueue = -50;
-                            
+
                                 MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
                                 renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
                                 propColorBlock.SetColor("_Color", new Color(0.3679245f, 0.3679245f, 0.3679245f, 1));
                                 renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
-                            
+
                                 MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                                 renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                                 propOutlineBlock.SetColor("_OutlineColor", Color.white);
@@ -218,12 +238,14 @@ namespace TFG_Videojocs.ACC_HighContrast
         }
         public List<string> GetHighContrastConfigurations()
         {
-            ACC_HighContrastData[] configurations = ACC_JSONHelper.LoadAllFiles<ACC_HighContrastData>("ACC_HighContrast");
+            ACC_HighContrastData[] configurations =
+                ACC_JSONHelper.LoadAllFiles<ACC_HighContrastData>("ACC_HighContrast");
             List<string> configurationNames = new();
             foreach (ACC_HighContrastData configuration in configurations)
             {
                 configurationNames.Add(configuration.name);
             }
+
             return configurationNames;
         }
         private Texture GetAmbientOcclusionTexture(Renderer renderer)
@@ -233,6 +255,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                 if (material.HasProperty("_OcclusionMap") && material.GetTexture("_OcclusionMap") != null)
                     return material.GetTexture("_OcclusionMap");
             }
+
             return null;
         }
         public void ResetHighContrastConfiguration()
@@ -240,13 +263,41 @@ namespace TFG_Videojocs.ACC_HighContrast
             PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
             PlayerPrefs.Save();
             DisableHighContrastMode();
-            
-            if(PlayerPrefs.HasKey( ACC_AccessibilitySettingsKeys.HighContrastEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1)
+
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
+                PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1)
             {
                 EnableHighContrastMode();
             }
-            
-            if (highContrastToggle != null) highContrastToggle.GetComponent<Toggle>().isOn = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+
+            if (highContrastToggle != null)
+                highContrastToggle.GetComponent<Toggle>().isOn =
+                    PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
+                    PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+
+            if (highContrastSettings != null)
+            {
+                foreach (Transform settingComponent in highContrastSettings.transform)
+                {
+                    if (settingComponent.CompareTag("ACC_Scroll"))
+                    {
+                        foreach (Transform scrollComponent in settingComponent)
+                        {
+                            if (scrollComponent.CompareTag("ACC_ScrollList"))
+                            {
+                                foreach (Transform settingsOption in scrollComponent)
+                                {
+                                    if (settingsOption.name == "ACC_HighContrastSelector")
+                                    {
+                                        var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                                        dropdown.value = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

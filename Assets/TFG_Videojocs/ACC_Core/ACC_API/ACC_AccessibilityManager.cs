@@ -64,7 +64,7 @@ namespace TFG_Videojocs
                 AudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
                 VisualAccessibility = new ACC_VisualAccessibility();
-                VisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 
                 MobilityAccessibility = new ACC_MobilityAccessibility();
                 MobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
@@ -109,6 +109,7 @@ namespace TFG_Videojocs
             //AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
         }
         
+        #if UNITY_EDITOR
         private void OnValidate()
         {
             if (Application.isPlaying && sceneLoaded)
@@ -116,10 +117,11 @@ namespace TFG_Videojocs
                 AudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
                 AudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 MobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
-                VisualAccessibility.SetFeatureState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
             }
         }
+        #endif
 
         private void OnEnable()
         {
@@ -148,7 +150,9 @@ namespace TFG_Videojocs
         public void LoadAllUserPreferences()
         {
             AudioAccessibility.LoadUserPreferences();
+            VisualAccessibility.LoadUserPreferences();
             MultifunctionalAccessibility.LoadUserPreferences();
+            
         }
         
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

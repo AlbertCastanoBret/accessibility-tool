@@ -19,6 +19,18 @@ namespace TFG_Videojocs
             accHighContrastManager = ACC_PrefabHelper.InstantiatePrefabAsChild("HighContrast", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_HighContrastManager>();
         }
         
+        #if UNITY_EDITOR
+        internal void InitializeState(VisibilityFeatures feature, bool state)
+        {
+            switch (feature)
+            {
+                case VisibilityFeatures.HighContrast:
+                    accHighContrastManager.InitializeHighContrastMode(state);
+                    break;
+            }
+        }
+        #endif
+        
         /// <summary>
         /// Sets the state of a specified visibility feature to either enabled or disabled.
         /// </summary>
@@ -32,6 +44,14 @@ namespace TFG_Videojocs
                     accHighContrastManager.SetHighContrastMode(state);
                     break;
             }
+        }
+        
+        /// <summary>
+        /// Loads and applies the user's accessibility preferences related to visual features.
+        /// </summary>
+        public void LoadUserPreferences()
+        {
+            LoadUserPreferencesHighContrast();
         }
         
         /// <summary>
@@ -60,6 +80,19 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
+        /// Retrieves the current high contrast configuration from user preferences.
+        /// </summary>
+        /// <returns>The string representing the current high contrast configuration. Returns "Default" if no configuration is specified.</returns>
+        public string GetCurrentHighContrastConfiguration()
+        {
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration))
+            {
+                return PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
+            }
+            return "Default";
+        }
+        
+        /// <summary>
         /// Retrieves a list of available high contrast configurations.
         /// </summary>
         /// <returns>A list of strings representing the names of available high contrast configurations.</returns>
@@ -68,9 +101,27 @@ namespace TFG_Videojocs
             return accHighContrastManager.GetHighContrastConfigurations();
         }
         
+        /// <summary>
+        /// Resets the high contrast configuration to its default state.
+        /// </summary>
         public void ResetHighContrastConfiguration()
         {
             accHighContrastManager.ResetHighContrastConfiguration();
+        }
+        
+        /// <summary>
+        /// Loads the user's high contrast preferences from settings and applies them.
+        /// </summary>
+        private void LoadUserPreferencesHighContrast()
+        {
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled))
+            {
+                SetFeatureState(VisibilityFeatures.HighContrast, PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1);
+            }
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration))
+            {
+                ChangeHighContrastConfiguration(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
+            }
         }
     }
 }
