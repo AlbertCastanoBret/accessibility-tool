@@ -174,6 +174,30 @@ namespace TFG_Videojocs.ACC_HighContrast
                     ChangeHighContrastConfiguration(
                         PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
                 }
+                else if (highContrastSettings != null)
+                {
+                    foreach (Transform settingComponent in highContrastSettings.transform)
+                    {
+                        if (settingComponent.CompareTag("ACC_Scroll"))
+                        {
+                            foreach (Transform scrollComponent in settingComponent)
+                            {
+                                if (scrollComponent.CompareTag("ACC_ScrollList"))
+                                {
+                                    foreach (Transform settingsOption in scrollComponent)
+                                    {
+                                        if (settingsOption.name == "ACC_HighContrastSelector")
+                                        {
+                                            var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                                            dropdown.value = 0;
+                                            ChangeHighContrastConfiguration(dropdown.options[0].text);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         private void DisableHighContrastMode()
@@ -312,6 +336,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                                     {
                                         var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                                         dropdown.value = 0;
+                                        ChangeHighContrastConfiguration(dropdown.options[0].text);
                                     }
                                 }
                             }
