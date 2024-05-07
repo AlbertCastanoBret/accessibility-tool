@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_Sound;
+using TFG_Videojocs.ACC_Utilities;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,8 +27,14 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         foreach (Transform child in transform)
         {
             if (child.CompareTag("ACC_VisualNotificationText")) text = child.GetComponent<TextMeshProUGUI>();
-            
             if (child.CompareTag("ACC_VisualNotificationBackground")) backgroundColor = child.GetComponent<Image>();
+        }
+    }
+
+    private void Start()
+    {
+        foreach (Transform child in transform)
+        {
             if (child.CompareTag("ACC_Prefab"))
             {
                 visualNotificationSettings = child.gameObject;
@@ -44,6 +51,8 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_VisualNotificationEnable")
                                     {
                                         visualNotificationToggle = settingsOption.Find("Toggle").gameObject;
+                                        visualNotificationToggle.GetComponent<Toggle>().isOn =
+                                            ACC_AccessibilityManager.Instance.AudioAccessibility.GetFeatureState(AudioFeatures.VisualNotification);
                                         visualNotificationToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
                                         {
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.
@@ -53,182 +62,144 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_HorizontalAlignment")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
-                                        var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment) : null;
+                                        var key = ACC_AccessibilityManager.Instance.AudioAccessibility
+                                            .GetVisualNotificationHorizontalAlignment();
                                         dropdown.value = key switch
                                         {
-                                            "Left" => 0,
-                                            "Center" => 1,
-                                            "Right" => 2,
-                                            _ => -1
+                                            "Left" => 1,
+                                            "Center" => 2,
+                                            "Right" => 3,
+                                            _ => 0
                                         };
                                         dropdown.onValueChanged.AddListener((value) =>
                                         {
                                             var newValue = -1;
-                                            switch (value)
+                                            if (value == 0)
                                             {
-                                                case 0:
-                                                    newValue = -1;
-                                                    if (loadedData != null)
+                                                if (loadedData != null)
+                                                {
+                                                    newValue = loadedData.horizontalAlignment switch
                                                     {
-                                                        newValue = loadedData.horizontalAlignment switch
-                                                        {
-                                                            "Left" => 0,
-                                                            "Center" => 1,
-                                                            "Right" => 2,
-                                                            _ => -1
-                                                        };
-                                                    }
-                                                    SetHorizontalAlignment(newValue);
-                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
-                                                    return;
-                                                case 1:
-                                                    newValue = 0;
-                                                    break;
-                                                case 2:
-                                                    newValue = 1;
-                                                    break;
-                                                case 3:
-                                                    newValue = 2;
-                                                    break;
+                                                        "Left" => 0,
+                                                        "Center" => 1,
+                                                        "Right" => 2,
+                                                        _ => -1
+                                                    };
+                                                }
+                                                SetHorizontalAlignment(newValue);
+                                                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
+                                                return;
                                             }
-                                            
+                                            newValue = value - 1;
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ChangeVisualNotificationHorizontalAlignment(newValue);
                                         });
                                     }
                                     if (settingsOption.name == "ACC_VerticalAlignment")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
-                                        var key = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment) ? PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment) : null;
+                                        var key = ACC_AccessibilityManager.Instance.AudioAccessibility
+                                            .GetVisualNotificationVerticalAlignment();
                                         dropdown.value = key switch
                                         {
-                                            "Top" => 0,
-                                            "Center" => 1,
-                                            "Down" => 2,
-                                            _ => -1
+                                            "Top" => 1,
+                                            "Center" => 2,
+                                            "Down" => 3,
+                                            _ => 0
                                         };
+                                        
                                         dropdown.onValueChanged.AddListener((value) =>
                                         {
                                             var newValue = -1;
-                                            switch (value)
+                                            if (value == 0)
                                             {
-                                                case 0:
-                                                    newValue = -1;
-                                                    if (loadedData != null)
+                                                if (loadedData != null)
+                                                {
+                                                    newValue = loadedData.verticalAlignment switch
                                                     {
-                                                        newValue = loadedData.verticalAlignment switch
-                                                        {
-                                                            "Top" => 0,
-                                                            "Center" => 1,
-                                                            "Down" => 2,
-                                                            _ => -1
-                                                        };
-                                                    }
-                                                    SetHorizontalAlignment(newValue);
-                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
-                                                    return;
-                                                case 1:
-                                                    newValue = 0;
-                                                    break;
-                                                case 2:
-                                                    newValue = 1;
-                                                    break;
-                                                case 3:
-                                                    newValue = 2;
-                                                    break;
+                                                        "Top" => 0,
+                                                        "Center" => 1,
+                                                        "Down" => 2,
+                                                        _ => -1
+                                                    };
+                                                }
+                                                SetVerticalAlignment(newValue);
+                                                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
+                                                return;
                                             }
-                                            
+                                            newValue = value - 1;
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ChangeVisualNotificationVerticalAlignment(newValue);
                                         });
                                     }
                                     if (settingsOption.name == "ACC_ColorSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor), out Color loadedFontColor)
-                                            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
+                                        var color = ACC_AccessibilityManager.Instance.AudioAccessibility.GetSubtitleFontColor();
+                                        var colorName = ACC_ColorManager.GetColorName(color);
+                                        dropdown.GetComponent<TMP_Dropdown>().value = colorName switch
                                         {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = loadedFontColor == Color.red ? 1 : loadedFontColor == Color.green ? 2 : loadedFontColor == Color.blue ? 3 : 4;
-                                        }
-                                        else
-                                        {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        }
+                                            "Unknown" => 0,
+                                            "Red" => 1,
+                                            "Green" => 2,
+                                            "Blue" => 3,
+                                            _ => 0
+                                        };
                                         
                                         dropdown.GetComponent<TMP_Dropdown>().onValueChanged.AddListener((value) =>
                                         {
                                             Color color = default; 
-                                            switch (value)
+                                            var text = dropdown.GetComponent<TMP_Dropdown>().options[value].text;
+
+                                            if (value == 0)
                                             {
-                                                case 0:
-                                                    color = loadedData != null ? new Color(loadedData.fontColor.r, loadedData.fontColor.g, loadedData.fontColor.b, loadedData.fontColor.a) : Color.black;
-                                                    text.color = color;
-                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
-                                                    return;
-                                                case 1:
-                                                    color = Color.red;
-                                                    break;
-                                                case 2:
-                                                    color = Color.green;
-                                                    break;
-                                                case 3:
-                                                    color = Color.blue;
-                                                    break;
-                                                case 4:
-                                                    color = new Color(1, 0.37f, 0, 1);
-                                                    break;
+                                                color = loadedData != null ? new Color(loadedData.fontColor.r, loadedData.fontColor.g, loadedData.fontColor.b, loadedData.fontColor.a) : Color.black;
+                                                this.text.color = color;
+                                                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
+                                                return;
                                             }
-                                            
+                                            color = ACC_ColorManager.ConvertTextToColor(text);
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ChangeVisualNotificationFontColor(color);
                                         });
                                     }
                                     if (settingsOption.name == "ACC_BackgroundColor")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color loadedBackgroundColor)
-                                                 && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
+                                        var color = ACC_AccessibilityManager.Instance.AudioAccessibility.GetSubtitleBackgroundColor();
+                                        var colorName = ACC_ColorManager.GetColorName(color);
+                                        dropdown.GetComponent<TMP_Dropdown>().value = colorName switch
                                         {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = loadedBackgroundColor == Color.white ? 1 : loadedBackgroundColor == Color.red ? 2 : loadedBackgroundColor ==  Color.green ? 3 : 4;
-                                        }
-                                        else
-                                        {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        }
+                                            "Unknown" => 0,
+                                            "White" => 1,
+                                            "Red" => 2,
+                                            "Green" => 3,
+                                            _ => 0
+                                        };
                                         dropdown.GetComponent<TMP_Dropdown>().onValueChanged.AddListener((value) =>
                                         {
                                             Color color = default; 
-                                            switch (value)
+                                            var text = dropdown.GetComponent<TMP_Dropdown>().options[value].text;
+
+                                            if (value == 0)
                                             {
-                                                case 0:
-                                                    color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : Color.black;
-                                                    backgroundColor.color = color;
-                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor);
-                                                    return;
-                                                case 1:
-                                                    color = Color.white;
-                                                    break;
-                                                case 2:
-                                                    color = Color.red;
-                                                    break;
-                                                case 3:
-                                                    color = Color.green;
-                                                    break;
+                                                color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : Color.black;
+                                                backgroundColor.color = color;
+                                                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
+                                                return;
                                             }
+                                            color = ACC_ColorManager.ConvertTextToColor(text);
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ChangeVisualNotificationBackgroundColor(color);
                                         });
                                     }
                                     if (settingsOption.name == "ACC_FontSizeSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize))
+                                        var fontSize = ACC_AccessibilityManager.Instance.AudioAccessibility.GetSubtitleFontSize();
+                                        dropdown.GetComponent<TMP_Dropdown>().value = fontSize switch
                                         {
-                                            double TOLERANCE = 0.00001f;
-                                            dropdown.GetComponent<TMP_Dropdown>().value = Math.Abs(PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize) - 20) < TOLERANCE ? 1 : 
-                                                Math.Abs(PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize) - 50) < TOLERANCE ? 2 : 3;
-                                        }
-                                        else
-                                        {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        }
-                                        
+                                            20 => 1,
+                                            50 => 2,
+                                            80 => 3,
+                                            _ => 0
+                                        };
                                         dropdown.GetComponent<TMP_Dropdown>().onValueChanged.AddListener((value) =>
                                         {
                                             int size = 0;
@@ -237,7 +208,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                                                 case 0:
                                                     size = loadedData?.fontSize ?? 50;
                                                     text.fontSize = size;
-                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
+                                                       PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
                                                     return;
                                                 case 1:
                                                     size = 20;
@@ -269,6 +240,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             }
         }
     }
+
     private void Update()
     {
         if (canPlaySubtitleNotification)
@@ -288,11 +260,43 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                 canPlaySubtitleNotification = false;
                 text.text = "";
                 backgroundColor.gameObject.SetActive(false);
+                loadedData = null;
                 Resources.UnloadUnusedAssets();
             }
         }
     }
 
+    #if UNITY_EDITOR
+    public void InitializeVisualNotification(bool state)
+    {
+        text.gameObject.SetActive(state);
+        backgroundColor.gameObject.SetActive(state);
+        if (state && loadedData != null)
+        { 
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
+            {
+                ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color fontColor);
+                backgroundColor.color = new Color(fontColor.r, fontColor.g, fontColor.b, fontColor.a);
+            }
+            else if (loadedData != null)
+            {
+                backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                    loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+            }
+        }
+        else
+        {
+            backgroundColor.color = new Color(0, 0, 0, 0);
+        }
+
+        if (visualNotificationToggle != null)
+        {
+            visualNotificationToggle.GetComponent<Toggle>().isOn = state;
+            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled);
+        }
+        ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
+    }
+#endif
     public void SetVisualNotification(bool state)
     {
         text.gameObject.SetActive(state);
@@ -473,6 +477,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     public string GetCurrentHorizontalAlignment()
     {
         var TOLERANCE = 0.0001f;
+        if (loadedData != null) return "Default";
         if (Math.Abs(text.GetComponent<RectTransform>().anchorMin.x - 0.1f) < TOLERANCE 
             && Math.Abs(text.GetComponent<RectTransform>().anchorMax.x - 0.5f) < TOLERANCE)
         {
@@ -524,6 +529,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     public string GetCurrentVerticalAlignment()
     {
         var TOLERANCE = 0.0001f;
+        if (loadedData != null) return "Default";
         if (Math.Abs(text.GetComponent<RectTransform>().anchorMin.y - 1) 
             < TOLERANCE && Math.Abs(text.GetComponent<RectTransform>().anchorMax.y - 1) < TOLERANCE)
         {
@@ -598,7 +604,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             }
         }
     }
-
     private (float horizontalAnchorMin, float horizontalAnchorMax) GetHorizontalAlignment()
     {
         float horizontalAnchorMin = 0, horizontalAnchorMax = 0;

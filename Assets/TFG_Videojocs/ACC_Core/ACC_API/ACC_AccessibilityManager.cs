@@ -60,8 +60,8 @@ namespace TFG_Videojocs
                 accCanvas.transform.SetParent(transform);
                 
                 AudioAccessibility = new ACC_AudioAccessibility();
-                AudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
-                AudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+                AudioAccessibility.InitializeState(AudioFeatures.Subtitles, subtitlesEnabled);
+                AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
                 VisualAccessibility = new ACC_VisualAccessibility();
                 VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
@@ -114,8 +114,8 @@ namespace TFG_Videojocs
         {
             if (Application.isPlaying && sceneLoaded)
             {
-                AudioAccessibility.SetFeatureState(AudioFeatures.Subtitles, subtitlesEnabled);
-                AudioAccessibility.SetFeatureState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+                AudioAccessibility.InitializeState(AudioFeatures.Subtitles, subtitlesEnabled);
+                AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 MobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);

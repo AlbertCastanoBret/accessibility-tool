@@ -4,11 +4,20 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TFG_Videojocs;
+using TFG_Videojocs.ACC_Utilities;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using ColorUtility = UnityEngine.ColorUtility;
+
+public enum FontColor
+{
+    Red = 1,
+    Green = 2,
+    Blue = 3,
+    Orange = 4
+}
 
 public class ACC_SubtitlesManager : MonoBehaviour
 {
@@ -16,20 +25,26 @@ public class ACC_SubtitlesManager : MonoBehaviour
     private Image backgroundColor;
     private bool showActorsName, showActorNameColors;
     private GameObject subtitleSettings, subtitlesToggle;
-    // private Color? actorFontColor;
     
     private bool canPlaySubtitle;
     private int currentIndex;
     private float startTime;
     private float nextSubtitleTime;
     private ACC_SubtitleData loadedData;
-
+    
     private void Awake()
     {
         foreach (Transform child in transform)
         {
             if (child.CompareTag("ACC_SubtitleText")) subtitleText = child.GetComponent<TextMeshProUGUI>();
             if (child.CompareTag("ACC_SubtitleBackground")) backgroundColor = child.GetComponent<Image>();
+        }
+    }
+
+    private void Start()
+    {
+        foreach (Transform child in transform)
+        {
             if (child.CompareTag("ACC_Prefab"))
             {
                 subtitleSettings = child.gameObject;
@@ -46,6 +61,8 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_SubtitlesEnable")
                                     {
                                         subtitlesToggle = settingsOption.Find("Toggle").gameObject;
+                                        subtitlesToggle.GetComponent<Toggle>().isOn =
+                                            ACC_AccessibilityManager.Instance.AudioAccessibility.GetFeatureState(AudioFeatures.Subtitles);
                                         subtitlesToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
                                         {
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.
@@ -55,8 +72,8 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_ShowActors")
                                     {
                                         var toggle = settingsOption.Find("Toggle");
-                                        toggle.GetComponent<Toggle>().isOn = !PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled) || PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameEnabled) == 1;
-                                        if (loadedData != null) toggle.GetComponent<Toggle>().isOn = loadedData.showActors;
+                                        toggle.GetComponent<Toggle>().isOn = ACC_AccessibilityManager.Instance
+                                            .AudioAccessibility.GetActorsNameEnabled();
                                         toggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
                                         {
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ShowActorsName(value);
@@ -65,8 +82,8 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_ShowActorsColors")
                                     {
                                         var toggle = settingsOption.Find("Toggle");
-                                        toggle.GetComponent<Toggle>().isOn = !PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled) || PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled) == 1;
-                                        if (loadedData != null) toggle.GetComponent<Toggle>().isOn = loadedData.showActorsColors;
+                                        toggle.GetComponent<Toggle>().isOn = ACC_AccessibilityManager.Instance
+                                            .AudioAccessibility.GetActorsNameColorsEnabled();
                                         toggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
                                         {
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ShowActorsNameColors(value);
@@ -75,101 +92,75 @@ public class ACC_SubtitlesManager : MonoBehaviour
                                     if (settingsOption.name == "ACC_ColorSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedFontColor)
-                                            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
+                                        var color = ACC_AccessibilityManager.Instance.AudioAccessibility.GetSubtitleFontColor();
+                                        var colorName = ACC_ColorManager.GetColorName(color);
+                                        dropdown.GetComponent<TMP_Dropdown>().value = colorName switch
                                         {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = loadedFontColor == Color.red ? 1 : loadedFontColor == Color.green ? 2 : loadedFontColor == Color.blue ? 3 : 4;
-                                        }
-                                        else
-                                        {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        }
-                                        
+                                            "Unknown" => 0,
+                                            "Red" => 1,
+                                            "Green" => 2,
+                                            "Blue" => 3,
+                                            _ => 0
+                                        };
                                         dropdown.GetComponent<TMP_Dropdown>().onValueChanged.AddListener((value) =>
                                         {
                                             Color color = default; 
-                                            switch (value)
+                                            var text = dropdown.GetComponent<TMP_Dropdown>().options[value].text;
+
+                                            if (value == 0)
                                             {
-                                                case 0:
-                                                    color = loadedData != null ? new Color(loadedData.fontColor.r, loadedData.fontColor.g, loadedData.fontColor.b, loadedData.fontColor.a) : Color.black;
-                                                    subtitleText.color = color;
-                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
-                                                    return;
-                                                case 1:
-                                                    color = Color.red;
-                                                    break;
-                                                case 2:
-                                                    color = Color.green;
-                                                    break;
-                                                case 3:
-                                                    color = Color.blue;
-                                                    break;
-                                                case 4:
-                                                    color = new Color(1, 0.37f, 0, 1);
-                                                    break;
+                                                ACC_AccessibilityManager.Instance.AudioAccessibility.ResetSubtitleFontColor();
+                                                return;
                                             }
-                                            
+                                            color = ACC_ColorManager.ConvertTextToColor(text);
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ChangeSubtitleFontColor(color);
                                         });
                                     }
                                     if (settingsOption.name == "ACC_BackgroundColor")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor), out Color loadedBackgroundColor)
-                                                 && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
+                                        var color = ACC_AccessibilityManager.Instance.AudioAccessibility.GetSubtitleBackgroundColor();
+                                        var colorName = ACC_ColorManager.GetColorName(color);
+                                        dropdown.GetComponent<TMP_Dropdown>().value = colorName switch
                                         {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = loadedBackgroundColor == Color.white ? 1 : loadedBackgroundColor == Color.red ? 2 : loadedBackgroundColor ==  Color.green ? 3 : 4;
-                                        }
-                                        else
-                                        {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        }
+                                            "Unknown" => 0,
+                                            "White" => 1,
+                                            "Red" => 2,
+                                            "Green" => 3,
+                                            _ => 0
+                                        };
                                         dropdown.GetComponent<TMP_Dropdown>().onValueChanged.AddListener((value) =>
                                         {
                                             Color color = default; 
-                                            switch (value)
+                                            var text = dropdown.GetComponent<TMP_Dropdown>().options[value].text;
+
+                                            if (value == 0)
                                             {
-                                                case 0:
-                                                    color = loadedData != null ? new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g, loadedData.backgroundColor.b, loadedData.backgroundColor.a) : Color.black;
-                                                    backgroundColor.color = color;
-                                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
-                                                    return;
-                                                case 1:
-                                                    color = Color.white;
-                                                    break;
-                                                case 2:
-                                                    color = Color.red;
-                                                    break;
-                                                case 3:
-                                                    color = Color.green;
-                                                    break;
+                                                ACC_AccessibilityManager.Instance.AudioAccessibility.ResetSubtitleBackgroundColor();
+                                                return;
                                             }
+                                            color = ACC_ColorManager.ConvertTextToColor(text);
                                             ACC_AccessibilityManager.Instance.AudioAccessibility.ChangeSubtitleBackgroundColor(color);
                                         });
                                     }
                                     if (settingsOption.name == "ACC_FontSizeSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown");
-                                        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize))
+                                        var fontSize = ACC_AccessibilityManager.Instance.AudioAccessibility.GetSubtitleFontSize();
+                                        dropdown.GetComponent<TMP_Dropdown>().value = fontSize switch
                                         {
-                                            double TOLERANCE = 0.00001f;
-                                            dropdown.GetComponent<TMP_Dropdown>().value = Math.Abs(PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize) - 20) < TOLERANCE ? 1 : 
-                                                Math.Abs(PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize) - 50) < TOLERANCE ? 2 : 3;
-                                        }
-                                        else
-                                        {
-                                            dropdown.GetComponent<TMP_Dropdown>().value = 0;
-                                        }
-                                        
+                                            20 => 1,
+                                            50 => 2,
+                                            80 => 3,
+                                            _ => 0
+                                        };
                                         dropdown.GetComponent<TMP_Dropdown>().onValueChanged.AddListener((value) =>
                                         {
                                             int size = 0;
                                             switch (value)
                                             {
-                                                case 0:
-                                                    size = loadedData?.fontSize ?? 50;
-                                                    subtitleText.fontSize = size;
-                                                       PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+                                                case 0: 
+                                                    ACC_AccessibilityManager.Instance.AudioAccessibility.ResetSubtitleFontSize();
                                                     return;
                                                 case 1:
                                                     size = 20;
@@ -188,7 +179,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
                             }
                         }
                     }
-                    
                     if(settingComponent.name == "ACC_ResetButton")
                     {
                         var button = settingComponent.GetComponent<Button>();
@@ -201,6 +191,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
             }
         }
     }
+
     void Update()
     {
         if (canPlaySubtitle)
@@ -234,6 +225,8 @@ public class ACC_SubtitlesManager : MonoBehaviour
                 {
                     currentIndex = -1;
                     canPlaySubtitle = false;
+                    showActorsName = false;
+                    showActorNameColors = false;
                     subtitleText.text = "";
                     backgroundColor.gameObject.SetActive(false);
                     loadedData = null;
@@ -244,15 +237,47 @@ public class ACC_SubtitlesManager : MonoBehaviour
         }
     }
     
+    #if UNITY_EDITOR
+    public void InitializeSubtitles(bool state)
+    {
+        subtitleText.gameObject.SetActive(state);
+        backgroundColor.gameObject.SetActive(state);
+        if (state && loadedData != null)
+        { 
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
+            {
+                ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor), out Color fontColor);
+                backgroundColor.color = new Color(fontColor.r, fontColor.g, fontColor.b, fontColor.a);
+            }
+            else if (loadedData != null)
+            {
+                backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                    loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+            }
+        }
+        else
+        {
+            backgroundColor.color = new Color(0, 0, 0, 0);
+        }
+
+        if (subtitlesToggle != null)
+        {
+            subtitlesToggle.GetComponent<Toggle>().isOn = state;
+            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled);
+        }
+        ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
+    }
+    #endif
+    
     public void SetSubtitles(bool state)
     {
         subtitleText.gameObject.SetActive(state);
         backgroundColor.gameObject.SetActive(state);
         if (state)
         {
-            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
             {
-                ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color fontColor);
+                ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor), out Color fontColor);
                 backgroundColor.color = new Color(fontColor.r, fontColor.g, fontColor.b, fontColor.a);
             }
             else if (loadedData != null)
@@ -319,11 +344,43 @@ public class ACC_SubtitlesManager : MonoBehaviour
     public void SetShowActorsName(bool showActorsName)
     {
         this.showActorsName = showActorsName;
-        
     }
     public bool GetShowActorsName()
     {
         return showActorsName;
+    }
+    public void ResetActorsName()
+    {
+        if (loadedData != null)
+        {
+            showActorsName = loadedData.showActors;
+        }
+        
+        if (subtitleSettings != null)
+        {
+            foreach (Transform settingComponent in subtitleSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_ShowActors")
+                                {
+                                    var toggle = settingsOption.Find("Toggle");
+                                    toggle.GetComponent<Toggle>().isOn = loadedData == null || loadedData.showActors;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled);
+        PlayerPrefs.Save();
     }
     public void SetShowActorsNameColors(bool showActorNameColors)
     {
@@ -333,6 +390,39 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         return showActorNameColors;
     }
+    public void ResetActorsNameColors()
+    {
+        if (loadedData != null)
+        {
+            showActorNameColors = loadedData.showActorsColors;
+        }
+        
+        if (subtitleSettings != null)
+        {
+            foreach (Transform settingComponent in subtitleSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_ShowActorsColors")
+                                {
+                                    var toggle = settingsOption.Find("Toggle");
+                                    toggle.GetComponent<Toggle>().isOn = loadedData == null || loadedData.showActorsColors;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled);
+        PlayerPrefs.Save();
+    }
     public void SetTextFontColor(Color color)
     {
         subtitleText.color = new Color(color.r, color.g, color.b, color.a);
@@ -340,6 +430,40 @@ public class ACC_SubtitlesManager : MonoBehaviour
     public Color GetTextFontColor()
     {
         return subtitleText.color;
+    }
+    public void ResetTextFontColor()
+    {
+        if (loadedData != null)
+        {
+            subtitleText.color = new Color(loadedData.fontColor.r, loadedData.fontColor.g,
+                loadedData.fontColor.b, loadedData.fontColor.a);
+        }
+        
+        if (subtitleSettings != null)
+        {
+            foreach (Transform settingComponent in subtitleSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_ColorSelector")
+                                {
+                                    var dropdown = settingsOption.Find("Dropdown");
+                                    dropdown.GetComponent<TMP_Dropdown>().value = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
+        PlayerPrefs.Save();
     }
     public void SetBackgroundColor(Color color)
     {
@@ -349,6 +473,40 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         return backgroundColor.color;
     }
+    public void ResetBackgroundColor()
+    {
+        if (loadedData != null)
+        {
+            backgroundColor.color = new Color(loadedData.backgroundColor.r, loadedData.backgroundColor.g,
+                loadedData.backgroundColor.b, loadedData.backgroundColor.a);
+        }
+        
+        if (subtitleSettings != null)
+        {
+            foreach (Transform settingComponent in subtitleSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_BackgroundColor")
+                                {
+                                    var dropdown = settingsOption.Find("Dropdown");
+                                    dropdown.GetComponent<TMP_Dropdown>().value = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
+        PlayerPrefs.Save();
+    }
     public void SetFontSize(int size)
     {
         subtitleText.fontSize = size;
@@ -356,6 +514,39 @@ public class ACC_SubtitlesManager : MonoBehaviour
     public float GetFontSize()
     {
         return subtitleText.fontSize;
+    }
+    public void ResetFontSize()
+    {
+        if (loadedData != null)
+        {
+            subtitleText.fontSize = loadedData.fontSize;
+        }
+        
+        if (subtitleSettings != null)
+        {
+            foreach (Transform settingComponent in subtitleSettings.transform)
+            {
+                if (settingComponent.CompareTag("ACC_Scroll"))
+                {
+                    foreach (Transform scrollComponent in settingComponent)
+                    {
+                        if (scrollComponent.CompareTag("ACC_ScrollList"))
+                        {
+                            foreach (Transform settingsOption in scrollComponent)
+                            {
+                                if (settingsOption.name == "ACC_FontSizeSelector")
+                                {
+                                    var dropdown = settingsOption.Find("Dropdown");
+                                    dropdown.GetComponent<TMP_Dropdown>().value = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+        PlayerPrefs.Save();
     }
     public void ResetSubtitlesSettings()
     {
@@ -417,5 +608,13 @@ public class ACC_SubtitlesManager : MonoBehaviour
                 }
             }
         }
+        
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorFontColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+        PlayerPrefs.Save();
     }
 }

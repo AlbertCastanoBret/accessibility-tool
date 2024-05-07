@@ -91,7 +91,11 @@ namespace TFG_Videojocs.ACC_HighContrast
             if (state) EnableHighContrastMode();
             else DisableHighContrastMode();
 
-            if (highContrastToggle != null) highContrastToggle.GetComponent<Toggle>().isOn = state;
+            if (highContrastToggle != null)
+            {
+                highContrastToggle.GetComponent<Toggle>().isOn = state;
+                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled );
+            }
             ACC_AccessibilityManager.Instance.highContrastEnabled = state;
         }
 #endif

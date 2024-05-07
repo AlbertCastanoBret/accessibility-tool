@@ -47,14 +47,6 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
-        /// Loads and applies the user's accessibility preferences related to visual features.
-        /// </summary>
-        public void LoadUserPreferences()
-        {
-            LoadUserPreferencesHighContrast();
-        }
-        
-        /// <summary>
         /// Retrieves the enabled state of a specified visibility feature.
         /// </summary>
         /// <param name="feature">The visibility feature to check, e.g., high contrast.</param>
@@ -69,6 +61,16 @@ namespace TFG_Videojocs
                     return false;
             }
         }
+        
+        /// <summary>
+        /// Loads and applies the user's accessibility preferences related to visual features.
+        /// </summary>
+        public void LoadUserPreferences()
+        {
+            LoadUserPreferencesHighContrast();
+        }
+
+        #region HighContrast
 
         /// <summary>
         /// Changes the high contrast configuration based on the provided JSON configuration file.
@@ -123,5 +125,7 @@ namespace TFG_Videojocs
                 ChangeHighContrastConfiguration(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
             }
         }
+
+        #endregion
     }
 }

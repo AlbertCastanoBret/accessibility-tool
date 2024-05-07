@@ -28,6 +28,21 @@ public class ACC_AudioAccessibility
         accVisualNotificationManager = ACC_PrefabHelper.InstantiatePrefabAsChild("VisualNotification", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_VisualNotificationManager>();
     }
     
+    #if UNITY_EDITOR
+    internal void InitializeState(AudioFeatures feature, bool state)
+    {
+        switch (feature)
+        {
+            case AudioFeatures.Subtitles:
+                accSubtitlesManager.InitializeSubtitles(state);
+                break;
+            case AudioFeatures.VisualNotification:
+                accVisualNotificationManager.InitializeVisualNotification(state);
+                break;
+        }
+    }
+    #endif
+    
     /// <summary>
     /// Sets the state of a specified audio feature to either enabled or disabled.
     /// </summary>
@@ -44,6 +59,28 @@ public class ACC_AudioAccessibility
             case AudioFeatures.VisualNotification:
                 accVisualNotificationManager.SetVisualNotification(state);
                 break;
+        }
+    }
+    
+    /// <summary>
+    /// Retrieves the enabled state of the specified audio feature from player preferences.
+    /// </summary>
+    /// <param name="feature">An enum value representing the audio feature to check (e.g., Subtitles, VisualNotification).</param>
+    /// <returns>
+    /// <c>true</c> if the specified feature is enabled in player preferences; otherwise, <c>false</c>.
+    /// </returns>
+    public bool GetFeatureState(AudioFeatures feature)
+    {
+        switch (feature)
+        {
+            case AudioFeatures.Subtitles:
+                return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled)
+                    && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1;
+            case AudioFeatures.VisualNotification:
+                return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled)
+                    && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1;
+            default:
+                return false;
         }
     }
     
@@ -94,6 +131,15 @@ public class ACC_AudioAccessibility
     }
     
     /// <summary>
+    /// Resets the actor name setting to the loaded value if available,
+    /// updates the corresponding UI elements, and deletes the relevant key from player preferences.
+    /// </summary>
+    public void ResetActorsName()
+    {
+        accSubtitlesManager.ResetActorsName();
+    }
+    
+    /// <summary>
     /// Toggles the coloring of actors' names in subtitles based on the provided boolean value and saves this setting.
     /// </summary>
     /// <param name="show">If true, enables the coloring of actors' names; if false, disables it.</param>
@@ -115,6 +161,15 @@ public class ACC_AudioAccessibility
             return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled) == 1;
         }
         return accSubtitlesManager.GetShowActorsNameColors();
+    }
+    
+    /// <summary>
+    /// Resets the actor name colors setting to the loaded value if available,
+    /// updates the relevant UI elements, and removes the corresponding key from player preferences.
+    /// </summary>
+    public void ResetActorsNameColors()
+    {
+        accSubtitlesManager.ResetActorsNameColors();
     }
 
     /// <summary>
@@ -140,6 +195,15 @@ public class ACC_AudioAccessibility
             return loadedFontColor;
         }
         return accSubtitlesManager.GetTextFontColor();
+    }
+    
+    /// <summary>
+    /// Resets the actor name colors setting to the loaded value if available,
+    /// updates the relevant UI elements, and deletes the associated key from player preferences.
+    /// </summary>
+    public void ResetSubtitleFontColor()
+    {
+        accSubtitlesManager.ResetTextFontColor();
     }
 
     /// <summary>
@@ -168,6 +232,15 @@ public class ACC_AudioAccessibility
     }
     
     /// <summary>
+    /// Resets the background color setting to the loaded value if available,
+    /// updates the relevant UI elements, and removes the associated key from player preferences.
+    /// </summary>
+    public void ResetSubtitleBackgroundColor()
+    {
+        accSubtitlesManager.ResetBackgroundColor();
+    }
+    
+    /// <summary>
     /// Changes the font size of subtitles to a new specified size and saves this preference for future use.
     /// </summary>
     /// <param name="newFontSize">The new font size for subtitles. This value will be saved in the user's preferences and applied immediately to the subtitle text.</param>
@@ -193,26 +266,29 @@ public class ACC_AudioAccessibility
     }
     
     /// <summary>
-    /// Resets the subtitle settings to their default values by deleting specific PlayerPrefs keys related to subtitle appearance and updating the subtitle manager.
+    /// Resets the font size setting to the loaded value if available,
+    /// updates the relevant UI elements, and deletes the associated key from player preferences.
     /// </summary>
-    /// <remarks>
-    /// This function deletes PlayerPrefs entries for actor font color, subtitle font color, subtitle background color, and subtitle font size.
-    /// It concludes by calling accSubtitlesManager.ResetSubtitlesSettings() to apply default settings to the subtitle system. 
-    /// </remarks>
+    public void ResetSubtitleFontSize()
+    {
+        accSubtitlesManager.ResetFontSize();
+    }
+    
+    /// <summary>
+    /// Resets all subtitle settings to the default or loaded values and updates the UI accordingly.
+    /// Removes any previously stored subtitle-related preferences from player preferences.
+    /// </summary>
     public void ResetSubtitleSettings()
     {
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled);
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled);
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorFontColor);
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
-        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
-        PlayerPrefs.Save();
         accSubtitlesManager.ResetSubtitlesSettings();
     }
 
     private void LoadUserPreferencesSubtitles()
     {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled))
+        {
+            accSubtitlesManager.SetSubtitles(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1);
+        }
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled))
         {
             accSubtitlesManager.SetShowActorsName(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameEnabled) == 1);
@@ -274,18 +350,14 @@ public class ACC_AudioAccessibility
     /// <param name="alignment">An integer representing the desired horizontal alignment: 0 for Left, 1 for Center, and 2 for Right. Any other value logs an error.</param>
     public void ChangeVisualNotificationHorizontalAlignment(int alignment)
     {
-        if (alignment is 0 or 1 or 2)
+        accVisualNotificationManager.SetHorizontalAlignment(alignment);
+        PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, alignment switch
         {
-            accVisualNotificationManager.SetHorizontalAlignment(alignment);
-            PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment, alignment switch
-            {
-                0 => "Left",
-                1 => "Center",
-                2 => "Right",
-                _ => "Default"
-            });
-        }
-        else Debug.LogError("Wrong parameter entered");
+            0 => "Left",
+            1 => "Center",
+            2 => "Right",
+            _ => "Default"
+        });
     }
 
     /// <summary>
@@ -307,18 +379,14 @@ public class ACC_AudioAccessibility
     /// <param name="alignment">An integer representing the desired vertical alignment: 0 for Top, 1 for Center, and 2 for Down. Any other value results in an error.</param>
     public void ChangeVisualNotificationVerticalAlignment(int alignment)
     {
-        if (alignment is 0 or 1 or 2)
+        accVisualNotificationManager.SetVerticalAlignment(alignment);
+        PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, alignment switch
         {
-             accVisualNotificationManager.SetVerticalAlignment(alignment);
-             PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment, alignment switch
-             {
-                 0 => "Top",
-                 1 => "Center",
-                 2 => "Down",
-                 _ => "Default"
-             });
-        }
-        else Debug.LogError("Wrong parameter entered");
+            0 => "Top",
+            1 => "Center",
+            2 => "Down",
+            _ => "Default"
+        });
     }
     
     /// <summary>
@@ -453,6 +521,10 @@ public class ACC_AudioAccessibility
     
     private void LoadUserPreferencesVisualNotification()
     {
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled))
+        {
+            accVisualNotificationManager.SetVisualNotification(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1);
+        }
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
         {
             accVisualNotificationManager.SetHorizontalAlignment(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment) switch
@@ -463,7 +535,6 @@ public class ACC_AudioAccessibility
                 _ => 0
             });
         }
-
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment))
         {
             accVisualNotificationManager.SetVerticalAlignment(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment) switch
@@ -474,7 +545,6 @@ public class ACC_AudioAccessibility
                 _ => 0
             });
         }
-        
         if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor), out Color loadedFontColor)
             && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
         {
