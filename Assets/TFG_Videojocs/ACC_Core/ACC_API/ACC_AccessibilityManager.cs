@@ -70,7 +70,7 @@ namespace TFG_Videojocs
                 MobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 
                 MultifunctionalAccessibility = new ACC_MultifunctionalAccessibility();
-                MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
+                MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
                 
                 DontDestroyOnLoad(gameObject);
             }
@@ -83,8 +83,10 @@ namespace TFG_Videojocs
         private void Start()
         {
             LoadAllUserPreferences();
+            AudioAccessibility.EnableSubtitlesMenu();
             AudioAccessibility.DisableVisualNotificationMenu();
             VisualAccessibility.DisableHighContrastMenu();
+            MultifunctionalAccessibility.DisableAudioManagerMenu();
             //AudioAccessibility.ResetVisualNotificationSettings();
             //AudioAccessibility.ChangeSubtitleFontSize(20);
             //AudioAccessibility.ShowActorsName(false);
@@ -120,7 +122,7 @@ namespace TFG_Videojocs
                 AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 MobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
-                MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
+                MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
             }
         }
         #endif

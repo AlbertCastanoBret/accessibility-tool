@@ -28,7 +28,6 @@ public class ACC_AudioAccessibility
         accVisualNotificationManager = ACC_PrefabHelper.InstantiatePrefabAsChild("VisualNotification", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_VisualNotificationManager>();
     }
     
-    #if UNITY_EDITOR
     internal void InitializeState(AudioFeatures feature, bool state)
     {
         switch (feature)
@@ -41,7 +40,6 @@ public class ACC_AudioAccessibility
                 break;
         }
     }
-    #endif
     
     /// <summary>
     /// Sets the state of a specified audio feature to either enabled or disabled.
@@ -301,34 +299,7 @@ public class ACC_AudioAccessibility
 
     private void LoadUserPreferencesSubtitles()
     {
-        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled))
-        {
-            accSubtitlesManager.SetSubtitles(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1);
-        }
-        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled))
-        {
-            accSubtitlesManager.SetShowActorsName(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameEnabled) == 1);
-        }
-        
-        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled))
-        {
-            accSubtitlesManager.SetShowActorsNameColors(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled) == 1);
-        }
-        
-        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleFontColor), out Color loadedTextFontColor)
-            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor))
-        {
-            accSubtitlesManager.SetTextFontColor(loadedTextFontColor);
-        }
-        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor), out Color loadedBackgroundColor)
-            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
-        {
-            accSubtitlesManager.SetBackgroundColor(loadedBackgroundColor);
-        }
-        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize))
-        {
-            accSubtitlesManager.SetFontSize((int) PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.SubtitleFontSize));
-        }
+        accSubtitlesManager.LoadSubtitlesSettings();
     }
     
     #endregion
@@ -592,44 +563,7 @@ public class ACC_AudioAccessibility
     
     private void LoadUserPreferencesVisualNotification()
     {
-        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled))
-        {
-            accVisualNotificationManager.SetVisualNotification(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1);
-        }
-        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
-        {
-            accVisualNotificationManager.SetHorizontalAlignment(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment) switch
-            {
-                "Left" => 0,
-                "Center" => 1,
-                "Right" => 2,
-                _ => 0
-            });
-        }
-        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment))
-        {
-            accVisualNotificationManager.SetVerticalAlignment(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment) switch
-            {
-                "Top" => 0,
-                "Center" => 1,
-                "Down" => 2,
-                _ => 0
-            });
-        }
-        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor), out Color loadedFontColor)
-            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
-        {
-            accVisualNotificationManager.SetTextFontColor(loadedFontColor);
-        }
-        if (ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color loadedBackgroundColor)
-            && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
-        {
-            accVisualNotificationManager.SetBackgroundColor(loadedBackgroundColor);
-        }
-        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize))
-        {
-            accVisualNotificationManager.SetFontSize((int) PlayerPrefs.GetFloat(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize));
-        }
+        accVisualNotificationManager.LoadVisualNotificationSettings();
     }
     #endregion
 }

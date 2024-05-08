@@ -144,7 +144,7 @@ namespace TFG_Videojocs.ACC_Utilities
             subtitleTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
             subtitleTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
             subtitleTextMeshProUGUI.enableWordWrapping = true;
-            subtitleTextMeshProUGUI.color = new Color(1f, 0f, 0f, 1);
+            subtitleTextMeshProUGUI.color = new Color(0, 0f, 0f, 0);
 
             RectTransform subtitleTextRectTransform = subtitleText.GetComponent<RectTransform>() ?? subtitleText.AddComponent<RectTransform>();
             subtitleTextRectTransform.anchorMin = new Vector2(0.15f, 0);
@@ -182,7 +182,7 @@ namespace TFG_Videojocs.ACC_Utilities
             }
             
             var backgroundColorImage = visualNotificationBackground.GetComponent<Image>() ?? visualNotificationBackground.AddComponent<Image>();
-            backgroundColorImage.color = new Color(1, 1, 1, 0);
+            backgroundColorImage.color = new Color(0, 0, 0, 0);
             
             RectTransform backgroundTextRectTransform = visualNotificationBackground.GetComponent<RectTransform>() ?? visualNotificationBackground.AddComponent<RectTransform>();
             backgroundTextRectTransform.anchorMin = new Vector2(0, 0.5f);
@@ -202,7 +202,7 @@ namespace TFG_Videojocs.ACC_Utilities
             visualNotificationTextMeshProUGUI.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
             visualNotificationTextMeshProUGUI.alignment = TextAlignmentOptions.MidlineLeft;
             visualNotificationTextMeshProUGUI.enableWordWrapping = true;
-            visualNotificationTextMeshProUGUI.color = new Color(1f, 0f, 0f, 0);
+            visualNotificationTextMeshProUGUI.color = new Color(0, 0, 0, 0);
             
             RectTransform visualNotificationTextRectTransform = visualNotificationText.GetComponent<RectTransform>() ?? visualNotificationText.AddComponent<RectTransform>();
             visualNotificationTextRectTransform.anchorMin = new Vector2(0, 0.5f);

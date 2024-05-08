@@ -12,7 +12,7 @@ namespace TFG_Videojocs.ACC_HighContrast
     {
         private ACC_HighContrastData loadedData;
         private bool isEnabled;
-        private GameObject highContrastSettings, highContrastToggle;
+        private GameObject highContrastSettings, highContrastToggle, highContrastScrollList;
 
         private void Awake()
         {
@@ -21,6 +21,17 @@ namespace TFG_Videojocs.ACC_HighContrast
                 if (child.CompareTag("ACC_Prefab"))
                 {
                     highContrastSettings = child.gameObject;
+                    foreach (Transform settingComponent in highContrastSettings.transform)
+                    {
+                        if (settingComponent.CompareTag("ACC_Scroll"))
+                        {
+                            foreach (Transform scrollComponent in settingComponent)
+                            {
+                                if (scrollComponent.CompareTag("ACC_ScrollList"))
+                                    highContrastScrollList = scrollComponent.gameObject;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -44,9 +55,6 @@ namespace TFG_Videojocs.ACC_HighContrast
                                         {
                                             highContrastToggle = settingsOption.Find("Toggle").gameObject;
                                             var toggleComponent = highContrastToggle.GetComponent<Toggle>();
-                                            toggleComponent.isOn =
-                                                ACC_AccessibilityManager.Instance.VisualAccessibility.GetFeatureState(
-                                                    VisibilityFeatures.HighContrast);
                                             toggleComponent.onValueChanged.AddListener((value) =>
                                             {
                                                 ACC_AccessibilityManager.Instance.VisualAccessibility
@@ -60,16 +68,6 @@ namespace TFG_Videojocs.ACC_HighContrast
                                             var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                                             dropdown.ClearOptions();
                                             dropdown.AddOptions(allFiles);
-
-                                            var key = ACC_AccessibilityManager.Instance.VisualAccessibility
-                                                .GetCurrentHighContrastConfiguration();
-                                            if (key != default)
-                                            {
-                                                var index = allFiles.FindIndex(x => x == key);
-                                                dropdown.value = index;
-                                            }
-                                            else dropdown.value = 0;
-
                                             dropdown.onValueChanged.AddListener((value) =>
                                             {
                                                 ACC_AccessibilityManager.Instance.VisualAccessibility
@@ -93,8 +91,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                 }
             }
         }
-
-#if UNITY_EDITOR
+        
         public void InitializeHighContrastMode(bool state)
         {
             if (state) EnableHighContrastMode();
@@ -107,7 +104,6 @@ namespace TFG_Videojocs.ACC_HighContrast
             }
             ACC_AccessibilityManager.Instance.highContrastEnabled = state;
         }
-#endif
         public void EnableHighContrastMenu()
         {
             if (highContrastSettings != null) highContrastSettings.SetActive(true);
@@ -305,50 +301,64 @@ namespace TFG_Videojocs.ACC_HighContrast
 
             return null;
         }
+        public void LoadHighContrastSettings()
+        {
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled))
+            {
+                SetHighContrastMode(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1);
+            }
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration))
+            {
+                ChangeHighContrastConfiguration(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
+            }
+
+            if (highContrastScrollList != null)
+            {
+                foreach (Transform settingsOption in highContrastScrollList.transform)
+                {
+                    if (settingsOption.name == "ACC_HighContrastEnable")
+                    {
+                        var toggle = settingsOption.Find("Toggle").GetComponent<Toggle>();
+                        var toggleComponent = toggle.GetComponent<Toggle>();
+                        toggleComponent.isOn = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
+                                              PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+                    }
+                    if (settingsOption.name == "ACC_HighContrastSelector")
+                    {
+                        var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                        var allFiles = ACC_AccessibilityManager.Instance.VisualAccessibility.GetHighContrastConfigurations();
+                        var key = ACC_AccessibilityManager.Instance.VisualAccessibility.GetCurrentHighContrastConfiguration();
+                        if (key != default)
+                        {
+                            var index = allFiles.FindIndex(x => x == key);
+                            dropdown.value = index;
+                        }
+                        else dropdown.value = 0;
+                    }
+                }
+            }
+        }
         public void ResetHighContrastConfiguration()
         {
             DisableHighContrastMode();
-
-            // if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
-            //     PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1)
-            // {
-            //     EnableHighContrastMode();
-            // }
-            //
-            // if (highContrastToggle != null)
-            //     highContrastToggle.GetComponent<Toggle>().isOn =
-            //         PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
-            //         PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
-
-            if (highContrastSettings != null)
+            
+            if (highContrastScrollList != null)
             {
-                foreach (Transform settingComponent in highContrastSettings.transform)
+                foreach (Transform settingsOption in highContrastScrollList.transform)
                 {
-                    if (settingComponent.CompareTag("ACC_Scroll"))
+                    if (settingsOption.name == "ACC_HighContrastEnable")
                     {
-                        foreach (Transform scrollComponent in settingComponent)
-                        {
-                            if (scrollComponent.CompareTag("ACC_ScrollList"))
-                            {
-                                foreach (Transform settingsOption in scrollComponent)
-                                {
-                                    if (settingsOption.name == "ACC_HighContrastEnable")
-                                    {
-                                        var toggleComponent = highContrastToggle.GetComponent<Toggle>();
-                                        toggleComponent.isOn = false;
-                                    }
+                        var toggleComponent = highContrastToggle.GetComponent<Toggle>();
+                        toggleComponent.isOn = false;
+                    }
                                     
-                                    if (settingsOption.name == "ACC_HighContrastSelector")
-                                    {
-                                        var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
-                                        dropdown.value = 0;
-                                        var allFiles = ACC_AccessibilityManager.Instance.VisualAccessibility
-                                            .GetHighContrastConfigurations();
-                                        if (allFiles.Count > 0) ChangeHighContrastConfiguration(allFiles[0]);
-                                    }
-                                }
-                            }
-                        }
+                    if (settingsOption.name == "ACC_HighContrastSelector")
+                    {
+                        var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                        dropdown.value = 0;
+                        var allFiles = ACC_AccessibilityManager.Instance.VisualAccessibility
+                            .GetHighContrastConfigurations();
+                        if (allFiles.Count > 0) ChangeHighContrastConfiguration(allFiles[0]);
                     }
                 }
             }

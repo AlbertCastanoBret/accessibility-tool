@@ -19,7 +19,6 @@ namespace TFG_Videojocs
             accHighContrastManager = ACC_PrefabHelper.InstantiatePrefabAsChild("HighContrast", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_HighContrastManager>();
         }
         
-        #if UNITY_EDITOR
         internal void InitializeState(VisibilityFeatures feature, bool state)
         {
             switch (feature)
@@ -29,7 +28,6 @@ namespace TFG_Videojocs
                     break;
             }
         }
-        #endif
         
         /// <summary>
         /// Sets the state of a specified visibility feature to either enabled or disabled.
@@ -75,7 +73,7 @@ namespace TFG_Videojocs
         /// <summary>
         /// Enables the high contrast menu through the associated high contrast manager.
         /// </summary>
-        public void EnableVisualNotificationMenu()
+        public void EnableHighContrastMenu()
         {
             accHighContrastManager.EnableHighContrastMenu();
         }
@@ -132,14 +130,7 @@ namespace TFG_Videojocs
         /// </summary>
         private void LoadUserPreferencesHighContrast()
         {
-            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled))
-            {
-                SetFeatureState(VisibilityFeatures.HighContrast, PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1);
-            }
-            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration))
-            {
-                ChangeHighContrastConfiguration(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
-            }
+            accHighContrastManager.LoadHighContrastSettings();
         }
 
         #endregion

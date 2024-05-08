@@ -18,6 +18,16 @@ namespace TFG_Videojocs
             accAudioManager = ACC_PrefabHelper.InstantiatePrefabAsChild("Audio", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_AudioManager>();
         }
         
+        internal void InitializeState(MultifiunctionalFeatures feature, bool state)
+        {
+            switch (feature)
+            {
+                case MultifiunctionalFeatures.AudioManager:
+                    accAudioManager.InitializeAudioManager(state);
+                    break;
+            }
+        }
+        
         /// <summary>
         /// Toggles the state of a specified feature within the audio management system.
         /// </summary>
@@ -32,7 +42,7 @@ namespace TFG_Videojocs
                     break;
             }
         }
-
+        
         /// <summary>
         /// Loads and applies the user's accessibility preferences related to multifunctional features.
         /// </summary>
@@ -40,22 +50,25 @@ namespace TFG_Videojocs
         {
             LoadPreferencesAudioSourceVolumes();
         }
-        
+
+        #region AudioManager
+
         /// <summary>
-        /// Displays the audio settings menu by invoking the AudioManager's method to show the menu.
+        /// Enables the audio manager menu through the associated high contrast manager.
         /// </summary>
-        public void ShowAudioSettingsMenu()
+        public void EnableAudioManagerMenu()
         {
-            accAudioManager.ShowAudioSettingsMenu(true);
+            accAudioManager.EnableAudioManagerMenu();
         }
         
         /// <summary>
-        /// Hides the audio settings menu by invoking the AudioManager's method to hide the menu.
+        /// Disables the high contrast menu through the associated high contrast manager.
         /// </summary>
-        public void HideAudioSettingsMenu()
+        public void DisableAudioManagerMenu()
         {
-            accAudioManager.ShowAudioSettingsMenu(false);
+            accAudioManager.DisableAudioManagerMenu();
         }
+
 
         /// <summary>
         /// Retrieves an AudioSource object based on a specified identifier.
@@ -136,16 +149,18 @@ namespace TFG_Videojocs
         
         /// <summary>
         /// Resets the volumes of all audio sources managed by the AudioManager.
-        /// This function calls the ResetAudioSourceVolumes method on the AudioManager instance to revert audio source volumes to their default settings.
+        /// This function calls the ResetAudioManagerConfiguration method on the AudioManager instance to revert audio source volumes to their default settings.
         /// </summary>
-        public void ResetAudioSourceVolumes()
+        public void ResetAudioManagerConfiguration()
         {
-            accAudioManager.ResetAudioSourceVolumes();
+            accAudioManager.ResetAudioManagerConfiguration();
         }
         
         private void LoadPreferencesAudioSourceVolumes()
         {
             accAudioManager.SetAllVolumes();
         }
+        
+        #endregion
     }
 }
