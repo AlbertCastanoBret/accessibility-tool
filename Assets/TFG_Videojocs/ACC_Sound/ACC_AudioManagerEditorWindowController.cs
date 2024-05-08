@@ -23,6 +23,7 @@ public class ACC_AudioManagerEditorWindowController : ACC_FloatingWindowControll
         }
         else
         {
+            base.ConfigureJson();
             ACC_PrefabHelper.CreatePrefab("Audio", oldName);
             foreach (var audioSource in currentData.audioSources.Items)
             {
@@ -36,7 +37,6 @@ public class ACC_AudioManagerEditorWindowController : ACC_FloatingWindowControll
                 }
             }
             ACC_PrefabHelper.CreatePrefab("Audio", oldName);
-            base.ConfigureJson();
         }
     }
     

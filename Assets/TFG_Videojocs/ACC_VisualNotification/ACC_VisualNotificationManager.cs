@@ -31,7 +31,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             if (child.CompareTag("ACC_Prefab")) visualNotificationSettings = child.gameObject;
         }
     }
-
     private void Start()
     {
         foreach (Transform child in transform)

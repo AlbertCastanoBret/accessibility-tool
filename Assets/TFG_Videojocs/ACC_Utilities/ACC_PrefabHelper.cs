@@ -76,7 +76,7 @@ namespace TFG_Videojocs.ACC_Utilities
                     CreateRemapControlsManager(gameObject, jsonFile);
                     break;
                 case "Audio":
-                    CreateAudioManager(gameObject, jsonFile);
+                    gameObject = CreateAudioManager(gameObject, jsonFile, newPrefab);
                     break;
             }
             return gameObject;
@@ -215,7 +215,6 @@ namespace TFG_Videojocs.ACC_Utilities
 
             return visualNotificationManager;
         }
-
         private static GameObject CreateHighContrastManager(GameObject highContrastManager, bool newPrefab)
         {
             if (!newPrefab)
@@ -395,35 +394,49 @@ namespace TFG_Videojocs.ACC_Utilities
                 }
             }
         }
-        private static void CreateAudioManager(GameObject audioManager, string jsonFile)
+        private static GameObject CreateAudioManager(GameObject audioManager, string jsonFile, bool newPrefab)
         {
-            RectTransform audioManagerManagerRectTransform = audioManager.AddComponent<RectTransform>();
+            if (!newPrefab)
+            {
+                audioManager = GameObject.Instantiate(audioManager);
+            }
+            
+            RectTransform audioManagerManagerRectTransform = audioManager.GetComponent<RectTransform>() == null ? audioManager.AddComponent<RectTransform>() : audioManager.GetComponent<RectTransform>();
             audioManagerManagerRectTransform.anchorMin = new Vector2(0, 0);
             audioManagerManagerRectTransform.anchorMax = new Vector2(1, 1);
             audioManagerManagerRectTransform.pivot = new Vector2(0.5f, 0.5f);
             audioManagerManagerRectTransform.anchoredPosition = Vector3.zero;
             audioManagerManagerRectTransform.sizeDelta = new Vector2(0, 0);
             
-            GameObject audioSettings = GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_Sound/ACC_AudioSettings.prefab"), audioManager.transform, true);
+            GameObject audioSettings = GetChildWithTag(audioManager, "ACC_Prefab");
+            if (audioSettings == null) audioSettings = GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_Sound/ACC_AudioSettings.prefab"), audioManager.transform, true);
             
             var loadedData = ACC_JSONHelper.LoadJson<ACC_AudioManagerData>("ACC_AudioManager/" + jsonFile);
-            if(loadedData == null) return;
+            if(loadedData == null) throw new Exception("AudioManagerData couldn't be loaded");
+            //Debug.Log(loadedData.audioClips.Items[0].value.Items[1].value);;
             
-            var audioManagerComponent = audioManager.AddComponent<ACC_AudioManager>();
+            var audioManagerComponent = audioManager.GetComponent<ACC_AudioManager>() ?? audioManager.AddComponent<ACC_AudioManager>();
+            audioManagerComponent.audioSources = new ACC_SerializableDictiornary<int, ACC_AudioSourceData>();
             audioManagerComponent.audioSources = loadedData.audioSources;
+            audioManagerComponent.audioClips = new ACC_SerializableDictiornary<int, ACC_SerializableDictiornary<int, AudioClip>>();
             
-            GameObject audioSources = new GameObject("ACC_AudioSources");
-            audioSources.transform.SetParent(audioManager.transform);
-            
+            GameObject audioSources = GetChildWithTag(audioManager, "ACC_AudioSources");
+            if (audioSources == null)
+            {
+                audioSources = new GameObject() { name = "ACC_AudioSources", tag = "ACC_AudioSources" };
+                audioSources.transform.SetParent(audioManager.transform);
+            }
+
             for (int i = 0; i < loadedData.audioSources.Items.Count; i++)
             {
-                if (loadedData.audioSources.Items[i].value.is3D) { continue; }
-                CreateAudioSource(audioSources, audioSettings, loadedData.audioSources.Items[i].value);
+                CreateAudioSource(audioSources, audioSettings, loadedData.audioSources.Items[i].value, i);
             }
+            
+            DeleteAudioSources(audioSources, audioSettings, loadedData.audioSources);
 
             for (int i = 0; i < loadedData.audioClips.Items.Count; i++)
             {
-                if (loadedData.audioSources.Items[i].value.is3D) { continue; }
+                // if (loadedData.audioSources.Items[i].value.is3D) { continue; }
                 var audioClips = new ACC_SerializableDictiornary<int, AudioClip>();
                 for (int j = 0; j < loadedData.audioClips.Items[i].value.Items.Count; j++)
                 {
@@ -433,28 +446,81 @@ namespace TFG_Videojocs.ACC_Utilities
                 }
                 audioManagerComponent.audioClips.AddOrUpdate(i, audioClips);
             }
+            
+            return audioManager;
         }
-        private static void CreateAudioSource(GameObject audioSources, GameObject audioSettings, ACC_AudioSourceData audioSourceData)
+        private static void CreateAudioSource(GameObject audioSources, GameObject audioSettings, ACC_AudioSourceData audioSourceData, int index)
         {
-            GameObject audioSource = new GameObject {tag = "ACC_AudioSource", name = audioSourceData.name};
-            audioSource.transform.SetParent(audioSources.transform);
-                
-            var audioSourceComponent = audioSource.AddComponent<AudioSource>();
+            GameObject audioSource;
+            if (audioSources.transform.Find(audioSourceData.name) == null)
+            {
+                if (audioSourceData.is3D) return;
+                audioSource = new GameObject {tag = "ACC_AudioSource", name = audioSourceData.name};
+                audioSource.transform.SetParent(audioSources.transform);
+            } 
+            else if (audioSourceData.is3D)
+            {
+                audioSource = audioSources.transform.Find(audioSourceData.name).gameObject;
+                Object.DestroyImmediate(audioSource);
+                var scroll = GetChildWithTag(audioSettings, "ACC_Scroll");
+                var scrollList = GetChildWithTag(scroll, "ACC_ScrollList");
+                var slider = scrollList.transform.Find(audioSourceData.name).gameObject;
+                Object.DestroyImmediate(slider);
+                return;
+            }
+            else
+            {
+                audioSource = audioSources.transform.Find(audioSourceData.name).gameObject;
+            }
+            audioSource.transform.SetSiblingIndex(index);
+            
+            var audioSourceComponent = audioSource.GetComponent<AudioSource>() == null ? audioSource.AddComponent<AudioSource>() : audioSource.GetComponent<AudioSource>();
             audioSourceComponent.volume = audioSourceData.volume;
             
-            var audioSourcesList = audioSettings.transform.Find("AudioSourcesScroll").transform.Find("AudioSourcesList");
-            var audioSourceSlider = GameObject.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_Sound/ACC_AudioSourceVolumeSlider.prefab"), audioSourcesList.transform, true);
+            var audioSourceScroll = GetChildWithTag(audioSettings, "ACC_Scroll");
+            var audioSourcesList = GetChildWithTag(audioSourceScroll, "ACC_ScrollList");
             
-            audioSourceSlider.name = audioSourceData.name;
-            audioSourceSlider.transform.Find("ACC_AudioSourceName").GetComponent<TextMeshProUGUI>().text = audioSourceData.name;
+            GameObject audioSourceSlider;
+            if (audioSourcesList.transform.Find(audioSourceData.name) == null)
+            {
+                audioSourceSlider = Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_Sound/ACC_AudioSourceVolumeSlider.prefab"), audioSourcesList.transform, true);
+                audioSourceSlider.name = audioSourceData.name;
+            }
+            else audioSourceSlider = audioSourcesList.transform.Find(audioSourceData.name).gameObject;
+            audioSourceSlider.transform.SetSiblingIndex(index);
             
-            var audioSourceSliderComponent = audioSourceSlider.transform.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>();
+            var text = audioSourceSlider.transform.Find("ACC_AudioSourceName").GetComponent<TextMeshProUGUI>() ?? audioSourceSlider.transform.Find("ACC_AudioSourceName").gameObject.AddComponent<TextMeshProUGUI>();
+            text.text = audioSourceData.name;
+            
+            var audioSourceSliderComponent = audioSourceSlider.transform.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>() ?? audioSourceSlider.transform.Find("ACC_AudioSourceVolumeSlider").gameObject.AddComponent<Slider>();
             audioSourceSliderComponent.value = audioSourceData.volume;
             
             audioSourceSliderComponent.onValueChanged.AddListener((value) =>
             {
                 audioSourceComponent.volume = value;
             });
+        }
+        private static void DeleteAudioSources(GameObject audioSourcesGameObject, GameObject audioSettings,
+            ACC_SerializableDictiornary<int,ACC_AudioSourceData> audioSources)
+        {
+            foreach (Transform child in audioSourcesGameObject.transform)
+            {
+                if (audioSources.Items.All(item => item.value.name != child.name))
+                {
+                    Object.DestroyImmediate(child.gameObject);
+                }
+            }
+
+            var audioSourceScroll = GetChildWithTag(audioSettings, "ACC_Scroll");
+            var audioSourcesList = GetChildWithTag(audioSourceScroll, "ACC_ScrollList");
+            
+            foreach (Transform child in audioSourcesList.transform)
+            {
+                if (audioSources.Items.All(item => item.value.name != child.name))
+                {
+                    Object.DestroyImmediate(child.gameObject);
+                }
+            }
         }
         public static void Create3DAudioSource(ACC_AudioSourceData audioSourceData)
         {

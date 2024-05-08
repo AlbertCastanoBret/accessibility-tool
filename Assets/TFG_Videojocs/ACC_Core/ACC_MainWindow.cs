@@ -433,7 +433,7 @@ public class ACC_MainWindow : EditorWindow
             }
             else
             {
-                if (evt.newValue == options[2])
+                if (evt.newValue == "Edit Prefab")
                 {
                     var loadPrefabContainer = new VisualElement();
                     var loadPrefabButton = new Button() { text = "Edit Prefab" };
@@ -446,16 +446,6 @@ public class ACC_MainWindow : EditorWindow
                 else if (extraAction != null)
                 {
                     dynamicContainer.Add(extraAction.Invoke());
-                }
-                else
-                {
-                    var loadPrefabContainer = new VisualElement();
-                    var loadPrefabButton = new Button() { text = "Edit" };
-                    loadPrefabButton.AddToClassList("create-button");
-                    loadPrefabButton.clicked += () => { LoadPrefab(prefabName); };
-
-                    loadPrefabContainer.Add(loadPrefabButton);
-                    dynamicContainer.Add(loadPrefabContainer);
                 }
             }
         });
