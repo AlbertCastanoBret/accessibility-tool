@@ -755,7 +755,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             {
                 if (settingsOption.name == "ACC_VisualNotificationEnable")
                 {
-                    visualNotificationToggle.GetComponent<Toggle>().isOn = true;
+                    visualNotificationToggle.GetComponent<Toggle>().isOn = false;
                 }
                 if (settingsOption.name == "ACC_ColorSelector")
                 {

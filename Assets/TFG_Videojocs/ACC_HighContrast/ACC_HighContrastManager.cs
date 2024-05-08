@@ -226,12 +226,15 @@ namespace TFG_Videojocs.ACC_HighContrast
         public void ChangeHighContrastConfiguration(string configuration)
         {
             loadedData = ACC_JSONHelper.LoadJson<ACC_HighContrastData>("ACC_HighContrast/" + configuration);
+            if (loadedData != null)
+            {
+                PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration, configuration);
+                PlayerPrefs.Save();
+            }
             if (loadedData != null && isEnabled)
             {
                 if (ACC_AccessibilityManager.Instance.shadersAdded)
                 {
-                    PlayerPrefs.SetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration, configuration);
-                    PlayerPrefs.Save();
                     GameObject[] goArray = FindObjectsOfType<GameObject>();
                     foreach (GameObject go in goArray)
                     {
