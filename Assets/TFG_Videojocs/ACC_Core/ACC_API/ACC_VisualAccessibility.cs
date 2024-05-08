@@ -83,7 +83,7 @@ namespace TFG_Videojocs
         /// <summary>
         /// Disables the high contrast menu through the associated high contrast manager.
         /// </summary>
-        public void DisableVisualNotificationMenu()
+        public void DisableHighContrastMenu()
         {
             accHighContrastManager.DisableHighContrastMenu();
         }

@@ -190,7 +190,9 @@ namespace TFG_Videojocs.ACC_HighContrast
                                         {
                                             var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                                             dropdown.value = 0;
-                                            ChangeHighContrastConfiguration(dropdown.options[0].text);
+                                            var allFiles = ACC_AccessibilityManager.Instance.VisualAccessibility
+                                                .GetHighContrastConfigurations();
+                                            if (allFiles.Count > 0) ChangeHighContrastConfiguration(allFiles[0]);
                                         }
                                     }
                                 }
@@ -305,20 +307,18 @@ namespace TFG_Videojocs.ACC_HighContrast
         }
         public void ResetHighContrastConfiguration()
         {
-            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
-            PlayerPrefs.Save();
             DisableHighContrastMode();
 
-            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
-                PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1)
-            {
-                EnableHighContrastMode();
-            }
-
-            if (highContrastToggle != null)
-                highContrastToggle.GetComponent<Toggle>().isOn =
-                    PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
-                    PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+            // if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
+            //     PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1)
+            // {
+            //     EnableHighContrastMode();
+            // }
+            //
+            // if (highContrastToggle != null)
+            //     highContrastToggle.GetComponent<Toggle>().isOn =
+            //         PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
+            //         PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
 
             if (highContrastSettings != null)
             {
@@ -332,11 +332,19 @@ namespace TFG_Videojocs.ACC_HighContrast
                             {
                                 foreach (Transform settingsOption in scrollComponent)
                                 {
+                                    if (settingsOption.name == "ACC_HighContrastEnable")
+                                    {
+                                        var toggleComponent = highContrastToggle.GetComponent<Toggle>();
+                                        toggleComponent.isOn = false;
+                                    }
+                                    
                                     if (settingsOption.name == "ACC_HighContrastSelector")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                                         dropdown.value = 0;
-                                        ChangeHighContrastConfiguration(dropdown.options[0].text);
+                                        var allFiles = ACC_AccessibilityManager.Instance.VisualAccessibility
+                                            .GetHighContrastConfigurations();
+                                        if (allFiles.Count > 0) ChangeHighContrastConfiguration(allFiles[0]);
                                     }
                                 }
                             }
@@ -344,6 +352,10 @@ namespace TFG_Videojocs.ACC_HighContrast
                     }
                 }
             }
+            
+            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled);
+            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
+            PlayerPrefs.Save();
         }
     }
 }

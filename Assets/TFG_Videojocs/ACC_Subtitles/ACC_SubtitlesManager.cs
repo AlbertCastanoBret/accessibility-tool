@@ -41,7 +41,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
             if (child.CompareTag("ACC_Prefab")) subtitleSettings = child.gameObject;
         }
     }
-
     private void Start()
     {
         foreach (Transform child in transform)
@@ -579,6 +578,11 @@ public class ACC_SubtitlesManager : MonoBehaviour
                         {
                             foreach (Transform settingsOption in scrollComponent)
                             {
+                                if (settingsOption.name == "ACC_SubtitlesEnable")
+                                {
+                                    var toggle = settingsOption.Find("Toggle");
+                                    toggle.GetComponent<Toggle>().isOn = false;
+                                }
                                 if (settingsOption.name == "ACC_ShowActors")
                                 {
                                     var toggle = settingsOption.Find("Toggle");
@@ -614,7 +618,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                 }
             }
         }
-        
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled);
         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled);
         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled);
         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorFontColor);

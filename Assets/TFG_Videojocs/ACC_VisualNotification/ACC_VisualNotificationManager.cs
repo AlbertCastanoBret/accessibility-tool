@@ -732,6 +732,10 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                         {
                             foreach (Transform settingsOption in scrollComponent)
                             {
+                                if (settingsOption.name == "ACC_VisualNotificationEnable")
+                                {
+                                    visualNotificationToggle.GetComponent<Toggle>().isOn = false;
+                                }
                                 if (settingsOption.name == "ACC_HorizontalAlignment")
                                 {
                                     var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
@@ -763,6 +767,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                 }
             }
         }
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled);
         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
