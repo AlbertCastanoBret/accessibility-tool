@@ -152,12 +152,20 @@ namespace TFG_Videojocs.ACC_Utilities
             float halfWidth = totalRect.width / 2;
             
             Rect labelRect = new Rect(totalRect.x, totalRect.y, halfWidth, totalRect.height);
-            Rect buttonRect = new Rect(totalRect.x + halfWidth, totalRect.y, halfWidth, totalRect.height);
             
-            EditorGUI.LabelField(labelRect, "Reset values");
+            EditorGUI.LabelField(labelRect, "Reset Values", new GUIStyle(GUI.skin.label)
+            {
+                fontStyle = FontStyle.Italic,
+            });
             if (ExistsAnyKey(feature))
             {
-                if (GUI.Button(buttonRect, "Reset"))
+                if (GUILayout.Button("Reset", new GUIStyle(GUI.skin.button)
+                {
+                    fixedWidth = 118,
+                    fixedHeight = 18,
+                    fontStyle = FontStyle.Bold,
+                    normal = {textColor = Color.white, background = MakeTex(120, 18, Color.red)}
+                }))
                 {
                     ResetValues(feature);
                 }
@@ -253,7 +261,6 @@ namespace TFG_Videojocs.ACC_Utilities
                     return false;
             }
         }
-        
         private void ResetValues(string feature)
         {
             switch (feature)
@@ -284,7 +291,21 @@ namespace TFG_Videojocs.ACC_Utilities
                     break;
             }
         }
-        
+        private Texture2D MakeTex(int width, int height, Color color)
+        {
+            Color[] pixels = new Color[width * height];
+
+            for (int i = 0; i < pixels.Length; ++i)
+            {
+                pixels[i] = color;
+            }
+
+            Texture2D result = new Texture2D(width, height);
+            result.SetPixels(pixels);
+            result.Apply();
+
+            return result;
+        }
         private void OnRebindingMenuChanged(int newIndex)
         {
             manager.currentRemapControlsMenu = manager.remapControlsMenus[newIndex];
