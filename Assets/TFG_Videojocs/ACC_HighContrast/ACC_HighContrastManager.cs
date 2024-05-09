@@ -100,7 +100,7 @@ namespace TFG_Videojocs.ACC_HighContrast
             if (highContrastToggle != null)
             {
                 highContrastToggle.GetComponent<Toggle>().isOn = state;
-                PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled );
+                //PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled );
             }
             ACC_AccessibilityManager.Instance.highContrastEnabled = state;
         }

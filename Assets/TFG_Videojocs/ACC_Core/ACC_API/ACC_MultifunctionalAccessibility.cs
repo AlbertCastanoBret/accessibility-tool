@@ -148,17 +148,20 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
+        /// Configures all audio source volumes to the user's saved preferences.
+        /// </summary>
+        public void LoadPreferencesAudioSourceVolumes()
+        {
+            accAudioManager.SetAllVolumes();
+        }
+        
+        /// <summary>
         /// Resets the volumes of all audio sources managed by the AudioManager.
         /// This function calls the ResetAudioManagerConfiguration method on the AudioManager instance to revert audio source volumes to their default settings.
         /// </summary>
         public void ResetAudioManagerConfiguration()
         {
             accAudioManager.ResetAudioManagerConfiguration();
-        }
-        
-        private void LoadPreferencesAudioSourceVolumes()
-        {
-            accAudioManager.SetAllVolumes();
         }
         
         #endregion

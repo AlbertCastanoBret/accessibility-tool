@@ -285,7 +285,6 @@ namespace TFG_Videojocs.ACC_Utilities
             try
             {
                 var loadedData = ACC_JSONHelper.LoadJson<ACC_ControlSchemeData>("ACC_ControlSchemesConfiguration/" + jsonFile);
-                remapControlsManagerComponent.loadedData = loadedData;
                 SetControlSchemes(loadedData, remapControlsManager);
             }
             #pragma warning disable 0168

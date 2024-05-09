@@ -227,7 +227,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         if (visualNotificationToggle != null)
         {
             visualNotificationToggle.GetComponent<Toggle>().isOn = state;
-            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled);
+            //PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled);
         }
         ACC_AccessibilityManager.Instance.visualNotificationEnabled = state;
     }

@@ -118,19 +118,19 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
+        /// Loads the user's high contrast preferences from settings and applies them.
+        /// </summary>
+        public void LoadUserPreferencesHighContrast()
+        {
+            accHighContrastManager.LoadHighContrastSettings();
+        }
+        
+        /// <summary>
         /// Resets the high contrast configuration to its default state.
         /// </summary>
         public void ResetHighContrastConfiguration()
         {
             accHighContrastManager.ResetHighContrastConfiguration();
-        }
-        
-        /// <summary>
-        /// Loads the user's high contrast preferences from settings and applies them.
-        /// </summary>
-        private void LoadUserPreferencesHighContrast()
-        {
-            accHighContrastManager.LoadHighContrastSettings();
         }
 
         #endregion

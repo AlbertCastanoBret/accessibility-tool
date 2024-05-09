@@ -72,36 +72,36 @@ namespace TFG_Videojocs.ACC_Utilities
             EditorGUILayout.LabelField("Audio Accessibility", new GUIStyle(EditorStyles.boldLabel));
             GUILayout.EndHorizontal();
             
-            DrawAccessibilityFeature(subtitlesEnabledProperty, showSubtitlesMenuProperty);
-            DrawAccessibilityFeature(visualNotificationEnabledProperty, showVisualNotificationMenuProperty);
+            DrawAccessibilityFeature(subtitlesEnabledProperty, showSubtitlesMenuProperty, "Subtitles");
+            DrawAccessibilityFeature(visualNotificationEnabledProperty, showVisualNotificationMenuProperty, "VisualNotification");
             GUILayout.Space(10);
             
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Visual Accessibility", new GUIStyle(EditorStyles.boldLabel));
             GUILayout.EndHorizontal();
             
-            DrawAccessibilityFeature(highContrastEnabledProperty, showHighContrastMenuProperty);
+            DrawAccessibilityFeature(highContrastEnabledProperty, showHighContrastMenuProperty, "HighContrast");
             GUILayout.Space(10);
             
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Mobility Accessibility", new GUIStyle(EditorStyles.boldLabel));
             GUILayout.EndHorizontal();
             
-            DrawAccessibilityFeature(remapControlsEnabledProperty, showRemapControlsMenuProperty, remapControlsAssetProperty);
+            DrawAccessibilityFeature(remapControlsEnabledProperty, showRemapControlsMenuProperty, "RemapControls", remapControlsAssetProperty);
             GUILayout.Space(10);
             
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Multifunctional Accessibility", new GUIStyle(EditorStyles.boldLabel));
             GUILayout.EndHorizontal();
             
-            DrawAccessibilityFeature(audioManagerEnabledProperty, showAudioManagerMenuProperty);
+            DrawAccessibilityFeature(audioManagerEnabledProperty, showAudioManagerMenuProperty, "AudioManager");
             GUILayout.Space(10);
             
             GUILayout.EndVertical();
             serializedObject.ApplyModifiedProperties();
         }
         
-        private void DrawAccessibilityFeature(SerializedProperty featureEnabledProperty, SerializedProperty showFeatureMenuProperty, SerializedProperty extraProperty = null)
+        private void DrawAccessibilityFeature(SerializedProperty featureEnabledProperty, SerializedProperty showFeatureMenuProperty, string feature="", SerializedProperty extraProperty = null)
         {
             GUILayout.BeginVertical();
             
@@ -111,8 +111,15 @@ namespace TFG_Videojocs.ACC_Utilities
             {
                 fixedWidth = 120,
             };
-            if (GUILayout.Button("Delete Keys", style))
+            if (PlayerPrefs.HasKey(feature + "Enabled"))
             {
+                if (GUILayout.Button("Delete Key", style))
+                {
+                    if (!string.IsNullOrEmpty(feature))
+                    {
+                        PlayerPrefs.DeleteKey(feature + "Enabled");
+                    }
+                }
             }
             GUILayout.EndHorizontal();
             

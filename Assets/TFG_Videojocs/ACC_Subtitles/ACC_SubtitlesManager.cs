@@ -242,7 +242,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
         if (subtitlesToggle != null)
         {
             subtitlesToggle.GetComponent<Toggle>().isOn = state;
-            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled);
+            //PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled);
         }
         ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
     }

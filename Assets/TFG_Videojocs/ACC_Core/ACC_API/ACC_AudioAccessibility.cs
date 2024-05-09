@@ -289,17 +289,20 @@ public class ACC_AudioAccessibility
     }
     
     /// <summary>
+    /// Loads the user's preferences for subtitles settings.
+    /// </summary>
+    public void LoadUserPreferencesSubtitles()
+    {
+        accSubtitlesManager.LoadSubtitlesSettings();
+    }
+    
+    /// <summary>
     /// Resets all subtitle settings to the default or loaded values and updates the UI accordingly.
     /// Removes any previously stored subtitle-related preferences from player preferences.
     /// </summary>
     public void ResetSubtitleSettings()
     {
         accSubtitlesManager.ResetSubtitlesSettings();
-    }
-
-    private void LoadUserPreferencesSubtitles()
-    {
-        accSubtitlesManager.LoadSubtitlesSettings();
     }
     
     #endregion
@@ -550,6 +553,14 @@ public class ACC_AudioAccessibility
     }
     
     /// <summary>
+    /// Loads the user's preferences for visual notifications.
+    /// </summary>
+    public void LoadUserPreferencesVisualNotification()
+    {
+        accVisualNotificationManager.LoadVisualNotificationSettings();
+    }
+    
+    /// <summary>
     /// Resets the visual notification settings to their default values by deleting specific PlayerPrefs keys related to visual notifications and updating the visual notification manager.
     /// </summary>
     /// <remarks>
@@ -559,11 +570,6 @@ public class ACC_AudioAccessibility
     public void ResetVisualNotificationSettings()
     {
         accVisualNotificationManager.ResetVisualNotificationSettings();
-    }
-    
-    private void LoadUserPreferencesVisualNotification()
-    {
-        accVisualNotificationManager.LoadVisualNotificationSettings();
     }
     #endregion
 }

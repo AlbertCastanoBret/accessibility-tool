@@ -239,7 +239,11 @@ namespace TFG_Videojocs.ACC_Sound
         }
         public void SetAllVolumes()
         {
-            if (!isEnabled) return;
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled))
+            {
+                SetAudioManager(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.AudioManagerEnabled) == 1);
+            }
+            
             foreach (Transform audioSource in audioSourcesContainer.transform)
             {
                 var currentAudioSource = audioSource.GetComponent<AudioSource>();

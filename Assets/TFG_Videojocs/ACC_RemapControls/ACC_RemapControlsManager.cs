@@ -20,7 +20,6 @@ namespace TFG_Videojocs.ACC_RemapControls
         public GameObject rebindOverlay;
 #endif
         [Header("Runtime Only")]
-        public ACC_ControlSchemeData loadedData;
         private Dictionary<GameObject, List<string>> controlSchemesOfEachDevice = new();
         private Dictionary<GameObject, string> currentControlSchemeOfEachDevice = new();
         private bool isEnabled;
@@ -35,7 +34,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 var deviceManager = gameObject.transform.GetChild(i).gameObject;
                 if (deviceManager.CompareTag("ACC_Prefab"))
                 {
-                    var controlSchemes = loadedData.inputActionAsset.controlSchemes
+                    var controlSchemes = ACC_AccessibilityManager.Instance.remapControlsAsset.controlSchemes
                         .Where(scheme => String.Join(", ", scheme.deviceRequirements
                             .Select(requirement => requirement.controlPath.Replace("<", "").Replace(">", ""))
                             .Distinct()
@@ -103,6 +102,51 @@ namespace TFG_Videojocs.ACC_RemapControls
             }
             if (!found) Debug.LogError("Device " + device + " not found");
         }
+        public void DisableRebindMenu()
+        {
+            foreach (var deviceManager in controlSchemesOfEachDevice.Keys)
+            {
+                deviceManager.SetActive(false);
+            }
+        }
+        public void ChangeBinding(string actionName, int bindingIndex, InputBinding newBinding)
+        {
+            if (!isEnabled) return;
+            
+            InputAction action = ACC_AccessibilityManager.Instance.remapControlsAsset.FindAction(actionName);
+            if (action == null)
+            {
+                Debug.LogError($"Action '{actionName}' not found in the Input Action Asset.");
+                return;
+            }
+            
+            if (bindingIndex < 0 || bindingIndex >= action.bindings.Count)
+            {
+                Debug.LogError($"Binding index '{bindingIndex}' is invalid for action '{actionName}'.");
+                return;
+            }
+            
+            action.ApplyBindingOverride(bindingIndex, newBinding);
+        }
+        public void ResetBinding(string actionName, int bindingIndex)
+        {
+            if (!isEnabled) return;
+            
+            InputAction action = ACC_AccessibilityManager.Instance.remapControlsAsset.FindAction(actionName);
+            if (action == null)
+            {
+                Debug.LogError($"Action '{actionName}' not found in the Input Action Asset.");
+                return;
+            }
+            
+            if (bindingIndex < 0 || bindingIndex >= action.bindings.Count)
+            {
+                Debug.LogError($"Binding index '{bindingIndex}' is invalid for action '{actionName}'.");
+                return;
+            }
+            
+            action.RemoveBindingOverride(bindingIndex);
+        }
         public void ChangeControlScheme(string controlScheme)
         {
             UnityEngine.InputSystem.PlayerInput[] allPlayerInputs = FindObjectsOfType<UnityEngine.InputSystem.PlayerInput>();
@@ -113,24 +157,31 @@ namespace TFG_Videojocs.ACC_RemapControls
                     playerInput.actions = ACC_AccessibilityManager.Instance.remapControlsAsset;
                 }
 
-                playerInput.SwitchCurrentControlScheme(controlScheme);
+                playerInput.defaultControlScheme = controlScheme;
                 playerInput.enabled = false;
                 playerInput.enabled = true;
             }
-
         }
         public void ResetAllBindings()
         {
             if (!isEnabled) return;
-            foreach (InputActionMap map in loadedData.inputActionAsset.actionMaps)
+            foreach (InputActionMap map in ACC_AccessibilityManager.Instance.remapControlsAsset.actionMaps)
             {
                 map.RemoveAllBindingOverrides();
+            }
+        }
+
+        public void LoadRemapControlsSettings()
+        {
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled))
+            {
+                SetRemapControls(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.RemapControlsEnabled) == 1);
             }
         }
         public void ResetControlSchemeBindings(string controlScheme)
         {
             if (!isEnabled) return;
-            foreach (InputActionMap map in loadedData.inputActionAsset.actionMaps)
+            foreach (InputActionMap map in ACC_AccessibilityManager.Instance.remapControlsAsset.actionMaps)
             {
                 foreach (InputAction action in map.actions)
                 {
@@ -138,14 +189,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }
         }
-        public void DisableRebindMenu()
-        {
-            foreach (var deviceManager in controlSchemesOfEachDevice.Keys)
-            {
-                deviceManager.SetActive(false);
-            }
-        }
-        
         private void PressLeftButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
         {
             var currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;

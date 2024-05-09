@@ -23,8 +23,8 @@ public class ACC_AccessibilitySettingsKeys
     public const string HighContrastEnabled = "HighContrastEnabled";
     public const string HighContrastConfiguration = "HighContrastConfiguration";
     
+    public const string RemapControlsEnabled = "RemapControlsEnabled";
+    
     public const string AudioManagerEnabled = "AudioManagerEnabled";
     public const string AudioSourceVolume = "AudioSourceVolume";
-    
-    public const string RemapControlsEnabled = "RemapControlsEnabled";
 }
