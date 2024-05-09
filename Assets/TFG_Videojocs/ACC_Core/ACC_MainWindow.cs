@@ -372,6 +372,22 @@ public class ACC_MainWindow : EditorWindow
             }
             
             accessibilityManager.remapControlsAsset = inputActionAsset;
+            
+            if (inputActionAsset == null) return;
+            var devices = inputActionAsset.controlSchemes
+                .Select(scheme => 
+                {
+                    return scheme.deviceRequirements
+                        .Select(requirement => requirement.controlPath.Replace("<", "").Replace(">", ""))
+                        .Distinct()
+                        .OrderBy(device => device)
+                        .Aggregate((current, next) => current + ", " + next);
+                })
+                .Where(device => device != null)
+                .Distinct()
+                .ToList();
+            
+            FindObjectOfType<ACC_AccessibilityManager>().remapControlsMenus = new List<string>(devices);
         });
         
         if (FindObjectOfType<ACC_AccessibilityManager>().remapControlsAsset != null)

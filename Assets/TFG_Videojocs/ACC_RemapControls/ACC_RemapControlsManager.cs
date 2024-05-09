@@ -101,7 +101,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
                 else deviceManager.SetActive(false);
             }
-            if (!found) Debug.LogError("Device not found");
+            if (!found) Debug.LogError("Device " + device + " not found");
         }
         public void ResetAllBindings()
         {

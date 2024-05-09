@@ -18,27 +18,45 @@ namespace TFG_Videojocs
         public static ACC_AccessibilityManager Instance { get; private set; } 
         internal GameObject accCanvas { get; private set; }
         
-        [SerializeField] public bool subtitlesEnabled;
-        [SerializeField] internal bool showSubtitlesMenu;
-        [SerializeField] internal bool visualNotificationEnabled;
-        [SerializeField] internal bool showVisualNotificationMenu;
+        //Audio Accessibility
         
+        [SerializeField] public bool subtitlesEnabled;
+        #if UNITY_EDITOR
+        [SerializeField] internal bool showSubtitlesMenu;
+        #endif
+        
+        [SerializeField] internal bool visualNotificationEnabled;
+        #if UNITY_EDITOR
+        [SerializeField] internal bool showVisualNotificationMenu;
+        #endif
         public ACC_AudioAccessibility AudioAccessibility { get; private set;}
         
-        [SerializeField] internal bool highContrastEnabled;
-        [SerializeField] internal bool showHighContrastMenu;
-        [HideInInspector] public bool shadersAdded, isPrevisualizing;
+        //Visual Accessibility
         
+        [SerializeField] internal bool highContrastEnabled;
+        #if UNITY_EDITOR
+        [SerializeField] internal bool showHighContrastMenu, isPrevisualizing;
+        #endif
+        [HideInInspector] public bool shadersAdded;
         public ACC_VisualAccessibility VisualAccessibility { get; private set; }
         
-        [SerializeField] internal bool remapControlsEnabled;
-        [SerializeField] internal bool showRemapControlsMenu;
-        [SerializeField] internal InputActionAsset remapControlsAsset;
+        //Mobility Accessibility
         
+        [SerializeField] internal bool remapControlsEnabled;
+        #if UNITY_EDITOR
+        [SerializeField] internal bool showRemapControlsMenu;
+        #endif
+        [SerializeField] internal InputActionAsset remapControlsAsset;
+        [SerializeField] internal List<string> remapControlsMenus;
+        [SerializeField] internal string currentRemapControlsMenu;
         public ACC_MobilityAccessibility MobilityAccessibility { get; private set; }
         
+        //Multifunctional Accessibility
+        
         [SerializeField] internal bool audioManagerEnabled;
+        #if UNITY_EDITOR
         [SerializeField] internal bool showAudioManagerMenu;
+        #endif
         
         public ACC_MultifunctionalAccessibility MultifunctionalAccessibility { get; private set; }
             
@@ -65,14 +83,41 @@ namespace TFG_Videojocs
                 AudioAccessibility.InitializeState(AudioFeatures.Subtitles, subtitlesEnabled);
                 AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
+                #if UNITY_EDITOR
+                if (showSubtitlesMenu) AudioAccessibility.EnableSubtitlesMenu();
+                else AudioAccessibility.DisableSubtitlesMenu();
+                if (showVisualNotificationMenu) AudioAccessibility.EnableVisualNotificationMenu();
+                else AudioAccessibility.DisableVisualNotificationMenu();
+                #endif
+                
                 VisualAccessibility = new ACC_VisualAccessibility();
                 VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                
+                #if UNITY_EDITOR
+                if (showHighContrastMenu) VisualAccessibility.EnableHighContrastMenu();
+                else VisualAccessibility.DisableHighContrastMenu();
+                #endif
                 
                 MobilityAccessibility = new ACC_MobilityAccessibility();
                 MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 
+                #if UNITY_EDITOR
+                if (showRemapControlsMenu) MobilityAccessibility.EnableRemapControlsMenu(currentRemapControlsMenu);
+                else MobilityAccessibility.DisableRemapControlsMenu();
+                #endif
+                
+                #if UNITY_EDITOR
+                if (showRemapControlsMenu) MobilityAccessibility.EnableRemapControlsMenu(currentRemapControlsMenu);
+                else MobilityAccessibility.DisableRemapControlsMenu();
+                #endif
+                
                 MultifunctionalAccessibility = new ACC_MultifunctionalAccessibility();
                 MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
+                
+                #if UNITY_EDITOR
+                if (showAudioManagerMenu) MultifunctionalAccessibility.EnableAudioManagerMenu();
+                else MultifunctionalAccessibility.DisableAudioManagerMenu();
+                #endif
                 
                 DontDestroyOnLoad(gameObject);
             }
@@ -88,6 +133,7 @@ namespace TFG_Videojocs
             AudioAccessibility.DisableSubtitlesMenu();
             AudioAccessibility.DisableVisualNotificationMenu();
             VisualAccessibility.DisableHighContrastMenu();
+            MobilityAccessibility.DisableRemapControlsMenu();
             MultifunctionalAccessibility.DisableAudioManagerMenu();
             //AudioAccessibility.ResetVisualNotificationSettings();
             //AudioAccessibility.ChangeSubtitleFontSize(20);
@@ -116,7 +162,7 @@ namespace TFG_Videojocs
         }
         
         #if UNITY_EDITOR
-        private void OnValidate()
+        internal void OnValidate()
         {
             if (Application.isPlaying && sceneLoaded)
             {
@@ -129,6 +175,8 @@ namespace TFG_Videojocs
                 else AudioAccessibility.DisableVisualNotificationMenu();
                 
                 MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
+                if (showRemapControlsMenu) MobilityAccessibility.EnableRemapControlsMenu(currentRemapControlsMenu);
+                else MobilityAccessibility.DisableRemapControlsMenu();
                 
                 VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 if (showHighContrastMenu) VisualAccessibility.EnableHighContrastMenu();

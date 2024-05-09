@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 namespace TFG_Videojocs.ACC_Utilities
@@ -19,12 +22,15 @@ namespace TFG_Videojocs.ACC_Utilities
         private SerializedProperty remapControlsEnabledProperty;
         private SerializedProperty showRemapControlsMenuProperty;
         private SerializedProperty remapControlsAssetProperty;
+        private SerializedProperty remapControlsMenus;
         
         private SerializedProperty audioManagerEnabledProperty;
         private SerializedProperty showAudioManagerMenuProperty;
-        
-        private string[] inputActionAssets = { "Default", "Custom1", "Custom2", "Custom3" };
-        private int selectedAssetIndex = 0;
+
+        private ACC_AccessibilityManager manager;
+        private string[] inputActionAssets;
+        private int selectedAssetIndex;
+        private int previousSelectedAssetIndex;
 
         private void OnEnable()
         {
@@ -39,10 +45,24 @@ namespace TFG_Videojocs.ACC_Utilities
             remapControlsEnabledProperty = serializedObject.FindProperty("remapControlsEnabled");
             showRemapControlsMenuProperty = serializedObject.FindProperty("showRemapControlsMenu");
             remapControlsAssetProperty = serializedObject.FindProperty("remapControlsAsset");
+            remapControlsMenus = serializedObject.FindProperty("remapControlsMenus");
             
             audioManagerEnabledProperty = serializedObject.FindProperty("audioManagerEnabled");
             showAudioManagerMenuProperty = serializedObject.FindProperty("showAudioManagerMenu");
+            
+            manager = (ACC_AccessibilityManager) target;
+
+            var copiedArray = new string[manager.remapControlsMenus.Count];
+            for (int i = 0; i < manager.remapControlsMenus.Count; i++)
+            {
+                copiedArray[i] = manager.remapControlsMenus[i];
+            }
+            
+            inputActionAssets = copiedArray;
+            selectedAssetIndex = 0;
+            previousSelectedAssetIndex = selectedAssetIndex;
         }
+
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
@@ -80,6 +100,7 @@ namespace TFG_Videojocs.ACC_Utilities
             GUILayout.EndVertical();
             serializedObject.ApplyModifiedProperties();
         }
+        
         private void DrawAccessibilityFeature(SerializedProperty featureEnabledProperty, SerializedProperty showFeatureMenuProperty, SerializedProperty extraProperty = null)
         {
             GUILayout.BeginVertical();
@@ -102,15 +123,63 @@ namespace TFG_Videojocs.ACC_Utilities
             if (extraProperty != null)
             {
                 GUILayout.BeginHorizontal();
-                EditorGUILayout.PropertyField(extraProperty);
+                EditorGUILayout.PropertyField(remapControlsMenus);
                 GUILayout.EndHorizontal();
                 
                 GUILayout.BeginHorizontal();
+                var copiedArray = new string[manager.remapControlsMenus.Count];
+                for (int i = 0; i < manager.remapControlsMenus.Count; i++)
+                {
+                    copiedArray[i] = manager.remapControlsMenus[i];
+                }
+                inputActionAssets = copiedArray;
+                
                 selectedAssetIndex = EditorGUILayout.Popup("Select Rebinding Menu", selectedAssetIndex, inputActionAssets);
                 GUILayout.EndHorizontal();
+                
+                OnRebindingMenuChanged(selectedAssetIndex);
+
+                if (selectedAssetIndex != previousSelectedAssetIndex)
+                {
+                    OnRebindingMenuChanged(selectedAssetIndex);
+                    previousSelectedAssetIndex = selectedAssetIndex;
+                }
+                
+                GUILayout.BeginHorizontal();
+                EditorGUI.BeginChangeCheck();
+                EditorGUILayout.PropertyField(extraProperty);
+                if (EditorGUI.EndChangeCheck())
+                {
+                    extraProperty.serializedObject.ApplyModifiedProperties();
+                    var devices = ((InputActionAsset) extraProperty.objectReferenceValue).controlSchemes
+                        .Select(scheme => 
+                        {
+                            return scheme.deviceRequirements
+                                .Select(requirement => requirement.controlPath.Replace("<", "").Replace(">", ""))
+                                .Distinct()
+                                .OrderBy(device => device)
+                                .Aggregate((current, next) => current + ", " + next);
+                        })
+                        .Where(device => device != null)
+                        .Distinct()
+                        .ToList();
+                    
+                    manager.remapControlsMenus = new List<string>(devices);
+                    remapControlsMenus.serializedObject.Update();
+                    serializedObject.ApplyModifiedProperties();
+                }
+                GUILayout.EndHorizontal();
             }
-            
             GUILayout.EndVertical();
+        }
+        
+        private void OnRebindingMenuChanged(int newIndex)
+        {
+            manager.currentRemapControlsMenu = manager.remapControlsMenus[newIndex];
+            if (Application.isPlaying)
+            {
+                manager.OnValidate();
+            }
         }
     }
 }
