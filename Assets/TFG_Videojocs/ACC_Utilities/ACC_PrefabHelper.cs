@@ -27,7 +27,7 @@ namespace TFG_Videojocs.ACC_Utilities
             //gameObject.transform.SetParent(GameObject.Find("ACC_Canvas").transform, false);
             var folder = "ACC_" + feature + "/";
             var name = "ACC_" + feature + "Manager.prefab";
-            if (!string.IsNullOrEmpty(jsonFile)) name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";
+            if (!string.IsNullOrEmpty(jsonFile) && feature != "Audio") name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";
             
             Directory.CreateDirectory("Assets/Resources/ACC_Prefabs/" + folder);
             
@@ -41,7 +41,7 @@ namespace TFG_Videojocs.ACC_Utilities
         {
             var folder = "ACC_" + feature + "/";
             var name = "ACC_" + feature + "Manager";
-            if (!string.IsNullOrEmpty(jsonFile)) name = "ACC_" + feature + "Manager_" + jsonFile;
+            if (!string.IsNullOrEmpty(jsonFile) && feature != "Audio") name = "ACC_" + feature + "Manager_" + jsonFile;
             var prefabPath = "ACC_Prefabs/" + folder + name;
             
             GameObject prefab = Resources.Load<GameObject>(prefabPath);
@@ -56,10 +56,10 @@ namespace TFG_Videojocs.ACC_Utilities
         private static GameObject CreateGameObject(string feature, string jsonFile = "")
         {
             string name = "ACC_" + feature + "Manager";
-            if (!string.IsNullOrEmpty(jsonFile)) name = "ACC_" + feature + "Manager_" + jsonFile;
+            if (!string.IsNullOrEmpty(jsonFile) && feature != "Audio") name = "ACC_" + feature + "Manager_" + jsonFile;
             bool newPrefab = false;
             GameObject gameObject = GetPrefabWithTag("ACC_" + feature + "Manager", "Assets/Resources/ACC_Prefabs/"+ "ACC_" + feature + "/");
-            if(!string.IsNullOrEmpty(jsonFile)) gameObject = GetPrefabWithNameAndTag(name, "ACC_" + feature + "Manager", "Assets/Resources/ACC_Prefabs/"+ "ACC_" + feature + "/");
+            if(!string.IsNullOrEmpty(jsonFile) && feature != "Audio") gameObject = GetPrefabWithNameAndTag(name, "ACC_" + feature + "Manager", "Assets/Resources/ACC_Prefabs/"+ "ACC_" + feature + "/");
             if (gameObject == null)
             {
                 newPrefab = true;
