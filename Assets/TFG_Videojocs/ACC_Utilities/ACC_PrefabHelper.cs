@@ -27,18 +27,21 @@ namespace TFG_Videojocs.ACC_Utilities
             //gameObject.transform.SetParent(GameObject.Find("ACC_Canvas").transform, false);
             var folder = "ACC_" + feature + "/";
             var name = "ACC_" + feature + "Manager.prefab";
+            if (!string.IsNullOrEmpty(jsonFile)) name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";
             
             Directory.CreateDirectory("Assets/Resources/ACC_Prefabs/" + folder);
             
             var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
+            
             PrefabUtility.SaveAsPrefabAsset(gameObject, prefabPath);
-            GameObject.DestroyImmediate(gameObject, true);
+            Object.DestroyImmediate(gameObject, true);
             AssetDatabase.Refresh();
         }
         public static GameObject InstantiatePrefabAsChild(string feature, GameObject parent, string jsonFile="")
         {
             var folder = "ACC_" + feature + "/";
             var name = "ACC_" + feature + "Manager";
+            if (!string.IsNullOrEmpty(jsonFile)) name = "ACC_" + feature + "Manager_" + jsonFile;
             var prefabPath = "ACC_Prefabs/" + folder + name;
             
             GameObject prefab = Resources.Load<GameObject>(prefabPath);
@@ -53,8 +56,10 @@ namespace TFG_Videojocs.ACC_Utilities
         private static GameObject CreateGameObject(string feature, string jsonFile = "")
         {
             string name = "ACC_" + feature + "Manager";
+            if (!string.IsNullOrEmpty(jsonFile)) name = "ACC_" + feature + "Manager_" + jsonFile;
             bool newPrefab = false;
             GameObject gameObject = GetPrefabWithTag("ACC_" + feature + "Manager", "Assets/Resources/ACC_Prefabs/"+ "ACC_" + feature + "/");
+            if(!string.IsNullOrEmpty(jsonFile)) gameObject = GetPrefabWithNameAndTag(name, "ACC_" + feature + "Manager", "Assets/Resources/ACC_Prefabs/"+ "ACC_" + feature + "/");
             if (gameObject == null)
             {
                 newPrefab = true;
@@ -73,7 +78,7 @@ namespace TFG_Videojocs.ACC_Utilities
                     gameObject = CreateHighContrastManager(gameObject, newPrefab);
                     break;
                 case "RemapControls":
-                    CreateRemapControlsManager(gameObject, jsonFile);
+                    gameObject = CreateRemapControlsManager(gameObject, jsonFile, newPrefab);
                     break;
                 case "Audio":
                     gameObject = CreateAudioManager(gameObject, jsonFile, newPrefab);
@@ -99,6 +104,18 @@ namespace TFG_Videojocs.ACC_Utilities
             }
             return null;
         }
+        public static GameObject GetPrefabWithNameAndTag(string name, string tag, string directoryPath)
+        {
+            var guids = AssetDatabase.FindAssets("t:GameObject", new[] {directoryPath});
+            foreach (var guid in guids)
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var gameObject = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+                if (gameObject.CompareTag(tag) && gameObject.name == name) return gameObject;
+            }
+            return null;
+        }
+        
         private static GameObject CreateSubtitleManager(GameObject subtitleManager, bool newPrefab)
         {
             if (!newPrefab)
@@ -235,21 +252,34 @@ namespace TFG_Videojocs.ACC_Utilities
             
             return highContrastManager;
         }
-        private static void CreateRemapControlsManager(GameObject remapControlsManager, string jsonFile)
+        private static GameObject CreateRemapControlsManager(GameObject remapControlsManager, string jsonFile, bool newPrefab)
         {
-            RectTransform remapControlsManagerRectTransform = remapControlsManager.AddComponent<RectTransform>();
+            if (!newPrefab)
+            {
+                Debug.Log("A");
+                remapControlsManager = Object.Instantiate(remapControlsManager);
+            }
+            
+            RectTransform remapControlsManagerRectTransform = remapControlsManager.GetComponent<RectTransform>() == null ? 
+                remapControlsManager.AddComponent<RectTransform>() : remapControlsManager.GetComponent<RectTransform>();
             remapControlsManagerRectTransform.anchorMin = new Vector2(0, 0);
             remapControlsManagerRectTransform.anchorMax = new Vector2(1, 1);
             remapControlsManagerRectTransform.pivot = new Vector2(0.5f, 0.5f);
             remapControlsManagerRectTransform.anchoredPosition = Vector3.zero;
             remapControlsManagerRectTransform.sizeDelta = new Vector2(0, 0);
     
-            var remapControlsManagerComponent = remapControlsManager.AddComponent<ACC_RemapControlsManager>();
+            var remapControlsManagerComponent = remapControlsManager.GetComponent<ACC_RemapControlsManager>() == null ? 
+                remapControlsManager.AddComponent<ACC_RemapControlsManager>() : remapControlsManager.GetComponent<ACC_RemapControlsManager>();
+            
             remapControlsManagerComponent.defaultMenu = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_DeviceManager.prefab");
             remapControlsManagerComponent.rebindUIPrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/Rebinding UI/RebindUIPrefab.prefab");
-            remapControlsManagerComponent.rebindOverlay = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/WaitForInputPanel.prefab");
+            remapControlsManagerComponent.rebindOverlay = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/TFG_Videojocs/ACC_RemapControls/ACC_WaitForInputPanel.prefab");
             
-            var waitForInputPanel = GameObject.Instantiate(remapControlsManagerComponent.rebindOverlay, remapControlsManager.transform, true);
+            var waitForInputPanel = GetChildWithTag(remapControlsManager, "ACC_WaitForInputPanel");
+            if (waitForInputPanel == null)
+            {
+               waitForInputPanel = Object.Instantiate(remapControlsManagerComponent.rebindOverlay, remapControlsManager.transform, true);
+            }
             waitForInputPanel.transform.localScale = new Vector3(1, 1, 1);
             waitForInputPanel.transform.localPosition = new Vector3(0, 0, 0);
             
@@ -264,6 +294,8 @@ namespace TFG_Videojocs.ACC_Utilities
             {
             }
             #pragma warning restore 0168
+            
+            return remapControlsManager;
         }
         private static void SetControlSchemes(ACC_ControlSchemeData loadedData, GameObject remapControlsManager)
         {
@@ -285,15 +317,21 @@ namespace TFG_Videojocs.ACC_Utilities
 
             foreach (var device in devices)
             {
-                var deviceManager = GameObject.Instantiate(defaultMenu, remapControlsManager.transform, true);
-                deviceManager.name = device;
+                var deviceManager = GetChildWithNameAndTag(remapControlsManager, device, "ACC_Prefab");
+                if (deviceManager == null)
+                {
+                    deviceManager = Object.Instantiate(defaultMenu, remapControlsManager.transform, true);
+                }
+                deviceManager.transform.SetSiblingIndex(devices.IndexOf(device)+1);
                 
-                RectTransform rectTransform = deviceManager.GetComponent<RectTransform>();
+                deviceManager.name = device;
+                RectTransform rectTransform = deviceManager.GetComponent<RectTransform>() == null ? deviceManager.AddComponent<RectTransform>() : deviceManager.GetComponent<RectTransform>();
                 rectTransform.localScale = new Vector3(1, 1, 1);
                 rectTransform.localPosition = new Vector3(0, 0, 0);
                 rectTransform.sizeDelta = new Vector2(0, 0);
                 
-                deviceManager.transform.Find("Title").GetComponent<TextMeshProUGUI>().text =
+                var title = deviceManager.transform.Find("Title").GetComponent<TextMeshProUGUI>() == null ? deviceManager.transform.Find("Title").gameObject.AddComponent<TextMeshProUGUI>() : deviceManager.transform.Find("Title").GetComponent<TextMeshProUGUI>();
+                title.text =
                     "CUSTOMIZE CONTROLS - " + device.ToUpper();
                 
                 deviceManager.SetActive(first);
@@ -331,14 +369,18 @@ namespace TFG_Videojocs.ACC_Utilities
             bool first = true;
             foreach (var controlScheme in controlSchemes)
             {
-                var rebindingsScroll = deviceManager.transform.Find("RebindsScroll");
+                var rebindingsScroll = deviceManager.transform.Find("ACC_RebindsScroll");
 
-                var controlSchemeParent = new GameObject
+                var controlSchemeParent = GetChildWithNameAndTag(rebindingsScroll.gameObject, controlScheme, "ACC_ScrollList");
+                if (controlSchemeParent == null)
                 {
-                    name = controlScheme,
-                    tag = "ACC_ScrollList"
-                };
-                var rectTransform = controlSchemeParent.AddComponent<RectTransform>();
+                    controlSchemeParent = new GameObject
+                    {
+                        name = controlScheme,
+                        tag = "ACC_ScrollList"
+                    };
+                }
+                var rectTransform = controlSchemeParent.GetComponent<RectTransform>() == null ? controlSchemeParent.AddComponent<RectTransform>() : controlSchemeParent.GetComponent<RectTransform>();
 
                 rectTransform.SetParent(rebindingsScroll);
                 rectTransform.localScale = new Vector3(1, 1, 1);
@@ -354,10 +396,10 @@ namespace TFG_Videojocs.ACC_Utilities
                 }
                 else controlSchemeParent.SetActive(false);
 
-                var verticalLayoutGroup = controlSchemeParent.AddComponent<VerticalLayoutGroup>();
+                var verticalLayoutGroup = controlSchemeParent.GetComponent<VerticalLayoutGroup>() == null ? controlSchemeParent.AddComponent<VerticalLayoutGroup>() : controlSchemeParent.GetComponent<VerticalLayoutGroup>();
                 verticalLayoutGroup.spacing = 0;
 
-                var contentSizeFitter = controlSchemeParent.AddComponent<ContentSizeFitter>();
+                var contentSizeFitter = controlSchemeParent.GetComponent<ContentSizeFitter>() == null ? controlSchemeParent.AddComponent<ContentSizeFitter>() : controlSchemeParent.GetComponent<ContentSizeFitter>();
                 contentSizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
                 contentSizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
@@ -365,7 +407,14 @@ namespace TFG_Videojocs.ACC_Utilities
                 {
                     if (controlScheme == binding.key.controlScheme)
                     {
-                        var uiPrefab = Object.Instantiate(rebindUIPrefab, controlSchemeParent.transform, true);
+                        GameObject uiPrefab;
+                        if (controlSchemeParent.transform.Find(binding.key.id) == null)
+                        {
+                            uiPrefab = Object.Instantiate(rebindUIPrefab, controlSchemeParent.transform, true);
+                        }
+                        else uiPrefab = controlSchemeParent.transform.Find(binding.key.id).gameObject;
+                        uiPrefab.transform.SetSiblingIndex(loadedData.bindingsList.Items.IndexOf(binding));
+                        
                         uiPrefab.name = binding.key.id;
                         uiPrefab.transform.localScale = new Vector3(1, 1, 1);
 
@@ -389,6 +438,17 @@ namespace TFG_Videojocs.ACC_Utilities
                             var resetButton = uiPrefab.transform.Find("ResetToDefaultButton");
                             resetButton.GetComponent<Image>().color = new Color(1, 1, 1, 0.4f);
                             resetButton.GetComponent<Button>().enabled = false;
+                        }
+                        else
+                        {
+                            var button = uiPrefab.transform.Find("TriggerRebindButton");
+                            button.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                            button.GetComponent<Button>().enabled = true;
+
+                            var resetButton = uiPrefab.transform.Find("ResetToDefaultButton");
+                            resetButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                            resetButton.GetComponent<Button>().enabled = true;
+                        
                         }
                     }
                 }
@@ -580,6 +640,17 @@ namespace TFG_Videojocs.ACC_Utilities
             foreach (Transform child in parent.transform)
             {
                 if (child.CompareTag(tag))
+                {
+                    return child.gameObject;
+                }
+            }
+            return null;
+        }
+        private static GameObject GetChildWithNameAndTag(GameObject parent, string name, string tag)
+        {
+            foreach (Transform child in parent.transform)
+            {
+                if (child.CompareTag(tag) && child.name == name)
                 {
                     return child.gameObject;
                 }

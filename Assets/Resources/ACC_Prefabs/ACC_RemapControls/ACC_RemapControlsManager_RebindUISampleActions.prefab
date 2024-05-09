@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4698886287749015553
+--- !u!1 &1435827265819759371
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,75 +8,107 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8067527292852516969}
-  - component: {fileID: 2667777756560115453}
-  - component: {fileID: 7829615130272788982}
-  m_Layer: 5
-  m_Name: WaitForInputPanel(Clone)
-  m_TagString: Untagged
+  - component: {fileID: 3921141117864565001}
+  - component: {fileID: 3405514656124487393}
+  m_Layer: 0
+  m_Name: ACC_RemapControlsManager_RebindUISampleActions
+  m_TagString: ACC_RemapControlsManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &8067527292852516969
+  m_IsActive: 1
+--- !u!224 &3921141117864565001
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4698886287749015553}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 1435827265819759371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9146780810071690181}
-  m_Father: {fileID: 7042156868087275055}
+  - {fileID: 2579835180192639035}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2667777756560115453
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4698886287749015553}
-  m_CullTransparentMesh: 1
---- !u!114 &7829615130272788982
+--- !u!114 &3405514656124487393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4698886287749015553}
+  m_GameObject: {fileID: 1435827265819759371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: cfbfd0c2c53942238fb6a9e8b61592f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.11764706}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!1 &6641976633964358744
+  defaultMenu: {fileID: 6684583722304556596, guid: 60ee970df40982342a31d993f2295445, type: 3}
+  rebindUIPrefab: {fileID: 6680292650503350822, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
+  rebindOverlay: {fileID: 3154117669190778280, guid: 08c3f2fa00677f84cb9e1a644f3c5ec3, type: 3}
+  loadedData:
+    name: RebindUISampleActions
+    inputActionAsset: {fileID: 9222730590766798970, guid: 145858b427cb513489d87fbdef4e5014, type: 3}
+    controlSchemesList:
+      Items:
+      - key: Gamepad
+        value: 1
+      - key: Keyboard
+        value: 0
+    bindingsList:
+      Items:
+      - key:
+          id: fe58f6b8-88b0-42a8-86a4-99f59376ac5c
+          controlScheme: Gamepad
+          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
+        value: 0
+      - key:
+          id: d540edf6-bfaa-4b08-b8d5-925398a2debe
+          controlScheme: Gamepad
+          actionId: ddab72da-d325-4b4c-a484-abe4f6bdf113
+        value: 0
+      - key:
+          id: 50a5adae-36bc-4b42-ac08-266d143e2c62
+          controlScheme: Gamepad
+          actionId: 2bd60403-0923-469e-a3a4-7338b04f6bbc
+        value: 1
+      - key:
+          id: b560f8cd-3a2a-425f-b404-daa491858c5d
+          controlScheme: Keyboard
+          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
+        value: 0
+      - key:
+          id: f79a6ed1-9a19-4fd2-b37f-50052393b62e
+          controlScheme: Keyboard
+          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
+        value: 0
+      - key:
+          id: 3f392b14-78a0-49d0-b99e-e1aa0dd94b15
+          controlScheme: Keyboard
+          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
+        value: 0
+      - key:
+          id: 7688f62b-0428-4d34-933e-b0b7fc783faf
+          controlScheme: Keyboard
+          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
+        value: 0
+      - key:
+          id: 7c03e976-d9da-4d96-9bcd-622e98b0f3c3
+          controlScheme: Keyboard
+          actionId: ddab72da-d325-4b4c-a484-abe4f6bdf113
+        value: 0
+      - key:
+          id: de604efe-a9ca-4fa6-9d4a-4b0053d61efc
+          controlScheme: Keyboard
+          actionId: 2bd60403-0923-469e-a3a4-7338b04f6bbc
+        value: 0
+--- !u!1 &2170464072450780069
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,9 +116,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9146780810071690181}
-  - component: {fileID: 7702215174516401100}
-  - component: {fileID: 2695159643532895968}
+  - component: {fileID: 7085216107390952103}
+  - component: {fileID: 6042764279931822021}
+  - component: {fileID: 4690852166584205167}
   m_Layer: 5
   m_Name: WaitForInputText
   m_TagString: Untagged
@@ -94,40 +126,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &9146780810071690181
+--- !u!224 &7085216107390952103
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6641976633964358744}
+  m_GameObject: {fileID: 2170464072450780069}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8067527292852516969}
+  m_Father: {fileID: 2579835180192639035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -300}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7702215174516401100
+--- !u!222 &6042764279931822021
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6641976633964358744}
+  m_GameObject: {fileID: 2170464072450780069}
   m_CullTransparentMesh: 1
---- !u!114 &2695159643532895968
+--- !u!114 &4690852166584205167
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6641976633964358744}
+  m_GameObject: {fileID: 2170464072450780069}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -210,7 +242,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &8627527657473900087
+--- !u!1 &4048189228062486074
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,103 +250,71 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7042156868087275055}
-  - component: {fileID: 6983767911497887365}
-  m_Layer: 0
-  m_Name: ACC_RemapControlsManager
-  m_TagString: Untagged
+  - component: {fileID: 2579835180192639035}
+  - component: {fileID: 5648452247875746156}
+  - component: {fileID: 5563482310407601602}
+  m_Layer: 5
+  m_Name: ACC_WaitForInputPanel(Clone)
+  m_TagString: ACC_WaitForInputPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7042156868087275055
+  m_IsActive: 0
+--- !u!224 &2579835180192639035
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8627527657473900087}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 4048189228062486074}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8067527292852516969}
-  m_Father: {fileID: 0}
+  - {fileID: 7085216107390952103}
+  m_Father: {fileID: 3921141117864565001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6983767911497887365
+--- !u!222 &5648452247875746156
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4048189228062486074}
+  m_CullTransparentMesh: 1
+--- !u!114 &5563482310407601602
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8627527657473900087}
+  m_GameObject: {fileID: 4048189228062486074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cfbfd0c2c53942238fb6a9e8b61592f2, type: 3}
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultMenu: {fileID: 6684583722304556596, guid: 60ee970df40982342a31d993f2295445, type: 3}
-  rebindUIPrefab: {fileID: 6680292650503350822, guid: f25dcd618d3acd64795bf8bb32edb6c9, type: 3}
-  rebindOverlay: {fileID: 3154117669190778280, guid: 08c3f2fa00677f84cb9e1a644f3c5ec3, type: 3}
-  loadedData:
-    name: RebindUISampleActions
-    inputActionAsset: {fileID: 0}
-    controlSchemesList:
-      Items:
-      - key: Gamepad
-        value: 1
-      - key: Keyboard
-        value: 0
-    bindingsList:
-      Items:
-      - key:
-          id: fe58f6b8-88b0-42a8-86a4-99f59376ac5c
-          controlScheme: Gamepad
-          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
-        value: 0
-      - key:
-          id: d540edf6-bfaa-4b08-b8d5-925398a2debe
-          controlScheme: Gamepad
-          actionId: ddab72da-d325-4b4c-a484-abe4f6bdf113
-        value: 0
-      - key:
-          id: 50a5adae-36bc-4b42-ac08-266d143e2c62
-          controlScheme: Gamepad
-          actionId: 2bd60403-0923-469e-a3a4-7338b04f6bbc
-        value: 1
-      - key:
-          id: b560f8cd-3a2a-425f-b404-daa491858c5d
-          controlScheme: Keyboard
-          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
-        value: 0
-      - key:
-          id: f79a6ed1-9a19-4fd2-b37f-50052393b62e
-          controlScheme: Keyboard
-          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
-        value: 0
-      - key:
-          id: 3f392b14-78a0-49d0-b99e-e1aa0dd94b15
-          controlScheme: Keyboard
-          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
-        value: 0
-      - key:
-          id: 7688f62b-0428-4d34-933e-b0b7fc783faf
-          controlScheme: Keyboard
-          actionId: 9d8fcbff-87d1-43ef-857e-931c84d5bd72
-        value: 0
-      - key:
-          id: 7c03e976-d9da-4d96-9bcd-622e98b0f3c3
-          controlScheme: Keyboard
-          actionId: ddab72da-d325-4b4c-a484-abe4f6bdf113
-        value: 0
-      - key:
-          id: de604efe-a9ca-4fa6-9d4a-4b0053d61efc
-          controlScheme: Keyboard
-          actionId: 2bd60403-0923-469e-a3a4-7338b04f6bbc
-        value: 0
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.11764706}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1

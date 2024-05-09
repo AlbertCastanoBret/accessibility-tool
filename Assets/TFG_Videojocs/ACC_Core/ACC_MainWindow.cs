@@ -185,7 +185,6 @@ public class ACC_MainWindow : EditorWindow
                 break;
         }
     }
-    
     private VisualElement HighContrastSettings()
     {
         ACC_HighContrastEditorWindow window = (ACC_HighContrastEditorWindow)GetWindow(typeof(ACC_HighContrastEditorWindow), false);
@@ -358,20 +357,29 @@ public class ACC_MainWindow : EditorWindow
         inputAction.RegisterValueChangedCallback(evt =>
         {
             inputActionAsset = evt.newValue as InputActionAsset;
+            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
             if(inputActionAsset!=null) ACC_PrefabHelper.CreatePrefab("RemapControls", inputActionAsset.name);
             dynamicControlSchemesContainer.Clear();
+            
             if (inputActionAsset != null)
             {
                 dynamicControlSchemesContainer.Add(remapControlsButtonContainer);
-                string json = inputActionAsset.ToJson();
-                File.WriteAllText("Assets/a.json", json);
                 AssetDatabase.Refresh();
             }
             else
             {
                 dynamicControlSchemesContainer.Add(createActionsButton);
             }
+            
+            accessibilityManager.remapControlsAsset = inputActionAsset;
         });
+        
+        if (FindObjectOfType<ACC_AccessibilityManager>().remapControlsAsset != null)
+        {
+            inputAction.value = FindObjectOfType<ACC_AccessibilityManager>().remapControlsAsset;
+            dynamicControlSchemesContainer.Clear();
+            dynamicControlSchemesContainer.Add(remapControlsButtonContainer);
+        }
 
         box.Add(inputAction);
         box.Add(dynamicControlSchemesContainer);
@@ -527,6 +535,7 @@ public class ACC_MainWindow : EditorWindow
     {
         var folder = "ACC_" + feature + "/";
         var name = "ACC_" + feature + "Manager.prefab";
+        if (!string.IsNullOrEmpty(jsonFile)) name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";
         var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
         
         GameObject prefabAsset = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);

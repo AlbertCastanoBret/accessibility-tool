@@ -36,6 +36,7 @@ namespace TFG_Videojocs
         [Header("MobilityAccessibility")]
         [SerializeField] internal bool remapControlsEnabled;
         [SerializeField] internal bool showRemapControlsMenu;
+        [SerializeField] internal InputActionAsset remapControlsAsset;
         
         public ACC_MobilityAccessibility MobilityAccessibility { get; private set; }
         
