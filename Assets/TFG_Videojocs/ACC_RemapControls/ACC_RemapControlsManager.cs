@@ -103,6 +103,22 @@ namespace TFG_Videojocs.ACC_RemapControls
             }
             if (!found) Debug.LogError("Device " + device + " not found");
         }
+        public void ChangeControlScheme(string controlScheme)
+        {
+            UnityEngine.InputSystem.PlayerInput[] allPlayerInputs = FindObjectsOfType<UnityEngine.InputSystem.PlayerInput>();
+            foreach (var playerInput in allPlayerInputs)
+            {
+                if (playerInput.actions != ACC_AccessibilityManager.Instance.remapControlsAsset)
+                {
+                    playerInput.actions = ACC_AccessibilityManager.Instance.remapControlsAsset;
+                }
+
+                playerInput.SwitchCurrentControlScheme(controlScheme);
+                playerInput.enabled = false;
+                playerInput.enabled = true;
+            }
+
+        }
         public void ResetAllBindings()
         {
             if (!isEnabled) return;
@@ -139,6 +155,8 @@ namespace TFG_Videojocs.ACC_RemapControls
                 controlSchemesOfEachDevice[deviceManager][(controlSchemesOfEachDevice[deviceManager].IndexOf(currentControlSchemeOfEachDevice[deviceManager]) - 1 + controlSchemesOfEachDevice[deviceManager].Count) % controlSchemesOfEachDevice[deviceManager].Count];
             currentControlSchemeOfEachDevice[deviceManager] = currentControlScheme.GetComponent<TextMeshProUGUI>().text;
             
+            ChangeControlScheme(currentControlScheme.GetComponent<TextMeshProUGUI>().text);
+            
             currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
             if (currentRebindsList.CompareTag("ACC_ScrollList"))
             {
@@ -154,6 +172,8 @@ namespace TFG_Videojocs.ACC_RemapControls
             currentControlScheme.GetComponent<TextMeshProUGUI>().text =
                 controlSchemesOfEachDevice[deviceManager][(controlSchemesOfEachDevice[deviceManager].IndexOf(currentControlSchemeOfEachDevice[deviceManager]) + 1) % controlSchemesOfEachDevice[deviceManager].Count];
             currentControlSchemeOfEachDevice[deviceManager] = currentControlScheme.GetComponent<TextMeshProUGUI>().text;
+            
+            ChangeControlScheme(currentControlScheme.GetComponent<TextMeshProUGUI>().text);
             
             currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;
             if (currentRebindsList.CompareTag("ACC_ScrollList"))

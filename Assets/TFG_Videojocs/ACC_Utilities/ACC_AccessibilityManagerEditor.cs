@@ -122,9 +122,9 @@ namespace TFG_Videojocs.ACC_Utilities
             
             if (extraProperty != null)
             {
-                GUILayout.BeginHorizontal();
-                EditorGUILayout.PropertyField(remapControlsMenus);
-                GUILayout.EndHorizontal();
+                // GUILayout.BeginHorizontal();
+                // EditorGUILayout.PropertyField(remapControlsMenus);
+                // GUILayout.EndHorizontal();
                 
                 GUILayout.BeginHorizontal();
                 var copiedArray = new string[manager.remapControlsMenus.Count];

@@ -23,11 +23,13 @@ namespace TFG_Videojocs
         [SerializeField] public bool subtitlesEnabled;
         #if UNITY_EDITOR
         [SerializeField] internal bool showSubtitlesMenu;
+        private bool prevShowSubtitlesMenu, prevSubtitlesEnabled;
         #endif
         
         [SerializeField] internal bool visualNotificationEnabled;
         #if UNITY_EDITOR
         [SerializeField] internal bool showVisualNotificationMenu;
+        private bool prevShowVisualNotificationMenu, prevVisualNotificationEnabled;
         #endif
         public ACC_AudioAccessibility AudioAccessibility { get; private set;}
         
@@ -36,6 +38,7 @@ namespace TFG_Videojocs
         [SerializeField] internal bool highContrastEnabled;
         #if UNITY_EDITOR
         [SerializeField] internal bool showHighContrastMenu, isPrevisualizing;
+        private bool prevShowHighContrastMenu, prevHighContrastEnabled;
         #endif
         [HideInInspector] public bool shadersAdded;
         public ACC_VisualAccessibility VisualAccessibility { get; private set; }
@@ -45,10 +48,12 @@ namespace TFG_Videojocs
         [SerializeField] internal bool remapControlsEnabled;
         #if UNITY_EDITOR
         [SerializeField] internal bool showRemapControlsMenu;
+        private bool prevShowRemapControlsMenu, prevRemapControlsEnabled;
         #endif
         [SerializeField] internal InputActionAsset remapControlsAsset;
         [SerializeField] internal List<string> remapControlsMenus;
         [SerializeField] internal string currentRemapControlsMenu;
+        private string prevCurrentRemapControlsMenu;
         public ACC_MobilityAccessibility MobilityAccessibility { get; private set; }
         
         //Multifunctional Accessibility
@@ -56,6 +61,7 @@ namespace TFG_Videojocs
         [SerializeField] internal bool audioManagerEnabled;
         #if UNITY_EDITOR
         [SerializeField] internal bool showAudioManagerMenu;
+        private bool prevShowAudioManagerMenu, prevAudioManagerEnabled;
         #endif
         
         public ACC_MultifunctionalAccessibility MultifunctionalAccessibility { get; private set; }
@@ -83,33 +89,11 @@ namespace TFG_Videojocs
                 AudioAccessibility.InitializeState(AudioFeatures.Subtitles, subtitlesEnabled);
                 AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
-                #if UNITY_EDITOR
-                if (showSubtitlesMenu) AudioAccessibility.EnableSubtitlesMenu();
-                else AudioAccessibility.DisableSubtitlesMenu();
-                if (showVisualNotificationMenu) AudioAccessibility.EnableVisualNotificationMenu();
-                else AudioAccessibility.DisableVisualNotificationMenu();
-                #endif
-                
                 VisualAccessibility = new ACC_VisualAccessibility();
                 VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 
-                #if UNITY_EDITOR
-                if (showHighContrastMenu) VisualAccessibility.EnableHighContrastMenu();
-                else VisualAccessibility.DisableHighContrastMenu();
-                #endif
-                
                 MobilityAccessibility = new ACC_MobilityAccessibility();
                 MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
-                
-                #if UNITY_EDITOR
-                if (showRemapControlsMenu) MobilityAccessibility.EnableRemapControlsMenu(currentRemapControlsMenu);
-                else MobilityAccessibility.DisableRemapControlsMenu();
-                #endif
-                
-                #if UNITY_EDITOR
-                if (showRemapControlsMenu) MobilityAccessibility.EnableRemapControlsMenu(currentRemapControlsMenu);
-                else MobilityAccessibility.DisableRemapControlsMenu();
-                #endif
                 
                 MultifunctionalAccessibility = new ACC_MultifunctionalAccessibility();
                 MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
@@ -147,6 +131,84 @@ namespace TFG_Videojocs
             StartCoroutine(ChangeScene());
         }
 
+#if UNITY_EDITOR
+        internal void OnValidate()
+        {
+            if (Application.isPlaying && sceneLoaded)
+            {
+                if (subtitlesEnabled != prevSubtitlesEnabled)
+                {
+                    AudioAccessibility.InitializeState(AudioFeatures.Subtitles, subtitlesEnabled);
+                    prevSubtitlesEnabled = subtitlesEnabled;
+                }
+                
+                if (visualNotificationEnabled != prevVisualNotificationEnabled)
+                {
+                    AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
+                    prevVisualNotificationEnabled = visualNotificationEnabled;
+                }
+                
+                if (highContrastEnabled != prevHighContrastEnabled)
+                {
+                    VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                    prevHighContrastEnabled = highContrastEnabled;
+                }
+                
+                if (remapControlsEnabled != prevRemapControlsEnabled)
+                {
+                    MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
+                    prevRemapControlsEnabled = remapControlsEnabled;
+                }
+                
+                if (audioManagerEnabled != prevAudioManagerEnabled)
+                {
+                    MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
+                    prevAudioManagerEnabled = audioManagerEnabled;
+                }
+            }
+        }
+        
+        private void Update()
+        {
+            if (!sceneLoaded) return;
+            if (showSubtitlesMenu != prevShowSubtitlesMenu)
+            {
+                if (showSubtitlesMenu) AudioAccessibility.EnableSubtitlesMenu();
+                else AudioAccessibility.DisableSubtitlesMenu();
+                prevShowSubtitlesMenu = showSubtitlesMenu;
+            }
+            
+            if (showVisualNotificationMenu != prevShowVisualNotificationMenu)
+            {
+                if (showVisualNotificationMenu) AudioAccessibility.EnableVisualNotificationMenu();
+                else AudioAccessibility.DisableVisualNotificationMenu();
+                prevShowVisualNotificationMenu = showVisualNotificationMenu;
+            }
+            
+            if (showHighContrastMenu != prevShowHighContrastMenu)
+            {
+                if (showHighContrastMenu) VisualAccessibility.EnableHighContrastMenu();
+                else VisualAccessibility.DisableHighContrastMenu();
+                prevShowHighContrastMenu = showHighContrastMenu;
+            }
+            
+            if (showRemapControlsMenu != prevShowRemapControlsMenu || currentRemapControlsMenu != prevCurrentRemapControlsMenu)
+            {
+                if (showRemapControlsMenu) MobilityAccessibility.EnableRemapControlsMenu(currentRemapControlsMenu);
+                else MobilityAccessibility.DisableRemapControlsMenu();
+                prevShowRemapControlsMenu = showRemapControlsMenu;
+                prevCurrentRemapControlsMenu = currentRemapControlsMenu;
+            }
+            
+            if (showAudioManagerMenu != prevShowAudioManagerMenu)
+            {
+                if (showAudioManagerMenu) MultifunctionalAccessibility.EnableAudioManagerMenu();
+                else MultifunctionalAccessibility.DisableAudioManagerMenu();
+                prevShowAudioManagerMenu = showAudioManagerMenu;
+            }
+        }
+#endif
+
         private IEnumerator ChangeScene()
         {
             yield return new WaitForSeconds(2);
@@ -160,34 +222,6 @@ namespace TFG_Videojocs
             //yield return new WaitForSeconds(1);
             //AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
         }
-        
-        #if UNITY_EDITOR
-        internal void OnValidate()
-        {
-            if (Application.isPlaying && sceneLoaded)
-            {
-                AudioAccessibility.InitializeState(AudioFeatures.Subtitles, subtitlesEnabled);
-                if (showSubtitlesMenu) AudioAccessibility.EnableSubtitlesMenu();
-                else AudioAccessibility.DisableSubtitlesMenu();
-                
-                AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
-                if (showVisualNotificationMenu) AudioAccessibility.EnableVisualNotificationMenu();
-                else AudioAccessibility.DisableVisualNotificationMenu();
-                
-                MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
-                if (showRemapControlsMenu) MobilityAccessibility.EnableRemapControlsMenu(currentRemapControlsMenu);
-                else MobilityAccessibility.DisableRemapControlsMenu();
-                
-                VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
-                if (showHighContrastMenu) VisualAccessibility.EnableHighContrastMenu();
-                else VisualAccessibility.DisableHighContrastMenu();
-                
-                MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
-                if (showAudioManagerMenu) MultifunctionalAccessibility.EnableAudioManagerMenu();
-                else MultifunctionalAccessibility.DisableAudioManagerMenu();
-            }
-        }
-        #endif
 
         private void OnEnable()
         {
