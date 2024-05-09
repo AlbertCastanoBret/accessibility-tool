@@ -12,12 +12,26 @@ namespace TFG_Videojocs
 
     public class ACC_MobilityAccessibility
     {
-        private ACC_RemapControlsManager _accRemapControlsManager;
+        private ACC_RemapControlsManager accRemapControlsManager;
         public ACC_MobilityAccessibility()
         {
-            _accRemapControlsManager = ACC_PrefabHelper.InstantiatePrefabAsChild("RemapControls", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_RemapControlsManager>();
+            accRemapControlsManager = ACC_PrefabHelper.InstantiatePrefabAsChild(
+                    "RemapControls", 
+                    ACC_AccessibilityManager.Instance.accCanvas, 
+                    ACC_AccessibilityManager.Instance.remapControlsAsset.name)
+                .GetComponent<ACC_RemapControlsManager>();
         }
 
+        internal void InitializeState(MobilityFeatures feature, bool state)
+        {
+            switch (feature)
+            {
+                case MobilityFeatures.RemapControls:
+                    accRemapControlsManager.InitializeRemapControls(state);
+                    break;
+            }
+        }
+        
         /// <summary>
         /// Sets the state of a specified mobility feature to either enabled or disabled.
         /// </summary>
@@ -28,7 +42,7 @@ namespace TFG_Videojocs
             switch (feature)
             {
                 case MobilityFeatures.RemapControls:
-                    _accRemapControlsManager.gameObject.SetActive(state);
+                    accRemapControlsManager.SetRemapControls(state);
                     break;
             }
         }
@@ -37,17 +51,17 @@ namespace TFG_Videojocs
         /// Displays the rebind menu for a specific device.
         /// </summary>
         /// <param name="device">The identifier for the device whose controls are to be rebound.</param>
-        public void ShowRemapControlsMenu(string device)
+        public void EnableRemapControlsMenu(string device)
         {
-            _accRemapControlsManager.ShowRebindMenu(device);
+            accRemapControlsManager.EnableRemapControlsMenu(device);
         }
         
         /// <summary>
         /// Hides the remap controls menu.
         /// </summary>
-        public void HideRemapControlsMenu()
+        public void DisableRemapControlsMenu()
         {
-            _accRemapControlsManager.HideRebindMenu();
+            accRemapControlsManager.DisableRebindMenu();
         }
         
         /// <summary>
@@ -55,7 +69,7 @@ namespace TFG_Videojocs
         /// </summary>
         public void ResetAllBindings()
         {
-            _accRemapControlsManager.ResetAllBindings();
+            accRemapControlsManager.ResetAllBindings();
         }
         
         /// <summary>
@@ -64,7 +78,7 @@ namespace TFG_Videojocs
         /// <param name="controlScheme">The name of the control scheme to reset.</param>
         public void ResetControlSchemeBindings(string controlScheme)
         {
-            _accRemapControlsManager.ResetControlSchemeBindings(controlScheme);
+            accRemapControlsManager.ResetControlSchemeBindings(controlScheme);
         }
 
         public void ChangeControlScheme(string controlScheme)

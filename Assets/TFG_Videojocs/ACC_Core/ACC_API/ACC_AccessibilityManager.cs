@@ -18,7 +18,6 @@ namespace TFG_Videojocs
         public static ACC_AccessibilityManager Instance { get; private set; } 
         internal GameObject accCanvas { get; private set; }
         
-        [Header("Audio Accessibility")]
         [SerializeField] public bool subtitlesEnabled;
         [SerializeField] internal bool showSubtitlesMenu;
         [SerializeField] internal bool visualNotificationEnabled;
@@ -26,21 +25,18 @@ namespace TFG_Videojocs
         
         public ACC_AudioAccessibility AudioAccessibility { get; private set;}
         
-        [Header("Visual Accessibility")]
         [SerializeField] internal bool highContrastEnabled;
         [SerializeField] internal bool showHighContrastMenu;
         [HideInInspector] public bool shadersAdded, isPrevisualizing;
         
         public ACC_VisualAccessibility VisualAccessibility { get; private set; }
         
-        [Header("MobilityAccessibility")]
         [SerializeField] internal bool remapControlsEnabled;
         [SerializeField] internal bool showRemapControlsMenu;
         [SerializeField] internal InputActionAsset remapControlsAsset;
         
         public ACC_MobilityAccessibility MobilityAccessibility { get; private set; }
         
-        [Header("MultfunctionalAccessibility")]
         [SerializeField] internal bool audioManagerEnabled;
         [SerializeField] internal bool showAudioManagerMenu;
         
@@ -73,7 +69,7 @@ namespace TFG_Videojocs
                 VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 
                 MobilityAccessibility = new ACC_MobilityAccessibility();
-                MobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
+                MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 
                 MultifunctionalAccessibility = new ACC_MultifunctionalAccessibility();
                 MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
@@ -132,11 +128,12 @@ namespace TFG_Videojocs
                 if (showVisualNotificationMenu) AudioAccessibility.EnableVisualNotificationMenu();
                 else AudioAccessibility.DisableVisualNotificationMenu();
                 
-                MobilityAccessibility.SetFeatureState(MobilityFeatures.RemapControls, remapControlsEnabled);
+                MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 
                 VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
                 if (showHighContrastMenu) VisualAccessibility.EnableHighContrastMenu();
                 else VisualAccessibility.DisableHighContrastMenu();
+                
                 MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
                 if (showAudioManagerMenu) MultifunctionalAccessibility.EnableAudioManagerMenu();
                 else MultifunctionalAccessibility.DisableAudioManagerMenu();

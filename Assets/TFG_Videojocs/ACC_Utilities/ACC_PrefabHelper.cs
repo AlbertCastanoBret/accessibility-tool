@@ -256,7 +256,6 @@ namespace TFG_Videojocs.ACC_Utilities
         {
             if (!newPrefab)
             {
-                Debug.Log("A");
                 remapControlsManager = Object.Instantiate(remapControlsManager);
             }
             

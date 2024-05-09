@@ -23,6 +23,7 @@ namespace TFG_Videojocs.ACC_RemapControls
         public ACC_ControlSchemeData loadedData;
         private Dictionary<GameObject, List<string>> controlSchemesOfEachDevice = new();
         private Dictionary<GameObject, string> currentControlSchemeOfEachDevice = new();
+        private bool isEnabled;
 
         private void Awake()
         {
@@ -50,14 +51,14 @@ namespace TFG_Videojocs.ACC_RemapControls
                             PressLeftButton(deviceManager,
                                 deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent")
                                     .Find("CurrentControlScheme").gameObject,
-                            deviceManager.transform.Find("RebindsScroll").gameObject));
+                            deviceManager.transform.Find("ACC_RebindsScroll").gameObject));
                     
                     deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent")
                         .Find("RightArrow").GetComponent<Button>().onClick.AddListener(() => 
                             PressRightButton(deviceManager,
                                  deviceManager.transform.Find("ControlSchemeSelector").Find("CurrentControlSchemeParent")
                                     .Find("CurrentControlScheme").gameObject,
-                                 deviceManager.transform.Find("RebindsScroll").gameObject));
+                                 deviceManager.transform.Find("ACC_RebindsScroll").gameObject));
                     
                     deviceManager.transform.Find("ResetAllButton").GetComponent<Button>().onClick.AddListener(() =>
                     {
@@ -66,8 +67,29 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }    
         }
-        
-        public void ShowRebindMenu(string device)
+
+        public void InitializeRemapControls(bool state)
+        {
+            if (state) isEnabled = true;
+            else
+            {
+                ResetAllBindings();
+                isEnabled = false;
+            }
+        }
+        public void SetRemapControls(bool state)
+        {
+            if (state) isEnabled = true;
+            else
+            {
+                ResetAllBindings();
+                isEnabled = false;
+            }
+            
+            PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.RemapControlsEnabled, state ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+        public void EnableRemapControlsMenu(string device)
         {
             bool found = false;
             foreach (var deviceManager in controlSchemesOfEachDevice.Keys)
@@ -80,10 +102,10 @@ namespace TFG_Videojocs.ACC_RemapControls
                 else deviceManager.SetActive(false);
             }
             if (!found) Debug.LogError("Device not found");
-            
         }
         public void ResetAllBindings()
         {
+            if (!isEnabled) return;
             foreach (InputActionMap map in loadedData.inputActionAsset.actionMaps)
             {
                 map.RemoveAllBindingOverrides();
@@ -91,6 +113,7 @@ namespace TFG_Videojocs.ACC_RemapControls
         }
         public void ResetControlSchemeBindings(string controlScheme)
         {
+            if (!isEnabled) return;
             foreach (InputActionMap map in loadedData.inputActionAsset.actionMaps)
             {
                 foreach (InputAction action in map.actions)
@@ -99,7 +122,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }
         }
-        public void HideRebindMenu()
+        public void DisableRebindMenu()
         {
             foreach (var deviceManager in controlSchemesOfEachDevice.Keys)
             {

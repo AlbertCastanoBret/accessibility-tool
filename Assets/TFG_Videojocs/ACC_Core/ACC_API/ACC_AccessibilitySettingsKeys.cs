@@ -25,4 +25,6 @@ public class ACC_AccessibilitySettingsKeys
     
     public const string AudioManagerEnabled = "AudioManagerEnabled";
     public const string AudioSourceVolume = "AudioSourceVolume";
+    
+    public const string RemapControlsEnabled = "RemapControlsEnabled";
 }
