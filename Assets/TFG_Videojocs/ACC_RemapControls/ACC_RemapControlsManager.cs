@@ -170,7 +170,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 map.RemoveAllBindingOverrides();
             }
         }
-
         public void LoadRemapControlsSettings()
         {
             if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled))
@@ -189,6 +188,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }
         }
+        
         private void PressLeftButton(GameObject deviceManager, GameObject currentControlScheme, GameObject rebindsScroll)
         {
             var currentRebindsList = rebindsScroll.transform.Find(currentControlSchemeOfEachDevice[deviceManager]).gameObject;

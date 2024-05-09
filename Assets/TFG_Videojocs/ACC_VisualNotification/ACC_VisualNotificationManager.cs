@@ -231,14 +231,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         }
         ACC_AccessibilityManager.Instance.visualNotificationEnabled = state;
     }
-    public void EnableVisualNotificationMenu()
-    {
-        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(true);
-    }
-    public void DisableVisualNotificationMenu()
-    {
-        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(false);
-    }
     public void SetVisualNotification(bool state)
     {
         text.gameObject.SetActive(state);
@@ -266,6 +258,14 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         
         if(visualNotificationToggle != null) visualNotificationToggle.GetComponent<Toggle>().isOn = state;
         ACC_AccessibilityManager.Instance.visualNotificationEnabled = state;
+    }
+    public void EnableVisualNotificationMenu()
+    {
+        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(true);
+    }
+    public void DisableVisualNotificationMenu()
+    {
+        if (visualNotificationSettings != null) visualNotificationSettings.SetActive(false);
     }
     public void LoadVisualNotification(string jsonFile)
     {
@@ -617,7 +617,10 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     }
     public void LoadVisualNotificationSettings()
     {
-        SetVisualNotification(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1);
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled))
+        {
+            SetVisualNotification(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1);
+        }
         
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
         {

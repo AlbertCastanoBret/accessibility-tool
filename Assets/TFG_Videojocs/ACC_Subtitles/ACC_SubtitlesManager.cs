@@ -246,14 +246,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
         }
         ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
     }
-    public void EnableSubtitlesMenu()
-    {
-        if (subtitleSettings != null) subtitleSettings.SetActive(true);
-    }
-    public void DisableSubtitlesMenu()
-    {
-        if (subtitleSettings != null) subtitleSettings.SetActive(false);
-    }
     public void SetSubtitles(bool state)
     {
         subtitleText.gameObject.SetActive(state);
@@ -281,6 +273,14 @@ public class ACC_SubtitlesManager : MonoBehaviour
         
         if (subtitlesToggle != null) subtitlesToggle.GetComponent<Toggle>().isOn = state;
         ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
+    }
+    public void EnableSubtitlesMenu()
+    {
+        if (subtitleSettings != null) subtitleSettings.SetActive(true);
+    }
+    public void DisableSubtitlesMenu()
+    {
+        if (subtitleSettings != null) subtitleSettings.SetActive(false);
     }
     public void LoadSubtitles(string jsonFile)
     {
@@ -481,7 +481,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
     }
     public void LoadSubtitlesSettings()
     {
-        SetSubtitles(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1);
+        if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled))
+        {
+            SetSubtitles(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1);
+        }
         
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled))
         {

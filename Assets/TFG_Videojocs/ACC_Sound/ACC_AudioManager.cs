@@ -83,6 +83,18 @@ namespace TFG_Videojocs.ACC_Sound
                 isEnabled = false;
             }
         }
+        public void SetAudioManager(bool state)
+        {
+            if (state) isEnabled = true;
+            else
+            {
+                StopAllSounds();
+                isEnabled = false;
+            }
+            
+            PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.AudioManagerEnabled, state ? 1 : 0);
+            PlayerPrefs.Save();
+        }
         public void EnableAudioManagerMenu()
         {
             if (audioSettings != null)
@@ -96,18 +108,6 @@ namespace TFG_Videojocs.ACC_Sound
             {
                 audioSettings.SetActive(false);
             }
-        }
-        public void SetAudioManager(bool state)
-        {
-            if (state) isEnabled = true;
-            else
-            {
-                StopAllSounds();
-                isEnabled = false;
-            }
-            
-            PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.AudioManagerEnabled, state ? 1 : 0);
-            PlayerPrefs.Save();
         }
         public AudioSource GetAudioSource(string audioSource)
         {
