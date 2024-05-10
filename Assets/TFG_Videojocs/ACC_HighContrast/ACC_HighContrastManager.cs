@@ -74,6 +74,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                                                 ACC_AccessibilityManager.Instance.VisualAccessibility
                                                     .ChangeHighContrastConfiguration(allFiles[value]);
                                             });
+                                            ACC_AccessibilityManager.Instance.VisualAccessibility.LoadUserPreferencesHighContrast();
                                         }
                                     }
                                 }
@@ -187,29 +188,17 @@ namespace TFG_Videojocs.ACC_HighContrast
                     ChangeHighContrastConfiguration(
                         PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
                 }
-                else if (highContrastSettings != null)
+                else if (highContrastScrollList != null)
                 {
-                    foreach (Transform settingComponent in highContrastSettings.transform)
+                    foreach (Transform settingsOption in highContrastScrollList.transform)
                     {
-                        if (settingComponent.CompareTag("ACC_Scroll"))
+                        if (settingsOption.name == "ACC_HighContrastSelector")
                         {
-                            foreach (Transform scrollComponent in settingComponent)
-                            {
-                                if (scrollComponent.CompareTag("ACC_ScrollList"))
-                                {
-                                    foreach (Transform settingsOption in scrollComponent)
-                                    {
-                                        if (settingsOption.name == "ACC_HighContrastSelector")
-                                        {
-                                            var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
-                                            dropdown.value = 0;
-                                            var allFiles = ACC_AccessibilityManager.Instance.VisualAccessibility
-                                                .GetHighContrastConfigurations();
-                                            if (allFiles.Count > 0) ChangeHighContrastConfiguration(allFiles[0]);
-                                        }
-                                    }
-                                }
-                            }
+                            var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
+                            dropdown.value = 0;
+                            var allFiles = ACC_AccessibilityManager.Instance.VisualAccessibility
+                                .GetHighContrastConfigurations();
+                            if (allFiles.Count > 0) ChangeHighContrastConfiguration(allFiles[0]);
                         }
                     }
                 }
