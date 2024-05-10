@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -210,34 +211,86 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             // Give listeners a chance to configure UI in response.
             m_UpdateBindingUIEvent?.Invoke(this, displayString, deviceLayoutName, controlPath);
         }
+        
+        private const string PlayerPrefsKeyPrefix = "Binding_";
+        
+        /// <summary>
+        /// Save the binding to the PlayerPrefs.
+        /// </summary>
+        public void SaveBindingToPlayerPrefs()
+        {
+            if (!ResolveActionAndBinding(out var action, out var bindingIndex))
+                return;
+
+            var bindingId = action.bindings[bindingIndex].id.ToString();
+            var bindingKey = GetPlayerPrefsKeyForBinding(action, bindingId);
+            var bindingOverridePath = action.bindings[bindingIndex].overridePath;
+
+            if (!string.IsNullOrEmpty(bindingOverridePath))
+                PlayerPrefs.SetString(bindingKey, bindingOverridePath);
+            else
+                PlayerPrefs.DeleteKey(bindingKey);
+        }
 
         /// <summary>
-        /// Remove currently applied binding overrides.
+        /// Load the binding from the PlayerPrefs if there is a saved configuration.
+        /// </summary>
+        public void LoadBindingFromPlayerPrefs()
+        {
+            if (!ResolveActionAndBinding(out var action, out var bindingIndex))
+                return;
+
+            var bindingId = action.bindings[bindingIndex].id.ToString();
+            var bindingKey = GetPlayerPrefsKeyForBinding(action, bindingId);
+
+            if (PlayerPrefs.HasKey(bindingKey))
+            {
+                var bindingOverridePath = PlayerPrefs.GetString(bindingKey);
+                action.ApplyBindingOverride(bindingIndex, bindingOverridePath);
+            }
+
+            UpdateBindingDisplay();
+        }
+
+        /// <summary>
+        /// Get the PlayerPrefs key for the binding.
+        /// </summary>
+        private string GetPlayerPrefsKeyForBinding(InputAction action, string bindingId)
+        {
+            var actionMapName = action.actionMap.name;
+            var actionName = action.name;
+            
+            var safeActionMapName = Regex.Replace(actionMapName, @"[^a-zA-Z0-9_]", "_");
+            var safeActionName = Regex.Replace(actionName, @"[^a-zA-Z0-9_]", "_");
+
+            return $"{PlayerPrefsKeyPrefix}{safeActionMapName}_{safeActionName}_{bindingId}";
+        }
+
+        /// <summary>
+        /// Delete the saved binding in the PlayerPrefs.
         /// </summary>
         public void ResetToDefault()
         {
             if (!ResolveActionAndBinding(out var action, out var bindingIndex))
                 return;
-
-            ResetBinding(action, bindingIndex); 
-            // if (action.bindings[bindingIndex].isComposite)
-            // {
-            //     // It's a composite. Remove overrides from part bindings.
-            //     for (var i = bindingIndex + 1; i < action.bindings.Count && action.bindings[i].isPartOfComposite; ++i)
-            //         action.RemoveBindingOverride(i);
-            // }
-            // else
-            // {
-            //     action.RemoveBindingOverride(bindingIndex);
-            // }
+            
+            var bindingId = action.bindings[bindingIndex].id.ToString();
+            var bindingKey = GetPlayerPrefsKeyForBinding(action, bindingId);
+            PlayerPrefs.DeleteKey(bindingKey);
+            
+            ResetBinding(action, bindingIndex);
             UpdateBindingDisplay();
         }
 
+        
+        /// <summary>
+        /// Reset the binding to its default value.
+        /// </summary>
         private void ResetBinding(InputAction action, int bindingIndex)
         {
             var bindingToReset = action.bindings[bindingIndex];
             var oldOverridePath = bindingToReset.overridePath;
-            
+
             action.RemoveBindingOverride(bindingIndex);
             
             foreach (InputAction otherAction in action.actionMap.actions)
@@ -277,17 +330,16 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
         private void PerformInteractiveRebind(InputAction action, int bindingIndex, bool allCompositeParts = false)
         {
-            m_RebindOperation?.Cancel(); // Will null out m_RebindOperation.
+            m_RebindOperation?.Cancel();
 
             void CleanUp()
             {
                 m_RebindOperation?.Dispose();
                 m_RebindOperation = null;
             }
-            
-            action.Disable();
 
-            // Configure the rebind.
+            action.Disable();
+            
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
                 .WithCancelingThrough("<Keyboard>/escape")
                 .OnCancel(
@@ -306,6 +358,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                         m_RebindStopEvent?.Invoke(this, operation);
                         m_RebindOverlay?.SetActive(false);
                         UpdateBindingDisplay();
+                        SaveBindingToPlayerPrefs();
                         CleanUp();
 
                         if (allCompositeParts)
@@ -316,13 +369,11 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                                 PerformInteractiveRebind(action, nextBindingIndex, true);
                         }
                     });
-
-            // If it's a part binding, show the name of the part in the UI.
+            
             var partName = default(string);
             if (action.bindings[bindingIndex].isPartOfComposite)
                 partName = $"Binding '{action.bindings[bindingIndex].name}'. ";
-
-            // Bring up rebind overlay, if we have one.
+            
             m_RebindOverlay?.SetActive(true);
             if (m_RebindText != null)
             {
@@ -331,13 +382,10 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                     : $"{partName}Waiting for input...";
                 m_RebindText.text = text;
             }
-
-            // If we have no rebind overlay and no callback but we have a binding text label,
-            // temporarily set the binding text label to "<Waiting>".
+            
             if (m_RebindOverlay == null && m_RebindText == null && m_RebindStartEvent == null && m_BindingText != null)
                 m_BindingText.text = "<Waiting...>";
-
-            // Give listeners a chance to act on the rebind starting.
+            
             m_RebindStartEvent?.Invoke(this, m_RebindOperation);
 
             m_RebindOperation.Start();
@@ -388,7 +436,6 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                     }
                 }
             }
-
             return false;
         }
 
@@ -399,6 +446,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             s_RebindActionUIs.Add(this);
             if (s_RebindActionUIs.Count == 1)
                 InputSystem.onActionChange += OnActionChange;
+            
+            LoadBindingFromPlayerPrefs();
         }
 
         protected void OnDisable()
