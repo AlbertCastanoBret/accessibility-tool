@@ -91,7 +91,6 @@ namespace TFG_Videojocs.ACC_RemapControls
             PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.RemapControlsEnabled, state ? 1 : 0);
             PlayerPrefs.Save();
         }
-
         public void ResetRemapControlsState()
         {
             ResetAllBindings();
@@ -188,6 +187,10 @@ namespace TFG_Videojocs.ACC_RemapControls
             if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled))
             {
                 SetRemapControls(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.RemapControlsEnabled) == 1);
+            }
+            else
+            {
+                InitializeRemapControls(ACC_AccessibilityManager.Instance.remapControlsEnabled);
             }
         }
         public void ResetControlSchemeBindings(string controlScheme)

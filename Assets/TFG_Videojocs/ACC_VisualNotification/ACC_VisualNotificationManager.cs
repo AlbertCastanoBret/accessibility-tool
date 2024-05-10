@@ -40,6 +40,15 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                             if (scrollComponent.CompareTag("ACC_ScrollList"))
                             {
                                 visualNotificationScrollList = scrollComponent.gameObject;
+                                foreach (Transform settingsOption in scrollComponent)
+                                {
+                                    if (settingsOption.name == "ACC_VisualNotificationEnable")
+                                    {
+                                        visualNotificationToggle = settingsOption.Find("Toggle").gameObject;
+                                        visualNotificationToggle.GetComponent<Toggle>().onValueChanged
+                                            .AddListener(OnToggleValueChanged);
+                                    }
+                                }
                             }
                         }
                     }
@@ -63,15 +72,6 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                             {
                                 foreach (Transform settingsOption in scrollComponent)
                                 {
-                                    if (settingsOption.name == "ACC_VisualNotificationEnable")
-                                    {
-                                        visualNotificationToggle = settingsOption.Find("Toggle").gameObject;
-                                        visualNotificationToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
-                                        {
-                                            ACC_AccessibilityManager.Instance.AudioAccessibility.
-                                                SetFeatureState(AudioFeatures.VisualNotification, value);
-                                        });
-                                    }
                                     if (settingsOption.name == "ACC_HorizontalAlignment")
                                     {
                                         var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
@@ -201,6 +201,11 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             }
         }
     }
+    private void OnToggleValueChanged(bool value)
+    {
+        ACC_AccessibilityManager.Instance.AudioAccessibility.
+            SetFeatureState(AudioFeatures.VisualNotification, value);
+    }
     
     public void InitializeVisualNotification(bool state)
     {
@@ -226,8 +231,9 @@ public class ACC_VisualNotificationManager : MonoBehaviour
 
         if (visualNotificationToggle != null)
         {
+            visualNotificationToggle.GetComponent<Toggle>().onValueChanged.RemoveListener(OnToggleValueChanged);
             visualNotificationToggle.GetComponent<Toggle>().isOn = state;
-            //PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled);
+            visualNotificationToggle.GetComponent<Toggle>().onValueChanged.AddListener(OnToggleValueChanged);
         }
         ACC_AccessibilityManager.Instance.visualNotificationEnabled = state;
     }
@@ -632,6 +638,10 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         {
             SetVisualNotification(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1);
         }
+        else
+        {
+            InitializeVisualNotification(ACC_AccessibilityManager.Instance.visualNotificationEnabled);
+        }
         
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
         {
@@ -675,7 +685,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                 if (settingsOption.name == "ACC_VisualNotificationEnable")
                 {
                     var toggle = settingsOption.Find("Toggle").GetComponent<Toggle>();
-                    toggle.isOn = PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1;
+                    toggle.isOn = ACC_AccessibilityManager.Instance.AudioAccessibility.GetFeatureState(AudioFeatures.VisualNotification);
                 }
 
                 if (settingsOption.name == "ACC_ColorSelector")

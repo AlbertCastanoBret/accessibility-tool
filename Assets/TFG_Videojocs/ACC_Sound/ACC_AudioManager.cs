@@ -256,6 +256,10 @@ namespace TFG_Videojocs.ACC_Sound
             {
                 SetAudioManager(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.AudioManagerEnabled) == 1);
             }
+            else
+            {
+                InitializeAudioManager(ACC_AccessibilityManager.Instance.audioManagerEnabled);
+            }
             
             foreach (Transform audioSource in audioSourcesContainer.transform)
             {

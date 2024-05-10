@@ -44,6 +44,26 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
+        /// Retrieves the enabled state of a specified multifunctional feature.
+        /// </summary>
+        /// <param name="feature">The multifunctional feature to check, e.g., audio manager.</param>
+        /// <returns>True if the specified feature is enabled, false otherwise.</returns>
+        public bool GetFeatureState(MultifiunctionalFeatures feature)
+        {
+            switch (feature)
+            {
+                case MultifiunctionalFeatures.AudioManager:
+                    if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled))
+                    {
+                        return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.AudioManagerEnabled) == 1;
+                    }
+                    return ACC_AccessibilityManager.Instance.audioManagerEnabled;
+                default:
+                    return false;
+            }
+        }
+        
+        /// <summary>
         /// Resets the state of the specified multifunctional feature to its default settings.
         /// </summary>
         /// <param name="feature">The multifunctional feature to reset (e.g., audio manager).</param>

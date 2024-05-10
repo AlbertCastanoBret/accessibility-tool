@@ -54,7 +54,11 @@ namespace TFG_Videojocs
             switch (feature)
             {
                 case VisualFeatures.HighContrast:
-                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+                    if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled))
+                    {
+                        return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+                    }
+                    return ACC_AccessibilityManager.Instance.highContrastEnabled;
                 default:
                     return false;
             }

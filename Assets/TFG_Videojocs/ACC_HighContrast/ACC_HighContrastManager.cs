@@ -28,7 +28,18 @@ namespace TFG_Videojocs.ACC_HighContrast
                             foreach (Transform scrollComponent in settingComponent)
                             {
                                 if (scrollComponent.CompareTag("ACC_ScrollList"))
+                                {
                                     highContrastScrollList = scrollComponent.gameObject;
+                                    foreach (Transform settingsOption in scrollComponent)
+                                    {
+                                        if (settingsOption.name == "ACC_HighContrastEnable")
+                                        {
+                                            highContrastToggle = settingsOption.Find("Toggle").gameObject;
+                                            var toggleComponent = highContrastToggle.GetComponent<Toggle>();
+                                            toggleComponent.onValueChanged.AddListener(OnToggleValueChanged);
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -51,16 +62,6 @@ namespace TFG_Videojocs.ACC_HighContrast
                                 {
                                     foreach (Transform settingsOption in scrollComponent)
                                     {
-                                        if (settingsOption.name == "ACC_HighContrastEnable")
-                                        {
-                                            highContrastToggle = settingsOption.Find("Toggle").gameObject;
-                                            var toggleComponent = highContrastToggle.GetComponent<Toggle>();
-                                            toggleComponent.onValueChanged.AddListener((value) =>
-                                            {
-                                                ACC_AccessibilityManager.Instance.VisualAccessibility
-                                                    .SetFeatureState(VisualFeatures.HighContrast, value);
-                                            });
-                                        }
                                         if (settingsOption.name == "ACC_HighContrastSelector")
                                         {
                                             var allFiles = ACC_AccessibilityManager.Instance.VisualAccessibility
@@ -91,6 +92,11 @@ namespace TFG_Videojocs.ACC_HighContrast
                 }
             }
         }
+        private void OnToggleValueChanged(bool value)
+        {
+            ACC_AccessibilityManager.Instance.VisualAccessibility.
+                SetFeatureState(VisualFeatures.HighContrast, value);
+        }
         
         public void InitializeHighContrastMode(bool state)
         {
@@ -99,8 +105,9 @@ namespace TFG_Videojocs.ACC_HighContrast
 
             if (highContrastToggle != null)
             {
+                highContrastToggle.GetComponent<Toggle>().onValueChanged.RemoveListener(OnToggleValueChanged);
                 highContrastToggle.GetComponent<Toggle>().isOn = state;
-                //PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled );
+                highContrastToggle.GetComponent<Toggle>().onValueChanged.AddListener(OnToggleValueChanged);
             }
             ACC_AccessibilityManager.Instance.highContrastEnabled = state;
         }
@@ -320,6 +327,11 @@ namespace TFG_Videojocs.ACC_HighContrast
             {
                 SetHighContrastMode(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1);
             }
+            else
+            {
+                InitializeHighContrastMode(ACC_AccessibilityManager.Instance.highContrastEnabled);
+            }
+            
             if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration))
             {
                 ChangeHighContrastConfiguration(PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.HighContrastConfiguration));
@@ -333,8 +345,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                     {
                         var toggle = settingsOption.Find("Toggle").GetComponent<Toggle>();
                         var toggleComponent = toggle.GetComponent<Toggle>();
-                        toggleComponent.isOn = PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) &&
-                                              PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
+                        toggleComponent.isOn = ACC_AccessibilityManager.Instance.VisualAccessibility.GetFeatureState(VisualFeatures.HighContrast);
                     }
                     if (settingsOption.name == "ACC_HighContrastSelector")
                     {

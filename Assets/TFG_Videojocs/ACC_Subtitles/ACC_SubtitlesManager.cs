@@ -50,6 +50,14 @@ public class ACC_SubtitlesManager : MonoBehaviour
                             if (scrollComponent.CompareTag("ACC_ScrollList"))
                             {
                                 subtitleScrollList = scrollComponent.gameObject;
+                                foreach (Transform settingsOption in scrollComponent)
+                                {
+                                    if (settingsOption.name == "ACC_SubtitlesEnable")
+                                    {
+                                        subtitlesToggle = settingsOption.Find("Toggle").gameObject;
+                                        subtitlesToggle.GetComponent<Toggle>().onValueChanged.AddListener(OnToggleValueChanged);
+                                    }
+                                }
                             }
                         }
                     }
@@ -73,15 +81,6 @@ public class ACC_SubtitlesManager : MonoBehaviour
                             {
                                 foreach (Transform settingsOption in scrollComponent)
                                 {
-                                    if (settingsOption.name == "ACC_SubtitlesEnable")
-                                    {
-                                        subtitlesToggle = settingsOption.Find("Toggle").gameObject;
-                                        subtitlesToggle.GetComponent<Toggle>().onValueChanged.AddListener((value) =>
-                                        {
-                                            ACC_AccessibilityManager.Instance.AudioAccessibility.
-                                                SetFeatureState(AudioFeatures.Subtitles, value);
-                                        });
-                                    }
                                     if (settingsOption.name == "ACC_ShowActors")
                                     {
                                         var toggle = settingsOption.Find("Toggle");
@@ -216,6 +215,11 @@ public class ACC_SubtitlesManager : MonoBehaviour
             }
         }
     }
+    private void OnToggleValueChanged(bool value)
+    {
+        ACC_AccessibilityManager.Instance.AudioAccessibility.
+            SetFeatureState(AudioFeatures.Subtitles, value);
+    }
     
     public void InitializeSubtitles(bool state)
     {
@@ -241,8 +245,9 @@ public class ACC_SubtitlesManager : MonoBehaviour
 
         if (subtitlesToggle != null)
         {
+            subtitlesToggle.GetComponent<Toggle>().onValueChanged.RemoveListener(OnToggleValueChanged);
             subtitlesToggle.GetComponent<Toggle>().isOn = state;
-            //PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled);
+            subtitlesToggle.GetComponent<Toggle>().onValueChanged.AddListener(OnToggleValueChanged);
         }
         ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
     }
@@ -496,6 +501,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled))
         {
             SetSubtitles(PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1);
+        }
+        else
+        {
+            InitializeSubtitles(ACC_AccessibilityManager.Instance.subtitlesEnabled);
         }
         
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled))

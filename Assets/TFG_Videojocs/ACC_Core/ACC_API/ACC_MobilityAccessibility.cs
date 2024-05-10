@@ -57,7 +57,11 @@ namespace TFG_Videojocs
             switch (feature)
             {
                 case MobilityFeatures.RemapControls:
-                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.RemapControlsEnabled) == 1;
+                    if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled))
+                    {
+                        return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.RemapControlsEnabled) == 1;
+                    }
+                    return ACC_AccessibilityManager.Instance.remapControlsEnabled;
                 default:
                     return false;
             }

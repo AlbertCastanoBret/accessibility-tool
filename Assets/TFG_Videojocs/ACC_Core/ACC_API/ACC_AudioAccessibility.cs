@@ -72,11 +72,17 @@ public class ACC_AudioAccessibility
         switch (feature)
         {
             case AudioFeatures.Subtitles:
-                return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled)
-                    && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1;
+                if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled))
+                {
+                    return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1;
+                }
+                return ACC_AccessibilityManager.Instance.subtitlesEnabled;
             case AudioFeatures.VisualNotification:
-                return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled)
-                    && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1;
+                if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled))
+                {
+                    return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1;
+                }
+                return ACC_AccessibilityManager.Instance.visualNotificationEnabled;
             default:
                 return false;
         }
@@ -132,7 +138,7 @@ public class ACC_AudioAccessibility
     /// <param name="name">The unique name identifier of the subtitle to be played. This name must match exactly with the subtitle file name created and configured in the accessibility creation window.</param>
     public void PlaySubtitle(string name)
     {
-        LoadUserPreferencesSubtitles();
+        //LoadUserPreferencesSubtitles();
         accSubtitlesManager.LoadSubtitles(name);
         accSubtitlesManager.PlaySubtitle();
     }
