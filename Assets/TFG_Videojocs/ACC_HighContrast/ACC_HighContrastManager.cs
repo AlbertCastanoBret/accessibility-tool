@@ -58,7 +58,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                                             toggleComponent.onValueChanged.AddListener((value) =>
                                             {
                                                 ACC_AccessibilityManager.Instance.VisualAccessibility
-                                                    .SetFeatureState(VisibilityFeatures.HighContrast, value);
+                                                    .SetFeatureState(VisualFeatures.HighContrast, value);
                                             });
                                         }
                                         if (settingsOption.name == "ACC_HighContrastSelector")
@@ -118,6 +118,16 @@ namespace TFG_Videojocs.ACC_HighContrast
                     PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
             ACC_AccessibilityManager.Instance.highContrastEnabled = state;
         }
+        public void ResetHighContrastMode()
+        {
+            DisableHighContrastMode();
+            if (highContrastToggle != null)
+                highContrastToggle.GetComponent<Toggle>().isOn = false;
+            ACC_AccessibilityManager.Instance.highContrastEnabled = false;
+            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled);
+            PlayerPrefs.Save();
+        }
+        
         public void EnableHighContrastMenu()
         {
             if (highContrastSettings != null) highContrastSettings.SetActive(true);

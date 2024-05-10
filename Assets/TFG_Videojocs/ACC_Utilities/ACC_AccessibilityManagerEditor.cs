@@ -130,46 +130,37 @@ namespace TFG_Videojocs.ACC_Utilities
             
             GUILayout.BeginHorizontal();
             EditorGUILayout.PropertyField(featureEnabledProperty);
-            GUIStyle style = new GUIStyle(GUI.skin.button)
-            {
-                fixedWidth = 120,
-            };
             if (PlayerPrefs.HasKey(feature + "Enabled"))
             {
-                if (GUILayout.Button("Delete Key", style))
+                if (GUILayout.Button("Reset Enable", new GUIStyle(GUI.skin.button)
+                    {
+                        fixedWidth = 118,
+                        fixedHeight = 18,
+                        fontStyle = FontStyle.Bold,
+                        normal = {textColor = Color.white, background = MakeTex(120, 18, new Color(1, 0.5f, 0.5f))}
+                    }))
                 {
                     if (!string.IsNullOrEmpty(feature))
                     {
-                        PlayerPrefs.DeleteKey(feature + "Enabled");
+                        ResetEnable(feature);
                     }
                 }
             }
-            GUILayout.EndHorizontal();
             
-            GUILayout.BeginHorizontal();
-            Rect totalRect = EditorGUILayout.GetControlRect();
-            
-            float halfWidth = totalRect.width / 2;
-            
-            Rect labelRect = new Rect(totalRect.x, totalRect.y, halfWidth, totalRect.height);
-            
-            EditorGUI.LabelField(labelRect, "Reset Values", new GUIStyle(GUI.skin.label)
-            {
-                fontStyle = FontStyle.Italic,
-            });
             if (ExistsAnyKey(feature))
             {
-                if (GUILayout.Button("Reset", new GUIStyle(GUI.skin.button)
-                {
-                    fixedWidth = 118,
-                    fixedHeight = 18,
-                    fontStyle = FontStyle.Bold,
-                    normal = {textColor = Color.white, background = MakeTex(120, 18, Color.red)}
-                }))
+                if (GUILayout.Button("Reset All Values", new GUIStyle(GUI.skin.button)
+                    {
+                        fixedWidth = 118,
+                        fixedHeight = 18,
+                        fontStyle = FontStyle.Bold,
+                        normal = {textColor = Color.white, background = MakeTex(120, 18, Color.red)}
+                    }))
                 {
                     ResetValues(feature);
                 }
             }
+            
             GUILayout.EndHorizontal();
             
             GUILayout.BeginHorizontal();
@@ -181,10 +172,6 @@ namespace TFG_Videojocs.ACC_Utilities
             
             if (extraProperty != null)
             {
-                // GUILayout.BeginHorizontal();
-                // EditorGUILayout.PropertyField(remapControlsMenus);
-                // GUILayout.EndHorizontal();
-                
                 GUILayout.BeginHorizontal();
                 var copiedArray = new string[manager.remapControlsMenus.Count];
                 for (int i = 0; i < manager.remapControlsMenus.Count; i++)
@@ -233,30 +220,71 @@ namespace TFG_Videojocs.ACC_Utilities
             GUILayout.Space(5);
         }
 
+        private void ResetEnable(string feature)
+        {
+            switch (feature)
+            {
+                case "Subtitles":
+                    if (ACC_AccessibilityManager.Instance != null) 
+                        ACC_AccessibilityManager.Instance.AudioAccessibility.ResetFeatureState(AudioFeatures.Subtitles);
+                    else
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled);
+                    break;
+                case "VisualNotification":
+                    if (ACC_AccessibilityManager.Instance != null) 
+                        ACC_AccessibilityManager.Instance.AudioAccessibility.ResetFeatureState(AudioFeatures.VisualNotification);
+                    else
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled);
+                    break;
+                case "HighContrast":
+                    if (ACC_AccessibilityManager.Instance != null) 
+                        ACC_AccessibilityManager.Instance.VisualAccessibility.ResetFeatureState(VisualFeatures.HighContrast);
+                    else
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled);
+                    break;
+                case "AudioManager":
+                    if (ACC_AccessibilityManager.Instance != null) 
+                        ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.ResetFeatureState(MultifiunctionalFeatures.AudioManager);
+                    else
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled);
+                    break;
+                case "RemapControls":
+                    if (ACC_AccessibilityManager.Instance != null) 
+                        ACC_AccessibilityManager.Instance.MobilityAccessibility.ResetFeatureState(MobilityFeatures.RemapControls);
+                    else
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled);
+                    break;
+            }
+        }
+
         private bool ExistsAnyKey(string feature)
         {
             switch (feature)
             {
                 case "Subtitles":
-                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled) ||
+                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) || 
+                           PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorFontColor) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
                 case "VisualNotification":
-                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment) ||
+                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) || 
+                           PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationTimeOnScreen) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor) ||
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
                 case "HighContrast":
-                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
+                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) || 
+                           PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
                 case "RemapControls":
-                    return false;
+                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled);
                 case "AudioManager":
-                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume);
+                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled) || 
+                           PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume);
                 default:
                     return false;
             }
@@ -266,28 +294,58 @@ namespace TFG_Videojocs.ACC_Utilities
             switch (feature)
             {
                 case "Subtitles":
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorFontColor);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+                    if (ACC_AccessibilityManager.Instance != null)
+                        ACC_AccessibilityManager.Instance.AudioAccessibility.ResetSubtitleSettings();
+                    else
+                    {
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorsNameColorsEnabled);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.ActorFontColor);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+                    }
                     break;
                 case "VisualNotification":
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationTimeOnScreen);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor);
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
+                    if (ACC_AccessibilityManager.Instance != null)
+                        ACC_AccessibilityManager.Instance.AudioAccessibility.ResetVisualNotificationSettings();
+                    else
+                    {
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationTimeOnScreen);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
+                    }
                     break;
                 case "HighContrast":
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
+                    if (ACC_AccessibilityManager.Instance != null)
+                        ACC_AccessibilityManager.Instance.VisualAccessibility.ResetHighContrastConfiguration();
+                    else
+                    {
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
+                    }
                     break;
                 case "RemapControls":
+                    if (ACC_AccessibilityManager.Instance != null)
+                        ACC_AccessibilityManager.Instance.MobilityAccessibility.ResetAllBindings();
+                    else
+                    {
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled);
+                    }
                     break;
                 case "AudioManager":
-                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume);
+                    if (ACC_AccessibilityManager.Instance != null)
+                        ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.ResetFeatureState(MultifiunctionalFeatures.AudioManager);
+                    else
+                    {
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled);
+                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume);
+                    }
                     break;
             }
         }

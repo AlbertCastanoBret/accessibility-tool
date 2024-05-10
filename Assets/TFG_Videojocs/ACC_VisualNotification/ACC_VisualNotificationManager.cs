@@ -259,6 +259,17 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         if(visualNotificationToggle != null) visualNotificationToggle.GetComponent<Toggle>().isOn = state;
         ACC_AccessibilityManager.Instance.visualNotificationEnabled = state;
     }
+    public void ResetVisualNotificationState()
+    {
+        if (visualNotificationToggle != null)
+        {
+            visualNotificationToggle.GetComponent<Toggle>().isOn = false;
+        }
+        
+        ACC_AccessibilityManager.Instance.visualNotificationEnabled = false;
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled);
+        PlayerPrefs.Save();
+    }
     public void EnableVisualNotificationMenu()
     {
         if (visualNotificationSettings != null) visualNotificationSettings.SetActive(true);

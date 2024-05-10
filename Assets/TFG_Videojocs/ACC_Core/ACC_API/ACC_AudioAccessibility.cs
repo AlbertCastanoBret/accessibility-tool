@@ -81,6 +81,23 @@ public class ACC_AudioAccessibility
                 return false;
         }
     }
+
+    /// <summary>
+    /// Resets the state of the specified audio feature to its default settings.
+    /// </summary>
+    /// <param name="feature">The audio feature to reset (e.g., subtitles, visual notifications).</param>
+    public void ResetFeatureState(AudioFeatures feature)
+    {
+        switch (feature)
+        {
+            case AudioFeatures.Subtitles:
+                accSubtitlesManager.ResetSubtitlesState();
+                break;
+            case AudioFeatures.VisualNotification:
+                accVisualNotificationManager.ResetVisualNotificationState();
+                break;
+        }
+    }
     
     /// <summary>
     /// Loads and applies the user's accessibility preferences related to audio features.

@@ -44,6 +44,20 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
+        /// Resets the state of the specified multifunctional feature to its default settings.
+        /// </summary>
+        /// <param name="feature">The multifunctional feature to reset (e.g., audio manager).</param>
+        public void ResetFeatureState(MultifiunctionalFeatures feature)
+        {
+            switch (feature)
+            {
+                case MultifiunctionalFeatures.AudioManager:
+                    accAudioManager.ResetAudioManagerState();
+                    break;
+            }
+        }
+        
+        /// <summary>
         /// Loads and applies the user's accessibility preferences related to multifunctional features.
         /// </summary>
         public void LoadUserPreferences()

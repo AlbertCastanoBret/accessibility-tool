@@ -75,6 +75,8 @@ namespace TFG_Videojocs.ACC_RemapControls
                 ResetAllBindings();
                 isEnabled = false;
             }
+            
+            ACC_AccessibilityManager.Instance.remapControlsEnabled = state;
         }
         public void SetRemapControls(bool state)
         {
@@ -85,7 +87,18 @@ namespace TFG_Videojocs.ACC_RemapControls
                 isEnabled = false;
             }
             
+            ACC_AccessibilityManager.Instance.remapControlsEnabled = state;
             PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.RemapControlsEnabled, state ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+
+        public void ResetRemapControlsState()
+        {
+            ResetAllBindings();
+            isEnabled = false;
+            
+            ACC_AccessibilityManager.Instance.remapControlsEnabled = false;
+            PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.RemapControlsEnabled, 0);
             PlayerPrefs.Save();
         }
         public void EnableRemapControlsMenu(string device)

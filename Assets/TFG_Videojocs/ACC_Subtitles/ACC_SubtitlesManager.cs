@@ -274,6 +274,17 @@ public class ACC_SubtitlesManager : MonoBehaviour
         if (subtitlesToggle != null) subtitlesToggle.GetComponent<Toggle>().isOn = state;
         ACC_AccessibilityManager.Instance.subtitlesEnabled = state;
     }
+    public void ResetSubtitlesState()
+    {
+        if (subtitlesToggle != null)
+        {
+            subtitlesToggle.GetComponent<Toggle>().isOn = false;
+        }
+        
+        ACC_AccessibilityManager.Instance.subtitlesEnabled = false;
+        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled);
+        PlayerPrefs.Save();
+    }
     public void EnableSubtitlesMenu()
     {
         if (subtitleSettings != null) subtitleSettings.SetActive(true);
@@ -330,6 +341,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
     public void SetShowActorsName(bool showActorsName)
     {
         this.showActorsName = showActorsName;
+        ACC_AccessibilityManager.Instance.OnValidate();
     }
     public bool GetShowActorsName()
     {

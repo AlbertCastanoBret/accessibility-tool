@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TFG_Videojocs
 {
-    public enum VisibilityFeatures
+    public enum VisualFeatures
     {
         HighContrast,
     }
@@ -19,11 +19,11 @@ namespace TFG_Videojocs
             accHighContrastManager = ACC_PrefabHelper.InstantiatePrefabAsChild("HighContrast", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_HighContrastManager>();
         }
         
-        internal void InitializeState(VisibilityFeatures feature, bool state)
+        internal void InitializeState(VisualFeatures feature, bool state)
         {
             switch (feature)
             {
-                case VisibilityFeatures.HighContrast:
+                case VisualFeatures.HighContrast:
                     accHighContrastManager.InitializeHighContrastMode(state);
                     break;
             }
@@ -32,13 +32,13 @@ namespace TFG_Videojocs
         /// <summary>
         /// Sets the state of a specified visibility feature to either enabled or disabled.
         /// </summary>
-        /// <param name="feature">The visibility feature to modify. Use VisibilityFeatures enum to specify the feature.</param>
+        /// <param name="feature">The visibility feature to modify. Use VisualFeatures enum to specify the feature.</param>
         /// <param name="state">A boolean value indicating whether the feature should be enabled (true) or disabled (false).</param>
-        public void SetFeatureState(VisibilityFeatures feature, bool state)
+        public void SetFeatureState(VisualFeatures feature, bool state)
         {
             switch (feature)
             {
-                case VisibilityFeatures.HighContrast:
+                case VisualFeatures.HighContrast:
                     accHighContrastManager.SetHighContrastMode(state);
                     break;
             }
@@ -49,14 +49,28 @@ namespace TFG_Videojocs
         /// </summary>
         /// <param name="feature">The visibility feature to check, e.g., high contrast.</param>
         /// <returns>True if the specified feature is enabled, false otherwise.</returns>
-        public bool GetFeatureState(VisibilityFeatures feature)
+        public bool GetFeatureState(VisualFeatures feature)
         {
             switch (feature)
             {
-                case VisibilityFeatures.HighContrast:
+                case VisualFeatures.HighContrast:
                     return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.HighContrastEnabled) == 1;
                 default:
                     return false;
+            }
+        }
+        
+        /// <summary>
+        /// Resets the state of the specified visibility feature to its default settings.
+        /// </summary>
+        /// <param name="feature">The visibility feature to reset (e.g., high contrast mode).</param>
+        public void ResetFeatureState(VisualFeatures feature)
+        {
+            switch (feature)
+            {
+                case VisualFeatures.HighContrast:
+                    accHighContrastManager.ResetHighContrastMode();
+                    break;
             }
         }
         

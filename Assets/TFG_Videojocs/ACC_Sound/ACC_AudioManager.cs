@@ -82,6 +82,8 @@ namespace TFG_Videojocs.ACC_Sound
                 StopAllSounds();
                 isEnabled = false;
             }
+            
+            ACC_AccessibilityManager.Instance.audioManagerEnabled = state;
         }
         public void SetAudioManager(bool state)
         {
@@ -92,9 +94,20 @@ namespace TFG_Videojocs.ACC_Sound
                 isEnabled = false;
             }
             
+            ACC_AccessibilityManager.Instance.audioManagerEnabled = state;
             PlayerPrefs.SetInt(ACC_AccessibilitySettingsKeys.AudioManagerEnabled, state ? 1 : 0);
             PlayerPrefs.Save();
         }
+        public void ResetAudioManagerState()
+        {
+            StopAllSounds();
+            isEnabled = false;
+            
+            ACC_AccessibilityManager.Instance.audioManagerEnabled = false;
+            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled);
+            PlayerPrefs.Save();
+        }
+        
         public void EnableAudioManagerMenu()
         {
             if (audioSettings != null)

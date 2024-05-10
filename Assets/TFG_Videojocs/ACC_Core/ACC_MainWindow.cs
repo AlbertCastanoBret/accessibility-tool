@@ -87,7 +87,7 @@ public class ACC_MainWindow : EditorWindow
         
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
-        visualButton.clicked += () => { UpdateAccessibilityContainer(typeof(VisibilityFeatures)); };
+        visualButton.clicked += () => { UpdateAccessibilityContainer(typeof(VisualFeatures)); };
         cognitiveButton.clicked += () => { UpdateAccessibilityContainer(typeof(MobilityFeatures)); };
         multifunctionalButton.clicked += () => { UpdateAccessibilityContainer(typeof(MultifiunctionalFeatures)); };
         
@@ -120,7 +120,7 @@ public class ACC_MainWindow : EditorWindow
         box.Add(titleBox);
 
         if(featuretype==typeof(AudioFeatures))CreateAudioBox(box, index);
-        else if (featuretype==typeof(VisibilityFeatures))CreateVisibilityBox(box, index);
+        else if (featuretype==typeof(VisualFeatures))CreateVisibilityBox(box, index);
         else if (featuretype==typeof(MobilityFeatures))CreateMobilityBox(box, index);
         else if (featuretype==typeof(MultifiunctionalFeatures))CreateMultifunctionalBox(box, index);
         return box;
@@ -149,7 +149,7 @@ public class ACC_MainWindow : EditorWindow
     }
     private void CreateVisibilityBox(VisualElement box, int index)
     {
-        switch (Enum.GetName(typeof(VisibilityFeatures), index))
+        switch (Enum.GetName(typeof(VisualFeatures), index))
         {
             case "TextToVoice":
                 break;

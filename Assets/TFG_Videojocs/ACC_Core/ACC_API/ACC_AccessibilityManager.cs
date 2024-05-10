@@ -90,7 +90,7 @@ namespace TFG_Videojocs
                 AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
                 VisualAccessibility = new ACC_VisualAccessibility();
-                VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                VisualAccessibility.InitializeState(VisualFeatures.HighContrast, highContrastEnabled);
                 
                 MobilityAccessibility = new ACC_MobilityAccessibility();
                 MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
@@ -150,7 +150,7 @@ namespace TFG_Videojocs
                 
                 if (highContrastEnabled != prevHighContrastEnabled)
                 {
-                    VisualAccessibility.InitializeState(VisibilityFeatures.HighContrast, highContrastEnabled);
+                    VisualAccessibility.InitializeState(VisualFeatures.HighContrast, highContrastEnabled);
                     prevHighContrastEnabled = highContrastEnabled;
                 }
                 

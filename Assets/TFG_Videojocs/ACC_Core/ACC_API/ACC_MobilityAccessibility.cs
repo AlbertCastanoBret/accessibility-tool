@@ -47,6 +47,11 @@ namespace TFG_Videojocs
             }
         }
         
+        /// <summary>
+        /// Determines whether the specified mobility feature is enabled or disabled based on the user's saved preferences.
+        /// </summary>
+        /// <param name="feature">The mobility feature to check (e.g., remap controls).</param>
+        /// <returns>True if the feature is enabled, otherwise false.</returns>
         public bool GetFeatureState(MobilityFeatures feature)
         {
             switch (feature)
@@ -55,6 +60,20 @@ namespace TFG_Videojocs
                     return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled) && PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.RemapControlsEnabled) == 1;
                 default:
                     return false;
+            }
+        }
+        
+        /// <summary>
+        /// Resets the state of the specified mobility feature to its default settings.
+        /// </summary>
+        /// <param name="feature">The mobility feature to reset (e.g., remap controls).</param>
+        public void ResetFeatureState(MobilityFeatures feature)
+        {
+            switch (feature)
+            {
+                case MobilityFeatures.RemapControls:
+                    accRemapControlsManager.ResetRemapControlsState();
+                    break;
             }
         }
 
