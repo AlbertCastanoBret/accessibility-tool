@@ -119,11 +119,12 @@ namespace TFG_Videojocs
             VisualAccessibility.DisableHighContrastMenu();
             MobilityAccessibility.DisableRemapControlsMenu();
             MultifunctionalAccessibility.DisableAudioManagerMenu();
+            MultifunctionalAccessibility.Play3DSound("Toilet", "Toilet", "Toilet_Toilet_0");
             //AudioAccessibility.ResetVisualNotificationSettings();
             //AudioAccessibility.ChangeSubtitleFontSize(20);
             //AudioAccessibility.ShowActorsName(false);
             AudioAccessibility.PlaySubtitle("A");
-            MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
+            //MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             //AudioAccessibility.ChangeVisualNotificationVerticalAlignment(2);
             //AudioAccessibility.ResetSubtitleSettings();
             //AudioAccessibility.ChangeVisualNotificationTimeOnScreen(4);

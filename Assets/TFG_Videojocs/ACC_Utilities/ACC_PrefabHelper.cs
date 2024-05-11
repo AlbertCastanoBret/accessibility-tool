@@ -584,7 +584,6 @@ namespace TFG_Videojocs.ACC_Utilities
         {
             var objectGUID = audioSourceData.sourceObjectGUID;
             var sourceObject = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(objectGUID));
-            if (audioSourceData.prefabGUID != "") AssetDatabase.DeleteAsset(AssetDatabase.GUIDToAssetPath(audioSourceData.prefabGUID));
 
             GameObject parentObject;
             AudioSource audioSourceComponent;
@@ -592,7 +591,8 @@ namespace TFG_Videojocs.ACC_Utilities
             
             if (sourceObject != null)
             {
-                parentObject =  GameObject.Instantiate(sourceObject);
+                parentObject =  Object.Instantiate(sourceObject);
+                parentObject.tag = "ACC_3DAudioSource";
                 
                 GameObject audioSource = new GameObject {tag = "ACC_AudioSource", name = "ACC_AudioSource_" + gameObjectName + "_3D"};
                 audioSource.transform.SetParent(parentObject.transform);
@@ -603,7 +603,7 @@ namespace TFG_Videojocs.ACC_Utilities
             else
             {
                 audioSourceData.sourceObjectGUID = "-1";
-                parentObject = new GameObject {tag = "ACC_AudioSource", name = "ACC_AudioSource_" + gameObjectName + "_3D"};
+                parentObject = new GameObject {tag = "ACC_3DAudioSource", name = "ACC_AudioSource_" + gameObjectName + "_3D"};
 
                 audioSourceComponent = parentObject.AddComponent<AudioSource>();
             }
@@ -618,10 +618,12 @@ namespace TFG_Videojocs.ACC_Utilities
             var prefabPath = "Assets/Resources/ACC_Prefabs/" + folder + name;
             
             PrefabUtility.SaveAsPrefabAsset(parentObject, prefabPath);
-            GameObject.DestroyImmediate(parentObject);
+            Object.DestroyImmediate(parentObject);
             AssetDatabase.Refresh();
             
             var guid = AssetDatabase.AssetPathToGUID(prefabPath);
+            if (audioSourceData.prefabGUID != guid) AssetDatabase.DeleteAsset(AssetDatabase.GUIDToAssetPath(audioSourceData.prefabGUID));
+            
             audioSourceData.prefabGUID = guid;
         }
         public static void Delete3DAudioSource(ACC_AudioSourceData audioSourceData)

@@ -107,7 +107,6 @@ namespace TFG_Videojocs.ACC_Sound
             PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled);
             PlayerPrefs.Save();
         }
-        
         public void EnableAudioManagerMenu()
         {
             if (audioSettings != null)
@@ -133,6 +132,23 @@ namespace TFG_Videojocs.ACC_Sound
             Debug.LogError("Audio source not found");
             return null;
         }
+        public AudioSource Get3DAudioSource(string gameObject)
+        {
+            if (!isEnabled) return null;
+            var currentGameObject = GameObject.Find(gameObject);
+            if (currentGameObject == null)
+            {
+                Debug.LogError("Game object not found");
+                return null;
+            }
+            var currentAudioSource = currentGameObject.GetComponentInChildren<AudioSource>();
+            if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
+            {
+                return currentAudioSource;
+            }
+            Debug.LogError("Audio source not found");
+            return null;
+        }
         public List<AudioSource> GetAllAudioSources()
         {
             if (!isEnabled) return null;
@@ -140,6 +156,16 @@ namespace TFG_Videojocs.ACC_Sound
             foreach (Transform audioSource in audioSourcesContainer.transform)
             {
                 audioSourcesList.Add(audioSource.GetComponent<AudioSource>());
+            }
+            return audioSourcesList;
+        }
+        public List<AudioSource> GetAll3DAudioSources()
+        {
+            if (!isEnabled) return null;
+            List<AudioSource> audioSourcesList = new ();
+            foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("ACC_3DAudioSource"))
+            {
+                audioSourcesList.Add(gameObject.GetComponentInChildren<AudioSource>());
             }
             return audioSourcesList;
         }
@@ -162,6 +188,31 @@ namespace TFG_Videojocs.ACC_Sound
                     currentAudioSource.clip = currentAudioClip;
                     currentAudioSource.Play();
                     ACC_AccessibilityManager.Instance.AudioAccessibility.PlayVisualNotification(audioSource, audioClip);
+                }
+                else Debug.LogError("Audio clip not found");
+            }
+            else Debug.LogError("Audio source not found");
+        }
+        public void Play3DSound(string audioSource, string audioClip, string gameObject)
+        {
+            if (!isEnabled) return;
+            var currentGameObject = GameObject.Find(gameObject);
+            if (currentGameObject == null)
+            {
+                Debug.LogError("Game object not found");
+                return;
+            }
+            var currentAudioSource = currentGameObject.GetComponentInChildren<AudioSource>();
+            if (audioSources.Items.FirstOrDefault(x => x.value.name == audioSource) != null)
+            {
+                var indexCurrentAudioSource = audioSources.Items.FirstOrDefault(x => x.value.name == audioSource)!.key;
+                if (audioClips.Items[indexCurrentAudioSource].value.Items
+                        .FirstOrDefault(x => x.value.name == audioClip) != null)
+                {
+                    var currentAudioClip = audioClips.Items[indexCurrentAudioSource].value.Items.FirstOrDefault(x => x.value.name == audioClip)?.value;
+                    currentAudioSource.clip = currentAudioClip;
+                    currentAudioSource.Play();
+                    //ACC_AccessibilityManager.Instance.AudioAccessibility.PlayVisualNotification(audioSource, audioClip);
                 }
                 else Debug.LogError("Audio clip not found");
             }
@@ -190,6 +241,30 @@ namespace TFG_Videojocs.ACC_Sound
             }
             else Debug.LogError("Audio source not found");
         }
+        public void Play3DOneShot(string audioSource, string audioClip, string gameObject)
+        {
+            if (!isEnabled) return;
+            var currentGameObject = GameObject.Find(gameObject);
+            if (currentGameObject == null)
+            {
+                Debug.LogError("Game object not found");
+                return;
+            }
+            var currentAudioSource = currentGameObject.GetComponentInChildren<AudioSource>();
+            if (audioSources.Items.FirstOrDefault(x => x.value.name == audioSource) != null)
+            {
+                var indexCurrentAudioSource = audioSources.Items.FirstOrDefault(x => x.value.name == audioSource)!.key;
+                if (audioClips.Items[indexCurrentAudioSource].value.Items
+                        .FirstOrDefault(x => x.value.name == audioClip) != null)
+                {
+                    var currentAudioClip = audioClips.Items[indexCurrentAudioSource].value.Items.FirstOrDefault(x => x.value.name == audioClip)?.value;
+                    currentAudioSource.PlayOneShot(currentAudioClip);
+                    //ACC_AccessibilityManager.Instance.AudioAccessibility.PlayVisualNotification(audioSource, audioClip);
+                }
+                else Debug.LogError("Audio clip not found");
+            }
+            else Debug.LogError("Audio source not found");
+        }
         public void StopSound(string audioSource)
         {
             if (!isEnabled) return;
@@ -205,12 +280,36 @@ namespace TFG_Videojocs.ACC_Sound
             }
             else Debug.LogError("Audio source not found");
         }
+        public void Stop3DSound(string gameObject)
+        {
+            if (!isEnabled) return;
+            var currentGameObject = GameObject.Find(gameObject);
+            if (currentGameObject == null)
+            {
+                Debug.LogError("Game object not found");
+                return;
+            }
+            var currentAudioSource = currentGameObject.GetComponentInChildren<AudioSource>();
+            if (audioSources.Items.FirstOrDefault(x => x.value.name == currentAudioSource.GameObject().name) != null)
+            {
+                currentAudioSource.Stop();
+            }
+            else Debug.LogError("Audio source not found");
+        }
         public void StopAllSounds()
         {
             if (!isEnabled) return;
             foreach (Transform audioSource in audioSourcesContainer.transform)
             {
                 audioSource.GetComponent<AudioSource>().Stop();
+            }
+        }
+        public void StopAll3DSounds()
+        {
+            if (!isEnabled) return;
+            foreach (GameObject gameObject in GameObject.FindGameObjectsWithTag("ACC_3DAudioSource"))
+            {
+                gameObject.GetComponentInChildren<AudioSource>().Stop();
             }
         }
         public void SetVolume(string audioSource, float volume)

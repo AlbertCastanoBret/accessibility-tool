@@ -29,6 +29,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             window.controller.isEditing = true;
             window.inputActionAsset = inputActionAsset;
             
+            
             window.CreateGUI();
             window.controller.LoadOnlyEditableWindow(inputActionAsset.name, inputActionAsset);
             window.PositionWindowInBottomRight();

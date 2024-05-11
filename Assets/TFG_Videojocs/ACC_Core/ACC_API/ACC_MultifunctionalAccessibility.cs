@@ -113,6 +113,16 @@ namespace TFG_Videojocs
         {
             return accAudioManager.GetAudioSource(audioSource);
         }
+        
+        /// <summary>
+        /// Retrieves a 3D AudioSource object based on a specified GameObject identifier.
+        /// </summary>
+        /// <param name="gameObject">The name of the GameObject to retrieve the 3D audio source for.</param>
+        /// <returns>The 3D AudioSource corresponding to the given GameObject.</returns>
+        public AudioSource Get3DAudioSource(string gameObject)
+        {
+            return accAudioManager.Get3DAudioSource(gameObject);
+        }
 
         /// <summary>
         /// Retrieves a list of all AudioSource objects currently managed by the audio manager.
@@ -121,6 +131,15 @@ namespace TFG_Videojocs
         public List<AudioSource> GetAllAudioSources()
         {
             return accAudioManager.GetAllAudioSources();
+        }
+        
+        /// <summary>
+        /// Retrieves a list of all 3D AudioSource objects currently managed by the audio manager.
+        /// </summary>
+        /// <returns>A list of all 3D AudioSource objects.</returns>
+        public List<AudioSource> GetAll3DAudioSources()
+        {
+            return accAudioManager.GetAll3DAudioSources();
         }
 
         /// <summary>
@@ -134,6 +153,17 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
+        /// Plays a 3D sound using the specified audio source, audio clip, and GameObject.
+        /// </summary>
+        /// <param name="audioSource">The name of the audio source.</param>
+        /// <param name="audioClip">The name of the audio clip to play.</param>
+        /// <param name="gameObject">The name of the GameObject to associate the 3D sound with.</param>
+        public void Play3DSound(string audioSource, string audioClip, string gameObject)
+        {
+            accAudioManager.Play3DSound(audioSource, audioClip, gameObject);
+        }
+        
+        /// <summary>
         /// Plays a sound clip once using the specified audio source.
         /// </summary>
         /// <param name="audioSource">The name of the audio source.</param>
@@ -141,6 +171,17 @@ namespace TFG_Videojocs
         public void PlayOneShot(string audioSource, string audioClip)
         {
             accAudioManager.PlayOneShot(audioSource, audioClip);
+        }
+        
+        /// <summary>
+        /// Plays a 3D sound clip once using the specified audio source and GameObject.
+        /// </summary>
+        /// <param name="audioSource">The name of the audio source.</param>
+        /// <param name="audioClip">The name of the audio clip to play once.</param>
+        /// <param name="gameObject">The name of the GameObject to associate the 3D sound with.</param>
+        public void Play3DOneShot(string audioSource, string audioClip, string gameObject)
+        {
+            accAudioManager.Play3DOneShot(audioSource, audioClip, gameObject);
         }
         
         /// <summary>
@@ -153,11 +194,28 @@ namespace TFG_Videojocs
         }
         
         /// <summary>
+        /// Stops playing the 3D sound associated with the specified GameObject.
+        /// </summary>
+        /// <param name="gameObject">The name of the GameObject whose 3D sound should stop playing.</param>
+        public void Stop3DSound(string gameObject)
+        {
+            accAudioManager.Stop3DSound(gameObject);
+        }
+        
+        /// <summary>
         /// Stops all currently playing sounds.
         /// </summary>
         public void StopAllSounds()
         {
             accAudioManager.StopAllSounds();
+        }
+        
+        /// <summary>
+        /// Stops all currently playing 3D sounds.
+        /// </summary>
+        public void StopAll3DSounds()
+        {
+            accAudioManager.StopAll3DSounds();
         }
         
         /// <summary>
