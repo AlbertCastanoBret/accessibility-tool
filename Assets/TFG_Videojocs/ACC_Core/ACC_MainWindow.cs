@@ -1,11 +1,10 @@
 #if UNITY_EDITOR
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using JetBrains.Annotations;
+
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_HighContrast.Toilet;
@@ -13,14 +12,11 @@ using TFG_Videojocs.ACC_RemapControls;
 using TFG_Videojocs.ACC_Subtitles;
 using TFG_Videojocs.ACC_Utilities;
 using TFG_Videojocs.ACC_VisualNotification;
-using Unity.VisualScripting;
 using UnityEditor;
-using UnityEditor.IMGUI.Controls;
 using UnityEditor.SceneManagement;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Editor;
 using UnityEngine.UIElements;
 
 public class ACC_MainWindow : EditorWindow
