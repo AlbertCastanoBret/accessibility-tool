@@ -6,12 +6,37 @@
 
 .title{
     font-size: 22px;
+    -unity-font-style: bold;
+}
+
+.subtitle{
+    font-size: 16px;
+    -unity-font-style: bold;
+    margin-bottom: 6px;
 }
 
 .image{
-    margin: 16px auto 16px;
-    width: 200px;
-    height: 200px;
+    margin: 12px auto 12px;
+    width: 180px;
+    height: 180px;
+}
+
+.instructions-container{
+    overflow: scroll;
+    height: 380px;
+    margin-bottom: 12px;
+}
+
+.list-container{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 6px;
+}
+
+.list-label{
+    -unity-font-style: bold;
+    width: 28%;
+    margin-left: 20px;
 }
 
 .text{
@@ -22,5 +47,8 @@
 .button{
     margin-right: auto;
     padding: 6px;
-    font-size: 14px;
+}
+
+.button:hover{
+    cursor: link;
 }

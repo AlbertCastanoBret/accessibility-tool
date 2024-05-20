@@ -1155,70 +1155,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!1 &492319678
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 492319680}
-  - component: {fileID: 492319679}
-  m_Layer: 0
-  m_Name: ACC_AccessibilityManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &492319679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492319678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca6710ebd5e3fc54984fc89422d4065a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subtitlesEnabled: 1
-  showSubtitlesMenu: 0
-  visualNotificationEnabled: 1
-  showVisualNotificationMenu: 0
-  highContrastEnabled: 1
-  showHighContrastMenu: 0
-  isPrevisualizing: 0
-  shadersAdded: 0
-  remapControlsEnabled: 1
-  showRemapControlsMenu: 0
-  remapControlsAsset: {fileID: 0}
-  remapControlsMenus:
-  - Keyboard, Mouse
-  - Gamepad
-  - Touchscreen
-  - Joystick
-  - XRController
-  currentRemapControlsMenu: Keyboard, Mouse
-  audioManagerEnabled: 1
-  showAudioManagerMenu: 0
---- !u!4 &492319680
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492319678}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &672161771
 Material:
   serializedVersion: 8
@@ -4152,6 +4088,65 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
+--- !u!1 &1488718940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1488718942}
+  - component: {fileID: 1488718941}
+  m_Layer: 0
+  m_Name: ACC_AccessibilityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1488718941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488718940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6710ebd5e3fc54984fc89422d4065a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subtitlesEnabled: 1
+  showSubtitlesMenu: 0
+  visualNotificationEnabled: 1
+  showVisualNotificationMenu: 0
+  highContrastEnabled: 1
+  showHighContrastMenu: 0
+  isPrevisualizing: 0
+  shadersAdded: 0
+  remapControlsEnabled: 1
+  showRemapControlsMenu: 0
+  remapControlsAsset: {fileID: 0}
+  remapControlsMenus: []
+  currentRemapControlsMenu: 
+  audioManagerEnabled: 1
+  showAudioManagerMenu: 0
+--- !u!4 &1488718942
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1488718940}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1508342528
 Material:
   serializedVersion: 8
@@ -5774,4 +5769,4 @@ SceneRoots:
   - {fileID: 970900502}
   - {fileID: 773498831}
   - {fileID: 417610526}
-  - {fileID: 492319680}
+  - {fileID: 1488718942}

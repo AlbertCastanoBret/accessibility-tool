@@ -9,6 +9,22 @@
     padding: 10px;
 }
 
+.toolbar-refresh-button{
+    margin-left: auto;
+    margin-right: 10px;
+    padding: 4px 6px;
+    font-size: 14px;
+    color: #e0e0e0;
+    background-color: #2c2c2c;
+    border-width: 1px;
+    border-color: #232323;
+}
+
+.toolbar-refresh-button:hover{
+    cursor: link;
+    background-color: #313131;
+}
+
 .main-container{
     display: flex;
     flex-direction: row;
@@ -27,6 +43,13 @@
 
 .my-button:hover{
     cursor: link;
+    background-color: #313131;
+}
+
+.my-button:focus{
+    border-width: 0;
+    border-bottom-color: #232323;
+    border-bottom-width: 0.5;
 }
 
 .my-box {
@@ -78,6 +101,10 @@
     font-size: 12px;
 }
 
+.create-button:hover{
+    cursor: link;
+}
+
 .dropdown-container{
     display: flex;
     flex-direction: row;
@@ -93,6 +120,10 @@
 .button{
     padding: 4px 6px;
     font-size: 12px;
+}
+
+.button:hover{
+    cursor: link;
 }
 
 .object-field{

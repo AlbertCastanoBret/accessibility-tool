@@ -24,7 +24,6 @@ namespace TFG_Videojocs.ACC_Utilities
             if(Application.isPlaying) return;
             var gameObject = CreateGameObject(feature, jsonFile);
             
-            //gameObject.transform.SetParent(GameObject.Find("ACC_Canvas").transform, false);
             var folder = "ACC_" + feature + "/";
             var name = "ACC_" + feature + "Manager.prefab";
             if (!string.IsNullOrEmpty(jsonFile) && feature != "Audio") name = "ACC_" + feature + "Manager_" + jsonFile + ".prefab";

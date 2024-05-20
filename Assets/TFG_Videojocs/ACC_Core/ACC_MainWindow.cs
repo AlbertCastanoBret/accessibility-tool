@@ -19,6 +19,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+
+
 internal class ACC_MainWindow : EditorWindow
 {
     private VisualElement accessibilityContainer;
@@ -50,11 +52,13 @@ internal class ACC_MainWindow : EditorWindow
     {
         var window = GetWindow<ACC_MainWindow>("Accessibility Window");
         window.minSize = new Vector2(520, 300);
+        window.ShowTab();
     }
     public void CreateGUI()
     {
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Core/ACC_WindowStyles.uss");
         var toolbar = new Toolbar();
+        var refreshButton = new Button() { text = "Refresh Accessibility Manager" };
         var titleToolbar = new Label("Accessibility Plugin");
         var mainContainer = new VisualElement();
         var sidebar = new VisualElement();
@@ -67,6 +71,7 @@ internal class ACC_MainWindow : EditorWindow
         
         toolbar.AddToClassList("toolbar");
         titleToolbar.AddToClassList("toolbar-title");
+        refreshButton.AddToClassList("toolbar-refresh-button");
         mainContainer.AddToClassList("main-container");
         sidebar.AddToClassList("my-box");
         audibleButton.AddToClassList("my-button");
@@ -79,7 +84,10 @@ internal class ACC_MainWindow : EditorWindow
         rootVisualElement.styleSheets.Add(styleSheet);
         rootVisualElement.style.minWidth = new StyleLength(520);
         
+        refreshButton.clicked += () => { CreateAccessibilityManager(); };
+        
         toolbar.Add(titleToolbar);
+        toolbar.Add(refreshButton);
         
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
@@ -96,7 +104,28 @@ internal class ACC_MainWindow : EditorWindow
         rootVisualElement.Add(toolbar);
         rootVisualElement.Add(mainContainer);
     }
-    
+
+    private static void CreateAccessibilityManager()
+    {
+        var accessibilityManager = GameObject.Find("ACC_AccessibilityManager");
+        if (accessibilityManager) DestroyImmediate(accessibilityManager);
+        accessibilityManager = new GameObject("ACC_AccessibilityManager");
+        accessibilityManager.AddComponent<ACC_AccessibilityManager>();
+            
+        ACC_PrefabHelper.CreatePrefab("Subtitles");
+        ACC_PrefabHelper.CreatePrefab("VisualNotification");
+        ACC_PrefabHelper.CreatePrefab("HighContrast");
+        
+        var loadedData = ACC_JSONHelper.LoadJson<ACC_AudioManagerData>("ACC_AudioManager/ACC_AudioManager");
+        if (loadedData == null)
+        {
+            var path = "/ACC_AudioManager/";
+            ACC_AudioManagerData data = new ACC_AudioManagerData();
+            ACC_JSONHelper.CreateJson(data, path);
+        }
+        ACC_PrefabHelper.CreatePrefab("Audio", "ACC_AudioManager");
+    }
+
     private void UpdateAccessibilityContainer(Type featureType)
     {
         accessibilityContainer.Clear();
@@ -565,7 +594,8 @@ internal class ACC_MainWindow : EditorWindow
         }
         else
         {
-            EditorUtility.DisplayDialog("Prefab not found", "The prefab for the " + feature + " manager was not found.", "OK");
+            if (jsonFile == "") EditorUtility.DisplayDialog("Prefab not found", "The prefab for the " + feature + " manager was not found.", "OK");
+            else EditorUtility.DisplayDialog("Prefab not found", "The prefab for the " + feature + " manager with the name " + jsonFile + " was not found.", "OK");
         }
     }
     #endregion

@@ -24,6 +24,9 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         
         window.controller.isEditing = true;
         window.controller.LoadOnlyEditableWindow("ACC_AudioManager");
+        
+        window.PositionWindowInBottomRight();
+        window.SetFixedPosition();
     }
     private new void CreateGUI()
     {

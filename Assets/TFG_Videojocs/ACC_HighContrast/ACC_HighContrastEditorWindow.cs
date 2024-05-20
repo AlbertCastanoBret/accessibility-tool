@@ -42,6 +42,9 @@ namespace TFG_Videojocs.ACC_HighContrast
                 window.controller.isCreatingNewFileOnCreation = true;
                 window.controller.lastData = window.controller.currentData.Clone() as ACC_HighContrastData;
             }
+            
+            window.PositionWindowInBottomRight();
+            window.SetFixedPosition();
         }
         private new void CreateGUI()
         {
