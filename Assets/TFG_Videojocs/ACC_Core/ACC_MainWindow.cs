@@ -350,51 +350,58 @@ public class ACC_MainWindow : EditorWindow
         loadPrefabContainer.Add(loadPrefabButton);
         remapControlsButtonContainer.Add(loadPrefabContainer);
 
-        inputAction.RegisterValueChangedCallback(evt =>
+                inputAction.RegisterValueChangedCallback(evt =>
         {
-            inputActionAsset = evt.newValue as InputActionAsset;
-            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
-            if(inputActionAsset!=null) ACC_PrefabHelper.CreatePrefab("RemapControls", inputActionAsset.name);
-            dynamicControlSchemesContainer.Clear();
-            
-            if (inputActionAsset != null)
-            {
-                dynamicControlSchemesContainer.Add(remapControlsButtonContainer);
-                AssetDatabase.Refresh();
-            }
-            else
-            {
-                dynamicControlSchemesContainer.Add(createActionsButton);
-            }
-            
-            accessibilityManager.remapControlsAsset = inputActionAsset;
-            
-            if (inputActionAsset == null) return;
-            var devices = inputActionAsset.controlSchemes
-                .Select(scheme => 
-                {
-                    return scheme.deviceRequirements
-                        .Select(requirement => requirement.controlPath.Replace("<", "").Replace(">", ""))
-                        .Distinct()
-                        .OrderBy(device => device)
-                        .Aggregate((current, next) => current + ", " + next);
-                })
-                .Where(device => device != null)
-                .Distinct()
-                .ToList();
-            
-            FindObjectOfType<ACC_AccessibilityManager>().remapControlsMenus = new List<string>(devices);
+            InputActionValueChanged(evt.newValue as InputActionAsset, dynamicControlSchemesContainer, remapControlsButtonContainer, createActionsButton);
         });
         
         if (FindObjectOfType<ACC_AccessibilityManager>().remapControlsAsset != null)
         {
             inputAction.value = FindObjectOfType<ACC_AccessibilityManager>().remapControlsAsset;
+            InputActionValueChanged( (InputActionAsset)inputAction.value, dynamicControlSchemesContainer, remapControlsButtonContainer, createActionsButton);
             dynamicControlSchemesContainer.Clear();
             dynamicControlSchemesContainer.Add(remapControlsButtonContainer);
         }
 
         box.Add(inputAction);
         box.Add(dynamicControlSchemesContainer);
+    }
+
+    private void InputActionValueChanged(InputActionAsset newInputActionAsset, VisualElement dynamicControlSchemesContainer,
+        VisualElement remapControlsButtonContainer, Button createActionsButton)
+    {
+        inputActionAsset = newInputActionAsset;
+        var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
+        if(inputActionAsset!=null) ACC_PrefabHelper.CreatePrefab("RemapControls", inputActionAsset.name);
+        dynamicControlSchemesContainer.Clear();
+            
+        if (inputActionAsset != null)
+        {
+            dynamicControlSchemesContainer.Add(remapControlsButtonContainer);
+            AssetDatabase.Refresh();
+        }
+        else
+        {
+            dynamicControlSchemesContainer.Add(createActionsButton);
+        }
+            
+        accessibilityManager.remapControlsAsset = inputActionAsset;
+            
+        if (inputActionAsset == null) return;
+        var devices = inputActionAsset.controlSchemes
+            .Select(scheme => 
+            {
+                return scheme.deviceRequirements
+                    .Select(requirement => requirement.controlPath.Replace("<", "").Replace(">", ""))
+                    .Distinct()
+                    .OrderBy(device => device)
+                    .Aggregate((current, next) => current + ", " + next);
+            })
+            .Where(device => device != null)
+            .Distinct()
+            .ToList();
+            
+        FindObjectOfType<ACC_AccessibilityManager>().remapControlsMenus = new List<string>(devices);
     }
     private void CreateInputActionAsset()
     {
