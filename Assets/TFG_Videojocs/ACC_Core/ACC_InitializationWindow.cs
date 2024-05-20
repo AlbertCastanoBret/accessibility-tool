@@ -42,8 +42,6 @@ public class ACC_InitializationWindow : EditorWindow
         createButton.clicked += () =>
         {
             CreateAccessibilityManager();
-            //CreateAudioManager();
-            CreateCanvas();
             Close();
         };
         
@@ -61,34 +59,6 @@ public class ACC_InitializationWindow : EditorWindow
         if (accessibilityManager) DestroyImmediate(accessibilityManager);
         accessibilityManager = new GameObject("ACC_AccessibilityManager");
         accessibilityManager.AddComponent<ACC_AccessibilityManager>();
-    }
-    // private static void CreateAudioManager()
-    // {
-    //     var audioManager = GameObject.Find("ACC_AudioManagerDeprecated");
-    //     if (audioManager) DestroyImmediate(audioManager);
-    //     audioManager = new GameObject("ACC_AudioManagerDeprecated");
-    //         
-    //     var musicSource = new GameObject("ACC_MusicSource");
-    //     musicSource.AddComponent<AudioSource>();
-    //     musicSource.transform.SetParent(audioManager.transform);
-    //         
-    //     var sfxSource = new GameObject("ACC_SFXSource");
-    //     sfxSource.AddComponent<AudioSource>();
-    //     sfxSource.transform.SetParent(audioManager.transform);
-    //         
-    //     audioManager.AddComponent<ACC_AudioManagerDeprecated>();
-    // }
-    private static void CreateCanvas()
-    {
-        var canvasObject = GameObject.Find("ACC_Canvas");
-        if(canvasObject) DestroyImmediate(canvasObject);
-        
-        canvasObject = new GameObject("ACC_Canvas");
-        canvasObject.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
-        var canvasScaler = canvasObject.AddComponent<CanvasScaler>();
-        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        canvasScaler.referenceResolution = new Vector2(1920, 1080);
-        canvasObject.AddComponent<GraphicRaycaster>();
     }
 }
 #endif

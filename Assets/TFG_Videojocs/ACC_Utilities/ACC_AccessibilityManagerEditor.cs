@@ -52,6 +52,7 @@ namespace TFG_Videojocs.ACC_Utilities
             
             manager = (ACC_AccessibilityManager) target;
 
+            if (manager.remapControlsMenus == null) manager.remapControlsMenus = new List<string>();
             var copiedArray = new string[manager.remapControlsMenus.Count];
             for (int i = 0; i < manager.remapControlsMenus.Count; i++)
             {
@@ -197,6 +198,7 @@ namespace TFG_Videojocs.ACC_Utilities
                 if (EditorGUI.EndChangeCheck())
                 {
                     extraProperty.serializedObject.ApplyModifiedProperties();
+                    if (extraProperty.objectReferenceValue == null) return;
                     var devices = ((InputActionAsset) extraProperty.objectReferenceValue).controlSchemes
                         .Select(scheme => 
                         {
@@ -366,6 +368,7 @@ namespace TFG_Videojocs.ACC_Utilities
         }
         private void OnRebindingMenuChanged(int newIndex)
         {
+            if (newIndex < 0 || newIndex >= manager.remapControlsMenus.Count) return;
             manager.currentRemapControlsMenu = manager.remapControlsMenus[newIndex];
             if (Application.isPlaying)
             {

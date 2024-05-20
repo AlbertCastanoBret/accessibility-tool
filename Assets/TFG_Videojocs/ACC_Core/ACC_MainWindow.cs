@@ -19,7 +19,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
-public class ACC_MainWindow : EditorWindow
+internal class ACC_MainWindow : EditorWindow
 {
     private VisualElement accessibilityContainer;
     private const int numberOfColumns = 2;
@@ -216,6 +216,7 @@ public class ACC_MainWindow : EditorWindow
         
         addShadersToggle.RegisterValueChangedCallback(evt =>
         {
+            accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
             if (evt.newValue)
             {
                 previsualizeToggle.style.display = DisplayStyle.Flex;
@@ -350,7 +351,7 @@ public class ACC_MainWindow : EditorWindow
         loadPrefabContainer.Add(loadPrefabButton);
         remapControlsButtonContainer.Add(loadPrefabContainer);
 
-                inputAction.RegisterValueChangedCallback(evt =>
+        inputAction.RegisterValueChangedCallback(evt =>
         {
             InputActionValueChanged(evt.newValue as InputActionAsset, dynamicControlSchemesContainer, remapControlsButtonContainer, createActionsButton);
         });

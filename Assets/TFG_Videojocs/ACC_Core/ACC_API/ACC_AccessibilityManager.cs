@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
@@ -81,9 +82,8 @@ namespace TFG_Videojocs
             if (Instance == null)
             {
                 Instance = this;
-                
-                accCanvas = GameObject.Find("ACC_Canvas");
-                accCanvas.transform.SetParent(transform);
+
+                CreateCanvas();
                 
                 AudioAccessibility = new ACC_AudioAccessibility();
                 AudioAccessibility.InitializeState(AudioFeatures.Subtitles, subtitlesEnabled);
@@ -119,11 +119,12 @@ namespace TFG_Videojocs
             VisualAccessibility.DisableHighContrastMenu();
             MobilityAccessibility.DisableRemapControlsMenu();
             MultifunctionalAccessibility.DisableAudioManagerMenu();
-            MultifunctionalAccessibility.Play3DSound("Toilet", "Toilet", "Toilet_Toilet_0");
+            //MultifunctionalAccessibility.Play3DSound("Toilet", "Toilet", "Toilet_Toilet_0");
             //AudioAccessibility.ResetVisualNotificationSettings();
             //AudioAccessibility.ChangeSubtitleFontSize(20);
             //AudioAccessibility.ShowActorsName(false);
             AudioAccessibility.PlaySubtitle("A");
+            MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             //MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             //AudioAccessibility.ChangeVisualNotificationVerticalAlignment(2);
             //AudioAccessibility.ResetSubtitleSettings();
@@ -168,7 +169,6 @@ namespace TFG_Videojocs
                 }
             }
         }
-        
         private void Update()
         {
             if (!sceneLoaded) return;
@@ -229,13 +229,11 @@ namespace TFG_Videojocs
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloading;
         }
-        
         private void OnDisable()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
             SceneManager.sceneUnloaded += OnSceneUnloading;
         }
-
         private void Reset()
         {
             subtitlesEnabled = true;
@@ -255,7 +253,17 @@ namespace TFG_Videojocs
             MobilityAccessibility.LoadUserPreferences();
             MultifunctionalAccessibility.LoadUserPreferences();
         }
-        
+
+        private void CreateCanvas()
+        {
+            accCanvas = new GameObject("ACC_Canvas");
+            accCanvas.transform.SetParent(transform);
+            accCanvas.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
+            var canvasScaler = accCanvas.AddComponent<CanvasScaler>();
+            canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasScaler.referenceResolution = new Vector2(1920, 1080);
+            accCanvas.AddComponent<GraphicRaycaster>();
+        }
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             sceneLoaded = true;
