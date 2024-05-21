@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Thermal Erosion | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Thermal Erosion | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/erosion-thermal.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="thermal-erosion">Thermal Erosion</h1>
+
+<p>Select a Terrain tile to bring up the Terrain Inspector. In the Terrain Inspector, click the <strong>Paint Terrain</strong> icon, and select <strong>Erosion</strong> &gt; <strong>Thermal</strong> from the list of Terrain tools.</p>
+<p><img src="images/2-32-Thermal-Erosion-01.png" alt=""></p>
+<p>The Thermal Erosion Tool simulates the effect of sediment settling on a Terrain. Different sediment types naturally settle at specific slope angles, known as the <em>angle of repose</em> or <em>talus angle</em>. This Tool enforces such an angle on the Terrain height field, resulting in natural-looking slopes.</p>
+<h2 id="parameters">Parameters</h2>
+<p><img src="images/2-32-Thermal-Erosion-02.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Physical Material Presets</strong></td>
+<td></td>
+<td>Use the drop-down to select the type of sediment material:<br>• Dry Ash<br>• Chalk<br>• Dry Clay<br>• Wet Clay<br>• Soil<br>• Granite Scree<br>• Wet Sand<br>• Quick Sand<br>• Snow<br>Each sediment material preset applies a default set of <strong>Advanced</strong> property values.</td>
+</tr>
+<tr>
+<td><strong>Advanced</strong></td>
+<td></td>
+<td>Use the <strong>Advanced</strong> properties to customize the Thermal Erosion Brush. When you edit these properties, the <strong>Physical Material Presets</strong> property value changes to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Iterations</strong></td>
+<td>The number of simulation iterations to perform per Brush stamp. Specifying a higher value here produces a more accurate result, but impacts performance.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Time Interval (dt)</strong></td>
+<td>The time delta for each iteration of the erosion simulation. Higher numbers result in a greater visible effect, but values that are too high lead to simulation instability and inaccuracies.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Resting Angle</strong></td>
+<td>The angle of repose (talus angle). This is the angle at which sediment naturally settles. Slopes that are steeper than this angle will erode, while slopes less steep will remain untouched.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Resting Angle Jitter</strong></td>
+<td>A random offset per Brush stamp applied to the resting angle. Increasing this value results in more variation.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/erosion-thermal.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

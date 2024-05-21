@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Optimize for better performance | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Optimize for better performance | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/optimize-for-better-performance.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="optimize-for-better-performance">Optimize for better performance</h1>
+
+<p>If the performance of your Universal Render Pipeline (URP) project seems slow, you can analyze your project and adjust settings to increase performance.</p>
+<h2 id="use-the-unity-profiler-to-analyze-your-project">Use the Unity Profiler to analyze your project</h2>
+<p>You can use the <a href="https://docs.unity3d.com/Manual/Profiler.html">Unity Profiler</a> to get data on the performance of your project in areas such as the CPU and memory.</p>
+<h2 id="profiler-markers">Profiler markers</h2>
+<p>The following table lists markers that appear in the Unity Profiler for a URP frame and have a significant effect on performance.</p>
+<p>The table doesn't include a marker if it's deep in the Profiler hierarchy, or the label already describes what URP does.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Marker</strong></th>
+<th><strong>Sub-marker</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inl_UniversalRenderPipeline. RenderSingleCameraInternal</strong></td>
+<td></td>
+<td>URP builds a list of rendering commands in the <a href="https://docs.unity3d.com/ScriptReference/Rendering.ScriptableRenderContext.html"><code>ScriptableRenderContext</code></a>, for a single camera. URP only records rendering commands in this marker, but doesn't yet execute them. The marker includes the camera name, for example <strong>Main Camera</strong>.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Inl_ScriptableRenderer.Setup</strong></td>
+<td>URP prepares for rendering, for example preparing render textures for the camera and shadow maps.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>CullScriptable</strong></td>
+<td>URP generates a list of GameObjects and lights to render, and culls (excludes) any that are outside the camera's view. The time this takes depends on the number of GameObjects and lights in your scene.</td>
+</tr>
+<tr>
+<td><strong>Inl_ScriptableRenderContext.Submit</strong></td>
+<td></td>
+<td>URP submits the list of commands in the <code>ScriptableRenderContext</code> to the graphics API. This marker might appear more than once if URP submits commands more than once per frame, or you call <a href="https://docs.unity3d.com/ScriptReference/Rendering.ScriptableRenderContext.Submit.html"><code>ScriptableRenderContext.Submit</code></a> in your own code.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>MainLightShadow</strong></td>
+<td>URP renders a <a href="https://docs.unity3d.com/Manual/shadow-mapping.html">shadow map</a> for the main Directional Light.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>AdditionalLightsShadow</strong></td>
+<td>URP renders shadow maps for other lights.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>UberPostProcess</strong></td>
+<td>URP renders <a href="EffectList.html">post-processing effects</a> you enable. This marker contains separate markers for some post-processing effects.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>RenderLoop.DrawSRPBatcher</strong></td>
+<td>URP uses the <a href="https://docs.unity3d.com/Manual/SRPBatcher.html">Scriptable Render Pipeline Batcher</a> to render one or more batches of objects.</td>
+</tr>
+<tr>
+<td><strong>CopyColor</strong></td>
+<td></td>
+<td>URP copies the color buffer from one render texture to another. You can disable <strong>Opaque Texture</strong> in the <a href="universalrp-asset.html">URP Asset</a>, so that URP only copies the color buffer if it needs to.</td>
+</tr>
+<tr>
+<td><strong>CopyDepth</strong></td>
+<td></td>
+<td>URP copies the depth buffer from one render texture to another. You can disable <strong>Depth Texture</strong> in the <a href="universalrp-asset.html">URP Asset</a> unless you need the depth texture (for example, if you use a shader that uses scene depth).</td>
+</tr>
+<tr>
+<td><strong>FinalBlit</strong></td>
+<td></td>
+<td>URP copies a render texture to the current camera render target.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="use-a-gpu-profiler-to-analyze-your-project">Use a GPU profiler to analyze your project</h2>
+<p>You can use a platform GPU profiler such as <a href="https://docs.unity3d.com/Manual/XcodeFrameDebuggerIntegration.html">Xcode</a> to get data on the performance of the GPU during rendering. You can also use a profiler such as <a href="https://docs.unity3d.com/Manual/RenderDocIntegration.html">RenderDoc</a>, but it might provide less accurate performance data.</p>
+<p>Data from a GPU profiler includes URP markers for rendering events, such as different render passes.</p>
+<h2 id="use-other-tools-to-analyze-your-project">Use other tools to analyze your project</h2>
+<p>You can also use the following tools to analyze the performance of your project:</p>
+<ul>
+<li><a href="https://docs.unity3d.com/Manual/ViewModes.html">Scene view View Options</a></li>
+<li><a href="features/rendering-debugger.html">Rendering Debugger</a></li>
+<li><a href="https://docs.unity3d.com/Manual/frame-debugger-window.html">Frame Debugger</a></li>
+</ul>
+<h2 id="adjust-settings">Adjust settings</h2>
+<p>Based on your analysis, you can adjust the following settings in the <a href="universalrp-asset.html">Universal Render Pipeline (URP) Asset</a> or the <a href="urp-universal-renderer.html">Universal Renderer asset</a> to improve the performance of your project.</p>
+<p>Depending on your project or the platforms you target, some settings might not have a significant effect. There might also be other settings that have an effect on performance in your project.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Where the setting is</strong></th>
+<th><strong>What to do for better performance</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accurate G-buffer normals</strong></td>
+<td><a href="urp-universal-renderer.html">Universal Renderer</a> &gt; <strong>Rendering</strong></td>
+<td>Disable if you use the Deferred rendering path</td>
+</tr>
+<tr>
+<td><strong>Additional Lights</strong> &gt; <strong>Cast Shadows</strong></td>
+<td><a href="universalrp-asset.html">URP Asset</a> &gt; <strong>Lighting</strong></td>
+<td>Disable</td>
+</tr>
+<tr>
+<td><strong>Additional Lights</strong> &gt; <strong>Cookie Atlas Format</strong></td>
+<td>URP Asset &gt; <strong>Lighting</strong></td>
+<td>Set to <strong>Color Low</strong></td>
+</tr>
+<tr>
+<td><strong>Additional Lights</strong> &gt; <strong>Cookie Atlas Resolution</strong></td>
+<td>URP Asset &gt; <strong>Lighting</strong></td>
+<td>Set to the lowest you can accept</td>
+</tr>
+<tr>
+<td><strong>Additional Lights</strong> &gt; <strong>Per Object Limit</strong></td>
+<td>URP Asset &gt; <strong>Lighting</strong></td>
+<td>Set to the lowest you can accept. This setting has no effect if you use the Deferred or Forward+ rendering paths.</td>
+</tr>
+<tr>
+<td><strong>Additional Lights</strong> &gt; <strong>Shadow Atlas Resolution</strong></td>
+<td>URP Asset &gt; <strong>Lighting</strong></td>
+<td>Set to the lowest you can accept</td>
+</tr>
+<tr>
+<td><strong>Additional Lights</strong> &gt; <strong>Shadow Resolution</strong></td>
+<td>URP Asset &gt; <strong>Lighting</strong></td>
+<td>Set to the lowest you can accept</td>
+</tr>
+<tr>
+<td><strong>Cascade Count</strong></td>
+<td>URP Asset &gt; <strong>Shadows</strong></td>
+<td>Set to the lowest you can accept</td>
+</tr>
+<tr>
+<td><strong>Conservative Enclosing Sphere</strong></td>
+<td>URP Asset &gt; <strong>Shadows</strong></td>
+<td>Enable</td>
+</tr>
+<tr>
+<td><strong>Technique</strong></td>
+<td><a href="renderer-feature-decal.html">Decal Renderer Feature</a></td>
+<td>Set to <strong>Screen Space</strong>, and set <strong>Normal Blend</strong> to <strong>Low</strong> or <strong>Medium</strong></td>
+</tr>
+<tr>
+<td><strong>Fast sRGB/Linear conversion</strong></td>
+<td>URP Asset &gt; <strong>Post Processing</strong></td>
+<td>Enable</td>
+</tr>
+<tr>
+<td><strong>Grading Mode</strong></td>
+<td>URP Asset &gt; <strong>Post Processing</strong></td>
+<td>Set to <strong>Low Dynamic Range</strong></td>
+</tr>
+<tr>
+<td><strong>LOD Cross Fade Dither</strong></td>
+<td>URP Asset &gt; <strong>Quality</strong></td>
+<td>Set to <strong>Bayer Matrix</strong></td>
+</tr>
+<tr>
+<td><strong>LUT size</strong></td>
+<td>URP Asset &gt; <strong>Post Processing</strong></td>
+<td>Set to the lowest you can accept</td>
+</tr>
+<tr>
+<td><strong>Main Light</strong> &gt; <strong>Cast Shadows</strong></td>
+<td>URP Asset &gt; <strong>Lighting</strong></td>
+<td>Disable</td>
+</tr>
+<tr>
+<td><strong>Max Distance</strong></td>
+<td>URP Asset &gt; <strong>Shadows</strong></td>
+<td>Reduce</td>
+</tr>
+<tr>
+<td><strong>Opaque Downsampling</strong></td>
+<td>URP Asset &gt; <strong>Rendering</strong></td>
+<td>If <strong>Opaque Texture</strong> is enabled in the URP Asset, set to <strong>4x Bilinear</strong></td>
+</tr>
+<tr>
+<td><strong>Render Scale</strong></td>
+<td>URP Asset &gt; <strong>Quality</strong></td>
+<td>Set to below 1.0</td>
+</tr>
+<tr>
+<td><strong>Soft Shadows</strong></td>
+<td>URP Asset &gt; <strong>Shadows</strong></td>
+<td>Disable, or set to <strong>Low</strong></td>
+</tr>
+<tr>
+<td><strong>Upscaling Filter</strong></td>
+<td>URP Asset &gt; <strong>Quality</strong></td>
+<td>Set to <strong>Bilinear</strong> or <strong>Nearest-Neighbor</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Refer to the following for more information on the settings:</p>
+<ul>
+<li><a href="rendering/deferred-rendering-path.html">Deferred Rendering Path in URP</a></li>
+<li><a href="rendering/forward-plus-rendering-path.html">Forward+ Rendering Path</a></li>
+<li><a href="renderer-feature-decal.html">Decal Renderer Feature</a></li>
+<li><a href="universalrp-asset.html">Universal Render Pipeline Asset</a></li>
+<li><a href="urp-universal-renderer.html">Universal Renderer</a></li>
+</ul>
+<h2 id="additional-resources">Additional resources</h2>
+<ul>
+<li><a href="understand-performance.html">Understand performance in URP</a></li>
+<li><a href="configure-for-better-performance.html">Configure for better performance</a></li>
+<li><a href="https://docs.unity3d.com/Manual/graphics-performance-profiling.html">Graphics performance and profiling</a></li>
+<li><a href="https://unity.com/how-to/best-practices-for-profiling-game-performance">Best practices for profiling game performance</a></li>
+<li><a href="https://unity.com/how-to/profiling-and-debugging-tools">Tools for profiling and debugging</a></li>
+<li><a href="https://resources.unity.com/games/native-cpu-profiling-tips-to-optimize-your-game-performance">Native CPU profiling: Tips to optimize your game performance</a></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/optimize-for-better-performance.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

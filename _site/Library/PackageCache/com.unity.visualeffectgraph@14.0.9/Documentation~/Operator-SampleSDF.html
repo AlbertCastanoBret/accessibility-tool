@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Sample Signed Distance Field | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Sample Signed Distance Field | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-SampleSDF.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="sample-signed-distance-field">Sample Signed Distance Field</h1>
+
+<p><strong>Menu Path : Operator &gt; Sampling &gt; Sample Signed Distance Field</strong></p>
+<p>The Sample Signed Distance Field Operator allows you to fetch a distance field stored in a Texture3D.</p>
+<p>A Signed Distance Field (SDF) determines the distance from a point in space to the surface of a shape. By convention, this function is negative for points inside of the shape, and positive outside. The SDF is equal to zero on the surface of the object.</p>
+<h3 id="operator-properties">Operator properties</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>texture</strong></td>
+<td>Texture3D</td>
+<td>The 3D texture that stores the SDF.</td>
+</tr>
+<tr>
+<td><strong>position</strong></td>
+<td><a href="Type-Position.html">Position</a></td>
+<td>The position to sample the SDF from.</td>
+</tr>
+<tr>
+<td><strong>orientedBox</strong></td>
+<td><a href="Type-OrientedBox.html">OrientedBox</a></td>
+<td>The oriented box that specifies the transformation to apply to the SDF.</td>
+</tr>
+<tr>
+<td><strong>Level</strong></td>
+<td>float</td>
+<td>The mipmap level.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Output</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>distance</strong></td>
+<td>float</td>
+<td>The signed distance from the <strong>position</strong> to the surface the SDF defines. This value is positive when <strong>position</strong> is outside of the shape and negative when <strong>position</strong> is inside the shape.</td>
+</tr>
+<tr>
+<td><strong>direction</strong></td>
+<td>Vector3</td>
+<td>The direction that points to the closest point on the surface the SDF defines.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="additional-notes">Additional notes</h3>
+<p>You can set the position, orientation, and scale of the SDF using an <a href="Type-OrientedBox.html">OrientedBox</a>. The center of the OrientedBox corresponds to the center of the sdf.</p>
+<h4 id="limitations">Limitations</h4>
+<p>For this Operator to output correct distances in world coordinates, the dimensions (size) of the OrientedBox must match the dimensions of the box you used to bake the SDF. If you do not set this up correctly, distances from inside and outside of the texture bounds have a different scale,  which means the output does not exhibit the expected behavior.</p>
+<p>Also, if you apply a non-uniform scale to the sdf (i.e. not proportional to the dimensions of the box you used to bake it), this results in distorted distances.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-SampleSDF.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

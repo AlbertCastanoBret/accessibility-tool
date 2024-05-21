@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Cinemachine and Timeline | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Cinemachine and Timeline | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineTimeline.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="cinemachine-and-timeline">Cinemachine and Timeline</h1>
+
+<p>Use <a href="https://docs.unity3d.com/Packages/com.unity.timeline@latest">Timeline</a> to activate, deactivate, and blend between Virtual Cameras. In Timeline, combine Cinemachine with other GameObjects and assets to interactively implement and tune rich cutscenes, even interactive ones.</p>
+<p><strong>Tip</strong>: For simple shot sequences, use a <a href="CinemachineBlendListCamera.html">Cinemachine Blend List Camera</a> instead of Timeline.</p>
+<p>Timeline overrides the priority-based decisions made by <a href="CinemachineBrainProperties.html">Cinemachine Brain</a>. When the timeline finishes, control returns to the Cinemachine Brain, which chooses the Virtual Camera with the highest Priority setting.</p>
+<p>You control Virtual Cameras in Timeline with a <strong>Cinemachine Shot Clip</strong>. Each shot clip points to a Virtual Camera to activate then deactivate. Use a sequence of shot clips to specify the order and duration of each shot.</p>
+<p>To cut between two Virtual Cameras, place the clips next to each other. To blend between two Virtual Cameras, overlap the clips.</p>
+<p><img src="images/CinemachineTimelineShotClips.png" alt="Cinemachine Shot Clips in Timeline, with a cut (red) and a blend (blue)"></p>
+<p>To create a Timeline for Cinemachine:</p>
+<ol>
+<li><p>Create an empty GameObject in your Scene by choosing the __GameObject &gt; Create Empty __menu item.</p>
+</li>
+<li><p>Give the empty GameObject a descriptive name. For example, <code>IntroTimeline</code>.</p>
+</li>
+<li><p>In your Scene, select your empty Timeline object as the focus to create a Timeline Asset and instance.</p>
+</li>
+<li><p>Click the padlock button to lock the TImeline window to make it easier to add and adjust tracks.</p>
+</li>
+<li><p>Drag a Unity camera with a CinemachineBrain component onto the Timeline Editor, then choose <strong>Create Cinemachine Track</strong> from the drop-down menu.</p>
+</li>
+<li><p>Add other tracks to the Timeline for controlling the subjects of your Scene.  For example, add an Animation track to animate your main character.</p>
+</li>
+</ol>
+<p><strong>Tip</strong>: Delete the default track that refers to your Timeline object. This track isn’t necessary for Timeline. For example, in the Timeline editor, right-click the track for IntroTimeline and choose <strong>Delete</strong>.</p>
+<p>To add Cinemachine Shot Clips to a Cinemachine Track:</p>
+<ol>
+<li><p>In the Cinemachine Track, right-click and choose <strong>Add Cinemachine Shot Clip</strong>.</p>
+</li>
+<li><p>Do one of the following:</p>
+<ul>
+<li><p>To add an existing Virtual Camera to the shot clip, drag and drop it onto the Virtual Camera property in the Cinemachine Shot component.</p>
+</li>
+<li><p>To create a new Virtual Camera and add it to the shot clip, click Create in the Cinemachine Shot component.</p>
+</li>
+</ul>
+</li>
+<li><p>In the Timeline editor, adjust the order, duration, cutting, and blending of the shot clip.</p>
+</li>
+<li><p><a href="CinemachineVirtualCamera.html">Adjust the properties of the Virtual Camera</a> to place it in the Scene and specify what to aim at or follow.</p>
+</li>
+<li><p>To animate properties of the Virtual Camera, create an Animation Track for it and animate as you would any other GameObject.</p>
+</li>
+<li><p>Organize your Timeline tracks to fine-tune your Scene.</p>
+</li>
+</ol>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineTimeline.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

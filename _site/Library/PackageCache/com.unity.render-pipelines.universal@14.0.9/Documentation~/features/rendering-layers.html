@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Rendering Layers | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Rendering Layers | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/features/rendering-layers.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="rendering-layers">Rendering Layers</h1>
+
+<p>The Rendering Layers feature lets you configure certain Lights to affect only specific GameObjects.</p>
+<p>For example, in the following illustration, Light <code>A</code> affects Sphere <code>D</code>, but not Sphere <code>C</code>. Light <code>B</code> affects Sphere <code>C</code>, but not Sphere <code>D</code>.</p>
+<p><img src="../Images/lighting/rendering-layers/rendering-layers-example.png" alt="Light A affects Sphere D, but not Sphere C. Light B affects Sphere C, but not Sphere D."></p>
+<p>To read how to implement this example, see section <a href="#how-to-rendering-layers">How to use Rendering Layers</a>.</p>
+<h2 id="enable">Enable Rendering Layers for Lights</h2>
+<p>To enable Rendering Layers for Lights in your project:</p>
+<ol>
+<li><p>In the <a href="../universalrp-asset.html">URP Asset</a>, in the <strong>Lighting</strong> section, click the vertical ellipsis icon (⋮) and select <strong>Show Additional Properties</strong></p>
+<p><img src="../Images/settings-general/show-additional-properties.png" alt="Show Additional Properties"></p>
+</li>
+<li><p>In the <a href="../universalrp-asset.html">URP Asset</a>, in the <strong>Lighting</strong> section, select <strong>Use Rendering Layers</strong>.</p>
+<p><img src="../Images/lighting/rendering-layers/rendering-layers-enable.png" alt="URP Asset &gt; Lighting &gt; Use Rendering Layers"><br><em>URP Asset &gt; Lighting &gt; Use Rendering Layers</em></p>
+</li>
+</ol>
+<h2 id="enable-decals">Enable Rendering Layers for Decals</h2>
+<p>To enable Rendering Layers for decals in your project:</p>
+<ol>
+<li><p>In the <a href="../renderer-feature-decal.html#decal-renderer-feature-properties">Decal Renderer Feature</a>, enable <strong>Use Rendering Layers</strong>.</p>
+<p><img src="../Images/decal/decal-rf-inspector.png" alt="Decal Renderer Feature, Inspector view."><br><em>Decal Renderer Feature, Inspector view.</em></p>
+</li>
+</ol>
+<p>When you enable Rendering Layers for Decals, Unity shows the <strong>Rendering Layers</strong> property on each Decal Projector:</p>
+<p><img src="../Images/lighting/rendering-layers/decal-projector-rendering-layers.png" alt="Rendering Layers property on a Decal Projector."></p>
+<h2 id="how-to-edit-rendering-layer-names">How to edit Rendering Layer names</h2>
+<p>To edit the names of Rendering Layers:</p>
+<ol>
+<li><p>Go to <strong>Project Settings</strong> &gt; <strong>Graphics</strong> &gt; <strong>URP Global Settings</strong>.</p>
+</li>
+<li><p>Edit the Rendering Layer names in the <strong>Rendering Layers (3D)</strong> section.</p>
+<p><img src="../Images/Inspectors/global-settings.png" alt="Graphics &gt; URP Global Settings &gt; Rendering Layers (3D)"><br><em>Graphics &gt; URP Global Settings &gt; Rendering Layers (3D)</em></p>
+</li>
+</ol>
+<h2 id="how-to-rendering-layers">How to use Rendering Layers with Lights</h2>
+<p>This section describes how to configure the following application example:</p>
+<ul>
+<li><p>The Scene contains two Point Lights (marked <code>A</code> and <code>B</code> in the illustration) and two Sphere GameObjects (<code>C</code> and <code>D</code> in the illustration).</p>
+</li>
+<li><p>Light <code>A</code> affects Sphere <code>D</code>, but not Sphere <code>C</code>. Light <code>B</code> affects Sphere <code>C</code>, but not Sphere <code>D</code>.</p>
+</li>
+</ul>
+<p>The following illustration shows the example:</p>
+<p><img src="../Images/lighting/rendering-layers/rendering-layers-example.png" alt="Light A affects Sphere D, but not Sphere C. Light B affects Sphere C, but not Sphere D."><br><em>Light <code>A</code> affects Sphere <code>D</code>, but not Sphere <code>C</code>. Light <code>B</code> affects Sphere <code>C</code>, but not Sphere <code>D</code>.</em></p>
+<p>To implement the example:</p>
+<ol>
+<li><p><a href="#enable">Enable Rendering Layers</a> in your project.</p>
+</li>
+<li><p>Create two Point Lights (call them <code>A</code>, and <code>B</code>) and two Spheres (call them <code>C</code>, and <code>D</code>). Position the objects so that both Spheres are within the emission range of Lights.</p>
+</li>
+<li><p>Go to <strong>Project Settings &gt; Graphics &gt; URP Global Settings</strong>. Rename Rendering Layer 1 to <code>Red</code>, and Layer 2 to <code>Green</code>.</p>
+<p><img src="../Images/lighting/rendering-layers/rendering-layers-urp-global-settings.png" alt="URP Global Settings"></p>
+</li>
+<li><p>Select Light <code>A</code>, change its color to green. Select Light <code>B</code>, change its color to red. With this setup, both Lights affect both Spheres.</p>
+<p><img src="../Images/lighting/rendering-layers/both-lights.png" alt="Both Lights affect both Spheres."></p>
+</li>
+<li><p>Make the following settings on Lights and Spheres:</p>
+<p>Light <code>A</code>: in the property <strong>Light &gt; General &gt; Rendering Layers</strong>, clear all options, and select <code>Green</code>.</p>
+<p>Light <code>B</code>: in the property <strong>Light &gt; General &gt; Rendering Layers</strong>, clear all options, and select <code>Red</code>.</p>
+<p>Sphere <code>C</code>: in the property <strong>Mesh Renderer &gt; Additional Settings &gt; Rendering Layer Mask</strong>, select all options, clear <code>Green</code>.</p>
+<p>Sphere <code>D</code>: in the property <strong>Mesh Renderer &gt; Additional Settings &gt; Rendering Layer Mask</strong>, select all options, clear <code>Red</code>.</p>
+<p>Now Point Light <code>A</code> affects Sphere <code>D</code>, but not Sphere <code>C</code>. Point Light <code>B</code> affects Sphere <code>C</code>, but not Sphere <code>D</code>.</p>
+<p><img src="../Images/lighting/rendering-layers/rendering-layers-example.png" alt="Point Light A affects Sphere D, but not Sphere C. Point Light B affects Sphere C, but not Sphere D."></p>
+</li>
+</ol>
+<h2 id="shadow-layers">How to use Custom Shadow Layers</h2>
+<p>In the illustration above, Light <code>A</code> does not affect Sphere <code>C</code>, and the Sphere does not cast shadow from Light <code>A</code>.</p>
+<p>The <strong>Custom Shadow Layers</strong> property lets you configure the Scene so that Sphere <code>C</code> casts the shadow from Light <code>A</code>.</p>
+<ol>
+<li><p>Select Light <code>A</code>.</p>
+</li>
+<li><p>In <strong>Light &gt; Shadows</strong>, select the <strong>Custom Shadow Layers</strong> property. Unity shows the <strong>Layer</strong> property.</p>
+</li>
+<li><p>In the <strong>Layer</strong> property, select the Rendering Layer that Sphere C belongs to.</p>
+</li>
+</ol>
+<p>Now Light <code>A</code> does not affect Sphere <code>C</code>, but Sphere <code>C</code> casts shadow from Light <code>A</code>.</p>
+<p>The following illustrations show the Scene with the <strong>Custom Shadow Layers</strong> property off and on.</p>
+<p><img src="../Images/lighting/rendering-layers/custom-shadow-layers-off.png" alt="Custom Shadow Layers property off"></p>
+<p><img src="../Images/lighting/rendering-layers/custom-shadow-layers-on.png" alt="Custom Shadow Layers property on"></p>
+<h2 id="how-to-rendering-layers-decals">How to use Rendering Layers with Decals</h2>
+<p>This section describes how to configure the following application example:</p>
+<ul>
+<li><p>The Scene contains a Decal Projector.</p>
+</li>
+<li><p>The Decal Projector projects a decal on the wall and the ground, but not on the paint bucket.</p>
+</li>
+</ul>
+<p>The following illustration shows the example:</p>
+<p><img src="../Images/lighting/rendering-layers/rendering-layers-decal-example.png" alt="In image 1, the paint bucket has the Receive decals layer selected. In image 2 it does not, so the Decal Projector does not project on the bucket."><br><em>In image <code>1</code>, the paint bucket has the <code>Receive decals</code> layer selected. In image <code>2</code> it does not, so the Decal Projector does not project on the bucket.</em></p>
+<p>To implement the example:</p>
+<ol>
+<li><p><a href="#enable-decals">Enable Rendering Layers for Decals</a> in your project.</p>
+</li>
+<li><p><a href="../renderer-feature-decal.html#how-to-use-the-feature">Create a Decal Projector</a> in the Scene.</p>
+</li>
+<li><p>Go to <strong>Project Settings &gt; Graphics &gt; URP Global Settings</strong>. Add a Rendering Layer called <code>Receive decals</code>.</p>
+<p><img src="../Images/lighting/rendering-layers/rendering-layers-global-settings-decals.png" alt="URP Global Settings"></p>
+</li>
+<li><p>Select the Decal Projector. In the Rendering Layers property, select <code>Receive decals</code>.</p>
+<p><img src="../Images/lighting/rendering-layers/decal-projector-rendering-layers.png" alt="Rendering Layers property on a Decal Projector."></p>
+</li>
+<li><p>Select the paint bucket GameObject. In the <strong>Rendering Layer Mask</strong> field, clear the <code>Receive decals</code> layer. Now the Decal Projector does not affect this GameObject.</p>
+</li>
+</ol>
+<h2 id="performance">Performance</h2>
+<p>This section contains information related to the impact of Rendering Layers on performance.</p>
+<ul>
+<li><p>Keep the Rendering Layer count as small as possible. Avoid creating Rendering Layers that you don't use in the project.</p>
+</li>
+<li><p>When using Rendering Layers for decals, increasing the layer count increases the required memory bandwidth and decreases the performance.</p>
+</li>
+<li><p>When using Rendering Layers only for Lights in the Forward Rendering Path, the performance impact is insignificant.</p>
+</li>
+<li><p>Performance impact grows more significantly when the Rendering Layer count exceeds a multiple of 8. For example: increasing the layer count from 8 to 9 layers has a bigger relative impact than increasing the layer count from 9 to 10 layers.</p>
+</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/features/rendering-layers.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

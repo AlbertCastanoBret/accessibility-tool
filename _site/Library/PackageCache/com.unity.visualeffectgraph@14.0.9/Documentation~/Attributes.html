@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Attributes | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Attributes | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Attributes.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="attributes">Attributes</h1>
+
+<p>An Attribute is a piece of data attached to elements in a System. For example, the color of a particle, a particle's position, or the amount of particles that a spawn System creates are all Attributes.</p>
+<p>Systems can read from, or write to, Attributes in order to perform custom behavior and differentiate between elements.</p>
+<p>A System only stores Attributes when it needs them. This means that the System does not store any unnecessary data and thus saves memory.</p>
+<h2 id="using-attributes">Using Attributes</h2>
+<h3 id="writing-attributes">Writing Attributes</h3>
+<p>To write to an Attribute, use a <a href="Blocks.html">Block</a>. Blocks are the only graph elements that can write Attributes to the System.</p>
+<p>The Visual Effect Graph only stores an Attribute that you write to in simulation data if a later <a href="Contexts.html">Context</a> reads the Attribute. This means that:</p>
+<ul>
+<li>When you write to an Attribute in Initialize or Update Contexts, the Visual Effect Graph only stores the Attribute in simulation data if a later Update or Output Context reads from the Attribute.</li>
+<li>When you write to an Attribute in Output Contexts, the Visual Effect Graph does not store the Attribute in simulation data and only uses the Attribute for rendering.</li>
+</ul>
+<h3 id="reading-attributes">Reading Attributes</h3>
+<p>To read from an Attribute, use an Operator or Block:</p>
+<ul>
+<li>Use a <strong>Get Attribute</strong> Operator.</li>
+<li>Use different composition modes in a <strong>Set Attribute</strong> Block that depends on the previous value of the Attribute.</li>
+</ul>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li>If you read from an Attribute that the Visual Effect Graph has not stored in the simulation data, the Attribute passes its default, constant value.</li>
+<li>Currently, you can only read from Attributes in Particle and ParticleStrip Systems. To read from Attributes in Spawn Systems, use <a href="SpawnerCallbacks.html">Spawner Callbacks</a>.</li>
+</ul>
+<h2 id="attribute-locations">Attribute Locations</h2>
+<p>Every System stores Attributes in its own specific data container. However, you can read an Attribute from the current simulation data pool or from another data pool that the System depends on.</p>
+<h3 id="current">Current</h3>
+<p>The current Attribute location refers to the <strong>current</strong> system data container that you read the value from. For example:</p>
+<ul>
+<li>Particle Data from a Particle System.</li>
+<li>ParticleStrip Data from a ParticleStrip System.</li>
+<li>SpawnEvent Data from a Spawn Context or sent through a <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VisualEffect.SendEvent.html">SendEvent</a> <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXEventAttribute.html">EventAttribute</a> Payload.</li>
+</ul>
+<h3 id="source">Source</h3>
+<p>The source Attribute location refers to the <strong>previous</strong> system data container that you read the value from. You can only read from a source Attribute in the first Context of a system, after a system data change. For example, you can only access EventAttributes and GPU EventAttributes in Particle / ParticleStrip System Initialize Contexts.</p>
+<ul>
+<li>In Initialize Particle / Initialize Particle Strips Contexts:
+<ul>
+<li>From incoming Spawn Contexts.</li>
+<li>From other Particle Systems, through GPUEvent spawn.</li>
+</ul>
+</li>
+</ul>
+<h2 id="variadic-attributes">Variadic Attributes</h2>
+<p>Some attributes possess <strong>Variadic</strong> properties. These Attributes can be a scalar or a vector of different dimensions depending on the components you require for simulating and/or rendering.</p>
+<p>When you read from a variadic Attribute, it reads from all other implicit components using their default values.</p>
+<p>For example, you can express the <strong>scale</strong> of a Quad particle as a <strong>Vector2</strong> (as the width, and length of the quad), whereas, to express the <strong>scale</strong> of a Box particle, you can use a <strong>Vector3</strong> (as the width, length, and depth of the cube). When you set variadic attributes, a drop-down of all channel combinations allows you to write only to the necessary channels.</p>
+<p>Another example is for the rotation of a sprite around its normal. You only need the <strong>Z</strong> component of the angle Attribute (<strong>angleZ</strong>), so it is unnecessary to store <strong>angleX</strong>, and <strong>angleY</strong>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Attributes.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

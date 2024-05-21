@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Orient: Face [Mode] | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Orient: Face [Mode] | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-Orient.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="orient-face-mode">Orient: Face [Mode]</h1>
+
+<p>Menu Path : <strong>Orientation &gt; Orient: Face [Mode]</strong></p>
+<p>The <strong>Orient</strong> Block makes particles orient themselves to face a certain way. It supports a number of different modes:</p>
+<p><a name="face-camera-plane"></a></p>
+<p><strong>Face Camera Plane</strong></p>
+<p>Particles orient to face forward towards the camera plane. This mode works for most use cases, however the facing illusion can break sometimes at the edges of the screen.</p>
+<p><img src="Images/Block-OrientFaceCameraPlane.png" alt=""></p>
+<p><a name="face-camera-position"></a></p>
+<p><strong>Face Camera Position</strong></p>
+<p>Particles orient to face forward towards the camera position. Similar to the <strong>Face Camera Plane</strong> mode, however, here particles face towards the camera itself, appearing identical even at the edge of the screen.</p>
+<p><img src="Images/Block-OrientFaceCameraPosition.png" alt=""></p>
+<p><a name="look-at-position"></a></p>
+<p><strong>Look At Position</strong></p>
+<p>Particles orient to face towards a specified position.</p>
+<p><img src="Images/Block-OrientLookAtPosition.gif" alt=""></p>
+<p><a name="look-at-line"></a></p>
+<p><strong>Look At Line</strong></p>
+<p>Particles orient to face towards the nearest point along the direction of an infinite line.</p>
+<p><img src="Images/Block-OrientLookAtLine.gif" alt=""></p>
+<p><a name="advanced"></a></p>
+<p><strong>Advanced</strong></p>
+<p>Particles orient to a custom particle space defined using two specified axes. The first axis is immutable and the Block uses the second axis to derive the third. It then recalculates the second axis to create an orthogonal particle space.</p>
+<p><img src="Images/Block-OrientAdvancedAxisBuilding.gif" alt=""></p>
+<p>This is an advanced mode and you can use it to create custom orientation behaviors.</p>
+<p><img src="Images/Block-OrientAdvanced.gif" alt=""></p>
+<p><a name="fixed-axis"></a></p>
+<p><strong>Fixed Axis</strong></p>
+<p>Particles orient themselves on the specified ‘up’ axis and rotate on it to face the camera. This is useful for effects like grass where the up axis is generally known and particles should rotate on it to face the camera without falling flat if observed from the top.</p>
+<p><img src="Images/Block-OrientFixedAxis.png" alt=""></p>
+<p><a name="along-velocity"></a></p>
+<p><strong>Along Velocity</strong></p>
+<p>Particles orient to face forward towards the direction they are moving in based on the <strong>Velocity</strong> attribute. The up axis is set to the velocity, and particles rotate on it to orient themselves to the camera as needed.</p>
+<p><img src="Images/Block-OrientAlongVelocity.gif" alt=""></p>
+<h2 id="block-compatibility">Block compatibility</h2>
+<p>This Block is compatible with the following Contexts:</p>
+<ul>
+<li>Any output Context</li>
+</ul>
+<h2 id="block-settings">Block settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mode</strong></td>
+<td>Enum</td>
+<td>Specifies the orientation mode of the particle. The options are:<br>• <a href="#face-camera-plane">Face Camera Plane</a>: Particles orient to face towards the camera plane.<br>• <a href="#face-camera-position">Face Camera Position</a>: Particles orient to face towards the camera position.<br>• <a href="#look-at-position">Look At Position</a>: Particles orient to face towards a position that you specify.<br>• <a href="#look-at-line">Look At Line</a>: Particles orient towards the closest point to them on a line that you specify.<br>• <a href="#advanced">Advanced</a>: Particles orient to a custom particle space that you define using two axes.<br>• <a href="#fixed-axis">Fixed Axis</a>: Particles orient themselves on an ‘up’ axis that you specify and rotate on it to face the camera.<br>• <a href="#along-velocity">Along Velocity</a>: Particles orient to face forward towards the direction they are moving in based on the <strong>Velocity</strong> attribute.</td>
+</tr>
+<tr>
+<td><strong>Axes</strong></td>
+<td>Enum</td>
+<td>The two axes used to orient the particle. For information on how the Block orients the particle, see <a href="#advanced">Advanced mode</a>. The options are:<br>• <strong>XY</strong>: Uses the <strong>X</strong> and <strong>Y</strong> axes to orient the particle.<br>• <strong>YZ</strong>: Uses the <strong>Y</strong> and <strong>Z</strong> axes to orient the particle.<br>• <strong>ZX</strong>: Uses the <strong>Z</strong> and <strong>X</strong> axes to orient the particle.<br>• <strong>YX</strong>: Uses the <strong>Y</strong> and <strong>X</strong> axes to orient the particle.<br>• <strong>ZY</strong>: Uses the <strong>Z</strong> and <strong>Y</strong> axes to orient the particle.<br>• <strong>XZ</strong>: Uses the <strong>X</strong> and <strong>Z</strong> axes to orient the particle.<br> This setting only appears if you set <strong>Mode</strong> to <strong>Advanced</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="block-properties">Block properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Position</strong></td>
+<td><a href="Type-Position.html">Position</a></td>
+<td>The Position the particle faces towards.<br>This property only appears if you set <strong>Mode</strong> to <strong>Look At Position</strong>.</td>
+</tr>
+<tr>
+<td><strong>Line</strong></td>
+<td><a href="Type-Line.html">Line</a></td>
+<td>The Line to use for particle orientation. Particles orient to face towards the nearest point along the direction of this Line.<br>This property only appears if you set <strong>Mode</strong> to <strong>Look At Line</strong></td>
+</tr>
+<tr>
+<td><strong>Axis X</strong></td>
+<td><a href="Type-Vector.html">Vector</a></td>
+<td>The x-axis of the Advanced orientation.<br>This property only appears if you set <strong>Mode</strong> to <strong>Advanced</strong> and <strong>Axes</strong> uses the <strong>X</strong> axis.</td>
+</tr>
+<tr>
+<td><strong>Axis Y</strong></td>
+<td><a href="Type-Vector.html">Vector</a></td>
+<td>Specifies the y-axis of the Advanced orientation.<br>This property only appears if you set <strong>Mode</strong> to <strong>Advanced</strong> and <strong>Axes</strong> uses the <strong>Y</strong> axis.</td>
+</tr>
+<tr>
+<td><strong>Axis Z</strong></td>
+<td><a href="Type-Vector.html">Vector</a></td>
+<td>Specifies the z-axis of the Advanced orientation.<br>This property only appears if you set <strong>Mode</strong> to <strong>Advanced</strong> and <strong>Axes</strong> uses the <strong>Z</strong> axis.</td>
+</tr>
+<tr>
+<td><strong>Up</strong></td>
+<td><a href="Type-Vector.html">Vector</a></td>
+<td>Specifies the up axis of the particle. The particle orients itself towards the camera by only spinning on the fixed axis you specify here.<br>This property only appears if you set <strong>Mode</strong> to <strong>Fixed Axis</strong>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-Orient.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

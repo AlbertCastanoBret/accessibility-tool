@@ -1,0 +1,96 @@
+### YamlMime:ManagedReference
+items:
+- uid: ACC_API.AudioFeatures
+  commentId: T:ACC_API.AudioFeatures
+  id: AudioFeatures
+  parent: ACC_API
+  children:
+  - ACC_API.AudioFeatures.Subtitles
+  - ACC_API.AudioFeatures.VisualNotification
+  langs:
+  - csharp
+  - vb
+  name: AudioFeatures
+  nameWithType: AudioFeatures
+  fullName: ACC_API.AudioFeatures
+  type: Enum
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: AudioFeatures
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 14
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public enum AudioFeatures
+    content.vb: Public Enum AudioFeatures
+- uid: ACC_API.AudioFeatures.Subtitles
+  commentId: F:ACC_API.AudioFeatures.Subtitles
+  id: Subtitles
+  parent: ACC_API.AudioFeatures
+  langs:
+  - csharp
+  - vb
+  name: Subtitles
+  nameWithType: AudioFeatures.Subtitles
+  fullName: ACC_API.AudioFeatures.Subtitles
+  type: Field
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: Subtitles
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 16
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: Subtitles = 0
+    return:
+      type: ACC_API.AudioFeatures
+- uid: ACC_API.AudioFeatures.VisualNotification
+  commentId: F:ACC_API.AudioFeatures.VisualNotification
+  id: VisualNotification
+  parent: ACC_API.AudioFeatures
+  langs:
+  - csharp
+  - vb
+  name: VisualNotification
+  nameWithType: AudioFeatures.VisualNotification
+  fullName: ACC_API.AudioFeatures.VisualNotification
+  type: Field
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: VisualNotification
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 17
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: VisualNotification = 1
+    return:
+      type: ACC_API.AudioFeatures
+references:
+- uid: ACC_API
+  commentId: N:ACC_API
+  href: ACC_API.html
+  name: ACC_API
+  nameWithType: ACC_API
+  fullName: ACC_API
+- uid: ACC_API.AudioFeatures
+  commentId: T:ACC_API.AudioFeatures
+  parent: ACC_API
+  href: ACC_API.AudioFeatures.html
+  name: AudioFeatures
+  nameWithType: AudioFeatures
+  fullName: ACC_API.AudioFeatures

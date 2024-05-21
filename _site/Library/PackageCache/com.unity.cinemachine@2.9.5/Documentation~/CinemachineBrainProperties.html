@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Setting Cinemachine Brain properties | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Setting Cinemachine Brain properties | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBrainProperties.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="setting-cinemachine-brain-properties">Setting Cinemachine Brain properties</h1>
+
+<p>The Cinemachine Brain is a component in the Unity camera itself. Cinemachine Brain monitors all active Virtual Cameras in the Scene. It chooses the next Virtual Camera to control the Unity camera. It also controls the <a href="CinemachineBlending.html">cut or blend</a> from the current Virtual Camera to the next.</p>
+<p>To add a Cinemachine Brain component to a Unity camera, do <strong>one</strong> of the following:</p>
+<ul>
+<li><p><a href="CinemachineSetUpVCam.html">Add a Virtual Camera</a>, or other Cinemachine object, to your Scene. Unity adds a Cinemachine Brain component to the Unity camera for you if there isn’t one already.</p>
+</li>
+<li><p><a href="https://docs.unity3d.com/Manual/UsingComponents.html">Add</a> a Cinemachine Brain component to the Unity camera yourself.</p>
+</li>
+</ul>
+<p><strong>Tip</strong>: You can also control Virtual Cameras from <a href="CinemachineTimeline.html">Timeline</a>. Timeline overrides the decisions that Cinemachine Brain makes.</p>
+<p>Cinemachine Brain holds the following key properties:</p>
+<ul>
+<li><p><strong>Blend Settings</strong>: A list that defines how to blend from one Virtual Camera to another.  For example, add an item to the list for a 4 second blend from vcam1 to vcam2 then add another item for a 1 second blend from vcam2 back to vcam1. If a blend between two cameras isn’t defined, Cinemachine Brain uses its default blend.</p>
+</li>
+<li><p><strong>Layer Filter</strong>:  Cinemachine Brain uses only those Virtual Cameras that pass the culling mask of the Unity camera.  You can set up <a href="CinemachineMultipleCameras.html">split-screen environments</a> by using the culling mask to filter layers.</p>
+</li>
+<li><p><strong>Event Dispatching</strong>:  Cinemachine Brain fires events when it changes shot. It fires an event when a Virtual Camera goes live. It also fires an event when it cuts from one Virtual Camera to another. Use the latter event to reset temporal post effects.</p>
+</li>
+</ul>
+<p><img src="images/CinemachineBrain.png" alt="Cinemachine Brain, a component in the Unity camera"></p>
+<h2 id="properties">Properties:</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Show Debug Text</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Check to display a textual summary of the live Virtual Camera and blend in the view.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Show Camera Frustum</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Check to display the frustum of the camera in the Scene view.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ignore Time Scale</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Check to make the Virtual Cameras respond in real time to user input and damping, even if the game is running in slow motion.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>World Up Override</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The Y axis of the specified GameObject defines the worldspace up vector for Virtual Cameras. Use this property in top-down game environments. Set to None to use the worldspace Y axis. Setting this appropriately is important to avoid gimbal-lock in extreme up/down conditions.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Update Method</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">When to update the position and rotation of the Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Fixed Update</em></td>
+<td style="text-align: left;">Synchronize Virtual Camera update with the Physics module, in FixedUpdate.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Late Update</em></td>
+<td style="text-align: left;">In MonoBehaviour LateUpdate.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Smart Update</em></td>
+<td style="text-align: left;">Update each virtual camera according to how its target is updated. This is the recommended setting.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Manual Update</em></td>
+<td style="text-align: left;">Virtual Cameras do not update automatically.  You must explicitly call <code>brain.ManualUpdate()</code> at an appropriate time in your game loop.  This should be after any camera LookAt or Follow targets have moved.  This is an advanced feature.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Blend Update Method</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">When to resolve the blends and update the main camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Late Update</em></td>
+<td style="text-align: left;">In MonoBehaviour LateUpdate. This is the recommended setting.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Fixed Update</em></td>
+<td style="text-align: left;">Use this setting only if your Update Method is FixedUpdate and you see judder when blending.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Default Blend</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The blend to use when you haven’t explicitly defined a blend between two Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Cut</em></td>
+<td style="text-align: left;">Zero-length blend.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Ease In Out</em></td>
+<td style="text-align: left;">S-shaped curve, giving a gentle and smooth transition.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Ease In</em></td>
+<td style="text-align: left;">Linear out of the outgoing shot, and easy into the incoming.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Ease Out</em></td>
+<td style="text-align: left;">Easy out of the outgoing shot, and linear into the incoming.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Hard In</em></td>
+<td style="text-align: left;">Easy out of the outgoing, and hard into the incoming.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Hard Out</em></td>
+<td style="text-align: left;">Hard out of the outgoing, and easy into the incoming.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Linear</em></td>
+<td style="text-align: left;">Linear blend. Mechanical-looking.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Custom</em></td>
+<td style="text-align: left;">Custom blend curve. Draw the curve you want.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Custom Blends</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The asset that contains custom settings for blends between specific Virtual Cameras in your Scene.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Create Asset</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Create an asset containing a <a href="CinemachineBlending.html">list of custom blends</a> between Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Camera Cut Event</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">This event fires when a Virtual Camera goes live and there is no blend.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Camera Activated Event</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">This event fires when a Virtual Camera goes live. If a blend is involved, then the event fires on the first frame of the blend.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBrainProperties.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

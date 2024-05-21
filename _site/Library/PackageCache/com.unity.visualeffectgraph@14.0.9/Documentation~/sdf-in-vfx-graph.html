@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Signed Distance Fields in the Visual Effect Graph | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Signed Distance Fields in the Visual Effect Graph | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sdf-in-vfx-graph.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="signed-distance-fields-in-the-visual-effect-graph">Signed Distance Fields in the Visual Effect Graph</h1>
+
+<p>Signed Distance Fields (SDF) are 3D textures where each texel stores the distance from the surface of an object. By convention, this distance is negative inside the object and positive outside. SDFs are useful for creating particle effects that interact with complex geometry.</p>
+<h2 id="using-sdfs">Using SDFs</h2>
+<p>In the Visual Effect Graph, there are several nodes that use SDFs to create effects:</p>
+<ul>
+<li><a href="Block-SetPosition(SignedDistanceField).html"><em>Position On Signed Distance Field</em></a>: Positions particles either within the volume of the SDF or on its surface.</li>
+<li><a href="Block-ConformToSignedDistanceField.html"><em>Conform To Signed Distance Field</em></a>: Attracts particles towards an SDF. This is useful for pulling particles towards a complex shape that would be difficult to replicate using other force blocks.</li>
+<li><a href="Block-CollideWithSignedDistanceField.html"><em>Collide With Signed Distance Field</em></a>: Simulates collision between particles and an SDF. This is useful when you want particles to collide with complex shapes.</li>
+<li><a href="Operator-SampleSDF.html"><em>Sample Signed Distance Field</em></a>: Samples an SDF and enables you to create custom behavior with the result.</li>
+</ul>
+<h2 id="generating-sdfs">Generating SDFs</h2>
+<p>There are multiple ways to generate an SDF for use in a visual effect:</p>
+<ul>
+<li>You can generate SDFs in the Unity Editor using a window, and generate SDFs at runtime using an API, with the built-in <a href="sdf-bake-tool.html">SDF Bake Tool</a> tool. For more information, see <a href="sdf-bake-tool.html">SDF Bake Tool</a></li>
+<li>You can bake SDFs with the Houdini Volume Exporter bundled with <a href="https://github.com/Unity-Technologies/VFXToolbox"><em>VFXToolbox</em></a> (located in the /DCC~ folder).</li>
+</ul>
+<h2 id="limitations-and-caveats">Limitations and Caveats</h2>
+<p>The <a href="sdf-bake-tool.html">SDF Bake Tool</a>, both the window and the API, generates normalized SDFs. This means the underlying surface scales such that the largest side of the Texture is of length 1. Remember this if you use Operators such as Sample Signed Distance Field.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sdf-in-vfx-graph.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

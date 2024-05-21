@@ -3,7 +3,7 @@ using TFG_Videojocs.ACC_HighContrast;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEngine;
 
-namespace TFG_Videojocs
+namespace ACC_API
 {
     public enum VisualFeatures
     {

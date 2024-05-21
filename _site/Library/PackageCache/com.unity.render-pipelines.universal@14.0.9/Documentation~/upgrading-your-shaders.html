@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Converting your shaders | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Converting your shaders | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/upgrading-your-shaders.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="converting-your-shaders">Converting your shaders</h1>
+
+<p>Shaders written for the Built-in Render Pipeline are not compatible with the URP shaders.</p>
+<p>For an overview of the mapping between built-in shaders and URP shaders, see <a href="#shader-mappings">Shader mappings</a>.</p>
+<p>Use the <a href="features/rp-converter.html">Render Pipeline Converter</a> to apply the shader mappings automatically.</p>
+<p><strong>Note</strong>: The Render Pipeline Converter makes irreversible changes to the project. Back up your project before the conversion.</p>
+<p><strong>Tip</strong>: If the preview thumbnails in the Project view are not shown correctly after the conversion, try right-clicking anywhere in the Project view and selecting <strong>Reimport All</strong>.</p>
+<p>For <a href="https://docs.unity3d.com/Manual/SpeedTree.html">SpeedTree</a> Shaders, Unity does not re-generate Materials when you re-import them, unless you click the <strong>Generate Materials</strong> or <strong>Apply &amp; Generate Materials</strong> button.</p>
+<p><a name="custom-shaders"></a></p>
+<h2 id="custom-shaders">Custom shaders</h2>
+<p>You cannot upgrade Custom Unity shaders written for the Built-in Render Pipeline. Instead, custom shaders must be rewritten to work with URP or recreated in <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@14.0/manual/index.html">ShaderGraph</a>.</p>
+<p>Any Materials in a Scene that use a custom shader when you upgrade a project to use URP turn pink to indicate the Material no longer works. To fix this, upgrade or change the Material's shader to one that is compatible with URP.</p>
+<p><strong>Note</strong>: URP does not support <a href="https://docs.unity3d.com/Manual/SL-SurfaceShaders.html">Surface Shaders</a>.</p>
+<p><a name="built-in-to-urp-shader-mappings"></a></p>
+<h2 id="shader-mappings">Shader mappings</h2>
+<p>The following table shows which URP shaders the Built-in Render Pipeline shaders convert to when you use the Render Pipeline Converter.</p>
+<table>
+<thead>
+<tr>
+<th>Unity built-in shader</th>
+<th>Universal Render Pipeline shader</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Standard</td>
+<td>Universal Render Pipeline/Lit</td>
+</tr>
+<tr>
+<td>Standard (Specular Setup)</td>
+<td>Universal Render Pipeline/Lit</td>
+</tr>
+<tr>
+<td>Standard Terrain</td>
+<td>Universal Render Pipeline/Terrain/Lit</td>
+</tr>
+<tr>
+<td>Particles/Standard Surface</td>
+<td>Universal Render Pipeline/Particles/Lit</td>
+</tr>
+<tr>
+<td>Particles/Standard Unlit</td>
+<td>Universal Render Pipeline/Particles/Unlit</td>
+</tr>
+<tr>
+<td>Mobile/Diffuse</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Mobile/Bumped Specular</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Mobile/Bumped Specular(1 Directional Light)</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Mobile/Unlit (Supports Lightmap)</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Mobile/VertexLit</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Diffuse</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Specular</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Bumped Diffuse</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Bumped Specular</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Self-Illumin/Diffuse</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Self-Illumin/Bumped Diffuse</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Self-Illumin/Specular</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Self-Illumin/Bumped Specular</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Transparent/Diffuse</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Transparent/Specular</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Transparent/Bumped Diffuse</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Transparent/Bumped Specular</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Transparent/Cutout/Diffuse</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Transparent/Cutout/Specular</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Transparent/Cutout/Bumped Diffuse</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+<tr>
+<td>Legacy Shaders/Transparent/Cutout/Bumped Specular</td>
+<td>Universal Render Pipeline/Simple Lit</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/upgrading-your-shaders.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

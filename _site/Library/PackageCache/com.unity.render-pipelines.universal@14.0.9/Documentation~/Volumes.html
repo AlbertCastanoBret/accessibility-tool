@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Volumes | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Volumes | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Volumes.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="volumes">Volumes</h1>
+
+<p>The Universal Render Pipeline (URP) uses the Volume framework. Volumes can override or extend Scene properties depending on the Camera position relative to each Volume.</p>
+<p>URP uses the Volume framework for <a href="integration-with-post-processing.html#post-proc-how-to">post-processing</a> effects.</p>
+<p>URP implements dedicated GameObjects for Volumes: <strong>Global Volume</strong>, <strong>Box Volume</strong>, <strong>Sphere Volume</strong>, <strong>Convex Mesh Volume</strong>.</p>
+<p><img src="Images/post-proc/volume-volume-types.png" alt="Volume types"></p>
+<p>The Volume component contains the <strong>Mode</strong> property that defines whether the Volume is Global or Local.</p>
+<p><img src="Images/post-proc/volume-mode-prop.png" alt="Volume Mode property"></p>
+<p>With Mode set to <strong>Global</strong>, Volumes affect the Camera everywhere in the Scene. With Mode set to <strong>Local</strong>, Volumes affect the Camera if the Camera is within the bounds of the Collider. For more information, see <a href="#volume-local">How to use Local Volumes</a>.</p>
+<p>You can add a <strong>Volume</strong> component to any GameObject. A Scene can contain multiple GameObjects with Volume components. You can add multiple Volume components to a GameObject.</p>
+<p>The Volume component references a <a href="VolumeProfile.html">Volume Profile</a>, which contains the Scene properties. A Volume Profile contains default values for every property and hides them by default. <a href="VolumeOverrides.html">Volume Overrides</a> let you change or extend the default properties in a <a href="VolumeProfile.html">Volume Profile</a>.</p>
+<p>At runtime, URP goes through all of the enabled Volume components attached to active GameObjects in the Scene, and determines each Volume's contribution to the final Scene settings. URP uses the Camera position and the Volume component properties to calculate the contribution. URP interpolates values from all Volumes with a non-zero contribution to calculate the final property values.</p>
+<h2 id="volume-component-properties">Volume component properties</h2>
+<p>Volumes components contain properties that control how they affect Cameras and how they interact with other Volumes.</p>
+<p><img src="/Images/Inspectors/Volume1.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Mode</strong></td>
+<td style="text-align: left;">Use the drop-down to select the method that URP uses to calculate whether this Volume can affect a Camera:<br>• <strong>Global</strong>: Makes the Volume have no boundaries and allow it to affect every Camera in the Scene.<br>• <strong>Local</strong>: Allows you to specify boundaries for the Volume so that the Volume only affects Cameras inside the boundaries. Add a Collider to the Volume's GameObject and use that to set the boundaries.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Blend Distance</strong></td>
+<td style="text-align: left;">The furthest distance from the Volume’s Collider that URP starts blending from. A value of 0 means URP applies this Volume’s overrides immediately upon entry.<br>This property only appears when you select <strong>Local</strong> from the <strong>Mode</strong> drop-down.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Weight</strong></td>
+<td style="text-align: left;">The amount of influence the Volume has on the Scene. URP applies this multiplier to the value it calculates using the Camera position and Blend Distance.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Priority</strong></td>
+<td style="text-align: left;">URP uses this value to determine which Volume it uses when Volumes have an equal amount of influence on the Scene. URP uses Volumes with higher priorities first.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Profile</strong></td>
+<td style="text-align: left;">A Volume Profile Asset that contains the Volume Components that store the properties URP uses to handle this Volume.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="volume-profiles">Volume Profiles</h2>
+<p>The <strong>Profile</strong> field stores a <a href="VolumeProfile.html">Volume Profile</a>, which is an Asset that contains the properties that URP uses to render the Scene. You can edit this Volume Profile, or assign a different Volume Profile to the <strong>Profile</strong> field. You can also create a Volume Profile or clone the current one by clicking the <strong>New</strong> and <strong>Clone</strong> buttons respectively.</p>
+<h2 id="volume-local">How to use Local Volumes</h2>
+<p>This section describes how to use a Local Volume to implement a location-based post-processing effect.</p>
+<p>In this example, URP applies a post-processing effect when the Camera is within a certain Box Collider.</p>
+<ol>
+<li><p>In the Scene, create a new Box Volume (<strong>GameObject &gt; Volume &gt; Box Volume</strong>).</p>
+</li>
+<li><p>Select the Box Volume. In Inspector, In the <strong>Volume</strong> component, In the <strong>Profile</strong> field, click <strong>New</strong>.</p>
+<p><img src="Images/post-proc/volume-box-new-profile.png" alt="Create new Volume Profile."></p>
+<p>Unity creates the new Volume Profile and adds the <strong>Add Override</strong> button to the Volume component.</p>
+<p><img src="Images/post-proc/volume-new-profile-created.png" alt="New Volume Profile created."></p>
+</li>
+<li><p>If you have other Volumes in the Scene, change the value of the Priority property to ensure that the Overrides from this Volume have higher priority than those of other Volumes.</p>
+<p><img src="Images/post-proc/volume-priority.png" alt="Volume priority"></p>
+</li>
+<li><p>Click <a href="VolumeOverrides.html#volume-add-override">Add Override</a>. In the Volume Overrides dialog box, select a post-processing effect.</p>
+</li>
+<li><p>In the Collider component, adjust the Size and the Center properties so that the Collider occupies the volume where you want the local post-processing effect to be.</p>
+<p><img src="Images/post-proc/volume-box-collider.png" alt="Adjust the Box Collider size and position."></p>
+<p>Ensure that the <strong>Is Trigger</strong> check box is selected.</p>
+</li>
+</ol>
+<p>Now, when the Camera is within the bounds of the Volume's Box Collider, URP uses the Volume Overrides from the Box Volume.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Volumes.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

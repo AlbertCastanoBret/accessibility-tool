@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VectorFields.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<div style="border: solid 1px #999; border-radius:12px; background-color:#EEE; padding: 8px; padding-left:14px; color: #555; font-size:14px;"><b>Experimental:</b> This feature is currently experimental and is subject to change in later major versions. To use this feature, enable <b>Experimental Operators/Blocks</b> in the <b>Visual Effects</b> tab of your Project's Preferences.</div>
+# Vector Fields / Signed Distance Fields
+<p>Vector Fields and Signed Distance Fields are 3D Fields containing values stored in voxels. These are available as 3D Textures in Visual Effect Graph and can be imported using the Volume File (<code>.vf</code>) file format.</p>
+<p>Volume File is an <a href="https://github.com/peeweek/VectorFieldFile/blob/master/README.md">Open Source specification</a> that contains basic structure for storing floating point data. Unity automatically imports  Volume File files are automatically imported in unity as 3D Textures and can be used in Visual Effect Graph Blocks and Operators that input 3D Textures, such as Vector Field or Signed Distance Field Blocks.</p>
+<h2 id="vector-field-importer">Vector Field Importer</h2>
+<p><img src="Images/VectorFieldInspector.png" alt=""></p>
+<p>Unity provides the following settings in the Inspector to import Volume File files:</p>
+<ul>
+<li><strong>Output Format :</strong> Precision of the Output 3D Texture
+<ul>
+<li>Half : Floating Point with 16-bit Half Precision</li>
+<li>Float : Floating Point with 32-bit Single Precision</li>
+<li>Byte : Unsigned Fixed Point values of 8-bit Precision</li>
+</ul>
+</li>
+<li><strong>Wrap Mode :</strong> Wrap Mode of the output Texture</li>
+<li><strong>Filter Mode :</strong> Filter Mode of the output Texture</li>
+<li><strong>Generate Mip Maps :</strong> Whether to generate mip-maps for the texture</li>
+<li><strong>Aniso Level :</strong> Anisotropy Level</li>
+</ul>
+<h2 id="generating-vector-field-files">Generating Vector Field Files</h2>
+<p>You can generate vector fields in one of the following ways:</p>
+<ul>
+<li>Use the Houdini VF Exporter bundled with <a href="https://github.com/Unity-Technologies/VFXToolbox">VFXToolbox</a> (located in the /DCC~ folder)</li>
+<li>Write your own exporter to write <a href="https://github.com/peeweek/VectorFieldFile/blob/master/README.md">VF Files</a> files that follow the specification.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VectorFields.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

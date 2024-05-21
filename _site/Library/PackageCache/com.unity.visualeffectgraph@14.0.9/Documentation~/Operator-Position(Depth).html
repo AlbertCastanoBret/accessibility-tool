@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Position (Depth) | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Position (Depth) | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-Position(Depth).md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="position-depth">Position (Depth)</h1>
+
+<p>Menu Path : <strong>Operator &gt; Sampling &gt; Position (Depth)</strong></p>
+<p>The <strong>Position (Depth)</strong> Operator samples the depth-buffer of a Camera and retrieves the position in world space. You can use this depth information to project particles into the scene.</p>
+<h2 id="operator-settings">Operator settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Camera</strong></td>
+<td>Enum</td>
+<td>Specifies which Camera to sample the depth of. The options are:<br>•  <strong>Main</strong>: Uses the first Camera in the scene with the <strong>MainCamera</strong> tag.<br>• <strong>Custom</strong>: Uses the Camera you specify in the <strong>Camera</strong> port.</td>
+</tr>
+<tr>
+<td><strong>Mode</strong></td>
+<td>Enum</td>
+<td>Specifies the method this Operator uses to sample the depth-buffer. The options are:<br>• <strong>Random</strong>: Uses a random UV value between 0 and 1 to sample the depth-buffer.<br>• <strong>Sequential</strong>: Selects UVs based on the ParticleID attribute and the value of the <strong>Grid Step</strong> property. This samples positions sequentially every <strong>Grid Step</strong> number of pixels.<br>• <strong>Custom</strong>: Allows you to specify UVs manually with the <strong>UV Spawn</strong> property.</td>
+</tr>
+<tr>
+<td><strong>Cull Mode</strong></td>
+<td>Enum</td>
+<td>Specifies a filter to apply to a sampled position. If you use a filter, the output property <strong>isAlive</strong> describes whether the sampled position is valid or not. The options are:<br>• <strong>None</strong>: Does not use a filter.<br>• <strong>Far Plane</strong>: If the sampled position is on the far plane, this option sets <strong>isAlive</strong> to <code>false</code>.<br>• <strong>Range</strong>: Allows you to specify a <strong>Depth Range</strong> which determines whether a sampled position is valid or not. If the sampled position is outside the <strong>Depth Range</strong>, this option sets <strong>isAlive</strong> to <code>false</code>.</td>
+</tr>
+<tr>
+<td><strong>Inherit Scene Color</strong></td>
+<td>bool</td>
+<td>(<strong>Inspector</strong>) Specifies whether or not this Operator outputs the Camera's scene color information in addition to depth-buffer position/.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="operator-properties">Operator properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Camera</strong></td>
+<td>Camera</td>
+<td>The Camera to use. <br>This property only appears if you set <strong>Camera</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Z Multiplier</strong></td>
+<td>float</td>
+<td>A multiplier that offsets the sampled depth position. You can use this to avoid issues with z-fighting/overlapping when projecting particles into your scene.</td>
+</tr>
+<tr>
+<td><strong>Grid Step</strong></td>
+<td>uint</td>
+<td>The size of the grid this Operator uses to sample the depth buffer in pixels. This is based on the particleID and the Operator samples positions sequentially for every strip of pixels. <br>This property only appears if you set <strong>Mode</strong> to <strong>Sequential</strong>.</td>
+</tr>
+<tr>
+<td><strong>UV Spawn</strong></td>
+<td>Vector2</td>
+<td>The UV this Operator uses to manually sample the depth buffer. <br>This property only appears if you set <strong>Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Depth Range</strong></td>
+<td>Vector2</td>
+<td>The valid depth range for the sampled position. If the sampled position is within this range, the <strong>isAlive</strong> property is <code>true</code>, otherwise it is <code>false</code>. This allows you to filter out sampled positions. <br>This property only appears if you set <strong>Cull Mode</strong> to <strong>Range</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="output-properties">Output properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Position</strong></td>
+<td>Position</td>
+<td>The world-space position of the Camera's depth buffer sample.</td>
+</tr>
+<tr>
+<td><strong>color</strong></td>
+<td>Color</td>
+<td>The color of the Camera's scene color buffer sample. <br>This property only appears if you enable <strong>Inherit Scene Color</strong>.</td>
+</tr>
+<tr>
+<td><strong>isAlive</strong></td>
+<td>bool</td>
+<td>Specifies whether the sampled position is valid with respect to the <strong>Cull Mode</strong> setting.<br>• <strong>Far Plane</strong>: This is <code>false</code> when the sampled position is on the far plane and <code>true</code> otherwise.<br>• <strong>Range</strong>: This is <code>false</code> when the sampled position is outside of the valid <strong>Depth Range</strong> and <code>true</code> otherwise. <br>This property only appears if you set <strong>Cull Mode</strong> to <strong>Far Plane</strong> or <strong>Range</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="limitations">Limitations</h2>
+<p>Currently, depth buffer sampling is only available in the High Definition Render Pipeline and does not work in the Universal Render Pipeline.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-Position(Depth).md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

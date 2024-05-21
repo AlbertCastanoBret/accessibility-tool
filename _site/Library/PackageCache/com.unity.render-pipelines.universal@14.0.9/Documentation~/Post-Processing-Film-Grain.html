@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Film Grain | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Film Grain | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Post-Processing-Film-Grain.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="film-grain">Film Grain</h1>
+
+<p><img src="Images/post-proc/film-grain-off.png" alt="Film Grain off">
+<br><em>Scene with Film Grain effect turned off.</em></p>
+<p><img src="Images/post-proc/film-grain.png" alt="Film Grain on">
+<br><em>Scene with Film Grain effect turned on.</em></p>
+<p>The Film Grain effect simulates the random optical texture of photographic film, usually caused by small particles being present on the physical film.</p>
+<h2 id="using-film-grain">Using Film Grain</h2>
+<p><strong>Film Grain</strong> uses the <a href="Volumes.html">Volume</a> framework, so to enable and modify <strong>Film Grain</strong> properties, you must add a <strong>Film Grain</strong> override to a <a href="Volumes.html">Volume</a> in your Scene. To add <strong>Film Grain</strong> to a Volume:</p>
+<ol>
+<li>In the Scene or Hierarchy view, select a GameObject that contains a Volume component to view it in the Inspector.</li>
+<li>In the Inspector, navigate to <strong>Add Override &gt; Post-processing</strong> and click on <strong>Film Grain</strong>. URP now applies <strong>Film Grain</strong> to any Camera this Volume affects.</li>
+</ol>
+<h2 id="properties">Properties</h2>
+<p><img src="Images/Inspectors/FilmGrain.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Type</strong></td>
+<td>Use the drop-down to select the type of grain to use. You can select from a list of presets that URP includes, or select <strong>Custom</strong> to provide your own grain Texture.</td>
+</tr>
+<tr>
+<td><strong>Texture</strong></td>
+<td>Assign a Texture that this effect uses as a custom grain Texture.This property is only available when <strong>Type</strong> is set to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Intensity</strong></td>
+<td>Use the slider to set the strength of the Film Grain effect.</td>
+</tr>
+<tr>
+<td><strong>Response</strong></td>
+<td>Use the slider to set the noisiness response curve. The higher you set this value, the less noise there is in brighter areas. <img src="Images/post-proc/film-grain-response.png" alt="Film Grain Response"><br><em>Response value 1 (left), and 0 (right).</em></td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Post-Processing-Film-Grain.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

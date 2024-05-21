@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Tracked Dolly | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Tracked Dolly | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBodyTrackedDolly.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="tracked-dolly">Tracked Dolly</h1>
+
+<p>This Virtual Camera <strong>Body</strong> algorithm restricts the Virtual Camera to move along a predefined <a href="CinemachineDolly.html">path</a>. Use the <strong>Path Position</strong> property to specify where to put the Virtual Camera on the path.</p>
+<p>Use <strong>Auto-Dolly</strong> mode to move the Virtual Camera to a position on the path that is closest to the <strong>Follow</strong> target. When enabled, <strong>Auto-Dolly</strong> automatically animates the position of the Virtual Camera to the position on the path that’s closest to the target.</p>
+<p><strong>Tip</strong>: Choose your path shapes with care when using Auto-Dolly mode. This becomes problematic on paths that form an arc around some point.  As an extreme example, consider a perfectly circular path with the <strong>Follow</strong> target at the center. The closest point on the path becomes unstable because all points on the circular path are equally close to the target. In this situation, moving the <strong>Follow</strong> target small distances can cause the camera to move large distances on the track.</p>
+<h2 id="properties">Properties:</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Path</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The path that the camera moves along. This property must refer to a  <a href="CinemachinePath.html">Cinemachine Path</a> or <a href="CinemachineSmoothPath.html">Cinemachine Smooth Path</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Path Position</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The position along the path to place the camera. Animate this property directly or enable Auto-Dolly. The value is in the units specified by Position Units.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Position Units</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The unit of measure for Path Position.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Path Units</em></td>
+<td style="text-align: left;">Use waypoints along the path. The value 0 represents the first waypoint on the path, 1 is the second waypoint, and so on.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Distance</em></td>
+<td style="text-align: left;">Use distance along the path. The path is sampled according to the Resolution property of the path. Cinemachine creates a distance lookup table, which it stores in an internal cache.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Normalized</em></td>
+<td style="text-align: left;">Use the beginning and end of the path. The value 0 represents the beginning of the path, 1 is the end of the path.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Path Offset</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The position of the camera relative to the path. X is perpendicular to the path, Y is up, and Z is parallel to the path. Use this property to offset the camera from the path itself.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>X Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How responsively the camera tries to maintain its position in a direction perpendicular to the path. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly. Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Y Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How responsively the camera tries to maintain its position in the path-local up direction. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Z Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How responsively the camera tries to maintain its position in a direction parallel to the path. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Camera Up</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How to set the up vector for the Virtual Camera. This affects the screen composition because the camera Aim algorithms try to respect the up direction.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Default</em></td>
+<td style="text-align: left;">Do not modify the up direction of the Virtual Camera. Instead, use the World Up Override property in Cinemachine Brain.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Path</em></td>
+<td style="text-align: left;">Use the path’s up vector at the current point.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Path No Roll</em></td>
+<td style="text-align: left;">Use the path’s up vector at the current point, but with the roll set to zero.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Follow Target</em></td>
+<td style="text-align: left;">Use the up vector from the Follow target’s transform.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Follow Target No Roll</em></td>
+<td style="text-align: left;">Use the up vector from the Follow target’s transform, but with the roll zeroed out.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Pitch Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How responsively the camera tracks the target rotation’s x angle. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Yaw Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How responsively the camera tracks the target rotation’s y angle. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Roll Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How responsively the camera tracks the target rotation’s z angle. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Auto Dolly</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Controls how automatic dollying occurs. A Follow target is necessary to use this feature.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Enabled</em></td>
+<td style="text-align: left;">Check to enable the automatic dolly. Note: this can have some performance impact, depending on the search resolution.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Position Offset</em></td>
+<td style="text-align: left;">Offset, in position units, from the closest point on the path to the follow target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Search Radius</em></td>
+<td style="text-align: left;">The number of segments on either side of the current segment. Use 0 for the entire path.  Use a lower number when the path’s shape relative to the target position causes the closest point on the path to become unstable.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Search Resolution</em></td>
+<td style="text-align: left;">Cinemachine searches a segment by dividing it into many straight pieces. The higher the number, the more accurate the result. However, performance is proportionally slower for higher numbers.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBodyTrackedDolly.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

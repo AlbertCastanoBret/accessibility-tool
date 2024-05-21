@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Upgrading from the Lightweight Render Pipeline to the Universal Render Pipeline | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Upgrading from the Lightweight Render Pipeline to the Universal Render Pipeline | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/upgrade-lwrp-to-urp.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="upgrading-from-the-lightweight-render-pipeline-to-the-universal-render-pipeline">Upgrading from the Lightweight Render Pipeline to the Universal Render Pipeline</h1>
+
+<p>The Universal Render Pipeline (URP) replaces the Lightweight Render Pipeline (LWRP) in Unity 2019.3. If your Project uses LWRP, you must upgrade it to use URP to use Unity 2019.3.</p>
+<p>Unity upgrades some things automatically, and you must make some manual changes. Follow the steps in this guide to transition from using LWRP to using URP.</p>
+<h2 id="before-upgrading">Before upgrading</h2>
+<h3 id="update-assembly-definition-assets">Update Assembly Definition Assets</h3>
+<p>URP uses GUIDs instead of Assembly Definition string names. If you are using Assembly Definition Assets (ASMDefs) in your Project, you should ensure that <strong>Use GUIDs</strong> is enabled on each of them.</p>
+<p>Unity upgrades any existing string references to LWRP automatically as part of the upgrade process, but it is best practice to use GUIDs on your Assembly Definition Assets for future proofing.</p>
+<p>For each Assembly Definition Asset in your Project:</p>
+<ul>
+<li>Select the Assembly Defintion Asset</li>
+<li>In the Inspector, enable <strong>Use GUIDs</strong></li>
+</ul>
+<p>For information on using Assembly Definition files, see the <a href="https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html">documentation on Assembly Definitions</a>.</p>
+<h2 id="upgrade-process">Upgrade process</h2>
+<h3 id="upgrading-your-version-of-lwrp">Upgrading your version of LWRP</h3>
+<p>To start the upgrade process:</p>
+<ul>
+<li>Open the Project you want to upgrade in Unity 2019.3</li>
+</ul>
+<p>Unity automatically updates LWRP to a 7.x.x version, and pulls in the URP package as a dependency of the updated LWRP package. The Unity script updater automatically upgrades your script files. When the script updater has finished, all of your scripts should compile properly.</p>
+<h3 id="upgrading-the-shader-search-path">Upgrading the Shader search path</h3>
+<p>If your LWRP Project uses <code>Shader.Find</code> to search for LWRP Shaders, you need to change the search path.</p>
+<p>To do this:</p>
+<ul>
+<li>Change all instances of <code>Shader.Find</code> that search for <code>Lightweight</code> to search for <code>Universal</code>.</li>
+</ul>
+<h3 id="upgrading-custom-shaders">Upgrading custom shaders</h3>
+<h4 id="upgrading-tags">Upgrading tags</h4>
+<p>URP uses its own scripting tags. If your Shaders use the LWRP <code>LightMode</code> tags, they will work in your URP Project, because Unity uses an internal alias for this. However, you should change the tags manually to future-proof your Project.</p>
+<p>To do this:</p>
+<ul>
+<li>Change all instances of <code>Lightweight2D</code> tag to <code>Universal2D</code>.</li>
+<li>Change all instances of <code>LightweightForward</code> tag to <code>UniversalForward</code>.</li>
+</ul>
+<p>In addition to this, URP also uses a different RenderPipeline tag to LWRP. If your own Shaders include this tag, you need to change it manually for the Shaders to work:</p>
+<ul>
+<li>Change all instances of <code>LightweightPipeline</code> tag to <code>UniversalPipeline</code>.</li>
+</ul>
+<h4 id="upgrading-shader-names">Upgrading Shader names</h4>
+<p>The following Shader names have been changed for URP, so you need to manually update your Shader files:</p>
+<ul>
+<li>Change all instances of  <code>UsePass 'Lightweight Render Pipeline/...'</code> to <code>UsePass 'Universal Render Pipeline/...'</code></li>
+</ul>
+<h4 id="upgrading-include-paths">Upgrading include paths</h4>
+<p>URP uses different include paths to LWRP. LWRP 7.x.x contains forwarding includes, so your custom Shaders will upgrade from LWRP to URP. However, URP 7.x.x does not contain forwarding includes, so you must then manually update the include paths.</p>
+<ul>
+<li>Change all instances of <code>#include 'Packages/com.unity.render-pipelines.lightweight/xxx'</code> to  <code>#include 'Packages/com.unity.render-pipelines.universal/xxx'</code></li>
+</ul>
+<h3 id="upgrading-namespaces">Upgrading namespaces</h3>
+<p>In the .cs files in your Project, find and replace references to the LWRP namespace with the new Universal namespace.</p>
+<ul>
+<li>Change all instances of <code>UnityEditor.Rendering.LWRP.xxx</code> to now <code>UnityEditor.Rendering.Universal.xxx</code></li>
+</ul>
+<h2 id="upgrading-post-processing-effects">Upgrading post-processing effects</h2>
+<p>URP version 7.x supports both <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@7.4/manual/integration-with-post-processing.html">Post Processing Stack v2 (PPv2) and its own integrated post-processing solution</a>. If you have the Post Processing Version 2 package installed in your Project and you want to use URP's integrated post-processing solution, you need to delete the Post Processing Stack v2 package before you install URP into your Project. When you have installed URP, you can then recreate your post-processing effects.</p>
+<p>Upgrading post-processing effects from LWRP to URP is a manual process. You must manually recreate each Post-Processing Profile in your Project, using URP's post-processing implementation.</p>
+<p>URP's integrated post-processing solution does not currently support custom post-processing effects. If your Project uses custom post-processing effects, these cannot currently be recreated in URP's integrated post-processing solution. Custom post-processing effects will be supported in a forthcoming release of URP.</p>
+<h2 id="installing-urp-and-removing-lwrp">Installing URP and removing LWRP</h2>
+<p>As part of the automatic upgrade process, Unity installed URP as a dependency of LWRP. You must now install URP as a dependency of the Project itself, so that when you remove LWRP, Unity does not automatically remove URP.</p>
+<p>To install URP as a dependency of the Project:</p>
+<ul>
+<li>Go to menu: <strong>Window</strong> &gt; <strong>Package Manager</strong>.</li>
+<li>Locate the <strong>Universal RP</strong> package, and note the version number to the right of its name. This is the version of URP that has been added to your Project.</li>
+<li>Close Unity.</li>
+<li>In your file explorer, open the root folder of your Unity Project.</li>
+<li>Open the Packages folder, and locate <em>manifest.json</em>. This is your Project's Project Manifest file.</li>
+<li>Open the Project Manifest file using a text editor.</li>
+<li>At the top of the dependencies section, add the following entry:</li>
+</ul>
+<pre><code class="lang-json">&quot;com.unity.render-pipelines.universal&quot;: &quot;[Version number you noted earlier]&quot;
+</code></pre>
+<p>So, for example, if the version of URP was 7.1.1, your dependencies section would look like this:</p>
+<pre><code class="lang-json">&quot;dependencies&quot;: {
+    &quot;com.unity.render-pipelines.universal&quot;: &quot;7.1.1&quot;,
+    ...
+}
+</code></pre>
+<p>This marks the version of URP that you have installed as a dependency of the Project. You can now safely remove LWRP.</p>
+<ul>
+<li>Open your Project in Unity.</li>
+<li>Open the Package Manager Window.</li>
+<li>Locate <strong>Lightweight RP</strong> and select it.</li>
+<li>In the bottom right of the Package Manager window, click Remove. Unity completely removes the LWRP package from the Project.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/upgrade-lwrp-to-urp.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

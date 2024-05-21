@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Collide with Depth Buffer | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Collide with Depth Buffer | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-CollideWithDepthBuffer.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="collide-with-depth-buffer">Collide with Depth Buffer</h1>
+
+<p>Menu Path : <strong>Collision &gt; Collide with Depth Buffer</strong></p>
+<p>The <strong>Collide with Depth Buffer</strong> Block makes particles collide with a specific Camera’s depth buffer. This is especially useful for fast moving particles like sparks or rain drops where precise collision is not as important.</p>
+<p><img src="Images/Block-CollideWithDepthBufferMain.png" alt="img"></p>
+<p><strong>Important:</strong> For the Block to generate depth collision, the specified Camera must be enabled.</p>
+<h2 id="block-compatibility">Block compatibility</h2>
+<p>This Block is compatible with the following Contexts:</p>
+<ul>
+<li><a href="Context-Update.html">Update</a></li>
+</ul>
+<h2 id="block-settings">Block settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Camera</strong></td>
+<td>Enum</td>
+<td>The method to decide which Camera to use to calculate depth collision. The options are:<br>• <strong>Main</strong>: Uses the main Camera in the Scene. This requires a Camera in the Scene to have the <strong>MainCamera</strong> tag.<br>• <strong>Custom</strong>: Allows you to specify a particular Camera to use.</td>
+</tr>
+<tr>
+<td><strong>Surface Thickness</strong></td>
+<td>Enum</td>
+<td>The method to decide how to specify the thickness of the colliding surface. The options are:<br>• <strong>Infinite</strong>: Sets the thickness of the colliding surface to be infinite.<br>• <strong>Custom</strong>: Allows you to specify a particular thickness value.</td>
+</tr>
+<tr>
+<td><strong>Radius Mode</strong></td>
+<td>Enum</td>
+<td>The mode that determines the collision radius of each particle. The options are:<br>• <strong>None</strong>: Particles have a radius of zero.<br>• <strong>From Size</strong>: Particles inherit their radius from their individual sizes.<br>• <strong>Custom</strong>: Allows you to set the radius of the particles to a specific value.</td>
+</tr>
+<tr>
+<td><strong>Rough Surface</strong></td>
+<td>Bool</td>
+<td>Toggles whether or not the collider simulates a rough surface. When enabled, Unity adds randomness to the direction in which particles bounce back to simulate collision with a rough surface.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="block-properties">Block properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bounce</strong></td>
+<td>Float</td>
+<td>The amount of bounce to apply to particles after a collision. A value of 0 means the particles do not bounce. A value of 1 means particles bounce away with the same speed they impacted with.</td>
+</tr>
+<tr>
+<td><strong>Friction</strong></td>
+<td>Float</td>
+<td>The speed that particles lose during collision. The minimum value is 0.</td>
+</tr>
+<tr>
+<td><strong>Lifetime Loss</strong></td>
+<td>Float</td>
+<td>The proportion of life a particle loses after collision.</td>
+</tr>
+<tr>
+<td><strong>Roughness</strong></td>
+<td>Float</td>
+<td>The amount to randomly adjust the direction of a particle after it collides with the surface.<br>This property only appears when you enable <strong>Rough Surface</strong>.</td>
+</tr>
+<tr>
+<td><strong>Radius</strong></td>
+<td>Float</td>
+<td>The radius of the particle this Block uses for collision detection.<br>This property only appears when <strong>Radius Mode</strong> is set to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Camera</strong></td>
+<td>Camera</td>
+<td>The Camera to use for generating the collision surface. This Block uses the depth buffer from this Camera to generate the collision surface.<br>This property only appears when <strong>Camera</strong> is set to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Surface Thickness</strong></td>
+<td>Float</td>
+<td>The thickness of the collision surface. <br>This property only appears when <strong>Surface Thickness</strong> is set to <strong>Custom</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="limitations">Limitations</h2>
+<p>When using the Opaque blend mode, particles write to the depth buffer. In this scenario, this block will make the particles collide with their own depth, leading to an unstable behavior.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-CollideWithDepthBuffer.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

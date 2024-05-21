@@ -1,0 +1,642 @@
+### YamlMime:ManagedReference
+items:
+- uid: ACC_API.ACC_VisualAccessibility
+  commentId: T:ACC_API.ACC_VisualAccessibility
+  id: ACC_VisualAccessibility
+  parent: ACC_API
+  children:
+  - ACC_API.ACC_VisualAccessibility.#ctor
+  - ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration(System.String)
+  - ACC_API.ACC_VisualAccessibility.DisableHighContrastMenu
+  - ACC_API.ACC_VisualAccessibility.EnableHighContrastMenu
+  - ACC_API.ACC_VisualAccessibility.GetCurrentHighContrastConfiguration
+  - ACC_API.ACC_VisualAccessibility.GetFeatureState(ACC_API.VisualFeatures)
+  - ACC_API.ACC_VisualAccessibility.GetHighContrastConfigurations
+  - ACC_API.ACC_VisualAccessibility.LoadUserPreferences
+  - ACC_API.ACC_VisualAccessibility.LoadUserPreferencesHighContrast
+  - ACC_API.ACC_VisualAccessibility.ResetFeatureState(ACC_API.VisualFeatures)
+  - ACC_API.ACC_VisualAccessibility.ResetHighContrastConfiguration
+  - ACC_API.ACC_VisualAccessibility.SetFeatureState(ACC_API.VisualFeatures,System.Boolean)
+  langs:
+  - csharp
+  - vb
+  name: ACC_VisualAccessibility
+  nameWithType: ACC_VisualAccessibility
+  fullName: ACC_API.ACC_VisualAccessibility
+  type: Class
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ACC_VisualAccessibility
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 12
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public class ACC_VisualAccessibility
+    content.vb: Public Class ACC_VisualAccessibility
+  inheritance:
+  - System.Object
+- uid: ACC_API.ACC_VisualAccessibility.#ctor
+  commentId: M:ACC_API.ACC_VisualAccessibility.#ctor
+  id: '#ctor'
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ACC_VisualAccessibility()
+  nameWithType: ACC_VisualAccessibility.ACC_VisualAccessibility()
+  fullName: ACC_API.ACC_VisualAccessibility.ACC_VisualAccessibility()
+  type: Constructor
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: .ctor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 16
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public ACC_VisualAccessibility()
+    content.vb: Public Sub New()
+  overload: ACC_API.ACC_VisualAccessibility.#ctor*
+  nameWithType.vb: ACC_VisualAccessibility.New()
+  fullName.vb: ACC_API.ACC_VisualAccessibility.New()
+  name.vb: New()
+- uid: ACC_API.ACC_VisualAccessibility.SetFeatureState(ACC_API.VisualFeatures,System.Boolean)
+  commentId: M:ACC_API.ACC_VisualAccessibility.SetFeatureState(ACC_API.VisualFeatures,System.Boolean)
+  id: SetFeatureState(ACC_API.VisualFeatures,System.Boolean)
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: SetFeatureState(VisualFeatures, bool)
+  nameWithType: ACC_VisualAccessibility.SetFeatureState(VisualFeatures, bool)
+  fullName: ACC_API.ACC_VisualAccessibility.SetFeatureState(ACC_API.VisualFeatures, bool)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: SetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 36
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Sets the state of a specified visibility feature to either enabled or disabled.
+  example: []
+  syntax:
+    content: public void SetFeatureState(VisualFeatures feature, bool state)
+    parameters:
+    - id: feature
+      type: ACC_API.VisualFeatures
+      description: The visibility feature to modify. Use VisualFeatures enum to specify the feature.
+    - id: state
+      type: System.Boolean
+      description: A boolean value indicating whether the feature should be enabled (true) or disabled (false).
+    content.vb: Public Sub SetFeatureState(feature As VisualFeatures, state As Boolean)
+  overload: ACC_API.ACC_VisualAccessibility.SetFeatureState*
+  nameWithType.vb: ACC_VisualAccessibility.SetFeatureState(VisualFeatures, Boolean)
+  fullName.vb: ACC_API.ACC_VisualAccessibility.SetFeatureState(ACC_API.VisualFeatures, Boolean)
+  name.vb: SetFeatureState(VisualFeatures, Boolean)
+- uid: ACC_API.ACC_VisualAccessibility.GetFeatureState(ACC_API.VisualFeatures)
+  commentId: M:ACC_API.ACC_VisualAccessibility.GetFeatureState(ACC_API.VisualFeatures)
+  id: GetFeatureState(ACC_API.VisualFeatures)
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetFeatureState(VisualFeatures)
+  nameWithType: ACC_VisualAccessibility.GetFeatureState(VisualFeatures)
+  fullName: ACC_API.ACC_VisualAccessibility.GetFeatureState(ACC_API.VisualFeatures)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 51
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the enabled state of a specified visibility feature.
+  example: []
+  syntax:
+    content: public bool GetFeatureState(VisualFeatures feature)
+    parameters:
+    - id: feature
+      type: ACC_API.VisualFeatures
+      description: The visibility feature to check, e.g., high contrast.
+    return:
+      type: System.Boolean
+      description: True if the specified feature is enabled, false otherwise.
+    content.vb: Public Function GetFeatureState(feature As VisualFeatures) As Boolean
+  overload: ACC_API.ACC_VisualAccessibility.GetFeatureState*
+- uid: ACC_API.ACC_VisualAccessibility.ResetFeatureState(ACC_API.VisualFeatures)
+  commentId: M:ACC_API.ACC_VisualAccessibility.ResetFeatureState(ACC_API.VisualFeatures)
+  id: ResetFeatureState(ACC_API.VisualFeatures)
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetFeatureState(VisualFeatures)
+  nameWithType: ACC_VisualAccessibility.ResetFeatureState(VisualFeatures)
+  fullName: ACC_API.ACC_VisualAccessibility.ResetFeatureState(ACC_API.VisualFeatures)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 70
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Resets the state of the specified visibility feature to its default settings.
+  example: []
+  syntax:
+    content: public void ResetFeatureState(VisualFeatures feature)
+    parameters:
+    - id: feature
+      type: ACC_API.VisualFeatures
+      description: The visibility feature to reset (e.g., high contrast mode).
+    content.vb: Public Sub ResetFeatureState(feature As VisualFeatures)
+  overload: ACC_API.ACC_VisualAccessibility.ResetFeatureState*
+- uid: ACC_API.ACC_VisualAccessibility.LoadUserPreferences
+  commentId: M:ACC_API.ACC_VisualAccessibility.LoadUserPreferences
+  id: LoadUserPreferences
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: LoadUserPreferences()
+  nameWithType: ACC_VisualAccessibility.LoadUserPreferences()
+  fullName: ACC_API.ACC_VisualAccessibility.LoadUserPreferences()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: LoadUserPreferences
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 83
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Loads and applies the user's accessibility preferences related to visual features.
+  example: []
+  syntax:
+    content: public void LoadUserPreferences()
+    content.vb: Public Sub LoadUserPreferences()
+  overload: ACC_API.ACC_VisualAccessibility.LoadUserPreferences*
+- uid: ACC_API.ACC_VisualAccessibility.EnableHighContrastMenu
+  commentId: M:ACC_API.ACC_VisualAccessibility.EnableHighContrastMenu
+  id: EnableHighContrastMenu
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: EnableHighContrastMenu()
+  nameWithType: ACC_VisualAccessibility.EnableHighContrastMenu()
+  fullName: ACC_API.ACC_VisualAccessibility.EnableHighContrastMenu()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: EnableHighContrastMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 93
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Enables the high contrast menu through the associated high contrast manager.
+  example: []
+  syntax:
+    content: public void EnableHighContrastMenu()
+    content.vb: Public Sub EnableHighContrastMenu()
+  overload: ACC_API.ACC_VisualAccessibility.EnableHighContrastMenu*
+- uid: ACC_API.ACC_VisualAccessibility.DisableHighContrastMenu
+  commentId: M:ACC_API.ACC_VisualAccessibility.DisableHighContrastMenu
+  id: DisableHighContrastMenu
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: DisableHighContrastMenu()
+  nameWithType: ACC_VisualAccessibility.DisableHighContrastMenu()
+  fullName: ACC_API.ACC_VisualAccessibility.DisableHighContrastMenu()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: DisableHighContrastMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 101
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Disables the high contrast menu through the associated high contrast manager.
+  example: []
+  syntax:
+    content: public void DisableHighContrastMenu()
+    content.vb: Public Sub DisableHighContrastMenu()
+  overload: ACC_API.ACC_VisualAccessibility.DisableHighContrastMenu*
+- uid: ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration(System.String)
+  commentId: M:ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration(System.String)
+  id: ChangeHighContrastConfiguration(System.String)
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeHighContrastConfiguration(string)
+  nameWithType: ACC_VisualAccessibility.ChangeHighContrastConfiguration(string)
+  fullName: ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeHighContrastConfiguration
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 110
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Changes the high contrast configuration based on the provided JSON configuration file.
+  example: []
+  syntax:
+    content: public void ChangeHighContrastConfiguration(string configuration)
+    parameters:
+    - id: configuration
+      type: System.String
+      description: The name of the configuration file within the 'ACC_HighContrast' directory.
+    content.vb: Public Sub ChangeHighContrastConfiguration(configuration As String)
+  overload: ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration*
+  nameWithType.vb: ACC_VisualAccessibility.ChangeHighContrastConfiguration(String)
+  fullName.vb: ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration(String)
+  name.vb: ChangeHighContrastConfiguration(String)
+- uid: ACC_API.ACC_VisualAccessibility.GetCurrentHighContrastConfiguration
+  commentId: M:ACC_API.ACC_VisualAccessibility.GetCurrentHighContrastConfiguration
+  id: GetCurrentHighContrastConfiguration
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetCurrentHighContrastConfiguration()
+  nameWithType: ACC_VisualAccessibility.GetCurrentHighContrastConfiguration()
+  fullName: ACC_API.ACC_VisualAccessibility.GetCurrentHighContrastConfiguration()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetCurrentHighContrastConfiguration
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 119
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the current high contrast configuration from user preferences.
+  example: []
+  syntax:
+    content: public string GetCurrentHighContrastConfiguration()
+    return:
+      type: System.String
+      description: The string representing the current high contrast configuration. Returns "Default" if no configuration is specified.
+    content.vb: Public Function GetCurrentHighContrastConfiguration() As String
+  overload: ACC_API.ACC_VisualAccessibility.GetCurrentHighContrastConfiguration*
+- uid: ACC_API.ACC_VisualAccessibility.GetHighContrastConfigurations
+  commentId: M:ACC_API.ACC_VisualAccessibility.GetHighContrastConfigurations
+  id: GetHighContrastConfigurations
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetHighContrastConfigurations()
+  nameWithType: ACC_VisualAccessibility.GetHighContrastConfigurations()
+  fullName: ACC_API.ACC_VisualAccessibility.GetHighContrastConfigurations()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetHighContrastConfigurations
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 132
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves a list of available high contrast configurations.
+  example: []
+  syntax:
+    content: public List<string> GetHighContrastConfigurations()
+    return:
+      type: System.Collections.Generic.List{System.String}
+      description: A list of strings representing the names of available high contrast configurations.
+    content.vb: Public Function GetHighContrastConfigurations() As List(Of String)
+  overload: ACC_API.ACC_VisualAccessibility.GetHighContrastConfigurations*
+- uid: ACC_API.ACC_VisualAccessibility.LoadUserPreferencesHighContrast
+  commentId: M:ACC_API.ACC_VisualAccessibility.LoadUserPreferencesHighContrast
+  id: LoadUserPreferencesHighContrast
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: LoadUserPreferencesHighContrast()
+  nameWithType: ACC_VisualAccessibility.LoadUserPreferencesHighContrast()
+  fullName: ACC_API.ACC_VisualAccessibility.LoadUserPreferencesHighContrast()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: LoadUserPreferencesHighContrast
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 140
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Loads the user's high contrast preferences from settings and applies them.
+  example: []
+  syntax:
+    content: public void LoadUserPreferencesHighContrast()
+    content.vb: Public Sub LoadUserPreferencesHighContrast()
+  overload: ACC_API.ACC_VisualAccessibility.LoadUserPreferencesHighContrast*
+- uid: ACC_API.ACC_VisualAccessibility.ResetHighContrastConfiguration
+  commentId: M:ACC_API.ACC_VisualAccessibility.ResetHighContrastConfiguration
+  id: ResetHighContrastConfiguration
+  parent: ACC_API.ACC_VisualAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetHighContrastConfiguration()
+  nameWithType: ACC_VisualAccessibility.ResetHighContrastConfiguration()
+  fullName: ACC_API.ACC_VisualAccessibility.ResetHighContrastConfiguration()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetHighContrastConfiguration
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
+    startLine: 148
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Resets the high contrast configuration to its default state.
+  example: []
+  syntax:
+    content: public void ResetHighContrastConfiguration()
+    content.vb: Public Sub ResetHighContrastConfiguration()
+  overload: ACC_API.ACC_VisualAccessibility.ResetHighContrastConfiguration*
+references:
+- uid: ACC_API
+  commentId: N:ACC_API
+  href: ACC_API.html
+  name: ACC_API
+  nameWithType: ACC_API
+  fullName: ACC_API
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ACC_API.ACC_VisualAccessibility.#ctor*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.#ctor
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility__ctor
+  name: ACC_VisualAccessibility
+  nameWithType: ACC_VisualAccessibility.ACC_VisualAccessibility
+  fullName: ACC_API.ACC_VisualAccessibility.ACC_VisualAccessibility
+  nameWithType.vb: ACC_VisualAccessibility.New
+  fullName.vb: ACC_API.ACC_VisualAccessibility.New
+  name.vb: New
+- uid: ACC_API.ACC_VisualAccessibility.SetFeatureState*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.SetFeatureState
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_SetFeatureState_ACC_API_VisualFeatures_System_Boolean_
+  name: SetFeatureState
+  nameWithType: ACC_VisualAccessibility.SetFeatureState
+  fullName: ACC_API.ACC_VisualAccessibility.SetFeatureState
+- uid: ACC_API.VisualFeatures
+  commentId: T:ACC_API.VisualFeatures
+  parent: ACC_API
+  href: ACC_API.VisualFeatures.html
+  name: VisualFeatures
+  nameWithType: VisualFeatures
+  fullName: ACC_API.VisualFeatures
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ACC_API.ACC_VisualAccessibility.GetFeatureState*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.GetFeatureState
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_GetFeatureState_ACC_API_VisualFeatures_
+  name: GetFeatureState
+  nameWithType: ACC_VisualAccessibility.GetFeatureState
+  fullName: ACC_API.ACC_VisualAccessibility.GetFeatureState
+- uid: ACC_API.ACC_VisualAccessibility.ResetFeatureState*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.ResetFeatureState
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_ResetFeatureState_ACC_API_VisualFeatures_
+  name: ResetFeatureState
+  nameWithType: ACC_VisualAccessibility.ResetFeatureState
+  fullName: ACC_API.ACC_VisualAccessibility.ResetFeatureState
+- uid: ACC_API.ACC_VisualAccessibility.LoadUserPreferences*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.LoadUserPreferences
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_LoadUserPreferences
+  name: LoadUserPreferences
+  nameWithType: ACC_VisualAccessibility.LoadUserPreferences
+  fullName: ACC_API.ACC_VisualAccessibility.LoadUserPreferences
+- uid: ACC_API.ACC_VisualAccessibility.EnableHighContrastMenu*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.EnableHighContrastMenu
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_EnableHighContrastMenu
+  name: EnableHighContrastMenu
+  nameWithType: ACC_VisualAccessibility.EnableHighContrastMenu
+  fullName: ACC_API.ACC_VisualAccessibility.EnableHighContrastMenu
+- uid: ACC_API.ACC_VisualAccessibility.DisableHighContrastMenu*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.DisableHighContrastMenu
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_DisableHighContrastMenu
+  name: DisableHighContrastMenu
+  nameWithType: ACC_VisualAccessibility.DisableHighContrastMenu
+  fullName: ACC_API.ACC_VisualAccessibility.DisableHighContrastMenu
+- uid: ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_ChangeHighContrastConfiguration_System_String_
+  name: ChangeHighContrastConfiguration
+  nameWithType: ACC_VisualAccessibility.ChangeHighContrastConfiguration
+  fullName: ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: ACC_API.ACC_VisualAccessibility.GetCurrentHighContrastConfiguration*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.GetCurrentHighContrastConfiguration
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_GetCurrentHighContrastConfiguration
+  name: GetCurrentHighContrastConfiguration
+  nameWithType: ACC_VisualAccessibility.GetCurrentHighContrastConfiguration
+  fullName: ACC_API.ACC_VisualAccessibility.GetCurrentHighContrastConfiguration
+- uid: ACC_API.ACC_VisualAccessibility.GetHighContrastConfigurations*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.GetHighContrastConfigurations
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_GetHighContrastConfigurations
+  name: GetHighContrastConfigurations
+  nameWithType: ACC_VisualAccessibility.GetHighContrastConfigurations
+  fullName: ACC_API.ACC_VisualAccessibility.GetHighContrastConfigurations
+- uid: System.Collections.Generic.List{System.String}
+  commentId: T:System.Collections.Generic.List{System.String}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<string>
+  nameWithType: List<string>
+  fullName: System.Collections.Generic.List<string>
+  nameWithType.vb: List(Of String)
+  fullName.vb: System.Collections.Generic.List(Of String)
+  name.vb: List(Of String)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: System.String
+    name: string
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: System.String
+    name: String
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.string
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: ACC_API.ACC_VisualAccessibility.LoadUserPreferencesHighContrast*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.LoadUserPreferencesHighContrast
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_LoadUserPreferencesHighContrast
+  name: LoadUserPreferencesHighContrast
+  nameWithType: ACC_VisualAccessibility.LoadUserPreferencesHighContrast
+  fullName: ACC_API.ACC_VisualAccessibility.LoadUserPreferencesHighContrast
+- uid: ACC_API.ACC_VisualAccessibility.ResetHighContrastConfiguration*
+  commentId: Overload:ACC_API.ACC_VisualAccessibility.ResetHighContrastConfiguration
+  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_ResetHighContrastConfiguration
+  name: ResetHighContrastConfiguration
+  nameWithType: ACC_VisualAccessibility.ResetHighContrastConfiguration
+  fullName: ACC_API.ACC_VisualAccessibility.ResetHighContrastConfiguration

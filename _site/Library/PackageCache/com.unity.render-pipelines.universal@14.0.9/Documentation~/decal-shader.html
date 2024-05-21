@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Decal Shader Graph | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Decal Shader Graph | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/decal-shader.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="decal-shader-graph">Decal Shader Graph</h1>
+
+<p>The <a href="renderer-feature-decal.html#decal-projector-component">Decal Projector</a> component can project a Material as a decal if the Material uses a Shader Graph with the Decal Material type.</p>
+<p><img src="Images/decal/decal-shader-graph-material-type.png" alt="Shader Graph with the Decal Material type"><br><em>Shader Graph with the Decal Material type</em></p>
+<p>URP contains the pre-built Decal Shader (<code>Shader Graphs/Decal</code>).</p>
+<p><img src="Images/decal/decal-material-properties.png" alt="Decal Material properties."><br><em>Decal Material properties and advanced options.</em></p>
+<p>You can assign a Material that uses a Decal Shader Graph to a GameObject directly. For example, you can <a href="renderer-feature-decal.html#decal-gameobject">use a Quad as the Decal GameObject</a>.</p>
+<p>The pre-built Decal Shader has the following properties:</p>
+<ul>
+<li><p><strong>Base Map</strong>: the Base texture of the Material.</p>
+</li>
+<li><p><strong>Normal Map</strong>: the normal texture of the Material.</p>
+</li>
+<li><p><strong>Normal Blend</strong>: this property defines the proportion in which the the normal texture selected in the Normal Map property blends with the normal map of the Material that the decal is projected on. 0: the decal does not affect the Material it's projected on. 1: the normal map of the decal replaces the normal map of the Material it's projected on.</p>
+</li>
+</ul>
+<p>You can <a href="#create-decal-shaders">create your own Shader Graphs</a> that render decals in a way that suits your project best.</p>
+<p>The Decal Material properties above are defined in the pre-built Shader Graph. Custom decal Material properties depend on a custom Shader Graph.</p>
+<p>The following table describes the properties in the <strong>Advanced Options</strong> section. These properties are common for all decal shaders.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enable GPU Instancing</strong></td>
+<td>Enabling this option lets URP render meshes with the same geometry and Material in one batch, when possible. This makes rendering faster. URP cannot render Meshes in one batch if they have different Materials or if the hardware does not support GPU instancing.</td>
+</tr>
+<tr>
+<td><strong>Priority</strong></td>
+<td>This property defines the order in which URP draws decals in the Scene. URP draws decals with lower Priority values first, and draws decals with higher Priority values on top of those with lower values. <br>If there are multiple Decal Materials with the same <strong>Priority</strong> in the Scene, URP renders them in the order in which the Materials were created.</td>
+</tr>
+<tr>
+<td><a name="mesh-bias-type"></a><strong>Mesh Bias Type</strong></td>
+<td>Select the Mesh bias type. The Mesh bias lets you prevent z-fighting between the Decal GameObject and the GameObject it overlaps. This property is only applicable for GameObjects with a <a href="renderer-feature-decal.html#decal-gameobject">Decal Material type assigned directly</a>.</td>
+</tr>
+<tr>
+<td><em>View Bias</em></td>
+<td>A world-space bias (in meters). When drawing the Decal GameObject, Unity shifts each pixel of the GameObject by this value along the view vector. A positive value shifts pixels closer to the Camera, so that Unity draws the Decal GameObject on top of the overlapping Mesh, which prevents z-fighting. Decal Projectors ignore this property.</td>
+</tr>
+<tr>
+<td><em>Depth Bias</em></td>
+<td>When drawing the Decal GameObject, Unity changes the depth value of each pixel of the GameObject by this value. A negative value shifts pixels closer to the Camera, so that Unity draws the Decal GameObject on top of the overlapping Mesh, which prevents z-fighting. Decal Projectors ignore this property.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create-decal-shaders">Create custom Decal shaders</h2>
+<p>The pre-built <code>Shader Graphs/Decal</code> shader serves as a simple example. You can create your own decal shaders that render decals in a way that suits your project best.</p>
+<p>To create a custom decal Shader Graph, select the <strong>Decal</strong> value in Material property of the shader target.</p>
+<p><img src="Images/decal/decal-shader-graph-material-type.png" alt="Shader Graph, Decal Material"></p>
+<p>Enabling one of the following properties override the equivalent Lit Shader property on the surface of the Material.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Affect BaseColor</strong></td>
+<td>When enabled, the shader affects the base color. Most decals make use of this option. An exception is a surface damage effect, were you might want to manipulate other properties, such as normals.<br><img src="Images/decal/decal-color.png" alt="Decal Color"><br><em>From left to right: shader affecting only the color, affecting all properties, affecting all properties but color.</em></td>
+</tr>
+<tr>
+<td><strong>Affect Normal</strong></td>
+<td>When enabled, the shader affects normals. Use cases:  adding damage effects to materials, for example, bullet holes or cracks. Use the <strong>Blend</strong> property to blend the normals of the decal with the normals of the surface it's projected to. If the <strong>Blend</strong> property is disabled, the decal overrides the normals all over the surface it's projected to.<br><img src="Images/decal/decal-normal.png" alt="Decal Normal"><br><em>From left to right: Affect Normal is off; Affect Normal is on, Blend is off; Affect Normal and Blend are on.</em></td>
+</tr>
+<tr>
+<td><strong>Affect MAOS</strong></td>
+<td>MOAS stands for Metallic, Ambient Occlusion, and Smoothness. These properties are grouped together to save memory. You can change values of each property separately in the shader, but all properties are blended with a single common alpha value.<br>Use cases:<br>Override smoothness to highlight puddles or wet paint. Override metallic values with lower values to render rust. Override AO to give the decal more depth.<br><img src="Images/decal/decal-maos.png" alt="Decal MAOS"><br><em>Left: the decal does not affect MAOS. Right: the decal affects MAOS.</em></td>
+</tr>
+<tr>
+<td><strong>Affect Emission</strong></td>
+<td>Use cases: you can affect the emission values to make surfaces seem like they are emitting light, or to make surfaces seem like they are being lit by light.<br><img src="Images/decal/decal-emission.png" alt="Decal Emission"> <br><em>Left: Affect Emission is off. Right: Affect Emission is on.</em></td>
+</tr>
+</tbody>
+</table>
+<p>To improve performance, pack data for different surface properties into a single texture. This way the shader performs fewer samples and Unity stores fewer textures.</p>
+<p>For example, the following Shader Graph uses a normal map and a mask map to drive all properties in the shader. This decal is used for the damaged tarmac effect, and a hardcoded roughness value of 0 suites the use case.</p>
+<p><img src="Images/decal/decal-graph.png" alt="Decal Graph"></p>
+<p>The shader samples the mask and uses the color for setting the Ambient Occlusion values (Red channel), smoothness values (Green channel), Emission intensity values (Blue channel), and alpha values for the entire decal. Decals are often blended using single alpha values for all properties. The following image shows the mask map for the example tarmac cracks:<br>
+<img src="Images/decal/decal-mask.png" alt="Decal Mask"><br><em>Example of mask map that packs Ambient Occlusion, Smoothness, Emission, and alpha values of a decal atlas into a single texture.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/decal-shader.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

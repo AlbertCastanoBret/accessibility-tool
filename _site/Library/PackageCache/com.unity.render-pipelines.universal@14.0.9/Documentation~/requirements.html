@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Requirements and compatibility | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Requirements and compatibility | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/requirements.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="requirements-and-compatibility">Requirements and compatibility</h1>
+
+<p>This page contains information on system requirements and compatibility of this package.</p>
+<h2 id="unity-editor-compatibility">Unity Editor compatibility</h2>
+<p>The following table shows the compatibility of URP package versions with different Unity Editor versions.</p>
+<table>
+<thead>
+<tr>
+<th>Package version</th>
+<th>Minimum Unity version</th>
+<th>Maximum Unity version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>16.0.x</td>
+<td>2023.2</td>
+<td>2023.x</td>
+</tr>
+<tr>
+<td>15.0.x</td>
+<td>2023.1</td>
+<td>2023.1</td>
+</tr>
+<tr>
+<td>14.0.x</td>
+<td>2022.2</td>
+<td>2022.x</td>
+</tr>
+<tr>
+<td>13.x.x</td>
+<td>2022.1</td>
+<td>2022.1</td>
+</tr>
+<tr>
+<td>12.0.x</td>
+<td>2021.2</td>
+<td>2021.3</td>
+</tr>
+<tr>
+<td>11.0.0</td>
+<td>2021.1</td>
+<td>2021.1</td>
+</tr>
+<tr>
+<td>10.x</td>
+<td>2020.2</td>
+<td>2020.3</td>
+</tr>
+<tr>
+<td>9.x-preview</td>
+<td>2020.1</td>
+<td>2020.2</td>
+</tr>
+<tr>
+<td>8.x</td>
+<td>2020.1</td>
+<td>2020.1</td>
+</tr>
+<tr>
+<td>7.x</td>
+<td>2019.3</td>
+<td>2019.4</td>
+</tr>
+</tbody>
+</table>
+<p>Since the release of Unity 2021.1, graphics packages are <a href="https://docs.unity3d.com/2021.2/Documentation/Manual/pack-core.html">core Unity packages</a>.</p>
+<p>For each release of Unity (alpha, beta, patch release), the main Unity installer contains the up-to-date versions of the following graphics packages: SRP Core, URP, HDRP, Shader Graph, VFX Graph. Since the release of Unity 2021.1, the Package Manager shows only the major revisions of the graphics packages (version 11.0.0 for all Unity 2021.1.x releases, version 12.0.0 for all Unity 2021.2.x releases).</p>
+<p>You can install a different version of a graphics package from disk using the Package Manager, or by modifying the <code>manifest.json</code> file.</p>
+<h2 id="render-pipeline-compatibility">Render pipeline compatibility</h2>
+<p>Projects made using URP are not compatible with the High Definition Render Pipeline (HDRP) or the Built-in Render Pipeline. Before you start development, you must decide which render pipeline to use in your Project. For information on choosing a render pipeline, see the <a href="https://docs.unity3d.com/2019.3/Documentation/Manual/render-pipelines.html">Render Pipelines</a> section of the Unity Manual.</p>
+<h2 id="unity-player-system-requirements">Unity Player system requirements</h2>
+<p>This package does not add any extra platform-specific requirements. General system requirements for the Unity Player apply. For more information on Unity system requirements, see <a href="https://docs.unity3d.com/Manual/system-requirements.html">System requirements for Unity</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/requirements.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

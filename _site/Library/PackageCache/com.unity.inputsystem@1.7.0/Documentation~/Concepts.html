@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Input System Concepts | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Input System Concepts | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.inputsystem@1.7.0/Documentation~/Concepts.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="input-system-concepts">
+<h1 id="input-system-concepts">Input System Concepts</h1>
+
+<p>This page introduces the concepts that relate to working with the Input System.</p>
+<p>When you become familiar with these concepts, you will be able to understand the difference between the <a href="Workflows.html">workflows</a> available within the Input System, and choose which workflow best suits your project.</p>
+<h2 id="basic-concepts">Basic concepts</h2>
+<p>These basic concepts and terms refer to the steps in the sequence of events that occur when a user sends input to your game or app. The Input System provides features which implement these steps, or you can choose to implement some of them yourself.</p>
+<p><img src="Images/ConceptsOverview.svg" alt="image alt text"></p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="UserManagement.html"><strong>User</strong></a></td>
+<td>The person playing your game or using your app, by holding or touching the input device and providing input.</td>
+</tr>
+<tr>
+<td><a href="SupportedDevices.html"><strong>Input Device</strong></a></td>
+<td>Often referred to just as a &quot;<strong>device</strong>&quot; within the context of input. A physical piece of hardware, such as a keyboard, gamepad, mouse, or touchscreen which allows the user to send input into Unity.</td>
+</tr>
+<tr>
+<td><a href="Controls.html"><strong>Controls</strong></a></td>
+<td>The separate individual parts of an input device which each send input values into Unity. For example, a gamepad’s <strong>controls</strong> comprise multiple buttons, sticks and triggers, and a mouse’s controls include the two X and Y sensors on the underside, and the various buttons and scroll wheels on the top side.</td>
+</tr>
+<tr>
+<td><a href="Interactions.html"><strong>Interactions</strong></a></td>
+<td>These describe different ways of using the controls on a device. For example, pressing a button down, releasing a button, a long press, or a double tap. Interactions can be thought of as &quot;patterns of input&quot;. The Input System provides ways of identifying and responding to different types of interaction.</td>
+</tr>
+<tr>
+<td><a href="Actions.html"><strong>Actions</strong></a></td>
+<td>These are things a user can do in your game or app as a result of input, regardless of what device or control they use to perform it. Actions generally have conceptual names that you choose to suit your project, and should usually be verbs. For example &quot;Run&quot;, &quot;Jump&quot; &quot;Crouch&quot;, &quot;Use&quot;, &quot;Start&quot;, &quot;Quit&quot;. The Input System can help you manage and edit your actions, or you can implement them yourself.</td>
+</tr>
+<tr>
+<td><a href="ActionAssets.html"><strong>Action Asset</strong></a></td>
+<td>An asset type which allows you to define and configure groups of actions as a set. The Action Asset UI allows you to bind controls, group related actions into <a href="ActionAssets.html#editing-action-maps"><strong>Action Maps</strong></a>, and specify which controls belong to different <a href="ActionAssets.html#editing-control-schemes"><strong>Control Schemes</strong></a>.</td>
+</tr>
+<tr>
+<td><a href="Actions.html#creating-actions-by-embedding-them-in-monobehaviours"><strong>Embedded Actions</strong></a></td>
+<td>Actions defined directly as fields in your scripts (as opposed to in an Action Asset). These types of action are the same as those defined in an Action Asset, and their inspector UI allows you to bind controls. However, because they’re defined as individual fields in your script, you do not benefit from the Action Asset’s ability to group Actions together into Action Maps and Control Schemes.</td>
+</tr>
+<tr>
+<td><a href="ActionBindings.html"><strong>Binding</strong></a></td>
+<td>A connection defined between an <strong>Action</strong> and one or more <strong>Controls</strong>. For example, in a car racing game, pressing the right shoulder button on a controller might be bound to the action &quot;Change Gear Up&quot;. The <strong>Action Asset</strong> and <strong>Embedded Actions</strong> both provide a similar UI to create and edit bindings.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="extended-concepts">Extended concepts</h2>
+<p>These concepts relate to more advanced handling of input, and aren't necessary to understand straight away if you are implementing simple input, or learning about the system for the first time.</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="Processors.html"><strong>Processor</strong></a></td>
+<td>An operation that the Input System applies to an input value. For example, an &quot;invert&quot; Processor inverts a floating-point value.</td>
+</tr>
+<tr>
+<td><a href="Interactions.html#operation"><strong>Phase</strong></a></td>
+<td>The current state of an <a href="Interactions.html">Interaction</a>, for example, &quot;Started&quot;, &quot;Performed&quot;, or &quot;Canceled&quot;.</td>
+</tr>
+<tr>
+<td><a href="ActionBindings.html#control-schemes"><strong>Control Scheme</strong></a></td>
+<td>Allows you to define mappings of Bindings to different Control Schemes, and to switch your Action Maps between different Control Schemes to enable different subsets of Bindings for your Actions. Control Schemes can have associated Device types, so that the game can automatically enable them for <a href="UserManagement.html">users</a> when using that type of Device.</td>
+</tr>
+<tr>
+<td><a href="ActionAssets.html#editing-action-maps"><strong>Action Map</strong></a></td>
+<td>A named collection of Actions. You can simultaneously enable or disable all Actions in an action map, so it is useful to group Actions in Action Maps by the context in which they are relevant (for example: &quot;gameplay&quot;).</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.inputsystem@1.7.0/Documentation~/Concepts.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Set Attribute from Curve/Gradient | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Set Attribute from Curve/Gradient | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetAttributeFromCurve.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="set-attribute-from-curvegradient">Set Attribute from Curve/Gradient</h1>
+
+<p>Menu Path : <strong>Attribute &gt; Curve &gt; [Add/Set] &lt;Attribute&gt; &lt;Mode&gt;</strong></p>
+<p>The <strong>Set Attribute from Curve/Gradient</strong> Block is a generic Block that allows you to write values to an attribute, based on a sample from an <strong>Animation Curve</strong> or <strong>Gradient</strong>, using composition. This Block can use various sampling modes to do this. The sampling modes are:</p>
+<ul>
+<li><p><strong>Over Life</strong>: Calculates the relative age (Age/Lifetime ratio) of the particle and uses it to sample the curve/gradient to fetch the value.</p>
+</li>
+<li><p><strong>From Speed</strong>: Calculates the speed based on the length of the velocity attribute, and uses it to sample the curve/gradient.</p>
+</li>
+<li><p><strong>Random</strong>: and <strong>RandomUniformPerParticle</strong>: Calculates random values between 0 and 1 and uses them to sample the curves/gradients. This random method enables you to create a non-linear distribution organically.</p>
+</li>
+<li><p><strong>Custom</strong>: Exposes a float input port that you can use either with a property or Operators to sample the curve in a custom way.</p>
+</li>
+</ul>
+<h2 id="block-compatibility">Block compatibility</h2>
+<p>This Block is compatible with the following Contexts:</p>
+<ul>
+<li><a href="Context-Initialize.html">Initialize</a></li>
+<li><a href="Context-Update.html">Update</a></li>
+<li>Any output Context</li>
+</ul>
+<h2 id="block-settings">Block settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attribute</strong></td>
+<td>Attribute</td>
+<td><strong>(Inspector)</strong> Specifies the attribute to write to.</td>
+</tr>
+<tr>
+<td><strong>Composition</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how this Block composes the attribute. The options are:<br>• <strong>Set</strong>: Overwrites the position attribute with the new value.<br>• <strong>Add</strong>: Adds the new value to the position attribute value.<br>• <strong>Multiply</strong>: Multiplies the position attribute value by the new value.<br>• <strong>Blend</strong>: Interpolates between the position attribute value and the new value. You can specify the blend factor between 0 and 1.</td>
+</tr>
+<tr>
+<td><strong>Alpha Composition</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how this Block composes the alpha component of the color attribute. The options are:<br>• <strong>Set</strong>: Overwrites the alpha with the new value.<br>• <strong>Add</strong>: Adds the new value to the alpha value.<br>• <strong>Multiply</strong>: Multiplies the alpha value by the new value.<br>• <strong>Blend</strong>: Interpolates between the alpha value and the new value. You can specify the blend factor between 0 and 1.</td>
+</tr>
+<tr>
+<td><strong>Sample Mode</strong></td>
+<td>Enum</td>
+<td>Specifies how to calculate the value to sample the curve/gradient with. The options are:<br>• <strong>OverLife</strong>: Uses an age/lifetime attribute ratio. <br>• <strong>BySpeed</strong>: Calculates the speed of the particles and assigns the speed a value between 0 and 1 depending on a minimum and maximum speed range value.  <br>•  <strong>Random</strong>: Calculates a random number between 0 and 1 every time the Block executes. <br>•  <strong>RandomConstantPerParticle</strong>: Calculate a random number between 0 and 1. This random number is unique for each particle. <br>•  <strong>Custom</strong> uses a custom value you can specify via an input port.</td>
+</tr>
+<tr>
+<td><strong>Mode</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how the Block calculates the random values to compose to the attribute.<br>• <strong>PerComponent</strong>: Samples values for each component in a different curve, or a gradient for the color attribute.<br>• <strong>Uniform</strong>: Samples values for each component from a single, common AnimationCurve.<br>This setting is only visible if the <strong>Attribute</strong> you set is one with multiple components.</td>
+</tr>
+<tr>
+<td><strong>Channels</strong></td>
+<td>Enum</td>
+<td>Specifies which channels of the attribute this Block affects. This Block does not affect channels you do not include in this property.<br>This setting only appears if you set the <strong>Attribute</strong> to one with channels.</td>
+</tr>
+<tr>
+<td><strong>ColorMode</strong></td>
+<td>Enum</td>
+<td>Specifies which components of the color attribute this Block affects. The options are:<br>• <strong>Color</strong>: Affects just the particle's color.<br>• <strong>Alpha</strong>: Affects just the particle's alpha.<br>• <strong>Color And Alpha</strong>: Affects both the particle's color and its alpha.<br>This setting is only visible if you set <strong>Attribute</strong> to <strong>color</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="block-properties">Block properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><attribute>[_x/y/z]</attribute></strong></td>
+<td>Depends on the attribute</td>
+<td>Provides the <strong>AnimationCurve(s)</strong> or <strong>Gradient</strong> the Block uses to sample the value.<br> If you set <strong>Mode</strong> to <strong>Uniform</strong>, this displays only a single curve with the name of the attribute.<br> If you set <strong>Mode</strong> to <strong>PerComponent</strong>, for all attributes except color, this displays an <strong>AnimationCurve</strong> port for each component.<br> If you set <strong>Mode</strong> to <strong>PerComponent</strong>, for the color attribute, this displays a gradient.</td>
+</tr>
+<tr>
+<td><strong>Speed Range</strong></td>
+<td>Vector2</td>
+<td>The minimum and maximum speed this Block uses to normalize particle speeds between. This process is essentially the same as <a href="https://docs.unity3d.com/ScriptReference/Mathf.InverseLerp.html">InverseLerp</a> where the minimum (<strong>x</strong>) is <strong>a</strong>, the maximum (<strong>y</strong>) is <strong>b</strong>, and the particle's speed is <strong>value</strong>.<br> This property only appears if you set <strong>Sample Mode</strong> to <strong>BySpeed</strong>.</td>
+</tr>
+<tr>
+<td><strong>Sample Time</strong></td>
+<td>float</td>
+<td>The value this Block uses to sample the curve(s)/gradient.<br>This property only appears if you set <strong>Sample Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Blend</strong></td>
+<td>float</td>
+<td>The blend percentage between the current value of the attribute and the newly calculated value.<br>This property only appears if you set <strong>Composition</strong> or <strong>Alpha Composition</strong> to <strong>Blend</strong>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetAttributeFromCurve.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

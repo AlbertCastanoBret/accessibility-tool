@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Render Type | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Render Type | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/camera-types-and-render-type.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="render-type">Render Type</h1>
+
+<p>There are two types of Camera in the Universal Render Pipeline (URP):</p>
+<ul>
+<li>A <a href="#base-camera">Base Camera</a> is a general purpose Camera that renders to a render target (a screen, or a <a href="https://docs.unity3d.com/Manual/class-RenderTexture.html">Render Texture</a>).</li>
+<li>An <a href="#overlay-camera">Overlay Camera</a> renders on top of another Camera's output. You can combine the output of a Base Camera with the output of one or more Overlay Cameras. This is called <a href="camera-stacking.html">Camera stacking</a>.</li>
+</ul>
+<p>Use a Camera’s <strong>Render Type</strong> property to make it a Base Camera or an Overlay Camera.</p>
+<p>To change the type of a Camera in the Unity Editor:</p>
+<ol>
+<li><p>Create or select a Camera in your Scene.</p>
+</li>
+<li><p>In the Camera Inspector, use the <strong>Render Type</strong> drop-down menu to select a different type of Camera. Select either:</p>
+<ul>
+<li><p><strong>Base</strong> to change the Camera to a Base Camera</p>
+</li>
+<li><p><strong>Overlay</strong> to change the Camera to an Overlay Camera</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><img src="Images/camera-inspector-render-type.png" alt="Render Type in the Camera component Inspector"></p>
+<p>You can change a Camera’s type in a script, by setting the <code>renderType</code> property of the Camera's <a href="xref:UnityEngine.Rendering.Universal.UniversalAdditionalCameraData">Universal Additional Camera Data</a> component, like this:</p>
+<pre><code>var cameraData = camera.GetUniversalAdditionalCameraData();
+cameraData.renderType = CameraRenderType.Base;
+</code></pre>
+<h2 id="base-camera">Base Camera</h2>
+<p>Base Camera is the default type of Camera in URP. A Base Camera is a general purpose Camera that renders to a given render target.</p>
+<p>To render anything in URP, you must have at least one Base Camera in your Scene. You can have multiple Base Cameras in a Scene. You can use a Base Camera on its own, or you can use it in a <a href="camera-stacking.html">Camera stack</a>. For more information on working with multiple Cameras in URP, see <a href="cameras-multiple.html">Working with multiple cameras</a>.</p>
+<p>When you have an active Base Camera in your Scene, this icon appears next to the Camera Gizmo in the Scene view:</p>
+<p><img src="Images/camera-icon-base.png" alt="Overlay Camera icon"></p>
+<p>For information on the properties that Unity exposes in the Inspector for a Base Camera, see the <a href="camera-component-reference.html">Camera component reference</a>.</p>
+<p><a name="overlay-camera"></a></p>
+<h2 id="overlay-camera">Overlay Camera</h2>
+<p>An Overlay Camera is a Camera that renders its view on top of another Camera's output. You can use Overlay Cameras to create effects such as 3D objects in a 2D UI, or a cockpit in a vehicle.</p>
+<p>You must use Overlay Cameras in conjunction with one or more Base Cameras using the <a href="camera-stacking.html">Camera Stacking</a> system. You cannot use Overlay Cameras on their own. An Overlay Camera that is not part of a Camera Stack does not perform any steps of its render loop, and is known as an orphan Camera.</p>
+<p><strong>Important note:</strong> In this version of URP, Overlay Cameras and Camera Stacking are supported only when using the Universal Renderer.</p>
+<p>When you have an active Overlay Camera in your Scene, this icon appears next to the Camera Gizmo in the Scene view:</p>
+<p><img src="Images/camera-icon-overlay.png" alt="Overlay Camera icon"></p>
+<p>The Base Camera in a Camera Stack determines most of the properties of the Camera Stack. Because you can only use Overlay Cameras in a Camera Stack, URP uses only the following properties of an Overlay Camera when rendering the Scene:</p>
+<ul>
+<li>Projection</li>
+<li>FOV Axis</li>
+<li>Field of View</li>
+<li>Physical Camera properties</li>
+<li>Clipping plans</li>
+<li>Renderer</li>
+<li>Clear Depth</li>
+<li>Render Shadows</li>
+<li>Culling Mask</li>
+<li>Occlusion Culling</li>
+</ul>
+<p>Unity hides all of the other unused properties in the Inspector. You can access unused properties using a script, but any changes you make to these unused properties will not affect the visual output of any Camera Stacks that use the Overlay Camera.</p>
+<p>You cannot apply post-processing to an individual Overlay Camera. You can apply post-processing to an individual Base Camera, or to a Camera Stack.</p>
+<p>For information on the properties that Unity exposes in the Inspector of an Overlay Camera, see the <a href="camera-component-reference.html">Camera component reference</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/camera-types-and-render-type.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

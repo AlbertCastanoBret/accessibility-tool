@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Noise Editor | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Noise Editor | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/noise-editor.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="noise-editor">Noise Editor</h1>
+
+<p>The <strong>Noise Editor</strong> allows you to author and manage Noise Settings Assets, which you can use in the <a href="sculpt-noise.html">Noise Height Tool</a> and <a href="brush-mask-filters-list.html#noise">Noise Brush Mask Filters</a>. You can also use the Noise Editor to generate procedural textures.</p>
+<p>To open the Noise Editor, select <strong>Window</strong> &gt; <strong>Terrain</strong> &gt; <strong>Edit Noise</strong> from the menu.</p>
+<p><img src="images/NoiseEditor_01.png" alt=""></p>
+<h2 id="parameters">Parameters</h2>
+<h3 id="noise-settings-asset">Noise Settings Asset</h3>
+<p>Use the <strong>Noise Settings Asset</strong> field to save and load curated Noise Settings assets. Note that there are two possible states:</p>
+<ol>
+<li>When there is no Noise Settings asset assigned, Unity uses an internal instance of a Noise Settings asset, which you can still modify through the UI. Two buttons appear: <strong>Reset</strong> and <strong>Save As</strong>.</li>
+<li>When there is a Noise Settings asset assigned, Unity copies the settings stored in that asset. When you modify the noise settings through the UI, Unity only applies those changes to the copy of the Noise Settings asset, not the original Noise Settings asset that is stored on disk. This prevents you from overwriting the original with unwanted changes as you tweak the values. Three buttons appear: <strong>Revert</strong>, <strong>Apply</strong>, and <strong>Save As</strong>.</li>
+</ol>
+<p>Below are descriptions for each of the buttons that might accompany the <strong>Noise Settings Asset</strong> field.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Reset</strong></td>
+<td>Resets the Noise Settings Asset to the default built-in settings.</td>
+</tr>
+<tr>
+<td><strong>Revert</strong></td>
+<td>Reverts the settings of the active Noise Settings Asset to the settings of the original reference that is stored on disk.</td>
+</tr>
+<tr>
+<td><strong>Apply</strong></td>
+<td>Writes the current settings to the assigned reference stored on disk.</td>
+</tr>
+<tr>
+<td><strong>Save As</strong></td>
+<td>Opens a dialog box that allows you to save the settings to a new Noise Settings Asset in your project’s <code>Assets</code> folder. Also assigns the newly-created Noise Settings Asset in the field.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="transform-settings">Transform Settings</h3>
+<p>The Transform Settings move the noise domain space in the order of <strong>Translate</strong>, <strong>Rotate</strong>, and <strong>Scale</strong>.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Translation</strong></td>
+<td>Moves the center space of the noise from one location to another. Unity applies this translation value to the input positions of the domain space that the noise uses to generate its output values. You can also perform this operation by clicking and dragging the <strong>Noise Field Preview</strong>.</td>
+</tr>
+<tr>
+<td><strong>Rotation</strong></td>
+<td>Rotates around the origin of the noise domain, which Unity uses the <strong>Translation</strong> value to determine. Unity applies this rotation value to the input positions of the domain space that the noise uses to generate its output values.</td>
+</tr>
+<tr>
+<td><strong>Scale</strong></td>
+<td>The size of the input domain space. Unity applies this scaling factor to the input positions of the domain space that the noise uses to generate its output values. You can also perform this operation by placing the cursor on the <strong>Noise Field Preview</strong> and moving the wheel button.</td>
+</tr>
+<tr>
+<td><strong>Flip Scale</strong></td>
+<td>Use these buttons to flip the scale of the noise on the X, Y, and Z axes relative to the center of the <strong>Noise Field Preview</strong>.<br><br>• <strong>X</strong>: Flips the patterns on the right side of the preview to the left, and flips those on the left side to the right.<br>• <strong>Y</strong>: Flips the patterns on the top of the preview to the bottom, and flips those on the bottom to the top.<br>• <strong>Z</strong>: There's no visible effect because the preview is a 2D slice of the noise domain. However, similar to a Camera's Z axis, you can think of it as flipping an infinite pattern that goes into and out of the preview.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="domain-settings">Domain Settings</h3>
+<p>The domain settings alter the controls for each noise type.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Noise Type</strong></td>
+<td>There are five noise patterns that you can select.<br>• <strong>Billow</strong> is similar to <strong>Perlin</strong> noise, but with more rounded features that resemble natural phenomena, such as treetops and hills.<br>• <strong>Perlin</strong> is a noise where the visual details are the same size. This is good for close-up mountain details.<br>• <strong>Ridge</strong> is billow noise filtered through an absolute function that is then inverted. This is good for ridges and deep valleys. <br>• <strong>Value</strong> is a noise that creates a lattice of points, which are assigned random values. The noise function then returns an interpolated number based on the values of the surrounding lattice points. This is good for close up mountain details.<br>• <strong>Voronoi</strong> is a Worley derivative noise that comes close to simulating textures of stone, water, or biological cells.</td>
+</tr>
+<tr>
+<td><strong>Fractal Type</strong></td>
+<td>There are three options that you can select.<br>• <strong>Fbm</strong>, which stands for fractal Brownian motion. This is good for mountainous shapes.<br>• <strong>Strata</strong> is an n-dimensional noise fed into one-dimensional Gradient noise. This is good for natural banding like in marble, tree rings, and terraces.<br>• <strong>None</strong> turns off all the noise modifier options, resulting in the raw output of the <strong>Noise Type</strong> function you select.</td>
+</tr>
+<tr>
+<td><strong>Strata Offset</strong></td>
+<td>This property only appears if you set the <strong>Fractal Type</strong> to <strong>Strata</strong>. Unity applies this vertical offset value to the strata.</td>
+</tr>
+<tr>
+<td><strong>Strata Scale</strong></td>
+<td>This property only appears if you set the <strong>Fractal Type</strong> to <strong>Strata</strong>. Unity applies this multiplier to the strata. Higher <strong>Strata Scale</strong> values produce more banding.</td>
+</tr>
+<tr>
+<td><strong>Octaves</strong></td>
+<td>The number of iterations of noise to layer together. Each octave is a layer of noise applied on top of the current accumulation of octaves, and each layer has different <strong>Amplitude</strong> and <strong>Frequency</strong> factors.<br><br>Generally, each subsequent octave is smaller in scale and magnitude than the previous octave. This adds finer and finer details to the combined noise signal at each octave.</td>
+</tr>
+<tr>
+<td><strong>Amplitude</strong></td>
+<td>The unmodified multiplier of the output of each octave of noise.</td>
+</tr>
+<tr>
+<td><strong>Persistence</strong></td>
+<td>The scaling factor to apply to the <strong>Amplitude</strong> at each octave.</td>
+</tr>
+<tr>
+<td><strong>Frequency</strong></td>
+<td>The feature size of the noise domain space at the first octave.</td>
+</tr>
+<tr>
+<td><strong>Lacunarity</strong></td>
+<td>The scaling factor to apply to the <strong>Frequency</strong> at each octave.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="warp-settings">Warp Settings</h3>
+<p>Warp Settings apply turbulence to the noise. Turbulence refers to the random and chaotic n-dimensional vorticity that Unity applies to the input positions of the noise domain space.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Iterations</strong></td>
+<td>The number of turbulence iterations to apply.</td>
+</tr>
+<tr>
+<td><strong>Strength</strong></td>
+<td>The magnitude of the turbulence.</td>
+</tr>
+<tr>
+<td><strong>Offset</strong></td>
+<td>The four-dimensional offset direction of the turbulence in the noise. Depending on the number of dimensions to the noise, Unity uses different combinations of the <strong>Offset</strong> vector components when applying the offset during domain output calculations.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="export-noise-to-texture">Export Noise to Texture</h3>
+<p>In the Noise Editor, <strong>Export Noise to Texture</strong> is located in the bottom left corner. It has options for exporting the noise to a Texture.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Texture Type</strong></td>
+<td>There are two available modes.<br>• <strong>Texture 2D</strong>: Writes to an image format such as <code>.png</code>.<br>• <strong>Texture 3D</strong>: Writes to an <code>.asset</code>, which Unity reads in as a 3D Texture.</td>
+</tr>
+<tr>
+<td><strong>Dimensions</strong></td>
+<td>Texture size, where <strong>X</strong> is width and <strong>Y</strong> is height. If you set the <strong>Export Mode</strong> to Texture3D, a third option for <strong>Z</strong> appears. This is the number of &quot;slices&quot; to use when Unity generates the 3D Texture.</td>
+</tr>
+<tr>
+<td><strong>Texture Format</strong></td>
+<td>A list of <a href="https://docs.unity3d.com/ScriptReference/Experimental.Rendering.GraphicsFormat.html">Graphics Formats</a> supported by Unity for 2D image export.</td>
+</tr>
+<tr>
+<td><strong>Export</strong></td>
+<td>Click this button to open a dialog box that lets you save the noise.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="noise-field-preview">Noise Field Preview</h3>
+<p>The <strong>Noise Field Preview</strong> is an interactive preview that shows the output of the current noise and fractal variant that you set using the Noise Settings.</p>
+<p>Depending on the noise and fractal variant, you might see different colors in the Noise Field Preview. Here are the different colors and their meanings.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Color</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Grayscale</strong></td>
+<td>Output values are within the 0-1 range, where black is 0 and white is 1.</td>
+</tr>
+<tr>
+<td><strong>Cyan</strong></td>
+<td>Output values are negative.</td>
+</tr>
+<tr>
+<td><strong>Black</strong></td>
+<td>Output values are 0.</td>
+</tr>
+<tr>
+<td><strong>White</strong></td>
+<td>Output values are 1.</td>
+</tr>
+<tr>
+<td><strong>Red</strong></td>
+<td>Output values are above 1. This helps you debug any normalization issues when exporting noise Textures. It's best to have exported values that are unsigned and normalized between the 0-1 range.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Controls</strong></p>
+<ul>
+<li><strong>Translation and Panning</strong>: Click on the preview to pan the noise field, and drag the cursor to modify the translation of the noise field.</li>
+<li><strong>Scale and Zoom</strong>: To modify the scale of the noise field, place the cursor on the preview, and scroll to zoom in or out.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/noise-editor.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

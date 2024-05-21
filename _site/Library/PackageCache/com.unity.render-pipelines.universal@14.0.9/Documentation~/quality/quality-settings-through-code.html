@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Control URP Quality settings through code | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Control URP Quality settings through code | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/quality/quality-settings-through-code.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="control-urp-quality-settings-through-code">Control URP Quality settings through code</h1>
+
+<p>Unity has several preset levels of <a href="https://docs.unity3d.com/Manual/class-QualitySettings.html">Quality settings</a> and you might add more to your project. To accommodate different hardware specifications, you can switch between these levels and the associated URP Asset from C# scripts. The following examples show how to use API to change Quality setting levels and the active URP Asset, and how to change specific settings in the URP Asset at runtime.</p>
+<p><strong>Note</strong>: You should only change Quality settings and URP Asset settings at runtime at points where performance is not essential, such as during loading screens or on static menus. This is because these changes cause a temporary but significant performance impact.</p>
+<h2 id="change-urp-asset-at-runtime">Change URP Asset at runtime</h2>
+<p>Each quality level uses a URP Asset to control many of the specific graphics settings. You can assigning different URP Assets to each quality level and switch between them at runtime.</p>
+<h3 id="configure-project-quality-settings">Configure Project Quality settings</h3>
+<p>To use Quality settings to switch between URP Assets, ensure that the quality levels of your project are configured to use different URP Assets. The URP 3D Sample scene has this configuration by default.</p>
+<ol>
+<li><p>Create a URP Asset for each quality level. To do this, right-click in the Project window and select <strong>Create</strong> &gt; <strong>Rendering</strong> &gt; <strong>URP Asset (with Universal Renderer)</strong>.</p>
+<blockquote>
+<p><strong>Note</strong>: These instructions are also valid for URP Assets that use the 2D Renderer.</p>
+</blockquote>
+</li>
+<li><p>Configure and name the new URP Assets as necessary.</p>
+</li>
+<li><p>Open the Quality section in the Project Settings (<strong>Edit</strong> &gt; <strong>Project Settings</strong> &gt; <strong>Quality</strong>).</p>
+</li>
+<li><p>Assign each URP Asset to a quality level. To do this, select a quality level from the Levels list, then go to <strong>Rendering</strong> &gt; <strong>Render Pipeline Asset</strong> and choose the URP Asset you created for this quality level. Do this for each quality level.</p>
+</li>
+</ol>
+<p>The quality levels of your project are now ready to be used to change between URP Assets at runtime.</p>
+<h3 id="change-quality-level">Change Quality Level</h3>
+<p>You can change the quality level Unity uses at runtime through the <a href="https://docs.unity3d.com/ScriptReference/QualitySettings.html">QualitySettings API</a>. With the quality levels setup as shown previously, this enables you to switch between URP Assets as well as Quality settings presets.</p>
+<p>In the following simple example, the C# script uses the system's total Graphics Memory to determine the appropriate quality level without any input from the user when they open the built project.</p>
+<ol>
+<li><p>Create a new C# script with the name QualityControls.</p>
+</li>
+<li><p>Open the QualityControls script and add the <code>SwitchQualityLevel</code> method to the <code>QualityControls</code> class.</p>
+<pre><code class="lang-C#">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class QualityControls : MonoBehaviour
+{
+    void Start()
+    {
+
+    }
+
+    private void SwitchQualityLevel()
+    {
+
+    }
+}
+</code></pre>
+</li>
+<li><p>Add a <code>switch</code> statement in the <code>SwitchQualityLevel</code> method to select the quality level with the <code>QualitySettings.SetQualityLevel()</code> method as shown below.</p>
+<blockquote>
+<p><strong>Note</strong>: Each Quality level has an index that matches the level's position in the list in the Quality section of the Project Settings window. The quality level at the top of the list has an index of 0. This index only counts quality levels which you specified as enabled for the target platform of any built version of your project.</p>
+</blockquote>
+<pre><code class="lang-C#">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class QualityControls : MonoBehaviour
+{
+    void Start()
+    {
+
+    }
+
+    private void SwitchQualityLevel()
+    {
+        // Select Quality settings level (URP Asset) based on the size of the device's graphics memory
+        switch (SystemInfo.graphicsMemorySize)
+        {
+            case &lt;= 2048:
+                QualitySettings.SetQualityLevel(1);
+                break;
+            case &lt;= 4096:
+                QualitySettings.SetQualityLevel(2);
+                break;
+            default:
+                QualitySettings.SetQualityLevel(0);
+                break;
+        }
+    }
+}
+</code></pre>
+</li>
+<li><p>Add a call to the <code>SwitchQualityLevel</code> method in the <code>Start</code> method. This ensures that the quality level only changes when the scene first loads.</p>
+<pre><code class="lang-C#">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class QualityControls : MonoBehaviour
+{
+    void Start()
+    {
+        SwitchQualityLevel();
+    }
+
+    private void SwitchQualityLevel()
+    {
+        // Select Quality settings level (URP Asset) based on the size of the device's graphics memory
+        switch (SystemInfo.graphicsMemorySize)
+        {
+            case &lt;= 2048:
+                QualitySettings.SetQualityLevel(1);
+                break;
+            case &lt;= 4096:
+                QualitySettings.SetQualityLevel(2);
+                break;
+            default:
+                QualitySettings.SetQualityLevel(0);
+                break;
+        }
+    }
+}
+</code></pre>
+</li>
+<li><p>Open the first scene that your built project loads on startup.</p>
+</li>
+<li><p>Create an empty GameObject and call it QualityController. To do this, right-click in the Hierarchy Window and select <strong>Create Empty</strong>.</p>
+</li>
+<li><p>Open the QualityController object in the Inspector.</p>
+</li>
+<li><p>Add the QualityControls script to the QualityController as a component.</p>
+</li>
+</ol>
+<p>Now when this scene loads, Unity runs the <code>SwitchQualityLevel</code> method in the QualityControls script which detects the system's total graphics memory and sets the quality level. The quality level sets the URP Asset as the active Render Pipeline Asset.</p>
+<p>You can create more complex systems and sequences of checks to determine which quality level to use, but the fundamental process remains the same. When the project starts, run a script which uses <a href="https://docs.unity3d.com/ScriptReference/QualitySettings.SetQualityLevel.html"><code>QualitySettings.SetQualityLevel</code></a> to select a quality level and through that select the URP Asset for the project to use at runtime.</p>
+<h2 id="change-urp-asset-settings">Change URP Asset settings</h2>
+<p>You can change some properties of the URP Asset at runtime with C# scripts. This can help fine tune performance on devices with hardware that doesn't perfectly match any of the quality levels in your project.</p>
+<blockquote>
+<p><strong>Note</strong>: To change a property of the URP Asset with a C# script, the property must have a <code>set</code> method. For more information on these properties see <a href="#accessible-properties">Accessible Properties</a>.</p>
+</blockquote>
+<p>The following example uses the QualityControls script and QualityController object from the <a href="#change-quality-level-through-code">Change Quality Level through code</a> section, and extends the functionality to locate the active URP Asset and change some of its properties to fit the performance level of the hardware.</p>
+<ol>
+<li><p>Open the QualityControls script.</p>
+</li>
+<li><p>At the top of the script add <code>using UnityEngine.Rendering</code> and <code>using UnityEngine.Rendering.Universal</code>.</p>
+</li>
+<li><p>Add a method with the name <code>ChangeAssetProperties</code> and the type <code>void</code> to the <code>QualityControls</code> class as shown below.</p>
+<pre><code class="lang-C#">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class QualityController : MonoBehaviour
+{
+    void Start()
+    {
+        // Select the appropriate Quality Level first
+        SwitchQualityLevel();
+    }
+
+    private void SwitchQualityLevel()
+    {
+        // Code from previous example
+    }
+
+    private void ChangeAssetProperties()
+    {
+        // New code is added to this method
+    }
+}
+</code></pre>
+</li>
+<li><p>Retrieve the active Render Pipeline Asset with <code>GraphicsSettings.currentRenderPipeline</code> as shown below.</p>
+<blockquote>
+<p><strong>Note</strong>: You must use the <code>as</code> keyword to cast the Render Pipeline Asset as the <code>UniversalRenderPipelineAsset</code> type for the script to work correctly.</p>
+</blockquote>
+<pre><code class="lang-C#">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class QualityController : MonoBehaviour
+{
+    void Start()
+    {
+        // Select the appropriate Quality Level first
+        SwitchQualityLevel();
+    }
+
+    private void SwitchQualityLevel()
+    {
+        // Code from previous example
+    }
+
+    private void ChangeAssetProperties()
+    {
+        // Locate the current URP Asset
+        UniversalRenderPipelineAsset data = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+
+        // Do nothing if Unity can't locate the URP Asset
+        if (!data) return;
+    }
+}
+</code></pre>
+</li>
+<li><p>Add a <code>switch</code> statement in the ChangeAssetProperties method to set the value of the URP Asset properties.</p>
+<pre><code class="lang-C#">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class QualityController : MonoBehaviour
+{
+    void Start()
+    {
+        // Select the appropriate Quality Level first
+        SwitchQualityLevel();
+    }
+
+    private void SwitchQualityLevel()
+    {
+        // Code from previous example
+    }
+
+    private void ChangeAssetProperties()
+    {
+        // Locate the current URP Asset
+        UniversalRenderPipelineAsset data = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+
+        // Do nothing if Unity can't locate the URP Asset
+        if (!data) return;
+
+        // Change URP Asset settings based on the size of the device's graphics memory
+        switch (SystemInfo.graphicsMemorySize)
+        {
+            case &lt;= 1024:
+                data.renderScale = 0.7f;
+                data.shadowDistance = 50.0f;
+                break;
+            case &lt;= 3072:
+                data.renderScale = 0.9f;
+                data.shadowDistance = 150.0f;
+                break;
+            default:
+                data.renderScale = 0.7f;
+                data.shadowDistance = 25.0f;
+                break;
+        }
+    }
+}
+</code></pre>
+</li>
+<li><p>Add a call to the <code>ChangeAssetProperties</code> method in the <code>Start</code> method. This ensures that the URP Asset only changes when the scene first loads.</p>
+<pre><code class="lang-C#">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class QualityController : MonoBehaviour
+{
+    void Start()
+    {
+        // Select the appropriate Quality Level first
+        SwitchQualityLevel();
+
+        // Fine tune performance with specific URP Asset properties
+        ChangeAssetProperties();
+    }
+
+    private void SwitchQualityLevel()
+    {
+        // Code from previous example
+    }
+
+    private void ChangeAssetProperties()
+    {
+        // Locate the current URP Asset
+        UniversalRenderPipelineAsset data = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+
+        // Do nothing if Unity can't locate the URP Asset
+        if (!data) return;
+
+        // Change URP Asset settings based on the size of the device's graphics memory
+        switch (SystemInfo.graphicsMemorySize)
+        {
+            case &lt;= 1024:
+                data.renderScale = 0.7f;
+                data.shadowDistance = 50.0f;
+                break;
+            case &lt;= 3072:
+                data.renderScale = 0.9f;
+                data.shadowDistance = 150.0f;
+                break;
+            default:
+                data.renderScale = 0.7f;
+                data.shadowDistance = 25.0f;
+                break;
+        }
+    }
+}
+</code></pre>
+</li>
+</ol>
+<p>Now when this scene loads, Unity detects the system's total graphics memory and sets the URP Asset properties accordingly.</p>
+<p>You can use this method of changing particular URP Asset properties in conjunction with changing quality levels to fine tune the performance of your project for different systems without the need to create a quality level for every target hardware configuration.</p>
+<h3 id="accessible-properties">Accessible Properties</h3>
+<p>You can access and change any properties of the URP Asset which have a <code>set</code> method through a C# script at runtime.</p>
+<p>The following properties of the URP Asset have a <code>set</code> method:</p>
+<ul>
+<li>cascadeBorder</li>
+<li>colorGradingLutSize</li>
+<li>colorGradingMode</li>
+<li>conservativeEnclosingSphere</li>
+<li>fsrOverrideSharpness</li>
+<li>fsrSharpness</li>
+<li>hdrColorBufferPrecision</li>
+<li>maxAdditionalLightsCount</li>
+<li>msaaSampleCount</li>
+<li>numIterationsEnclosingSphere</li>
+<li>renderScale</li>
+<li>shadowCascadeCount</li>
+<li>shadowDepthBias</li>
+<li>shadowDistance</li>
+<li>shadowNormalBias</li>
+<li>storeActionsOptimization</li>
+<li>supportsCameraDepthTexture</li>
+<li>supportsCameraOpaqueTexture</li>
+<li>supportsDynamicBatching</li>
+<li>supportsHDR</li>
+<li>upscalingFilter</li>
+<li>useAdaptivePerformance</li>
+<li>useSRPBatcher</li>
+</ul>
+<p>For more information on these properties, see <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@14.0/api/UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset.html#properties">Universal Render Pipeline Asset API</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/quality/quality-settings-through-code.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

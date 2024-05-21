@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Configure for better performance | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Configure for better performance | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/configure-for-better-performance.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="configure-for-better-performance">Configure for better performance</h1>
+
+<p>You can disable or change Universal Render Pipeline (URP) settings and features that have a large performance impact. This helps you get better performance for your project, especially on lower-end platforms.</p>
+<p>Depending on your project or the platforms you target, one or all of the following might have the biggest effect:</p>
+<ul>
+<li>Which rendering path you choose</li>
+<li>How much memory URP uses</li>
+<li>Processing time on the CPU</li>
+<li>Processing time on the GPU</li>
+</ul>
+<p>You can use the <a href="https://docs.unity3d.com/Manual/Profiler.html">Unity Profiler</a> or a GPU profiler such as <a href="https://docs.unity3d.com/Manual/RenderDocIntegration.html">RenderDoc</a> or <a href="https://docs.unity3d.com/Manual/XcodeFrameDebuggerIntegration.html">Xcode</a> to measure the effect of each setting on the performance of your project.</p>
+<p>You might not be able to disable some features if your project needs them.</p>
+<h2 id="choose-a-rendering-path">Choose a rendering path</h2>
+<p>Refer to <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@16.0/manual/urp-universal-renderer.html">Universal Renderer</a> for more information about the three rendering paths in URP, and the performance effects and limitations of each one.</p>
+<h2 id="reduce-how-much-memory-urp-uses">Reduce how much memory URP uses</h2>
+<p>You can do the following in the <a href="universalrp-asset.html">URP Asset</a>:</p>
+<ul>
+<li>Disable <strong>Depth Texture</strong> unless you need it (for example, if you use a shader that samples scene depth), so that URP doesn't store a depth texture unless it's needed.</li>
+<li>Disable <strong>Opaque Texture</strong>, so that URP doesn't store a snapshot of the opaques in a scene unless it needs to.</li>
+<li>If you use the Deferred rendering path, disable <strong>Use Rendering Layers</strong> so that URP doesn't create an extra render target.</li>
+<li>Disable <strong>High Dynamic Range (HDR)</strong> if you don't need it, so that URP doesn't do HDR calculations. If you need HDR, set <strong>HDR Precision</strong> to <strong>32 Bit</strong>.</li>
+<li>Reduce <strong>Main Light &gt; Shadow Resolution</strong>, to lower the resolution of the shadow map for the main light.</li>
+<li>If you use additional lights, reduce <strong>Additional Lights &gt; Shadow Atlas Resolution</strong>, to lower the resolution of the shadow map for additional lights.</li>
+<li>Disable <strong>Light Cookies</strong> if you don't need them, or reduce <strong>Cookie Atlas Resolution</strong> and <strong>Cookie Atlas Format</strong>.</li>
+<li>On lower-end mobile platforms, set <strong>Store Actions</strong> to <strong>Auto</strong> or <strong>Discard</strong>, so that URP doesn't use memory bandwidth to copy the render targets from each pass into and out of memory.</li>
+</ul>
+<p>In the <a href="urp-universal-renderer.html">Universal Renderer asset</a>, you can set <strong>Intermediate Texture</strong> to <strong>Auto</strong>, so that Unity only renders using an intermediate texture when necessary. This might also reduce how much GPU memory bandwidth URP uses. Use the <a href="https://docs.unity3d.com/Manual/frame-debugger-window.html">Frame Debugger</a> to check if URP removes the intermediate texture when you change this setting.</p>
+<p>You can also do the following:</p>
+<ul>
+<li>Minimize the use of the Decal Renderer Feature, because URP creates an additional render pass to render decals. This also reduces processing time on the CPU and GPU. Refer to <a href="renderer-feature-decal.html">Decal Renderer Feature</a> for more information.</li>
+<li><a href="shader-stripping.html">Strip shader variants</a> for features you don't use.</li>
+</ul>
+<h2 id="reduce-processing-time-on-the-cpu">Reduce processing time on the CPU</h2>
+<p>You can do the following in the URP Asset:</p>
+<ul>
+<li>Set <strong>Volume Update Mode</strong> to <strong>Via Scripting</strong>, so that URP doesn't update volumes every frame. You need to update volumes manually using an API such as <a href="xref:UnityEngine.Rendering.Universal.CameraExtensions.UpdateVolumeStack(UnityEngine.Camera)">UpdateVolumeStack</a>.</li>
+<li>On lower-end mobile platforms, if you use <a href="lighting/reflection-probes.html">Reflection Probes</a>, disable <strong>Probe Blending</strong> and <strong>Box Projection</strong>.</li>
+<li>In the <strong>Shadows</strong> section, reduce <strong>Max Distance</strong> so that URP processes fewer objects in the shadow pass. This also reduces processing time on the GPU.</li>
+<li>In the <strong>Shadows</strong> section, reduce <strong>Cascade Count</strong> to reduce the number of render passes. This also reduces processing time on the GPU.</li>
+<li>In the <strong>Additional Lights</strong> section, disable <strong>Cast Shadows</strong>. This also reduces processing time on the GPU and how much memory URP uses.</li>
+</ul>
+<p>Each camera in the Scene requires resources for URP culling and rendering. To optimize URP for better performance, minimize the number of cameras you use. This also reduces processing time on the GPU.</p>
+<h2 id="reduce-processing-time-on-the-gpu">Reduce processing time on the GPU</h2>
+<p>You can do the following in the URP Asset:</p>
+<ul>
+<li>Reduce or disable <strong>Anti-aliasing (MSAA)</strong>, so that URP doesn't use memory bandwidth to copy frame buffer attachments into and out of memory. This also reduces how much memory URP uses.</li>
+<li>Disable <strong>Terrain Holes</strong>.</li>
+<li>Enable <strong>SRP Batcher</strong>, so that URP reduces the GPU setup between draw calls and makes material data persistent in GPU memory. Check your shaders are compatible with the <a href="https://docs.unity3d.com/Manual/SRPBatcher.html">SRP Batcher</a> first. This also reduces processing time on the CPU.</li>
+<li>On lower-end mobile platforms, disable <strong>LOD Cross Fade</strong>, so that URP doesn't use alpha testing to fade level of detail (LOD) meshes in and out.</li>
+<li>Set <strong>Additional Lights</strong> to <strong>Disabled</strong>, or <strong>Per Vertex</strong> if you use the Forward rendering path. This reduces the work URP does to calculate lighting. This also reduces processing time on the CPU if you set to <strong>Disabled</strong>.</li>
+<li>Disable <strong>Soft Shadows</strong>, or enable <strong>Soft Shadows</strong> but reduce <strong>Quality</strong>.</li>
+</ul>
+<p>You can do the following in the Universal Renderer asset:</p>
+<ul>
+<li>Enable <strong>Native RenderPass</strong> if you use Vulkan, Metal or DirectX 12 graphics APIs, so that URP automatically reduces how often it copies render textures into and out of memory. This also reduces how much memory URP uses.</li>
+<li>If you use the Forward or Forward+ rendering path, set <strong>Depth Priming Mode</strong> to <strong>Auto</strong> or <strong>Forced</strong> for PC and console platforms, or <strong>Disabled</strong> for mobile platforms. On PC and console platforms, this makes URP create and use depth textures to avoid running pixel shaders on obscured pixels.</li>
+<li>Set <strong>Depth Texture Mode</strong> to <strong>After Transparents</strong>, so that URP avoids switching render targets between the opaque pass and the transparent pass.</li>
+</ul>
+<p>You can also do the following:</p>
+<ul>
+<li>Avoid use of the <a href="shader-complex-lit.html">Complex Lit shader</a>, which has complex lighting calculations. If you use the Complex Lit shader, disable <strong>Clear Coat</strong>.</li>
+<li>On lower-end mobile platforms, use the <a href="baked-lit-shader.html">Baked Lit shader</a> for static objects and the <a href="simple-lit-shader.html">Simple Lit shader</a> for dynamic objects.</li>
+<li>If you use Screen Space Ambient Occlusion (SSAO), refer to <a href="post-processing-ssao.html">Ambient Occlusion</a> for more information about settings that have a large performance impact.</li>
+</ul>
+<h2 id="additional-resources">Additional resources</h2>
+<ul>
+<li><a href="understand-performance.html">Understand performance in URP</a></li>
+<li><a href="optimize-for-better-performance.html">Optimize for better performance</a></li>
+<li><a href="https://resources.unity.com/games/introduction-universal-render-pipeline-for-advanced-unity-creators">Introduction to the Universal Render Pipeline for advanced Unity creators</a></li>
+<li><a href="https://unity.com/how-to/performance-optimization-high-end-graphics">Performance optimization for high-end graphics on PC and console</a></li>
+<li><a href="https://www.youtube.com/watch?v=YOtDVv5-0A4">Making Alba: How to build a performant open-world game</a></li>
+<li><a href="integration-with-post-processing.html">Post-processing in URP for mobile devices</a>.</li>
+<li><a href="https://unity.com/how-to/advanced/optimize-lighting-mobile-games">Optimizing lighting for a healthy frame rate</a></li>
+</ul>
+<p>Refer to the following for more information on the settings:</p>
+<ul>
+<li><a href="rendering/deferred-rendering-path.html">Deferred Rendering Path in URP</a></li>
+<li><a href="rendering/forward-plus-rendering-path.html">Forward+ Rendering Path</a></li>
+<li><a href="universalrp-asset.html">Universal Render Pipeline Asset</a></li>
+<li><a href="urp-universal-renderer.html">Universal Renderer</a></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/configure-for-better-performance.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

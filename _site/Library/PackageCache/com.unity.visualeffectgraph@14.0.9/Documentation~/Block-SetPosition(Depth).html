@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Set Position (Depth) | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Set Position (Depth) | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetPosition(Depth).md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="set-position-depth">Set Position (Depth)</h1>
+
+<p>Menu Path : <strong>Position &gt; Set Position (Depth)</strong></p>
+<p>The <strong>Set Position (Depth)</strong> Block calculates a position based on a Camera and its depth buffer then stores the position to the <a href="Reference-Attributes.html">position attribute</a>.</p>
+<p>To calculate the position, this Block first determines the position in screen space, based on different modes (<strong>Random</strong>, <strong>Sequential</strong>, or a <strong>Custom</strong> provided value), then uses the depth buffer and the Camera's properties to convert the position into world space.</p>
+<p>You can either use the first <a href="https://docs.unity3d.com/ScriptReference/Camera-main.html">main Camera</a> in the Scene or provide your own Camera.</p>
+<p>To provide your own Camera, create a new Camera property in the <a href="Blackboard.html">Blackboard</a> and expose it. Then use an <a href="PropertyBinders.html">HDRP Camera Property Binder</a>.</p>
+<p>Optionally, this Block can use the calculated screen-space position to sample the color of a pixel in the last color buffer and transfer the result to the color attribute. The last color buffer is the one prior to the post-process pass, available during rendering. This can either be pre-refraction or distortion depending on the camera’s <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html?subfolder=/manual/Frame-Settings.html">Frame Settings</a>.</p>
+<p>Culling options allow you to set the alive attribute to true or false depending on the selected mode. You can use this to kill particles that are on the far plane or outside a specific depth range.</p>
+<p><strong>Important:</strong> For this Block to calculate positions, the specified Camera must be enabled and the Game view must be visible.</p>
+<p><img src="Images/Block-SetPosition(Depth)Main.gif" alt=""></p>
+<h2 id="block-compatibility">Block compatibility</h2>
+<p>This Block is compatible with the following Contexts:</p>
+<ul>
+<li><a href="Context-Initialize.html">Initialize</a></li>
+</ul>
+<h2 id="block-settings">Block settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Camera</strong></td>
+<td>Enum</td>
+<td>The method to decide which Camera to use to calculate depth collision. The options are:<br>• <strong>Main</strong>: Uses the main Camera in the Scene. This requires a Camera in the Scene to have the <strong>MainCamera</strong> tag.<br>• <strong>Custom</strong>: Allows you to specify a particular Camera to use.</td>
+</tr>
+<tr>
+<td><strong>Mode</strong></td>
+<td>Enum</td>
+<td>The method this Block uses to distribute sample points across the screen. The options are:<br>• <strong>Random</strong>: Calculates a random position on screen and determines the world-space position based on the Camera's properties.<br>• <strong>Sequential</strong>: Calculates a sequential position on screen (rows then columns) and determines the world-space position based on the Camera's properties.<br>• <strong>Custom</strong>: Determines the world-space position of a screen-space coordinate you specify.</td>
+</tr>
+<tr>
+<td><strong>Cull Mode</strong></td>
+<td>Enum</td>
+<td>The method this Block uses to cull positions. The options are:<br>• <strong>None</strong>: Does not cull any positions.<br>• <strong>Far Plane</strong>: Culls positions that would be on the far plane of the camera.<br>• <strong>Range</strong>: Culls positions that are outside a range you specify.</td>
+</tr>
+<tr>
+<td><strong>Inherit Scene Color</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Specifies whether the color attribute inherits the Scene color at the calculated position.</td>
+</tr>
+<tr>
+<td><strong>Composition Position</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how this Block composes the position attribute. The options are:<br>• <strong>Set</strong>: Overwrites the position attribute with the new value.<br>• <strong>Add</strong>: Adds the new value to the position attribute value.<br>• <strong>Multiply</strong>: Multiplies the position attribute value by the new value.<br>• <strong>Blend</strong>: Interpolates between the position attribute value and the new value. You can specify the blend factor between 0 and 1.</td>
+</tr>
+<tr>
+<td><strong>Composition Color</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how this Block composes the color attribute. The options are:<br>• <strong>Set</strong>: Overwrites the color attribute with the new value.<br>• <strong>Add</strong>: Adds the new value to the color attribute value.<br>• <strong>Multiply</strong>: Multiplies the color attribute value by the new value.<br>• <strong>Blend</strong>: Interpolates between the color attribute value and the new value. You can specify the blend factor between 0 and 1.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="block-properties">Block properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Camera</strong></td>
+<td>Camera</td>
+<td>The Camera to use to calculate the positions. This Block uses the depth buffer from this Camera to calculate the particle positions. <br>This property only appears if you set <strong>Camera</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Z Multiplier</strong></td>
+<td>float</td>
+<td>A multiplier to apply to the particles so they appear closer or further from their depth.</td>
+</tr>
+<tr>
+<td><strong>UV Spawn</strong></td>
+<td>Vector2</td>
+<td>The normalized screen-space position (0..1 range) to sample the depth and calculate the position. <br>This property only appears if you set <strong>Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Depth Range</strong></td>
+<td>Vector2</td>
+<td>Specifies the depth range to spawn particles in. Particles whose position is outside this depth range have their <strong>alive</strong> attribute set to false.<br>This property only appears if you set <strong>Cull Mode</strong> to <strong>Range</strong>.</td>
+</tr>
+<tr>
+<td><strong>Blend Position</strong></td>
+<td>float</td>
+<td>The blend percentage between the current position attribute value and the newly calculated position value.<br>This property only appears if you set <strong>Composition Position</strong> to <strong>Blend</strong>.</td>
+</tr>
+<tr>
+<td><strong>Blend Color</strong></td>
+<td>float</td>
+<td>The blend percentage between the current direction attribute value and the newly calculated direction value.<br>This property only appears if you set <strong>Composition Direction</strong> to <strong>Blend</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<p><strong>Compatibility :</strong> This Block is currently only compatible with the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html">High Definition Render Pipeline</a>, with any graphics API, except metal.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetPosition(Depth).md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Using Cinemachine | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Using Cinemachine | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineUsing.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="using-cinemachine">Using Cinemachine</h1>
+
+<p>Using Cinemachine requires a new way of thinking about working with cameras. For example, you might have invested heavily in carefully scripted camera behaviors. However, Cinemachine can give the same results, if not better, in less time.</p>
+<h2 id="virtual-cameras">Virtual Cameras</h2>
+<p>Cinemachine does not create new cameras. Instead, it directs a single Unity camera for multiple shots. You compose these shots with <strong>Virtual Cameras</strong>. Virtual Cameras move and rotate the Unity camera and control its settings.</p>
+<p>The Virtual Cameras are separate GameObjects from the Unity Camera, and behave independently. They are not nested within each other. For example, a Scene might look like this:</p>
+<p><img src="images/CinemachineSceneHierarchy.png" alt="A Scene containing a Unity camera with Cinemachine Brain (blue) and multiple Virtual Cameras (red)"></p>
+<p>The main tasks that the Virtual Camera does for you:</p>
+<ul>
+<li>Positions the Unity camera in the Scene.</li>
+<li>Aims the Unity camera at something.</li>
+<li>Adds procedural noise to the Unity camera. Noise simulates things like handheld effects or vehicle shakes.</li>
+</ul>
+<p>Cinemachine encourages you to create many Virtual Cameras. The Virtual Camera is designed to consume little processing power. If your Scene is performance-sensitive, deactivate all but the essential Virtual Cameras at any given moment for best performance.</p>
+<p>It is recommended that you use a single Virtual Camera for a single shot. Take advantage of this to create dramatic or subtle cuts or blends. Examples:</p>
+<ul>
+<li><p>For a cutscene where two characters exchange dialog, use three Virtual Cameras: one camera for a mid-shot of both characters, and separate Virtual Cameras for a close-up of each character. Use Timeline to synchronize audio with the Virtual Cameras.</p>
+</li>
+<li><p>Duplicate an existing Virtual Camera so that both Virtual Cameras are in the same position in the Scene. For the second Virtual Camera, change the FOV or composition. When a player enters a trigger volume, Cinemachine blends from the first to the second Virtual Camera to emphasize a change in action.</p>
+</li>
+</ul>
+<p>One Virtual Camera has control of the Unity camera at any point in time. This is the <strong>live</strong> Virtual Camera. The exception to this rule is when a blend occurs from one Virtual Camera to the next. During the blend, both Virtual Cameras are live.</p>
+<h2 id="cinemachine-brain">Cinemachine Brain</h2>
+<p>The Cinemachine Brain is a component in the Unity Camera itself. The Cinemachine Brain monitors all active Virtual Cameras in the Scene. To specify the next live Virtual Camera, you <a href="https://docs.unity3d.com/Manual/DeactivatingGameObjects.html">activate or deactivate</a> the desired Virtual Camera's game object. Cinemachine Brain then chooses the most recently activated Virtual Camera with the same or higher priority as the live Virtual Camera.  It performs a cut or blend between the previous and new Virtual Cameras.</p>
+<p><strong>Tip</strong>: Use Cinemachine Brain to respond to dynamic game events in real time. It allows your game logic to control the camera by manipulating priorities. This is particularly useful for live gameplay, where action isn’t always predictable. Use <a href="CinemachineTimeline.html">Timeline</a> to choreograph cameras in predictable situations, like cutscenes. Timeline overrides the Cinemachine Brain priority system to give you precise, to-the-frame camera control.</p>
+<h2 id="moving-and-aiming">Moving and aiming</h2>
+<p>Use the <a href="CinemachineVirtualCameraBody.html"><strong>Body</strong> properties</a> in a Virtual Camera to specify how to move it in the Scene. Use the <a href="CinemachineVirtualCameraAim.html"><strong>Aim</strong> properties</a> to specify how to rotate it.</p>
+<p>A Virtual Camera has two targets:</p>
+<ul>
+<li>The <strong>Follow</strong> target specifies a GameObject for the Virtual Camera to move with.</li>
+<li>The <strong>Look At</strong> target specifies the GameObject to aim at.</li>
+</ul>
+<p>Cinemachine includes a variety of procedural algorithms to control moving and aiming. Each algorithm solves a specific problem, and has properties to customize the algorithm for your specific needs. Cinemachine implements these algorithms as <code>CinemachineComponent</code> objects. Use the <code>CinemachineComponent</code> class to implement a custom moving or aiming behavior.</p>
+<p>The <strong>Body</strong> properties offer the following procedural algorithms for moving the Virtual Camera in a Scene:</p>
+<ul>
+<li><strong>Transposer</strong>: Move in a fixed relationship to the <strong>Follow</strong> target, with optional damping.</li>
+<li><strong>Do Nothing</strong>: Do not move the Virtual Camera.</li>
+<li><strong>Framing Transposer</strong>: Move in a fixed screen-space relationship to the <strong>Follow</strong> target, with optional damping.</li>
+<li><strong>Orbital Transposer</strong>: Move in a variable relationship to the <strong>Follow</strong> target, optionally accepting player input.</li>
+<li><strong>Tracked Dolly</strong>: Move along a predefined path.</li>
+<li><strong>Hard Lock to Target</strong>: Use the same position at the <strong>Follow</strong> target.</li>
+</ul>
+<p>The <strong>Aim</strong> properties offer the following procedural algorithms for rotating a Virtual Camera to face the <strong>Look At</strong> target:</p>
+<ul>
+<li><strong>Composer</strong>: Keep the <strong>Look At</strong> target in the camera frame, with compositional constraints.</li>
+<li><strong>Group Composer</strong>: Keep multiple <strong>Look At</strong> targets in the camera frame.</li>
+<li><strong>Do Nothing</strong>: Do not rotate the Virtual Camera.</li>
+<li><strong>POV</strong>: Rotate the Virtual Camera based on the user’s input.</li>
+<li><strong>Same As Follow Target</strong>: Set the camera’s rotation to the rotation of the <strong>Follow</strong> target.</li>
+<li><strong>Hard Look At</strong>: Keep the <strong>Look At</strong> target in the center of the camera frame.</li>
+</ul>
+<h2 id="composing-a-shot">Composing a shot</h2>
+<p>The <a href="CinemachineBodyFramingTransposer.html"><strong>Framing Transposer</strong></a>, <a href="CinemachineAimComposer.html"><strong>Composer</strong></a>, and <a href="CinemachineAimGroupComposer.html"><strong>Group Composer</strong></a> algorithms define areas in the camera frame for you to compose a shot:</p>
+<ul>
+<li><p><strong>Dead zone</strong>: The area of the frame that Cinemachine keeps the target in.</p>
+</li>
+<li><p><strong>Soft zone</strong>: If the target enters this region of the frame, the camera will re-orient to put it back in the dead zone.  It will do this slowly or quickly, according to the time specified in the Damping settings.</p>
+</li>
+<li><p><strong>Screen</strong>: The screen position of the center of the dead zone.  0.5 is the center of the screen.</p>
+</li>
+<li><p><strong>Damping</strong>: Simulates the lag that a real camera operator introduces while operating a heavy physical camera. Damping specifies quickly or slowly the camera reacts when the target enters the <strong>soft zone</strong> while the camera tracks the target. Use small numbers to simulate a more responsive camera, rapidly moving or aiming the camera to keep the target in the <strong>dead zone</strong>. Larger numbers simulate heavier cameras, The larger the value, the more Cinemachine allows the target to enter the soft zone.</p>
+</li>
+</ul>
+<p>The <strong>Game Window Guides</strong> gives an interactive, visual indication of these areas. The guides appear as tinted areas in the <a href="https://docs.unity3d.com/Manual/GameView.html">Game view</a>.</p>
+<p><img src="images/CinemachineGameWindowGuides.png" alt="Game Window Guides gives a visual indication of the damping, screen, soft zone, and dead zone"></p>
+<p>The clear area indicates the <strong>dead zone</strong>. The blue-tinted area indicates the <strong>soft zone</strong>. The position of the soft and dead zones indicates the <strong>screen</strong> position. The red-tinted area indicates the <strong>no pass</strong> area, which the target never enters. The yellow square indicates the target.</p>
+<p>Adjust these areas to get a wide range of camera behaviors. To do this, drag their edges in the Game view or edit their properties in the Inspector window. For example, use larger damping values to simulate a larger, heavier camera, or enlarge the <strong>soft zone</strong> and <strong>dead zone</strong> to create an area in the middle of the camera frame that is immune to target motion. Use this feature for things like animation cycles, where you don’t want the camera to track the target if it moves just a little.</p>
+<h2 id="using-noise-to-simulate-camera-shake">Using noise to simulate camera shake</h2>
+<p>Real-world physical cameras are often heavy and cumbersome. They are hand-held by the camera operator or mounted on unstable objects like moving vehicles. Use <a href="CinemachineVirtualCameraNoise.html">Noise properties</a> to simulate these real-world qualities for cinematic effect. For example, you could add a camera shake when following a running character to immerse the player in the action.</p>
+<p>At each frame update, Cinemachine adds noise separately from the movement of the camera to follow a target. Noise does not influence the camera’s position in future frames. This separation ensures that properties like <strong>damping</strong> behave as expected.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineUsing.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

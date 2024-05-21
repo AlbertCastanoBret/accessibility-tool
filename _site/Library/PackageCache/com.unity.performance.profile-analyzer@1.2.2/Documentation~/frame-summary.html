@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Frame Summary | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Frame Summary | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.performance.profile-analyzer@1.2.2/Documentation~/frame-summary.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="frame-summary">Frame Summary</h1>
+
+<p>The Frame Summary pane displays a summary of the frame times for the range of data selected. This pane provides useful information about the frames in the data selection, including the maximum, minimum, upper and lower quartile, mean, and median timings.</p>
+<p><img src="images/frame-summary-pane.png" alt="Frame Summary"><br><em>The Frame Summary pane in Single view (left,) and Compare view (right)</em></p>
+<p>The Frame Summary pane is a good way for you to see at an overview what frames might be an outlier and how evenly distributed the timings are in the data set. For example, in the above screenshot, in the Compare view, while the median values are fairly similar, with little difference, the maximum frame value differs greatly, which suggests that the Right data set had more spikes in performance, that you could focus investigating further.</p>
+<h2 id="statistics">Statistics</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Statistic</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Frame Count</strong></td>
+<td>The number of frames selected in the <a href="frame-range-selection.html">Frame Control pane</a>.<br><br>In Compare view, the <strong>Left</strong> count corresponds to the first data set loaded into the Profile Analyzer, colored blue, and the <strong>Right</strong> count corresponds to the second data set loaded into the Profile Analyzer, colored orange. <br><br>The <strong>Diff</strong> count is the difference in frame count between the Right and Left values. When this number is negative, it indicates that the Left frame count is larger than the Right frame count. When the Diff is a positive number, it means that the Right frame count is larger than the Left frame count.</td>
+</tr>
+<tr>
+<td><strong>Start</strong></td>
+<td>The frame number that the data selection starts on. In Single view, you can click the button next to this number to jump to the relevant frame in the Profiler window.</td>
+</tr>
+<tr>
+<td><strong>End</strong></td>
+<td>The frame number that the data selection ends on. In Single view, you can click the button next to this number to jump to the relevant frame in the Profiler window.</td>
+</tr>
+<tr>
+<td><strong>Max</strong></td>
+<td>The largest (maximum) frame time in the data selection. In Compare view, the Diff column shows the difference between the Right and Left timings.</td>
+</tr>
+<tr>
+<td><strong>Upper Quartile</strong></td>
+<td>Displays the upper <a href="https://en.wikipedia.org/wiki/Quartile">quartile</a> of the data set. In Compare view, the Diff column shows the difference between the Right and Left timings.</td>
+</tr>
+<tr>
+<td><strong>Median</strong></td>
+<td>Displays the <a href="https://en.wikipedia.org/wiki/Median">median</a> value of the data set. In Compare view, the Diff column shows the difference between the Right and Left timings.</td>
+</tr>
+<tr>
+<td><strong>Mean</strong></td>
+<td>Displays the <a href="https://en.wikipedia.org/wiki/Arithmetic_mean">mean</a> value of the data set. In Compare view, the Diff column shows the difference between the Right and Left timings.</td>
+</tr>
+<tr>
+<td><strong>Lower Quartile</strong></td>
+<td>Displays the lower <a href="https://en.wikipedia.org/wiki/Quartile">quartile</a> of the data set. In Compare view, the Diff column shows the difference between the Right and Left timings.</td>
+</tr>
+<tr>
+<td><strong>Min</strong></td>
+<td>The smallest (minimum) frame time in the data selection. In Compare view, the Diff column shows the difference between the Right and Left timings.</td>
+</tr>
+</tbody>
+</table>
+<p>Underneath the statistics, the Profile Analyzer displays the timings as a histogram and box and whisker plot. For further information on the statistics available and how to analyze them, see the documentation on <a href="statistics.html">Statistics in the Profile Analyzer</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.performance.profile-analyzer@1.2.2/Documentation~/frame-summary.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

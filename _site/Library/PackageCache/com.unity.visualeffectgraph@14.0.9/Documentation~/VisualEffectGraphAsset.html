@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Visual Effect Graph Assets | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Visual Effect Graph Assets | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VisualEffectGraphAsset.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="visual-effect-graph-assets">Visual Effect Graph Assets</h1>
+
+<p>A Visual Effect Graph Asset is a data container that the Visual Effect Graph uses the play a visual effect. It includes:</p>
+<ul>
+<li>Graph elements</li>
+<li>Exposed properties</li>
+<li>Compiled Shaders</li>
+<li>Operator bytecode</li>
+</ul>
+<h2 id="creating-visual-effect-graph-assets">Creating Visual Effect Graph Assets</h2>
+<p>To create a Visual Effect Graph Asset, select <strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Visual Effects</strong> &gt; <strong>Visual Effect Graph</strong>. Unity creates a new Visual Effect in the currently opened folder of your Project window.</p>
+<h2 id="using-visual-effect-graph-assets">Using Visual Effect Graph Assets</h2>
+<p>To edit a Visual Effect Graph Asset, first open it in the <a href="VisualEffectGraphWindow.html">Visual Effect Graph window</a>. To do this, you can either:</p>
+<ul>
+<li>Double-click the Visual Effect Graph Asset in the Project window.</li>
+<li>Select the Visual Effect Graph Asset in the Project window to view it in the Inspector then, in the Asset's header, click the <strong>Open</strong> button.</li>
+<li>In the Inspector for a <a href="VisualEffectComponent.html#the-visual-effect-inspector">Visual Effect component</a>, click the <strong>Edit</strong> button next to the <strong>Asset Template</strong> property. This opens the assigned Visual Effect Graph Asset.</li>
+</ul>
+<p>With the Visual Effect Graph open, you can now edit the Visual Effect.</p>
+<h4 id="visual-effect-asset-inspector">Visual Effect Asset Inspector</h4>
+<p>When you select a Visual Effect Graph Asset, the Inspector displays Asset-wide configuration Options.</p>
+<table>
+<thead>
+<tr>
+<th>Property Name</th>
+<th>Description / Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fixed Delta Time</strong></td>
+<td>Indicates whether to update the visual effect at the rate that the <strong>Fixed Time Step</strong> property defines in the <a href="VisualEffectProjectSettings.html">Visual Effect Project Settings</a>.</td>
+</tr>
+<tr>
+<td><strong>Culling Flags</strong></td>
+<td>Sets whether Unity updates the visual effect depending on its culling state. The culling state refers to whether a Camera can see the visual effect's bounding box or not. The options are:<br>• <strong>Recompute bounds and simulate when visible</strong>: Unity simulates the effect and recalculates the effect's bounding box when the effect is visible. If your visual effect uses a dynamic bounding box (one that you compute with Operators), do not use this option and instead use one that includes <strong>Always Recompute Bounds</strong> .<br> • <strong>Always Recompute Bounds, simulate only when Visible</strong>: Regardless of whether any Camera can see the effect's bounding box or not, Unity always recalculates the bounding box. Unity only simulates the effect if a Camera can see the updated bounds.<br>• <strong>Always Recompute Bounds and Simulate</strong>:  Regardless of whether any Camera can see the effect's bounding box or not, Unity always recalculates the bounding box and simulates the effect.<br><br><strong>Note</strong>: Regardless of the mode, Unity always uses the bounding box to perform culling of the effect.</td>
+</tr>
+<tr>
+<td><strong>Exact Fixed Time</strong></td>
+<td>Indicates whether to update the visual effect multiple times per frame if the frame time is longer than the <strong>Fixed Time Step</strong>. For example, if a frame takes 10ms and <strong>Fixed Time Step</strong> is 5 ms, the effect updates twice with a 5ms deltaTime instead of once with a 10ms deltaTime. This is a resource intensive operation so only use it in high-end scenarios.<br>This property is only relevant if you enable <strong>Fixed Delta Time</strong>.</td>
+</tr>
+<tr>
+<td><strong>Ignore Time Scale</strong></td>
+<td>Indicates whether to ignore the <a href="https://docs.unity3d.com/ScriptReference/Time-timeScale.html">timeScale</a> when Unity simulates the effect. Enable this property if you want the visual effect to play at normal speed when the time scale is not equal to <code>1</code>.</td>
+</tr>
+<tr>
+<td><strong>PreWarm Total Time</strong></td>
+<td>Sets the duration, in seconds, that Unity simulates the effect for when <code>Reset()</code> occurs. This pre-simulates the effect so that, when the effect starts, it appears already 'built-up'. When you change this value, Unity calculates a new value for <strong>PreWarm Delta Time</strong>.</td>
+</tr>
+<tr>
+<td><strong>PreWarm Step Count</strong></td>
+<td>Sets the number of simulation steps that Unity uses to calculate the PreWarm. A greater number of steps increase precision as well as the resource intensity of the effect, which decreases performance. When you change this value, Unity calculates a new value for <strong>PreWarm Delta Time</strong>.</td>
+</tr>
+<tr>
+<td><strong>PreWarm Delta Time</strong></td>
+<td>Sets the delta time, in seconds, that Unity uses for the PreWarm. When you change this value, Unity  calculates new values for <strong>PreWarm Total Time</strong> and <strong>PreWarm Step Count</strong>. Adjust this value, instead of <strong>PreWarm Total Time</strong> and <strong>PreWarm Step Count</strong> individually, if you need to use a precise delta time for your simulation.</td>
+</tr>
+<tr>
+<td><strong>Initial Event Name</strong></td>
+<td>Sets the name of the <a href="Events.html">Event</a> that Unity sends when the effect enables. The default value is <strong>OnPlay</strong>, but you can change this to another name, or even a blank field, to make it so that every system does not spawn by default.</td>
+</tr>
+<tr>
+<td><strong>Output Render Order</strong></td>
+<td>Defines a list that shows every Output Context in their rendering order. You can re-order this list to change the order that Unity renders the Output Contexts. Unity draws items at the top of the list first then progressively draws those lower down the list in front of those above.</td>
+</tr>
+<tr>
+<td><strong>Shaders</strong></td>
+<td>Defines a list of every Shader that Unity has compiled for the Visual Effect Graph. These are read-only and mainly for debugging purposes. Use <strong>Shader Externalization</strong> in <a href="VisualEffectPreferences.html">Visual Effect Preferences</a> to externalize Shaders temporarily for debugging purposes.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VisualEffectGraphAsset.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

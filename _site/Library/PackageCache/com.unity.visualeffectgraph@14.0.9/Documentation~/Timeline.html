@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Visual Effects and Timeline | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Visual Effects and Timeline | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Timeline.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="visual-effects-and-timeline">Visual Effects and Timeline</h1>
+
+<p><img src="Images/VFX_Timeline_Window.png" alt=""></p>
+<p>Use Unity’s <a href="https://docs.unity3d.com/Packages/com.unity.timeline@latest/index.html?subfolder=/manual/index.html">Timeline</a> to control a Visual Effect Graph’s properties and <a href="#Events">Events</a>. To do this, add the following to a <a href="https://docs.unity3d.com/Packages/com.unity.timeline@latest/index.html?subfolder=/manual/wf_instance.html">Timeline instance</a>:</p>
+<ul>
+<li><a href="#vfx-control-track">Visual effect Control Track</a></li>
+<li><a href="#vfx-control-clip">Visual effect Control clip</a>.</li>
+</ul>
+<p><a name="vfx-control-track"></a></p>
+<h2 id="visual-effect-control-track">Visual Effect Control track</h2>
+<p>The Visual Effect Control track is a type of Timeline track that determines when Timeline can send <a href="Events.html">Events</a> and <a href="Events.html#event-attribute-payloads">Event Attribute Payloads</a>.</p>
+<p><img src="Images/VFX_Timeline_ControlTrack.png" alt=""></p>
+<p>To control a Visual Effect in a Control track, create a Visual Effect Control Track and add a Visual Effect to it:</p>
+<ol>
+<li>Open the Timeline Window (menu: <strong>Window</strong> &gt; <strong>Sequencing</strong> &gt; <strong>Timeline</strong>)</li>
+<li>Navigate to the Hierarchy window and select a Visual Effect GameObject</li>
+<li>In the Timeline window, select <strong>Create</strong>.</li>
+<li>Save your Timeline asset.</li>
+<li>Click the <strong>+</strong> button at the top-left of the Timeline window.</li>
+<li>Select <strong>Visual Effect</strong> <strong>Control Track.</strong></li>
+<li>Select the <img src="images/vfx-timeline-toggle.png" alt="img">icon and choose a Visual Effect Asset.</li>
+</ol>
+<p>You can also configure the attributes of an Event in an Event Attribute Payload in script with <a href="https://docs.unity3d.com/ScriptReference/VFX.VisualEffect.SendEvent.html">VFXEventAttribute</a>.</p>
+<h3 id="properties">Properties</h3>
+<p>When you select a Visual Effect Control track, the following property appears in the Inspector window:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reinit</td>
+<td>Controls when Unity resets the Visual Effect Control Track:<br>• <strong>On Binding Enable Or Disable:</strong> Resets the control track when you bind or unbind a Visual Effect in the Timeline. <strong>Reinit</strong> uses this setting by default. <br>• <strong>On Binding Enable:</strong> Resets the  control track when you bind a Visual Effect in the Timeline.<br> • <strong>On Binding Disable:</strong> Resets the  Visual Effect Control track when you unbind a Visual Effect in the Timeline.<br>• <strong>None:</strong> Unity doesn’t reset the Visual Effect Control track .</td>
+</tr>
+</tbody>
+</table>
+<p><a name="vfx-control-clip"></a></p>
+<h2 id="visual-effect-control-clip">Visual Effect Control clip</h2>
+<p>A control clip is a section of the Timeline track that controls the Visual Effect. You can use a control clip to scrub through a Visual Effect and to add clip events and single events. A Visual Effect Control clip exists inside a Visual Effect Control track.</p>
+<p><img src="Images/VFX_Timeline_ControlClip.png" alt=""></p>
+<p>To add a Visual Effect Control Clip:</p>
+<ol>
+<li>In the Clips view, right-click on an empty area within the Visual Effect Control track.</li>
+<li>Select <strong>Add Visual Effect Control Clip.</strong></li>
+<li>Select the clip to display its properties in the inspector.</li>
+</ol>
+<p>Each clip in a Visual Effect Control Track controls how that Visual Effect behaves in your scene. You can send Visual Effect events to the clip in the <strong>Clip Events</strong> and <strong>Single Events</strong> sections of the Inspector window.</p>
+<h3 id="properties-1">Properties</h3>
+<p>When you select a Visual Effect Control clip, the following properties appears in the Inspector window:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th></th>
+<th></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Scrubbing</td>
+<td></td>
+<td></td>
+<td>Use <strong>Scrubbing</strong> to synchronize an effect with other animated GameObjects in the Timeline instance.Enable this option to play the Visual Effect backwards and forwards when you drag the Timeline Playhead.<br> When you enable <strong>Scrubbing</strong>, <strong>Reinit</strong> defaults to <strong>On Enter And Exit Clip</strong>. This is because scrubbing can only control a Visual Effect that starts at the beginning of the Visual Effect Control clip.<br>Enable this property to use the <strong>Prewarm</strong> property. <br><br>Disable Scrubbing to:<br>• Expose the Enable PreWarm property when you set <strong>Reinit</strong> to <strong>On Enter or Exit</strong>.<br>• Send the Enter Event when the playhead enters the Visual Effect Control clip.</td>
+</tr>
+<tr>
+<td>Reinit</td>
+<td></td>
+<td></td>
+<td>Controls when Timeline initializes the Visual Effect:<br>• <strong>None:</strong> Timeline does not initialize the Visual Effect again.<br>• <strong>On Exit Clip:</strong> Timeline restarts the Visual Effect at the end of the Visual Effect Control clip.<br>• <strong>On Enter Clip:</strong> Timeline reinitializes the Visual Effect at the beginning of the Visual Effect Control clip. When <strong>Scrubbing</strong> is disabled, this mode exposes the Enable PreWarm property.<br>• <strong>On Enter or Exit:</strong> Timeline reinitializes the Visual Effect at the beginning  and end of the Visual Effect Control clip. Reinit uses this mode by default. When <strong>Scrubbing</strong> is disabled, this mode exposes the <strong>Enable PreWarm</strong> property.</td>
+</tr>
+<tr>
+<td>Start Seed</td>
+<td></td>
+<td></td>
+<td>This property represents the initial seed that Unity uses for its random number generator (see also <a href="https://docs.unity3d.com/ScriptReference/VFX.VisualEffect-startSeed.html"><code>VisualEffect.startSeed</code></a>).<br><br>When you enable <strong>Scrubbing</strong> or when the <strong>Reinit</strong> mode is set to <strong>On Enter Clip</strong>, the Visual Effect Control clip controls this property.</td>
+</tr>
+<tr>
+<td>Enable PreWarm</td>
+<td></td>
+<td></td>
+<td>Enable this property to start processing the Visual Effect before it appears.<br> When you set this property, it doesn’t affect the PreWarm settings in the Visual Effect Asset. This means you can have more than one animation clip that uses the same Visual Effect Asset with different PreWarm settings.<br><br>This property is only available when you enable <strong>Scrubbing</strong> or when you set the <strong>Reinit</strong> mode to <strong>On Enter Clip</strong> or <strong>On Enter or Exit.</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>PreWarm Total Time</td>
+<td></td>
+<td>Simulates the Visual Effect for a given amount of time before it starts. The value for this property is in seconds.   Set this value to recalculate <strong>PreWarm Delta Time</strong>.</td>
+</tr>
+<tr>
+<td></td>
+<td>PreWarm Step Count</td>
+<td></td>
+<td>Sets the number of simulation steps that Unity uses to calculate the PreWarm.<br>A higher number of steps makes the PreWarm more precise but it can impact performance. <br>When you change this value, Unity calculates a new value for <strong>PreWarm Delta Time</strong>.</td>
+</tr>
+<tr>
+<td></td>
+<td>PreWarm Delta Time</td>
+<td></td>
+<td>Sets the delta time, in seconds, that Unity uses for the PreWarm.<br>When you change this value, Unity  calculates new values for <strong>PreWarm Total Time</strong> and <strong>PreWarm Step Count</strong>. Adjust this value, instead of <strong>PreWarm Total Time</strong> and <strong>PreWarm Step Count</strong> individually, if you need to use a precise delta time for your simulation.</td>
+</tr>
+<tr>
+<td></td>
+<td>PreWarm Event Name</td>
+<td></td>
+<td>The name of the <a href="Events.html">Event</a> that Unity sends when the effect starts. You can customize this name, or leave it blank to make it so that every system does not spawn by default.<br><br>The default value is <strong>OnPlay.</strong></td>
+</tr>
+<tr>
+<td>Clip Events</td>
+<td></td>
+<td></td>
+<td>Select <strong>+</strong> to add a Visual Effect <a href="Events.html">Event</a> in the VisualEffect Control clip. A Clip Event has a start and an end.<br> When you disable scrubbing and the playhead enters the Visual Effect Control clip, it sends the <strong>Enter</strong> Event.</td>
+</tr>
+<tr>
+<td></td>
+<td>Enter</td>
+<td></td>
+<td>Unity starts the Visual Effect when the Timeline Playhead is at the beginning of the Clip Event.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Time</td>
+<td>The value Unity uses to determine when to play the Visual Effect within the clip. The unit changes depending on the <strong>Time Space</strong> mode you select.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Time Space</td>
+<td>• <strong>After Clip Start</strong>: Plays the Event after the beginning of the Visual Effect Control clip, plus the number of seconds you enter in the <strong>Time</strong> field.<strong><br>• Before Clip End</strong>: Plays the Event before the end of the Visual Effect Control clip, minus the number of seconds you enter in the <strong>Time</strong> field.<br>• <strong>Percentage</strong>: Plays the Event at a percentage of the total time of the Visual Effect Control clip. For example, a <strong>Time</strong> value of 0 indicates the start of the clip and a value of 100 indicates the end.<br>• <strong>Absolute</strong>:  Plays the Event at the second you specify in the <strong>Time</strong> property.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Name</td>
+<td>The name of the Clip Event. The default name of the Enter Clip Event is OnPlay. This name appears in the Visual Effect Control track.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Attributes</td>
+<td>Select <strong>+</strong> to add an attribute that Timeline sends with a corresponding Visual Effect Event.. For example, <a href="Operator-GetAttributePosition.html">position</a>, <a href="Operator-GetAttributeColor.html">color</a> or a <a href="Operator-GetCustomAttribute.html">custom attribute</a>.</td>
+</tr>
+<tr>
+<td></td>
+<td>Exit</td>
+<td></td>
+<td>Unity stops the Visual Effect when the Timeline Playhead reaches the end of the clip.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Time</td>
+<td>The value Unity uses to determine when to play the Visual Effect within the Clip. The unit changes depending on the <strong>Time Space</strong> mode you select.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Time Space</td>
+<td>• <strong>After Clip Start</strong>: Plays the event after the beginning of the Visual Effect Control clip.<br>• <strong>Before Clip End</strong>: Plays the event before the end of the Visual Effect Control clip.<br>• <strong>Percentage</strong>: Plays the event at a percentage of the total time of the Visual Effect Control clip. For example, a value of 0 indicates the start of the clip and 100 indicates the end.<br>• <strong>Absolute</strong>:  Plays the event at a specific second in the track.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Name</td>
+<td>The name of the Clip Event. The default name of the Exit Clip Event is OnStop. This name appears in the Visual Effect Control track.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Attributes</td>
+<td>Select <strong>+</strong> to add an attribute that Timeline sends with a corresponding Visual Effect Event. For example, <a href="Operator-GetAttributePosition.html">position</a>, <a href="Operator-GetAttributeColor.html">color</a> or a <a href="Operator-GetCustomAttribute.html">custom attribute</a>. Unity uses these attributes to create a <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXEventAttribute.html">VFXEventAttribute</a> which it sends with the single Event.</td>
+</tr>
+<tr>
+<td>Single Events</td>
+<td></td>
+<td></td>
+<td>Select <strong>+</strong> to add a single Visual Effect Event in the Visual Effect Control clip. A Single Event happens once. This is useful for a burst spawn system. When you disable <strong>Scrubbing</strong>, Single Events only play when the timeline is playing forward.</td>
+</tr>
+<tr>
+<td></td>
+<td>Editor Color</td>
+<td></td>
+<td>The color that indicates the Single Event in the Timeline Window.</td>
+</tr>
+<tr>
+<td></td>
+<td>Time</td>
+<td></td>
+<td>The value Unity uses to determine when to send the Single Event within the Visual Effect Control clip. The unit changes depending on the <strong>Time Space</strong> mode you select.</td>
+</tr>
+<tr>
+<td></td>
+<td>Time Space</td>
+<td></td>
+<td>• <strong>After Clip Start</strong>: Plays the Single Event after the beginning of the Visual Effect Control clip.<br>• <strong>Before Clip End</strong>: Plays the Single Event before the end of the Visual Effect Control clip.<br>• <strong>Percentage</strong>: Plays the Single Event at a percentage of the total time of the Visual Effect Control clip. For example, a value of 0 indicates the start of the clip and 100 indicates the end.<br>• <strong>Absolute</strong>:  Plays the single Event at a specific second in the track.</td>
+</tr>
+<tr>
+<td></td>
+<td>Name</td>
+<td></td>
+<td>The name of the Single Event. This name appears in the Visual Effect Control track.</td>
+</tr>
+<tr>
+<td></td>
+<td>Attributes</td>
+<td></td>
+<td>Select <strong>+</strong> to add an attribute that Timeline sends with a corresponding Visual Effect Event. For example, <a href="Operator-GetAttributePosition.html">position</a>, <a href="Operator-GetAttributeColor.html">color</a> or a <a href="Operator-GetCustomAttribute.html">custom attribute</a>. <br>Unity uses these attributes to create a <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXEventAttribute.html">VFXEventAttribute</a> which it sends with the single Event.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="animating-properties">Animating Properties</h2>
+<p>To animate the animatable properties of a Visual Effect graph in the Timeline and Animation window, assign an Animation Track to your Visual Effect GameObject. To animate a Visual Effect properties in the Timeline window:</p>
+<ol>
+<li>Create a <a href="#vfx-control-track">Visual Effect control track</a>.</li>
+<li>In the Timeline window, open the <strong>+</strong> drop down and select <strong>Animation Track.</strong></li>
+<li>Select the Animation Track’s <img src="images/vfx-timeline-toggle.png" alt="img">icon and choose a Visual Effect Asset that has an <a href="https://docs.unity3d.com/Manual/class-Animator.html">Animator component</a>.</li>
+</ol>
+<p>This binds the Visual Effect GameObject to an animation track and adds a <a href="https://docs.unity3d.com/Packages/com.unity.timeline@latest/index.html?subfolder=/manual/play_director.html">Playable Director</a> component in the Inspector window.</p>
+<h1 id="limitations">Limitations</h1>
+<ul>
+<li>Unity limits the amount of time you can skip when you enable <strong>Scrubbing</strong>. You can change this limit in <strong>Project Settings</strong> &gt; <strong>VFX</strong> &gt; <strong>Max Scrub Time</strong>. If you exceed this limit, Unity displays a warning.</li>
+<li>When you play a Visual Effect backwards in the Timeline in runtime, it causes a high peak in GPU use. This is because this implementation uses <a href="https://docs.unity3d.com/ScriptReference/VFX.VisualEffect.Simulate.html">Simulate</a>.</li>
+<li>When you enable scrubbing for more than one Timeline track that controls the same Visual Effect, Unity displays a warning in Scene view.</li>
+</ul>
+<h1 id="automatic-migration">Automatic Migration</h1>
+<p>When you upgrade to Unity version 2022.2.0a9 or newer Unity automatically migrates the Visual Effect integration in Timeline. To do this, it upgrades:</p>
+<ul>
+<li><strong>Visual Activation track</strong> to <strong>Visual Effect Control track</strong></li>
+<li><strong>Visual Activation clip</strong> to <strong>Visual Effect Control clip</strong></li>
+</ul>
+<p>To keep the same behavior and avoid any breaking changes, Unity automatically:</p>
+<ul>
+<li>Sets up a mirrored <strong>Visual Effect Control track</strong> with a <strong>Visual Effect Control clip.</strong></li>
+<li>Sets the mirrored <strong>Visual Effect Control track’s</strong> <strong>Reinit</strong> property to <strong>None.</strong></li>
+<li>Disables <strong>Scrubbing</strong> on the mirrored <strong>Visual Effect Control clip.</strong></li>
+<li>Copies the <strong>Name</strong> and <strong>Attributes</strong> property values into the <strong>Clip Events</strong> and <strong>Single Events.</strong></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Timeline.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

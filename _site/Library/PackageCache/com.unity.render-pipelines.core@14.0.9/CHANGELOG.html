@@ -1,0 +1,591 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Changelog | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Changelog | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.core@14.0.9/CHANGELOG.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="changelog">Changelog</h1>
+
+<p>All notable changes to this package will be documented in this file.</p>
+<p>The format is based on <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
+and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<h2 id="unreleased">[Unreleased]</h2>
+<p>Version Updated
+The version number for this package has increased due to a version update of a related graphics package.</p>
+<h2 id="1408---2023-09-27">[14.0.8] - 2023-09-27</h2>
+<p>This version is compatible with Unity 2022.3.11f1.</p>
+<h3 id="added">Added</h3>
+<ul>
+<li>Added callbacks when RenderPipeline is created or disposed.</li>
+<li>ObjectID Render Request that provides a render texture with the ObjectId of each pixel.</li>
+</ul>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>Fixed potentially broken rendering and errors after renaming a VolumeProfile asset.</li>
+<li>Fixed popup showing multiple time when trying to remove additional data while in multi selection..</li>
+<li>Removed some unexpected SRP changed callback invocations.</li>
+<li>Fixed Rendering Debugger runtime UI getting occluded by user UI with sorting order larger than 0.</li>
+<li>Fixed console errors when debug actions are removed from Input Manager during play mode.</li>
+<li>When building for Built-in, shaders from any SRP are completely stripped.</li>
+<li>Fixed occasional ArgumentOutOfRangeException in StaticLightingSky.</li>
+</ul>
+<h2 id="1407---2023-05-23">[14.0.7] - 2023-05-23</h2>
+<p>This version is compatible with Unity 2022.2.22f1.</p>
+<h3 id="fixed-1">Fixed</h3>
+<ul>
+<li>Fixed Decal Projector Editor fields so they are now saved when editing a prefab.</li>
+<li>Revert Property for animation curves on Volume Components</li>
+<li>Fixed an IES Importer issue producing incorrect results.</li>
+<li>Crash on keywords::LocalKeywordState::ResetWithSpace when shader contains Grab Pass.</li>
+<li>Fixed SRPs not being able to build using mode -nographics and -batchmode, since lens flare global texture prevents this from happening.</li>
+</ul>
+<h2 id="1406---2023-03-24">[14.0.6] - 2023-03-24</h2>
+<p>This version is compatible with Unity 2022.2.13f1.</p>
+<h3 id="fixed-2">Fixed</h3>
+<ul>
+<li>Fixed a Render Graph bug where culled passes would be delegated to releasing a resource, resulting in unwanted leaking.</li>
+</ul>
+<h2 id="1405---2022-12-12">[14.0.5] - 2022-12-12</h2>
+<p>This version is compatible with Unity 2022.2.4f1.</p>
+<h3 id="changed">Changed</h3>
+<ul>
+<li>Allow VolumeComponent BoolParameter UI to display enabled/disabled dropdown instead of checkboxes.</li>
+</ul>
+<h3 id="fixed-3">Fixed</h3>
+<ul>
+<li>Fixed Light Editor didn't apply changes to SerializedObject.</li>
+<li>Added Local mode to fit Probe Volumes to scene.</li>
+<li>Fixed recalculating of apv probe positions.</li>
+<li>Fixed virtual offset pushing probes outside of geometry.</li>
+</ul>
+<h2 id="1404---2022-11-04">[14.0.4] - 2022-11-04</h2>
+<p>This version is compatible with Unity 2022.2.2f1.</p>
+<h3 id="added-1">Added</h3>
+<ul>
+<li>Extension method to fetch the Render Pipeline assets from a BuildTarget.</li>
+<li>New XRSystem API to allow SRPs override the XR built-in stereo matrices.</li>
+</ul>
+<h3 id="changed-1">Changed</h3>
+<ul>
+<li>Improved performance of APV baking.</li>
+<li>Allow setting order for panels on the rendering debugger.</li>
+</ul>
+<h3 id="fixed-4">Fixed</h3>
+<ul>
+<li>Fixed the reset of APV volume placement when using multi selection.</li>
+<li>Fixed an issue so that APV dilated data not being written back to disk.</li>
+<li>Fixed realtime subdivision so it culls empty cells.</li>
+<li>Hid the warning on the reflection probe if you disable APV.</li>
+<li>Fixed so that data isn't cleared for probes to be dilated into, to avoid bright colored splotches.</li>
+<li>Fixed probes so that the max distance between then are respected.</li>
+<li>Fixed uninitialized memory for virtual offset.</li>
+<li>Fixed NaN when you bake high intensity lights.</li>
+<li>Fixed the APV touchup volume test so it uses OBB instead of AABB.</li>
+<li>Fixed null reference when you enable the Camera in a project with multiple SRPs installed.</li>
+<li>Volume Component Editor Foldouts states are now stored by type instead of by position.</li>
+<li>Fixed SerializedObjectNotCreatableException on Volume Component Editors.</li>
+<li>Fixed null reference exception when settings null Render Pipeline Global settings on the Settings provider.</li>
+<li>Fixed swapping Volume Component in a Volume profile with mixed pipeline Volume Components.</li>
+<li>Default Volume Profile can now be recovered when it is being deleted from the project folder.</li>
+<li>Fixed editor drawer for Value tuples in the Rendering Debugger.</li>
+<li>Fixed an issue where FreeCamera would print an error when using old InputSystem.</li>
+<li>Fixed missing subdivision label when looking at APV realtime subdivision preview.</li>
+<li>Fixed shadow cascade editor so the snatches now appear and the gradient appearance is improved.</li>
+<li>Fixed global probe volumes not fitting to all objects.</li>
+<li>Fixed dropdowns for multiple editors.</li>
+</ul>
+<h2 id="1403---2021-05-09">[14.0.3] - 2021-05-09</h2>
+<p>This version is compatible with Unity 2022.2.0b15.</p>
+<h3 id="fixed-5">Fixed</h3>
+<ul>
+<li>Added Shader Stripping Watcher so you get notifications when a Shader Variant is stripped.</li>
+</ul>
+<h2 id="1402---2021-02-04">[14.0.2] - 2021-02-04</h2>
+<p>This version is compatible with Unity 2022.2.0a14.</p>
+<h3 id="added-2">Added</h3>
+<ul>
+<li>Added new extension <code>TryRemoveElementsInRange</code> to remove a range of elements from a <code>IList</code>.</li>
+<li>Added error on ResourceReloader when attempting to use [ReloadGroup] on ScriptableObject.</li>
+<li>Added Screen Coordinates Override shader utilities.</li>
+<li>Added API to blend between baking states for Probe Volumes.</li>
+<li>Aded explicit control over scenario blending factor and a debug mode for visualization.</li>
+</ul>
+<h3 id="fixed-6">Fixed</h3>
+<ul>
+<li>Fixed texture gather macros for GLCore and moved them from target 4.6 to target 4.5.</li>
+<li>Fixed cubemap array macros for GLCore.</li>
+<li>Fixed regression on ResourceReloader due to change for supporting built-in resources.</li>
+<li>Fixed issue with debug markers in Unity Profiler in deep profiler mode</li>
+</ul>
+<h2 id="1401---2021-12-07">[14.0.1] - 2021-12-07</h2>
+<h3 id="added-3">Added</h3>
+<ul>
+<li>Linear version of function that sets FSR RCAS shader constants</li>
+<li><code>DebugUI.ObjectPopupField</code> to render a list of <code>UnityEngine.Objects</code> as a popup on the Rendering Debugger.</li>
+<li>Add probe volume influence weight parameter</li>
+<li>Added support for multiple Baking States to Prove Volumes.</li>
+<li>Hidding Volume Components not available for the current pipeline on the Volume Profile Inspector.</li>
+</ul>
+<h3 id="changed-2">Changed</h3>
+<ul>
+<li>Volume Component editor are now specified by <code>CustomEditorAttribute</code> instead of <code>VolumeComponentEditorAttribute</code>.</li>
+</ul>
+<h3 id="fixed-7">Fixed</h3>
+<ul>
+<li>The Volume Panel on the Rendering Debugger was not corretly showing cameras when they were added or deleted.</li>
+<li>Fixed issue in DynamicResolutionHandler when camera request was turned off at runtime, the ScalableBufferManager would leak state and not unset DRS state (case 1383093).</li>
+<li>Fixed undo in for <code>DebugUI.EnumFields</code> on the rendering debugger. (case 1386964)</li>
+<li>Fixed <code>DebugUI.Enum</code> fields collapsing their parent <code>DebugUI.Foldout</code></li>
+<li>Fixed IES profile importer handling of overflow (outside 0-1 range) of attenutation splines values.</li>
+<li>Fixed issue with Probe Volume Baking window incorrectly displaying the icon for probe volumes in scenes that don't contain probe volumes.</li>
+<li>Fixed unnecessary memory allocation inside FSR's RCAS shader constants helper function.</li>
+<li>Fixed the issue with the special Turkish i, when looking for the m_IsGlobal property in VolumeEditor. (case 1276892)</li>
+</ul>
+<h2 id="1400---2021-11-17">[14.0.0] - 2021-11-17</h2>
+<h3 id="added-4">Added</h3>
+<ul>
+<li>Context menu on Volume Parameters to restore them to their default values.</li>
+</ul>
+<h3 id="fixed-8">Fixed</h3>
+<ul>
+<li>Fixed XR support in CoreUtils.DrawFullscreen function.</li>
+</ul>
+<h3 id="changed-3">Changed</h3>
+<ul>
+<li>Removed FSR_ENABLE_16BIT option from FSRCommon.hlsl. The 16-bit FSR implementation is now automatically enabled when supported by the target platform.</li>
+</ul>
+<h2 id="1312---2021-11-05">[13.1.2] - 2021-11-05</h2>
+<h3 id="added-5">Added</h3>
+<ul>
+<li>Added function to allocate RTHandles using <code>RenderTextureDescriptor</code>.</li>
+<li>Added <code>vrUsage</code> support for RTHandles allocation.</li>
+</ul>
+<h3 id="fixed-9">Fixed</h3>
+<ul>
+<li>Fixed issue when changing volume profiles at runtime with a script (case 1364256).</li>
+<li>Fixed XR support in CoreUtils.DrawFullscreen function.</li>
+<li>Fixed an issue causing Render Graph execution errors after a random amount of time.</li>
+</ul>
+<h2 id="1311---2021-10-04">[13.1.1] - 2021-10-04</h2>
+<h3 id="added-6">Added</h3>
+<ul>
+<li>Added support for high performant unsafe (uint only) Radix, Merge and Insertion sort algorithms on CoreUnsafeUtils.</li>
+<li>Added DebugFrameTiming class that can be used by render pipelines to display CPU/GPU frame timings and bottlenecks in Rendering Debugger.</li>
+<li>Added new DebugUI widget types: ProgressBarValue and ValueTuple</li>
+<li>Added common support code for FSR.</li>
+<li>Added new <code>RenderPipelineGlobalSettingsProvider</code> to help adding a settings panel for editing global settings.</li>
+<li>Added blending for curves in post processing volumes.</li>
+<li>New extension for Render Pipeline Global Settings for shader variants settings -&gt; <code>IShaderVariantsSettings</code>.</li>
+</ul>
+<h2 id="1310---2021-09-24">[13.1.0] - 2021-09-24</h2>
+<h3 id="added-7">Added</h3>
+<ul>
+<li>Debug Panels Framework See <code>IDebugDisplaySettingsQuery</code>.</li>
+</ul>
+<h3 id="fixed-10">Fixed</h3>
+<ul>
+<li>Fixed keyword and float property upgrading in SpeedTree8MaterialUpgrader</li>
+</ul>
+<h2 id="1300---2021-09-01">[13.0.0] - 2021-09-01</h2>
+<p>Version Updated
+The version number for this package has increased due to a version update of a related graphics package.</p>
+<h3 id="added-8">Added</h3>
+<ul>
+<li>New <code>IVolumeDebugSettings</code> interface and <code>VolumeDebugSettings&lt;T&gt;</code> class that stores the information for the Volumes Debug Panel.</li>
+<li>Added AMD FidelityFX shaders which were originally in HDRP</li>
+<li>Added support for high performant unsafe (uint only) Radix, Merge and Insertion sort algorithms on CoreUnsafeUtils.</li>
+</ul>
+<h3 id="fixed-11">Fixed</h3>
+<ul>
+<li>Fixed black pixel issue in AMD FidelityFX RCAS implementation</li>
+<li>Fixed a critical issue on android devices &amp; lens flares. Accidentally creating a 16 bit texture was causing gpus not supporting them to fail.</li>
+<li>Fixed serialization of DebugStateFlags, the internal Enum was not being serialized.</li>
+</ul>
+<h2 id="1200---2021-01-11">[12.0.0] - 2021-01-11</h2>
+<h3 id="added-9">Added</h3>
+<ul>
+<li>Support for the PlayStation 5 platform has been added.</li>
+<li>Support for additional properties for Volume Components without custom editor</li>
+<li>Added VolumeComponentMenuForRenderPipelineAttribute to specify a volume component only for certain RenderPipelines.</li>
+<li>Calculating correct rtHandleScale by considering the possible pixel rounding when DRS is on</li>
+<li>Support for the PlayStation 5 platform has been added.</li>
+<li>Support for the XboxSeries platform has been added.</li>
+<li>Added Editor window that allow showing an icon to browse the documentation</li>
+<li>New method DrawHeaders for VolumeComponentsEditors</li>
+<li>Unification of Material Editor Headers Scopes</li>
+<li>New API functions with no side effects in DynamicResolutionHandler, to retrieve resolved drs scale and to apply DRS on a size.</li>
+<li>Added helper for Volumes (Enable All Overrides, Disable All Overrides, Remove All Overrides).</li>
+<li>Added a blitter utility class. Moved from HDRP to RP core.</li>
+<li>Added a realtime 2D texture atlas utility classes. Moved from HDRP to RP core.</li>
+<li>New methods on CoreEditorDrawers, to allow adding a label on a group before rendering the internal drawers</li>
+<li>Method to generate a Texture2D of 1x1 with a plain color</li>
+<li>Red, Green, Blue Texture2D on CoreEditorStyles</li>
+<li>New API in DynamicResolutionHandler to handle multicamera rendering for hardware mode. Changing cameras and resetting scaling per camera should be safe.</li>
+<li>Added SpeedTree8MaterialUpgrader, which provides utilities for upgrading and importing SpeedTree 8 assets to scriptable render pipelines.</li>
+<li>Adding documentation links to Light Sections</li>
+<li>Support for Lens Flare Data Driven (from images and Procedural shapes), on HDRP</li>
+<li>New SRPLensFlareData Asset</li>
+<li>Adding documentation links to Light Sections.</li>
+<li>Added sampling noise to probe volume sampling position to hide seams between subdivision levels.</li>
+<li>Added DebugUI.Foldout.isHeader property to allow creating full-width header foldouts in Rendering Debugger.</li>
+<li>Added DebugUI.Flags.IsHidden to allow conditional display of widgets in Rendering Debugger.</li>
+<li>Added &quot;Expand/Collapse All&quot; buttons to Rendering Debugger window menu.</li>
+<li>Added mouse &amp; touch input support for Rendering Debugger runtime UI, and fix problems when InputSystem package is used.</li>
+<li>Add automatic spaces to enum display names used in Rendering Debugger and add support for InspectorNameAttribute.</li>
+<li>Adding new API functions inside DynamicResolutionHandler to get mip bias. This allows dynamic resolution scaling applying a bias on the frame to improve on texture sampling detail.</li>
+<li>Added a reminder if the data of probe volume might be obsolete.</li>
+<li>Added new API function inside DynamicResolutionHandler and new settings in GlobalDynamicResolutionSettings to control low res transparency thresholds. This should help visuals when the screen percentage is too low.</li>
+<li>Added common include file for meta pass functionality (case 1211436)</li>
+<li>Added OverridablePropertyScope (for VolumeComponentEditor child class only) to handle the Additional Property, the override checkbox and disable display and decorator attributes in one scope.</li>
+<li>Added IndentLevelScope (for VolumeComponentEditor child class only) to handle indentation of the field and the checkbox.</li>
+<li>Added an option to change the visibilty of the Volumes Gizmos (Solid, Wireframe, Everything), available at Preferences &gt; Core Render Pipeline</li>
+<li>Added class for drawing shadow cascades <code>UnityEditor.Rendering.ShadowCascadeGUI.DrawShadowCascades</code>.</li>
+<li>Added UNITY_PREV_MATRIX_M and UNITY_PREV_MATRIX_I_M shader macros to support instanced motion vector rendering</li>
+<li>Added new API to customize the rtHandleProperties of a particular RTHandle. This is a temporary work around to assist with viewport setup of Custom post process when dealing with DLSS or TAAU</li>
+<li>Added <code>IAdditionalData</code> interface to identify the additional datas on the core package.</li>
+<li>Added new API to draw color temperature for Lights.</li>
+</ul>
+<h3 id="fixed-12">Fixed</h3>
+<ul>
+<li>Help boxes with fix buttons do not crop the label.</li>
+<li>Fixed missing warning UI about Projector component being unsupported (case 1300327).</li>
+<li>Fixed the display name of a Volume Parameter when is defined the attribute InspectorName</li>
+<li>Calculating correct rtHandleScale by considering the possible pixel rounding when DRS is on</li>
+<li>Problem on domain reload of Volume Parameter Ranges and UI values</li>
+<li>Fixed Right Align of additional properties on Volume Components Editors</li>
+<li>Fixed normal bias field of reference volume being wrong until the profile UI was displayed.</li>
+<li>Fixed L2 for Probe Volumes.</li>
+<li>When adding Overrides to the Volume Profile, only show Volume Components from the current Pipeline.</li>
+<li>Fixed assertion on compression of L1 coefficients for Probe Volume.</li>
+<li>Explicit half precision not working even when Unified Shader Precision Model is enabled.</li>
+<li>Fixed ACES filter artefact due to half float error on some mobile platforms.</li>
+<li>Fixed issue displaying a warning of different probe reference volume profiles even when they are equivalent.</li>
+<li>Fixed missing increment/decrement controls from DebugUIIntField &amp; DebugUIUIntField widget prefabs.</li>
+<li>Fixed IES Importer related to new API on core.</li>
+<li>Fixed a large, visible stretch ratio in a LensFlare Image thumbnail.</li>
+<li>Fixed Undo from script refreshing thumbnail.</li>
+<li>Fixed cropped thumbnail for Image with non-uniform scale and rotation</li>
+<li>Skip wind calculations for Speed Tree 8 when wind vector is zero (case 1343002)</li>
+<li>Fixed memory leak when changing SRP pipeline settings, and having the player in pause mode.</li>
+<li>Fixed alignment in Volume Components</li>
+<li>Virtual Texturing fallback texture sampling code correctly honors the enableGlobalMipBias when virtual texturing is disabled.</li>
+<li>Fixed LightAnchor too much error message, became a HelpBox on the Inspector.</li>
+<li>Fixed library function SurfaceGradientFromTriplanarProjection to match the mapping convention used in SampleUVMappingNormalInternal.hlsl and fix its description.</li>
+<li>Fixed Volume Gizmo size when rescaling parent GameObject</li>
+<li>Fixed rotation issue now all flare rotate on positive direction (1348570)</li>
+<li>Fixed error when change Lens Flare Element Count followed by undo (1346894)</li>
+<li>Fixed Lens Flare Thumbnails</li>
+<li>Fixed Lens Flare 'radialScreenAttenuationCurve invisible'</li>
+<li>Fixed Lens Flare rotation for Curve Distribution</li>
+<li>Fixed potentially conflicting runtime Rendering Debugger UI command by adding an option to disable runtime UI altogether (1345783).</li>
+<li>Fixed Lens Flare position for celestial at very far camera distances. It now locks correctly into the celestial position regardless of camera distance (1363291)</li>
+<li>Fixed issues caused by automatically added EventSystem component, required to support Rendering Debugger Runtime UI input. (1361901)</li>
+</ul>
+<h3 id="changed-4">Changed</h3>
+<ul>
+<li>Improved the warning messages for Volumes and their Colliders.</li>
+<li>Changed Window/Render Pipeline/Render Pipeline Debug to Window/Analysis/Rendering Debugger</li>
+<li>Changed Window/Render Pipeline/Look Dev to Window/Analysis/Look Dev</li>
+<li>Changed Window/Render Pipeline/Render Graph Viewer to Window/Analysis/Render Graph Viewer</li>
+<li>Changed Window/Render Pipeline/Graphics Compositor to Window/Rendering/Graphics Compositor</li>
+<li>Volume Gizmo Color setting is now under Colors-&gt;Scene-&gt;Volume Gizmo</li>
+<li>Volume Gizmo alpha changed from 0.5 to 0.125</li>
+<li>Moved Edit/Render Pipeline/Generate Shader Includes to Edit/Rendering/Generate Shader Includes</li>
+<li>Moved Assets/Create/LookDev/Environment Library to Assets/Create/Rendering/Environment Library (Look Dev)</li>
+<li>Changed Nintendo Switch specific half float fixes in color conversion routines to all platforms.</li>
+<li>Improved load asset time for probe volumes.</li>
+<li>ClearFlag.Depth does not implicitely clear stencil anymore. ClearFlag.Stencil added.</li>
+<li>The RTHandleSystem no longer requires a specific number of sample for MSAA textures. Number of samples can be chosen independently for all textures.</li>
+<li>Platform ShaderLibrary API headers now have a new macro layer for 2d texture sampling macros. This layer starts with PLATFORM_SAMPLE2D definition, and it gives the possibility of injecting sampling behavior on a render pipeline level. For example: being able to a global mip bias for temporal upscalers.</li>
+<li>Update icon for IES, LightAnchor and LensFlare</li>
+<li>LensFlare (SRP) can be now disabled per element</li>
+<li>LensFlare (SRP) tooltips now refer to meters.</li>
+<li>Serialize the Probe Volume asset as binary to improve footprint on disk and loading speed.</li>
+<li>LensFlare Element editor now have Thumbnail preview</li>
+<li>Improved IntegrateLDCharlie() to use uniform stratified sampling for faster convergence towards the ground truth</li>
+<li>DynamicResolutionHandler.GetScaledSize function now clamps, and never allows to return a size greater than its input.</li>
+<li>Removed DYNAMIC_RESOLUTION snippet on lens flare common shader. Its not necessary any more on HDRP, which simplifies the shader.</li>
+<li>Made occlusion Radius for lens flares in directional lights, be independant of the camera's far plane.</li>
+</ul>
+<h2 id="1100---2020-10-21">[11.0.0] - 2020-10-21</h2>
+<h3 id="fixed-13">Fixed</h3>
+<ul>
+<li>Fixed the default background color for previews to use the original color.</li>
+<li>Fixed spacing between property fields on the Volume Component Editors.</li>
+<li>Fixed ALL/NONE to maintain the state on the Volume Component Editors.</li>
+<li>Fixed the selection of the Additional properties from ALL/NONE when the option &quot;Show additional properties&quot; is disabled</li>
+<li>Fixed ACES tonemaping for Nintendo Switch by forcing some shader color conversion functions to full float precision.</li>
+<li>Fixed a bug in FreeCamera which would only provide a speed boost for the first frame when pressing the Shfit key.</li>
+</ul>
+<h3 id="added-10">Added</h3>
+<ul>
+<li>New View Lighting Tool, a component which allow to setup light in the camera space</li>
+<li>New function in GeometryTools.hlsl to calculate triangle edge and full triangle culling.</li>
+<li>Several utils functions to access SphericalHarmonicsL2 in a more verbose and intuitive fashion.</li>
+</ul>
+<h2 id="1020---2020-10-19">[10.2.0] - 2020-10-19</h2>
+<p>Version Updated
+The version number for this package has increased due to a version update of a related graphics package.</p>
+<h2 id="1010---2020-10-12">[10.1.0] - 2020-10-12</h2>
+<h3 id="added-11">Added</h3>
+<ul>
+<li>Added context options &quot;Move to Top&quot;, &quot;Move to Bottom&quot;, &quot;Expand All&quot; and &quot;Collapse All&quot; for volume components.</li>
+<li>Added the support of input system V2</li>
+</ul>
+<h3 id="fixed-14">Fixed</h3>
+<ul>
+<li>Fixed the scene view to scale correctly when hardware dynamic resolution is enabled (case 1158661)</li>
+<li>Fixed game view artifacts on resizing when hardware dynamic resolution was enabled</li>
+<li>Fixed issue that caused <code>UNITY_REVERSED_Z</code> and <code>UNITY_UV_STARTS_AT_TOP</code> being defined in platforms that don't support it.</li>
+</ul>
+<h3 id="changed-5">Changed</h3>
+<ul>
+<li>LookDev menu item entry is now disabled if the current pipeline does not support it.</li>
+</ul>
+<h2 id="1000---2019-06-10">[10.0.0] - 2019-06-10</h2>
+<h3 id="added-12">Added</h3>
+<ul>
+<li>Add rough version of ContextualMenuDispatcher to solve conflict amongst SRP.</li>
+<li>Add api documentation for TextureCombiner.</li>
+<li>Add tooltips in LookDev's toolbar.</li>
+<li>Add XRGraphicsAutomatedTests helper class.</li>
+</ul>
+<h3 id="fixed-15">Fixed</h3>
+<ul>
+<li>Fixed compile errors for platforms with no VR support</li>
+<li>Replaced reference to Lightweight Render Pipeline by Universal Render Pipeline in the package description</li>
+<li>Fixed LighProbes when using LookDev.</li>
+<li>Fix LookDev minimal window size.</li>
+<li>Fix object rotation at instentiation to keep the one in prefab or used in hierarchy.</li>
+<li>Fixed shader compile errors when trying to use tessellation shaders with PlayStation VR on PS4.</li>
+<li>Fixed shader compile errors about LODDitheringTransition not being supported in GLES2.</li>
+<li>Fix <code>WaveIsFirstLane()</code> to ignore helper lanes in fragment shaders on PS4.</li>
+<li>Fixed a bug where Unity would crash if you tried to remove a Camera component from a GameObject using the Inspector window, while other components dependended on the Camera component.</li>
+<li>Fixed errors due to the debug menu when enabling the new input system.</li>
+<li>Fix LookDev FPS manipulation in view</li>
+<li>Fix LookDev zoom being stuck when going near camera pivot position</li>
+<li>Fix LookDev manipulation in view non responsive if directly using an HDRI</li>
+<li>Fix LookDev behaviour when user delete the EnvironmentLibrary asset</li>
+<li>Fix LookDev SunPosition button position</li>
+<li>Fix LookDev EnvironmentLibrary tab when asset is deleted</li>
+<li>Fix LookDev used Cubemap when asset is deleted</li>
+<li>Fixed the definition of <code>rcp()</code> for GLES2.</li>
+<li>Fixed copy/pasting of Volume Components when loading a new scene</li>
+<li>Fix LookDev issue when adding a GameObject containing a Volume into the LookDev's view.</li>
+<li>Fixed duplicated entry for com.unity.modules.xr in the runtime asmdef file</li>
+<li>Fixed the texture curve being destroyed from another thread than main (case 1211754)</li>
+<li>Fixed unreachable code in TextureXR.useTexArray</li>
+<li>Fixed GC pressure caused by <code>VolumeParameter&lt;T&gt;.GetHashCode()</code></li>
+<li>Fixed issue when LookDev window is opened and the CoreRP Package is updated to a newer version.</li>
+<li>Fix LookDev's camera button layout.</li>
+<li>Fix LookDev's layout vanishing on domain reload.</li>
+<li>Fixed issue with the shader TransformWorldToHClipDir function computing the wrong result.</li>
+<li>Fixed division by zero in <code>V_SmithJointGGX</code> function.</li>
+<li>Fixed null reference exception in LookDev when setting the SRP to one not implementing LookDev (case 1245086)</li>
+<li>Fix LookDev's undo/redo on EnvironmentLibrary (case 1234725)</li>
+<li>Fix a compil error on OpenGL ES2 in directional lightmap sampling shader code</li>
+<li>Fix hierarchicalbox gizmo outside facing check in symetry or homothety mode no longer move the center</li>
+<li>Fix artifacts on Adreno 630 GPUs when using ACES Tonemapping</li>
+<li>Fixed a null ref in the volume component list when there is no volume components in the project.</li>
+<li>Fixed issue with volume manager trying to access a null volume.</li>
+<li>HLSL codegen will work with C# file using both the <code>GenerateHLSL</code> and C# 7 features.</li>
+</ul>
+<h3 id="changed-6">Changed</h3>
+<ul>
+<li>Restored usage of ENABLE_VR to fix compilation errors on some platforms.</li>
+<li>Only call SetDirty on an object when actually modifying it in SRP updater utility</li>
+<li>Set depthSlice to -1 by default on SetRenderTarget() to clear all slices of Texture2DArray by default.</li>
+<li>ResourceReloader will now add additional InvalidImport check while it cannot load due to AssetDatabase not available.</li>
+<li>Replaced calls to deprecated PlayerSettings.virtualRealitySupported property.</li>
+<li>Enable RWTexture2D, RWTexture2DArray, RWTexture3D in gles 3.1</li>
+<li>Updated macros to be compatible with the new shader preprocessor.</li>
+<li>Updated shaders to be compatible with Microsoft's DXC.</li>
+<li>Changed CommandBufferPool.Get() to create an unnamed CommandBuffer. (No profiling markers)</li>
+<li>Deprecating VolumeComponentDeprecad, using HideInInspector or Obsolete instead</li>
+</ul>
+<h2 id="711---2019-09-05">[7.1.1] - 2019-09-05</h2>
+<h3 id="added-13">Added</h3>
+<ul>
+<li>Add separated debug mode in LookDev.</li>
+</ul>
+<h3 id="changed-7">Changed</h3>
+<ul>
+<li>Replaced usage of ENABLE_VR in XRGraphics.cs by a version define (ENABLE_VR_MODULE) based on the presence of the built-in VR module</li>
+<li><code>ResourceReloader</code> now works on non-public fields.</li>
+<li>Removed <code>normalize</code> from <code>UnpackNormalRGB</code> to match <code>UnpackNormalAG</code>.</li>
+<li>Fixed shadow routines compilation errors when &quot;real&quot; type is a typedef on &quot;half&quot;.</li>
+<li>Removed debug menu in non development build.</li>
+</ul>
+<h2 id="701---2019-07-25">[7.0.1] - 2019-07-25</h2>
+<h3 id="fixed-16">Fixed</h3>
+<ul>
+<li>Fixed a precision issue with the ACES tonemapper on mobile platforms.</li>
+</ul>
+<h2 id="700---2019-07-17">[7.0.0] - 2019-07-17</h2>
+<h3 id="added-14">Added</h3>
+<ul>
+<li>First experimental version of the LookDev. Works with all SRP. Only branched on HDRP at the moment.</li>
+<li>LookDev out of experimental</li>
+</ul>
+<h2 id="670-preview---2019-05-16">[6.7.0-preview] - 2019-05-16</h2>
+<h2 id="660---2019-04-01">[6.6.0] - 2019-04-01</h2>
+<h3 id="fixed-17">Fixed</h3>
+<ul>
+<li>Fixed compile errors in XRGraphics.cs when ENABLE_VR is not defined</li>
+</ul>
+<h2 id="650---2019-03-07">[6.5.0] - 2019-03-07</h2>
+<h2 id="640---2019-02-21">[6.4.0] - 2019-02-21</h2>
+<h3 id="added-15">Added</h3>
+<ul>
+<li>Enabled support for CBUFFER on OpenGL Core and OpenGL ES 3 backends.</li>
+</ul>
+<h2 id="630---2019-02-18">[6.3.0] - 2019-02-18</h2>
+<h2 id="620---2019-02-15">[6.2.0] - 2019-02-15</h2>
+<h2 id="610---2019-02-13">[6.1.0] - 2019-02-13</h2>
+<h2 id="600---2019-02-23">[6.0.0] - 2019-02-23</h2>
+<h3 id="fixed-18">Fixed</h3>
+<ul>
+<li>Fixed a typo in ERROR_ON_UNSUPPORTED_FUNCTION() that was causing the shader compiler to run out of memory in GLES2. [Case 1104271] (<a href="https://issuetracker.unity3d.com/issues/mobile-os-restarts-because-of-high-memory-usage-when-compiling-shaders-for-opengles2">https://issuetracker.unity3d.com/issues/mobile-os-restarts-because-of-high-memory-usage-when-compiling-shaders-for-opengles2</a>)</li>
+</ul>
+<h2 id="520---2018-11-27">[5.2.0] - 2018-11-27</h2>
+<h2 id="510---2018-11-19">[5.1.0] - 2018-11-19</h2>
+<h3 id="added-16">Added</h3>
+<ul>
+<li>Added a define for determining if any instancing path is taken.</li>
+</ul>
+<h3 id="changed-8">Changed</h3>
+<ul>
+<li>The Core SRP package is no longer in preview.</li>
+</ul>
+<h2 id="500-preview---2018-10-18">[5.0.0-preview] - 2018-10-18</h2>
+<h3 id="changed-9">Changed</h3>
+<ul>
+<li>XRGraphicConfig has been changed from a read-write control of XRSettings to XRGraphics, a read-only accessor to XRSettings. This improves consistency of XR behavior between the legacy render pipeline and SRP.</li>
+<li>XRGraphics members have been renamed to match XRSettings, and XRGraphics has been modified to only contain accessors potentially useful to SRP</li>
+<li>You can now have up to 16 additional shadow-casting lights.</li>
+</ul>
+<h3 id="fixed-19">Fixed</h3>
+<ul>
+<li>LWRP no longer executes shadow passes when there are no visible shadow casters in a Scene. Previously, this made the Scene render as too dark, overall.</li>
+</ul>
+<h2 id="400-preview---2018-09-28">[4.0.0-preview] - 2018-09-28</h2>
+<h3 id="added-17">Added</h3>
+<ul>
+<li>Space transform functions are now defined in <code>ShaderLibrary/SpaceTransforms.hlsl</code>.</li>
+</ul>
+<h3 id="changed-10">Changed</h3>
+<ul>
+<li>Removed setting shader inclue path via old API, use package shader include paths</li>
+</ul>
+<h2 id="330---2018-01-01">[3.3.0] - 2018-01-01</h2>
+<h2 id="320---2018-01-01">[3.2.0] - 2018-01-01</h2>
+<h2 id="310---2018-01-01">[3.1.0] - 2018-01-01</h2>
+<h3 id="added-18">Added</h3>
+<ul>
+<li>Add PCSS shadow filter</li>
+<li>Added Core EditMode tests</li>
+<li>Added Core unsafe utilities</li>
+</ul>
+<h3 id="improvements">Improvements</h3>
+<ul>
+<li>Improved volume UI &amp; styling</li>
+<li>Fixed CoreUtils.QuickSort infinite loop when two elements in the list are equals.</li>
+</ul>
+<h3 id="changed-11">Changed</h3>
+<ul>
+<li>Moved root files into folders for easier maintenance</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.core@14.0.9/CHANGELOG.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

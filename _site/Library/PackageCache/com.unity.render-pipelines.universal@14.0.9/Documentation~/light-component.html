@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Light component reference | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Light component reference | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/light-component.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="light-component-reference">Light component reference</h1>
+
+<p>Lights determine the shading of an object and the shadows it casts.</p>
+<p>This page contains information on Light components in the Universal Render Pipeline (URP). For a general introduction to lighting in Unity and examples of common lighting workflows, see <a href="https://docs.unity3d.com/Manual/LightingOverview.html">the Lighting section of the Unity Manual</a>.</p>
+<h2 id="properties">Properties</h2>
+<p>The Light Inspector includes the following groups of properties:</p>
+<p><img src="Images/Inspectors/light-inspector.png" alt=""></p>
+<ul>
+<li><a href="#General">General</a></li>
+<li><a href="#Shape">Shape</a></li>
+<li><a href="#Emission">Emission</a></li>
+<li><a href="#Rendering">Rendering</a></li>
+<li><a href="#Shadows">Shadows</a></li>
+</ul>
+<h3 id="General">General</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property:</th>
+<th style="text-align: left;">Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Type</strong></td>
+<td style="text-align: left;">The current type of light. Possible values are <strong>Directional</strong>, <strong>Point</strong>, <strong>Spot</strong> and <strong>Area</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mode</strong></td>
+<td style="text-align: left;">Specify the <a href="https://docs.unity3d.com/Manual/LightModes.html">Light Mode</a> used to determine if and how a light is &quot;baked&quot;. Possible modes are <strong>Realtime</strong>, <strong>Mixed</strong> and <strong>Baked</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Shape">Shape</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property:</th>
+<th style="text-align: left;">Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Spot Angle</strong></td>
+<td style="text-align: left;">Define the angle (in degrees) at the base of a spot light’s cone (<strong>Spot</strong> light only).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Emission">Emission</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property:</th>
+<th style="text-align: left;">Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Color</strong></td>
+<td style="text-align: left;">Use the color picker to set the color of the emitted light.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Intensity</strong></td>
+<td style="text-align: left;">Set the brightness of the light. The default value for a <strong>Directional</strong> light is 0.5. The default value for a <strong>Point</strong>, <strong>Spot</strong> or <strong>Area</strong> light is 1.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Indirect Multiplier</strong></td>
+<td style="text-align: left;">Use this value to vary the intensity of indirect light. Indirect light is light that has bounced from one object to another. The <strong>Indirect Multiplier</strong> defines the brightness of bounced light calculated by the global illumination (GI) system. If you set <strong>Indirect Multiplier</strong> to a value lower than <strong>1,</strong> the bounced light becomes dimmer with every bounce. A value higher than <strong>1</strong> makes light brighter with each bounce. This is useful, for example, when a dark surface in shadow (such as the interior of a cave) needs to be brighter in order to make detail visible.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Range</strong></td>
+<td style="text-align: left;">Define how far the light emitted from the center of the object travels (<strong>Point</strong> and <strong>Spot</strong> lights only).</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Cookie</strong></td>
+<td style="text-align: left;">The RGB texture this Light projects into the scene. Use cookies to create silhouettes or patterned illumination. The texture format to use depends on the type of Light:<br> • Directional: 2D texture<br> • Spot: 2D texture<br> • Point: <a href="https://docs.unity3d.com/Manual/class-Cubemap.html">cubemap texture</a><br><br>If you enable cookies, URP uses more memory.<br><br><strong>Note</strong>: URP doesn't support light cookies for Area lights.<br><br>For more information about light cookies, see <a href="https://docs.unity3d.com/Manual/Cookies.html">Cookies</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">  <strong>Cookie Size</strong></td>
+<td style="text-align: left;">The per-axis scale Unity applies to the cookie texture. Use this property to set the size of the cookie.<br><br>This property is available only if you set <strong>Type</strong> to <strong>Directional</strong> and assign a texture to <strong>Cookie</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">  <strong>Cookie Offset</strong></td>
+<td style="text-align: left;">The per-axis offset Unity applies to the cookie texture. Use this property to move the cookie without moving the light itself. You can also animate this property to scroll the cookie. <br><br>This property is available only if you set <strong>Type</strong> to <strong>Directional</strong> and assign a texture to <strong>Cookie</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Rendering">Rendering</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property:</th>
+<th style="text-align: left;">Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Render Mode</strong></td>
+<td style="text-align: left;">Use this drop-down to set the rendering priority of the selected Light. This can affect lighting fidelity and performance (see <em>Performance Considerations,</em> below).</td>
+</tr>
+<tr>
+<td style="text-align: left;">    Auto</td>
+<td style="text-align: left;">The rendering method is determined at run time, depending on the brightness of nearby lights and the current <a href="https://docs.unity3d.com/Manual/class-QualitySettings.html">Quality</a> settings.</td>
+</tr>
+<tr>
+<td style="text-align: left;">    Important</td>
+<td style="text-align: left;">The light is always rendered at per-pixel quality. Use <strong>Important</strong> mode only for the most noticeable visual effects (for example, the headlights of a player’s car).</td>
+</tr>
+<tr>
+<td style="text-align: left;">    Not Important</td>
+<td style="text-align: left;">The light is always rendered in a faster, vertex/object light mode.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Culling Mask</strong></td>
+<td style="text-align: left;">Use this to selectively exclude groups of objects from being affected by the Light. For more information, see <a href="https://docs.unity3d.com/Manual/Layers.html">Layers</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Shadows">Shadows</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property:</th>
+<th style="text-align: left;">Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Shadow Type</strong></td>
+<td style="text-align: left;">Determine whether this Light casts Hard Shadows, Soft Shadows, or no shadows at all. See the page <a href="https://docs.unity3d.com/Manual/class-Light.html">Lights</a> for information on hard and soft shadows.</td>
+</tr>
+<tr>
+<td style="text-align: left;">    Baked Shadow Angle</td>
+<td style="text-align: left;">If <strong>Type</strong> is set to <strong>Directional</strong> and <strong>Shadow Type</strong> is set to <strong>Soft Shadows</strong>, this property adds some artificial softening to the edges of shadows and gives them a more natural look.</td>
+</tr>
+<tr>
+<td style="text-align: left;">    Baked Shadow Radius</td>
+<td style="text-align: left;">If <strong>Type</strong> is set to <strong>Point</strong> or <strong>Spot</strong> and <strong>Shadow Type</strong> is set to <strong>Soft Shadows</strong>, this property adds some artificial softening to the edges of shadows and gives them a more natural look.</td>
+</tr>
+<tr>
+<td style="text-align: left;">    Realtime Shadows</td>
+<td style="text-align: left;">These properties are available when <strong>Shadow Type</strong> is set to <strong>Hard Shadows</strong> or <strong>Soft Shadows</strong>. Use these properties to control real-time shadow rendering settings.</td>
+</tr>
+<tr>
+<td style="text-align: left;">        Strength</td>
+<td style="text-align: left;">Use the slider to control how dark the shadows cast by this Light are, represented by a value between 0 and 1. This is set to 1 by default.</td>
+</tr>
+<tr>
+<td style="text-align: left;">        Bias</td>
+<td style="text-align: left;">Controls whether to use shadow bias settings from the URP Asset, or whether to define custom shadow bias settings for this Light. Possible values are <strong>Use Pipeline Settings</strong> or <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">        Depth</td>
+<td style="text-align: left;">Controls the distance at which the shadows will be pushed away from the light. Useful for avoiding false self-shadowing artifacts. This property is visible only when <strong>Bias</strong> is set to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">        Normal</td>
+<td style="text-align: left;">Controls the distance at which the shadow casting surfaces will be shrunk along the surface normal. Useful for avoiding false self-shadowing artifacts. This property is visible only when <strong>Bias</strong> is set to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">        Near Plane</td>
+<td style="text-align: left;">Use the slider to control the value for the near clip plane when rendering shadows, defined as a value between 0.1 and 10. This value is clamped to 0.1 units or 1% of the light’s <strong>Range</strong> property, whichever is lower. This is set to 0.2 by default.</td>
+</tr>
+<tr>
+<td style="text-align: left;">        Soft Shadows Quality</td>
+<td style="text-align: left;">Select the soft shadows quality. With the <strong>Use Pipeline Settings</strong> option selected Unity uses the value from the URP Asset. Options <strong>Low</strong>, <strong>Medium</strong>, and <strong>High</strong> let you specify the soft shadow quality value for this Light. For more information on the values, see the <a href="universalrp-asset.html#soft-shadows">Soft Shadows</a> section.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="preset">Preset</h2>
+<p>When using Preset of Light Component, only a subset of properties are supported. Unsupported properties are hidden.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/light-component.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

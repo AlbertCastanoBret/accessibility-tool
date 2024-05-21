@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Sample Buffer | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Sample Buffer | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-SampleBuffer.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="sample-buffer">Sample Buffer</h1>
+
+<p><strong>Menu Path : Operator &gt; Sampling &gt; Sample Buffer</strong></p>
+<p>The Sample Buffer Operator enables you to fetch and sample a structured buffer. A structured buffer is a <a href="https://docs.unity3d.com/ScriptReference/GraphicsBuffer.html">GraphicsBuffer</a> created using the <a href="https://docs.unity3d.com/ScriptReference/GraphicsBuffer.Target.Structured.html">Structured</a> target.</p>
+<h2 id="operator-settings">Operator settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mode</strong></td>
+<td>Enum</td>
+<td>The wrap mode to use for the sequence. The options are:<br>• <strong>Clamp</strong>: Clamps the index between the first and last vertices.<br>• <strong>Wrap</strong>: Wraps the index around to the other side of the vertex list. <br>• <strong>Mirror</strong>: Mirrors the vertex list so out of range indices move back and forth through the list.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operator-properties">Operator Properties</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td><a href="#operator-configuration">Configurable</a></td>
+<td>The structure type.</td>
+</tr>
+<tr>
+<td><strong>Buffer</strong></td>
+<td>GraphicsBuffer</td>
+<td>The structured buffer to fetch. You can only connect an exposed property to this input port.</td>
+</tr>
+<tr>
+<td><strong>Index</strong></td>
+<td>uint</td>
+<td>The index of the element to fetch.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Output</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>s</strong></td>
+<td>Dependent</td>
+<td>The sampled structure at the index, taking into account the <strong>Mode</strong> setting.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="operator-configuration">Operator configuration</h2>
+<p>To view the Operator's configuration, click the <strong>cog</strong> icon in the Operator's header.</p>
+<h3 id="available-types">Available types</h3>
+<p>This Operator supports sampling structured buffers that use blittable types. The list of built-in blittable types is:</p>
+<ul>
+<li>float</li>
+<li>int</li>
+<li>uint</li>
+<li>Vector2</li>
+<li>Vector3</li>
+<li>Vector4</li>
+<li>Matrix4x4</li>
+</ul>
+<p>You can also declare custom types. To do this, add the  <code>[VFXType]</code> attribute to a struct, and use the <code>VFXTypeAttribute.Usage.GraphicsBuffer</code> type. For example:</p>
+<pre><code class="lang-c#">using UnityEngine;
+using UnityEngine.VFX;
+
+[VFXType(VFXTypeAttribute.Usage.GraphicsBuffer)]
+struct CustomData
+{
+    public Vector3 color;
+    public Vector3 position;
+}
+</code></pre>
+<h2 id="limitations">Limitations</h2>
+<p>The Operator has the following limitations:</p>
+<ul>
+<li>This Operator expects a GraphicsBuffer created using the <a href="https://docs.unity3d.com/ScriptReference/GraphicsBuffer.Target.Structured.html">Structured</a> target.</li>
+<li>The stride of the GraphicsBuffer declaration must match with the structure stride.</li>
+<li>The structure must be blittable. This means the structure can't store a reference to a Texture2D, but it can store any other blittable structure.</li>
+<li>This Operator only supports structured buffers that use one of the blittable public types the Visual Effect Graph supports. For the list of available types, see <a href="#available-types">Available types</a>.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-SampleBuffer.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

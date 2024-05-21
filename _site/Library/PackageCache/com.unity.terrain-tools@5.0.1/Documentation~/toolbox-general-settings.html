@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>General settings | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="General settings | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/toolbox-general-settings.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="general-settings">General settings</h1>
+
+<p>The <strong>General</strong> settings include basic information you need to create a new Terrain, such as Terrain width, length, height, and number of tiles.</p>
+<p><img src="images/4-11-toolbox-create-settings.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Terrain Width</strong></td>
+<td>The total width of the Terrain (in meters along the X axis).</td>
+</tr>
+<tr>
+<td><strong>Terrain Length</strong></td>
+<td>The total length of the Terrain (in meters along the Z axis).</td>
+</tr>
+<tr>
+<td><strong>Terrain Height</strong></td>
+<td>The height of the Terrain (in meters along the Y axis).</td>
+</tr>
+<tr>
+<td><strong>Start Position</strong></td>
+<td>The start position of the first tile (X, Y, Z).</td>
+</tr>
+<tr>
+<td><strong>Tiles X Axis</strong></td>
+<td>The number of tiles along the X axis.</td>
+</tr>
+<tr>
+<td><strong>Tiles Z Axis</strong></td>
+<td>The number of tiles along the Z axis.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="group-settings">Group Settings</h2>
+<p><strong>Group Settings</strong> let you apply the same settings to new Terrain tiles in a group. Often, a group of Terrain tiles share the same Grouping ID, heightmap resolution, and Material.</p>
+<p><img src="images/4-11-toolbox-create-groupsettings.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Grouping ID</strong></td>
+<td>The grouping ID for the new Terrain tiles.</td>
+</tr>
+<tr>
+<td><strong>Pixel Error</strong></td>
+<td>The accuracy of the mapping between Terrain maps (such as height maps and textures) and generated Terrain. Higher values indicate lower accuracy, but with lower rendering overhead.</td>
+</tr>
+<tr>
+<td><strong>Base Map Distance</strong></td>
+<td>The maximum distance at which Unity displays Terrain textures at full resolution. Beyond this distance, the system uses a lower resolution composite image for efficiency.</td>
+</tr>
+<tr>
+<td><strong>Draw Instanced</strong></td>
+<td>Check this box to enable instanced rendering, where Unity uses GPU instancing to calculate Terrain data on the GPU and efficiently render the Terrain mesh.</td>
+</tr>
+<tr>
+<td><strong>Material Override</strong></td>
+<td>A custom Material to render the Terrain with. Specify <strong>None</strong> to use the default material.</td>
+</tr>
+<tr>
+<td><strong>Tile Height Resolution</strong></td>
+<td>The pixel resolution of the Terrain’s heightmap, also known as Heightmap Resolution.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/toolbox-general-settings.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

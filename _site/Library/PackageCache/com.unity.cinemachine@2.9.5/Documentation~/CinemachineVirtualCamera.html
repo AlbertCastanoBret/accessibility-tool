@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Setting Virtual Camera properties | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Setting Virtual Camera properties | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineVirtualCamera.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="setting-virtual-camera-properties">Setting Virtual Camera properties</h1>
+
+<p>The Cinemacine Virtual Camera is a component that you add to an empty GameObject. It represents a Virtual Camera in the Unity Scene.</p>
+<p>Use the <strong>Aim</strong>, <strong>Body</strong>, and <strong>Noise</strong> properties to specify how the Virtual Camera animates position, rotation, and other properties. The Virtual Camera applies these settings to the Unity Camera when <a href="CinemachineBrainProperties.html">Cinemachine Brain</a> or <a href="CinemachineTimeline.html">Timeline</a> transfers control of the Unity camera to the Virtual Camera. You can also use <a href="handles.html">Scene Handles</a> to modify some common properties.</p>
+<p>At any time, each Virtual Camera may be in one of these states:</p>
+<ul>
+<li><p><strong>Live</strong>: The Virtual Camera actively controls a Unity camera that has a Cinemachine Brain. When a Cinemachine Brain blends from one Virtual Camera to the next, both Virtual Cameras are live. When the blend is complete, there is only one live Virtual Camera.</p>
+</li>
+<li><p><strong>Standby</strong>: The Virtual Camera doesn’t control the Unity camera. However, it still follows and aims at its targets, and updates at every frame. A Virtual Camera in this state is activated and has a priority that is the same as or lower than the live Virtual Camera.</p>
+</li>
+<li><p><strong>Disabled</strong>: The Virtual Camera doesn’t control the Unity camera and doesn’t actively follow or aim at its targets. A Virtual Camera in this state doesn’t consume processing power. To disable a Virtual Camera, deactivate its game object. The Virtual Camera is present but disabled in the Scene. However, even though the game object is deactivated, the virtual camera can still control the Unity camera if the virtual camera is participating in a blend, or if it is invoked by Timeline.</p>
+</li>
+</ul>
+<p><img src="images/CinemachineVCamProperties.png" alt="Virtual Camera properties"></p>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Solo</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Toggles whether or not the Virtual Camera is temporarily live. Use this property to get immediate visual feedback in the <a href="https://docs.unity3d.com/Manual/GameView.html">Game view</a> to adjust the Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Game Window Guides</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Toggles the visibility of compositional guides in the Game view. These guides are available when Look At specifies a GameObject and the Aim section uses Composer or Group Composer, or when Follow specifies a target and the Body section uses Framing Composer. This property applies to all Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Save During Play</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Check to <a href="CinemachineSavingDuringPlay.html">apply the changes while in Play mode</a>.  Use this feature to fine-tune a Virtual Camera without having to remember which properties to copy and paste. This property applies to all Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Priority</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The importance of this Virtual Camera for choosing the next shot. A higher value indicates a higher priority. Cinemachine Brain chooses the next live Virtual Camera from all Virtual Cameras that are activated and have the same or higher priority as the current live Virtual Camera. This property has no effect when using a Virtual Camera with Timeline.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Follow</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The target GameObject that the Virtual Camera moves with. The <a href="CinemachineVirtualCameraBody.html">Body properties</a> use this target to update the position of the Unity camera. Keep this property empty to make the Unity camera use the position of the Virtual Camera’ transform. For example, you might choose to animate the Virtual Camera in Timeline.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Look At</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The target GameObject to aim the Unity camera at. The <a href="CinemachineVirtualCameraAim.html">Aim properties</a> use this target to update the rotation of the Unity camera. Keep this property empty to make the Unity camera use the orientation of the Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Standby Update</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Controls how often the virtual camera is updated when the virtual camera is not live.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Position Blending</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Style for blending positions to and from this Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Linear</em></td>
+<td style="text-align: left;">Standard linear position blend.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Spherical</em></td>
+<td style="text-align: left;">Spherical blend about the Look At position, if there is a Look At target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Cylindrical</em></td>
+<td style="text-align: left;">Cylindrical blend about the Look At position, if there is a Look At target. Vertical coordinate is linearly interpolated.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lens</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">These properties mirror their counterparts in the properties for the <a href="https://docs.unity3d.com/Manual/class-Camera.html">Unity camera</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Field Of View</em></td>
+<td style="text-align: left;">The camera view in vertical degrees. For example, to specify the equivalent of a 50mm lens on a Super 35 sensor, enter a Field of View of 19.6 degrees. This property is available when the Unity camera with the Cinemachine Brain component uses a Projection of Perspective. You can also use <a href="handles.html">Scene Handles</a> to modify this property.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Presets</em></td>
+<td style="text-align: left;">A drop-down menu of settings for commonly-used lenses. Choose <strong>Edit Presets</strong> to add or edit the asset that contains a default list of lenses.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Orthographic Size</em></td>
+<td style="text-align: left;">When using an orthographic camera, defines the half-height of the camera view, in world coordinates. Available when the Unity camera with the Cinemachine Brain component uses a Projection of Orthographic.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Near Clip Plane</em></td>
+<td style="text-align: left;">The closest point relative to the camera where drawing occurs. You can also use <a href="handles.html">Scene Handles</a> to modify this property.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Far Clip Plane</em></td>
+<td style="text-align: left;">The furthest point relative to the camera where drawing occurs. You can also use <a href="handles.html">Scene Handles</a> to modify this property.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Dutch</em></td>
+<td style="text-align: left;">Dutch angle. Tilts the Unity camera on the z-axis, in degrees. This property is unique to the Virtual Camera; there is no counterpart property in the Unity camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mode Override</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Allows you to select a different camera mode to apply to the <a href="https://docs.unity3d.com/Manual/class-Camera.html">Unity camera</a> component when Cinemachine activates this Virtual Camera. <br><strong>Important:</strong> All the changes applied to the Camera component through this setting will remain after the Virtual Camera deactivation. If you set a mode override in any Virtual Camera, you should set one in all Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>None</em></td>
+<td style="text-align: left;">Leaves the <strong>Projection</strong> and <strong>Physical Camera</strong> properties unchanged in the Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Orthographic</em></td>
+<td style="text-align: left;">Sets the <strong>Projection</strong> property to <strong>Orthographic</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Perspective</em></td>
+<td style="text-align: left;">Sets the <strong>Projection</strong> property to <strong>Perspective</strong> and <em>disables</em> the <strong>Physical Camera</strong> feature and properties.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Physical</em></td>
+<td style="text-align: left;">Sets the <strong>Projection</strong> property to <strong>Perspective</strong> and <em>enables</em> the <strong>Physical Camera</strong> feature and properties.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Blend Hint</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Provides hints for blending positions to and from the virtual camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Inherit Position</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">When enabled, whenever this virtual camera goes live, forces the initial position to be the same as the current position of the Unity Camera, if possible.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Extensions</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Components that add extra behaviors to the Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Add Extension</em></td>
+<td style="text-align: left;">Choose a new <a href="CinemachineVirtualCameraExtensions.html">extension</a> to add to the Virtual Camera.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineVirtualCamera.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

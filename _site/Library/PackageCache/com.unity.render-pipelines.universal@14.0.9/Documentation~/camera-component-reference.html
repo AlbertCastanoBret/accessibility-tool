@@ -1,0 +1,533 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Camera component reference | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Camera component reference | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/camera-component-reference.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="camera-component-reference">Camera component reference</h1>
+
+<p>In the Universal Render Pipeline (URP), Unity exposes different properties of the Camera component in the Inspector depending on the Camera type. To change the type of the Camera, change the property <strong>Render Type</strong>.</p>
+<ul>
+<li>Base Render Type
+<ul>
+<li><a href="#Projection">Projection</a></li>
+<li><a href="#PhysicalCamera">Physical Camera</a></li>
+<li><a href="#Rendering">Rendering</a></li>
+<li><a href="#Stack">Stack</a></li>
+<li><a href="#Environment">Environment</a></li>
+<li><a href="#Output">Output</a></li>
+</ul>
+</li>
+<li>Overlay Render Type
+<ul>
+<li><a href="#Projection">Projection</a></li>
+<li><a href="#PhysicalCamera">Physical Camera</a></li>
+<li><a href="#Rendering">Rendering</a></li>
+<li><a href="#Environment">Environment</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="Projection"></a></p>
+<h2 id="projection">Projection</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th></th>
+<th style="text-align: left;"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Projection</strong></td>
+<td></td>
+<td style="text-align: left;">Toggle the camera's capability to simulate perspective.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Perspective</em></td>
+<td style="text-align: left;">Camera will render objects with perspective intact.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Orthographic</em></td>
+<td style="text-align: left;">Camera will render objects uniformly, with no sense of perspective.</td>
+</tr>
+<tr>
+<td><strong>Field of View Axis</strong></td>
+<td></td>
+<td style="text-align: left;">Set the axis Unity measures the Camera's field of view along.<br><br>Available options:<ul><li><strong>Vertical</strong></li><li><strong>Horizontal</strong></li></ul>This property is only visible when <strong>Projection</strong> is set to <strong>Perspective</strong>.</td>
+</tr>
+<tr>
+<td><strong>Field of View</strong></td>
+<td></td>
+<td style="text-align: left;">Set the width of the Camera's view angle, measured in degrees along the selected axis.<br><br>This property is only visible when <strong>Projection</strong> is set to <strong>Perspective</strong>.</td>
+</tr>
+<tr>
+<td><strong>Size</strong></td>
+<td></td>
+<td style="text-align: left;">Set the viewport size of the Camera.<br><br>This property is only visible when <strong>Projection</strong> is set to <strong>Orthographic</strong>.</td>
+</tr>
+<tr>
+<td><strong>Clipping Planes</strong></td>
+<td></td>
+<td style="text-align: left;">Set the distances from the camera where rendering starts and stops.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Near</em></td>
+<td style="text-align: left;">The closest point relative to the Camera that drawing will occur.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Far</em></td>
+<td style="text-align: left;">The furthest point relative to the Camera that drawing will occur.</td>
+</tr>
+<tr>
+<td><strong>Physical Camera</strong></td>
+<td></td>
+<td style="text-align: left;">Enable Physical Camera properties for this camera.<br><br>When the Physical Camera properties are enabled, Unity calculates the <strong>Field of View</strong> using the properties that simulate real-world camera attributes: <strong>Focal Length</strong>, <strong>Sensor Size</strong>, and <strong>Lens Shift</strong>.<br><br>Physical Camera properties are not visible in the Inspector until you tick this box.<br><br>This property is only visible when <strong>Projection</strong> is set to <strong>Perspective</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="PhysicalCamera">Physical Camera</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th></th>
+<th style="text-align: left;"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Camera Body</strong></td>
+<td></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Sensor Type</em></td>
+<td style="text-align: left;">Specify the real-world camera format you want the camera to simulate. Choose the desired format from the list. <br><br>When you choose a camera format, Unity sets the the <strong>Sensor Size &gt; X</strong> and <strong>Y</strong> properties to the correct values automatically. <br><br>If you change the <strong>Sensor Size</strong> values manually, Unity automatically sets this property to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Sensor Size</em></td>
+<td style="text-align: left;">Set the size, in millimeters, of the camera sensor. <br><br>Unity sets the <strong>X</strong> and <strong>Y</strong> values automatically when you choose the <strong>Sensor Type</strong>. You can enter custom values if needed.</td>
+</tr>
+<tr>
+<td></td>
+<td>        <em>X</em></td>
+<td style="text-align: left;">Set the horizontal size of the camera sensor.</td>
+</tr>
+<tr>
+<td></td>
+<td>        <em>Y</em></td>
+<td style="text-align: left;">Set the vertical size of the camera sensor.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>ISO</em></td>
+<td style="text-align: left;">Set the light sensitivity of the Camera sensor.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Shutter Speed</em></td>
+<td style="text-align: left;">Set the amount of time the Camera sensor captures light.</td>
+</tr>
+<tr>
+<td></td>
+<td>                <em>Shutter Speed Unit</em></td>
+<td style="text-align: left;">Select the unit of measurement for <strong>Shutter Speed</strong>.<br><br>Available options:<ul><li><strong>Second</strong></li><li><strong>1/Second</strong></li></ul></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Gate Fit</em></td>
+<td style="text-align: left;">Options for changing the size of the <strong>resolution gate</strong> (size/aspect ratio of the game view) relative to the <strong>film gate</strong> (size/aspect ratio of the Physical Camera sensor). <br><br>For further information about resolution gate and film gate, see documentation on <a href="https://docs.unity3d.com/Manual/PhysicalCameras.html">Physical Cameras</a>.</td>
+</tr>
+<tr>
+<td></td>
+<td>                <em>Vertical</em></td>
+<td style="text-align: left;">Fits the resolution gate to the height of the film gate. <br><br>If the sensor aspect ratio is larger than the game view aspect ratio, Unity crops the rendered image at the sides. <br><br>If the sensor aspect ratio is smaller than the game view aspect ratio, Unity overscans the rendered image at the sides. <br><br>When you choose this setting, changing the sensor width (<strong>Sensor Size &gt; X property</strong>) has no effect on the rendered image.</td>
+</tr>
+<tr>
+<td></td>
+<td>                <em>Horizontal</em></td>
+<td style="text-align: left;">Fits the resolution gate to the width of the film gate. <br><br>If the sensor aspect ratio is larger than the game view aspect ratio, Unity overscans the rendered image on the top and bottom. <br><br>If the sensor aspect ratio is smaller than the game view aspect ratio, Unity crops the rendered image on the top and bottom. <br><br>When you choose this setting, changing the sensor height (<strong>Sensor Size &gt; Y</strong> property) has no effect on the rendered image.</td>
+</tr>
+<tr>
+<td></td>
+<td>                <em>Fill</em></td>
+<td style="text-align: left;">Fits the resolution gate to either the width or height of the film gate, whichever is smaller. This crops the rendered image.</td>
+</tr>
+<tr>
+<td></td>
+<td>                <em>Overscan</em></td>
+<td style="text-align: left;">Fits the resolution gate to either the width or height of the film gate, whichever is larger. This overscans the rendered image.</td>
+</tr>
+<tr>
+<td></td>
+<td>                <em>None</em></td>
+<td style="text-align: left;">Ignores the resolution gate and uses the film gate only. This stretches the rendered image to fit the game view aspect ratio.</td>
+</tr>
+<tr>
+<td><strong>Lens</strong></td>
+<td></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Focal Length</em></td>
+<td style="text-align: left;">Set the distance, in millimeters, between the camera sensor and the camera lens.<br><br>Lower values result in a wider <strong>Field of View</strong>, and vice versa. <br><br>When you change this value, Unity automatically updates the <strong>Field of View</strong> property accordingly.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Shift</em></td>
+<td style="text-align: left;">Shift the lens horizontally or vertically from center. Values are multiples of the sensor size; for example, a shift of 0.5 along the X axis offsets the sensor by half its horizontal size. <br><br>You can use lens shifts to correct distortion that occurs when the camera is at an angle to the subject (for example, converging parallel lines). <br><br>Shift the lens along either axis to make the camera frustum <a href="https://docs.unity3d.com/Manual/ObliqueFrustum.html">oblique</a>.</td>
+</tr>
+<tr>
+<td></td>
+<td>        <em>X</em></td>
+<td style="text-align: left;">Set the horizontal offset of the lens from the Camera sensor.</td>
+</tr>
+<tr>
+<td></td>
+<td>        <em>Y</em></td>
+<td style="text-align: left;">Set the vertical offset of the lens from the Camera sensor.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Aperture</em></td>
+<td style="text-align: left;">Set the f-stop (f-number) of the lens. A lower value gives a wider lens aperture.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Focus Distance</em></td>
+<td style="text-align: left;">Set the distance from the camera where objects appear sharp when you enable Depth of Field.</td>
+</tr>
+<tr>
+<td><strong>Aperture Shape</strong></td>
+<td></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td></td>
+<td><em>Blade Count</em></td>
+<td style="text-align: left;">The number of blades in the lens aperture. A higher value gives a rounder aperture shape.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Curvature</em></td>
+<td style="text-align: left;">Set the curvature of the lens aperture blades.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Barrel Clipping</em></td>
+<td style="text-align: left;">Set the self-occlusion of the lens. A higher value creates a cat's eye effect.</td>
+</tr>
+<tr>
+<td></td>
+<td><em>Anamorphism</em></td>
+<td style="text-align: left;">Set the stretch of the sensor. A higher value increases the stretch of the sensor to simulate an anamorphic look.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="Rendering"></a></p>
+<h2 id="rendering">Rendering</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Renderer</strong></td>
+<td>Control which renderer this Camera uses.</td>
+</tr>
+<tr>
+<td><strong>Post Processing</strong></td>
+<td>Enable post-processing effects.</td>
+</tr>
+<tr>
+<td><strong>Anti-Aliasing</strong></td>
+<td>Select the method that this Camera uses for post-process anti-aliasing. A Camera can still use Multisample Anti-aliasing (MSAA), which is a hardware feature, at the same time as post-process anti-aliasing unless you use Temporal Anti-aliasing.<br><br>The following Anti-aliasing options are available:<ul><li><strong>None</strong>: This Camera can process MSAA but does not process any post-process anti-aliasing.</li><li><strong>Fast Approximate Anti-aliasing (FXAA)</strong>: Performs a full screen pass which smooths edges on a per-pixel level.</li><li><strong>Subpixel Morphological Anti-aliasing (SMAA)</strong>: Finds edge patterns in the image and blends the pixels on these edges according to those patterns.</li><li><strong>Temporal Anti-aliasing (TAA)</strong>: Uses previous frames accumulated into a color history buffer to smooth edges over the course of multiple frames.</li></ul>For more information, see <a href="anti-aliasing.html">Anti-aliasing in the Universal Render Pipeline</a>.<br><br>This property is only visible when <strong>Render Type</strong> is set to <strong>Base</strong>.</td>
+</tr>
+<tr>
+<td>        <em>Quality (SMAA)</em></td>
+<td>Select the quality of SMAA. The difference in resource intensity is fairly small between <strong>Low</strong> and <strong>High</strong>.<br><br>Available options:<ul><li><strong>Low</strong></li><li><strong>Medium</strong></li><li><strong>High</strong></li></ul>This property only appears when you select <strong>Subpixel Morphological Anti-aliasing (SMAA)</strong> from the <strong>Anti-aliasing</strong> drop-down.</td>
+</tr>
+<tr>
+<td>        <em>Quality (TAA)</em></td>
+<td>Select the quality of TAA.<br><br>Available options:<ul><li><strong>Very Low</strong></li><li><strong>Low</strong></li><li><strong>Medium</strong></li><li><strong>High</strong></li><li><strong>Very High</strong></li></ul>This property only appears when you select <strong>Temporal Anti-aliasing (TAA)</strong> from the <strong>Anti-aliasing</strong> drop-down.</td>
+</tr>
+<tr>
+<td>        <em>Contrast Adaptive Sharpening</em></td>
+<td>Enable high quality post sharpening to reduce TAA blur.<br><br>This setting is overridden when you enable <a href="universalrp-asset.html#quality">AMD FidelityFX Super Resolution (FSR)</a> upscaling in the URP Asset as FSR handles sharpening when it performs post-upscale sharpening.<br><br>This property only appears when you select <strong>Temporal Anti-aliasing (TAA)</strong> from the <strong>Anti-aliasing</strong> drop-down.</td>
+</tr>
+<tr>
+<td>        <em>Base Blend Factor</em></td>
+<td>Set how much the history buffer blends with the current frame result. Higher values mean more history contribution, which improves the anti-aliasing, but also increases the chance of ghosting.<br><br>This property only appears when you select <strong>Temporal Anti-aliasing (TAA)</strong> from the <strong>Anti-aliasing</strong> drop-down and enable <strong>Show Additional Properties</strong> in the Inspector.</td>
+</tr>
+<tr>
+<td>        <em>Jitter Scale</em></td>
+<td>Set the scale of the jitter applied when TAA is enabled. A lower value reduces visible flickering and jittering, but also reduces the effectiveness of the anti-aliasing.<br><br>This property only appears when you select <strong>Temporal Anti-aliasing (TAA)</strong> from the <strong>Anti-aliasing</strong> drop-down and enable <strong>Show Additional Properties</strong> in the Inspector.</td>
+</tr>
+<tr>
+<td>        <em>Mip Bias</em></td>
+<td>Set how much texture mipmap selection is biased when rendering.<br><br>A positive bias makes a texture appear more blurry, while a negative bias sharpens the texture. However, a lower value also has a negative impact on performance.<br><br><strong>Note</strong>: Requires mipmaps in textures.<br><br>This property only appears when you select <strong>Temporal Anti-aliasing (TAA)</strong> from the <strong>Anti-aliasing</strong> drop-down and enable <strong>Show Additional Properties</strong> in the Inspector.</td>
+</tr>
+<tr>
+<td>        <em>Variance Clamp Scale</em></td>
+<td>Set the size of the color volume Unity uses to find nearby pixels when the color history is incorrect or unavailable. To do this, the clamp limits how much a pixel's color can vary from the color of the pixels that surround it.<br><br>Lower values can reduce ghosting, but produce more flickering. Higher values reduce flickering, but are prone to blur and ghosting.<br><br>This property only appears when you select <strong>Temporal Anti-aliasing (TAA)</strong> from the <strong>Anti-aliasing</strong> drop-down and enable <strong>Show Additional Properties</strong> in the Inspector.</td>
+</tr>
+<tr>
+<td><strong>Stop NaNs</strong></td>
+<td>Enable the checkbox to make this Camera replace values that are Not a Number (NaN) with a black pixel. This stops certain effects from breaking, but is a resource-intensive process. Only enable this feature if you experience NaN issues that you can not fix.<br><br>This property is only visible when <strong>Render Type</strong> is set to <strong>Base</strong>.</td>
+</tr>
+<tr>
+<td><strong>Dithering</strong></td>
+<td>Enable the checkbox to apply 8-bit dithering to the final render. This can help reduce banding on wide gradients and low light areas.<br><br>This property is only visible when <strong>Render Type</strong> is set to <strong>Base</strong>.</td>
+</tr>
+<tr>
+<td><strong>Clear Depth</strong></td>
+<td>Enable to clear depth from previous camera on rendering.<br><br>This property is only visible when <strong>Render Type</strong> is set to <strong>Overlay</strong>.</td>
+</tr>
+<tr>
+<td><strong>Render Shadows</strong></td>
+<td>Enable shadow rendering.</td>
+</tr>
+<tr>
+<td><strong>Priority</strong></td>
+<td>A Camera with a higher priority is drawn on top of a Camera with a lower priority. Priority has a range from -100 to 100.<br><br>This property is only visible when <strong>Render Type</strong> is set to <strong>Base</strong>.</td>
+</tr>
+<tr>
+<td><strong>Opaque Texture</strong></td>
+<td>Control whether the Camera creates a CameraOpaqueTexture, which is a copy of the rendered view.<br><br>Available options:<ul><li><strong>Off</strong>: Camera does not create a CameraOpaqueTexture.</li><li><strong>On</strong>: Camera creates a CameraOpaqueTexture.</li><li><strong>Use Pipeline Settings</strong>: The Render Pipeline Asset determines the value of this setting.</li></ul>This property is only visible when <strong>Render Type</strong> is set to <strong>Base</strong>.</td>
+</tr>
+<tr>
+<td><strong>Depth Texture</strong></td>
+<td>Control whether the Camera creates CameraDepthTexture, which is a copy of the rendered depth values.<br><br>Available options:<ul><li><strong>Off</strong>: Camera does not create a CameraDepthTexture.</li><li><strong>On</strong>: Camera creates a CameraDepthTexture.</li><li><strong>Use Pipeline Settings</strong>: The Render Pipeline Asset determines the value of this setting.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Culling Mask</strong></td>
+<td>Select which Layers the Camera renders to.</td>
+</tr>
+<tr>
+<td><strong>Occlusion Culling</strong></td>
+<td>Enable Occlusion Culling.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Stack">Stack</h2>
+<blockquote>
+<p><strong>Note:</strong> This section is only available if <strong>Render Type</strong> is set to <strong>Base</strong></p>
+</blockquote>
+<p>A camera stack allows to composite results of several cameras together. The camera stack consists of a Base camera and any number of additional Overlay cameras.</p>
+<p>You can use the stack property add Overlay cameras to the stack and they will render in the order as defined in the stack. For more information on configuring and using Camera Stacks, see <a href="camera-stacking.html">Camera Stacking</a>.</p>
+<h2 id="Environment">Environment</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Background Type</strong></td>
+<td>Control how to initialize the color buffer at the start of this Camera's render loop. For more information, see <a href="cameras-advanced.html#clearing">the documentation on clearing</a>.<br><br>This property is only visible when <strong>Render Type</strong> is set to <strong>Base</strong>.</td>
+</tr>
+<tr>
+<td>        <em>Skybox</em></td>
+<td>Initializes the color buffer by clearing to a Skybox. Defaults to a background color if no Skybox is found.</td>
+</tr>
+<tr>
+<td>        <em>Solid Color</em></td>
+<td>Initializes the color buffer by clearing to a given color.<br>If you select this property, Unity shows the following extra property:<br><strong>Background</strong>: the Camera clears its color buffer to this color before rendering.</td>
+</tr>
+<tr>
+<td>        <em>Uninitialized</em></td>
+<td>Does not initialize the color buffer. This means that the load action for that specific RenderTarget will be <code>DontCare</code> instead of <code>Load</code> or <code>Clear</code>. <code>DontCare</code> specifies that the previous contents of the RenderTarget don't need to be preserved.<br><br>Only use this option in order to optimize performance in situations where your Camera or Camera Stack will draw to every pixel in the color buffer, otherwise the behaviour of pixels the Camera doesn't draw is undefined.<br><br><strong>Note</strong>: The results might look different between Editor and Player, as the Editor doesn't run on Tile-Based Deferred Rendering (TBDR) GPUs (found in mobile devices). If you use this option on TBDR GPUs, it causes uninitialized tile memory and the content is undefined.</td>
+</tr>
+<tr>
+<td><strong>Volumes</strong></td>
+<td>The settings in this section define how Volumes affect this Camera.</td>
+</tr>
+<tr>
+<td>        <em>Update Mode</em></td>
+<td>Select how Unity updates Volumes.<br><br>Available options:<ul><li><strong>Every Frame</strong>: Update Volumes with every frame Unity renders.</li><li><strong>Via Scripting</strong>: Only update volumes when triggered by a script.</li><li><strong>Use Pipeline Settings</strong>: Use the default setting for the Render Pipeline.</li></ul></td>
+</tr>
+<tr>
+<td>        <em>Volume Mask</em></td>
+<td>Use the drop-down to set the Layer Mask that defines which Volumes affect this Camera.</td>
+</tr>
+<tr>
+<td>        <em>Volume Trigger</em></td>
+<td>Assign a Transform that the <a href="Volumes.html">Volume</a> system uses to handle the position of this Camera. For example, if your application uses a third person view of a character, set this property to the character's Transform. The Camera then uses the post-processing and Scene settings for Volumes that the character enters. If you do not assign a Transform, the Camera uses its own Transform instead.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Output">Output</h2>
+<blockquote>
+<p><strong>Note:</strong> This section is only available if <strong>Render Type</strong> is set to <strong>Base</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>Note:</strong> When a Camera's <strong>Render Type</strong> is set to <strong>Base</strong> and its <strong>Render Target</strong> is set to <strong>Texture</strong>, Unity does not show the following properties in the Inspector for the Camera:</p>
+<ul>
+<li>Target Display</li>
+<li>HDR</li>
+<li>MSAA</li>
+<li>Allow Dynamic Resolution</li>
+</ul>
+</blockquote>
+<p>This is because the Render Texture determines these properties. To change them, do so on the Render Texture Asset.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Output Texture</strong></td>
+<td>Render this Camera's output to a RenderTexture if this field is assigned, otherwise render to the screen.</td>
+</tr>
+<tr>
+<td><strong>Target Display</strong></td>
+<td>Define which external device to render to. Between 1 and 8.<br><br>This property only appears when you select <strong>Screen</strong> from the <strong>Output Target</strong> drop-down.</td>
+</tr>
+<tr>
+<td><strong>Target Eye</strong></td>
+<td>Select the target eye for this camera.<br><br>Available options:<ul><li><strong>Both</strong>: Allows XR rendering from the selected Camera.</li><li><strong>None</strong>: Disables XR rendering for the selected Camera.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Viewport Rect</strong></td>
+<td>Four values that indicate where on the screen this camera view is drawn. Measured in Viewport Coordinates (values 0-1).<br><br>This property only appears when you select <strong>Screen</strong> from the <strong>Output Target</strong> drop-down.</td>
+</tr>
+<tr>
+<td>        <em>X</em></td>
+<td>The beginning horizontal position Unity uses to draw the camera view.</td>
+</tr>
+<tr>
+<td>        <em>Y</em></td>
+<td>The beginning vertical position Unity uses to draw the camera view.</td>
+</tr>
+<tr>
+<td>        <em>W</em> (Width)</td>
+<td>Width of the camera output on the screen.</td>
+</tr>
+<tr>
+<td>        <em>H</em> (Height)</td>
+<td>Height of the camera output on the screen.</td>
+</tr>
+<tr>
+<td><strong>HDR</strong></td>
+<td>Enable High Dynamic Range rendering for this camera.<br><br>This property only appears when you select <strong>Screen</strong> from the <strong>Output Target</strong> drop-down.</td>
+</tr>
+<tr>
+<td><strong>MSAA</strong></td>
+<td>Enable <a href="anti-aliasing.html#msaa">Multisample Anti-aliasing</a> for this camera.<br><br>This property only appears when you select <strong>Screen</strong> from the <strong>Output Target</strong> drop-down.</td>
+</tr>
+<tr>
+<td><strong>Allow Dynamic Resolution</strong></td>
+<td>Enable URP Dynamic Resolution rendering for this Camera.<br><br>This property only appears when you select <strong>Screen</strong> from the <strong>Output Target</strong> drop-down.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/camera-component-reference.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

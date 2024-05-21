@@ -1,0 +1,243 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Spawn | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Spawn | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-Spawn.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="spawn">Spawn</h1>
+
+<p>Menu Path : <strong>Context &gt; Spawn</strong></p>
+<p>The Spawn Context controls how many instances the system feeds into an <a href="Context-Initialze.md">Initialize</a> Context. This Context handles a set of built-in Block to control the spawn rate. You can also implement  <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerCallbacks.html">VFXSpawnerCallbacks</a> to create a custom behavior.</p>
+<p>This Context spawns particles within spawn loops. You can specify the number of loops it processes, the duration of each loop, and whether or not to have a delay before or after each loop.</p>
+<h2 id="context-settings">Context settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Loop Duration</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how long this Context produces particles. The options are:<br>• <strong>Infinite</strong>: Produces particles continuously.<br>• <strong>Constant</strong>: Produces particles for a specific duration that you can specify. After this time, if <strong>Delay Mode</strong> is set to <strong>After Loop</strong> or <strong>Before And After Loop</strong>, this Context pauses particle spawning. What it does after this pause depends on the <strong>Loop Count</strong> and <strong>Delay Mode</strong>.<br>• <strong>Random</strong>: Produces particles for a random duration between a minimum and maximum value. After this time, if <strong>Delay Mode</strong> is set to <strong>After Loop</strong> or <strong>Before And After Loop</strong>, this Context pauses particle spawning. What it does after this pause depends on the <strong>Loop Count</strong> and <strong>Delay Mode</strong>.</td>
+</tr>
+<tr>
+<td><strong>Loop Count</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how many times this Context loops for. During each loop, this Context triggers particle spawns. The options are:<br>• <strong>Infinite</strong>: Loops indefinitely.<br>• <strong>Constant</strong>: Loops a specific number of times.<br>• <strong>Random</strong>: Loops a random number of times between a minimum and maximum value.</td>
+</tr>
+<tr>
+<td><strong>Delay Mode</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies where in the loop this Context processes a delay. The options are:<br>• <strong>None</strong>: Does not process a delay.<br>• <strong>Before Loop</strong>: Processes a delay before the spawn loop.<br>• <strong>After Loop</strong>: Processes a delay after the spawn loop.<br>• <strong>Before And After Loop</strong>: Processes a delay before and after the spawn loop.</td>
+</tr>
+<tr>
+<td><strong>Delay Before Random</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Toggles whether the delay before the spawn loop is a random value between a minimum and a maximum value or a constant value.<br>This setting is only visible if you set <strong>Delay Mode</strong> to <strong>Before Loop</strong> or <strong>Before And After Loop</strong>.</td>
+</tr>
+<tr>
+<td><strong>Delay After Random</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Toggles whether the delay after the spawn loop is a random value between a minimum and a maximum value or a constant value.<br>This setting is only visible if you set <strong>Delay Mode</strong> to <strong>After Loop</strong> or <strong>Before And After Loop</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="context-properties">Context properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Loop Duration</strong></td>
+<td>float/Vector2</td>
+<td>The duration of the spawn loop.<br>This property only appears if you set <strong>Loop Duration</strong> to <strong>Constant</strong> or <strong>Random</strong>.</td>
+</tr>
+<tr>
+<td><strong>Loop Count</strong></td>
+<td>int/Vector2</td>
+<td>Defines how many loops the Context processes before going back to the initial state.<br>This property only appears if you set <strong>Loop Count</strong> to <strong>Constant</strong> or <strong>Random</strong>.</td>
+</tr>
+<tr>
+<td><strong>Delay Before</strong></td>
+<td>float/Vector2</td>
+<td>The duration of the delay before the spawn loop.<br>This property only appears if you enable <strong>Random</strong>.</td>
+</tr>
+<tr>
+<td><strong>Delay After</strong></td>
+<td>float/Vector2</td>
+<td>The duration of the delay after the spawn loop.<br>This property only appears if you enable <strong>Random</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="flow">Flow</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Port</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Start</strong></td>
+<td>Connection from an <a href="Context-Event.html">Event</a>, a <a href="Context-GPUEvent.html">GPU Event</a>, or another Spawn Context.</td>
+</tr>
+<tr>
+<td><strong>Stop</strong></td>
+<td>Connection from an <a href="Context-Event.html">Event</a>, a <a href="Context-GPUEvent.html">GPU Event</a>, or another Spawn Context.</td>
+</tr>
+<tr>
+<td><strong>SpawnEvent</strong></td>
+<td>Connection to an <a href="Context-Initialize.html">Initialize Context</a> or another Spawn Context.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="remarks">Remarks</h2>
+<h3 id="system-lifecycle">System lifecycle</h3>
+<p>For a visualization of the looping and delay system, see the below illustration.</p>
+<p><img src="Images/Context-SpawnVisualization.png" alt=""></p>
+<p>The lifecycle of the looping phases is split up into <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerLoopState.html">states</a> that the Spawn Context handles internally. The lifecycle is as follows:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Step</strong></th>
+<th><strong>State description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Initial State</td>
+<td>The initial state of a spawn Context is <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerLoopState.Finished.html">VFXSpawnerLoopState.Finished</a>. At this stage, the Context is waiting for <strong>Start</strong> flow input to trigger. This occurs when you call <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VisualEffect.Play.html">VisualEffect.Play</a>.</td>
+</tr>
+<tr>
+<td>2. OnPlay</td>
+<td>When the <strong>Start</strong> flow input triggers, if there are [custom spawner callbacks], the Context triggers <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerCallbacks.OnPlay.html">VFXSpawnerCallbacks.OnPlay</a>. The Spawn Context evaluates the graph to set the <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-loopCount.html">loop count</a>. It then proceeds to the next step.</td>
+</tr>
+<tr>
+<td>3. Reset Delay durations</td>
+<td>The Spawn Context evaluates the graph and initializes:<br>• The <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-delayBeforeLoop.html">delayBeforeLoop</a> time.<br>• The <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-loopDuration.html">loopDuration</a> time.<br>• The <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-delayAfterLoop.html">delayAfterLoop</a> time.<br>It then sets the <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-totalTime.html">totalTime</a> to zero and proceeds to the next step.</td>
+</tr>
+<tr>
+<td>4. Awaiting before the loop.</td>
+<td>The <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerState-loopState.html">loopState</a> transitions to <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerLoopState.DelayingBeforeLoop.html">DelayingBeforeLoop</a>. <br>During this phase, while <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-totalTime.html">totalTime</a> is below <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-delayBeforeLoop.html">delayBeforeLoop</a>, the Context waits. <br>When totalTime exceeds delayBeforeLoop, the Context sets totalTime to zero and proceeds to the next step.</td>
+</tr>
+<tr>
+<td>5. Looping</td>
+<td>The <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerState-loopState.html">loopState</a> transitions to <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerLoopState.Looping.html">Looping</a> and the Context sets <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerState-playing.html">playing</a> to true.<br>During this phase, while <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-totalTime.html">totalTime</a> is below <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-loopDuration.html">loopDuration</a>, the Spawn Context evaluates the internal spawn Blocks and spawns particles.<br>When totalTime exceeds loopDuration, the Context sets totalTime to zero and proceeds to the next step.</td>
+</tr>
+<tr>
+<td>6. Awaiting after the loop</td>
+<td>The <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerState-loopState.html">loopState</a> transitions to <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerLoopState.DelayingAfterLoop.html">DelayingAfterLoop</a>. <br>During this phase, while <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-totalTime.html">totalTime</a> is below <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-delayAfterLoop.html">delayAfterLoop</a>, the Context waits. <br>When totalTime exceeds delayBeforeLoop, the Context sets totalTime to zero and proceeds to the next step.</td>
+</tr>
+<tr>
+<td>7. Verify final state.</td>
+<td>Finally, the Context increments the <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXSpawnerState-loopIndex.html">loopIndex</a>. If the new loopIndex is less than the <a href="https://docs.unity3d.com/ScriptReference/VFX.VFXSpawnerState-loopCount.html">loopCount</a>, the lifecycle moves back to step <strong>3</strong>. Otherwise, it moves back to the initial step, <strong>1</strong>, and awaits a new <strong>Start</strong> flow input trigger.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="linking-spawn-contexts">Linking Spawn Contexts</h3>
+<p>The standard way to turn a Spawn Context on and off is to use an input event. When there isn’t an input to a Spawn Context's <strong>Start</strong> input flow slot, the Visual Effect Graph implicitly connects the “OnPlay” event. Also, when there isn't an input to a Spawn Context's <strong>Stop</strong> input flow slot, the Visual Effect Graph implicitly connects the “OnStop” event.</p>
+<p>Another way to turn a Spawn Context on and off is to link it to another Spawn Context. To do this, link a Spawn Context's, <strong>SpawnEvent</strong> output flow slot to another Spawn Context's <strong>Start</strong> input flow slot. In that case, the event attributes state is automatically transferred from the first Spawn Context to the second. You can then connect to the first Spawn Context's <strong>Start</strong> and <strong>Stop</strong> input flow slots to turn the connected Contexts on and off.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-Spawn.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

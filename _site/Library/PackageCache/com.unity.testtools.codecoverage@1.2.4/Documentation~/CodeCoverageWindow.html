@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Code Coverage window | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Code Coverage window | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.testtools.codecoverage@1.2.4/Documentation~/CodeCoverageWindow.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="code-coverage-window">Code Coverage window</h1>
+
+<p><img src="images/coverage_window.png" alt="Code Coverage Settings"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Toolbar</strong></th>
+<th style="text-align: left;"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><img src="images/toolbar_record_button.png" alt="Start/Stop coverage recording"></td>
+<td style="text-align: left;">Select <strong>Start Recording</strong> to start recording code coverage data and <strong>Stop Recording</strong> to stop recording.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><img src="images/toolbar_pause_button.png" alt="Pause/Resume coverage recording"></td>
+<td style="text-align: left;">Select <strong>Pause Recording</strong> to pause recording code coverage data and <strong>Resume Recording</strong> to resume recording. The buttons are disabled if not in a <a href="CoverageRecording.html">Coverage Recording</a> session.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Generate Report</td>
+<td style="text-align: left;">Select <strong>Generate Report</strong> to generate a coverage report from the last set of tests that were run in the <a href="CoverageTestRunner.html">Test Runner</a> or from the last <a href="CoverageRecording.html">Coverage Recording</a> session. Note that <strong>Generate Report</strong> is disabled if no tests ran, there is no Coverage Recording data or all <strong>HTML Report</strong>, <strong>Additional Reports</strong> and <strong>Summary Badges</strong> checkboxes are unchecked.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Clear Results</td>
+<td style="text-align: left;">Select <strong>Clear Results</strong> to clear the coverage data from previous test runs or from previous <a href="CoverageRecording.html">Coverage Recording</a> sessions. <strong>Clear Results</strong> is disabled if the coverage results are cleared, if no tests ran, or if there is no Coverage Recording data.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Clear History</td>
+<td style="text-align: left;">Select <strong>Clear History</strong> to clear the coverage report history. <strong>Clear History</strong> is disabled if the history is cleared or if no reports were generated.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><img src="images/toolbar_help_button.png" alt="Help"></td>
+<td style="text-align: left;">Select <strong>Help</strong> to open the Documentation Reference for Code Coverage in the web browser.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Settings</strong></td>
+<td style="text-align: left;"><strong>Description</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">Enable Code Coverage</td>
+<td style="text-align: left;">Check this to enable Code Coverage. This is required in order to generate Coverage data and reports. Note that Code Coverage can affect the Editor performance.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Results Location</td>
+<td style="text-align: left;">Select the dropdown to open or specify the folder where the coverage results and report are saved to, and to reset to the default location. The default location is the Project's folder.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Report History Location</td>
+<td style="text-align: left;">Select the dropdown to open or specify the folder where the coverage report history is saved to, and to reset to the default location. The default location is the Project's folder.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Included Assemblies</td>
+<td style="text-align: left;">Specify assemblies to be included in the coverage results. This is a dropdown list containing the available assemblies. Click the dropdown to view, select or deselect the assemblies. Select <strong>All</strong> to select all the assemblies in the project. Select <strong>Assets</strong> to select only the assemblies under the <code>Assets</code> folder. Select <strong>Packages</strong> to select only the Packages' assemblies. Select <strong>Deselect All</strong> to deselect all the assemblies.<br><br><strong>Note:</strong> If searching, the buttons will apply only to the assemblies visible in the list.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Included Paths</td>
+<td style="text-align: left;">Select <strong>Add (+)</strong> to specify individual folders and files to include in coverage results. You can use globbing to filter the paths. If the list is empty, Unity includes all files in the <strong>Included Assemblies</strong>. To remove an individual list entry, select the entry and then select <strong>Remove (-)</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Excluded Paths</td>
+<td style="text-align: left;">Select <strong>Add (+)</strong> to specify individual folders and files to exclude from coverage results. You can use globbing to filter the paths. To remove an individual list entry, select the entry and then select <strong>Remove (-)</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Log Verbosity Level</td>
+<td style="text-align: left;">Click the dropdown to set the verbosity level for the editor and console logs. The default level is <code>Info</code>.<br><br><strong>Levels:</strong><br><code>Verbose</code> All logs will be printed.<br><code>Info</code> Logs, Warnings and Errors will be printed.<br><code>Warning</code> Warnings and Errors will be printed.<br><code>Error</code> Only Errors will be printed.<br><code>Off</code> No logs will be printed.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Report Options</strong></td>
+<td style="text-align: left;"><strong>Description</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">HTML Report</td>
+<td style="text-align: left;">Check this to generate an <a href="HowToInterpretResults.html">HTML report</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Additional Reports</td>
+<td style="text-align: left;">Check this to generate <a href="https://docs.sonarqube.org/latest/analysis/generic-test">SonarQube</a>, <a href="https://cobertura.github.io/cobertura">Cobertura</a> and <a href="https://github.com/linux-test-project/lcov">LCOV</a> reports.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Report History</td>
+<td style="text-align: left;">Check this to generate and include the coverage history in the HTML report.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Summary Badges</td>
+<td style="text-align: left;">Check this to generate coverage summary badges in SVG and PNG format.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Additional Metrics</td>
+<td style="text-align: left;">Check this to generate and include additional metrics in the HTML report. These currently include Cyclomatic Complexity and Crap Score calculations for each method. See the <a href="HowToInterpretResults.html#risk-hotspots">Risk Hotspots</a> section for more information.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Test Runner References</td>
+<td style="text-align: left;">Check this to include test references to the generated coverage results and enable the <a href="HowToInterpretResults.html#coverage-by-test-methods">Coverage by test methods</a> section in the HTML report. This shows how each test contributes to the overall coverage.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Auto Generate Report</td>
+<td style="text-align: left;">Check this to generate the report automatically after the <a href="CoverageTestRunner.html">Test Runner</a> finishes running or the <a href="CoverageRecording.html">Coverage Recording</a> session is complete.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Auto Open Report</td>
+<td style="text-align: left;">Check this to open the coverage report automatically after it has been generated.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.testtools.codecoverage@1.2.4/Documentation~/CodeCoverageWindow.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

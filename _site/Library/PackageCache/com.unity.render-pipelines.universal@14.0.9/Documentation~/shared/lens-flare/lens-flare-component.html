@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Lens Flare (SRP) component | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Lens Flare (SRP) component | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/shared/lens-flare/lens-flare-component.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="lens-flare-srp-component">Lens Flare (SRP) component</h1>
+
+<p><img src="../../images/shared/lens-flare/lens-flare-header.png" alt=""></p>
+<p>Unity’s Scriptable Render Pipeline (SRP) includes the Lens Flare (SRP) component which renders a lens flare in your scene. This is the SRP equivalent of the Built-in Render Pipeline's <a href="https://docs.unity3d.com/Manual/class-LensFlare.html">Lens Flare</a> component, which is incompatible with SRPs. You can attach a Lens Flare (SRP) component to any GameObject, but some properties only appear when you attach a Lens Flare (SRP) component to a light.</p>
+<p><img src="../../images/shared/lens-flare/lens-flare-comp.png" alt=""></p>
+<h2 id="creating-lens-flares-in-srp">Creating lens flares in SRP</h2>
+<p>The Lens Flare (SRP) component controls where the lens flare is as well as properties such as attenuation and whether the lens flare considers occlusion. For properties that define how the lens flare looks, SRP uses the <a href="lens-flare-asset.html">Lens Flare (SRP) Data</a> asset. Each Lens Flare (SRP) component must reference a Lens Flare (SRP) data asset to display a lens flare on-screen.</p>
+<p>To create a lens flare in a scene:</p>
+<ol>
+<li>Create or select a GameObject to attach the lens flare too.</li>
+<li>In the Inspector, click <strong>Add Component</strong>.</li>
+<li>Select <strong>Rendering</strong> &gt; <strong>Lens Flare (SRP)</strong>. Currently, the lens flare doesn't render in the scene because the component doesn't reference a Lens Flare (SRP) Data asset in its <strong>Lens Flare Data</strong> property.</li>
+<li>Create a new Lens Flare (SRP) Data asset (menu: <strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Lens Flare (SRP)</strong>).</li>
+<li>In the Lens Flare (SRP) component Inspector, assign the new Lens Flare (SRP) Data asset to the <strong>Lens Flare Data</strong> property.</li>
+<li>Select the Lens Flare (SRP) Data asset and, in the Inspector, add a new element to the <strong>Elements</strong> list. A default white lens flare now renders at the position of the Lens Flare (SRP) component. For information on how to customize how the lens flare looks, see <a href="lens-flare-asset.html">Lens Flare (SRP) Data</a>.</li>
+</ol>
+<h2 id="properties">Properties</h2>
+<h3 id="general">General</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lens Flare Data</td>
+<td>Select the <a href="lens-flare-asset.html">Lens Flare (SRP) Data</a> asset this component controls.</td>
+</tr>
+<tr>
+<td>Intensity</td>
+<td>Multiplies the intensity of the lens flare.</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>Multiplies the scale of the lens flare.</td>
+</tr>
+<tr>
+<td>Attenuation by Light Shape</td>
+<td>Enable this property to automatically change the appearance of the lens flare based on the type of light you attached this component to.<br>For example, if this component is attached to a spot light and the camera is looking at this light from behind, the lens flare will not be visible. <br>This property is only available when this component is attached to a light.</td>
+</tr>
+<tr>
+<td>Attenuation Distance</td>
+<td>The distance between the start and the end of the Attenuation Distance Curve.<br>This value operates between 0 and 1 in world space.</td>
+</tr>
+<tr>
+<td>Attenuation Distance Curve</td>
+<td>Fades out the appearance of the lens flare over the distance between the GameObject this asset is attached to, and the Camera.</td>
+</tr>
+<tr>
+<td>Scale Distance</td>
+<td>The distance between the start and the end of the <strong>Scale Distance Curve</strong>.<br>This value operates between 0 and 1 in world space.</td>
+</tr>
+<tr>
+<td>Scale Distance Curve</td>
+<td>Changes the size of the lens flare over the distance between the GameObject this asset is attached to, and the Camera.</td>
+</tr>
+<tr>
+<td>Screen Attenuation Curve</td>
+<td>Reduces the effect of the lens flare based on its distance from the edge of the screen. You can use this to display a lens flare at the edge of your screen</td>
+</tr>
+</tbody>
+</table>
+<h3 id="occlusion">Occlusion</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enable</td>
+<td>Enable this property to partially obscure the lens flare based on the depth buffer</td>
+</tr>
+<tr>
+<td>Occlusion Radius</td>
+<td>Defines how far from the light source Unity occludes the lens flare. This value is in world space.</td>
+</tr>
+<tr>
+<td>Sample Count</td>
+<td>The number of random samples the CPU uses to generate the <strong>Occlusion Radius.</strong></td>
+</tr>
+<tr>
+<td>Occlusion Offset</td>
+<td>Offsets the plane that the occlusion operates on. A higher value moves this plane closer to Camera. This value is in world space. <br>For example, if a lens flare is inside the light bulb, you can use this to sample occlusion outside the light bulb.</td>
+</tr>
+<tr>
+<td>Occlusion Remap Curve</td>
+<td>Allow the occlusion [from 0 to 1] to be remap with any desired shape.</td>
+</tr>
+<tr>
+<td>Allow Off Screen</td>
+<td>Enable this property to allow lens flares outside the Camera's view to affect the current field of view.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/shared/lens-flare/lens-flare-component.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

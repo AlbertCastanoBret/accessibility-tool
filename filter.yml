@@ -1,0 +1,7 @@
+apiRules: 
+- include:
+    uidRegex: ^ACC_API
+    type: Namespace
+- exclude:
+    uidRegex: .*
+    type: Namespace

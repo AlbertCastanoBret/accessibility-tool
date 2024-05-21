@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Light Blend Styles | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Light Blend Styles | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/LightBlendStyles.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="light-blend-styles">Light Blend Styles</h1>
+
+<p><img src="Images/2D/image_38.png" alt=""></p>
+<p><strong>Blend Styles</strong> determine the way a particular Light interacts with Sprites in the Scene. All Lights in the Scene must pick from one of the available Blend Styles. The Universal Render Pipeline (URP) 2D Asset can currently contain a total of four different Light Blend Styles, starting with the 'Default' Blend Style being available.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Function</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Name</strong></td>
+<td>The name that appears when choosing a Blend Style for a Light2D.</td>
+</tr>
+<tr>
+<td><strong>Mask Texture Channel</strong></td>
+<td>Which mask channel to use when applying this Blend Style to a Sprite.</td>
+</tr>
+<tr>
+<td><strong>Render Texture Scale</strong></td>
+<td>Scale for the internal render texture created for this Blend Style.</td>
+</tr>
+<tr>
+<td><strong>Blend Mode</strong></td>
+<td>What blending mode the Light2D uses when this Blend Style is selected.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="blend-mode">Blend Mode</h2>
+<p><img src="Images/2D/image_39.png" alt=""></p>
+<p>Blend Modes controls the way a Sprite is lit by light. The following examples show the four predefined Blend Modes:</p>
+<table>
+<thead>
+<tr>
+<th><img src="Images/2D/image_40.png" alt="Original reference"></th>
+<th><img src="Images/2D/image_41.png" alt="Multiply"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Original Sprite</td>
+<td>Multiply</td>
+</tr>
+<tr>
+<td><img src="Images/2D/image_42.png" alt="Additive"></td>
+<td><img src="Images/2D/image_43.png" alt="Subtractive"></td>
+</tr>
+<tr>
+<td>Additive</td>
+<td>Subtractive</td>
+</tr>
+</tbody>
+</table>
+<h2 id="custom-blend-modes">Custom Blend Modes</h2>
+<p><img src="Images/2D/image_44.png" alt=""></p>
+<p>All of the Blend Modes available can be expressed with Custom Blend Factors. The factors for the existing Blend Modes are as follows:</p>
+<ul>
+<li><p>Multiplicative</p>
+</li>
+<li>
+<ul>
+<li>Modulate = 1</li>
+<li>Additive = 0</li>
+</ul>
+</li>
+<li><p>Additive</p>
+</li>
+<li>
+<ul>
+<li>Modulate = 0</li>
+<li>Additive = 1</li>
+</ul>
+</li>
+<li><p>Subtractive</p>
+</li>
+<li>
+<ul>
+<li>Modulate = 0</li>
+<li>Additive = -1</li>
+</ul>
+</li>
+</ul>
+<h2 id="mask-texture-channel">Mask Texture Channel</h2>
+<p>Masks control where Lights can affect a Sprite. There are 4 channels to select from as the mask channel - Red, Blue, Green, and Alpha. In a mask max value means full light, min value means no light.</p>
+<table>
+<thead>
+<tr>
+<th><img src="Images/2D/image_45.png" alt="Original rock color"></th>
+<th><img src="Images/2D/image_46.png" alt="Rock Mask"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Original Rock Color</td>
+<td>Rock with a mask</td>
+</tr>
+<tr>
+<td><img src="Images/2D/image_47.png" alt="Additive Light Blending"></td>
+<td><img src="Images/2D/image_48.png" alt="Masked Additive Light Blending"></td>
+</tr>
+<tr>
+<td>Additive Light Blending</td>
+<td>Additive Light Blending with a mask</td>
+</tr>
+</tbody>
+</table>
+<h2 id="render-texture-scale">Render Texture Scale</h2>
+<p>Render Texture Scale adjusts the size of the internal render Texture used for a given Blend Mode. Lowering the Render Texture Scale can increase performance and decrease memory usage for Scenes that contain large Lights. Lowering the Texture Scale to too low a value may cause visual artefacts or a shimmering effect when there is motion in the Scene.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/LightBlendStyles.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

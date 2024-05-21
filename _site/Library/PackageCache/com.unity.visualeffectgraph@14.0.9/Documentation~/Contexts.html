@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Contexts | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Contexts | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Contexts.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="contexts">Contexts</h1>
+
+<p>Contexts are the main element of the Visual Effect Graph's <strong>processing</strong> (vertical) workflow and determine how particles spawn and simulate. The way you organize Contexts on the graph defines order of operation for the processing workflow. For information on the processing workflow, see <a href="GraphLogicAndPhilosophy.html">Visual Effect Graph Logic</a>. Every Context defines one stage of computation. For example a Context can:</p>
+<ul>
+<li>Calculate how many particles the effect spawns.</li>
+<li>Create new particles.</li>
+<li>Update all living particles.</li>
+</ul>
+<p>Contexts connect to one another sequentially to define the lifecycle of particles. After a graph creates new particles, the <strong>Initialize</strong> Context can connect to an <strong>Update Particle</strong> Context to simulate each particle. Also, the <strong>Initialize</strong> Context can instead connect directly to an <strong>Output Particle</strong> Context to render the particles without simulating any behavior.</p>
+<h2 id="creating-and-connecting-contexts">Creating and connecting Contexts</h2>
+<p>A Context is a type of <a href="GraphLogicAndPhilosophy.html#graph-elements">graph element</a> so to create one, see <a href="VisualEffectGraphWindow.html#adding-graph-elements">Adding graph elements</a>.</p>
+<p>Contexts connect to one another in a vertical, linear order. To achieve this, they use <a href="">flow slots</a>. Depending on which part of the particle lifecycle a Context defines, it may have flow slots on its top, its bottom, or both.</p>
+<h2 id="configuring-contexts">Configuring Contexts</h2>
+<p>To change the behavior of the Context, adjust its <a href="GraphLogicAndPhilosophy.html#settings">settings</a> in the Node UI or the Inspector.</p>
+<p>Some settings also change how the Context looks. For example in a <strong>Quad Output</strong> Context, if you set the UV Mode to <strong>FlipbookMotionBlend</strong>, Unity adds the following extra properties to the Context header: <strong>Flipbook Size</strong>, <strong>Motion Vector Map</strong>, and <strong>Motion Vector Scale</strong>.</p>
+<h2 id="flow-compatibility">Flow compatibility</h2>
+<p>Not all Contexts can connect to one another. To keep a consistent workflow, the following rules apply:</p>
+<ul>
+<li>Contexts only connect to compatible input/output data types.</li>
+<li><a href="Events.html">Events</a> can connect to one or many Events or <strong>Initialize</strong> Contexts.</li>
+<li><strong>Initialize</strong> Contexts can have one or many <strong>SpawnEvent</strong> sources or one or many <strong>GPUSpawnEvent</strong> sources, but these data type are mutually exclusive.</li>
+<li>Only one <strong>Initialize</strong> Context can connect to one <strong>Update</strong> Context.</li>
+<li>You can connect an <strong>Output</strong> Context to an <strong>Initialize</strong> or <strong>Update</strong> Context.</li>
+</ul>
+<p>For a breakdown of Context compatibility, see the table below.</p>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>Input Data Type</th>
+<th>Output Data Type</th>
+<th>Specific Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Event</strong></td>
+<td><strong>None</strong></td>
+<td><strong>SpawnEvent</strong> (1+)</td>
+<td><strong>None</strong></td>
+</tr>
+<tr>
+<td><strong>Spawn</strong></td>
+<td><strong>SpawnEvent</strong> (1+)</td>
+<td><strong>SpawnEvent</strong> (1+)</td>
+<td>Has two input flow slots which start and stop the <strong>Spawn</strong> Context respectively.</td>
+</tr>
+<tr>
+<td><strong>GPU Event</strong></td>
+<td><strong>None</strong></td>
+<td><strong>SpawnEvent</strong></td>
+<td>Outputs to <strong>Initialize</strong> Context</td>
+</tr>
+<tr>
+<td><strong>Output Event</strong></td>
+<td><strong>SpawnEvent (1+)</strong></td>
+<td></td>
+<td>Outputs a CPU SpawnEvent back to the Visual Effect component.</td>
+</tr>
+<tr>
+<td><strong>Initialize</strong></td>
+<td><strong>SpawnEvent</strong> (1+) or <strong>GPUSpawnEvent</strong> (1+)</td>
+<td><strong>Particle</strong> (1)</td>
+<td>Input types are either <strong>SpawnEvent</strong> or <strong>GPUSpawnEvent</strong>. These input types are mutually exclusive.<br>Can output to <strong>Particle Update</strong> or <strong>Particle Output</strong>.</td>
+</tr>
+<tr>
+<td><strong>Update</strong></td>
+<td><strong>Particle</strong> (1)</td>
+<td><strong>Particle</strong> (1+)</td>
+<td>Can output to a <strong>Particle Update</strong> or <strong>Particle Output</strong>.</td>
+</tr>
+<tr>
+<td><strong>Particle Output</strong></td>
+<td><strong>Particle</strong> (1)</td>
+<td><strong>None</strong></td>
+<td>Can either have input from an <strong>Initialize</strong> or <strong>Update</strong> Context.<br>No output.</td>
+</tr>
+<tr>
+<td><strong>Static Mesh Output</strong></td>
+<td><strong>None</strong></td>
+<td><strong>None</strong></td>
+<td>Standalone Context.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="context-type-overview">Context type overview</h1>
+<p>This section covers all the common settings for every kind of Context.</p>
+<h2 id="event">Event</h2>
+<p>Event Contexts only display their name, which is a string. To trigger an Event Context and activate a workflow from it, use the Event Context's name in the <a href="ComponentAPI.html">component API</a>. For information on how to do this, see <a href="ComponentAPI.html#sending-events">Sending Events</a>.</p>
+<h2 id="spawn">Spawn</h2>
+<p>Spawn Contexts are standalone systems that have three States: Running, Idle, and Waiting.</p>
+<ul>
+<li><strong>Looping</strong> (Running): This state means that Unity computes the Blocks in the Context and spawns new particles.</li>
+<li><strong>Finished</strong> (Idle): This state means that the spawn machine is off and does not compute Blocks in the Context or spawn particles.</li>
+<li><strong>DelayingBeforeLoop/DelayingAfterLoop</strong> (Waiting): This state pauses the Context for the duration of a delay time which you can specify. After the delay, the Context resumes, computes Blocks in the Context, and spawns particles.</li>
+</ul>
+<p>To customize <strong>Spawn</strong> Contexts, you can add compatible <strong>Blocks</strong> to them. For information on the Spawn Context API, see the <a href="https://docs.unity3d.com/2019.3/Documentation/ScriptReference/VFX.VFXSpawnerLoopState.html">Script Reference</a>.</p>
+<h3 id="enabling-and-disabling">Enabling and disabling</h3>
+<p>Spawn Contexts expose two <a href="GraphLogicAndPhilosophy.html#processing-workflow-vertical-logic">flow slots</a>: <strong>Start</strong> and <strong>Stop</strong>:</p>
+<ul>
+<li>The <strong>Start</strong> input resets/starts the Spawn Context. If you do not connect anything to this flow slot, it implicitly uses the <strong>OnPlay</strong> <a href="Events.html">Event</a>. Using <strong>Start</strong> many times has the same effect as using it once.</li>
+<li>The <strong>Stop</strong> input stops the Spawn System. If you do not connect anything to this flow slot, it implicitly uses the <strong>OnStop</strong> <a href="Events.html">Event</a>.</li>
+</ul>
+<h3 id="looping-and-delaying">Looping and delaying</h3>
+<p>Each Spawn Context contains a state to determine when the Context spawns particles.</p>
+<ul>
+<li>The Spawn Context emits particles during loops of a particular duration. This means the internal spawn time resets when each loop starts. By default, the duration is <strong>infinite</strong>, but you can change this.<br>To set the loop mode:
+<ol>
+<li>Select the Spawn Context in the graph.</li>
+<li>In the Inspector, click the <strong>Loop Duration</strong> drop-down.</li>
+<li>From the list, click either <strong>Infinite</strong>, <strong>Constant</strong>, or <strong>Random</strong>.</li>
+</ol>
+</li>
+<li>Spawn Contexts can perform one, many, or an infinite number of loops.<br>To set the number of loops:
+<ol>
+<li>Select the Spawn Context in the graph.</li>
+<li>In the Inspector, click the <strong>Loop</strong> drop-down.</li>
+<li>From the list, click either <strong>Infinite</strong>, <strong>Constant</strong>, or <strong>Random</strong>.</li>
+</ol>
+</li>
+<li>Spawn Contexts can perform a delay before and after each loop. During a delay, the spawn time elapses normally but the Spawn Context does not spawn any particles.<br>To set the delay duration:
+<ol>
+<li>Select the Spawn Context in the graph.</li>
+<li>In the Inspector, click either the <strong>Delay Before Loop</strong> or <strong>Delay After Loop</strong> drop-down.</li>
+<li>From the list, click either <strong>None</strong>, <strong>Constant</strong>, or <strong>Random</strong>.</li>
+</ol>
+</li>
+</ul>
+<p>If you set <strong>Loop Duration</strong>, <strong>Loop</strong>, <strong>Delay Before Loop</strong>, or <strong>Delay After Loop</strong> to either <strong>Constant</strong> or <strong>Random</strong>, the Spawn Context displays extra properties in its header to control each behavior. To evaluates the values you set, Unity uses the following rules:</p>
+<ul>
+<li>If set, Unity evaluates <strong>Loop Count</strong> when the <strong>Start</strong> flow input of the Context triggers.</li>
+<li>If set, Unity evaluates <strong>Loop Duration</strong> every time a loop starts.</li>
+<li>If set, Unity evaluates <strong>Loop Before/After Delay</strong> every time a delay starts.</li>
+</ul>
+<p>For a visualization of the looping and delay system, see the following illustration:</p>
+<p><img src="Images/LoopDelaySystem.png" alt="Figure explaining the Loop/Delay System"></p>
+<h2 id="gpu-event">GPU Event</h2>
+<p>GPU Event Contexts are experimental Contexts that connect inputs to output GPU Events from other systems. They differ from the normal Event Contexts in two ways:</p>
+<ul>
+<li>The GPU computes GPU Events and the CPU computes normal Events.</li>
+<li>You can't customize GPU Event Contexts with Blocks.</li>
+</ul>
+<p><strong>Note</strong>: When you connect Spawn Events to an Initialize Context, be aware that GPU Spawn Events and normal Spawn Events are mutually Exclusive. You can only connect one type of Spawn Event to an <strong>Initialize</strong> Context at the same time.</p>
+<h2 id="initialize">Initialize</h2>
+<p>Initialize Contexts generate new particles based on <strong>SpawnEvent</strong> Data, which Unity computes from Events, Spawn Contexts, or GPU Event Contexts.</p>
+<p>For example: If a Spawn Context states that the effect should create 200 new particles, the Initialize Context processes its Blocks for all 200 new particles.</p>
+<p>To customize <strong>Initialize</strong> Contexts, you can add compatible <strong>Blocks</strong> to them.</p>
+<p>Initialize Contexts are the entry point of new systems. As such, they display the following information and configuration details in their header:</p>
+<table>
+<thead>
+<tr>
+<th>Property/Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bounds</strong> (Property)</td>
+<td>Controls the Bounding box of the System.</td>
+</tr>
+<tr>
+<td><strong>Capacity</strong> (Setting)</td>
+<td>Controls the allocation count of the System.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="update">Update</h2>
+<p>Update Contexts update all living particles in the system based on <strong>Particle</strong> Data, which Unity computes from Initialize and Update Contexts. Unity executes Update Contexts, and thus updates every particle, every frame.</p>
+<p>Particle Update Contexts also automatically process some computations for particles in order to simplify common editing tasks.</p>
+<p>To customize <strong>Update</strong> Contexts, you can add compatible <strong>Blocks</strong> to them.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Update Position</strong></td>
+<td>Specifies whether Unity applies velocity integration to the particles. When enabled, Unity applies simple Euler velocity integration to each particle's position every frame. When disabled, Unity does not apply any velocity integration.</td>
+</tr>
+<tr>
+<td><strong>Update Rotation</strong></td>
+<td>Specifies whether Unity applies angular integration to the particles. When enabled, Unity applies simple Euler integration to each particle's rotation every frame. When disabled, Unity does not apply any angular integration.</td>
+</tr>
+<tr>
+<td><strong>Age Particles</strong></td>
+<td>If the Context uses the Age attribute, this controls whether the Update Context makes particles age over time.</td>
+</tr>
+<tr>
+<td><strong>Reap Particles</strong></td>
+<td>If the Context uses the Age and Lifetime attributes, this control whether the Update Context removes a particles if the particle's age is greater than its lifetime.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="output">Output</h2>
+<p>Output Contexts render the particles in a system. They render the particles with different modes and settings depending on the particle Data from the <strong>Initialize</strong> and <strong>Update</strong> Contexts in the same system. It then renders the configuration as a particular primitive shape.</p>
+<p>To customize <strong>Output</strong> Contexts, you can add compatible <strong>Blocks</strong> to them.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Contexts.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

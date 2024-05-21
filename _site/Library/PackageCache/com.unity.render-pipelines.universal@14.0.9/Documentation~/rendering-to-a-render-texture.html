@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Rendering to a Render Texture | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Rendering to a Render Texture | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/rendering-to-a-render-texture.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="rendering-to-a-render-texture">Rendering to a Render Texture</h1>
+
+<p>In the Universal Render Pipeline (URP), a Camera can render to the screen or to a <a href="https://docs.unity3d.com/Manual/class-RenderTexture.html">Render Texture</a>. Rendering to a screen is the default and is the most common use case, but rendering to a Render Texture allows you to create effects such as CCTV camera monitors.</p>
+<p>If you have a Camera that is rendering to a Render Texture, you must have a second Camera that then renders that Render Texture to the screen. In URP, all Cameras that render to Render Textures perform their render loops before all Cameras that render to the screen. This ensures that the Render Textures are ready to render to the screen. For more information on Camera rendering order in URP, see <a href="cameras-advanced.html">Rendering order and overdraw</a>.</p>
+<h2 id="rendering-to-a-render-texture-and-then-rendering-that-render-texture-to-the-screen">Rendering to a Render Texture, and then rendering that Render Texture to the screen</h2>
+<p><img src="Images/camera-inspector-output-target.png" alt="Rendering to a Render Texture in URP"></p>
+<p>Create a Render Texture Asset in your Project using <strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Render Texture</strong>.
+Create a Quad in your Scene.
+Create a Material in your Project, and select it. In the Inspector, drag the Render Texture to the Material's <strong>Base Map</strong> field.
+In the Scene view, drag the Material on to the Quad.
+Create a Camera in your Scene. Its <strong>Render Mode</strong> defaults to <strong>Base</strong>, making it a Base Camera.
+Select the Base Camera.
+In the Inspector, scroll to the Output section.
+Set the Camera’s  <strong>Output Target</strong> to <strong>Texture</strong>, and drag the Render Texture on to the <strong>Texture</strong> field.
+Create another Camera in your Scene. Its <strong>Render Mode</strong> defaults to <strong>Base</strong>, making it a Base Camera.
+Place the Quad within the view of the new Base Camera.</p>
+<p>The first Camera renders its view to the Render Texture. The second Camera renders the Scene including the Render Texture to the screen.</p>
+<p>You can set the Output Target for a Camera in a script by setting the <code>cameraOutput</code> property of the Camera's  <a href="xref:UnityEngine.Rendering.Universal.UniversalAdditionalCameraData">Universal Additional Camera Data</a> component, like this:</p>
+<pre><code>myUniversalAdditionalCameraData.cameraOutput = CameraOutput.Texture;
+myCamera.targetTexture = myRenderTexture;
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/rendering-to-a-render-texture.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

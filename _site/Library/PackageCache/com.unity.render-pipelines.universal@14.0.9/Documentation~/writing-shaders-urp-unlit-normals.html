@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Visualizing normal vectors | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Visualizing normal vectors | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/writing-shaders-urp-unlit-normals.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="visualizing-normal-vectors">Visualizing normal vectors</h1>
+
+<p>The Unity shader in this example visualizes the normal vector values on the mesh.</p>
+<p>Use the Unity shader source file from section <a href="writing-shaders-urp-basic-unlit-structure.html">URP unlit basic shader</a> and make the following changes to the ShaderLab code:</p>
+<ol>
+<li><p>In <code>struct Attributes</code>, which is the input structure for the vertex shader in this example, declare the variable containing the normal vector for each vertex.</p>
+<pre><code class="lang-c++">struct Attributes
+{
+    float4 positionOS   : POSITION;
+    // Declaring the variable containing the normal vector for each vertex.
+    half3 normal        : NORMAL;
+};
+</code></pre>
+</li>
+<li><p>In <code>struct Varyings</code>, which is the input structure for the fragment shader in this example, declare the variable for storing the normal vector values for each fragment:</p>
+<pre><code class="lang-c++">struct Varyings
+{
+    float4 positionHCS  : SV_POSITION;
+    // The variable for storing the normal vector values.
+    half3 normal        : TEXCOORD0;
+};
+</code></pre>
+<p>This example uses the three components of the normal vector as RGB color values for each fragment.</p>
+</li>
+<li><p>To render the normal vector values on the mesh, use the following code as the fragment shader:</p>
+<pre><code class="lang-c++">half4 frag(Varyings IN) : SV_Target
+{
+    half4 color = 0;
+    color.rgb = IN.normal;
+    return color;
+}
+</code></pre>
+</li>
+<li><p>Unity renders the normal vector values on the mesh:</p>
+<p><img src="Images/shader-examples/unlit-shader-tutorial-normals-uncompressed.png" alt="Rendering normals without compression"></p>
+<p>A part of the capsule is black. This is because in those points, all three components of the normal vector are negative. The next step shows how to render values in those areas as well.</p>
+</li>
+<li><p>To render negative normal vector components, use the compression technique. To compress the range of normal component values <code>(-1..1)</code> to color value range <code>(0..1)</code>, change the following line:</p>
+<pre><code class="lang-c++">color.rgb = IN.normal;
+</code></pre>
+<p>to this line:</p>
+<pre><code class="lang-c++">color.rgb = IN.normal * 0.5 + 0.5;
+</code></pre>
+</li>
+</ol>
+<p>Now Unity renders the normal vector values as colors on the mesh.</p>
+<p><img src="Images/shader-examples/unlit-shader-tutorial-normals.png" alt="Rendering normals with compression"></p>
+<p>Below is the complete ShaderLab code for this example.</p>
+<pre><code class="lang-c++">// This shader visuzlizes the normal vector values on the mesh.
+Shader &quot;Example/URPUnlitShaderNormal&quot;
+{
+    Properties
+    { }
+
+    SubShader
+    {
+        Tags { &quot;RenderType&quot; = &quot;Opaque&quot; &quot;RenderPipeline&quot; = &quot;UniversalPipeline&quot; }
+
+        Pass
+        {
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;
+
+            struct Attributes
+            {
+                float4 positionOS   : POSITION;
+                // Declaring the variable containing the normal vector for each
+                // vertex.
+                half3 normal        : NORMAL;
+            };
+
+            struct Varyings
+            {
+                float4 positionHCS  : SV_POSITION;
+                half3 normal        : TEXCOORD0;
+            };
+
+            Varyings vert(Attributes IN)
+            {
+                Varyings OUT;
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                // Use the TransformObjectToWorldNormal function to transform the
+                // normals from object to world space. This function is from the
+                // SpaceTransforms.hlsl file, which is referenced in Core.hlsl.
+                OUT.normal = TransformObjectToWorldNormal(IN.normal);
+                return OUT;
+            }
+
+            half4 frag(Varyings IN) : SV_Target
+            {
+                half4 color = 0;
+                // IN.normal is a 3D vector. Each vector component has the range
+                // -1..1. To show all vector elements as color, including the
+                // negative values, compress each value into the range 0..1.
+                color.rgb = IN.normal * 0.5 + 0.5;
+                return color;
+            }
+            ENDHLSL
+        }
+    }
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/writing-shaders-urp-unlit-normals.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

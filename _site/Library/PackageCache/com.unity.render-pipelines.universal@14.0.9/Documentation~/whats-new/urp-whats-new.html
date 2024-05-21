@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>What&#39;s new in URP 14 (Unity 2022.2) | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="What&#39;s new in URP 14 (Unity 2022.2) | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/whats-new/urp-whats-new.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="whats-new-in-urp-14-unity-20222">What's new in URP 14 (Unity 2022.2)</h1>
+
+<p>This section contains information about new features, improvements, and issues fixed in URP 14.</p>
+<p>For a complete list of changes made in URP 14, refer to the <a href="xref:changelog">Changelog</a>.</p>
+<h2 id="features">Features</h2>
+<p>This section contains the overview of the new features in this release.</p>
+<h3 id="full-screen-pass-renderer-feature">Full Screen Pass Renderer Feature</h3>
+<p>This Renderer Feature lets you inject full screen render passes at pre-defined injection points to create full screen effects. To read more about the feature, refer to page <a href="../renderer-features/renderer-feature-full-screen-pass.html">Full Screen Pass Renderer Feature</a>.</p>
+<p><img src="../Images/whats-new/urp-14/full-screen-render-pass-example.png" alt="Full Screen Pass Renderer Feature"><br><em>Full Screen Pass with a custom Grayscale Material.</em></p>
+<h3 id="custom-post-processing-effects">Custom post-processing effects</h3>
+<p>The Full Screen Pass Renderer Feature lets you create custom post-processing effects with minimum coding effort. To read how to create a simple post-processing effect, see the page <a href="../post-processing/post-processing-custom-effect-low-code.html">How to create a custom post-processing effect</a>.</p>
+<p>The following images show a fog effect implemented with a Full Screen Render Pass Renderer Feature.</p>
+<p>The scene without the fog effect:<br><img src="../Images/whats-new/urp-14/custom-post-processing-example-no-fog.png" alt="Scene without the fog effect"></p>
+<p>The scene with the custom fog effect implemented as a Full Screen Render Pass Renderer Feature:<br><img src="../Images/whats-new/urp-14/custom-post-processing-example-custom-fog.png" alt="Custom fog effect implemented as a Full Screen Render Pass"></p>
+<p>Implementing a custom effect lets you overcome the limitation of the default Unity fog effect that does not affect the skybox:<br><img src="../Images/whats-new/urp-14/custom-post-processing-example-unity-default-fog.png" alt="Default Unity fog"></p>
+<h3 id="rendering-layers">Rendering layers</h3>
+<p>The Rendering Layers feature lets you configure certain Lights to affect only specific GameObjects. With the <a href="../features/rendering-layers.html#shadow-layers">Custom Shadow Layers</a> property, you can configure certain GameObjects to cast shadows only from specific Lights (even if those Lights do not affect the GameObjects).</p>
+<p>In this URP version, Rendering Layers work not only with Lights, but also with Decals.</p>
+<p><img src="../Images/lighting/rendering-layers/rendering-layers-decal-example.png" alt="Rendering Layers working with Decals"></p>
+<p>Refer to the following pages to learn more about the feature:</p>
+<ul>
+<li><p><a href="../features/rendering-layers.html">Rendering Layers</a></p>
+</li>
+<li><p><a href="../features/rendering-layers.html#how-to-rendering-layers-decals">How to use Rendering Layers with Decals</a></p>
+</li>
+</ul>
+<h3 id="forward-rendering-path">Forward+ Rendering Path</h3>
+<p>The Forward+ Rendering Path lets you avoid the per object limit of the Forward Rendering Path.</p>
+<p>The Forward+ Rendering Path has the following advantages compared with the Forward Rendering Path:</p>
+<ul>
+<li><p>There is no per-object limit for the number of Lights that affect GameObjects, the per-Camera limit still applies.<br>The per-Camera limits for different platforms are:<ul><li>Desktop and console platforms: 256 Lights</li><li>Mobile platforms: 32 Lights. OpenGL ES 3.0 and earlier: 16 Lights.</li></ul>This implementation lets you avoid splitting big meshes when more than 8 lights affect them.
+</li>
+<li><p>Blending of more than 2 reflection probes.</p>
+</li>
+<li><p>Support for multiple Lights when using Unity Entity Component System (ECS).</p>
+</li>
+<li><p>More flexibility with procedural draws.</p>
+</li>
+</ul>
+<p>For more information, see the page <a href="../rendering/forward-plus-rendering-path.html">Forward+ Rendering Path</a>.</p>
+<h3 id="lod-cross-fade">LOD Cross-fade</h3>
+<p>The LOD cross-fade lets you achieve a smoother transition blending between the current mesh LOD and the next LOD based on the object's distance to the Camera.</p>
+<p>As the Camera moves, Unity shows different LODs to provide a good balance between quality and processing cost. Cross-fading lets you avoid harsh LOD snapping and popping.</p>
+<p><img src="../Images/whats-new/urp-14/lod-cross-fade.png" alt="LOD cross-fade"><br><em>1: LOD cross-fade off. 2: LOD cross-fade on.</em></p>
+<p>For more information, see the <a href="../universalrp-asset.html#lod-cross-fade">LOD Cross Fade</a> property.</p>
+<h3 id="temporal-anti-aliasing-taa">Temporal anti-aliasing (TAA)</h3>
+<p>Temporal anti-aliasing (TAA) is a spatial multi-frame anti-aliasing technique that uses results from current and previous rendered frames to remove jaggies in the current frame and reduce temporal judder between frames.</p>
+<p>TAA uses Motion Vectors to reduce or avoid shimmer and ghosting artifacts caused by moving objects that end up being in different pixel locations in different frames.</p>
+<p>To enable TAA for a Camera:</p>
+<ul>
+<li><p>Select the Camera.</p>
+</li>
+<li><p>In the Inspector, in the <strong>Rendering</strong> section, select <strong>Temporal Anti-aliasing (TAA)</strong> in the <strong>Anti-aliasing</strong> property.</p>
+</li>
+</ul>
+<p>The following image shows a frame with TAA off:</p>
+<p><img src="../Images/whats-new/urp-15/taa-example-off.png" alt="TAA off"></p>
+<p>The following image shows a frame with TAA on:</p>
+<p><img src="../Images/whats-new/urp-15/taa-example-on.png" alt="TAA on"></p>
+<h2 id="improvements">Improvements</h2>
+<p>This section contains the overview of the major improvements in this release.</p>
+<h3 id="screen-space-ambient-occlusion-ssao-improvements">Screen space ambient occlusion (SSAO) Improvements</h3>
+<p>This release implements multiple performance and quality improvements to the SSAO feature.</p>
+<p><img src="../Images/post-proc/ssao/ssao-falloff-distance.gif" alt="Falloff Distance property"><br><em>The Falloff Distance property lets you improve performance for Scenes with a lot of distant objects</em></p>
+<p>Performance improvements:</p>
+<ul>
+<li><p>New <strong>Blur Quality</strong> property with three blur options: High, Medium, Low.</p>
+</li>
+<li><p>The <strong>Downsample</strong> check box now not only affects the Ambient Occlusion pass but also the following blur passes.</p>
+</li>
+<li><p>The <strong>Falloff Distance</strong> property lets you reduce computational work on objects far away from the Camera.</p>
+</li>
+<li><p>The last Blur pass and the After Opaque pass are now merged into one when the <strong>After Opaque</strong> option is enabled.</p>
+</li>
+<li><p>The <strong>Samples</strong> property now has three options with pre-defined sample counts that provide a good balance of visual quality and performance.</p>
+</li>
+</ul>
+<p>Quality improvements:</p>
+<ul>
+<li><p>The <strong>Method</strong> property lets you choose the algorithm that Unity uses to calculate the ambient occlusion values. The <strong>Blue Noise</strong> algorithm is added in this release.</p>
+</li>
+<li><p>A new depth test was added to avoid adding SSAO to objects far away from one another.</p>
+</li>
+</ul>
+<p>For more information, see the page <a href="../post-processing-ssao.html">Screen Space Ambient Occlusion</a>.</p>
+<h3 id="64-bit-high-precision-hdr-render-target-format">64 bit high precision HDR render target format</h3>
+<p>URP can now render into 64-bit high precision HDR render target format. Compared to the default 32-bit HDR render target, the 64-bit option provides the following benefits:</p>
+<ul>
+<li><p>Better precision for all color channels which reduces banding.</p>
+</li>
+<li><p>Even precision for color channels eliminates the subtle blue-yellow banding caused by the lower blue channel precision of the 32-bit target.</p>
+</li>
+<li><p>Support for the alpha channel. The alpha channel enables the alpha output with some limitations.</p>
+</li>
+</ul>
+<p>The 64-bit format uses twice more memory compared to the 32-bit format. It can also have a significant performance impact on mobile platforms.</p>
+<p>To select the 64-bit render target option: in URP Asset, navigate to <strong>Quality</strong> &gt; <strong>HDR</strong> &gt; <strong>HDR Precision</strong>.</p>
+<p>This setting controls only the internal HDR rendering precision, not HDR output.</p>
+<h3 id="new-bloom-quality-settings">New bloom quality settings</h3>
+<p>URP 14 adds two new properties to the Bloom post-processing effect:</p>
+<ul>
+<li><p><strong>Downscale</strong>: set the bloom texture scale to either half size or quarter size.</p>
+</li>
+<li><p><strong>Max Iterations</strong>: set the maximum number of scale iterations (down and up) the bloom effect does. This property replaces the <strong>Skip Iterations</strong> property, which skipped a number of last iterations, but did not limit the maximum number.</p>
+</li>
+</ul>
+<p>For more information, see the page <a href="../post-processing-bloom.html">Bloom</a>.</p>
+<h3 id="improvements-to-the-render-pipeline-converter">Improvements to the Render Pipeline Converter</h3>
+<p>This release contains multiple usability improvements of the Render Pipeline Converter:</p>
+<ul>
+<li><p>The Render Pipeline Converter window now has the <strong>Initialize and Convert</strong> button.</p>
+</li>
+<li><p>Certain dialogs now show the number of selected elements and the total number of elements.</p>
+</li>
+<li><p>You can click each converter to see more information about the elements it converter.</p>
+</li>
+<li><p>Improvements to the visual appearance and usability of the Render Pipeline Converter dialogs.</p>
+</li>
+</ul>
+<p>Material converter section improvements:</p>
+<ul>
+<li><p>Items in the list are sorted alphabetically now.</p>
+</li>
+<li><p>The converter handles Materials in packages better.</p>
+</li>
+<li><p>The converter ignores Shader Graph shaders.</p>
+</li>
+</ul>
+<p>Performance improvement:</p>
+<ul>
+<li>Indexing is significantly faster in this release. This improves the performance of converters that use an <code>.index</code> file.</li>
+</ul>
+<h3 id="full-screen-draws-in-urp-now-use-the-srp-core-bliter-api">Full screen draws in URP now use the SRP Core Bliter API</h3>
+<p>All the calls to <code>cmd.Blit</code> method are replaced with the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.core@14.0/api/UnityEngine.Rendering.Blitter.html">Blitter</a> API. This ensures a correct and consistent way to perform full screen draws.</p>
+<p>In the current URP version, using <code>cmd.Blit</code> might implicitly enable or disable XR shader keywords, which breaks XR SPI rendering.</p>
+<p>Refer to the <a href="../renderer-features/how-to-fullscreen-blit.html">Perform a full screen blit in URP</a> page to read how to use the Blitter API.</p>
+<h3 id="more-consistent-lighting-behavior-on-different-platforms">More consistent lighting behavior on different platforms</h3>
+<p>Removed implicit mobile shader optimizations to keep the visual appearance of lighting consistent on all platforms. Changes are mostly related to light fade quality and shadow filtering. Light fade calculations on mobile platforms are now the same as on desktop platforms.</p>
+<p>In this release, URP implements full quality spherical harmonics and always normalized normals for lighting.</p>
+<p><code>SHADER_QUALITY_LOW/MEDIUM/HIGH</code> and <code>SHADER_HINT_NICE_QUALITY</code> shader defines were removed. If you used those defines in custom shaders, consider using <code>SHADER_API_MOBILE</code> or <code>SHADER_API_GLES</code> defines to replace <code>SHADER_QUALITY_LOW/MEDIUM/HIGH</code>.</p>
+<p>URP uses the <code>SHADER_API_MOBILE</code> define only for platform-specific functions now, and not for implicit quality changes.</p>
+<h3 id="xrsystem-api">XRSystem API</h3>
+<p>URP can now use the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.core@14.0/api/UnityEngine.Experimental.Rendering.XRBuiltinShaderConstants.html">XRSystem API</a> override the Built-In Render Pipeline stereo matrices. This lets you inject modifications to the projection matrix and the view matrix in URP.</p>
+<h3 id="shader-stripping-improvement-light-cookie-stripping">Shader stripping improvement: Light cookie stripping</h3>
+<p>The URP Asset now has the option <strong>Lighting</strong> &gt; <strong>Light Cookies</strong> that lets you enable or disable Light Cookies. When Light Cookies are disabled in all URP Assets in <strong>Graphics</strong> and <strong>Quality</strong> settings, Unity strips all shader variants with Light Cookies. This can reduce the shader variant count up to two times.</p>
+<h3 id="cpu-performance-improvements-for-light-heavy-scenes">CPU performance improvements for light-heavy scenes</h3>
+<p>This release contains optimizations to avoid unnecessary copies of Light and Camera data. The changes mostly affect scenes containing tens or hundreds of Lights with Light cookies, with shadows enabled, and when using the Deferred Rendering Path. In scenes with hundreds of Lights that use all the mentioned features, the rendering performance can be up to 25% faster in the Editor.</p>
+<h3 id="soft-shadows-quality-property-on-lights">Soft Shadows Quality property on Lights</h3>
+<p>Point Lights and Spot Lights now have the <strong>Soft Shadows Quality</strong> property. Options <strong>Low</strong>, <strong>Medium</strong>, and <strong>High</strong> let you specify the soft shadow quality value for the Light.</p>
+<h2 id="issues-resolved">Issues resolved</h2>
+<p>For a complete list of issues resolved in URP 14, see the <a href="xref:changelog">Changelog</a>.</p>
+<h2 id="known-issues">Known issues</h2>
+<p>For information on the known issues in URP 14, see the section <a href="../known-issues.html">Known issues</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/whats-new/urp-whats-new.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

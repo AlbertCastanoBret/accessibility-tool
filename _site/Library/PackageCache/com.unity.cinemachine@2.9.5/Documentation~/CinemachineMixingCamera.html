@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Cinemachine Mixing Camera | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Cinemachine Mixing Camera | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineMixingCamera.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="cinemachine-mixing-camera">Cinemachine Mixing Camera</h1>
+
+<p>The <strong>Cinemachine Mixing Camera</strong> component uses the weighted average of its child Virtual Cameras to compute the position and other properties of the Unity camera.</p>
+<p><img src="images/CinemachineMixingCamera.png" alt="Cinemachine Mixing Camera with two child Virtual Cameras (red)"></p>
+<p>Mixing Camera manages up to eight child Virtual Cameras. In the Mixing Camera component, these Virtual Cameras are fixed slots, not a dynamic array. Mixing Camera uses this implementation to support weight animation in Timeline. Timeline cannot animate array elements.</p>
+<p>To create a Mixing Camera:</p>
+<ol>
+<li><p>In the Unity menu, choose <strong>GameObject &gt; Cinemachine &gt; Mixing Camera</strong>.
+A new Mixing Camera appears in the <a href="https://docs.unity3d.com/Manual/Hierarchy.html">Hierarchy</a> window. By default, Unity also adds two Virtual Cameras as children of the Mixing Camera.</p>
+</li>
+<li><p>Adjust the children Virtual Cameras.</p>
+</li>
+<li><p>Add up to six more child cameras.</p>
+</li>
+<li><p>Select the Mixing Camera in the Hierarchy window then adjust the Child Camera Weights in the <a href="https://docs.unity3d.com/Manual/UsingTheInspector.html">Inspector</a> window.</p>
+</li>
+</ol>
+<p><img src="images/CinemachineMixingCameraChildren.png" alt="Child Camera Weights (red) and their contributions to the final position (blue)"></p>
+<h2 id="properties">Properties:</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Solo</strong></td>
+<td style="text-align: left;">Toggles whether or not the Mixing Camera is temporarily live. Use this property to get immediate visual feedback in the <a href="https://docs.unity3d.com/Manual/GameView.html">Game view</a> to adjust the Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Game Window Guides</strong></td>
+<td style="text-align: left;">Toggles the visibility of compositional guides in the Game view. This property applies to all Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Save During Play</strong></td>
+<td style="text-align: left;">Check to <a href="CinemachineSavingDuringPlay.html">apply the changes while in Play mode</a>.  Use this feature to fine-tune a Virtual Camera without having to remember which properties to copy and paste. This property applies to all Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Priority</strong></td>
+<td style="text-align: left;">The importance of this Mixing Camera for choosing the next shot. A higher value indicates a higher priority. Cinemachine Brain chooses the next live Virtual Camera from all Virtual Cameras that are activated and have the same or higher priority as the current live Virtual Camera. This property has no effect when using a Virtual Camera with Timeline.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Standby Updates</strong></td>
+<td style="text-align: left;">Controls how often the virtual camera is updated when the virtual camera is not live.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Child Camera Weights</strong></td>
+<td style="text-align: left;">The weight of the Virtual Camera. Each child Virtual Camera has a corresponding Weight property. Note that setting one camera's weight to 1 does not put the other weights to zero.  The contribution of any individual camera is its weight divided by the sum of all the child weights.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mix Result</strong></td>
+<td style="text-align: left;">A graphical representation of the weights of the child Virtual Cameras. The light part of the bar of each child camera represents the proportion of its contribution to the final position of the Mixing Camera. When the bar is completely dark, the camera makes no contribution to the position of the Mixing Camera.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineMixingCamera.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

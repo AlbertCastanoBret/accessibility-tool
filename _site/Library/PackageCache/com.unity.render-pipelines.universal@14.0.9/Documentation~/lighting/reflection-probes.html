@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Reflection probes | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Reflection probes | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/lighting/reflection-probes.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="reflection-probes">Reflection probes</h1>
+
+<p>This page describes URP-specific behavior of reflection probes.</p>
+<p>For general information on reflection probes, see the page <a href="https://docs.unity3d.com/Manual/ReflectionProbes.html">Reflection Probes</a>.</p>
+<p>For examples of how to use reflection probes, see the <a href="../package-sample-urp-package-samples.html#lighting">Lighting samples in URP Package Samples</a>.</p>
+<h2 id="configuring-reflection-probe-settings">Configuring reflection probe settings</h2>
+<p>To configure settings related to reflection probes, in a URP Asset, select <strong>Lighting</strong> &gt; <strong>Reflection Probes</strong>.</p>
+<p><img src="../Images/lighting/reflection-probe-blending-setting.png" alt="Reflection probe settings"><br><em>Reflection probe settings.</em></p>
+<p>The Reflection Probes section contains the following properties:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Probe Blending</strong></td>
+<td>Select this property to enable <a href="#reflection-probe-blending">reflection probe blending</a>. On lower-end mobile platforms, disable this property to decrease processing time on the CPU.</td>
+</tr>
+<tr>
+<td><strong>Box Projection</strong></td>
+<td>Select this property to enable reflection probe box projection. On lower-end mobile platforms, disable this property to decrease processing time on the CPU.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reflection-probe-blending">Reflection probe blending</h2>
+<p>Reflection probe blending lets you avoid a situation where a reflection suddenly appears on an object when it enters the probe box volume. When reflection probe blending is enabled, Unity gradually fades probe cubemaps in and out as the reflective object passes from one volume to the other.</p>
+<p>URP supports reflection probe blending in all Rendering Paths.</p>
+<h3 id="reflection-probe-volume">Reflection probe volume</h3>
+<p>Each reflection probe has a box volume. A reflection probe only affects parts of a GameObject that are inside the box volume. When a pixel of an object is outside of any reflection probe volume, Unity uses the skybox reflection.</p>
+<p>In URP, Unity evaluates the contribution of each probe for each individual pixel, depending on the position of the pixel relative to the boundary of the probe volume. This behavior is different from the Built-in Render Pipeline, where Unity evaluates the contribution of a probe for the whole object.</p>
+<h3 id="blend-distance">Blend Distance</h3>
+<p>Each reflection probe has the <strong>Blend Distance</strong> property. This property is the distance from the face of a reflection box volume towards the center of the box volume.</p>
+<p>Unity uses the Blend Distance property to determine the contribution of a reflection probe. When a pixel of an object is on the face of a reflection probe volume, that pixel gets 0% of reflections from the probe. When a pixel is inside the reflection probe volume and its distance from each face exceeds the Blend Distance value, the pixel gets 100% of reflections.</p>
+<p>If the Blend Distance value is more than half of the distance between faces of the reflection probe volume, the reflection probe cannot provide 100% contribution to any pixel within the volume.</p>
+<h3 id="which-probes-affect-a-gameobject">Which probes affect a GameObject</h3>
+<p>When a GameObject is within multiple reflection probe volumes, maximum two of the probes can affect the GameObject. Unity selects which probes affect the GameObject using the following criteria:</p>
+<ul>
+<li><p>The <strong>Importance</strong> property of a reflection probe. Unity selects two probes with higher Importance values and ignores the others.</p>
+</li>
+<li><p>If the Importance values are the same, Unity selects probes which have the smallest box volumes.</p>
+</li>
+<li><p>If the Importance values and the box volumes are the same, Unity determines which two reflection probe volumes contain larger surface areas of a GameObject, and picks the probes of those volumes.</p>
+</li>
+</ul>
+<p>When two reflection probes affect a GameObject, for each pixel, Unity calculates the weight of each probe depending on the distance of this pixel from the faces of the probe box volumes and the values of the <strong>Blend Distance</strong> properties. If the pixel is relatively close to faces of both box volumes and the sum of weights of both probes is less than 1, Unity assigns the remaining weight to the skybox reflection.</p>
+<p>If the pixel is within both box volumes and farther than the Blend Distance values from faces of both volumes:</p>
+<ul>
+<li><p>If the <strong>Importance</strong> properties of the reflection probes are the same, Unity blends reflections from the probes with equal weights.</p>
+</li>
+<li><p>If the <strong>Importance</strong> property of one of the probes is higher, Unity applies the reflections only from that probe.</p>
+</li>
+</ul>
+<h2 id="box-projection">Box projection</h2>
+<p>For the box projection to work:</p>
+<ul>
+<li><p>Select the <strong>Box Projection</strong> check box on the <a href="#configuring-reflection-probe-settings">URP asset</a>.</p>
+</li>
+<li><p>Select the <strong>Box Projection</strong> property on the reflection probe.</p>
+</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/lighting/reflection-probes.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

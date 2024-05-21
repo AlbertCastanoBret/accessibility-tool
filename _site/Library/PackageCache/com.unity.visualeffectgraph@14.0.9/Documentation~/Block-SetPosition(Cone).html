@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Set Position (Shape : Cone) | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Set Position (Shape : Cone) | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetPosition(Cone).md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="set-position-shape--cone">Set Position (Shape : Cone)</h1>
+
+<p>Menu Path : <strong>Position &gt; Set Position (Shape : Cone)</strong></p>
+<p>The <strong>Set Position (Shape : Cone)</strong> Block calculatesa position based on an input [ArcCone ](Type-ArcCone .md) and stores the result in the <a href="Reference-Attributes.html">position attribute</a>, based on composition.</p>
+<p>The ArcCone shape adds an arc property to the cone to determine its arc angle, in radians. setting an arc value of pi creates a half-cone.</p>
+<p>This Block can calculate the position either from the ArcCone 's <strong>Surface</strong>, <strong>Volume</strong>, or <strong>Thick Surface</strong> where thickness can be relative to the size of the shape, or an absolute value.</p>
+<p>This Block also calculates a direction vector based on the calculated position on the shape, and stores it to the <a href="Reference-Attributes.html">direction attribute</a>, based on composition. This direction is equal to the normalized vector from the center of the cone to the calculated position.</p>
+<p>Note: <a href="Block-VelocityFromDirectionAndSpeed.md">Velocity from Direction and Speed</a> Blocks can then process the direction attribute.</p>
+<p><img src="Images/Block-SetPosition(Cone)Main.gif" alt=""></p>
+<h2 id="block-compatibility">Block compatibility</h2>
+<p>This Block is compatible with the following Contexts:</p>
+<ul>
+<li><a href="Context-Initialize.html">Initialize</a></li>
+<li><a href="Context-Update.html">Update</a></li>
+<li>Any output Context</li>
+</ul>
+<h2 id="block-settings">Block settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Height Mode</strong></td>
+<td>Enum</td>
+<td>Specifies how this Block handles the ArcCone's volume. The options are:<br>• <strong>Volume</strong>: Uses the entire cone to calculate a position.<br>• <strong>Base</strong>: Only uses the circle at the base of the cone to calculate a position.</td>
+</tr>
+<tr>
+<td><strong>Position Mode</strong></td>
+<td>Enum</td>
+<td>Specifies how this Block uses the shape to calculate a position. The options are:<br>• <strong>Surface</strong>: Calculates positions only on the shape’s surface.<br>• <strong>Volume</strong>: Calculates positions inside the entire shape’s volume.<br>• <strong>Thickness Absolute</strong>: Calculates positions on a thick surface of given absolute thickness.<br>• <strong>Thickness Relative</strong> will compute a position on a thick surface of a given percentage of the Shape’s size.of a given percentage of the Shape’s size.</td>
+</tr>
+<tr>
+<td><strong>Spawn Mode</strong></td>
+<td>Enum</td>
+<td>The method this Block uses to distribute particles along the shape’s arc. <br>• <strong>Random</strong>: Calculates a per-particle random progress (0..1) on the arc. <br>• <strong>Custom</strong>: Allows you to specify the progress in the <strong>Arc Sequencer</strong> property.</td>
+</tr>
+<tr>
+<td><strong>Composition Position</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how this Block composes the position attribute. The options are:<br>• <strong>Set</strong>: Overwrites the position attribute with the new value.<br>• <strong>Add</strong>: Adds the new value to the position attribute value.<br>• <strong>Multiply</strong>: Multiplies the position attribute value by the new value.<br>• <strong>Blend</strong>: Interpolates between the position attribute value and the new value. You can specify the blend factor between 0 and 1.</td>
+</tr>
+<tr>
+<td><strong>Composition Direction</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how this Block composes the direction attribute. The options are:<br>• <strong>Set</strong>: Overwrites the position attribute with the new value.<br>• <strong>Add</strong>: Adds the new value to the position attribute value.<br>• <strong>Multiply</strong>: Multiplies the position attribute value by the new value.<br>• <strong>Blend</strong>: Interpolates between the position attribute value and the new value. You can specify the blend factor between 0 and 1.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="block-properties">Block properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ArcCone</strong></td>
+<td><a href="Type-ArcCone.html">ArcCone</a></td>
+<td>The ArcCone that determines the shape to calculate the position from.</td>
+</tr>
+<tr>
+<td><strong>Thickness</strong></td>
+<td>Float</td>
+<td>The thickness of the shape’s surface for position calculation.<br>This property only appears if you set <strong>Position Mode</strong> to <strong>Thickness Relative</strong> or <strong>Thickness Absolute</strong>.</td>
+</tr>
+<tr>
+<td><strong>Arc Sequencer</strong></td>
+<td>Float</td>
+<td>The position in the arc to spawn particles.<br>This property only appears if you set <strong>Spawn Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Blend Position</strong></td>
+<td>Float</td>
+<td>The blend percentage between the current position attribute value and the newly calculated position value.<br>This property only appears if you set <strong>Composition Position</strong> to <strong>Blend</strong>.</td>
+</tr>
+<tr>
+<td><strong>Blend Direction</strong></td>
+<td>Float</td>
+<td>The blend percentage between the current direction attribute value and the newly calculated direction value.<br>This property only appears if you set <strong>Composition Direction</strong> to <strong>Blend</strong>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetPosition(Cone).md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

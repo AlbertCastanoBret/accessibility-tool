@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Set Attribute | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Set Attribute | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetAttribute.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="set-attribute">Set Attribute</h1>
+
+<p>Menu Path : **Attribute &gt; Set &gt; [Add/Blend/Inherit/Multiply/Set] &lt;Attribute&gt; **</p>
+<p>The <strong>Set Attribute</strong> Block is a generic Block that allows you to write values to an attribute using composition.</p>
+<p>You can either set the value of the attribute directly, or use two different random modes, <strong>Uniform</strong> and <strong>Per-Component</strong>, to set the attribute to a random value.</p>
+<ul>
+<li><p><strong>Uniform</strong> calculates a single random number in range 0 to 1 then, to produce the final value, uses the random value to interpolate between the two range values (<strong>A</strong> and <strong>B</strong>).</p>
+</li>
+<li><p><strong>Per-Component</strong> calculates a random number in range 0 to 1 for each component in the attribute type then, to produce the final value, uses each random value to interpolate between each component of the two range values (<strong>A</strong> and <strong>B</strong>).</p>
+</li>
+</ul>
+<p><img src="Images/Block-SetAttributeExample.gif" alt=""></p>
+<p>You can also use this Block to inherit a source attribute and set it directly to the current attribute. For instance, you can inherit the position of a parent particle, and set it to particles generated from a GPU Event. If you set the <strong>Source</strong> setting to <strong>Source</strong>, the Block does not display any input properties for the attribute and instead uses the <a href="Attributes.html#attribute-locations">source attribute</a> value (or the default source attribute value if the attribute is not present).</p>
+<h2 id="block-compatibility">Block compatibility</h2>
+<p>This Block is compatible with the following Contexts:</p>
+<ul>
+<li><a href="Context-Initialize.html">Initialize</a></li>
+<li><a href="Context-Update.html">Update</a></li>
+<li>Any output Context</li>
+</ul>
+<h2 id="block-settings">Block settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Attribute</strong></td>
+<td>Attribute (Inspector Only)</td>
+<td><strong>(Inspector)</strong> Specifies the attribute to write to.</td>
+</tr>
+<tr>
+<td><strong>Composition</strong></td>
+<td>Enum (Inspector Only)</td>
+<td><strong>(Inspector)</strong> Specifies how this Block composes the attribute. The options are:<br>• <strong>Set</strong>: Overwrites the position attribute with the new value.<br>• <strong>Add</strong>: Adds the new value to the position attribute value.<br>• <strong>Multiply</strong>: Multiplies the position attribute value by the new value.<br>• <strong>Blend</strong>: Interpolates between the position attribute value and the new value. You can specify the blend factor between 0 and 1.</td>
+</tr>
+<tr>
+<td><strong>Source</strong></td>
+<td>Enum (Inspector Only)</td>
+<td><strong>(Inspector)</strong> Specifies the source of the attribute. The options are:<br>• <strong>Slot</strong>: Calculates the value from the Block’s input property ports.<br>• <strong>Source</strong>: Takes the value from the source attribute of the same name.</td>
+</tr>
+<tr>
+<td><strong>Random</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how the Block calculates the value to compose to the attribute. The options are:<br>• <strong>Off</strong> : Does not calculate a random value for the attribute. Uses the value you provide in the input directly.<br>• <strong>PerComponent</strong>: Calculates a random value for each of the attribute's components.<br>• <strong>Uniform</strong> : Calculates a single random value and uses it for each of the attribute's components.</td>
+</tr>
+<tr>
+<td><strong>Channels</strong></td>
+<td>Enum</td>
+<td>Specifies which channels of the attribute to affect. This Operator has no effect on channels you do not specify with this setting. This setting is only visible if the <strong>Attribute</strong> you set is one with channels.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="block-properties">Block properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&lt;Attribute&gt;</strong></td>
+<td>Depends on the attribute</td>
+<td>The value to compose to the attribute.<br>This property only appears if you set <strong>Source</strong> to <strong>Slot</strong> and <strong>Random</strong> to <strong>Off</strong>.</td>
+</tr>
+<tr>
+<td><strong>A</strong></td>
+<td>Depends on the attribute</td>
+<td>The first end of the random range the Block uses to calculate the value for the attribute.<br>This property only appears if you set <strong>Source</strong> to <strong>Slot</strong> and <strong>Random</strong> to <strong>PerComponent</strong> or <strong>Uniform</strong>.</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>Depends on the attribute</td>
+<td>The other end of the random range the Block uses to calculate the value for the attribute.<br>This property only appears if you set <strong>Source</strong> to <strong>Slot</strong> and <strong>Random</strong> to <strong>PerComponent</strong> or <strong>Uniform</strong>.</td>
+</tr>
+<tr>
+<td><strong>Blend</strong></td>
+<td>Float (Range 0..1)</td>
+<td>The blend percentage between the current position attribute value and the newly calculated position value.<br>This property only appears if you set <strong>Composition</strong> to <strong>Blend</strong>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetAttribute.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

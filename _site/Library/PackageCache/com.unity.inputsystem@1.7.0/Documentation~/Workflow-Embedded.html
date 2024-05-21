@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Workflow Overview - Using Embedded Actions | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Workflow Overview - Using Embedded Actions | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.inputsystem@1.7.0/Documentation~/Workflow-Embedded.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="input-system-workflow-embedded">
+<h1 id="workflow-overview---using-embedded-actions">Workflow Overview - Using Embedded Actions</h1>
+
+<p><img src="./Images/Workflow-Embedded.svg" alt="image alt text"></p>
+<p>You can use the <strong>InputAction class</strong> in your script to define actions in your script. This adds a layer of abstraction between your actual action code or methods, and the <a href="ActionBindings.html">bindings</a> to specific device controls.</p>
+<p>This means that instead of directly reading device states, you do not specify explicitly which controls (such as a gamepad trigger or stick) should do what in your code. Instead you create <a href="Actions.html">Actions</a>, <a href="ActionBindings.html">bind</a> them to <a href="Controls.html">controls</a>, and respond to the states or values from your Actions in your code.</p>
+<p>When you make a public <a href="../api/UnityEngine.InputSystem.InputAction.html">InputAction</a> field in a MonoBehaviour script, it displays in the inspector as a configurable field. The configurable field UI allows you to create a binding for the action. For example, here are two Actions defined using the InputAction class in a script:</p>
+<pre><code>using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class ExampleScript : MonoBehaviour
+{
+    public InputAction move;
+    public InputAction jump;
+}
+</code></pre>
+<p>In the image below, you can see the actions displayed in the inspector. In this example they have been configured so they are bound to Gamepad controls.</p>
+<p><img src="./Images/Workflow-EmbeddedActionsInspector.png" alt="image alt text"></p>
+<p>The InputAction class provides a way to bind interactions from a device’s controls to named actions in the inspector. When you bind actions to controls from a device in the inspector, you can then design your script to respond when the actions are performed without hard-coding references to specific devices in your script. This layer of abstraction provides you with the flexibility to modify or add multiple bindings without needing to change your code.</p>
+<p>To read values from your Actions, you must first <strong>enable</strong> the action, and then either repeatedly poll the action in your game loop, or add event handlers to the action. You must also <strong>disable</strong> the action when you no longer want the input to trigger event handlers.</p>
+<p>So, use actions such as those shown above in the small code sample, you would use a script like this:</p>
+<pre><code>using UnityEngine;
+using UnityEngine.InputSystem;
+
+// Using embedded actions with callbacks or reading values each frame.
+
+public class ExampleScript : MonoBehaviour
+{
+    // these embedded actions are configurable in the inspector:
+    public InputAction moveAction;
+    public InputAction jumpAction;
+
+    public void Awake()
+    {
+        // assign a callback for the &quot;jump&quot; action.
+        jumpAction.performed += ctx =&gt; { OnJump(ctx); };
+    }
+
+    public void Update()
+    {
+        // read the value for the &quot;move&quot; action each frame.
+        Vector2 moveAmount = moveAction.ReadValue&lt;Vector2&gt;();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        // jump code goes here.
+    }
+
+    // the actions must be enabled and disabled
+    // when the GameObject is enabled or disabled
+
+    public void OnEnable()
+    {
+        moveAction.Enable();
+        jumpAction.Enable();
+    }
+
+    public void OnDisable()
+    {
+        moveAction.Disable();
+        jumpAction.Disable();
+    }
+}
+</code></pre>
+<p>See <a href="Actions.html">Actions</a> for more information about both these techniques.</p>
+<p>You can find an example of this workflow in the sample projects included with the input system package. To find it, in the Project window, look in <strong>Assets &gt; Samples &gt; SimpleDemo</strong> and open the scene: <strong>SimpleDemo_UsingActions</strong>.</p>
+<p>Using InputActions also makes it easier to implement a system to allow the user to remap their own controls at run time.</p>
+<p>Using embedded actions like this is more flexible than <a href="Workflow-Direct.html">directly reading device states</a>, but less flexible than using an <a href="Workflow-ActionsAsset.html">actions asset</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.inputsystem@1.7.0/Documentation~/Workflow-Embedded.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

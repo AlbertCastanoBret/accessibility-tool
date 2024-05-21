@@ -1,0 +1,648 @@
+### YamlMime:ManagedReference
+items:
+- uid: ACC_API.ACC_MobilityAccessibility
+  commentId: T:ACC_API.ACC_MobilityAccessibility
+  id: ACC_MobilityAccessibility
+  parent: ACC_API
+  children:
+  - ACC_API.ACC_MobilityAccessibility.#ctor
+  - ACC_API.ACC_MobilityAccessibility.ChangeBinding(System.String,System.Int32,UnityEngine.InputSystem.InputBinding)
+  - ACC_API.ACC_MobilityAccessibility.ChangeControlScheme(System.String)
+  - ACC_API.ACC_MobilityAccessibility.DisableRemapControlsMenu
+  - ACC_API.ACC_MobilityAccessibility.EnableRemapControlsMenu(System.String)
+  - ACC_API.ACC_MobilityAccessibility.GetFeatureState(ACC_API.MobilityFeatures)
+  - ACC_API.ACC_MobilityAccessibility.LoadUserPreferences
+  - ACC_API.ACC_MobilityAccessibility.LoadUserPreferencesRemapControls
+  - ACC_API.ACC_MobilityAccessibility.ResetAllBindings
+  - ACC_API.ACC_MobilityAccessibility.ResetBinding(System.String,System.Int32)
+  - ACC_API.ACC_MobilityAccessibility.ResetControlSchemeBindings(System.String)
+  - ACC_API.ACC_MobilityAccessibility.ResetFeatureState(ACC_API.MobilityFeatures)
+  - ACC_API.ACC_MobilityAccessibility.SetFeatureState(ACC_API.MobilityFeatures,System.Boolean)
+  langs:
+  - csharp
+  - vb
+  name: ACC_MobilityAccessibility
+  nameWithType: ACC_MobilityAccessibility
+  fullName: ACC_API.ACC_MobilityAccessibility
+  type: Class
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ACC_MobilityAccessibility
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 13
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public class ACC_MobilityAccessibility
+    content.vb: Public Class ACC_MobilityAccessibility
+  inheritance:
+  - System.Object
+- uid: ACC_API.ACC_MobilityAccessibility.#ctor
+  commentId: M:ACC_API.ACC_MobilityAccessibility.#ctor
+  id: '#ctor'
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ACC_MobilityAccessibility()
+  nameWithType: ACC_MobilityAccessibility.ACC_MobilityAccessibility()
+  fullName: ACC_API.ACC_MobilityAccessibility.ACC_MobilityAccessibility()
+  type: Constructor
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: .ctor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 16
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public ACC_MobilityAccessibility()
+    content.vb: Public Sub New()
+  overload: ACC_API.ACC_MobilityAccessibility.#ctor*
+  nameWithType.vb: ACC_MobilityAccessibility.New()
+  fullName.vb: ACC_API.ACC_MobilityAccessibility.New()
+  name.vb: New()
+- uid: ACC_API.ACC_MobilityAccessibility.SetFeatureState(ACC_API.MobilityFeatures,System.Boolean)
+  commentId: M:ACC_API.ACC_MobilityAccessibility.SetFeatureState(ACC_API.MobilityFeatures,System.Boolean)
+  id: SetFeatureState(ACC_API.MobilityFeatures,System.Boolean)
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: SetFeatureState(MobilityFeatures, bool)
+  nameWithType: ACC_MobilityAccessibility.SetFeatureState(MobilityFeatures, bool)
+  fullName: ACC_API.ACC_MobilityAccessibility.SetFeatureState(ACC_API.MobilityFeatures, bool)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: SetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 40
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Sets the state of a specified mobility feature to either enabled or disabled.
+  example: []
+  syntax:
+    content: public void SetFeatureState(MobilityFeatures feature, bool state)
+    parameters:
+    - id: feature
+      type: ACC_API.MobilityFeatures
+      description: The mobility feature to modify. Use MobilityFeatures enum to specify the feature.
+    - id: state
+      type: System.Boolean
+      description: A boolean value indicating whether the feature should be enabled (true) or disabled (false).
+    content.vb: Public Sub SetFeatureState(feature As MobilityFeatures, state As Boolean)
+  overload: ACC_API.ACC_MobilityAccessibility.SetFeatureState*
+  nameWithType.vb: ACC_MobilityAccessibility.SetFeatureState(MobilityFeatures, Boolean)
+  fullName.vb: ACC_API.ACC_MobilityAccessibility.SetFeatureState(ACC_API.MobilityFeatures, Boolean)
+  name.vb: SetFeatureState(MobilityFeatures, Boolean)
+- uid: ACC_API.ACC_MobilityAccessibility.GetFeatureState(ACC_API.MobilityFeatures)
+  commentId: M:ACC_API.ACC_MobilityAccessibility.GetFeatureState(ACC_API.MobilityFeatures)
+  id: GetFeatureState(ACC_API.MobilityFeatures)
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetFeatureState(MobilityFeatures)
+  nameWithType: ACC_MobilityAccessibility.GetFeatureState(MobilityFeatures)
+  fullName: ACC_API.ACC_MobilityAccessibility.GetFeatureState(ACC_API.MobilityFeatures)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 55
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Determines whether the specified mobility feature is enabled or disabled based on the user's saved preferences.
+  example: []
+  syntax:
+    content: public bool GetFeatureState(MobilityFeatures feature)
+    parameters:
+    - id: feature
+      type: ACC_API.MobilityFeatures
+      description: The mobility feature to check (e.g., remap controls).
+    return:
+      type: System.Boolean
+      description: True if the feature is enabled, otherwise false.
+    content.vb: Public Function GetFeatureState(feature As MobilityFeatures) As Boolean
+  overload: ACC_API.ACC_MobilityAccessibility.GetFeatureState*
+- uid: ACC_API.ACC_MobilityAccessibility.ResetFeatureState(ACC_API.MobilityFeatures)
+  commentId: M:ACC_API.ACC_MobilityAccessibility.ResetFeatureState(ACC_API.MobilityFeatures)
+  id: ResetFeatureState(ACC_API.MobilityFeatures)
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetFeatureState(MobilityFeatures)
+  nameWithType: ACC_MobilityAccessibility.ResetFeatureState(MobilityFeatures)
+  fullName: ACC_API.ACC_MobilityAccessibility.ResetFeatureState(ACC_API.MobilityFeatures)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 74
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Resets the state of the specified mobility feature to its default settings.
+  example: []
+  syntax:
+    content: public void ResetFeatureState(MobilityFeatures feature)
+    parameters:
+    - id: feature
+      type: ACC_API.MobilityFeatures
+      description: The mobility feature to reset (e.g., remap controls).
+    content.vb: Public Sub ResetFeatureState(feature As MobilityFeatures)
+  overload: ACC_API.ACC_MobilityAccessibility.ResetFeatureState*
+- uid: ACC_API.ACC_MobilityAccessibility.LoadUserPreferences
+  commentId: M:ACC_API.ACC_MobilityAccessibility.LoadUserPreferences
+  id: LoadUserPreferences
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: LoadUserPreferences()
+  nameWithType: ACC_MobilityAccessibility.LoadUserPreferences()
+  fullName: ACC_API.ACC_MobilityAccessibility.LoadUserPreferences()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: LoadUserPreferences
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 87
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Loads and applies the user's accessibility preferences related to mobility features.
+  example: []
+  syntax:
+    content: public void LoadUserPreferences()
+    content.vb: Public Sub LoadUserPreferences()
+  overload: ACC_API.ACC_MobilityAccessibility.LoadUserPreferences*
+- uid: ACC_API.ACC_MobilityAccessibility.EnableRemapControlsMenu(System.String)
+  commentId: M:ACC_API.ACC_MobilityAccessibility.EnableRemapControlsMenu(System.String)
+  id: EnableRemapControlsMenu(System.String)
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: EnableRemapControlsMenu(string)
+  nameWithType: ACC_MobilityAccessibility.EnableRemapControlsMenu(string)
+  fullName: ACC_API.ACC_MobilityAccessibility.EnableRemapControlsMenu(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: EnableRemapControlsMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 96
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Displays the rebind menu for a specific device.
+  example: []
+  syntax:
+    content: public void EnableRemapControlsMenu(string device)
+    parameters:
+    - id: device
+      type: System.String
+      description: The identifier for the device whose controls are to be rebound.
+    content.vb: Public Sub EnableRemapControlsMenu(device As String)
+  overload: ACC_API.ACC_MobilityAccessibility.EnableRemapControlsMenu*
+  nameWithType.vb: ACC_MobilityAccessibility.EnableRemapControlsMenu(String)
+  fullName.vb: ACC_API.ACC_MobilityAccessibility.EnableRemapControlsMenu(String)
+  name.vb: EnableRemapControlsMenu(String)
+- uid: ACC_API.ACC_MobilityAccessibility.DisableRemapControlsMenu
+  commentId: M:ACC_API.ACC_MobilityAccessibility.DisableRemapControlsMenu
+  id: DisableRemapControlsMenu
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: DisableRemapControlsMenu()
+  nameWithType: ACC_MobilityAccessibility.DisableRemapControlsMenu()
+  fullName: ACC_API.ACC_MobilityAccessibility.DisableRemapControlsMenu()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: DisableRemapControlsMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 104
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Hides the remap controls menu.
+  example: []
+  syntax:
+    content: public void DisableRemapControlsMenu()
+    content.vb: Public Sub DisableRemapControlsMenu()
+  overload: ACC_API.ACC_MobilityAccessibility.DisableRemapControlsMenu*
+- uid: ACC_API.ACC_MobilityAccessibility.ChangeControlScheme(System.String)
+  commentId: M:ACC_API.ACC_MobilityAccessibility.ChangeControlScheme(System.String)
+  id: ChangeControlScheme(System.String)
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeControlScheme(string)
+  nameWithType: ACC_MobilityAccessibility.ChangeControlScheme(string)
+  fullName: ACC_API.ACC_MobilityAccessibility.ChangeControlScheme(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeControlScheme
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 113
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Changes the current control scheme to the specified one.
+  example: []
+  syntax:
+    content: public void ChangeControlScheme(string controlScheme)
+    parameters:
+    - id: controlScheme
+      type: System.String
+      description: The name of the control scheme to switch to.
+    content.vb: Public Sub ChangeControlScheme(controlScheme As String)
+  overload: ACC_API.ACC_MobilityAccessibility.ChangeControlScheme*
+  nameWithType.vb: ACC_MobilityAccessibility.ChangeControlScheme(String)
+  fullName.vb: ACC_API.ACC_MobilityAccessibility.ChangeControlScheme(String)
+  name.vb: ChangeControlScheme(String)
+- uid: ACC_API.ACC_MobilityAccessibility.ChangeBinding(System.String,System.Int32,UnityEngine.InputSystem.InputBinding)
+  commentId: M:ACC_API.ACC_MobilityAccessibility.ChangeBinding(System.String,System.Int32,UnityEngine.InputSystem.InputBinding)
+  id: ChangeBinding(System.String,System.Int32,UnityEngine.InputSystem.InputBinding)
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeBinding(string, int, InputBinding)
+  nameWithType: ACC_MobilityAccessibility.ChangeBinding(string, int, InputBinding)
+  fullName: ACC_API.ACC_MobilityAccessibility.ChangeBinding(string, int, UnityEngine.InputSystem.InputBinding)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeBinding
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 124
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Updates a specific binding for a given action by replacing it with a new binding.
+  example: []
+  syntax:
+    content: public void ChangeBinding(string actionName, int bindingIndex, InputBinding newBinding)
+    parameters:
+    - id: actionName
+      type: System.String
+      description: The name of the action to modify.
+    - id: bindingIndex
+      type: System.Int32
+      description: The index of the binding to replace within the action.
+    - id: newBinding
+      type: UnityEngine.InputSystem.InputBinding
+      description: The new input binding to assign.
+    content.vb: Public Sub ChangeBinding(actionName As String, bindingIndex As Integer, newBinding As InputBinding)
+  overload: ACC_API.ACC_MobilityAccessibility.ChangeBinding*
+  nameWithType.vb: ACC_MobilityAccessibility.ChangeBinding(String, Integer, InputBinding)
+  fullName.vb: ACC_API.ACC_MobilityAccessibility.ChangeBinding(String, Integer, UnityEngine.InputSystem.InputBinding)
+  name.vb: ChangeBinding(String, Integer, InputBinding)
+- uid: ACC_API.ACC_MobilityAccessibility.ResetBinding(System.String,System.Int32)
+  commentId: M:ACC_API.ACC_MobilityAccessibility.ResetBinding(System.String,System.Int32)
+  id: ResetBinding(System.String,System.Int32)
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetBinding(string, int)
+  nameWithType: ACC_MobilityAccessibility.ResetBinding(string, int)
+  fullName: ACC_API.ACC_MobilityAccessibility.ResetBinding(string, int)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetBinding
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 134
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Resets a specific binding for a given action to its default state.
+  example: []
+  syntax:
+    content: public void ResetBinding(string actionName, int bindingIndex)
+    parameters:
+    - id: actionName
+      type: System.String
+      description: The name of the action whose binding needs to be reset.
+    - id: bindingIndex
+      type: System.Int32
+      description: The index of the binding to reset within the action.
+    content.vb: Public Sub ResetBinding(actionName As String, bindingIndex As Integer)
+  overload: ACC_API.ACC_MobilityAccessibility.ResetBinding*
+  nameWithType.vb: ACC_MobilityAccessibility.ResetBinding(String, Integer)
+  fullName.vb: ACC_API.ACC_MobilityAccessibility.ResetBinding(String, Integer)
+  name.vb: ResetBinding(String, Integer)
+- uid: ACC_API.ACC_MobilityAccessibility.ResetAllBindings
+  commentId: M:ACC_API.ACC_MobilityAccessibility.ResetAllBindings
+  id: ResetAllBindings
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetAllBindings()
+  nameWithType: ACC_MobilityAccessibility.ResetAllBindings()
+  fullName: ACC_API.ACC_MobilityAccessibility.ResetAllBindings()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetAllBindings
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 142
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Resets all bindings to their default settings using the AccRebindControlsManager.
+  example: []
+  syntax:
+    content: public void ResetAllBindings()
+    content.vb: Public Sub ResetAllBindings()
+  overload: ACC_API.ACC_MobilityAccessibility.ResetAllBindings*
+- uid: ACC_API.ACC_MobilityAccessibility.LoadUserPreferencesRemapControls
+  commentId: M:ACC_API.ACC_MobilityAccessibility.LoadUserPreferencesRemapControls
+  id: LoadUserPreferencesRemapControls
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: LoadUserPreferencesRemapControls()
+  nameWithType: ACC_MobilityAccessibility.LoadUserPreferencesRemapControls()
+  fullName: ACC_API.ACC_MobilityAccessibility.LoadUserPreferencesRemapControls()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: LoadUserPreferencesRemapControls
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 150
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Loads the user's preferences for remapped controls.
+  example: []
+  syntax:
+    content: public void LoadUserPreferencesRemapControls()
+    content.vb: Public Sub LoadUserPreferencesRemapControls()
+  overload: ACC_API.ACC_MobilityAccessibility.LoadUserPreferencesRemapControls*
+- uid: ACC_API.ACC_MobilityAccessibility.ResetControlSchemeBindings(System.String)
+  commentId: M:ACC_API.ACC_MobilityAccessibility.ResetControlSchemeBindings(System.String)
+  id: ResetControlSchemeBindings(System.String)
+  parent: ACC_API.ACC_MobilityAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetControlSchemeBindings(string)
+  nameWithType: ACC_MobilityAccessibility.ResetControlSchemeBindings(string)
+  fullName: ACC_API.ACC_MobilityAccessibility.ResetControlSchemeBindings(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetControlSchemeBindings
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
+    startLine: 159
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Resets all bindings associated with a specific control scheme to their default settings.
+  example: []
+  syntax:
+    content: public void ResetControlSchemeBindings(string controlScheme)
+    parameters:
+    - id: controlScheme
+      type: System.String
+      description: The name of the control scheme to reset.
+    content.vb: Public Sub ResetControlSchemeBindings(controlScheme As String)
+  overload: ACC_API.ACC_MobilityAccessibility.ResetControlSchemeBindings*
+  nameWithType.vb: ACC_MobilityAccessibility.ResetControlSchemeBindings(String)
+  fullName.vb: ACC_API.ACC_MobilityAccessibility.ResetControlSchemeBindings(String)
+  name.vb: ResetControlSchemeBindings(String)
+references:
+- uid: ACC_API
+  commentId: N:ACC_API
+  href: ACC_API.html
+  name: ACC_API
+  nameWithType: ACC_API
+  fullName: ACC_API
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ACC_API.ACC_MobilityAccessibility.#ctor*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.#ctor
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility__ctor
+  name: ACC_MobilityAccessibility
+  nameWithType: ACC_MobilityAccessibility.ACC_MobilityAccessibility
+  fullName: ACC_API.ACC_MobilityAccessibility.ACC_MobilityAccessibility
+  nameWithType.vb: ACC_MobilityAccessibility.New
+  fullName.vb: ACC_API.ACC_MobilityAccessibility.New
+  name.vb: New
+- uid: ACC_API.ACC_MobilityAccessibility.SetFeatureState*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.SetFeatureState
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_SetFeatureState_ACC_API_MobilityFeatures_System_Boolean_
+  name: SetFeatureState
+  nameWithType: ACC_MobilityAccessibility.SetFeatureState
+  fullName: ACC_API.ACC_MobilityAccessibility.SetFeatureState
+- uid: ACC_API.MobilityFeatures
+  commentId: T:ACC_API.MobilityFeatures
+  parent: ACC_API
+  href: ACC_API.MobilityFeatures.html
+  name: MobilityFeatures
+  nameWithType: MobilityFeatures
+  fullName: ACC_API.MobilityFeatures
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ACC_API.ACC_MobilityAccessibility.GetFeatureState*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.GetFeatureState
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_GetFeatureState_ACC_API_MobilityFeatures_
+  name: GetFeatureState
+  nameWithType: ACC_MobilityAccessibility.GetFeatureState
+  fullName: ACC_API.ACC_MobilityAccessibility.GetFeatureState
+- uid: ACC_API.ACC_MobilityAccessibility.ResetFeatureState*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.ResetFeatureState
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_ResetFeatureState_ACC_API_MobilityFeatures_
+  name: ResetFeatureState
+  nameWithType: ACC_MobilityAccessibility.ResetFeatureState
+  fullName: ACC_API.ACC_MobilityAccessibility.ResetFeatureState
+- uid: ACC_API.ACC_MobilityAccessibility.LoadUserPreferences*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.LoadUserPreferences
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_LoadUserPreferences
+  name: LoadUserPreferences
+  nameWithType: ACC_MobilityAccessibility.LoadUserPreferences
+  fullName: ACC_API.ACC_MobilityAccessibility.LoadUserPreferences
+- uid: ACC_API.ACC_MobilityAccessibility.EnableRemapControlsMenu*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.EnableRemapControlsMenu
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_EnableRemapControlsMenu_System_String_
+  name: EnableRemapControlsMenu
+  nameWithType: ACC_MobilityAccessibility.EnableRemapControlsMenu
+  fullName: ACC_API.ACC_MobilityAccessibility.EnableRemapControlsMenu
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: ACC_API.ACC_MobilityAccessibility.DisableRemapControlsMenu*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.DisableRemapControlsMenu
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_DisableRemapControlsMenu
+  name: DisableRemapControlsMenu
+  nameWithType: ACC_MobilityAccessibility.DisableRemapControlsMenu
+  fullName: ACC_API.ACC_MobilityAccessibility.DisableRemapControlsMenu
+- uid: ACC_API.ACC_MobilityAccessibility.ChangeControlScheme*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.ChangeControlScheme
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_ChangeControlScheme_System_String_
+  name: ChangeControlScheme
+  nameWithType: ACC_MobilityAccessibility.ChangeControlScheme
+  fullName: ACC_API.ACC_MobilityAccessibility.ChangeControlScheme
+- uid: ACC_API.ACC_MobilityAccessibility.ChangeBinding*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.ChangeBinding
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_ChangeBinding_System_String_System_Int32_UnityEngine_InputSystem_InputBinding_
+  name: ChangeBinding
+  nameWithType: ACC_MobilityAccessibility.ChangeBinding
+  fullName: ACC_API.ACC_MobilityAccessibility.ChangeBinding
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: UnityEngine.InputSystem.InputBinding
+  commentId: T:UnityEngine.InputSystem.InputBinding
+  parent: UnityEngine.InputSystem
+  isExternal: true
+  name: InputBinding
+  nameWithType: InputBinding
+  fullName: UnityEngine.InputSystem.InputBinding
+- uid: UnityEngine.InputSystem
+  commentId: N:UnityEngine.InputSystem
+  isExternal: true
+  name: UnityEngine.InputSystem
+  nameWithType: UnityEngine.InputSystem
+  fullName: UnityEngine.InputSystem
+  spec.csharp:
+  - uid: UnityEngine
+    name: UnityEngine
+    isExternal: true
+  - name: .
+  - uid: UnityEngine.InputSystem
+    name: InputSystem
+    isExternal: true
+  spec.vb:
+  - uid: UnityEngine
+    name: UnityEngine
+    isExternal: true
+  - name: .
+  - uid: UnityEngine.InputSystem
+    name: InputSystem
+    isExternal: true
+- uid: ACC_API.ACC_MobilityAccessibility.ResetBinding*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.ResetBinding
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_ResetBinding_System_String_System_Int32_
+  name: ResetBinding
+  nameWithType: ACC_MobilityAccessibility.ResetBinding
+  fullName: ACC_API.ACC_MobilityAccessibility.ResetBinding
+- uid: ACC_API.ACC_MobilityAccessibility.ResetAllBindings*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.ResetAllBindings
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_ResetAllBindings
+  name: ResetAllBindings
+  nameWithType: ACC_MobilityAccessibility.ResetAllBindings
+  fullName: ACC_API.ACC_MobilityAccessibility.ResetAllBindings
+- uid: ACC_API.ACC_MobilityAccessibility.LoadUserPreferencesRemapControls*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.LoadUserPreferencesRemapControls
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_LoadUserPreferencesRemapControls
+  name: LoadUserPreferencesRemapControls
+  nameWithType: ACC_MobilityAccessibility.LoadUserPreferencesRemapControls
+  fullName: ACC_API.ACC_MobilityAccessibility.LoadUserPreferencesRemapControls
+- uid: ACC_API.ACC_MobilityAccessibility.ResetControlSchemeBindings*
+  commentId: Overload:ACC_API.ACC_MobilityAccessibility.ResetControlSchemeBindings
+  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_ResetControlSchemeBindings_System_String_
+  name: ResetControlSchemeBindings
+  nameWithType: ACC_MobilityAccessibility.ResetControlSchemeBindings
+  fullName: ACC_API.ACC_MobilityAccessibility.ResetControlSchemeBindings

@@ -1,23 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using TFG_Videojocs;
+using ACC_API;
 using TFG_Videojocs.ACC_Utilities;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using ColorUtility = UnityEngine.ColorUtility;
-
-public enum FontColor
-{
-    Red = 1,
-    Green = 2,
-    Blue = 3,
-    Orange = 4
-}
 
 public class ACC_SubtitlesManager : MonoBehaviour
 {

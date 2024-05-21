@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Rendering Debugger | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Rendering Debugger | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/features/rendering-debugger.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="rendering-debugger">Rendering Debugger</h1>
+
+<p>The <strong>Rendering Debugger</strong> window lets you visualize various lighting, rendering, and Material properties. The visualizations help you identify rendering issues and optimize Scenes and rendering configurations.</p>
+<p>This section contains the following topics:</p>
+<ul>
+<li><p><a href="#how-to-access">How to access the Rendering Debugger window</a>.</p>
+<p>Information on how to access the <strong>Rendering Debugger</strong> window in the Editor, in the Play mode, and at runtime in Development builds.</p>
+</li>
+<li><p><a href="#ui-sections">Rendering Debugger window sections</a></p>
+<p>Descriptions of the elements and properties in the <strong>Rendering Debugger</strong> window.</p>
+</li>
+<li><p><a href="#navigation-at-runtime">Navigation at runtime</a></p>
+<p>How to navigate the <strong>Rendering Debugger</strong> interface at runtime.</p>
+</li>
+</ul>
+<h2 id="how-to-access">How to access the Rendering Debugger window</h2>
+<p>The Rendering Debugger window is available in the following modes:</p>
+<ul>
+<li><p>The Editor.</p>
+</li>
+<li><p>The Play mode.</p>
+</li>
+<li><p>At runtime in the standalone Unity Player, on any device. The window is only available in <strong>Development builds</strong>.</p>
+</li>
+</ul>
+<p>When using the <strong>Rendering Debugger</strong> window in the Development build, clear the <strong>Strip Debug Variants</strong> check box in <strong>Project Settings &gt; Graphics &gt; URP Global Settings</strong>.</p>
+<p>Use one of the following options to open the <strong>Rendering Debugger</strong> window.</p>
+<p><strong>In the Editor</strong>:</p>
+<ul>
+<li><p>Select <strong>Window &gt; Analysis &gt; Rendering Debugger</strong>.</p>
+</li>
+<li><p>Press <strong>Ctrl+Backspace</strong> (<strong>Ctrl+Delete</strong> on macOS).</p>
+</li>
+</ul>
+<p><strong>In the Play mode or at runtime in a Development build</strong>:</p>
+<ul>
+<li><p>On a desktop or laptop computer, press <strong>LeftCtrl+Backspace</strong> (<strong>LeftCtrl+Delete</strong> on macOS).</p>
+</li>
+<li><p>On a console controller, press L3 and R3 (Left Stick and Right Stick).</p>
+</li>
+<li><p>On a mobile device, use a three-finger double tap.</p>
+</li>
+</ul>
+<p>You can disable the runtime UI using the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.core@14.0/api/UnityEngine.Rendering.DebugManager.html#UnityEngine_Rendering_DebugManager_enableRuntimeUI">enableRuntimeUI</a> property.</p>
+<h2 id="ui-sections">Rendering Debugger window sections</h2>
+<p>The <strong>Rendering Debugger</strong> window contains the following sections:</p>
+<ul>
+<li><p><a href="#display-stats">Display Stats</a></p>
+</li>
+<li><p><a href="#frequently-used">Frequently Used</a></p>
+</li>
+<li><p><a href="#material">Material</a></p>
+</li>
+<li><p><a href="#lighting">Lighting</a></p>
+</li>
+<li><p><a href="#rendering">Rendering</a></p>
+</li>
+</ul>
+<p>The following illustration shows the Rendering Debugger window in the Scene view.</p>
+<p><img src="../Images/rendering-debugger/rendering-debugger-ui-sections.png" alt="Rendering Debugger window."></p>
+<h3 id="display-stats">Display Stats</h3>
+<p>The <strong>Display Stats</strong> panel shows statistics relevant to debugging performance issues in your project. You can only view this section of the Rendering Debugger in Play mode.</p>
+<p>Use the [runtime shortcuts](#Navigation at runtime) to open the Display stats window in the scene view at runtime.</p>
+<h3 id="frame-stats">Frame Stats</h3>
+<p>The Frame Stats section displays the average, minimum, and maximum value of each property. HDRP calculates each Frame Stat value over the 30 most recent frames.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Frame Rate</strong></td>
+<td>The frame rate (in frames per second) for the current camera view.</td>
+</tr>
+<tr>
+<td><strong>Frame Time</strong></td>
+<td>The total frame time for the current camera view.</td>
+</tr>
+<tr>
+<td><strong>CPU Main Thread Frame</strong></td>
+<td>The total time (in milliseconds) between the start of the frame and the time when the Main Thread finished the job.</td>
+</tr>
+<tr>
+<td><strong>CPU  Render Thread Frame</strong></td>
+<td>The time (in milliseconds) between the start of the work on the Render Thread and the time Unity waits to render the present frame (<a href="https://docs.unity3d.com/2022.1/Documentation/Manual/profiler-markers.html">Gfx.PresentFrame</a>).</td>
+</tr>
+<tr>
+<td><strong>CPU Present Wait</strong></td>
+<td>The time (in milliseconds) that the CPU spent waiting for Unity to render the present frame (<a href="https://docs.unity3d.com/2022.1/Documentation/Manual/profiler-markers.html">Gfx.PresentFrame</a>) during the last frame.</td>
+</tr>
+<tr>
+<td><strong>GPU Frame</strong></td>
+<td>The amount of time (in milliseconds) the GPU takes to render a given frame.</td>
+</tr>
+<tr>
+<td><strong>Debug XR Layout</strong></td>
+<td>Display debug information for XR passes. <br>This mode is only available in editor and development builds.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="bottlenecks"></a></p>
+<h3 id="bottlenecks">Bottlenecks</h3>
+<p>A bottleneck is a condition that occurs when one process performs significantly slower than other components, and other components depend on it.</p>
+<p>The <strong>Bottlenecks</strong> section describes the distribution of the last 60 frames across the CPU and GPU. You can only see the Bottleneck information when you build your player on a device.</p>
+<p><strong>Note</strong>: Vsync limits the <strong>Frame Rate</strong> based on the refresh rate of your device’s screen. This means when you enable Vsync, the <strong>Present Limited</strong> category is 100% in most cases. To turn Vsync off, go to <strong>Edit</strong> &gt; <strong>Project settings</strong> &gt; <strong>Quality</strong> &gt; <strong>Current Active Quality Level</strong> and set the <strong>Vsync Count</strong> set to <strong>Don't Sync</strong>.</p>
+<h4 id="bottleneck-categories">Bottleneck categories</h4>
+<table>
+<thead>
+<tr>
+<th><strong>Category</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CPU</strong></td>
+<td>The percentage of the last 60 frames in which the CPU limited the frame time.</td>
+</tr>
+<tr>
+<td><strong>GPU</strong></td>
+<td>The percentage of the last 60 frames in which the GPU limited the frame time.</td>
+</tr>
+<tr>
+<td><strong>Present limited</strong></td>
+<td>The percentage of the last 60 frames in which the frame time was limited by the following presentation constraints:<br>• Vertical Sync (Vsync): Vsync synchronizes rendering to the refresh rate of your display.<br>•<a href="%5BApplication.targetFrameRate%5D(https://docs.unity3d.com/ScriptReference/Application-targetFrameRate.html)">Target framerate</a>: A function that you can use to manually limit the frame rate of an application. If a frame is ready before the time you specify in targetFrameRate, Unity waits before presenting the frame.</td>
+</tr>
+<tr>
+<td><strong>Balanced</strong></td>
+<td>This percentage of the last 60 frames in which the frame time was not limited by any of the above categories. A frame that is 100% balanced indicates the processing time for both CPU and GPU is approximately equal.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="bottleneck-example">Bottleneck example</h4>
+<p>If Vsync limited 20 of the 60 most recent frames, the Bottleneck section might appear as follows:</p>
+<ul>
+<li><strong>CPU</strong> 0.0%: This indicates that HDRP did not render any of the last 60 frames on the CPU.</li>
+<li><strong>GPU</strong> 66.6%: This indicates that the GPU limited 66.6% of the 60 most recent frames rendered by HDRP.</li>
+<li><strong>Present Limited</strong> 33.3%: This indicates that presentation constraints (Vsync or the <a href="https://docs.unity3d.com/ScriptReference/Application-targetFrameRate.html">target framerate</a>) limited 33.3% of the last 60 frames.</li>
+<li><strong>Balanced</strong> 0.0%: This indicates that in the last 60 frames, there were 0 frames where the CPU processing time and GPU processing time were the same.</li>
+</ul>
+<p>In this example, the bottleneck is the GPU.</p>
+<p><a name="detailed-stats"></a></p>
+<h3 id="detailed-stats">Detailed Stats</h3>
+<p>The Detailed Stats section displays the amount of time in milliseconds that each rendering step takes on the CPU and GPU. HDRP updates these values once every frame based on the previous frame.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Update every second with average</td>
+<td>Calculate average values over one second and update every second.</td>
+</tr>
+<tr>
+<td>Hide empty scopes</td>
+<td>Hide profiling scopes that use 0.00ms of processing time on the CPU and GPU.</td>
+</tr>
+<tr>
+<td>Debug XR Layout</td>
+<td>Enable to display debug information for <a href="https://docs.unity3d.com/Manual/XR.html">XR</a> passes. This mode only appears in the editor and development builds.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="frequently-used">Frequently Used</h3>
+<p>This section contains a selection of properties that users use often. The properties are from the other sections in the Rendering Debugger window. For information about the properties, see the sections <a href="#material">Material</a>, <a href="#lighting">Lighting</a>, and <a href="#rendering">Rendering</a>.</p>
+<h3 id="material">Material</h3>
+<p>The properties in this section let you visualize different Material properties.</p>
+<p><img src="../Images/rendering-debugger/material-section.png" alt="Rendering Debugger, Material section"><br><em>Rendering Debugger, Material section</em></p>
+<h4 id="material-filters">Material Filters</h4>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Material Override</strong></td>
+<td>Select a Material property to visualize on every GameObject on screen.<br>The available options are:<ul><li>Albedo</li><li>Specular</li><li>Alpha</li><li>Smoothness</li><li>AmbientOcclusion</li><li>Emission</li><li>NormalWorldSpace</li><li>NormalTangentSpace</li><li>LightingComplexity</li><li>Metallic</li><li>SpriteMask</li></ul>With the <strong>LightingComplexity</strong> value selected, Unity shows how many Lights affect areas of the screen space.</td>
+</tr>
+<tr>
+<td><strong>Vertex Attribute</strong></td>
+<td>Select a vertex attribute of GameObjects to visualize on screen.<br>The available options are:<ul><li>Texcoord0</li><li>Texcoord1</li><li>Texcoord2</li><li>Texcoord3</li><li>Color</li><li>Tangent</li><li>Normal</li></ul></td>
+</tr>
+</tbody>
+</table>
+<h4 id="material-validation">Material Validation</h4>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Material Validation Mode</strong></td>
+<td>Select which Material properties to visualize: Albedo, or Metallic. Selecting one of the properties shows the new context menu.</td>
+</tr>
+<tr>
+<td>    <strong>Validation Mode: Albedo</strong></td>
+<td>Selecting <strong>Albedo</strong> in the Material Validation Mode property shows the <strong>Albedo Settings</strong> section with the following properties:<br><strong>Validation Preset</strong>: Select a pre-configured material, or Default Luminance to visualize luminance ranges.<br><strong>Min Luminance</strong>: Unity draws pixels where the luminance is lower than this value with red color.<br><strong>Max Luminance</strong>: Unity draws pixels where the luminance is higher than this value with blue color.<br><strong>Hue Tolerance</strong>: available only when you select a pre-set material. Unity adds the hue tolerance to the minimum and maximum luminance values.<br><strong>Saturation Tolerance</strong>: available only when you select a pre-set material. Unity adds the saturation tolerance to the minimum and maximum luminance values.</td>
+</tr>
+<tr>
+<td>    <strong>Validation Mode: Metallic</strong></td>
+<td>Selecting <strong>Metallic</strong> in the Material Validation Mode property shows the <strong>Metallic Settings</strong> section with the following properties:<br><strong>Min Value</strong>: Unity draws pixels where the metallic value is lower than this value with red color.<br><strong>Max Value</strong>: Unity draws pixels where the metallic value is higher than this value with blue color.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lighting">Lighting</h3>
+<p>The properties in this section let you visualize different settings and elements related to the lighting system, such as shadow cascades, reflections, contributions of the Main and the Additional Lights, and so on.</p>
+<h4 id="lighting-debug-modes">Lighting Debug Modes</h4>
+<p><img src="../Images/rendering-debugger/lighting-debug-modes.png" alt=""><br><em>The Lighting Debug Modes subsection.</em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lighting Debug Mode</strong></td>
+<td>Specifies which lighting and shadow information to overlay on-screen to debug. The options are:<ul><li><strong>None</strong>: Renders the scene normally without a debug overlay.</li><li><strong>Shadow Cascades</strong>: Overlays shadow cascade information so you can see which shadow cascade each pixel uses. Use this to debug shadow cascade distances. For information on which color represents which shadow cascade, see the <a href="../universalrp-asset.html#shadows">Shadows section of the URP Asset</a>.</li><li><strong>Lighting Without Normal Maps</strong>: Renders the scene to visualize lighting. This mode uses neutral materials and disables normal maps. This and the <strong>Lighting With Normal Maps</strong> mode are useful for debugging lighting issues caused by normal maps.</li><li><strong>Lighting With Normal Maps</strong>: Renders the scene to visualize lighting. This mode uses neutral materials and allows normal maps.</li><li><strong>Reflections</strong>: Renders the scene to visualize reflections. This mode applies perfectly smooth, reflective materials to every Mesh Renderer.</li><li><strong>Reflections With Smoothness</strong>: Renders the scene to visualize reflections. This mode applies reflective materials without an overridden smoothness to every GameObject.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Lighting Features</strong></td>
+<td>Specifies flags for which lighting features contribute to the final lighting result. Use this to view and debug specific lighting features in your scene. The options are:<ul><li><strong>Nothing</strong>: Shortcut to disable all flags.</li><li><strong>Everything</strong>: Shortcut to enable all flags.</li><li><strong>Global Illumination</strong>: Indicates whether to render <a href="https://docs.unity3d.com/Manual/realtime-gi-using-enlighten.html">global illumination</a>.</li><li><strong>Main Light</strong>: Indicates whether the main directional <a href="../light-component.html">Light</a> contributes to lighting.</li><li><strong>Additional Lights</strong>: Indicates whether lights other than the main directional light contribute to lighting.</li><li><strong>Vertex Lighting</strong>: Indicates whether additional lights that use per-vertex lighting contribute to lighting.</li><li><strong>Emission</strong>: Indicates whether <a href="https://docs.unity3d.com/Manual/StandardShaderMaterialParameterEmission.html">emissive</a> materials contribute to lighting.</li><li><strong>Ambient Occlusion</strong>: Indicates whether <a href="../post-processing-ssao.html">ambient occlusion</a> contributes to lighting.</li></ul></td>
+</tr>
+</tbody>
+</table>
+<h3 id="rendering">Rendering</h3>
+<p>The properties in this section let you visualize different rendering features.</p>
+<h4 id="rendering-debug">Rendering Debug</h4>
+<p><img src="../Images/rendering-debugger/rendering-debug.png" alt=""><br><em>The Rendering Debug subsection.</em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Map Overlays</strong></td>
+<td>Specifies which render pipeline texture to overlay on the screen. The options are:<ul><li><strong>None</strong>: Renders the scene normally without a texture overlay.</li><li><strong>Depth</strong>: Overlays the camera's depth texture on the screen.</li><li><strong>Additional Lights Shadow Map</strong>: Overlays the <a href="https://docs.unity3d.com/Manual/shadow-mapping.html">shadow map</a> that contains shadows cast by lights other than the main directional light.</li><li><strong>Main Light Shadow Map</strong>: Overlays the shadow map that contains shadows cast by the main directional light.</li></ul></td>
+</tr>
+<tr>
+<td>**  Map Size**</td>
+<td>The width and height of the overlay texture as a percentage of the view window URP displays it in. For example, a value of <strong>50</strong> fills up a quarter of the screen (50% of the width and 50% of the height).</td>
+</tr>
+<tr>
+<td><strong>HDR</strong></td>
+<td>Indicates whether to use <a href="https://docs.unity3d.com/Manual/HDR.html">high dynamic range (HDR)</a> to render the scene. Enabling this property only has an effect if you enable <strong>HDR</strong> in your URP Asset.</td>
+</tr>
+<tr>
+<td><strong>MSAA</strong></td>
+<td>Indicates whether to use <a href="../anti-aliasing.html#msaa">Multisample Anti-aliasing (MSAA)</a> to render the scene. Enabling this property only has an effect if:<ul><li>You set <strong>Anti Aliasing (MSAA)</strong> to a value other than <strong>Disabled</strong> in your URP Asset.</li><li>You use the Game View. MSAA has no effect in the Scene View.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Post-processing</strong></td>
+<td>Specifies how URP applies post-processing. The options are:<ul><li><strong>Disabled</strong>: Disables post-processing.</li><li><strong>Auto</strong>: Unity enables or disables post-processing depending on the currently active debug modes. If color changes from post-processing would change the meaning of a debug mode's pixel, Unity disables post-processing. If no debug modes are active, or if color changes from post-processing don't change the meaning of the active debug modes' pixels, Unity enables post-processing.</li><li><strong>Enabled</strong>: Applies post-processing to the image that the camera captures.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Additional Wireframe Modes</strong></td>
+<td>Specifies whether and how to render wireframes for meshes in your scene. The options are:<ul><li><strong>None</strong>: Doesn't render wireframes.</li><li><strong>Wireframe</strong>: Exclusively renders edges for meshes in your scene. In this mode, you can see the wireframe for meshes through the wireframe for closer meshes.</li><li><strong>Solid Wireframe</strong>: Exclusively renders edges and faces for meshes in your scene. In this mode, the faces of each wireframe mesh hide edges behind them.</li><li><strong>Shaded Wireframe</strong>: Renders edges for meshes as an overlay. In this mode, Unity renders the scene in color and overlays the wireframe over the top.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Overdraw</strong></td>
+<td>Indicates whether to render the overdraw debug view. This is useful to see where Unity draws pixels over one other.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="pixel-validation">Pixel Validation</h4>
+<p><img src="../Images/rendering-debugger/pixel-validation.png" alt=""><br><em>The Pixel Validation subsection.</em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pixel Validation Mode</strong></td>
+<td>Specifies which mode Unity uses to validate pixel color values. The options are:<ul><li><strong>None</strong>: Renders the scene normally and doesn't validate any pixels.</li><li><strong>Highlight NaN, Inf and Negative Values</strong>: Highlights pixels that have color values that are NaN, Inf, or negative.</li><li><strong>Highlight Values Outside Range</strong>: Highlights pixels that have color values outside a particular range. Use <strong>Value Range Min</strong> and <strong>Value Range Max</strong>.</li></ul></td>
+</tr>
+<tr>
+<td>**  Channels**</td>
+<td>Specifies which value to use for the pixel value range validation. The options are:<ul><li><strong>RGB</strong>: Validates the pixel using the luminance value calculated from the red, green, and blue color channels.</li><li><strong>R</strong>: Validates the pixel using the value from the red color channel.</li><li><strong>G</strong>: Validates the pixel using the value from the green color channel.</li><li><strong>B</strong>: Validates the pixel using the value from the blue color channel.</li><li><strong>A</strong>: Validates the pixel using the value from the alpha channel.</li></ul>This property only appears if you set <strong>Pixel Validation Mode</strong> to <strong>Highlight Values Outside Range</strong>.</td>
+</tr>
+<tr>
+<td>**   Value Range Min**</td>
+<td>The minimum valid color value. Unity highlights color values that are less than this value.<br><br>This property only appears if you set <strong>Pixel Validation Mode</strong> to <strong>Highlight Values Outside Range</strong>.</td>
+</tr>
+<tr>
+<td>**   Value Range Max**</td>
+<td>The maximum valid color value. Unity highlights color values that are greater than this value.<br><br>This property only appears if you set <strong>Pixel Validation Mode</strong> to <strong>Highlight Values Outside Range</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="navigation-at-runtime">Navigation at runtime</h2>
+<p>This section describes how to navigate the <strong>Rendering Debugger</strong> interface at runtime.</p>
+<p>To change the current active item:</p>
+<ul>
+<li><p><strong>Keyboard</strong>: use the arrow keys.</p>
+</li>
+<li><p><strong>Touch screen</strong>: tap the arrows next to properties.</p>
+</li>
+<li><p><strong>Xbox controller</strong>: use the Directional pad (D-Pad).</p>
+</li>
+<li><p><strong>PlayStation controller</strong>: use the Directional buttons.</p>
+</li>
+</ul>
+<p>To change the current tab:</p>
+<ul>
+<li><p><strong>Keyboard</strong>: use the Page up and Page down keys (Fn + Up and Fn + Down keys for MacOS).</p>
+</li>
+<li><p><strong>Touch screen</strong>: tap the arrows next to tab title.</p>
+</li>
+<li><p><strong>Xbox controller</strong>: use the Left Bumper and Right Bumper.</p>
+</li>
+<li><p><strong>PlayStation controller</strong>: use the L1 button and R1 button.</p>
+</li>
+</ul>
+<p>To display the current active item independently of the debug window:</p>
+<ul>
+<li><p><strong>Keyboard</strong>: press the right Shift key.</p>
+</li>
+<li><p><strong>Xbox controller</strong>: press the X button.</p>
+</li>
+<li><p><strong>PlayStation controller</strong>: press the Square button.</p>
+</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/features/rendering-debugger.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

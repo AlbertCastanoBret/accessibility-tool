@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Scatter Paint Details on the terrain | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Scatter Paint Details on the terrain | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/paint-details.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="scatter-paint-details-on-the-terrain">Scatter Paint Details on the terrain</h1>
+
+<p>Use the <strong>Paint Details</strong> tool to scatter Details onto your Terrain. A Detail represents an instance of an object that you place on top of the terrain (such as rocks, grass, and bushes).</p>
+<p><strong>Note:</strong> This tool overrides the built-in <a href="https://docs.unity3d.com/Manual/terrain-Grass.html">Paint Details</a> and adds newer features, such as simultaneously scattering multiple details, filter masking terrain layers, and target coverage distribution UI.</p>
+<h2 id="select-and-configure-the-paint-texture-tool">Select and configure the Paint Texture tool</h2>
+<p>To select the Paint Texture tool:</p>
+<ol>
+<li>Select a Terrain tile to bring up the Terrain Inspector.</li>
+<li>In the Terrain Inspector, click the Paint Details (grass) icon.</li>
+</ol>
+<p><img src="images/Paint_Details_01.png" alt=""></p>
+<p>To configure the tool, add a new Detail to the Details Control. You can download preset details from the Asset Store, such as the free <a href="https://assetstore.unity.com/packages/2d/textures-materials/nature/terrain-tools-sample-asset-pack-145808">Terrain Tools Sample Asset Pack</a>.</p>
+<h2 id="add-details">Add Details</h2>
+<p>To add a new Terrain Detail, do the following:</p>
+<ol>
+<li>Go to the <strong>Details Control</strong> section.</li>
+<li>Select the <strong>Add (+)</strong> button on either the list or grid view.</li>
+<li>Select the type of detail you'd like to add. <strong>Note:</strong> HDRP only allows for the selection of Mesh Detail types.</li>
+<li>Go to the <strong>Add Detail</strong> window.</li>
+<li>Select a prefab.</li>
+<li>Alter the detail settings.</li>
+<li>Click <strong>Add</strong>.</li>
+</ol>
+<p><img src="images/Paint_Details_02.png" alt=""></p>
+<h2 id="modify-details">Modify Details</h2>
+<p>To modify a Detail, do the following:</p>
+<ol>
+<li>Right-click on the detail thumbnail.</li>
+<li>Click <strong>Edit</strong>.</li>
+</ol>
+<p>Alternatively, you can do the following:</p>
+<ol>
+<li>Go to the List view.</li>
+<li>Click the Detail's menu.</li>
+<li>Click the dropdown menu to the left of the <strong>Target Coverage</strong> slider to expand the Detail.</li>
+</ol>
+<h2 id="remove-details">Remove Details</h2>
+<p>To remove a Detail, do the following:</p>
+<ol>
+<li>right-click on the detail thumbnail.</li>
+<li>Click <strong>Remove</strong>.</li>
+</ol>
+<p>Alternatively, you can do the following:</p>
+<ol>
+<li>Go to the List view.</li>
+<li>Select the Detail.</li>
+<li>Click <strong>Add (-)</strong>.</li>
+</ol>
+<p>For more detailed information about Terrain Details, see <a href="https://docs.unity3d.com/Manual/terrain-Grass.html">Grass and Other Details</a>.</p>
+<p>While painting Details, you can hold Shift and click to remove all details under the brush. Hold Ctrl and click to remove only the Details you select.</p>
+<p><img src="images/Paint_Details_03.png" alt=""></p>
+<h2 id="view-details-and-their-settings">View Details and their settings</h2>
+<p><img src="images/Paint_Details_04.png" alt=""></p>
+<p>With the View selection, you can choose a layout for the Detail selection UI. The two layout options are:</p>
+<ul>
+<li>The <strong>Grid</strong> view, which shows the Details in a compact grid view. Use this view to access a large list of Details.</li>
+<li>The <strong>List</strong> view, which shows the Details within a stack. Use this view to access each Detail's settings and <strong>Target Density</strong>.</li>
+</ul>
+<p>To access the detail's settings within the <strong>List</strong> view, click the dropdown arrow to the left of the <strong>Target Density</strong> label.</p>
+<p>To paint, do the following:</p>
+<ol>
+<li>Click on the Detail's thumbnail to select it for painting.</li>
+<li>Click and drag to paint the Details.</li>
+</ol>
+<p>Select multiple Details to scatter them simultaneously.</p>
+<p><img src="images/Paint_Details_05.png" alt=""></p>
+<p>You can use the <strong>Target Density Distribution</strong> slider to gauge the distribution of selected Details' target density. You can also use the slider to adjust the <strong>Target Density</strong> from within the <strong>Grid</strong> view.
+To modify a Detail's <strong>Target Density</strong>, click and drag the Detail's slider.</p>
+<p><img src="images/Paint_Details_06.png" alt=""></p>
+<h2 id="control-detail-location-with-the-layer-filter">Control Detail location with the Layer Filter</h2>
+<p><img src="images/Paint_Details_07.png" alt=""></p>
+<p>In addition to the Paint Details tool, you can use the Brush Mask Filter to mask layers. Layer filtering gives finer control over the location of scattered Details. The filter works as a mask and keeps the Details from being scattered outside of the selected terrain layers.</p>
+<p>To use the <strong>Layer Filter</strong>, do the following:</p>
+<ol>
+<li>Add the filter to the <strong>Filter Mask</strong> list.</li>
+<li>In the <strong>Layer Filter</strong> UI, select the terrain layer you'd like to scatter on.</li>
+</ol>
+<p><img src="images/Paint_Details_08.png" alt=""></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/paint-details.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

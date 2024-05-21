@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Quickstart - Code Coverage tutorial | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Quickstart - Code Coverage tutorial | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.testtools.codecoverage@1.2.4/Documentation~/Quickstart.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="quickstart---code-coverage-tutorial">Quickstart - Code Coverage tutorial</h1>
+
+<p>The Quickstart guide will give you an insight into what Code Coverage is and how you can identify areas of your code that need more testing, even if you haven't written any automated tests. It takes about 30 minutes to complete.</p>
+<p><img src="images/quickguide/asteroids.png" alt="Code Coverage Workshop"></p>
+<h2 id="tasks">Tasks</h2>
+<ol>
+<li><a href="#1-what-is-code-coverage-sub2-minsub">What is Code Coverage</a> (2 min)</li>
+<li><a href="#2-install-the-code-coverage-package-sub2-minsub">Install the Code Coverage package</a> (2 min)</li>
+<li><a href="#3-install-the-asteroids-sample-project-sub1-minsub">Install the Asteroids sample project</a> (1 min)</li>
+<li><a href="#4-enable-code-coverage-sub1-minsub">Enable Code Coverage</a> (1 min)</li>
+<li><a href="#5-understanding-the-game-code-shoot-function-sub4-minsub">Understanding the game code: Shoot() function</a> (4 min)</li>
+<li><a href="#6-generate-a-coverage-report-from-playmode-tests-sub3-minsub">Generate a Coverage report from PlayMode tests</a> (3 min)</li>
+<li><a href="#7-add-weapon-tests-to-improve-coverage-sub3-minsub">Add Weapon tests to improve coverage</a> (3 min)</li>
+<li><a href="#8-add-a-test-for-the-lasercontroller-sub4-minsub">Add a test for the LaserController</a> (4 min)</li>
+<li><a href="#9-clear-the-coverage-data-sub1-minsub">Clear the coverage data</a> (1 min)</li>
+<li><a href="#10-generate-a-coverage-report-using-coverage-recording-sub4-minsub">Generate a Coverage report using Coverage Recording</a> (4 min)</li>
+</ol>
+<p><strong>Note:</strong> Estimated times are shown for each task to give you a better understanding of the time required. These times are rough guidelines - it is fine to take as much or as little time as needed.</p>
+<h2 id="1-what-is-code-coverage-2-min">1. What is Code Coverage <sub>(2 min)</sub></h2>
+<p><a href="https://en.wikipedia.org/wiki/Code_coverage">Code Coverage</a> is a measure of how much of your code has been executed. It is normally associated with automated tests, but you can gather coverage data in Unity at any time when the Editor is running.</p>
+<p>It is typically presented as a <a href="HowToInterpretResults.html">report</a> that shows the percentage of the code that has been executed. For automated testing the report does not measure the quality of tests, only whether your code is executed by PlayMode and EditMode tests. It is especially useful to check that critical or high risk areas of your code are covered, because they should receive the most rigorous testing.</p>
+<p>It is much easier to accidentally introduce bugs into code that is not covered by tests, because those bugs are not detected straight away by the tests and can instead cause problems later — such as after you have published your game or app.</p>
+<p>Additionally, the Code Coverage package offers a <a href="CoverageRecording.html">Coverage Recording</a> feature which allows capturing coverage data on demand, in case you do not have tests in your project or doing manual testing.</p>
+<h2 id="2-install-the-code-coverage-package-2-min">2. Install the Code Coverage package <sub>(2 min)</sub></h2>
+<p><strong>Note:</strong> Skip this task if the package is already installed.</p>
+<p>Use the <a href="https://docs.unity3d.com/Packages/com.unity.package-manager-ui@latest">Unity Package Manager</a> to find and install the <strong>Code Coverage</strong> package.</p>
+<p><img src="images/install_package.png" alt="Install Code Coverage package"></p>
+<p>Alternatively, use the <strong>Add (+)</strong> dropdown and select <strong>Add package from git URL...</strong> or <strong>Add package by name...</strong> and type <code>com.unity.testtools.codecoverage</code>.</p>
+<p><img src="images/install_package_url.png" alt="Install Code Coverage package from URL"></p>
+<p>To verify that Code Coverage has been installed correctly, open the Code Coverage window (go to <strong>Window</strong> &gt; <strong>Analysis</strong> &gt; <strong>Code Coverage</strong>). If you don't see the <strong>Code Coverage</strong> menu item, then Code Coverage did not install correctly.</p>
+<h2 id="3-install-the-asteroids-sample-project-1-min">3. Install the Asteroids sample project <sub>(1 min)</sub></h2>
+<ol>
+<li>In the <a href="https://docs.unity3d.com/Packages/com.unity.package-manager-ui@latest">Unity Package Manager</a> (<strong>Window</strong> &gt; <strong>Package Manager</strong>) select the <strong>Code Coverage</strong> package, if not already selected.</li>
+<li>Find the <strong>Samples</strong> section in the package details (right hand side) and select <strong>Import</strong> next to <strong>Code Coverage Tutorial</strong>.<br><br>
+<img src="images/quickguide/import_sample.png" alt="Import Asteroids project"></li>
+</ol>
+<h2 id="4-enable-code-coverage-1-min">4. Enable Code Coverage <sub>(1 min)</sub></h2>
+<p>To enable Code Coverage open the <a href="CodeCoverageWindow.html">Code Coverage window</a> (go to <strong>Window</strong> &gt; <strong>Analysis</strong> &gt; <strong>Code Coverage</strong>) and select <strong>Enable Code Coverage</strong> if not already selected, to be able to generate Coverage data and reports.</p>
+<p><img src="images/using_coverage/enable_code_coverage.png" alt="Enable Code Coverage"></p>
+<p><strong>Note:</strong> Enabling Code Coverage adds some overhead to the editor and can affect the performance.</p>
+<h2 id="5-understanding-the-game-code-shoot-function-4-min">5. Understanding the game code: Shoot() function <sub>(4 min)</sub></h2>
+<ol>
+<li><p>Go to <code>Asteroids/Scenes</code> in Project View and open the <strong>Asteroids</strong> scene.<br>
+This is located in <code>Assets/Samples/Code Coverage/&lt;version&gt;/Code Coverage Tutorial</code>.</p>
+</li>
+<li><p>Hit <strong>Play</strong> and play the game for a minute or two.<br>
+<img src="images/quickguide/press_play.png" alt="Enter Play mode">
+Use the arrow keys to move and the spacebar to shoot.</p>
+</li>
+<li><p>Exit PlayMode.</p>
+</li>
+<li><p>Open the <code>Scripts/Controllers/SpaceshipController.cs</code> script.</p>
+</li>
+<li><p>Study the <strong>Shoot</strong> function.</p>
+</li>
+</ol>
+<pre><code>If Weapon is Basic, the Prefabs/Weapons/Projectile prefab is instantiated
+If Weapon is Laser, the Prefabs/Weapons/Laser prefab is instantiated
+</code></pre>
+<h2 id="6-generate-a-coverage-report-from-playmode-tests-3-min">6. Generate a Coverage report from PlayMode tests <sub>(3 min)</sub></h2>
+<ol>
+<li><p>Open the <a href="CodeCoverageWindow.html">Code Coverage window</a> (go to <strong>Window</strong> &gt; <strong>Analysis</strong> &gt; <strong>Code Coverage</strong>).<br><br>
+<img src="images/quickguide/coverage_window.png" alt="Code Coverage Window"></p>
+</li>
+<li><p>If you see this warning select <strong>Switch to debug mode</strong>.<br>
+<img src="images/quickguide/code_optimization.png" alt="Code Optimization">
+<a href="https://docs.unity3d.com/2020.1/Documentation/Manual/ManagedCodeDebugging.html#CodeOptimizationMode">Code Optimization</a> was introduced in Unity 2020.1; in <em>Release mode</em> the code is optimized and therefore not directly represented by the original code. Therefore, <em>Debug mode</em> is required in order to obtain accurate code coverage information.</p>
+</li>
+<li><p>Click the <strong>Included Assemblies</strong> dropdown to make sure only<br>
+<code>Unity.TestTools.CodeCoverage.Sample.Asteroids</code> and<br>
+<code>Unity.TestTools.CodeCoverage.Sample.Asteroids.Tests</code> are selected.<br><br>
+<img src="images/quickguide/included_assemblies.png" alt="Included Assemblies"></p>
+</li>
+<li><p>Make sure <strong>HTML Report</strong>, <strong>Report History</strong>, <strong>Auto Generate Report</strong> and <strong>Auto Open Report</strong> are all checked.
+<img src="images/quickguide/auto_generate_report.png" alt="Auto Generate Report"></p>
+</li>
+<li><p>Switch to the <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@latest/index.html?subfolder=/manual/workflow-run-test.html">Test Runner</a> window, select the <strong>PlayMode</strong> tab and hit <strong>Run All</strong> tests.<br><br>
+<img src="images/quickguide/test_runner.png" alt="Run PlayMode tests"></p>
+</li>
+<li><p>When the tests finish running, a file viewer window will open up containing the coverage report. Select <code>index.htm</code>.</p>
+</li>
+<li><p>Look for the classes with low coverage, especially <strong>LaserController</strong>, <strong>BaseProjectile</strong> and <strong>ProjectileController</strong>.</p>
+</li>
+</ol>
+<p>You can sort the results by <em>Line coverage</em>.</p>
+<p><img src="images/quickguide/report_tests.png" alt="Code Coverage Report"></p>
+<p>See also <a href="HowToInterpretResults.html">How to interpret the results</a>.</p>
+<h2 id="7-add-weapon-tests-to-improve-coverage-3-min">7. Add Weapon tests to improve coverage <sub>(3 min)</sub></h2>
+<ol>
+<li><p>Open the <code>Tests/WeaponTests.cs</code> script.</p>
+</li>
+<li><p>Uncomment all the tests (from <em>line 35</em> down to <em>line 237</em>).</p>
+</li>
+<li><p>Back in the <strong>Test Runner</strong>, hit <strong>Run All</strong> tests again.</p>
+</li>
+<li><p>When the tests finish running, a file viewer window will open up containing the coverage report. Select <code>index.htm</code>.</p>
+</li>
+<li><p>Notice that now <strong>BaseProjectile</strong> and <strong>ProjectileController</strong> coverage is considerably higher, but <strong>LaserController</strong> has not improved much.</p>
+</li>
+</ol>
+<p><img src="images/quickguide/report_tests_after.png" alt="Code Coverage Report"></p>
+<h2 id="8-add-a-test-for-the-lasercontroller-4-min">8. Add a test for the LaserController <sub>(4 min)</sub></h2>
+<ol>
+<li><p>Open the <code>Tests/WeaponTests.cs</code> script.</p>
+</li>
+<li><p>Go to the <strong>_18_LaserFiresSuccessfully</strong> test in line 225.</p>
+</li>
+<li><p>Uncomment and study the code.</p>
+</li>
+<li><p>Back in the <strong>Test Runner</strong>, hit <strong>Run All</strong> tests again.</p>
+</li>
+<li><p>When the tests finish running, a file viewer window will open up containing the coverage report. Select <code>index.htm</code>.</p>
+</li>
+<li><p>Notice how the coverage for <strong>LaserController</strong> has improved.<br>
+<img src="images/quickguide/report_laser_controller.png" alt="LaserController Coverage"></p>
+</li>
+<li><p>Select the <strong>LaserController</strong> class to enter the class view and notice that about 2/3 (65%) of the code is now covered (green).</p>
+</li>
+</ol>
+<p><img src="images/quickguide/report_laser_controller_class.png" alt="LaserController Class Coverage"></p>
+<p>Complete the <a href="#11-bonus-task-sub5-8-minsub">Bonus Task</a> at the end of the tutorial to get 100% coverage!</p>
+<h2 id="9-clear-the-coverage-data-1-min">9. Clear the coverage data <sub>(1 min)</sub></h2>
+<ol>
+<li><p>Open the <a href="CodeCoverageWindow.html">Code Coverage window</a> (go to <strong>Window</strong> &gt; <strong>Analysis</strong> &gt; <strong>Code Coverage</strong>).</p>
+</li>
+<li><p>Select <strong>Clear Results</strong> and confirm.</p>
+</li>
+<li><p>Select <strong>Clear History</strong> and confirm.</p>
+</li>
+</ol>
+<h2 id="10-generate-a-coverage-report-using-coverage-recording-4-min">10. Generate a Coverage report using Coverage Recording <sub>(4 min)</sub></h2>
+<ol>
+<li><p>Go to <code>Asteroids/Scenes</code> in Project View and open the <strong>Asteroids</strong> scene, if not opened already.</p>
+</li>
+<li><p>Open the <a href="CodeCoverageWindow.html">Code Coverage window</a>. Make sure <strong>HTML Report</strong>, <strong>Report History</strong>, <strong>Auto Generate Report</strong> and <strong>Auto Open Report</strong> all are checked.<br>
+<img src="images/quickguide/auto_generate_report.png" alt="Auto Generate Report"></p>
+</li>
+<li><p>Select <strong>Start Recording</strong>.<br>
+<img src="images/coverage_recording/start_recording.png" alt="Start Recording"></p>
+</li>
+<li><p>Hit <strong>Play</strong> to play the game and <strong>exit</strong> PlayMode before you get <strong>8000</strong> points.
+<img src="images/quickguide/press_play.png" alt="Enter Play mode"></p>
+</li>
+<li><p>Select <strong>Stop Recording</strong>.<br>
+<img src="images/coverage_recording/stop_recording.png" alt="Stop Recording"></p>
+</li>
+<li><p>A file viewer window will open up containing the coverage report. Select <code>index.htm</code>.</p>
+</li>
+<li><p>Notice that <strong>LaserController</strong> has 0% coverage.<br>
+<img src="images/quickguide/report_laser_controller_recording.png" alt="LaserController Coverage"></p>
+</li>
+<li><p>Go back to the <strong>Code Coverage window</strong>.</p>
+</li>
+<li><p>Select <strong>Start Recording</strong>.</p>
+</li>
+<li><p>Now hit <strong>Play</strong> to play the game again but this time <strong>exit</strong> PlayMode when you get <strong>8000</strong> points.</p>
+</li>
+<li><p>Select <strong>Stop Recording</strong>.</p>
+</li>
+<li><p>Notice that <strong>LaserController</strong> coverage is now 100%.<br>
+<img src="images/quickguide/report_laser_controller_recording_after.png" alt="LaserController Coverage"></p>
+</li>
+</ol>
+<p>See also <a href="HowToInterpretResults.html">How to interpret the results</a>.
+<br><br></p>
+<h2 id="11-bonus-task-5-8-min">11. Bonus task <sub>(5-8 min)</sub></h2>
+<p>Write a new test that checks that the laser gets destroyed after 2 seconds, which will also cover the rest of the code in <strong>LaserController</strong>.</p>
+<p><strong>Suggested name:</strong> _19_LaserFiresAndIsDestroyedAfterTwoSeconds.<br>
+<strong>Hint:</strong> You can use <code>yield return new WaitForSeconds(2f);</code> to wait for 2 seconds.</p>
+<br>
+<hr>
+<br>
+<h3 id="well-done-for-finishing-the-code-coverage-tutorial">Well done for finishing the Code Coverage tutorial!</h3>
+<p>For questions and feedback please visit the <a href="https://forum.unity.com/forums/testing-automation.211/">Testing &amp; Automation</a> forum section to browse current conversations or start a new thread. Please use the <strong>code coverage</strong> tag.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.testtools.codecoverage@1.2.4/Documentation~/Quickstart.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

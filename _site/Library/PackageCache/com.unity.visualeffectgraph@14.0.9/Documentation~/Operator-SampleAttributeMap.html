@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Sample Attribute Map | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Sample Attribute Map | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-SampleAttributeMap.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="sample-attribute-map">Sample Attribute Map</h1>
+
+<p><strong>Menu Path : Operator &gt; Sampling &gt; Attribute Map</strong></p>
+<p>The Sample Attribute Map Operator enables you to sample an <a href="point-cache-in-vfx-graph.html#attribute-map">attribute map</a> from a <a href="point-cache-in-vfx-graph.html">Point Cache</a>.</p>
+<p>This Operator takes an attribute map and an index and outputs the value of the attribute at the index. This Operator also takes the number of points in the Point Cache. <strong>Warning</strong>: This Operator requires the number of points to work. If you don't input the number of points, or input an incorrect value, this Operator doesn't sample the attribute map correctly.</p>
+<p>Depending on the attribute map, the output attribute value type changes. You must explicitly specify the output type for this Operator or it produces undefined behavior. For information on how to do this, see <a href="#operator-configuration">Operator configuration</a>.</p>
+<p><img src="Images/Operator-SampleAttributeMapGraph.png" alt=""></p>
+<h3 id="operator-settings">Operator settings</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mode</strong></td>
+<td>The wrap mode to use if the value of <strong>Index</strong> is out of range for the <strong>Map</strong>. The options are: <br>• <strong>Clamp</strong>: Clamps the index between the first and last index of the <strong>Map</strong>.<br>• <strong>Wrap</strong>: Wraps the index around to the other side of the <strong>Map</strong>.<br>• <strong>Mirror</strong>: Mirrors the vertex list so out of range indices move back and forth through the <strong>Map</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operator-properties">Operator properties</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Point Count</strong></td>
+<td>uint</td>
+<td>The number of points present in the Point Cache</td>
+</tr>
+<tr>
+<td><strong>Map</strong></td>
+<td>Texture2D</td>
+<td>The attribute map that contains a field of the Point Cache. For example, the positions of each point.</td>
+</tr>
+<tr>
+<td><strong>Index</strong></td>
+<td>uint</td>
+<td>The index of the point to sample.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Output</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sample</strong></td>
+<td><a href="#operator-configuration">Configurable</a></td>
+<td>The content of the attribute map of the point specified by the input Index.<br><strong>Warning</strong>: You must explicitly specify the <strong>Type</strong> for this property so that it matches the type stored in the attribute map. For information on how to do this, see <a href="#operator-configuration">Operator configuration</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="operator-configuration">Operator configuration</h2>
+<p>To view this Operator’s configuration, click the cog icon in the Operator’s header. You can choose a type for the output from the <a href="#available-types">Available Types</a>.</p>
+<h3 id="available-types">Available types</h3>
+<p>You can use the following types for your input ports:</p>
+<ul>
+<li>bool,</li>
+<li>uint,</li>
+<li>int,</li>
+<li>float,</li>
+<li>Vector2,</li>
+<li>Vector3,</li>
+<li>Vector4</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-SampleAttributeMap.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

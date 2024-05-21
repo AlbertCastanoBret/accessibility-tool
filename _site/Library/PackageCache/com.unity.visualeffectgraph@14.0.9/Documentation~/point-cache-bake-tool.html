@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Point Cache Bake Tool | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Point Cache Bake Tool | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/point-cache-bake-tool.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="point-cache-bake-tool">Point Cache Bake Tool</h1>
+
+<p>The Point Cache Bake Tool is a utility that enables you to bake Point Caches to use in visual effects that rely on complex geometry. The tool takes an input <a href="https://docs.unity3d.com/Manual/class-Mesh.html">Mesh</a> or <a href="https://docs.unity3d.com/ScriptReference/Texture2D.html">Texture2D </a>and generates a <a href="point-cache-asset.html">Point Cache asset</a> representation of it which you can use in a visual effect.</p>
+<p>For information on what Point Caches are and what you can use them for, see <a href="point-cache-in-vfx-graph.html">Point Caches in the Visual Effect Graph</a>.</p>
+<p>The Point Cache Bake Tool uses a window interface that specifies the input Mesh/Texture2D as well as various properties that control the output Point Cache. To open the Point Cache Bake Tool window, click <strong>Window &gt; Visual Effects &gt; Utilities &gt; Point CacheBake Tool</strong>.</p>
+<h2 id="working-with-the-point-cache-bake-tool-window">Working with the Point Cache Bake Tool window</h2>
+<p>The Point Cache Bake Tool has two bake modes:</p>
+<ul>
+<li><strong>Mesh</strong>: Bakes a Point Cache from an input Mesh asset.</li>
+<li><strong>Texture</strong>: Bakes a Point Cache from an input Texture2D asset.</li>
+</ul>
+<p>Depending on which mode you select, the window displays different properties to control the baking process. After you specify the input Mesh/Texture2D and set up the properties, click <strong>Save to pCache file…</strong> to bake the Point Cache and save the result to a Point Cache asset.</p>
+<h2 id="properties">Properties</h2>
+<h3 id="common">Common</h3>
+<p>These properties appear in the Inspector regardless of the <strong>Bake Mode</strong> you select.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bake Mode</strong></td>
+<td>Specifies the type of input to bake a Point Cache from. The options are:<br>• <strong>Mesh</strong>: Bakes a Point Cache from an input Mesh asset.<br>• <strong>Texture</strong>: Bakes a Point Cache from an input Texture2D asset.</td>
+</tr>
+<tr>
+<td><strong>Seed</strong></td>
+<td>The random seed to use for Point Cache generation.</td>
+</tr>
+<tr>
+<td><strong>File Format</strong></td>
+<td>Specifies the format to encode the Point Cache with. The options are:<br>• <strong>Ascii</strong>: Uses Ascii encoding.<br>• <strong>Binary</strong>: Uses binary encoding.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="mesh-baking">Mesh Baking</h3>
+<p>This section only appears if you set <strong>Bake Mode</strong> to <strong>Mesh</strong>.</p>
+<p><img src="Images/pcache-mesh-inspector.png" alt=""><br><em>Point Cache Bake Tool's Mesh Baking section in the Inspector.</em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mesh</strong></td>
+<td>The Mesh to produce a Point Cache representation of.</td>
+</tr>
+<tr>
+<td><strong>Distribution</strong></td>
+<td>Specifies the point scattering technique the Point Cache Bake Tool uses to sample the input Mesh. The options are: <br>• <strong>Sequential</strong>: Creates a point at each triangle/vertex sequentially.<br>• <strong>Random</strong>: Creates a point at each triangle/vertex randomly. If <strong>Bake Mode</strong> is set to <strong>Triangle</strong>, this option does not take the area of the triangle into account.<br>• <strong>Random Uniform Area</strong>: Creates a point at each triangle randomly. This option takes the area of the triangle into account.</td>
+</tr>
+<tr>
+<td><strong>Bake Mode</strong></td>
+<td>Specifies how to bake the Mesh. The options are: <br>• <strong>Vertex</strong>: Bakes the Mesh on a per-vertex basis.<br>• <strong>Triangle</strong>: Bakes the Mesh on a per-triangle basis.<br><br>This property only appears if you set <strong>Distribution</strong> to <strong>Sequential</strong> or <strong>Random</strong>. If you set <strong>Distribution</strong> to <strong>Random Uniform Area</strong>, this property disappears and uses <strong>Triangle</strong> implicitly.</td>
+</tr>
+<tr>
+<td><strong>Export Normals</strong></td>
+<td>Indicates whether to export vertex normal data to the Point Cache.</td>
+</tr>
+<tr>
+<td><strong>Export Colors</strong></td>
+<td>Indicates whether to export vertex color data to the Point Cache.</td>
+</tr>
+<tr>
+<td><strong>Exports UVs</strong></td>
+<td>Indicates whether to export vertex UV data to the Point Cache.</td>
+</tr>
+<tr>
+<td><strong>Point Count</strong></td>
+<td>The number of points to create for the Point Cache.</td>
+</tr>
+<tr>
+<td><strong>Seed</strong></td>
+<td>See <a href="#common">Common</a>.</td>
+</tr>
+<tr>
+<td><strong>File Format</strong></td>
+<td>See <a href="#common">Common</a>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="mesh-statistics">Mesh Statistics</h4>
+<p>This section of the window only appears if you assign a Mesh asset to the <strong>Mesh</strong> property. It contains information about the input Mesh.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Statistic</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vertices</strong></td>
+<td>The number of vertices the input Mesh contains.</td>
+</tr>
+<tr>
+<td><strong>Triangles</strong></td>
+<td>The number of triangles the input Mesh contains.</td>
+</tr>
+<tr>
+<td><strong>Sub Meshes</strong></td>
+<td>The number of sub-meshes the input Mesh contains.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="texture-baking">Texture Baking</h3>
+<p>This section only appears if you set <strong>Bake Mode</strong> to <strong>Texture</strong>.</p>
+<p><img src="Images/pcache-texture-inspector.png" alt=""><br><em>Point Cache Bake Tool's Texture Baking section in the Inspector.</em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Texture</strong></td>
+<td>The Texture2D to produce a Point Cache representation of.</td>
+</tr>
+<tr>
+<td><strong>Decimation Threshold</strong></td>
+<td>Specifies the method that selects which of the Texture2D's pixels to ignore during the baking process. The options are:<br>• <strong>None</strong>: Does not ignore any pixels.<br>• <strong>Alpha</strong>: Uses the alpha channel.<br>• <strong>Luminance</strong>: Uses the luminance of the combined RGB channels.<br>• <strong>R</strong>: Uses the red channel.<br>• <strong>G</strong>: Uses the green channel.<br>• <strong>B</strong>: Uses the blue channel.</td>
+</tr>
+<tr>
+<td><strong>Threshold</strong></td>
+<td>The threshold that determines which pixels to ignore during the baking process. The Point Cache Bake Tool ignores pixels with a value lower than this.<br>This property only appears if you set <strong>Decimation Threshold</strong> to a value other than <strong>None</strong>.</td>
+</tr>
+<tr>
+<td><strong>Randomize Pixels Order</strong></td>
+<td>Indicates whether to randomize points instead of sorting them by pixel row/column.</td>
+</tr>
+<tr>
+<td><strong>Seed</strong></td>
+<td>See <a href="#common">Common</a>.<br>This property only appears if you enable <strong>Randomize Pixels Order</strong>.</td>
+</tr>
+<tr>
+<td><strong>Export Colors</strong></td>
+<td>Indicates whether to export the Texture's color data to the Point Cache.</td>
+</tr>
+<tr>
+<td><strong>File Format</strong></td>
+<td>See <a href="#common">Common</a>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="texture-statistics">Texture Statistics</h4>
+<p>This section of the window only appears if you assign a Texture2D asset to the <strong>Texture</strong> property. It contains information about the input Texture.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Statistic</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Width</strong></td>
+<td>The width of the input Texture2D in pixels.</td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>The height of the input Texture2D in pixels.</td>
+</tr>
+<tr>
+<td><strong>Pixels Count</strong></td>
+<td>The total number of pixels the input Texture2D contains. This is equal to the width of the Texture2D multiplied by the height of the Texture2D.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/point-cache-bake-tool.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

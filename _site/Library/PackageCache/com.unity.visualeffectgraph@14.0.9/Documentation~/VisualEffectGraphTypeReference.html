@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>VFX type reference | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="VFX type reference | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VisualEffectGraphTypeReference.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="vfx-type-reference">VFX type reference</h1>
+
+<p>This page references all the types the Visual Effect Graph uses. Some of these are standard C# and Unity types whereas others are unique to the Visual Effect Graph.</p>
+<h2 id="base-types">Base types</h2>
+<p>Base types refer to standard C# and Unity types that you can use to store basic data.</p>
+<h3 id="attribute-compatible-types">Attribute-compatible types</h3>
+<p>Attribute-Compatible Types are types that you can use for attribute storage in Systems or SpawnEvent payloads.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>float</strong></td>
+<td>A 32-bit floating-point value.</td>
+</tr>
+<tr>
+<td><strong>int</strong></td>
+<td>A 32-bit signed integer value.</td>
+</tr>
+<tr>
+<td><strong>uint</strong></td>
+<td>A 32-bit unsigned integer value.</td>
+</tr>
+<tr>
+<td><strong>bool</strong></td>
+<td>A 1-bit boolean value.</td>
+</tr>
+<tr>
+<td><strong>Vector2</strong></td>
+<td>A two-dimensional 32 bit Floating Point Vector.</td>
+</tr>
+<tr>
+<td><strong>Vector3</strong></td>
+<td>A three-dimensional 32 bit Floating Point Vector.</td>
+</tr>
+<tr>
+<td><strong>Vector3</strong></td>
+<td>A four-Dimensional 32 bit Floating Point Vector.</td>
+</tr>
+<tr>
+<td><strong>Color</strong></td>
+<td>A four-component (Red, Green, Blue, Alpha) 32-bit floating-point linear Color.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="other-base-types">Other base types</h3>
+<p>The following base types are not attribute-compatible which means you can not use them as attributes for particles, but you can set them on the Visual Effect component if they are exposed properties.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Gradient</strong></td>
+<td>Unity's <a href="https://docs.unity3d.com/ScriptReference/Gradient.html">Gradient</a> type.</td>
+</tr>
+<tr>
+<td><strong>AnimationCurve</strong></td>
+<td>Unity's <a href="https://docs.unity3d.com/ScriptReference/AnimationCurve.html">AnimationCurve</a> type.</td>
+</tr>
+<tr>
+<td><strong>Texture2D</strong></td>
+<td>Unity's <a href="https://docs.unity3d.com/ScriptReference/Texture2D.html">Texture2D</a> type.</td>
+</tr>
+<tr>
+<td><strong>Texture3D</strong></td>
+<td>Unity's <a href="https://docs.unity3d.com/ScriptReference/Texture3D.html">Texture3D</a> type.</td>
+</tr>
+<tr>
+<td><strong>TextureCube</strong></td>
+<td>Unity's <a href="https://docs.unity3d.com/ScriptReference/Cubemap.html">CubeMap</a> type.</td>
+</tr>
+<tr>
+<td><strong>Texture2DArray</strong></td>
+<td>Unity's <a href="https://docs.unity3d.com/ScriptReference/Texture2DArray.html">Texture2DArray</a> type.</td>
+</tr>
+<tr>
+<td><strong>TextureCubeArray</strong></td>
+<td>Unity's <a href="https://docs.unity3d.com/ScriptReference/CubemapArray.html">CubeMapArray</a> type.</td>
+</tr>
+<tr>
+<td><strong>Mesh</strong></td>
+<td>Unity's <a href="https://docs.unity3d.com/ScriptReference/Mesh.html">Mesh</a> type.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="advanced-types">Advanced types</h2>
+<p>This section describes the advanced types that the Visual Effect Graph includes. These are either advanced versions of the base types or composite types (made up of multiple properties).</p>
+<h3 id="spaceable-base-types">Spaceable base types</h3>
+<p>Spaceable base types are Vector types that embed a space alongside their value. They also use a vector semantic when performing space transformations.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Position</strong></td>
+<td>A world-space or local-space three-component position vector. For more information on this type and its properties, see <a href="Type-Position.html">Position</a>.</td>
+</tr>
+<tr>
+<td><strong>Vector</strong></td>
+<td>A world-space or local-space three-component vector. For more information on this type and its properties, see <a href="Type-Vector.html">Vector</a>.</td>
+</tr>
+<tr>
+<td><strong>Direction</strong></td>
+<td>A world-space or local-space three-component normalized direction. Values of this type are always normalized when you retrieve them. For more information on this type and its properties, see <a href="Type-Direction.html">Direction</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shape-types">Shape types</h3>
+<p>Shape Types are Advanced types that define a shape based on a composition on base types.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sphere</strong></td>
+<td>A sphere defined by a center position and a radius. For more information on this type and its properties, see <a href="Type-Sphere.html">Sphere</a>.</td>
+</tr>
+<tr>
+<td><strong>ArcSphere</strong></td>
+<td>A solid-arc of a sphere, defined by an angle and a <a href="Type-Sphere.html">Sphere</a>. For more information on this type and its properties, see <a href="Type-ArcSphere.html">ArcSphere</a>.</td>
+</tr>
+<tr>
+<td><strong>AABox</strong></td>
+<td>An axis-aligned 3D Box, defined by a center and a 3D size. For more information on this type and its properties, see <a href="Type-AABox.html">AABox</a>.</td>
+</tr>
+<tr>
+<td><strong>Plane</strong></td>
+<td>A 3D infinite plane, defined by a position and a normal vector. For more information on this type and its properties, see <a href="Type-Plane.html">Plane</a>.</td>
+</tr>
+<tr>
+<td><strong>OrientedBox</strong></td>
+<td>An oriented box defined by a position, a Euler angle (in degrees), and a scale. For more information on this type and its properties, see <a href="Type-OrientedBox.html">OrientedBox</a>.</td>
+</tr>
+<tr>
+<td><strong>Circle</strong></td>
+<td>A 3D circle oriented on the XY plane, defined by a position and a radius. For more information on this type and its properties, see <a href="Type-Circle.html">Circle</a>.</td>
+</tr>
+<tr>
+<td><strong>ArcCircle</strong></td>
+<td>A solid-arc of a circle, defined by an angle and a <a href="Type-Circle.html">Circle</a>. For more information on this type and its properties, see <a href="Type-ArcCircle.html">ArcCircle</a>.</td>
+</tr>
+<tr>
+<td><strong>Torus</strong></td>
+<td>A 3D torus oriented on the XY plane, defined by a position, a major radius (torus radius), and a minor radius (torus thickness). For more information on this type and its properties, see <a href="Type-Torus.html">Torus</a>.</td>
+</tr>
+<tr>
+<td><strong>ArcTorus</strong></td>
+<td>A solid-arc of a torus defined by an angle and a 3D <a href="Type-Torus.html">Torus</a>. For more information on this type and its properties, see <a href="Type-ArcTorus.html">ArcTorus</a>.</td>
+</tr>
+<tr>
+<td><strong>Cone</strong></td>
+<td>A 3D cone defined by a height, an upper radius, and a lower radius. For more information on this type and its properties, see <a href="Type-Cone.html">Cone</a>.</td>
+</tr>
+<tr>
+<td><strong>ArcCone</strong></td>
+<td>A solid-arc of 3D Cone defined by an angle and a <a href="Type-Cone.html">Cone</a>. For more information on this type and its properties, see <a href="Type-ArcCone.html">ArcCone</a>.</td>
+</tr>
+<tr>
+<td><strong>Line</strong></td>
+<td>A line defined by two positions. For more information on this type and its properties, see <a href="Type-Line.html">Line</a>.</td>
+</tr>
+<tr>
+<td><strong>Transform</strong></td>
+<td>A translation, rotation, and scaling component defined by a position, a Euler angle (expressed in degrees), and a scale. For more information on this type and its properties, see <a href="Type-Transform.html">Transform</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="other-types">Other types</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TerrainType</strong></td>
+<td>A Unity Terrain defined by a set of bounds, a heightmap, and a height. For more information on this type and its properties, see <a href="Type-TerrainType.html">TerrainType</a>.</td>
+</tr>
+<tr>
+<td><strong>Camera</strong></td>
+<td>A Unity Camera defined by a Transform, field of view, near-plane, far-plane, aspect ratio, resolution. You can also access the color and depth buffer. For more information on this type and its properties, see <a href="Type-Camera.html">Camera</a>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VisualEffectGraphTypeReference.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Smooth Height | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Smooth Height | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/smooth-height.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="smooth-height">Smooth Height</h1>
+
+<p>Use the <strong>Smooth Height</strong> tool to smooth the <a href="https://docs.unity3d.com/Manual/terrain-Heightmaps.html">heightmap</a> and soften Terrain features. Smoothing is particularly useful after you paint with brushes that contain high frequency patterns. These brush patterns tend to introduce sharp, jagged edges into a landscape, but you can use the Smooth Height tool to soften that roughness.</p>
+<p><strong>Note:</strong> This tool overrides the built-in <a href="https://docs.unity3d.com/Manual/terrain-SmoothHeight.html">Smooth Height</a> and adds two new parameters, <strong>Verticality</strong> and <strong>Blur Radius</strong>, which provide finer control when smoothing your Terrain.</p>
+<p>To select the Stamp Terrain tool:</p>
+<ol>
+<li>Select a Terrain tile to bring up the Terrain Inspector.</li>
+<li>In the <strong>Terrain Inspector</strong>, click the <strong>Paint Terrain</strong> icon.</li>
+<li>Select <strong>Smooth Height</strong> from the drop-down menu.</li>
+</ol>
+<p><img src="images/2-80-smooth-height-01.png" alt=""></p>
+<p>To use the Smooth Height tool, select it and then drag the mouse across Terrain areas that you’d like to smooth. Smoothing the Terrain averages out nearby areas, softening the landscape and reducing the appearance of abrupt changes.</p>
+<h2 id="parameters">Parameters</h2>
+<p><img src="images/2-80-smooth-height-02.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Verticality</strong></td>
+<td>Defines the direction in which to smooth the Terrain. The default value is 0, which smoothens the Terrain toward an average height of the highest and lowest extremities.<br><br><strong>Negative values</strong><br>Set the value to -1 to smooth the Terrain in a downward direction, or set a value between -1 and 0 to partially smooth it in the downward direction. The lower the <strong>Verticality</strong> value, the more Unity smooths a Terrain in the downward direction.<br><br><strong>Positive values</strong><br>Set the value to 1 to smooth the Terrain in an upward direction, or set a value between -0 and 1 to partially smooth it in the upward direction. The greater the <strong>Verticality</strong> value, the more Unity smooths a Terrain in the upward direction.</td>
+</tr>
+<tr>
+<td><strong>Blur Radius</strong></td>
+<td>Specifies the size of the blurring operation in Texture space. The minimum value of 1 is default, and the maximum value you can set is equal to half of the Terrain's heightmap resolution.<br><br>The <strong>Blur Radius</strong> determines the number of texels to include in the blur sample average. Set a larger <strong>Blur Radius</strong> to use a bigger area to sample the Terrain during smoothing.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/smooth-height.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

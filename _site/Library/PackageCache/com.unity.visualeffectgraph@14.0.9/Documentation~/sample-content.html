@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Visual Effect Graph Sample Content | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Visual Effect Graph Sample Content | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sample-content.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="visual-effect-graph-sample-content">Visual Effect Graph Sample Content</h1>
+
+<p>The Visual Effect Graph comes with a set of samples to help you get started.</p>
+<p>A sample is a set of assets that you can import into your project and use as a base to build upon or learn how to use a feature. The Visual Effect Graph also includes some helpful Nodes</p>
+<p>To find these samples, first <a href="GettingStarted.html">install the Visual Effect Graph</a> then:</p>
+<ol>
+<li><p>Go to <strong>Windows &gt; Package Manager.</strong></p>
+</li>
+<li><p>From the <a href="https://docs.unity3d.com/Manual/upm-ui-list.html">Package list view</a>, select <strong>Visual Effect Graph</strong>. If it is not there:</p>
+</li>
+<li>
+<ol>
+<li>From the <a href="https://docs.unity3d.com/Manual/upm-ui.html">Packages drop-down menu</a>, select <strong>Unity Registry</strong> or <strong>In Project</strong>.</li>
+<li>Go to <strong>Edit</strong> &gt; <strong>Project Settings</strong> &gt; <strong>Package Manager</strong></li>
+<li>In the <strong>Advanced Settings</strong> drop-down, enable <strong>Show Dependencies</strong>. Visual Effect Graph should now appear in the Packages list view.</li>
+</ol>
+</li>
+<li><p>In the main window that shows the package's details, find the <strong>Samples</strong> section.</p>
+</li>
+<li><p>To import a sample into your project, click <strong>Import</strong>. This creates a <strong>Samples</strong> folder in your project and imports the sample you selected into it. This is also where Unity imports any future samples into.</p>
+</li>
+</ol>
+<h2 id="output-event-handlers">Output Event Handlers</h2>
+<p>This sample includes helper MonoBehaviour Scripts which you can attach to GameObjects that have a <a href="VisualEffectComponent.html">VisualEffect</a> component. These scripts listen for Output Events of a given name and react by performing various actions. Some of the scripts support previews in the Editor and some do not. For those that do, the Inspector contains an <strong>Execute in Editor</strong> toggle. Otherwise, enter Play Mode to view the behavior.</p>
+<p>The helper scripts this sample includes are:</p>
+<ul>
+<li><strong>VFXOutputEventCMCameraShake</strong>: When it receives an Output Event with the name you specify, this helper script triggers a camera shake through the <a href="https://docs.unity3d.com/Packages/com.unity.cinemachine@latest?subfolder=/manual/CinemachineImpulseSourceOverview.html">Cinemachine Impulse Sources</a> system.</li>
+<li><strong>VFXOutputEventPlayAudio</strong>: When it receives an Output Event with the name you specify, this helper script plays a sound from an AudioSource</li>
+<li><strong>VFXOutputEventPrefabSpawn</strong>: When it receives an Output Event with the name you specify, this helper script spawns an invisible Prefab from a pool of Prefabs. It spawns them at a given position and rotation. It also manages the life of the Prefab based on the Event's <a href="Reference-Attributes.html">lifetime attribute</a>. When the Prefabs spawns, you can use <strong>VFXOutputEventPrefabAttributeHandler</strong> scripts to configure the Prefab's child elements. For more information, see <a href="#using-vfxoutputeventprefabspawn">Using VFXOutputEventPrefabSpawn </a>.</li>
+<li><strong>VFXOutputEventRigidBody</strong>: When it receives an Output Event with the name you specify, this helper script applies a force to a <a href="https://docs.unity3d.com/ScriptReference/Rigidbody.html">RigidBody</a>.</li>
+<li><strong>VFXOutputEventRigidBody</strong>: When it receives an Output Event with the name you specify, this helper script triggers a <a href="https://docs.unity3d.com/ScriptReference/Events.UnityEvent.html">UnityEvent</a>.</li>
+</ul>
+<h3 id="using-vfxoutputeventprefabspawn">Using VFXOutputEventPrefabSpawn</h3>
+<p>The <strong>VFXOutputEventPrefabSpawn</strong> MonoBehaviour component spawns Prefabs from a pool. When it instantiates these Prefabs, it makes them invisible. When you enable the component, the component disables (<a href="https://docs.unity3d.com/ScriptReference/GameObject.SetActive.html">SetActive(false)</a>) each Prefab. Lastly, when you disable the component, the component destroys every Prefab instance. This also occurs when you destroy the GameObject that the component is attached to.</p>
+<p>When this component receives an Output Event with the name you specify, it looks for a free (disabled) Prefab, and, if any are available:</p>
+<ol>
+<li>It enables the Prefab.</li>
+<li>If you enable <strong>Use Position</strong>, it sets the Prefab's position using the <a href="Reference-Attributes.html">position attribute</a>.</li>
+<li>If you enable <strong>Use Rotation</strong>, it sets the Prefab's rotation from the <a href="Reference-Attributes.html">angle attribute</a>.</li>
+<li>If you enable <strong>Use Scale</strong>, it sets the Prefab's scale from the <a href="Reference-Attributes.html">scale attribute</a>.</li>
+<li>If you enable <strong>Use Lifetime</strong>, it starts a Coroutine with a delay based on the <a href="Reference-Attributes.html">lifetime attribute</a>, that disables (frees) the Prefab after the delay. This makes it available to spawn during a future OutputEvent.</li>
+<li>It searches the Prefab instance for any <code>VFXOutputEventPrefabAttributeHandler</code> scripts and invokes each one to perform attribute binding.</li>
+</ol>
+<p><code>VFXOutputEventPrefabAttributeHandler</code> scripts configure parts of the Prefab based on the event that spawned the Prefab. This sample contains two example <code>VFXOutputEventPrefabAttributeHandler</code> scripts:</p>
+<ul>
+<li><strong>VFXOutputEventPrefabAttributeHandler_Light</strong>: When the Prefab spawns, this sets the color and the brightness of the attached Light component based on the OutputEvent's <a href="Reference-Attributes.html">color attribute</a> and the script's <strong>Brightness Scale</strong> property respectively.</li>
+<li><strong>VFXOutputEventPrefabAttributeHandler_RigidBodyVelocity</strong>: When the Prefab spawns, this sets the velocity for the attached RigidBody based on the OutputEvent's <a href="Reference-Attributes.html">velocity attribute</a>.</li>
+</ul>
+<h2 id="visual-effect-graph-additions">Visual Effect Graph Additions</h2>
+<p>This sample includes assets and example graphs that help you get started with the Visual Effect Graph. For example, this sample includes:</p>
+<ul>
+<li>A set of flipbook textures.</li>
+<li>Example graphs that demonstrate various <a href="GraphLogicAndPhilosophy.html">Nodes</a>.</li>
+<li>Shaders and subgraphs that you can use in your project.</li>
+<li>Sets of textures (licensed under CC0) which you can use for visual effects in your project.</li>
+</ul>
+<p>This sample uses these assets and examples to reproduce many <a href="https://docs.unity3d.com/Manual/Built-inParticleSystem.html">Built-in Particle System</a> behaviors. For example, it provides a helper to replicate soft particles and a helper that enables you to sample flipbooks with cuts either linearly, or with motion vectors.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sample-content.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

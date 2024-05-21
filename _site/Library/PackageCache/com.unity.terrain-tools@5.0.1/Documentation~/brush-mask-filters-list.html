@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>List of Brush Mask Filters | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="List of Brush Mask Filters | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/brush-mask-filters-list.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="list-of-brush-mask-filters">List of Brush Mask Filters</h1>
+
+<h2 id="abs">Abs</h2>
+<p>Sets all pixels of an existing Brush Mask to their absolute values. An absolute value is a numerical value without regard to its sign. For example, the absolute value of 5 is 5, and the absolute value of -2 is 2.</p>
+<h2 id="add">Add</h2>
+<p>Adds the input value to each pixel in the Brush Mask.</p>
+<h2 id="aspect">Aspect</h2>
+<p>Uses the slope aspect of a heightmap to mask the effect of a chosen Brush, and uses Brush rotation to control the aspect direction. The aspect is the compass direction that a slope faces. This Brush is useful when you want to paint a Texture only on a slope that faces a specific direction.</p>
+<p>Only Graphics APIs that allow compute shaders and UAV for <code>GraphicsFormat.R16_SFloat</code> support Aspect.</p>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strength</strong></td>
+<td>Controls the strength of the masking effect.</td>
+</tr>
+<tr>
+<td><strong>Feature Size</strong></td>
+<td>Specifies the scale of Terrain features that affect the mask.</td>
+</tr>
+<tr>
+<td><strong>Remap Curve</strong></td>
+<td>Remaps the concavity input before computing the final mask.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="clamp">Clamp</h2>
+<p>Clamps the pixels of a mask to the specified range. Change the X value to specify the low end of the range, and change the Y value to specify the high end of the range.</p>
+<h2 id="complement">Complement</h2>
+<p>Subtracts each pixel value in the current Brush Mask from the specified constant. To invert the mask results, leave the complement value unchanged as 1.</p>
+<h2 id="concavity">Concavity</h2>
+<p>Uses the concavity of a heightmap to mask the effect of a chosen Brush.</p>
+<p>When you specify <strong>Recessed</strong>, Unity generates a mask based on areas of the Terrain that curve or hollow inward. As a visual representation, concave areas of the heightmap are those where you see a ∪-shape in the cross section.</p>
+<p>When you specify <strong>Exposed</strong>, Unity generates a mask based on areas of the Terrain that curve or protrude outward. As a visual representation, convex areas of the heightmap are those where you see a ∩-shape in the cross section.</p>
+<p>Only Graphics APIs that allow compute shaders and UAV for <code>GraphicsFormat.R16_SFloat</code> support Concavity.</p>
+<h3 id="parameters-1">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Recessed / Exposed</strong></td>
+<td>Specifies whether to apply the mask based on recessed (concave) or exposed (convex) features.</td>
+</tr>
+<tr>
+<td><strong>Strength</strong></td>
+<td>Controls the strength of the masking effect.</td>
+</tr>
+<tr>
+<td><strong>Feature Size</strong></td>
+<td>Specifies the scale of Terrain features that affect the mask. This determines the size of features to which to apply the effect. If you specify a small value, Unity generates a mask based on smaller concave or convex parts. If you specify a large value, there need to be larger features in order for Unity to generate a mask.</td>
+</tr>
+<tr>
+<td><strong>Remap Curve</strong></td>
+<td>Remaps the concavity input before computing the final mask.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="height">Height</h2>
+<p>Uses the height of the heightmap to mask the effect of the chosen Brush. The range is from 0 to 1, where 0 is the minimum heightmap value (black in the heightmap), and 1 is the maximum heightmap value (white in the heightmap). This is useful when you want to apply an effect only to a specific height range on the Terrain, for example, to paint grass only on areas below a certain height, or to paint snow only on areas above a specific height.</p>
+<p>Only Graphics APIs that allow compute shaders and UAV for <code>GraphicsFormat.R16_SFloat</code> support Height.</p>
+<h3 id="parameters-2">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strength</strong></td>
+<td>Controls the strength of the masking effect.</td>
+</tr>
+<tr>
+<td><strong>Height Range</strong></td>
+<td>Specifics the height range to which to apply the effect.</td>
+</tr>
+<tr>
+<td><strong>Remap Curve</strong></td>
+<td>Remaps the height input before computing the final mask.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="layer">Layer</h2>
+<p>Uses the alphamap of the selected <a href="https://docs.unity3d.com/Manual/class-TerrainLayer.html">Terrain Layers</a> to mask the effect of a chosen Brush.</p>
+<p><strong>Sharpness</strong> controls the amount the mask bleeds outside of the chosen layer's alphamap.</p>
+<h2 id="max">Max</h2>
+<p>Sets all pixels of the current mask to whichever is greater, the current pixel value or the input value.</p>
+<h2 id="min">Min</h2>
+<p>Sets all pixels of the current mask to whichever is smaller, the current pixel value or the input value.</p>
+<h2 id="multiply">Multiply</h2>
+<p>Multiplies all the pixels of the current mask by the input value.</p>
+<h2 id="negates">Negates</h2>
+<p>Reverses the sign of all pixels in the current mask. For example, 1 becomes -1, 0 remains the same, and -1 becomes 1.</p>
+<h2 id="noise">Noise</h2>
+<p>Applies a Noise Settings asset to the Brush Mask for Noise. For more information about how to create and edit settings stored in the Noise Settings asset, see <a href="noise-editor.html">Noise Editor</a>.</p>
+<h2 id="power">Power</h2>
+<p>Applies an exponential function to each pixel on the Brush Mask. The function is <em>pow(value, e)</em>, where <em>e</em> is the input value.</p>
+<h2 id="remap">Remap</h2>
+<p>Remaps each pixel value in the Brush Mask from the <strong>From</strong> range to the <strong>To</strong> range.</p>
+<h2 id="slope">Slope</h2>
+<p>Uses the slope (first derivative) of the heightmap to mask the effect of the chosen Brush.</p>
+<p>Only Graphics APIs that allow compute shaders and UAV for <code>GraphicsFormat.R16_SFloat</code> support Slope.</p>
+<h3 id="parameters-3">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strength</strong></td>
+<td>Controls the strength of the masking effect.</td>
+</tr>
+<tr>
+<td><strong>Feature Size</strong></td>
+<td>Specifies the scale of Terrain features that affect the mask.</td>
+</tr>
+<tr>
+<td><strong>Remap Curve</strong></td>
+<td>Remaps the slope input before computing the final mask. This helps you visualize how the Terrain's slope affects the generated mask. The x-axis represents the slope angle, where 0 is equivalent to horizontal, and 1 is equivalent to vertical.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/brush-mask-filters-list.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

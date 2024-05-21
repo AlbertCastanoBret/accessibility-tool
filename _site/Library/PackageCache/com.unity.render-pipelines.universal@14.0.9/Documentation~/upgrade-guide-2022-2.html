@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Upgrading to URP 14 (Unity 2022.2) | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Upgrading to URP 14 (Unity 2022.2) | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/upgrade-guide-2022-2.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="upgrading-to-urp-14-unity-20222">Upgrading to URP 14 (Unity 2022.2)</h1>
+
+<p>This page describes how to upgrade from an older version of the Universal Render Pipeline (URP) to URP 14 (Unity 2022.2).</p>
+<p>For information on converting assets made for a Built-in Render Pipeline project to assets compatible with URP, see the page <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@14.0/manual/features/rp-converter.html">Render Pipeline Converter</a>.</p>
+<h2 id="upgrading-from-urp-13-unity-20221">Upgrading from URP 13 (Unity 2022.1)</h2>
+<h3 id="two-shader-defines-were-removed">Two shader defines were removed</h3>
+<p><code>SHADER_QUALITY_LOW/MEDIUM/HIGH</code> and <code>SHADER_HINT_NICE_QUALITY</code> shader defines were removed. If you used those defines in custom shaders, consider using <code>SHADER_API_MOBILE</code> or <code>SHADER_API_GLES</code> defines to replace <code>SHADER_QUALITY_LOW/MEDIUM/HIGH</code>.</p>
+<h2 id="upgrading-from-urp-12-unity-20212">Upgrading from URP 12 (Unity 2021.2)</h2>
+<h3 id="changes-to-scriptablerenderer-api-behavior">Changes to ScriptableRenderer API behavior</h3>
+<p>Unity now issues an error when instances of <code>ScriptableRendererFeature</code> attempt to access render targets before they are allocated by the <code>ScriptableRenderer</code> class.</p>
+<p>The <code>ScriptableRendererFeature</code> class has a new virtual function <code>SetupRenderPasses</code> which is called when render targets are allocated and ready to be used.</p>
+<p>If your code uses the <code>ScriptableRenderer.cameraColorTarget</code> or the <code>ScriptableRenderer.cameraDepthTarget</code> property inside of the <code>AddRenderPasses</code> method override, you should move that implementation to the <code>ScriptableRendererFeature.SetupRenderPasses</code> method.</p>
+<p>The calls to the <code>ScriptableRenderer.EnqueuePass</code> method should still happen in the <code>AddRenderPasses</code> method.</p>
+<p>The following example shows how to change the code to use the new API.</p>
+<p>Code with the old API:</p>
+<pre><code class="lang-c#">public override void AddRenderPasses(ScriptableRenderer renderer,
+                                    ref RenderingData renderingData)
+{
+    // The target is used before allocation
+    m_CustomPass.Setup(renderer.cameraColorTarget);
+     // Letting the renderer know which passes are used before allocation
+    renderer.EnqueuePass(m_ScriptablePass);
+}
+</code></pre>
+<p>Code with the new API:</p>
+<pre><code class="lang-c#">public override void AddRenderPasses(ScriptableRenderer renderer,
+                                        ref RenderingData renderingData)
+{
+    // Letting the renderer know which passes are used before allocation
+    renderer.EnqueuePass(m_ScriptablePass);
+}
+
+public override void SetupRenderPasses(ScriptableRenderer renderer,
+                                          in RenderingData renderingData)
+{
+    // The target is used after allocation
+    m_CustomPass.Setup(renderer.cameraColorTarget);
+}
+</code></pre>
+<h3 id="the-universal-renderer-is-now-using-the-rthandle-system">The Universal Renderer is now using the RTHandle system</h3>
+<p>The Universal Renderer is now using <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.core@14.0/manual/rthandle-system.html">the RTHandle system</a> for its internal targets and in its internal passes.</p>
+<p>All usages of the <code>RenderTargetHandle</code> struct are set as obsolete and the struct will be removed in the future.</p>
+<p>The public interfaces <code>ScriptableRenderer.cameraColorTarget</code> and <code>ScriptableRenderer.cameraDepthTarget</code> are marked as obsolete. Replace them with <code>ScriptableRenderer.cameraColorTargetHandle</code> and <code>ScriptableRenderer.cameraDepthTargetHandle</code> respectively.</p>
+<p><code>RTHandle</code> targets do not use the <code>CommandBuffer.GetTemporaryRT</code> method and persist for more frames than the <code>RenderTargetIdentifier</code> structs. You cannot allocate <code>RTHandle</code> targets with the properties <code>GraphicsFormat</code> and <code>DepthBufferBits</code> set to any value except for 0. The <code>cameraDepthTarget</code> properties  must be separate from the <code>cameraColorTarget</code> properties.</p>
+<p>The following helper functions let you create and use temporary render target with the <code>RTHandle</code> system in a similar way as with the <code>GetTemporaryRT</code> method previously:</p>
+<ul>
+<li><p><code>RenderingUtils.ReAllocateIfNeeded</code></p>
+</li>
+<li><p><code>ShadowUtils.ShadowRTReAllocateIfNeeded</code></p>
+</li>
+</ul>
+<p>If the render target does not change within the lifetime of the application, use the <code>RTHandles.Alloc</code> method to allocate an <code>RTHandle</code> target. This method is efficient since the code does not have to check if a render target should be allocated on each frame.</p>
+<p>If the render target is a full screen texture, which means that its resolution matches or is a fraction of the resolution of the screen, use a scaling factor such as <code>Vector2D.one</code> to support dynamic scaling.</p>
+<p>The following example shows how to change the code using the <code>RenderTargetHandle</code> API to use the new API.</p>
+<p>Code with the old API:</p>
+<pre><code class="lang-c#">public class CustomPass : ScriptableRenderPass
+{
+    RenderTargetHandle m_Handle;
+    // With the old API, RenderTargetIdentifier might combine color and depth
+    RenderTargetIdentifier m_Destination;
+
+    public CustomPass()
+    {
+        m_Handle.Init(&quot;_CustomPassHandle&quot;);
+    }
+
+    public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
+    {
+        var desc = renderingData.cameraData.cameraTargetDescriptor;
+        cmd.GetTemporaryRT(m_Handle.id, desc, FilterMode.Point);
+    }
+
+    public override void OnCameraCleanup(CommandBuffer cmd)
+    {
+        cmd.ReleaseTemporaryRT(m_Handle.id);
+    }
+
+    public void Setup(RenderTargetIdentifier destination)
+    {
+        m_Destination = destination;
+    }
+
+    public override void Execute(ScriptableRenderContext context,
+                                    ref RenderingData renderingData)
+    {
+        CommandBuffer cmd = CommandBufferPool.Get();
+        // Set the same target for color and depth        
+        ScriptableRenderer.SetRenderTarget(cmd, m_Destination, m_Destination, clearFlag,
+                                              clearColor);
+        context.ExecuteCommandBuffer(cmd);
+        CommandBufferPool.Release(cmd);
+    }
+}
+</code></pre>
+<p>Code with the new API:</p>
+<pre><code class="lang-c#">public class CustomPass : ScriptableRenderPass
+{
+    RTHandle m_Handle;
+    // Then using RTHandles, the color and the depth properties must be separate
+    RTHandle m_DestinationColor;
+    RTHandle m_DestinationDepth;
+
+    void Dispose()
+    {
+        m_Handle?.Release();
+    }
+
+    public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
+    {
+        var desc = renderingData.cameraData.cameraTargetDescriptor;
+        // Then using RTHandles, the color and the depth properties must be separate
+        desc.depthBufferBits = 0;
+        RenderingUtils.ReAllocateIfNeeded(ref m_Handle, desc, FilterMode.Point,
+                                         TextureWrapMode.Clamp, name: &quot;_CustomPassHandle&quot;);
+    }
+
+    public override void OnCameraCleanup(CommandBuffer cmd)
+    {
+        m_DestinationColor = null;
+        m_DestinationDepth = null;
+    }
+
+    public void Setup(RTHandle destinationColor, RTHandle destinationDepth)
+    {
+        m_DestinationColor = destinationColor;
+        m_DestinationDepth = destinationDepth;
+    }
+
+    public override void Execute(ScriptableRenderContext context,
+                                    ref RenderingData renderingData)
+    {
+        CommandBuffer cmd = CommandBufferPool.Get();
+        CoreUtils.SetRenderTarget(cmd, m_DestinationColor, m_DestinationDepth,
+                                              clearFlag, clearColor);
+        context.ExecuteCommandBuffer(cmd);
+        CommandBufferPool.Release(cmd);
+    }
+}
+</code></pre>
+<h2 id="upgrading-from-urp-11xx">Upgrading from URP 11.x.x</h2>
+<ul>
+<li><p>The Forward Renderer asset is renamed to the Universal Renderer asset. When you open an existing project in the Unity Editor containing URP 12, Unity updates the existing Forward Renderer assets to Universal Renderer assets.</p>
+</li>
+<li><p>The Universal Renderer asset contains the property <strong>Rendering Path</strong> that lets you select the Forward or the Deferred Rendering Path.</p>
+</li>
+<li><p>The method <code>ClearFlag.Depth</code> does not implicitly clear the Stencil buffer anymore. Use the new method <code>ClearFlag.Stencil</code>.</p>
+</li>
+<li><p>URP 12 and later implements the <a href="features/rp-converter.html">Render Pipeline Converter</a> feature. This feature replaces the asset upgrade functions that were previously available at <strong>Edit &gt; Render Pipeline &gt; Universal Render Pipeline &gt; Upgrade...</strong></p>
+</li>
+</ul>
+<h2 id="upgrading-from-urp-100x102x">Upgrading from URP 10.0.x–10.2.x</h2>
+<ol>
+<li><p>The file names of the following Shader Graph shaders were renamed. The new file names do not have spaces:<br><code>Autodesk Interactive</code><br><code>Autodesk Interactive Masked</code><br><code>Autodesk Interactive Transparent</code></p>
+<p>If your code uses the <code>Shader.Find()</code> method to search for the shaders, remove spaces from the shader names, for example, <code>Shader.Find(&quot;AutodeskInteractive)</code>.</p>
+</li>
+</ol>
+<h2 id="upgrading-from-urp-72x-and-later-releases">Upgrading from URP 7.2.x and later releases</h2>
+<ol>
+<li>URP 12.x.x does not support the package Post-Processing Stack v2. If your Project uses the package Post-Processing Stack v2, migrate the effects that use that package first.</li>
+</ol>
+<h3 id="depthnormals-pass">DepthNormals Pass</h3>
+<p>Starting from version 10.0.x, URP can generate a normal texture called <code>_CameraNormalsTexture</code>. To render to this texture in your custom shader, add a Pass with the name <code>DepthNormals</code>. For example, see the implementation in <code>Lit.shader</code>.</p>
+<h3 id="screen-space-ambient-occlusion-ssao">Screen Space Ambient Occlusion (SSAO)</h3>
+<p>URP 10.0.x implements the Screen Space Ambient Occlusion (SSAO) effect.</p>
+<p>If you intend to use the SSAO effect with your custom shaders, consider the following entities related to SSAO:</p>
+<ul>
+<li><p>The <code>_SCREEN_SPACE_OCCLUSION</code> keyword.</p>
+</li>
+<li><p><code>Input.hlsl</code> contains the new declaration <code>float2  normalizedScreenSpaceUV</code> in the <code>InputData</code> struct.</p>
+</li>
+<li><p><code>Lighting.hlsl</code> contains the <code>AmbientOcclusionFactor</code> struct with the variables for calculating indirect and direct occlusion:</p>
+<pre><code class="lang-c++">struct AmbientOcclusionFactor
+{
+    half indirectAmbientOcclusion;
+    half directAmbientOcclusion;
+};
+</code></pre>
+</li>
+<li><p><code>Lighting.hlsl</code> contains the following function for sampling the SSAO texture:</p>
+<pre><code class="lang-c++">half SampleAmbientOcclusion(float2 normalizedScreenSpaceUV)
+</code></pre>
+</li>
+<li><p><code>Lighting.hlsl</code> contains the following function:</p>
+<pre><code class="lang-c++">AmbientOcclusionFactor GetScreenSpaceAmbientOcclusion(float2
+normalizedScreenSpaceUV)
+</code></pre>
+</li>
+</ul>
+<p>To support SSAO in custom shader, add the <code>DepthNormals</code> Pass and the <code>_SCREEN_SPACE_OCCLUSION</code> keyword the the shader. For example, see <code>Lit.shader</code>.</p>
+<p>If your custom shader implements custom lighting functions, use the function <code>GetScreenSpaceAmbientOcclusion(float2 normalizedScreenSpaceUV)</code> to get the <code>AmbientOcclusionFactor</code> value for your lighting calculations.</p>
+<h3 id="shadow-normal-bias">Shadow Normal Bias</h3>
+<p>In 11.0.x the formula used to apply Shadow Normal Bias has been slightly fix in order to work better with punctual lights.
+As a result, to match exactly shadow outlines from earlier revisions, the parameter might to be adjusted in some scenes. Typically, using 1.4 instead of 1.0 for a Directional light is usually enough.</p>
+<h3 id="intermediate-texture">Intermediate Texture</h3>
+<p>In previous URP versions, URP performed the rendering via an intermediate Renderer if the Renderer had any active Renderer Features. On some platforms, this had significant performance implications. In this release, URP mitigates the issue in the following way: URP expects Renderer Features to declare their inputs using the <code>ScriptableRenderPass.ConfigureInput</code> method. The method provides the information that URP uses to determine automatically whether rendering via an intermediate texture is necessary.</p>
+<p>For compatibility purpose, there is a new property <strong>Intermediate Texture</strong> in the Universal Renderer. If you select <strong>Always</strong> in the property, URP uses an intermediate texture. Selecting <strong>Auto</strong> enables the new behavior. Use the <strong>Always</strong> option only if a Renderer Feature does not declare its inputs using the <code>ScriptableRenderPass.ConfigureInput</code> method.</p>
+<p>To ensure that existing projects work correctly, all existing Universal Renderer assets that were using any Renderer Features (excluding those included with URP) have the option <strong>Always</strong> selected in the <strong>Intermediate Texture</strong> property. Any newly created Universal Renderer assets have the option <strong>Auto</strong> selected.</p>
+<h2 id="upgrading-from-urp-70x-71x">Upgrading from URP 7.0.x-7.1.x</h2>
+<ol>
+<li><p>Upgrade to URP 7.2.0 first. Refer to <a href="upgrade-guide-7-2-0.html">Upgrading to version 7.2.0 of the Universal Render Pipeline</a>.</p>
+</li>
+<li><p>URP 8.x.x does not support the package Post-Processing Stack v2. If your Project uses the package Post-Processing Stack v2, migrate the effects that use that package first.</p>
+</li>
+</ol>
+<h2 id="upgrading-from-lwrp-to-12xx">Upgrading from LWRP to 12.x.x</h2>
+<ul>
+<li>There is no direct upgrade path from LWRP to URP 12.x.x. Follow the steps to upgrade LWRP to URP 11.x.x first, and then upgrade from URP 11.x.x to URP 12.x.x.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/upgrade-guide-2022-2.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineCollisionImpulseSource.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>#Cinemachine Collision Impulse Source</p>
+<p>For collision-based impulses, attach a <strong>CinemachineCollisionImpulseSource</strong> component to a GameObject that has a Collider or Collider2D component. <strong>CinemachineCollisionImpulseSource</strong> generates an impulse when something collides with the GameObject or enters a trigger zone.</p>
+<p>To add a Collision Impulse Source component:</p>
+<ol>
+<li><p>Select the GameObject that you want to trigger impulses, navigate to its Inspector, and click the <strong>Add Component</strong> button.</p>
+</li>
+<li><p>Go to <strong>Scripts &gt; Cinemachine</strong> and select <strong>Cinemachine Collision Impulse Source</strong>.</p>
+</li>
+</ol>
+<p>By default, an Impulse Source affects every <a href="CinemachineImpulseListener.html">Impulse Listener</a> in range, but you can apply <a href="CinemachineImpulseFiltering.html#ChannelFiltering">channel filtering</a> to make Impulse Sources affect some Impulse Listeners and not others.</p>
+<h2 id="properties">Properties:</h2>
+<p>The properties in the Cinemachine Collision Impulse Source Inspector window are divided into the following sections.</p>
+<ul>
+<li><a href="#ImpulseChannel">Impulse Channel</a></li>
+<li><a href="#ImpulseType">Impulse Type</a></li>
+<li><a href="#ImpulseShape">Impulse Shape</a></li>
+<li><a href="#TriggerObject">Trigger Object Filter</a></li>
+<li><a href="#GenerateImpulse">How to Generate The Impulse</a></li>
+</ul>
+<p><a name="ImpulseChannel"></a></p>
+<h3 id="impulse-channel">Impulse Channel</h3>
+<p>Impulse Listeners filter impulses based on channels to control which Impulse Sources they react to. Channels work like Camera Layers, but are distinct from them. These properties control the channels that the Collision Impulse Source broadcasts impulse signals on. For details, see documentation on <a href="CinemachineImpulseFiltering.html">Filtering</a>.</p>
+<p><img src="images/InspectorImpulseSourceChannel.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property:</strong></th>
+<th><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Impulse Channel</strong></td>
+<td>Choose one or more channels from the drop-down.<br><br>Click <strong>Edit</strong> to modify existing channels or add new ones.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="ImpulseType"></a></p>
+<h3 id="impulse-type">Impulse Type</h3>
+<p>You can choose the level of complexity, depending on your needs. Changing the Impulse Type brings up range, dissipation, and propagation speed controls, as appropriate.</p>
+<p><img src="images/ImpulseType.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Property:</th>
+<th>Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Impulse Type</strong></td>
+<td>You can choose from the following Impulse types:<br><br><strong>Uniform</strong>: The impulse travels with infinite speed, and will be heard at the same time and in the same way by all listeners, no matter where they are in space.<br><br><strong>Dissipating</strong>: The strength of the impulse decreases as the distance from the source increases. Listeners that are farther away will feel a weaker signal than listeners that are closer.<br><br><strong>Propagating</strong>: In addition to being dissipating, the impulse signal travels with finite speed outward from the source. Listeners that are farther away will feel the impulse at a later time than listeners that are close. <br><br> <strong>Legacy</strong>: This mode exists to support projects made with earlier versions of Impulse, and has a more complex way of defining the impulse signal. We recommend using one of the other settings.</td>
+</tr>
+<tr>
+<td><strong>Dissipation Distance</strong></td>
+<td>This setting defines the distance over which the impulse dissipates. Beyond this distance, the impulse will not be felt.</td>
+</tr>
+<tr>
+<td><strong>Propagation Speed</strong></td>
+<td>This defines, in m/s, how quickly the impulse signal propagates outwards through space from its origin. The default value, 343, is the speed of sound.</td>
+</tr>
+<tr>
+<td><strong>Dissipation Rate</strong></td>
+<td>This defines how quickly the dissipation occurs over the dissipation distance. As shown in the image below, expanding the curve shows a graph illustrating the signal strength across the dissipation radius. The origin is in the center of the X axis. Moving the slider adjusts the blue picture.<br><br><img src="images/DissipationRate.png" alt=""></td>
+</tr>
+</tbody>
+</table>
+<p><a name="ImpulseShape"></a></p>
+<h3 id="impulse-shape">Impulse Shape</h3>
+<p>This defines the curve that specifies the shape of the signal, and the time over which the curve is emitted.</p>
+<p><img src="images/ImpulseShape.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Property:</th>
+<th>Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Predefined Impulse Shape</strong></td>
+<td>You can choose from one of the following predefined Shapes: <strong>Recoil</strong>, <strong>Bump</strong>, <strong>Explosion</strong>, or <strong>Rumble</strong>.<br><br> <strong>s (seconds)</strong> field: Sets the duration of the impulse. Opening up the property shows you a picture of the impulse:<br><br><img src="images/ImpulsePicture.png" alt=""></td>
+</tr>
+<tr>
+<td><strong>Custom Impulse Shape</strong></td>
+<td>You can draw your own custom impulse shape (animation curve). Select <strong>Custom</strong> from the drop-down menu and click on the green icon to pop up an editor as shown below.<br><br><img src="images/ImpulseShapeCustom.png" alt=""></td>
+</tr>
+<tr>
+<td><strong>Default Velocity</strong></td>
+<td>Specifies the direction in space that the impulse will have by default.</td>
+</tr>
+<tr>
+<td><strong>Test with Force</strong></td>
+<td>Allows you to <strong>invoke</strong> the default impulse from the inspector (when playing) with the specified force multiplier, to see what it looks like.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="TriggerObject"></a></p>
+<h3 id="trigger-object-filter">Trigger Object Filter</h3>
+<p>These properties filter the GameObjects that trigger an impulse when they collide or enter the trigger zone. GameObjects in layers specified by the <strong>Layer Mask</strong> trigger impulses unless you tag them with the <strong>Ignore Tag</strong> value. For details, see documentation on <a href="CinemachineImpulseFiltering.html">Filtering</a>.</p>
+<p><img src="images/TriggerObjectFilter.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Property:</th>
+<th>Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layer Mask</strong></td>
+<td>Rigidbody components in these layers that collide with an Impulse Source or enter the trigger zone cause the Source to broadcast its signal.</td>
+</tr>
+<tr>
+<td><strong>Ignore Tag</strong></td>
+<td>GameObjects with this tag do not generate an impulse, even if they are in a layer specified in <strong>Layer Mask</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="GenerateImpulse"></a></p>
+<h3 id="how-to-generate-the-impulse">How To Generate The Impulse</h3>
+<p>An impulse is triggered at a location by an impact mass moving at an impact velocity. Unity dynamically calculates the mass and velocity of the Rigidbody or Rigidbody 2D component that triggers the impulse. The <strong>How To Generate The Impulse</strong> properties control how the mass and velocity of the Rigidbody affect the strength and direction of the signal.</p>
+<p><img src="images/GenerateImpulse.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>Property:</th>
+<th>Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Use Impact Direction</strong></td>
+<td>Enable this setting to rotate the impulse signal to correspond to the direction of the impact velocity. For example, if the raw signal vibrates vertically but the impact direction is horizontal, you could check this property to make the resulting impulse signal vibrate horizontally.  <br><br>Disable to use the direction of the raw signal irrespective of the impact direction.</td>
+</tr>
+<tr>
+<td><strong>Scale Impact With Mass</strong></td>
+<td>Enable this setting to increase or decrease the amplitude of the impulse signal based on the mass of the colliding GameObjects. The masses are specified in the Rigidbody or RigidBody2D component of the GameObject that contains the Cinemachine Impulse Source, and of the colliding GameObject.  <br><br>Disable this setting to use a constant mass of 1.</td>
+</tr>
+<tr>
+<td><strong>Scale Impact With Speed</strong></td>
+<td>Enable this setting to scale the amplitude of the signal based on the speed of the impact. Faster moving GameObjects have a greater momentum, and therefore produce a stronger signal. <br><br>Disable this setting to ignore the speed of the colliding GameObject.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineCollisionImpulseSource.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

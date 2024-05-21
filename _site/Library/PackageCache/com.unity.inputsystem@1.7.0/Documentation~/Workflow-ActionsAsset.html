@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Workflow Overview - Using an Actions Asset | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Workflow Overview - Using an Actions Asset | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.inputsystem@1.7.0/Documentation~/Workflow-ActionsAsset.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="input-system-workflow-actions-asset">
+<h1 id="workflow-overview---using-an-actions-asset">Workflow Overview - Using an Actions Asset</h1>
+
+<p><img src="./Images/Workflow-ActionsAsset.svg" alt="image alt text"></p>
+<p>The Actions Asset provides a way to define, group, and manage sets of actions as data stored in an asset, instead of defining them directly in your code.</p>
+<p>Using an Actions Asset allows you to keep the data that defines your actions separate from the GameObjects which should respond to the actions. This provides a further level of abstraction and organization, compared with <a href="Workflow-Embedded.html">embedding action definitions directly in your code</a>.</p>
+<p>The Actions Asset is useful because it means all your action definitions are stored as a single asset file, separate from your scripts and prefabs. This can make it simpler to manage conceptually, and can help in practical situations where different people in your team might work on different parts of the project at the same time.</p>
+<p>Action Assets also provide other benefits over embedded actions in scripts, such as the ability to group actions into <a href="ActionAssets.html#editing-action-maps">Action Maps</a> and <a href="ActionAssets.html#editing-control-schemes">Control Schemes</a>.</p>
+<p><a href="ActionAssets.html#editing-action-maps">Action Maps</a> are a way to group related actions together, where each map relates to a different situation. For example, your game might involve driving vehicles and navigating on foot, and may have in-game menus. In this example, it would make sense to have three different action maps for each of these three situations, and your game code would switch between them as appropriate. The actions grouped into the &quot;driving&quot; action map might be called &quot;steer&quot;, &quot;accelerate&quot;, &quot;brake&quot;, &quot;handbrake&quot;, etc, whereas the actions grouped into the &quot;on foot&quot; action map might be &quot;move&quot;, &quot;jump&quot;, &quot;crouch&quot;, &quot;use&quot;, etc.</p>
+<p>The <a href="ActionAssets.html#editing-control-schemes">Control Schemes</a>, also defined in an Action Asset, allows you to specify which bindings belong to the control schemes you define. You might have one control scheme which is &quot;Joypad&quot;, and another control scheme which is &quot;Keyboard and Mouse&quot;. This allows you to determine which control scheme the user is currently using, so your game can respond to the user accordingly. This feature is often used to adapt the in-game UI to show the correct keys or buttons in on-screen prompts.</p>
+<p><img src="./Images/MyGameActions.png" alt="image alt text"></p>
+<h2 id="accessing-your-actions-asset-from-code">Accessing your Actions Asset from code</h2>
+<p>When you use an Actions Asset, there are two distinct ways to access it from your code. You can either:</p>
+<ul>
+<li>Use an <strong>inspector reference</strong> to the Actions Asset, or</li>
+<li>Generate a <strong>C# class</strong> that wraps your Actions Asset.</li>
+</ul>
+<p>Your choice affects how you access your actions from code. With an <strong>inspector reference</strong> to your Actions Asset, you must read the actions by name using strings. If you use the <strong>Generate C# class</strong> feature, Unity generates an accompanying class as a new <strong>.cs</strong> script asset, which acts as a wrapper for your actions. You can then create an instance of the generated wrapper class in your code and directly use its API members which are named after the names of the actions that you configured.</p>
+<p>Both workflow options are described below using the same example, so you can see the difference.</p>
+<h3 id="referencing-the-actions-asset-in-the-inspector">Referencing the Actions Asset in the inspector</h3>
+<p>To use your Actions Asset through an <strong>inspector reference</strong>:</p>
+<ol>
+<li>Create a <code>public InputActionsAsset</code> field in your script.</li>
+<li><a href="https://docs.unity3d.com/Manual/EditingValueProperties.html#ref-assign-dnd">Assign the reference</a> in the inspector.</li>
+<li>Access the Actions in your script by name, using strings.</li>
+</ol>
+<p>This string-based access is demonstrated in the example below.</p>
+<pre><code>using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class ExampleScript : MonoBehaviour
+{
+    // assign the actions asset to this field in the inspector:
+    public InputActionAsset actions;
+
+    // private field to store move action reference
+    private InputAction moveAction;
+
+    void Awake()
+    {
+        // find the &quot;move&quot; action, and keep the reference to it, for use in Update
+        moveAction = actions.FindActionMap(&quot;gameplay&quot;).FindAction(&quot;move&quot;);
+
+        // for the &quot;jump&quot; action, we add a callback method for when it is performed
+        actions.FindActionMap(&quot;gameplay&quot;).FindAction(&quot;jump&quot;).performed += OnJump;
+    }
+
+    void Update()
+    {
+        // our update loop polls the &quot;move&quot; action value each frame
+        Vector2 moveVector = moveAction.ReadValue&lt;Vector2&gt;();
+    }
+
+    private void OnJump(InputAction.CallbackContext context)
+    {
+        // this is the &quot;jump&quot; action callback method
+        Debug.Log(&quot;Jump!&quot;);
+    }
+
+    void OnEnable()
+    {
+        actions.FindActionMap(&quot;gameplay&quot;).Enable();
+    }
+    void OnDisable()
+    {
+        actions.FindActionMap(&quot;gameplay&quot;).Disable();
+    }
+}
+</code></pre>
+<p><strong>Note:</strong> In the example above the reference to the &quot;move&quot; action is stored in a variable after it is found, to avoid accessing it by string every frame, which would be bad for performance.</p>
+<h3 id="referencing-the-actions-asset-through-a-c-wrapper">Referencing the Actions Asset through a C# wrapper</h3>
+<p>To use your Actions Asset through a <strong>C# wrapper</strong>:</p>
+<ol>
+<li>Select your Actions Asset in the project window</li>
+<li>In the Inspector, enable <strong>Generate C# Class</strong> and select <strong>Apply</strong>. You should see a C# asset with the same name as your Actions Asset in your project window.</li>
+<li>Create an instance of your Actions C# class in your script.</li>
+<li>Access the Actions in your script by using the API of your Actions C# class.</li>
+</ol>
+<p>For example:</p>
+<pre><code>using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class DocsExampleActionsAssetCsWrapper : MonoBehaviour
+{
+    // this field will contain the actions wrapper instance
+    ExampleActions actions;
+
+    void Awake()
+    {
+        // instantiate the actions wrapper class
+        actions = new ExampleActions();
+
+        // for the &quot;jump&quot; action, we add a callback method for when it is performed
+        actions.gameplay.jump.performed += OnJump;
+    }
+
+    void Update()
+    {
+        // our update loop polls the &quot;move&quot; action value each frame
+        Vector2 moveVector = actions.gameplay.move.ReadValue&lt;Vector2&gt;();
+    }
+
+    private void OnJump(InputAction.CallbackContext context)
+    {
+        // this is the &quot;jump&quot; action callback method
+        Debug.Log(&quot;Jump!&quot;);
+    }
+
+    void OnEnable()
+    {
+        actions.gameplay.Enable();
+    }
+    void OnDisable()
+    {
+        actions.gameplay.Disable();
+    }
+}
+</code></pre>
+<p>Whether you use the C# wrapper option, or the inspector reference option, using an Action Asset like this gives you the ability to organize and edit your actions in the Actions Window. It is more flexible than using <a href="Workflow-Embedded.html">embedded actions</a>, and <a href="Workflow-Direct.html">directly reading device states</a>, and is generally a good solution for many projects. However, you can also add one more step of abstraction using the <a href="Workflow-PlayerInput.html">Player Input component</a>, to set up calls to methods based on your Action definitions.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Because Action Assets can be used in these two different ways (by reference, or by C# wrapper), the code samples used throughout this documentation also vary in which way they are written. Some code samples might use a reference and strings to identify actions, and others might use the C# wrapper method.</p>
+</div>
+<p>See also:</p>
+<ul>
+<li><p><a href="ActionAssets.html">Using Action Assets</a></p>
+</li>
+<li><p><a href="ActionAssets.html#auto-generating-script-code-for-actions">Generating a C# Class that wraps your actions</a></p>
+</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.inputsystem@1.7.0/Documentation~/Workflow-ActionsAsset.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

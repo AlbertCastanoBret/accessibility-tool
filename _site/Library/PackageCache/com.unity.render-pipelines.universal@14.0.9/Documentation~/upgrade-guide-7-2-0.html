@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Upgrading to version 7.2.0 of the Universal Render Pipeline | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Upgrading to version 7.2.0 of the Universal Render Pipeline | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/upgrade-guide-7-2-0.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="upgrading-to-version-720-of-the-universal-render-pipeline">Upgrading to version 7.2.0 of the Universal Render Pipeline</h1>
+
+<p>On this page, you will find information about upgrading from an older version of the Universal Render Pipeline (URP) to the current version.</p>
+<h2 id="building-your-project-for-consoles">Building your Project for consoles</h2>
+<p>To build a Project for a console, you need to install an additional package for each platform you want to support.</p>
+<p>For more information, see the documentation on <a href="Building-For-Consoles.html">Building for Consoles</a>.</p>
+<h2 id="require-depth-texture">Require Depth Texture</h2>
+<p>In previous versions of URP, if post-processing was enabled it would cause the pipeline to always require depth. We have improved the post-processing integration to only require depth from the pipeline when Depth of Field, Motion Blur or SMAA effects are enabled. This improves performance in many cases.</p>
+<p>Because Cameras that use post-processing no longer require depth by default, you must now manually indicate that Cameras require depth if you are using it for other effects, such as soft particles.</p>
+<p>To make all Cameras require depth, enable the the <code>Depth Texture</code> option in the <a href="universalrp-asset.html">Pipeline Asset</a>. To make an individual Camera require depth, set <code>Depth Texture</code> option to <code>On</code> in the <a href="camera-component-reference.html">Camera Inspector</a>.</p>
+<h2 id="sampling-shadows-from-the-main-light">Sampling shadows from the Main Light</h2>
+<p>In previous versions of URP, if shadow cascades were enabled for the main Light, shadows would be resolved in a screen space pass. The pipeline now always resolves shadows while rendering opaque or transparent objects. This allows for consistency and solved many issues regarding shadows.</p>
+<p>If have custom HLSL shaders and sample <code>_ScreenSpaceShadowmapTexture</code> texture, you must upgrade them to sample shadows by using the <code>GetMainLight</code> function instead.</p>
+<p>For example:</p>
+<pre><code>float4 shadowCoord = TransformWorldToShadowCoord(positionWorldSpace);
+Light mainLight = GetMainLight(inputData.shadowCoord);
+
+// now you can use shadow to apply realtime occlusion
+half shadow = mainLight.shadowAttenuation;
+</code></pre>
+<p>You must also define the following in your .shader file to make sure your custom shader can receive shadows correctly:</p>
+<pre><code>#pragma multi_compile _ _MAIN_LIGHT_SHADOWS
+#pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE
+</code></pre>
+<h2 id="transparent-receiving-shadows">Transparent receiving shadows</h2>
+<p>Transparent objects can now receive shadows when using shadow cascades. You can also optionally disable shadow receiving for transparent to improve performance. To do so, disable <code>Transparent Receive Shadows</code> in the Forward Renderer asset.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/upgrade-guide-7-2-0.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

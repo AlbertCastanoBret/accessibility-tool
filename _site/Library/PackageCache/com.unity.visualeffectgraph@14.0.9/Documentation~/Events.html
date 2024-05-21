@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Events | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Events | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Events.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="events">Events</h1>
+
+<p>Events define the inputs for a Visual Effect Graph's <a href="GraphLogicAndPhilosophy.html#processing-workflow-(vertical-logic)"><strong>processing</strong> workflow</a>. The Spawn and Initialize <a href="Contexts.html">Contexts</a> use Events as their inputs. Through Events, a Visual Effect Graph can :</p>
+<ul>
+<li>Start and stop spawning particles.</li>
+<li>Read <a href="#eventattribute-payloads">Event Attribute payloads</a> sent from C# scripts.</li>
+</ul>
+<h2 id="creating-events">Creating Events</h2>
+<p><img src="Images/EventContexts.png" alt=""></p>
+<p>In general, an Event is just a string that represents the Event's name. To receive an Event in the Visual Effect Graph, create an Event <a href="Contexts.html">Context</a> and type the name of the Event you want to receive in the <strong>Event Name</strong> property. Event Contexts have no input flow slots and can only connect their output flow slot to Spawn or Initialize Contexts.</p>
+<p>To create an Event Context:</p>
+<ol>
+<li>In the <a href="VisualEffectGraphWindow.html">Visual Effect Graph window</a>, right-click in an empty space.</li>
+<li>From the menu, click <strong>Create Node</strong>.</li>
+<li>In the Node Creation menu, click <strong>Contexts &gt; Event (Context)</strong>.</li>
+<li>In the <strong>Event Name</strong> input field, type the name of your Event.</li>
+</ol>
+<h2 id="default-events">Default Events</h2>
+<p>The Visual Effect Graph provide two default Events:</p>
+<ul>
+<li><strong>OnPlay</strong>: To enable the spawning of particles. If you do not assign an Event to a Spawn Context's <strong>Start</strong> input flow slot, the Visual Effect Graph implicitly binds this Event to that input flow slot instead.</li>
+<li><strong>OnStop</strong>: To disable the spawning of particles. If you do not assign an Event to a Spawn Context's <strong>Stop</strong> input flow slot, the Visual Effect Graph implicitly binds this Event to that input flow slot instead.</li>
+</ul>
+<p>If you connect an Event Context to a Spawn Context's <strong>Start</strong> or <strong>Stop</strong> input flow slot, this removes the implicit binding to the <strong>OnPlay</strong> and <strong>OnStop</strong> Events respectively.</p>
+<h2 id="custom-events">Custom Events</h2>
+<p>If you do not want to use the default Events, you can use an Event Context to create your own custom Event.</p>
+<p>To do this, first <a href="#creating-events">create an Event Context</a>, then type the name of your custom Event in the <strong>Event Name</strong> property.</p>
+<p><a name="event-attribute-payloads"></a></p>
+<h2 id="event-attribute-payloads">Event Attribute Payloads</h2>
+<p>Event Attribute payloads are attributes that you can attach to an Event. To set these attributes in a Visual Effect Graph, you can use the <strong>Set [Attribute]</strong> Blocks in Spawn Contexts, but you can also attach them to Events you send from C# scripts. For information on how to do that latter, see <a href="ComponentAPI.html#event-attributes">Component API</a> .</p>
+<p>Event Attribute Payloads are attributes that implicitly travel through the graph from Events, through Spawn Contexts, and eventually to an Initialize Context. To catch a payload in an Initialize Context, use <strong>Get Source Attribute</strong> Operators or <strong>Inherit [Attribute]</strong> Blocks.</p>
+<h2 id="default-visual-effect-event">Default Visual Effect Event</h2>
+<p>The default Visual Effect Event defines the name of the Event that the Visual Effect Graph implicitly sends when a <a href="VisualEffectComponent.html">Visual Effect</a> instance <strong>Resets</strong>. This happens when the effect first starts, or when the effect restarts.</p>
+<p>You can define the default Visual Effect Event for each <a href="VisualEffectGraphAsset.html">Visual Effect Graph Asset</a> independently. You can also override this value for every instance of the Visual Effect Graph Asset. To override the default Visual Effect Event for an instance, see <strong>Initial Event Name</strong> in the <a href="VisualEffectComponent.html">Visual Effect Inspector</a>.</p>
+<h2 id="gpu-events">GPU Events</h2>
+<p>GPU Events are an <strong>Experimental feature</strong> of the Visual Effect Graph. They allow you to spawn particles based on other particles. To enable this option, enable the <strong>Experimental Operators/Blocks</strong> checkbox in the <a href="VisualEffectPreferences.html">Visual Effect Preferences</a> .</p>
+<p>GPU Events are Event Contexts that rely on data sent from other systems, for example, when a particle dies. The following Update Blocks can send GPU Event Data:</p>
+<ul>
+<li><strong>Trigger Event On Die</strong>:  Spawns N Particles on another system when a particle dies.</li>
+<li><strong>Trigger Event Rate</strong>: Spawn N Particles per second (or per distance travelled), based on a particle from a system.</li>
+<li><strong>Trigger Event Always</strong>:  Spawns N Particles every frame.</li>
+</ul>
+<p>These Blocks connect to a <strong>GPUEvent</strong> Context. This Context does not handle any Blocks, but instead connects to an Initialize Context of a child system.</p>
+<p>To gather data from the parent particle, a child system must refer to <a href="Attributes.html">Source Attributes</a> in its Initialize Context. To do this, a child system can use a <strong>Get Source Attribute</strong> Operator, or an <strong>Inherit Attribute</strong> Block. For a visual example, see the image below.</p>
+<p><img src="Images/GPUEvent.png" alt=""><em>In this example, the child System inherits the source position of the particle that creates it. It also inherit roughly 50% of the parent particle's speed.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Events.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Cellular Noise | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Cellular Noise | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-CellularNoise.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="cellular-noise">Cellular Noise</h1>
+
+<p>Menu Path : <strong>Operator &gt; Noise &gt; Cellular Noise</strong></p>
+<p>The <strong>Cellular Noise</strong> Operator allows you to specify coordinates to sample a noise value within a specified range in one, two, or three dimensions. Cellular noise (also known as “Worley noise”) creates distinct cell-like patterns. To do this, it scatters random points then calculates the distance between the nearest ones.</p>
+<p><img src="Images/Operator-CellularNoiseAnimation.gif" alt=""></p>
+<p>You can use this Operator to introduce variety to your particle attributes. A common use case is to use each particle’s position as a coordinate to sample the noise to output a new color, velocity, or position value.</p>
+<h2 id="operator-settings">Operator settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dimensions</strong></td>
+<td>Enum</td>
+<td>Specify whether the noise is one, two, or three dimensional.</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>Enum</td>
+<td>Specify what type of noise to use.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="operator-properties">Operator properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Coordinate</strong></td>
+<td>Float<br>Vector2<br>Vector3</td>
+<td>The coordinate in the noise field to sample from.<br><img src="Images/Operator-CellularNoiseCoordinate.gif" alt=""><br>The <strong>Type</strong> changes to match the number of <strong>Dimensions</strong>.</td>
+</tr>
+<tr>
+<td><strong>Frequency</strong></td>
+<td>Float</td>
+<td>The period in which Unity samples the noise. A higher frequency results in more frequent noise change.<br><img src="Images/Operator-CellularNoiseFrequency.gif" alt=""></td>
+</tr>
+<tr>
+<td><strong>Octaves</strong></td>
+<td>Int</td>
+<td>The number of layers of noise. More octaves create a more varied look but are also more resource-intensive to calculate.<br><img src="Images/Operator-CellularNoiseOctaves.gif" alt=""></td>
+</tr>
+<tr>
+<td><strong>Roughness</strong></td>
+<td>Float</td>
+<td>The scaling factor Unity applies to each octave. Unity only uses roughness when <strong>Octaves</strong> is set to a value higher than 1.<br><img src="Images/Operator-CellularNoiseRoughness.gif" alt=""></td>
+</tr>
+<tr>
+<td><strong>Lacunarity</strong></td>
+<td>Float</td>
+<td>The rate of change of the frequency for each successive octave. A lacunarity value of 1 results in each octave having the same frequency.<br><img src="Images/Operator-CellularNoiseLacunarity.gif" alt=""></td>
+</tr>
+<tr>
+<td><strong>Range</strong></td>
+<td>Vector2</td>
+<td>The range within which Unity calculates the noise. The noise stays between the X and Y value you specify here, where X is the minimum and Y is the maximum.<br><img src="Images/Operator-CellularNoiseRange.gif" alt=""></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><strong>Output</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Noise</strong></td>
+<td>Float</td>
+<td>The noise value at the coordinate you specify.</td>
+</tr>
+<tr>
+<td><strong>Derivatives</strong></td>
+<td>Float<br>Vector2<br>Vector3</td>
+<td>The rate of change of the noise for every dimension.<br><br>The <strong>Type</strong> changes to match the number of <strong>Dimensions</strong>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operator-CellularNoise.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

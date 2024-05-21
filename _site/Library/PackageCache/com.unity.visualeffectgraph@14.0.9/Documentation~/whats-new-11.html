@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>What&#39;s new in version 11 | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="What&#39;s new in version 11 | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/whats-new-11.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="whats-new-in-version-11">What's new in version 11</h1>
+
+<p>This page contains an overview of new features, improvements, and issues resolved in version 11 of the Visual Effect Graph, embedded in Unity 2021.1.</p>
+<h2 id="features">Features</h2>
+<p>The following is a list of features Unity added to version 11 of the Visual Effect Graph, embedded in Unity 2021.1. Each entry includes a summary of the feature and a link to any relevant documentation.</p>
+<h3 id="srp-packages-are-part-of-the-core">SRP packages are part of the core</h3>
+<p>With the release of Unity 2021.1, graphics packages are relocating to the core of Unity. This move simplifies the experience of working with new Unity graphics features, as well as ensuring that your projects are always running on the latest verified graphics code.</p>
+<p>For each release of Unity (alpha / beta / patch release) the graphics code is embedded within the main Unity installer. When you install the latest release of Unity, you also get the latest URP, HDRP, Shader Graph, VFX Graph, and more.</p>
+<p>Tying graphics packages more closely to the main Unity release allows better testing to ensure that the graphics packages you use have been tested extensively with the version of Unity you have downloaded.</p>
+<p>You can also use a local copy or a custom version of the graphics packages by overriding them in the manifest file.</p>
+<p>For more information, see the following post on the forum: <a href="https://forum.unity.com/threads/srp-v11-beta-is-available-now.1046539/">SRP v11 beta is available now</a>.</p>
+<h3 id="skinnedmeshrenderer-sampling">SkinnedMeshRenderer sampling</h3>
+<p><img src="Images/skinned-mesh-sampling-example.gif" alt=""></p>
+<blockquote>
+<p>Examples of particles spawning on the surface of SkinnedMeshRenderers. Models and animations from <a href="https://www.mixamo.com/">Mixamo.com</a>.</p>
+</blockquote>
+<p>This version of the Visual Effect Graph adds the ability to sample <a href="https://docs.unity3d.com/ScriptReference/SkinnedMeshRenderer.html">SkinnedMeshRenders</a>. This enables you to retrieve vertex data from skinned geometry and use it for a variety of purposes, such as to spawn particles on animating characters.</p>
+<p>For more information about this feature, see <a href="Operator-SampleMesh.html">Sample Mesh</a>.</p>
+<h3 id="texture2darray-flipbooks">Texture2DArray flipbooks</h3>
+<p><img src="Images/banner-texture2darray-flipbooks.png" alt=""></p>
+<blockquote>
+<p>The <strong>Flipbook Layout</strong> property with the <strong>Texture2DArray</strong> option.</p>
+</blockquote>
+<p>From this version of the Visual Effect Graph, you can use Texture2DArray assets as flipbooks. Using Texture2DArrays prevent texture bleeding between the flipbook frames. To use Texture2DArrays, set the <strong>Flipbook Layout</strong> of an output Context to <strong>Texture 2D Array</strong>. This enables you to assign Texture2DArray assets to the Context's texture ports. Each slice of the texture corresponds to a frame within the flipbook. To play the flipbook, use the <a href="Block-FlipbookPlayer.html">Flipbook Player</a> Block. To generally interact with a Texture2DArray flipbook, use the <strong>Tex Index</strong> attribute. This is useful if you want to use the flipbook for non-animation purposes, such as using a random flipbook frame per particle.</p>
+<p>Many output Contexts share this setting so, for more information, see <a href="Context-OutputSharedSettings.html">Shared output settings and properties</a>.</p>
+<h3 id="exclude-from-temporal-anti-aliasing">Exclude from temporal anti-aliasing</h3>
+<p><img src="Images/banner-exclude-from-taa.png" alt=""></p>
+<blockquote>
+<p><strong>Left</strong>: Uses temporal anti-aliasing (TAA). The embers are harder to see and small ones are not there at all.<br><strong>Center</strong>: Excludes visual effects from TAA. All embers are clearer, small embers are still visible, and the rest of the image uses anti-aliasing.<br><strong>Right</strong>: Does not use TAA. All embers are clearer, small embers are still visible, but the rest of the image has no anti-aliasing.</p>
+</blockquote>
+<p>This version of the Visual Effect Graph allows you to exclude visual effects when Unity calculates <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest?subfolder=/manual/Anti-Aliasing.html%23temporal-anti-aliasing-taa">temporal anti-aliasing (TAA)</a>. This is useful because TAA can cause small particles to disappear. TAA is only available in the High Definition Render Pipeline (HDRP) which means this feature is only relevant to HDRP.</p>
+<p>Many output Contexts share this setting so, for more information, see <a href="Context-OutputSharedSettings.html">Shared output settings and properties</a>.</p>
+<h3 id="operators">Operators</h3>
+<p>This version of the Visual Effect Graph introduces new Operators:</p>
+<ul>
+<li><a href="Operator-SamplePointCache.html">Sample Point Cache</a></li>
+<li><a href="Operator-SampleAttributeMap.html">Sample Attribute Map</a></li>
+</ul>
+<h2 id="improvements">Improvements</h2>
+<p>The following is a list of improvements Unity made to the Visual Effect Graph in version 11, embedded in Unity 2021.1. Each entry includes a summary of the improvement and, if relevant, a link to any documentation.</p>
+<h3 id="mesh-sampling-improvements">Mesh sampling improvements</h3>
+<p><img src="Images/banner-mesh-sampling-11-improvements.png" alt=""></p>
+<blockquote>
+<p>Examples of the new sampling methods this version supports.</p>
+</blockquote>
+<p>This version of the Visual Effect Graph improves on Mesh sampling so you can now sample from a Mesh's edges and surfaces. Also, all texture coordinate sample outputs now return a Vector4 instead of a Vector2. This enables you to pass on more per-vertex data from the effect to a shader. Lastly, this version added support for storing Colors using floats. Originally the Visual Effect Graph only supported byte storage.</p>
+<p>For more information about these improvements, see <a href="Operator-SampleMesh.html">Sample Mesh</a>.</p>
+<h2 id="issues-resolved">Issues resolved</h2>
+<p>For information on issues resolved in version 11 of the Visual Effect Graph, see the <a href="../changelog/CHANGELOG.html">changelog</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/whats-new-11.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

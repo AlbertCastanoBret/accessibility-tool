@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Storyboard | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Storyboard | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineStoryboard.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="storyboard">Storyboard</h1>
+
+<p>Use the Cinemachine Storyboard <a href="CinemachineVirtualCameraExtensions.html">extension</a> to let artists, producers, and directors contribute to your game development. Cinemachine Storyboard places a still image in screen space over the output of the Unity camera.</p>
+<p>Storyboard simplifies animatics for your team. Start with still images to pre-visualize terrain, layout, movement, lighting, timing, and so on. Following the intentions of the Storyboard image, developers incrementally add the assets, GameObjects, and settings that implement the Scene.</p>
+<p>Use the properties in the Storyboard component to hide and show the image to compare it to the actual rendering of the Unity camera.</p>
+<p>Storyboards can be muted at a global level - completely disabling them. To toggle this, go to the Cinemachine Storyboard component and enable <em>Storyboard Global Mute</em>.</p>
+<p><img src="images/CineMachineStoryboard.png" alt="Storyboard in Cinemachine"></p>
+<h2 id="properties">Properties:</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Storyboard Global Mute</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">When enabled, all storyboards are globally muted.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Show Image</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Toggle the visibility of the storyboard image.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Image</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The image to display as an overlay over the output of the Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Aspect</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How to handle differences between image aspect and screen aspect.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Best Fit</em></td>
+<td style="text-align: left;">Resize the image as large as possible on the screen without cropping. Preserve the vertical and horizontal proportions.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Crop Image To Fit</em></td>
+<td style="text-align: left;">Resize the image to fill the screen, cropping if necessary. Preserve the vertical and horizontal proportions.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Stretch To Fit</em></td>
+<td style="text-align: left;">Resize the image to fill the screen, adjusting the vertical or horizontal width if necessary.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Alpha</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The opacity of the image. Use 0 for transparent, 1 for opaque.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Center</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The screen-space position of the image. Use 0 for center.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Rotation</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The screen-space rotation of the image.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Scale</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The screen-space scaling of the image.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sync Scale</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Check to synchronize the scale of the x and y axes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Mute Camera</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Check to prevent the Virtual Camera from updating the position, rotation, or scale of the Unity camera. Use this feature to prevent Timeline from <a href="CinemachineBlending.html">blending</a> the camera to an unintended position in the Scene.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Split View</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Wipe the image on and off horizontally.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Waveform Monitor</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Opens the Waveform monitor window.  This is very performance-intensive, use with care.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineStoryboard.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

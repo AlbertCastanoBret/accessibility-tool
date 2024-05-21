@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using ACC_API;
 using TFG_Videojocs.ACC_Sound.ACC_Example;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 namespace TFG_Videojocs.ACC_Sound

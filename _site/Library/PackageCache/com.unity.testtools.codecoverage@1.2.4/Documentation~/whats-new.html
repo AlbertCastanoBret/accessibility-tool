@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>What&#39;s new in version 1.2 | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="What&#39;s new in version 1.2 | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.testtools.codecoverage@1.2.4/Documentation~/whats-new.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="whats-new-in-version-12">What's new in version 1.2</h1>
+
+<p>Summary of changes in Code Coverage package version 1.2</p>
+<p>The main updates in this release include:</p>
+<h2 id="added">Added</h2>
+<ul>
+<li>Added <code>Pause Recording</code> and <code>Resume Recording</code> buttons in the toolbar in the <a href="CodeCoverageWindow.html">Code Coverage window</a>.</li>
+<li>Added <code>Test Runner References</code> coverage report option in the <a href="CodeCoverageWindow.html">Code Coverage window</a>. When you check this option, the generated coverage results include references to the triggering tests enabling the <a href="HowToInterpretResults.html#coverage-by-test-methods">Coverage by test methods</a> section in the HTML report. This section allows you to see how each test contributes to the overall coverage. In <a href="CoverageBatchmode.html">batchmode</a>, you can generate test references by adding the <code>generateTestReferences</code> option in <em>-coverageOptions</em>.</li>
+<li>Added <code>Log Verbosity Level</code> setting in the <a href="CodeCoverageWindow.html">Code Coverage window</a> which allows setting the verbosity level for the editor and console logs.</li>
+<li>Added <code>Additional Reports</code> option in the <a href="CodeCoverageWindow.html">Code Coverage window</a> which if checked <a href="https://docs.sonarqube.org/latest/analysis/generic-test">SonarQube</a>, <a href="https://cobertura.github.io/cobertura">Cobertura</a> and <a href="https://github.com/linux-test-project/lcov">LCOV</a> reports will be generated. Added <code>generateAdditionalReports</code> in <em>-coverageOptions</em> for <a href="CoverageBatchmode.html">batchmode</a>.</li>
+<li>Added <code>filtersFromFile</code> in <em>-coverageOptions</em> for <a href="CoverageBatchmode.html">batchmode</a>. This allows you to specify an external Json file which contains path and assembly filtering rules.</li>
+<li>Added <code>dontClear</code> in <em>-coverageOptions</em> for <a href="https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html">batchmode</a> which allows coverage results to be accumulated after every code coverage session. If not passed the results are cleared before a new session.</li>
+</ul>
+<h2 id="updated">Updated</h2>
+<ul>
+<li>Updated the UI of the <a href="CodeCoverageWindow.html">Code Coverage window</a> moving the action buttons into a toolbar at the top.
+<img src="images/toolbar.png" alt="Toolbar"></li>
+<li>Introduced new selection buttons under the <em>Included Assemblies</em> dropdown in the <a href="CodeCoverageWindow.html">Code Coverage window</a>.</li>
+<li>Renamed <em>assemblyFilters</em> aliases in <a href="CoverageBatchmode.html">batchmode</a>; <code>&lt;user&gt;</code> was renamed to <code>&lt;assets&gt;</code> and <code>&lt;project&gt;</code> was renamed to <code>&lt;all&gt;</code>.</li>
+<li>Replaced <code>pathStrippingPatterns</code> with <code>pathReplacePatterns</code> in <a href="CoverageBatchmode.html">batchmode</a>. The <code>pathReplacePatterns</code> option allows stripping and replacing specific sections from the paths that are stored in the coverage results xml files.</li>
+<li>The size of the coverage result files and the Code Coverage session duration have been optimized.</li>
+<li>Improved the editor and console logs.</li>
+</ul>
+<h2 id="fixed">Fixed</h2>
+<ul>
+<li>Ensure assemblies are removed from the Included Assemblies field if they no longer exist (case <a href="https://issuetracker.unity3d.com/issues/code-coverage-the-included-assemblies-field-shows-assemblies-that-no-longer-exist">1318668</a>).</li>
+<li>Ensure hidden sequence points are ignored (case <a href="https://issuetracker.unity3d.com/issues/class-which-derives-from-methodbase-causes-incorrect-sequence-points-to-be-generated-by-coverage-api">1372305</a>).</li>
+</ul>
+<p>For a full list of changes and updates in this version, see the <a href="../changelog/CHANGELOG.html">Code Coverage package changelog</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.testtools.codecoverage@1.2.4/Documentation~/whats-new.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

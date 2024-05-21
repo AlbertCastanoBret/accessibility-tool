@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>The SDF Bake Tool API | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="The SDF Bake Tool API | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sdf-bake-tool-api.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="the-sdf-bake-tool-api">The SDF Bake Tool API</h1>
+
+<p>The SDF Bake Tool API enables you to generate <a href="sdf-in-vfx-graph.html">Signed Distance Field</a> (SDF) assets using C# both at run-time and in the Unity Editor. You can then use the generated SDF asset to a visual effect.</p>
+<p>This page works through an example of how to use the API to create an SDF for a Skinned Mesh Renderer. Each frame it bakes the Mesh from the Skinned Mesh Renderer, bakes an SDF from the Mesh, then passes the SDF to a visual effect.</p>
+<p>Note that baking an SDF is a resource-intensive operation. If you need to bake an SDF every frame, it is best practice to use a low resolution.</p>
+<h2 id="visual-effect-graph-setup">Visual Effect Graph setup</h2>
+<p>Within a Visual Effect Graph, create a new exposed Texture3D property. To do this:</p>
+<ol>
+<li>In the <a href="VisualEffectGraphWindow.html#Blackboard">Blackboard</a>, click the Add (+) button.</li>
+<li>Select <strong>Texture3D</strong>.</li>
+<li>Double-click on the new Texture3D, enter a meaningful name, and press enter to save it. You use this name to identify the property from the C# API.</li>
+<li>To the left of the new Texture3D, click the drop-down arrow.</li>
+<li>Enable <strong>Exposed</strong> if it is not already.</li>
+<li>Drag the property into the graph and connect it to an input that accepts an SDF. For example, the <strong>Distance Field</strong> property of a <a href="Block-CollideWithSignedDistanceField.html">Collide With Signed Distance Field</a> Block.</li>
+</ol>
+<p><img src="Images/sdf-bake-tool-api-example.png" alt=""><br><em>Assigning an SDF to the Distance Field input port of the Collide with Signed Distance Field Block</em></p>
+<h2 id="monobehaviour">MonoBehaviour</h2>
+<p>Create a new C# script (<strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>C# Script</strong>), call it VFXUpdateSkinnedSDF and replace its contents with the code snippet below. The VFXUpdateSkinnedSDF component handles the interaction between the SkinnedMeshRenderer component and the Visual Effect component. The VFXUpdateSkinnedSDF component is responsible for extracting the current state of the SkinnedMeshRenderer's Mesh, using the SDF Baker Tool API to bake an SDF from the Mesh, and then pass the result to the Visual Effect. At each stage, the VFXUpdateSkinnedSDF component does the following:</p>
+<ol>
+<li><p><strong>On Start</strong>:</p>
+</li>
+<li>
+<ul>
+<li>Gets a reference to an attached SkinnedMeshRenderer and an attached VisualEffect.</li>
+<li>Creates an instance of <code>MeshToSDFBaker</code>, which is the class that is responsible for baking an SDF from a Mesh.</li>
+<li>Does an initial bake of the SkinnedMeshRenderer's Mesh and assigns the resulting SDF texture to the property set up in <a href="#visual-effect-graph-setup">Visual Effect Graph setup</a>.</li>
+</ul>
+</li>
+<li><p><strong>On Update (every frame)</strong>:</p>
+</li>
+<li>
+<ul>
+<li>It bakes the SkinnedMeshRenderer's Mesh in its current state and assigns the resulting SDF texture to the property set up in <a href="#visual-effect-graph-setup">Visual Effect Graph setup</a>.</li>
+</ul>
+</li>
+<li><p><strong>On Destroy (when the attached GameObject is destroyed)</strong>:</p>
+</li>
+<li>
+<ul>
+<li>Runs the relevant cleanup code for the <code>MeshToSDFBaker</code> instance.</li>
+</ul>
+</li>
+</ol>
+<pre><code class="lang-c#">using UnityEngine;
+using UnityEngine.VFX;
+using UnityEngine.VFX.SDF;
+
+
+public class VFXUpdateSkinnedSDF : MonoBehaviour
+{
+    MeshToSDFBaker m_Baker;
+    SkinnedMeshRenderer m_SkinnedMeshRenderer;
+    Mesh m_Mesh;
+    VisualEffect m_Vfx;
+    public int maxResolution = 64;
+    public Vector3 center;
+    public Vector3 sizeBox;
+    public int signPassCount = 1;
+    public float threshold = 0.5f;
+
+    void Start()
+    {
+        m_Mesh = new Mesh();
+        m_Vfx = GetComponent&lt;VisualEffect&gt;();
+        m_SkinnedMeshRenderer = GetComponent&lt;SkinnedMeshRenderer&gt;();
+        m_SkinnedMeshRenderer.BakeMesh(m_Mesh);
+        m_Baker = new MeshToSDFBaker(sizeBox, center, maxResolution, m_Mesh, signPassCount, threshold);
+        m_Baker.BakeSDF();
+        m_Vfx.SetTexture(&quot;WalkingSDF&quot;, m_Baker.SdfTexture);
+        m_Vfx.SetVector3(&quot;BoxSize&quot;, m_Baker.GetActualBoxSize());
+    }
+    void Update()
+    {
+        m_SkinnedMeshRenderer.BakeMesh(m_Mesh);
+        m_Baker.BakeSDF();
+        m_Vfx.SetTexture(&quot;WalkingSDF&quot;, m_Baker.SdfTexture);
+    }
+
+    void OnDestroy()
+    {
+        if (m_Baker != null)
+        {
+            m_Baker.Dispose();
+        }
+    }
+}
+</code></pre>
+<p>Attach the VFXUpdateSkinnedSDF component to a GameObject with an attached SkinnedMeshRenderer component and an attached Visual Effect component. When you enter Play mode, the component updates the SDF in the Visual Effect every frame. If it is difficult to set the center and size of the <a href="sdf-bake-tool.html#baking-box">baking box</a> in the API, you can open the <a href="sdf-bake-tool-window.html">SDF Bake Tool window</a> to visualize the Mesh and baking box. Since this is just for visualization, you do not need to save the SDF asset. You can also retrieve the size of the <a href="sdf-bake-tool.html#baking-box">baking box</a> used to bake the texure from the API.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sdf-bake-tool-api.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

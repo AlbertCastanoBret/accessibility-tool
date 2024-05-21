@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Cinemachine Free Look Camera | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Cinemachine Free Look Camera | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineFreeLook.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="cinemachine-free-look-camera">Cinemachine Free Look Camera</h1>
+
+<p>The <strong>Cinemachine Free Look Camera</strong> component provides a third-person camera experience. This Cinemachine Virtual Camera orbits around its subject along a position specified by three separate camera rigs: <strong>Top</strong>, <strong>Middle</strong>, and <strong>Bottom</strong>.</p>
+<p><img src="images/CinemachineFreelook.png" alt="Cinemachine Free Look in the Scene window"></p>
+<p>Each rig defines a ring around the target, with its own radius, height offset, composer, lens properties, and Noise settings. These are the same as the <a href="CinemachineVirtualCamera.html">properties for a regular Virtual Camera</a>.</p>
+<p>Cinemachine Free Look Camera also defines a spline that connects the rigs. The spline defines the camera’s position when blending between the rigs.</p>
+<p><img src="images/CinemachineFreeLookProperties.png" alt="Cinemachine Free Look properties for spline, and the Top, Middle, and Bottom rigs"></p>
+<p>Free Look uses player input along the x and y axes. The x axis controls the orbital position along the <strong>Top</strong>, <strong>Middle</strong>, or <strong>Bottom</strong> horizontal orbits, like the <a href="CinemachineBodyOrbitalTransposer.html">Orbital Transposer</a>. The y-axis controls the vertical position, using the spline to determine the position between rigs.</p>
+<h2 id="properties">Properties:</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Solo</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Toggles whether or not the Virtual Camera is temporarily live. Use this property to get immediate visual feedback in the <a href="https://docs.unity3d.com/Manual/GameView.html">Game view</a> to adjust the Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Game Window Guides</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Toggles the visibility of compositional guides in the Game view. These guides are available when Look At specifies a GameObject and the Aim section uses Composer or Group Composer, or when Follow specifies a target and the Body section uses Framing Composer. This property applies to all Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Save During Play</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Check to <a href="CinemachineSavingDuringPlay.html">apply the changes while in Play mode</a>.  Use this feature to fine-tune a Virtual Camera without having to remember which properties to copy and paste. This property applies to all Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Priority</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The importance of this Virtual Camera for choosing the next shot. A higher value indicates a higher priority. Cinemachine Brain chooses the next live Virtual Camera from all Virtual Cameras that are activated and have the same or higher priority as the current live Virtual Camera. This property has no effect when using a Virtual Camera with Timeline.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Follow</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The target GameObject to move with. The <a href="CinemachineVirtualCameraBody.html">Body properties</a> use this target to update the position of the Unity camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Look At</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The target GameObject to aim at. The <a href="CinemachineVirtualCameraAim.html">Aim properties</a> use this target to update the rotation of the Unity camera. This property is normally the same as the Follow target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Common Lens</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Check to apply a common lens setting to all three child rigs. Uncheck to use separate lens settings for each child rig.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lens</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">If Common Lens is checked, these lens settings apply to all three rigs. These properties mirror their counterparts in the property settings for the <a href="https://docs.unity3d.com/Manual/class-Camera.html">Unity camera</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Vertical FOV</em></td>
+<td style="text-align: left;">This is the camera view in vertical degrees. For example, to specify the equivalent of a 50mm lens on a Super 35 sensor, enter a Field of View of 19.6 degrees. This property is available when the Unity camera with the Cinemachine Brain component uses a Projection of Perspective.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Orthographic Size</em></td>
+<td style="text-align: left;">When using an orthographic camera, this defines the half-height, in world coordinates, of the camera view. This property is available when the Unity camera with the Cinemachine Brain component uses a Projection of Orthographic.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Near Clip Plane</em></td>
+<td style="text-align: left;">The closest point relative to the camera where drawing occurs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Far Clip Plane</em></td>
+<td style="text-align: left;">The furthest point relative to the camera where drawing occurs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Dutch</em></td>
+<td style="text-align: left;">Dutch angle. Tilts the Unity camera on the Z axis, in degrees. This property is unique to the Virtual Camera; there is no counterpart property in the Unity camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Transitions</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Blend Hint</em></td>
+<td style="text-align: left;">How to blend to and from the Free Look camera. Use None for default linear interpolation of position and aim. Use Spherical Position to blend spherically about the Look At position, linearly blending between Look At targets. Use Cylindrical Position to blend in a cylindrical path around the Look At target and interpolate linearly on the vertical axis. Use Screen Space Aim When Targets Differ for a standard linear position blend, with screen-space angular blend between differing Look At targets.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Inherit Position</em></td>
+<td style="text-align: left;">When this virtual camera goes Live, attempt to force the position to be the same as the current position of the Unity Camera, allowing the virtual camera to apply its damping to accomplish the blend</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Camera Activated</em></td>
+<td style="text-align: left;">This event is invoked when the Virtual Camera becomes live.  Attach custom handlers here if you need them.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Y Axis, X Axis</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The vertical and horizontal axes for blending between rigs. For Y Axis the Value range is 0 to 1 and represents the blend position between the Top, Middle, and Bottom rigs. The value 0.5 represents the middle rig.  For X Axis, the Value is the angular deviation (in degrees) of the camera from directly behind the target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Max Speed</em></td>
+<td style="text-align: left;">The maximum speed of this axis in degrees/second, or the multipler for the input value if Speed Mode is set to <em>InputValueGain</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Speed Mode</em></td>
+<td style="text-align: left;">How the axis responds to input.  <em>MaxSpeed</em> (the default) clamps the maximum speed at which the axis can change, regardless of the input.  <em>Input Value Gain</em> multiplies the input value by MaxSpeed.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Accel Time</em></td>
+<td style="text-align: left;">The amount of time in seconds to accelerate to Max Speed.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Decel Time</em></td>
+<td style="text-align: left;">The amount of time in seconds to decelerate to zero.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Input Axis Name</em></td>
+<td style="text-align: left;">The name of this axis as specified in Unity Input manager. Setting to an empty string disables the automatic updating of the axis.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Input Axis Value</em></td>
+<td style="text-align: left;">The value of the input axis. A value of 0 means no input. To drive this directly, use a custom input system. Or you set the Axis Name to control the value with the Unity Input Manager.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Invert</em></td>
+<td style="text-align: left;">Check to invert the raw value of the input axis. The X Axis and Y Axis have opposite defaults. Checking this box causes the view to move <strong>opposite</strong> the input for the X Axis. Checking the box for the Y Axis causes the view to move in the <strong>same</strong> direction as the input.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Y Axis Recentering</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Controls the automatic recentering on the y axis.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Enabled</em></td>
+<td style="text-align: left;">Check to enable automatic recentering.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Wait Time</em></td>
+<td style="text-align: left;">When no user input has been detected on the axis, the camera waits this long in seconds before recentering.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Recentering Time</em></td>
+<td style="text-align: left;">Maximum angular speed of recentering. Accelerates into and decelerates out of the centered position.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Orbits</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Properties for defining the Top, Middle, and Bottom rigs.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><a href="CinemachineBindingModes.html">Binding Mode</a></strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The coordinate space to use to interpret the offset from the target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Lock To Target On Assign</em></td>
+<td style="text-align: left;">Makes the orientation of the virtual camera match the local frame of the Follow target, at the moment when the virtual camera is activated or when the target is assigned. This offset remains constant in world space. The camera does not rotate along with the target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Lock To Target With World Up</em></td>
+<td style="text-align: left;">Makes the virtual camera use the local frame of the Follow target with tilt and roll set to 0. This binding mode ignores all target rotations except yaw.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Lock To Target No Roll</em></td>
+<td style="text-align: left;">Makes the virtual camera use the local frame of the Follow target, with roll set to 0.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Lock To Target</em></td>
+<td style="text-align: left;">Makes the virtual camera use the local frame of the Follow target. When the target rotates, the camera moves with it to maintain the offset and to maintain the same view of the target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>World Space</em></td>
+<td style="text-align: left;">The offset is interpreted in world space relative to the origin of the Follow target. The camera will not change position when the target rotates.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Simple Follow With World Up</em></td>
+<td style="text-align: left;">Simple follow with world up interprets the offset and damping values in camera-local space. This mode emulates the action a human camera operator would take when instructed to follow a target. The camera attempts to move as little as possible to maintain the same distance from the target; the direction of the camera with regard to the target does not matter. Regardless of the orientation of the target, the camera tries to preserve the same distance and height from it.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Spline Curvature</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The tautness of the line that connects the rigs’ orbits. This line determines the final placement on the y axis.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Height, Radius</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The radius and height of the Top, Middle, and Bottom rigs relative to the Follow target.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineFreeLook.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

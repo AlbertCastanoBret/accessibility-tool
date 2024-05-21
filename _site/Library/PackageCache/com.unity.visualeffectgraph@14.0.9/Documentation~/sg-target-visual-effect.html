@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Visual Effect Target | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Visual Effect Target | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sg-target-visual-effect.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="visual-effect-target">Visual Effect Target</h1>
+
+<p>The Visual Effect Shader Graph <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@latest?subfolder=/manual/Graph-Target.html">Target</a> enables you to create custom lit and unlit Shader Graphs to use in visual effects.</p>
+<p>To create a Shader Graph that uses the Visual Effect Target, select <strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Shader Graph</strong> &gt; <strong>VFX Shader Graph</strong>.</p>
+<h2 id="contexts">Contexts</h2>
+<p>This Shader Graph Target its own set of Graph Settings. Because of the relationship between settings and Blocks, this has consequences on which Blocks are relevant to the Graph. This section contains information on the Blocks this Target adds by default, and which Blocks set properties for this Target's Graph Settings.</p>
+<h3 id="vertex-context">Vertex Context</h3>
+<h4 id="default">Default</h4>
+<p>When you create a new Shader Graph with the Visual Effect Target, the Vertex Context contains the following Blocks by default:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Setting Dependency</strong></th>
+<th><strong>Default Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Position</strong></td>
+<td>The object space vertex normal per vertex.</td>
+<td>None</td>
+<td>CoordinateSpace.Object</td>
+</tr>
+<tr>
+<td><strong>Normal</strong></td>
+<td>The object space vertex position per vertex.</td>
+<td>None</td>
+<td>CoordinateSpace.Object</td>
+</tr>
+<tr>
+<td><strong>Tangent</strong></td>
+<td>The object space vertex tangent per vertex.</td>
+<td>None</td>
+<td>CoordinateSpace.Object</td>
+</tr>
+</tbody>
+</table>
+<h4 id="relevant">Relevant</h4>
+<p>This Target adds all its Vertex Blocks to the Vertex Context by default and has no extra relevant Blocks.</p>
+<h3 id="fragment-context">Fragment Context</h3>
+<h4 id="default-1">Default</h4>
+<p>When you create a new Shader Graph with the Visual Effect Target, the Fragment Context contains the following Blocks by default:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Setting Dependency</strong></th>
+<th><strong>Default Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Base Color</strong></td>
+<td>The base color of the material</td>
+<td>None</td>
+<td>Color.grey</td>
+</tr>
+<tr>
+<td><strong>Alpha</strong></td>
+<td>The Material's alpha value. This determines how transparent the material is. The expected range is 0 - 1.</td>
+<td>None</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td><strong>Emission</strong></td>
+<td>The color of light to emit from this material's surface. Emissive materials appear as a source of light in your scene.</td>
+<td>None</td>
+<td>Color.black</td>
+</tr>
+</tbody>
+</table>
+<h4 id="relevant-1">Relevant</h4>
+<p>Depending on the <a href="#graph-settings">Graph Settings</a> you use, Shader Graph can add the following Blocks to the Fragment Context:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Setting Dependency</strong></th>
+<th><strong>Default Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alpha Clip Threshold</strong></td>
+<td>The alpha value limit that HDRP uses to determine whether to render each pixel. If the alpha value of the pixel is equal to or higher than the limit, HDRP renders the pixel. If the value is lower than the limit, HDRP does not render the pixel.</td>
+<td>• <strong>Alpha Clipping</strong> enabled</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td><strong>Metallic</strong></td>
+<td>The material's metallic value. This defines how &quot;metal-like&quot; the surface of your Material is (between 0 and 1). When a surface is more metallic, it reflects the environment more and its albedo color becomes less visible. At a full metallic level, the surface color is entirely driven by reflections from the environment. When a surface is less metallic, its albedo color is clearer and any surface reflections are visible on top of the surface color, rather than obscuring it.</td>
+<td>• <strong>Material</strong> set to <strong>Lit</strong></td>
+<td>0.0</td>
+</tr>
+<tr>
+<td><strong>Smoothness</strong></td>
+<td>The material's smoothness. Every light ray that hits a smooth surface bounces off at predictable and consistent angles. For a perfectly smooth surface that reflects light like a mirror, set this to a value of 1. Less smooth surfaces reflect light over a wider range of angles (because the light hits the bumps in the microsurface), so the reflections have less detail and spread across the surface in a more diffused pattern.</td>
+<td>• <strong>Material</strong> set to <strong>Lit</strong></td>
+<td>0.5</td>
+</tr>
+<tr>
+<td><strong>Normal (Tangent Space)</strong></td>
+<td>The normal, in tangent space, for the material.</td>
+<td>• <strong>Material</strong> set to <strong>Lit</strong></td>
+<td>CoordinateSpace.Tangent</td>
+</tr>
+</tbody>
+</table>
+<h2 id="graph-settings">Graph Settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Material</strong></td>
+<td>Specifies whether the lighting in the Scene affects the material. The options are:<br>• <strong>Unlit</strong>: Scene lighting does not affect the material.<br>• <strong>Lit</strong>: Scene lighting affects the material. This option adds extra Blocks to the fragment Context.</td>
+</tr>
+<tr>
+<td><strong>Alpha Clipping</strong></td>
+<td>Indicates whether this material acts like a<a href="https://docs.unity3d.com/Manual/StandardShaderMaterialParameterRenderingMode.html"> Cutout Shader</a>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sg-target-visual-effect.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

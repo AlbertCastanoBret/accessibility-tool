@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Filter Stacks, Filters, and procedural masks | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Filter Stacks, Filters, and procedural masks | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/create-filterstacks-and-filters.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="filter-stacks-filters-and-procedural-masks">Filter Stacks, Filters, and procedural masks</h1>
+
+<p>Next, you can add a Filter Stack to your Terrain Tool. You can use Filter Stacks to generate procedural masks that influence the inputs and outputs of your tool. For example, if you add a Filter Stack with a Slope Filter to the Smooth tool, it only smooths regions of the Terrain's heightmap within the slope ranges you specified on the Slope Filter.</p>
+<pre><code>using UnityEngine;
+using UnityEditor;
+using UnityEditor.TerrainTools;
+
+internal class CustomTerrainToolWithMaskFilters : TerrainPaintTool&lt;CustomTerrainToolWithMaskFilters&gt;
+{
+    private float m_BrushOpacity;
+    private float m_BrushSize;
+    private float m_BrushRotation;
+
+    Material m_Material;
+    Material material
+    {
+        get
+        {
+            if(m_Material != null) return m_Material;
+
+            m_Material = new Material(Shader.Find(&quot;TerrainTool/BrushMaskFilterExample&quot;));
+            return m_Material;
+        }
+    }
+
+    // Create the FilterStack
+    FilterStack m_FilterStack;
+    FilterStack filterStack
+    {
+        get
+        {
+            if(m_FilterStack != null) return m_FilterStack;
+
+            m_FilterStack = ScriptableObject.CreateInstance&lt;FilterStack&gt;();
+            return m_FilterStack;
+        }
+    }
+
+    // Create the UI view for the FilterStack
+    FilterStackView m_FilterStackView;
+    FilterStackView filterStackView
+    {
+        get
+        {
+            if(m_FilterStackView != null &amp;&amp; m_FilterStackView.serializedFilterStack.targetObject != null)
+                return m_FilterStackView;
+            
+            m_FilterStackView = new FilterStackView(new GUIContent(&quot;Brush Mask Filters&quot;), new SerializedObject( filterStack ) );
+            m_FilterStackView.FilterContext = filterContext;
+
+            return m_FilterStackView;
+        }
+    }
+
+    // Create a FilterContext. This is a property-bag of sorts used by Filters in a FilterStack
+    FilterContext m_FilterContext;
+    private FilterContext filterContext
+    {
+        get
+        {
+            if (m_FilterContext != null) return m_FilterContext;
+            
+            m_FilterContext = new FilterContext(FilterUtility.defaultFormat, Vector3.zero, 1f, 0f);
+            return m_FilterContext;
+        }
+    }
+
+    public override string GetName()
+    {
+        return &quot;Examples/Custom Terrain Tool With Mask Filters&quot;;
+    }
+
+    public override string GetDesc()
+    {
+        return &quot;My custom Terrain Tool is amazing!&quot;;
+    }
+
+    public override void OnInspectorGUI(Terrain terrain, IOnInspectorGUI editContext)
+    {
+        editContext.ShowBrushesGUI(5, BrushGUIEditFlags.Select);
+        m_BrushOpacity = EditorGUILayout.Slider(&quot;Opacity&quot;, m_BrushOpacity, 0, 1);
+        m_BrushSize = EditorGUILayout.Slider(&quot;Size&quot;, m_BrushSize, .001f, 100f);
+        m_BrushRotation = EditorGUILayout.Slider(&quot;Rotation&quot;, m_BrushRotation, 0, 360);
+
+        // Render the UI for the FilterStack. This will allow you to add and remove Filters through the Terrain Tool UI
+        filterStackView.OnGUI();
+    }
+
+    void BlitFilterStackTexture(Terrain terrain, RenderTexture source, RenderTexture dest, Vector3 brushPos)
+    {
+        // Prepare the FilterContext
+        filterContext.brushPos = brushPos;
+        filterContext.brushSize = m_BrushSize;
+        filterContext.brushRotation = m_BrushRotation;
+
+        using(new ActiveRenderTextureScope(null))
+        {
+            // Bind any necessary properties that the Filters in the FilterStack might use. ie some of the Terrain Tools Filters rely on the size of the Terrain like Concavity, Slope, etc.
+            TerrainData terrainData = terrain.terrainData;
+            filterContext.floatProperties[FilterContext.Keywords.TerrainScale] = Mathf.Sqrt(terrainData.size.x * terrainData.size.x + terrainData.size.z * terrainData.size.z);
+            filterContext.vectorProperties[&quot;_TerrainSize&quot;] = new Vector4(terrainData.size.x, terrainData.size.y, terrainData.size.z, 0.0f);
+
+            // Bind Terrain Texture data that might be used by Filters in the FilterStack
+            filterContext.rtHandleCollection.AddRTHandle(0, FilterContext.Keywords.Heightmap, source.graphicsFormat);
+            filterContext.rtHandleCollection.GatherRTHandles(source.width, source.height);
+            Graphics.Blit(source, filterContext.rtHandleCollection[FilterContext.Keywords.Heightmap]);
+            filterStack.Eval(filterContext, source, dest);
+        }
+        
+        filterContext.ReleaseRTHandles();
+    }
+    
+    private void RenderIntoPaintContext(Terrain terrain, UnityEngine.TerrainTools.PaintContext paintContext, Texture brushTexture, UnityEngine.TerrainTools.BrushTransform brushXform, Vector3 brushPos)
+    {
+        Material mat = material;
+
+        // Get the output FilterStack RenderTexture       
+        RTHandle filterTexture = RTUtils.GetTempHandle(paintContext.sourceRenderTexture.width, paintContext.sourceRenderTexture.height, 0, FilterUtility.defaultFormat);
+        BlitFilterStackTexture(terrain, paintContext.sourceRenderTexture, filterTexture, brushPos);
+        // Bind the FilterStack RenderTexture to the tool Material
+        mat.SetTexture(&quot;_FilterTex&quot;, filterTexture);
+
+        mat.SetTexture(&quot;_BrushTex&quot;, brushTexture);
+        var opacity = Event.current.control ? -m_BrushOpacity : m_BrushOpacity;
+        mat.SetVector(&quot;_BrushParams&quot;, new Vector4(opacity, 0.0f, 0.0f, 0.0f));
+        UnityEngine.TerrainTools.TerrainPaintUtility.SetupTerrainToolMaterialProperties(paintContext, brushXform, mat);
+        Graphics.Blit(paintContext.sourceRenderTexture, paintContext.destinationRenderTexture, mat, (int)UnityEngine.TerrainTools.TerrainPaintUtility.BuiltinPaintMaterialPasses.RaiseLowerHeight);
+        
+        // Release the RenderTexture for the FilterStack
+        RTUtils.Release(filterTexture);
+    }
+
+    public override void OnRenderBrushPreview(Terrain terrain, IOnSceneGUI editContext)
+    {
+        if (Event.current.type != EventType.Repaint) return;
+        if (!editContext.hitValidTerrain) return;
+
+        UnityEngine.TerrainTools.BrushTransform brushXform = UnityEngine.TerrainTools.TerrainPaintUtility.CalculateBrushTransform(terrain, editContext.raycastHit.textureCoord, m_BrushSize, m_BrushRotation);
+        UnityEngine.TerrainTools.PaintContext paintContext = UnityEngine.TerrainTools.TerrainPaintUtility.BeginPaintHeightmap(terrain, brushXform.GetBrushXYBounds(), 1);
+        Material previewMaterial = TerrainPaintUtilityEditor.GetDefaultBrushPreviewMaterial();
+
+        // Continue rendering the brush preview
+        TerrainPaintUtilityEditor.BrushPreview previewTexture = TerrainPaintUtilityEditor.BrushPreview.SourceRenderTexture;
+        TerrainPaintUtilityEditor.DrawBrushPreview(paintContext, previewTexture, editContext.brushTexture, brushXform, previewMaterial, 0);
+        RenderIntoPaintContext(terrain, paintContext, editContext.brushTexture, brushXform, editContext.raycastHit.point);
+        RenderTexture.active = paintContext.oldRenderTexture;
+        previewMaterial.SetTexture(&quot;_HeightmapOrig&quot;, paintContext.sourceRenderTexture);
+        previewTexture = TerrainPaintUtilityEditor.BrushPreview.DestinationRenderTexture;
+        TerrainPaintUtilityEditor.DrawBrushPreview(paintContext, previewTexture, editContext.brushTexture, brushXform, previewMaterial, 1);
+        UnityEngine.TerrainTools.TerrainPaintUtility.ReleaseContextResources(paintContext);
+    }
+
+    public override bool OnPaint(Terrain terrain, IOnPaint editContext)
+    {
+        UnityEngine.TerrainTools.BrushTransform brushXform = UnityEngine.TerrainTools.TerrainPaintUtility.CalculateBrushTransform(terrain, editContext.uv, m_BrushSize, m_BrushRotation);
+        UnityEngine.TerrainTools.PaintContext paintContext = UnityEngine.TerrainTools.TerrainPaintUtility.BeginPaintHeightmap(terrain, brushXform.GetBrushXYBounds());
+
+        RenderIntoPaintContext(terrain, paintContext, editContext.brushTexture, brushXform, editContext.raycastHit.point);
+        UnityEngine.TerrainTools.TerrainPaintUtility.EndPaintHeightmap(paintContext, &quot;Terrain Paint - Raise or Lower Height&quot;);
+
+        return true;
+    }
+}
+``
+
+Here is the Shader for the tool that is using a procedural texture from the FilterStack:
+
+``
+Shader &quot;TerrainTool/BrushMaskFilterExample&quot;
+{
+    Properties { _MainTex (&quot;Texture&quot;, any) = &quot;&quot; {} }
+
+    SubShader
+    {
+        ZTest Always Cull Off ZWrite Off
+
+        HLSLINCLUDE
+
+        #include &quot;UnityCG.cginc&quot;
+        #include &quot;Packages/com.unity.terrain-tools/Shaders/TerrainTools.hlsl&quot;
+
+        sampler2D _MainTex;
+        float4 _MainTex_TexelSize;      // 1/width, 1/height, width, height
+
+        sampler2D _BrushTex;
+        sampler2D _FilterTex;
+
+        float4 _BrushParams;
+        #define BRUSH_STRENGTH      (_BrushParams[0])
+        #define BRUSH_TARGETHEIGHT  (_BrushParams[1])
+        #define kMaxHeight          (32766.0f/65535.0f)
+
+        struct appdata_t
+        {
+            float4 vertex : POSITION;
+            float2 pcUV : TEXCOORD0;
+        };
+
+        struct v2f
+        {
+            float4 vertex : SV_POSITION;
+            float2 pcUV : TEXCOORD0;
+        };
+
+        v2f vert(appdata_t v)
+        {
+            v2f o;
+            o.vertex = UnityObjectToClipPos(v.vertex);
+            o.pcUV = v.pcUV;
+            return o;
+        }
+
+        ENDHLSL
+
+        Pass
+        {
+            Name &quot;CustomTerrainTool&quot;
+
+            HLSLPROGRAM
+            
+            #pragma vertex vert
+            #pragma fragment frag
+
+            float4 frag(v2f i) : SV_Target
+            {
+                float2 brushUV = PaintContextUVToBrushUV(i.pcUV);
+                // out of bounds multiplier
+                float oob = all(saturate(brushUV) == brushUV) ? 1.0f : 0.0f;
+
+                // Sample the MainTex, which should be a region of the source Heightmap texture, to get the current height value at the provided UV
+                // UnpackHeightmap is necessary here because it unpacks the height value from R and G channels if the current platform/graphics device does not support R16_UNorm texture formats. If R16_UNorm formats are supported, UnpackHeightmap just reads from the R channel.
+                float height = UnpackHeightmap(tex2D(_MainTex, i.pcUV));
+                float filter = UnpackHeightmap(tex2D(_FilterTex, i.pcUV));
+                float brush = UnpackHeightmap(tex2D(_BrushTex, brushUV));
+                // Calculate the influence from the composited mask
+                float brushShape = oob * brush * filter;
+                height = height + BRUSH_STRENGTH * brushShape;
+
+                // Store the new height into the destination RenderTexture. Clamp between 0.0f and 0.5f because the Heightmap itself is signed but is treated as an unsigned texture when rendering the Terrain
+                // PackHeightmap is necessary here because it packs the height value into R and G channels if the current platform/graphics device does not support R16_UNorm texture formats. If R16_UNorm formats are supported, PackHeightmap just writes to the R channel.
+                return PackHeightmap(clamp(height, 0, kMaxHeight));
+            }
+
+            ENDHLSL
+        }
+    }
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/create-filterstacks-and-filters.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1941 @@
+### YamlMime:ManagedReference
+items:
+- uid: ACC_API.ACC_AudioAccessibility
+  commentId: T:ACC_API.ACC_AudioAccessibility
+  id: ACC_AudioAccessibility
+  parent: ACC_API
+  children:
+  - ACC_API.ACC_AudioAccessibility.#ctor
+  - ACC_API.ACC_AudioAccessibility.ChangeSubtitleBackgroundColor(UnityEngine.Color)
+  - ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontColor(UnityEngine.Color)
+  - ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize(System.Int32)
+  - ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor(UnityEngine.Color)
+  - ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontColor(UnityEngine.Color)
+  - ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontSize(System.Int32)
+  - ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment(System.Int32)
+  - ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen(System.Int32)
+  - ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment(System.Int32)
+  - ACC_API.ACC_AudioAccessibility.DisableSubtitlesMenu
+  - ACC_API.ACC_AudioAccessibility.DisableVisualNotificationMenu
+  - ACC_API.ACC_AudioAccessibility.EnableSubtitlesMenu
+  - ACC_API.ACC_AudioAccessibility.EnableVisualNotificationMenu
+  - ACC_API.ACC_AudioAccessibility.GetActorsNameColorsEnabled
+  - ACC_API.ACC_AudioAccessibility.GetActorsNameEnabled
+  - ACC_API.ACC_AudioAccessibility.GetFeatureState(ACC_API.AudioFeatures)
+  - ACC_API.ACC_AudioAccessibility.GetSubtitleBackgroundColor
+  - ACC_API.ACC_AudioAccessibility.GetSubtitleFontColor
+  - ACC_API.ACC_AudioAccessibility.GetSubtitleFontSize
+  - ACC_API.ACC_AudioAccessibility.GetVisualNotificationBackgroundColor
+  - ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontColor
+  - ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontSize
+  - ACC_API.ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment
+  - ACC_API.ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen
+  - ACC_API.ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment
+  - ACC_API.ACC_AudioAccessibility.LoadUserPreferences
+  - ACC_API.ACC_AudioAccessibility.LoadUserPreferencesSubtitles
+  - ACC_API.ACC_AudioAccessibility.LoadUserPreferencesVisualNotification
+  - ACC_API.ACC_AudioAccessibility.PlaySubtitle(System.String)
+  - ACC_API.ACC_AudioAccessibility.PlayVisualNotification(System.String)
+  - ACC_API.ACC_AudioAccessibility.ResetActorsName
+  - ACC_API.ACC_AudioAccessibility.ResetActorsNameColors
+  - ACC_API.ACC_AudioAccessibility.ResetFeatureState(ACC_API.AudioFeatures)
+  - ACC_API.ACC_AudioAccessibility.ResetSubtitleBackgroundColor
+  - ACC_API.ACC_AudioAccessibility.ResetSubtitleFontColor
+  - ACC_API.ACC_AudioAccessibility.ResetSubtitleFontSize
+  - ACC_API.ACC_AudioAccessibility.ResetSubtitleSettings
+  - ACC_API.ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor
+  - ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontColor
+  - ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontSize
+  - ACC_API.ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment
+  - ACC_API.ACC_AudioAccessibility.ResetVisualNotificationSettings
+  - ACC_API.ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment
+  - ACC_API.ACC_AudioAccessibility.SetFeatureState(ACC_API.AudioFeatures,System.Boolean)
+  - ACC_API.ACC_AudioAccessibility.ShowActorsName(System.Boolean)
+  - ACC_API.ACC_AudioAccessibility.ShowActorsNameColors(System.Boolean)
+  langs:
+  - csharp
+  - vb
+  name: ACC_AudioAccessibility
+  nameWithType: ACC_AudioAccessibility
+  fullName: ACC_API.ACC_AudioAccessibility
+  type: Class
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ACC_AudioAccessibility
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 20
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public class ACC_AudioAccessibility
+    content.vb: Public Class ACC_AudioAccessibility
+  inheritance:
+  - System.Object
+- uid: ACC_API.ACC_AudioAccessibility.#ctor
+  commentId: M:ACC_API.ACC_AudioAccessibility.#ctor
+  id: '#ctor'
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ACC_AudioAccessibility()
+  nameWithType: ACC_AudioAccessibility.ACC_AudioAccessibility()
+  fullName: ACC_API.ACC_AudioAccessibility.ACC_AudioAccessibility()
+  type: Constructor
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: .ctor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 27
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public ACC_AudioAccessibility()
+    content.vb: Public Sub New()
+  overload: ACC_API.ACC_AudioAccessibility.#ctor*
+  nameWithType.vb: ACC_AudioAccessibility.New()
+  fullName.vb: ACC_API.ACC_AudioAccessibility.New()
+  name.vb: New()
+- uid: ACC_API.ACC_AudioAccessibility.SetFeatureState(ACC_API.AudioFeatures,System.Boolean)
+  commentId: M:ACC_API.ACC_AudioAccessibility.SetFeatureState(ACC_API.AudioFeatures,System.Boolean)
+  id: SetFeatureState(ACC_API.AudioFeatures,System.Boolean)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: SetFeatureState(AudioFeatures, bool)
+  nameWithType: ACC_AudioAccessibility.SetFeatureState(AudioFeatures, bool)
+  fullName: ACC_API.ACC_AudioAccessibility.SetFeatureState(ACC_API.AudioFeatures, bool)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: SetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 55
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Sets the state of a specified audio feature to either enabled or disabled.
+  example: []
+  syntax:
+    content: public void SetFeatureState(AudioFeatures feature, bool state)
+    parameters:
+    - id: feature
+      type: ACC_API.AudioFeatures
+      description: The audio feature to modify. Use AudioFeatures enum to specify the feature.
+    - id: state
+      type: System.Boolean
+      description: A boolean value indicating whether the feature should be enabled (true) or disabled (false).
+    content.vb: Public Sub SetFeatureState(feature As AudioFeatures, state As Boolean)
+  overload: ACC_API.ACC_AudioAccessibility.SetFeatureState*
+  nameWithType.vb: ACC_AudioAccessibility.SetFeatureState(AudioFeatures, Boolean)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.SetFeatureState(ACC_API.AudioFeatures, Boolean)
+  name.vb: SetFeatureState(AudioFeatures, Boolean)
+- uid: ACC_API.ACC_AudioAccessibility.GetFeatureState(ACC_API.AudioFeatures)
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetFeatureState(ACC_API.AudioFeatures)
+  id: GetFeatureState(ACC_API.AudioFeatures)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetFeatureState(AudioFeatures)
+  nameWithType: ACC_AudioAccessibility.GetFeatureState(AudioFeatures)
+  fullName: ACC_API.ACC_AudioAccessibility.GetFeatureState(ACC_API.AudioFeatures)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 76
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the enabled state of the specified audio feature from player preferences.
+  example: []
+  syntax:
+    content: public bool GetFeatureState(AudioFeatures feature)
+    parameters:
+    - id: feature
+      type: ACC_API.AudioFeatures
+      description: An enum value representing the audio feature to check (e.g., Subtitles, VisualNotification).
+    return:
+      type: System.Boolean
+      description: <code>true</code> if the specified feature is enabled in player preferences; otherwise, <code>false</code>.
+    content.vb: Public Function GetFeatureState(feature As AudioFeatures) As Boolean
+  overload: ACC_API.ACC_AudioAccessibility.GetFeatureState*
+- uid: ACC_API.ACC_AudioAccessibility.ResetFeatureState(ACC_API.AudioFeatures)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetFeatureState(ACC_API.AudioFeatures)
+  id: ResetFeatureState(ACC_API.AudioFeatures)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetFeatureState(AudioFeatures)
+  nameWithType: ACC_AudioAccessibility.ResetFeatureState(AudioFeatures)
+  fullName: ACC_API.ACC_AudioAccessibility.ResetFeatureState(ACC_API.AudioFeatures)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 103
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Resets the state of the specified audio feature to its default settings.
+  example: []
+  syntax:
+    content: public void ResetFeatureState(AudioFeatures feature)
+    parameters:
+    - id: feature
+      type: ACC_API.AudioFeatures
+      description: The audio feature to reset (e.g., subtitles, visual notifications).
+    content.vb: Public Sub ResetFeatureState(feature As AudioFeatures)
+  overload: ACC_API.ACC_AudioAccessibility.ResetFeatureState*
+- uid: ACC_API.ACC_AudioAccessibility.LoadUserPreferences
+  commentId: M:ACC_API.ACC_AudioAccessibility.LoadUserPreferences
+  id: LoadUserPreferences
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: LoadUserPreferences()
+  nameWithType: ACC_AudioAccessibility.LoadUserPreferences()
+  fullName: ACC_API.ACC_AudioAccessibility.LoadUserPreferences()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: LoadUserPreferences
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 119
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Loads and applies the user's accessibility preferences related to audio features.
+  example: []
+  syntax:
+    content: public void LoadUserPreferences()
+    content.vb: Public Sub LoadUserPreferences()
+  overload: ACC_API.ACC_AudioAccessibility.LoadUserPreferences*
+- uid: ACC_API.ACC_AudioAccessibility.EnableSubtitlesMenu
+  commentId: M:ACC_API.ACC_AudioAccessibility.EnableSubtitlesMenu
+  id: EnableSubtitlesMenu
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: EnableSubtitlesMenu()
+  nameWithType: ACC_AudioAccessibility.EnableSubtitlesMenu()
+  fullName: ACC_API.ACC_AudioAccessibility.EnableSubtitlesMenu()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: EnableSubtitlesMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 130
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Enables the subtitles menu through the associated subtitles manager.
+  example: []
+  syntax:
+    content: public void EnableSubtitlesMenu()
+    content.vb: Public Sub EnableSubtitlesMenu()
+  overload: ACC_API.ACC_AudioAccessibility.EnableSubtitlesMenu*
+- uid: ACC_API.ACC_AudioAccessibility.DisableSubtitlesMenu
+  commentId: M:ACC_API.ACC_AudioAccessibility.DisableSubtitlesMenu
+  id: DisableSubtitlesMenu
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: DisableSubtitlesMenu()
+  nameWithType: ACC_AudioAccessibility.DisableSubtitlesMenu()
+  fullName: ACC_API.ACC_AudioAccessibility.DisableSubtitlesMenu()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: DisableSubtitlesMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 138
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Disables the subtitles menu through the associated subtitles manager.
+  example: []
+  syntax:
+    content: public void DisableSubtitlesMenu()
+    content.vb: Public Sub DisableSubtitlesMenu()
+  overload: ACC_API.ACC_AudioAccessibility.DisableSubtitlesMenu*
+- uid: ACC_API.ACC_AudioAccessibility.PlaySubtitle(System.String)
+  commentId: M:ACC_API.ACC_AudioAccessibility.PlaySubtitle(System.String)
+  id: PlaySubtitle(System.String)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: PlaySubtitle(string)
+  nameWithType: ACC_AudioAccessibility.PlaySubtitle(string)
+  fullName: ACC_API.ACC_AudioAccessibility.PlaySubtitle(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: PlaySubtitle
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 147
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Plays the subtitle with the specified name after loading the user's subtitle preferences.
+  example: []
+  syntax:
+    content: public void PlaySubtitle(string name)
+    parameters:
+    - id: name
+      type: System.String
+      description: The unique name identifier of the subtitle to be played. This name must match exactly with the subtitle file name created and configured in the accessibility creation window.
+    content.vb: Public Sub PlaySubtitle(name As String)
+  overload: ACC_API.ACC_AudioAccessibility.PlaySubtitle*
+  nameWithType.vb: ACC_AudioAccessibility.PlaySubtitle(String)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.PlaySubtitle(String)
+  name.vb: PlaySubtitle(String)
+- uid: ACC_API.ACC_AudioAccessibility.ShowActorsName(System.Boolean)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ShowActorsName(System.Boolean)
+  id: ShowActorsName(System.Boolean)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ShowActorsName(bool)
+  nameWithType: ACC_AudioAccessibility.ShowActorsName(bool)
+  fullName: ACC_API.ACC_AudioAccessibility.ShowActorsName(bool)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ShowActorsName
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 158
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Toggles the display of actors' names based on the provided boolean value and saves this setting.
+  example: []
+  syntax:
+    content: public void ShowActorsName(bool show)
+    parameters:
+    - id: show
+      type: System.Boolean
+      description: If true, enables the display of actors' names; if false, disables it.
+    content.vb: Public Sub ShowActorsName(show As Boolean)
+  overload: ACC_API.ACC_AudioAccessibility.ShowActorsName*
+  nameWithType.vb: ACC_AudioAccessibility.ShowActorsName(Boolean)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.ShowActorsName(Boolean)
+  name.vb: ShowActorsName(Boolean)
+- uid: ACC_API.ACC_AudioAccessibility.GetActorsNameEnabled
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetActorsNameEnabled
+  id: GetActorsNameEnabled
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetActorsNameEnabled()
+  nameWithType: ACC_AudioAccessibility.GetActorsNameEnabled()
+  fullName: ACC_API.ACC_AudioAccessibility.GetActorsNameEnabled()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetActorsNameEnabled
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 169
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the current setting for displaying actors' names.
+  example: []
+  syntax:
+    content: public bool GetActorsNameEnabled()
+    return:
+      type: System.Boolean
+      description: Returns true if the display of actors' names is enabled, otherwise returns false.
+    content.vb: Public Function GetActorsNameEnabled() As Boolean
+  overload: ACC_API.ACC_AudioAccessibility.GetActorsNameEnabled*
+- uid: ACC_API.ACC_AudioAccessibility.ResetActorsName
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetActorsName
+  id: ResetActorsName
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetActorsName()
+  nameWithType: ACC_AudioAccessibility.ResetActorsName()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetActorsName()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetActorsName
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 183
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the actor name setting to the loaded value if available,
+
+    updates the corresponding UI elements, and deletes the relevant key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetActorsName()
+    content.vb: Public Sub ResetActorsName()
+  overload: ACC_API.ACC_AudioAccessibility.ResetActorsName*
+- uid: ACC_API.ACC_AudioAccessibility.ShowActorsNameColors(System.Boolean)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ShowActorsNameColors(System.Boolean)
+  id: ShowActorsNameColors(System.Boolean)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ShowActorsNameColors(bool)
+  nameWithType: ACC_AudioAccessibility.ShowActorsNameColors(bool)
+  fullName: ACC_API.ACC_AudioAccessibility.ShowActorsNameColors(bool)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ShowActorsNameColors
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 192
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Toggles the coloring of actors' names in subtitles based on the provided boolean value and saves this setting.
+  example: []
+  syntax:
+    content: public void ShowActorsNameColors(bool show)
+    parameters:
+    - id: show
+      type: System.Boolean
+      description: If true, enables the coloring of actors' names; if false, disables it.
+    content.vb: Public Sub ShowActorsNameColors(show As Boolean)
+  overload: ACC_API.ACC_AudioAccessibility.ShowActorsNameColors*
+  nameWithType.vb: ACC_AudioAccessibility.ShowActorsNameColors(Boolean)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.ShowActorsNameColors(Boolean)
+  name.vb: ShowActorsNameColors(Boolean)
+- uid: ACC_API.ACC_AudioAccessibility.GetActorsNameColorsEnabled
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetActorsNameColorsEnabled
+  id: GetActorsNameColorsEnabled
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetActorsNameColorsEnabled()
+  nameWithType: ACC_AudioAccessibility.GetActorsNameColorsEnabled()
+  fullName: ACC_API.ACC_AudioAccessibility.GetActorsNameColorsEnabled()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetActorsNameColorsEnabled
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 203
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the current setting for coloring actors' names in subtitles.
+  example: []
+  syntax:
+    content: public bool GetActorsNameColorsEnabled()
+    return:
+      type: System.Boolean
+      description: Returns true if the coloring of actors' names is enabled, otherwise returns false.
+    content.vb: Public Function GetActorsNameColorsEnabled() As Boolean
+  overload: ACC_API.ACC_AudioAccessibility.GetActorsNameColorsEnabled*
+- uid: ACC_API.ACC_AudioAccessibility.ResetActorsNameColors
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetActorsNameColors
+  id: ResetActorsNameColors
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetActorsNameColors()
+  nameWithType: ACC_AudioAccessibility.ResetActorsNameColors()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetActorsNameColors()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetActorsNameColors
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 217
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the actor name colors setting to the loaded value if available,
+
+    updates the relevant UI elements, and removes the corresponding key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetActorsNameColors()
+    content.vb: Public Sub ResetActorsNameColors()
+  overload: ACC_API.ACC_AudioAccessibility.ResetActorsNameColors*
+- uid: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontColor(UnityEngine.Color)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontColor(UnityEngine.Color)
+  id: ChangeSubtitleFontColor(UnityEngine.Color)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeSubtitleFontColor(Color)
+  nameWithType: ACC_AudioAccessibility.ChangeSubtitleFontColor(Color)
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontColor(UnityEngine.Color)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeSubtitleFontColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 226
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Changes the subtitle font color to the new specified color and saves this preference for future sessions.
+  example: []
+  syntax:
+    content: public void ChangeSubtitleFontColor(Color newColor)
+    parameters:
+    - id: newColor
+      type: UnityEngine.Color
+      description: The new color to be applied to the subtitle text font. This color will also be saved in the user's preferences.
+    content.vb: Public Sub ChangeSubtitleFontColor(newColor As Color)
+  overload: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontColor*
+- uid: ACC_API.ACC_AudioAccessibility.GetSubtitleFontColor
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetSubtitleFontColor
+  id: GetSubtitleFontColor
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetSubtitleFontColor()
+  nameWithType: ACC_AudioAccessibility.GetSubtitleFontColor()
+  fullName: ACC_API.ACC_AudioAccessibility.GetSubtitleFontColor()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetSubtitleFontColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 238
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the preferred subtitle font color from user settings.
+  example: []
+  syntax:
+    content: public Color GetSubtitleFontColor()
+    return:
+      type: UnityEngine.Color
+      description: The Color object for the subtitle text. Defaults to the subtitle manager's color if no specific preference is set.
+    content.vb: Public Function GetSubtitleFontColor() As Color
+  overload: ACC_API.ACC_AudioAccessibility.GetSubtitleFontColor*
+- uid: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontColor
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetSubtitleFontColor
+  id: ResetSubtitleFontColor
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetSubtitleFontColor()
+  nameWithType: ACC_AudioAccessibility.ResetSubtitleFontColor()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontColor()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetSubtitleFontColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 255
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the text font color setting to the loaded value if available,
+
+    updates the relevant UI elements, and removes the corresponding key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetSubtitleFontColor()
+    content.vb: Public Sub ResetSubtitleFontColor()
+  overload: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontColor*
+- uid: ACC_API.ACC_AudioAccessibility.ChangeSubtitleBackgroundColor(UnityEngine.Color)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ChangeSubtitleBackgroundColor(UnityEngine.Color)
+  id: ChangeSubtitleBackgroundColor(UnityEngine.Color)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeSubtitleBackgroundColor(Color)
+  nameWithType: ACC_AudioAccessibility.ChangeSubtitleBackgroundColor(Color)
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeSubtitleBackgroundColor(UnityEngine.Color)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeSubtitleBackgroundColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 264
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Changes the background color of subtitles to a new specified color and saves this preference for future use.
+  example: []
+  syntax:
+    content: public void ChangeSubtitleBackgroundColor(Color newColor)
+    parameters:
+    - id: newColor
+      type: UnityEngine.Color
+      description: The new color to apply to the subtitle background. This color will be saved in the user's preferences and applied immediately to the subtitle background.
+    content.vb: Public Sub ChangeSubtitleBackgroundColor(newColor As Color)
+  overload: ACC_API.ACC_AudioAccessibility.ChangeSubtitleBackgroundColor*
+- uid: ACC_API.ACC_AudioAccessibility.GetSubtitleBackgroundColor
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetSubtitleBackgroundColor
+  id: GetSubtitleBackgroundColor
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetSubtitleBackgroundColor()
+  nameWithType: ACC_AudioAccessibility.GetSubtitleBackgroundColor()
+  fullName: ACC_API.ACC_AudioAccessibility.GetSubtitleBackgroundColor()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetSubtitleBackgroundColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 276
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the user's preferred subtitle background color from PlayerPrefs.
+  example: []
+  syntax:
+    content: public Color GetSubtitleBackgroundColor()
+    return:
+      type: UnityEngine.Color
+      description: The Color object representing the user's preferred subtitle background color. Returns a fully transparent white color if no preference is saved.
+    content.vb: Public Function GetSubtitleBackgroundColor() As Color
+  overload: ACC_API.ACC_AudioAccessibility.GetSubtitleBackgroundColor*
+- uid: ACC_API.ACC_AudioAccessibility.ResetSubtitleBackgroundColor
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetSubtitleBackgroundColor
+  id: ResetSubtitleBackgroundColor
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetSubtitleBackgroundColor()
+  nameWithType: ACC_AudioAccessibility.ResetSubtitleBackgroundColor()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetSubtitleBackgroundColor()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetSubtitleBackgroundColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 293
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the background color setting to the loaded value if available,
+
+    updates the relevant UI elements, and removes the associated key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetSubtitleBackgroundColor()
+    content.vb: Public Sub ResetSubtitleBackgroundColor()
+  overload: ACC_API.ACC_AudioAccessibility.ResetSubtitleBackgroundColor*
+- uid: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize(System.Int32)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize(System.Int32)
+  id: ChangeSubtitleFontSize(System.Int32)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeSubtitleFontSize(int)
+  nameWithType: ACC_AudioAccessibility.ChangeSubtitleFontSize(int)
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize(int)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeSubtitleFontSize
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 302
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Changes the font size of subtitles to a new specified size and saves this preference for future use.
+  example: []
+  syntax:
+    content: public void ChangeSubtitleFontSize(int newFontSize)
+    parameters:
+    - id: newFontSize
+      type: System.Int32
+      description: The new font size for subtitles. This value will be saved in the user's preferences and applied immediately to the subtitle text.
+    content.vb: Public Sub ChangeSubtitleFontSize(newFontSize As Integer)
+  overload: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize*
+  nameWithType.vb: ACC_AudioAccessibility.ChangeSubtitleFontSize(Integer)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize(Integer)
+  name.vb: ChangeSubtitleFontSize(Integer)
+- uid: ACC_API.ACC_AudioAccessibility.GetSubtitleFontSize
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetSubtitleFontSize
+  id: GetSubtitleFontSize
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetSubtitleFontSize()
+  nameWithType: ACC_AudioAccessibility.GetSubtitleFontSize()
+  fullName: ACC_API.ACC_AudioAccessibility.GetSubtitleFontSize()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetSubtitleFontSize
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 314
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the user's preferred subtitle font size from settings.
+  example: []
+  syntax:
+    content: public float GetSubtitleFontSize()
+    return:
+      type: System.Single
+      description: The font size for subtitles as a float. Returns the default size if no preference is set.
+    content.vb: Public Function GetSubtitleFontSize() As Single
+  overload: ACC_API.ACC_AudioAccessibility.GetSubtitleFontSize*
+- uid: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontSize
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetSubtitleFontSize
+  id: ResetSubtitleFontSize
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetSubtitleFontSize()
+  nameWithType: ACC_AudioAccessibility.ResetSubtitleFontSize()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontSize()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetSubtitleFontSize
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 328
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the font size setting to the loaded value if available,
+
+    updates the relevant UI elements, and deletes the associated key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetSubtitleFontSize()
+    content.vb: Public Sub ResetSubtitleFontSize()
+  overload: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontSize*
+- uid: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesSubtitles
+  commentId: M:ACC_API.ACC_AudioAccessibility.LoadUserPreferencesSubtitles
+  id: LoadUserPreferencesSubtitles
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: LoadUserPreferencesSubtitles()
+  nameWithType: ACC_AudioAccessibility.LoadUserPreferencesSubtitles()
+  fullName: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesSubtitles()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: LoadUserPreferencesSubtitles
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 336
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Loads the user's preferences for subtitles settings.
+  example: []
+  syntax:
+    content: public void LoadUserPreferencesSubtitles()
+    content.vb: Public Sub LoadUserPreferencesSubtitles()
+  overload: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesSubtitles*
+- uid: ACC_API.ACC_AudioAccessibility.ResetSubtitleSettings
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetSubtitleSettings
+  id: ResetSubtitleSettings
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetSubtitleSettings()
+  nameWithType: ACC_AudioAccessibility.ResetSubtitleSettings()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetSubtitleSettings()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetSubtitleSettings
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 345
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets all subtitle settings to the default or loaded values and updates the UI accordingly.
+
+    Removes any previously stored subtitle-related preferences from player preferences.
+  example: []
+  syntax:
+    content: public void ResetSubtitleSettings()
+    content.vb: Public Sub ResetSubtitleSettings()
+  overload: ACC_API.ACC_AudioAccessibility.ResetSubtitleSettings*
+- uid: ACC_API.ACC_AudioAccessibility.EnableVisualNotificationMenu
+  commentId: M:ACC_API.ACC_AudioAccessibility.EnableVisualNotificationMenu
+  id: EnableVisualNotificationMenu
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: EnableVisualNotificationMenu()
+  nameWithType: ACC_AudioAccessibility.EnableVisualNotificationMenu()
+  fullName: ACC_API.ACC_AudioAccessibility.EnableVisualNotificationMenu()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: EnableVisualNotificationMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 357
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Enables the visual notification menu through the associated visual notification manager.
+  example: []
+  syntax:
+    content: public void EnableVisualNotificationMenu()
+    content.vb: Public Sub EnableVisualNotificationMenu()
+  overload: ACC_API.ACC_AudioAccessibility.EnableVisualNotificationMenu*
+- uid: ACC_API.ACC_AudioAccessibility.DisableVisualNotificationMenu
+  commentId: M:ACC_API.ACC_AudioAccessibility.DisableVisualNotificationMenu
+  id: DisableVisualNotificationMenu
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: DisableVisualNotificationMenu()
+  nameWithType: ACC_AudioAccessibility.DisableVisualNotificationMenu()
+  fullName: ACC_API.ACC_AudioAccessibility.DisableVisualNotificationMenu()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: DisableVisualNotificationMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 365
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Disables the visual notification menu through the associated visual notification manager.
+  example: []
+  syntax:
+    content: public void DisableVisualNotificationMenu()
+    content.vb: Public Sub DisableVisualNotificationMenu()
+  overload: ACC_API.ACC_AudioAccessibility.DisableVisualNotificationMenu*
+- uid: ACC_API.ACC_AudioAccessibility.PlayVisualNotification(System.String)
+  commentId: M:ACC_API.ACC_AudioAccessibility.PlayVisualNotification(System.String)
+  id: PlayVisualNotification(System.String)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: PlayVisualNotification(string)
+  nameWithType: ACC_AudioAccessibility.PlayVisualNotification(string)
+  fullName: ACC_API.ACC_AudioAccessibility.PlayVisualNotification(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: PlayVisualNotification
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 375
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Plays a visual notification based on a specified type.
+
+    This function loads user preferences for visual notifications, then loads and plays the specified visual notification using the VisualNotificationManager.
+  example: []
+  syntax:
+    content: public void PlayVisualNotification(string visualNotification)
+    parameters:
+    - id: visualNotification
+      type: System.String
+      description: The identifier for the type of visual notification to be played.
+    content.vb: Public Sub PlayVisualNotification(visualNotification As String)
+  overload: ACC_API.ACC_AudioAccessibility.PlayVisualNotification*
+  nameWithType.vb: ACC_AudioAccessibility.PlayVisualNotification(String)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.PlayVisualNotification(String)
+  name.vb: PlayVisualNotification(String)
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment(System.Int32)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment(System.Int32)
+  id: ChangeVisualNotificationHorizontalAlignment(System.Int32)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeVisualNotificationHorizontalAlignment(int)
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment(int)
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment(int)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeVisualNotificationHorizontalAlignment
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 399
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Adjusts the horizontal alignment of visual notifications based on the specified alignment parameter and saves the preference.
+  example: []
+  syntax:
+    content: public void ChangeVisualNotificationHorizontalAlignment(int alignment)
+    parameters:
+    - id: alignment
+      type: System.Int32
+      description: 'An integer representing the desired horizontal alignment: 0 for Left, 1 for Center, and 2 for Right. Any other value logs an error.'
+    content.vb: Public Sub ChangeVisualNotificationHorizontalAlignment(alignment As Integer)
+  overload: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment*
+  nameWithType.vb: ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment(Integer)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment(Integer)
+  name.vb: ChangeVisualNotificationHorizontalAlignment(Integer)
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment
+  id: GetVisualNotificationHorizontalAlignment
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetVisualNotificationHorizontalAlignment()
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment()
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetVisualNotificationHorizontalAlignment
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 415
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the user's preferred horizontal alignment setting for visual notifications.
+  example: []
+  syntax:
+    content: public string GetVisualNotificationHorizontalAlignment()
+    return:
+      type: System.String
+      description: A string representing the horizontal alignment preference. Defaults to "Left" if no preference has been saved.
+    content.vb: Public Function GetVisualNotificationHorizontalAlignment() As String
+  overload: ACC_API.ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment*
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment
+  id: ResetVisualNotificationHorizontalAlignment
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetVisualNotificationHorizontalAlignment()
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetVisualNotificationHorizontalAlignment
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 429
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the horizontal alignment setting to the loaded value if available,
+
+    updates the relevant UI elements, and removes the corresponding key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetVisualNotificationHorizontalAlignment()
+    content.vb: Public Sub ResetVisualNotificationHorizontalAlignment()
+  overload: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment*
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment(System.Int32)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment(System.Int32)
+  id: ChangeVisualNotificationVerticalAlignment(System.Int32)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeVisualNotificationVerticalAlignment(int)
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment(int)
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment(int)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeVisualNotificationVerticalAlignment
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 438
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Adjusts the vertical alignment of visual notifications based on the specified alignment parameter and saves the preference.
+  example: []
+  syntax:
+    content: public void ChangeVisualNotificationVerticalAlignment(int alignment)
+    parameters:
+    - id: alignment
+      type: System.Int32
+      description: 'An integer representing the desired vertical alignment: 0 for Top, 1 for Center, and 2 for Down. Any other value results in an error.'
+    content.vb: Public Sub ChangeVisualNotificationVerticalAlignment(alignment As Integer)
+  overload: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment*
+  nameWithType.vb: ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment(Integer)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment(Integer)
+  name.vb: ChangeVisualNotificationVerticalAlignment(Integer)
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment
+  id: GetVisualNotificationVerticalAlignment
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetVisualNotificationVerticalAlignment()
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment()
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetVisualNotificationVerticalAlignment
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 454
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the user's preferred vertical alignment setting for visual notifications.
+  example: []
+  syntax:
+    content: public string GetVisualNotificationVerticalAlignment()
+    return:
+      type: System.String
+      description: A string representing the vertical alignment preference for visual notifications. Defaults to "Top" if no preference has been previously saved.
+    content.vb: Public Function GetVisualNotificationVerticalAlignment() As String
+  overload: ACC_API.ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment*
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment
+  id: ResetVisualNotificationVerticalAlignment
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetVisualNotificationVerticalAlignment()
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetVisualNotificationVerticalAlignment
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 468
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the vertical alignment setting to the loaded value if available,
+
+    updates the relevant UI elements, and removes the corresponding key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetVisualNotificationVerticalAlignment()
+    content.vb: Public Sub ResetVisualNotificationVerticalAlignment()
+  overload: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment*
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen(System.Int32)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen(System.Int32)
+  id: ChangeVisualNotificationTimeOnScreen(System.Int32)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeVisualNotificationTimeOnScreen(int)
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen(int)
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen(int)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeVisualNotificationTimeOnScreen
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 477
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Changes the duration for which visual notifications remain visible on the screen.
+  example: []
+  syntax:
+    content: public void ChangeVisualNotificationTimeOnScreen(int newTime)
+    parameters:
+    - id: newTime
+      type: System.Int32
+      description: The new time duration (in seconds) for visual notifications to be displayed.
+    content.vb: Public Sub ChangeVisualNotificationTimeOnScreen(newTime As Integer)
+  overload: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen*
+  nameWithType.vb: ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen(Integer)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen(Integer)
+  name.vb: ChangeVisualNotificationTimeOnScreen(Integer)
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen
+  id: GetVisualNotificationTimeOnScreen
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetVisualNotificationTimeOnScreen()
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen()
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetVisualNotificationTimeOnScreen
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 488
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the current duration time for which visual notifications are displayed on the screen.
+  example: []
+  syntax:
+    content: public float GetVisualNotificationTimeOnScreen()
+    return:
+      type: System.Single
+      description: The duration time in seconds. Returns -1 if the setting has not been previously set.
+    content.vb: Public Function GetVisualNotificationTimeOnScreen() As Single
+  overload: ACC_API.ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen*
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontColor(UnityEngine.Color)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontColor(UnityEngine.Color)
+  id: ChangeVisualNotificationFontColor(UnityEngine.Color)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeVisualNotificationFontColor(Color)
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationFontColor(Color)
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontColor(UnityEngine.Color)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeVisualNotificationFontColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 502
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Changes the font color of visual notifications to a new specified color and saves this preference for future use.
+  example: []
+  syntax:
+    content: public void ChangeVisualNotificationFontColor(Color newColor)
+    parameters:
+    - id: newColor
+      type: UnityEngine.Color
+      description: The new color to apply to the visual notification font. This color will be saved in the user's preferences and applied immediately to the visual notification text.
+    content.vb: Public Sub ChangeVisualNotificationFontColor(newColor As Color)
+  overload: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontColor*
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontColor
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontColor
+  id: GetVisualNotificationFontColor
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetVisualNotificationFontColor()
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationFontColor()
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontColor()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetVisualNotificationFontColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 514
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the user's preferred font color for visual notifications from PlayerPrefs.
+  example: []
+  syntax:
+    content: public Color GetVisualNotificationFontColor()
+    return:
+      type: UnityEngine.Color
+      description: The Color object representing the user's preferred font color for visual notifications. Returns a default color of solid black if no preference has been saved.
+    content.vb: Public Function GetVisualNotificationFontColor() As Color
+  overload: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontColor*
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontColor
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontColor
+  id: ResetVisualNotificationFontColor
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetVisualNotificationFontColor()
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationFontColor()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontColor()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetVisualNotificationFontColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 531
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the font size setting to the loaded value if available,
+
+    updates the relevant UI elements, and deletes the associated key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetVisualNotificationFontColor()
+    content.vb: Public Sub ResetVisualNotificationFontColor()
+  overload: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontColor*
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor(UnityEngine.Color)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor(UnityEngine.Color)
+  id: ChangeVisualNotificationBackgroundColor(UnityEngine.Color)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeVisualNotificationBackgroundColor(Color)
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor(Color)
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor(UnityEngine.Color)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeVisualNotificationBackgroundColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 540
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Changes the background color of visual notifications to a new specified color and saves this preference for future use.
+  example: []
+  syntax:
+    content: public void ChangeVisualNotificationBackgroundColor(Color newColor)
+    parameters:
+    - id: newColor
+      type: UnityEngine.Color
+      description: The new color to be applied to the background of visual notifications. This color will be saved in the user's preferences and applied immediately to the visual notification background.
+    content.vb: Public Sub ChangeVisualNotificationBackgroundColor(newColor As Color)
+  overload: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor*
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationBackgroundColor
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetVisualNotificationBackgroundColor
+  id: GetVisualNotificationBackgroundColor
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetVisualNotificationBackgroundColor()
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationBackgroundColor()
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationBackgroundColor()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetVisualNotificationBackgroundColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 552
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the user's preferred background color for visual notifications from PlayerPrefs.
+  example: []
+  syntax:
+    content: public Color GetVisualNotificationBackgroundColor()
+    return:
+      type: UnityEngine.Color
+      description: The Color object representing the user's preferred background color for visual notifications. Returns a default color of transparent white if no preference has been saved.
+    content.vb: Public Function GetVisualNotificationBackgroundColor() As Color
+  overload: ACC_API.ACC_AudioAccessibility.GetVisualNotificationBackgroundColor*
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor
+  id: ResetVisualNotificationBackgroundColor
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetVisualNotificationBackgroundColor()
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetVisualNotificationBackgroundColor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 569
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the background color setting to the loaded value if available,
+
+    updates the relevant UI elements, and removes the associated key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetVisualNotificationBackgroundColor()
+    content.vb: Public Sub ResetVisualNotificationBackgroundColor()
+  overload: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor*
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontSize(System.Int32)
+  commentId: M:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontSize(System.Int32)
+  id: ChangeVisualNotificationFontSize(System.Int32)
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ChangeVisualNotificationFontSize(int)
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationFontSize(int)
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontSize(int)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ChangeVisualNotificationFontSize
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 578
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Changes the font size of visual notifications to a new specified size and saves this preference for future sessions.
+  example: []
+  syntax:
+    content: public void ChangeVisualNotificationFontSize(int newFontSize)
+    parameters:
+    - id: newFontSize
+      type: System.Int32
+      description: The new font size to be applied to visual notifications. This size will be saved in the user's preferences and applied immediately to the visual notification text.
+    content.vb: Public Sub ChangeVisualNotificationFontSize(newFontSize As Integer)
+  overload: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontSize*
+  nameWithType.vb: ACC_AudioAccessibility.ChangeVisualNotificationFontSize(Integer)
+  fullName.vb: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontSize(Integer)
+  name.vb: ChangeVisualNotificationFontSize(Integer)
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontSize
+  commentId: M:ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontSize
+  id: GetVisualNotificationFontSize
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetVisualNotificationFontSize()
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationFontSize()
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontSize()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetVisualNotificationFontSize
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 590
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the user's preferred font size for visual notifications from PlayerPrefs.
+  example: []
+  syntax:
+    content: public float GetVisualNotificationFontSize()
+    return:
+      type: System.Single
+      description: The font size of visual notifications as a float. Returns a default size of 30 if no preference has been saved.
+    content.vb: Public Function GetVisualNotificationFontSize() As Single
+  overload: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontSize*
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontSize
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontSize
+  id: ResetVisualNotificationFontSize
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetVisualNotificationFontSize()
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationFontSize()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontSize()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetVisualNotificationFontSize
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 604
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the font size setting to the loaded value if available,
+
+    updates the relevant UI elements, and deletes the associated key from player preferences.
+  example: []
+  syntax:
+    content: public void ResetVisualNotificationFontSize()
+    content.vb: Public Sub ResetVisualNotificationFontSize()
+  overload: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontSize*
+- uid: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesVisualNotification
+  commentId: M:ACC_API.ACC_AudioAccessibility.LoadUserPreferencesVisualNotification
+  id: LoadUserPreferencesVisualNotification
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: LoadUserPreferencesVisualNotification()
+  nameWithType: ACC_AudioAccessibility.LoadUserPreferencesVisualNotification()
+  fullName: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesVisualNotification()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: LoadUserPreferencesVisualNotification
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 612
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Loads the user's preferences for visual notifications.
+  example: []
+  syntax:
+    content: public void LoadUserPreferencesVisualNotification()
+    content.vb: Public Sub LoadUserPreferencesVisualNotification()
+  overload: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesVisualNotification*
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationSettings
+  commentId: M:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationSettings
+  id: ResetVisualNotificationSettings
+  parent: ACC_API.ACC_AudioAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetVisualNotificationSettings()
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationSettings()
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationSettings()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetVisualNotificationSettings
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
+    startLine: 624
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Resets the visual notification settings to their default values by deleting specific PlayerPrefs keys related to visual notifications and updating the visual notification manager.
+  remarks: >-
+    This function removes PlayerPrefs entries for the horizontal alignment, vertical alignment, font color, background color, and font size of visual notifications.
+
+    After deleting these keys, it invokes accVisualNotificationManager.ResetVisualNotificationSettings() to reapply default settings.
+  example: []
+  syntax:
+    content: public void ResetVisualNotificationSettings()
+    content.vb: Public Sub ResetVisualNotificationSettings()
+  overload: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationSettings*
+references:
+- uid: ACC_API
+  commentId: N:ACC_API
+  href: ACC_API.html
+  name: ACC_API
+  nameWithType: ACC_API
+  fullName: ACC_API
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ACC_API.ACC_AudioAccessibility.#ctor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.#ctor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility__ctor
+  name: ACC_AudioAccessibility
+  nameWithType: ACC_AudioAccessibility.ACC_AudioAccessibility
+  fullName: ACC_API.ACC_AudioAccessibility.ACC_AudioAccessibility
+  nameWithType.vb: ACC_AudioAccessibility.New
+  fullName.vb: ACC_API.ACC_AudioAccessibility.New
+  name.vb: New
+- uid: ACC_API.ACC_AudioAccessibility.SetFeatureState*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.SetFeatureState
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_SetFeatureState_ACC_API_AudioFeatures_System_Boolean_
+  name: SetFeatureState
+  nameWithType: ACC_AudioAccessibility.SetFeatureState
+  fullName: ACC_API.ACC_AudioAccessibility.SetFeatureState
+- uid: ACC_API.AudioFeatures
+  commentId: T:ACC_API.AudioFeatures
+  parent: ACC_API
+  href: ACC_API.AudioFeatures.html
+  name: AudioFeatures
+  nameWithType: AudioFeatures
+  fullName: ACC_API.AudioFeatures
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ACC_API.ACC_AudioAccessibility.GetFeatureState*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetFeatureState
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetFeatureState_ACC_API_AudioFeatures_
+  name: GetFeatureState
+  nameWithType: ACC_AudioAccessibility.GetFeatureState
+  fullName: ACC_API.ACC_AudioAccessibility.GetFeatureState
+- uid: ACC_API.ACC_AudioAccessibility.ResetFeatureState*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetFeatureState
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetFeatureState_ACC_API_AudioFeatures_
+  name: ResetFeatureState
+  nameWithType: ACC_AudioAccessibility.ResetFeatureState
+  fullName: ACC_API.ACC_AudioAccessibility.ResetFeatureState
+- uid: ACC_API.ACC_AudioAccessibility.LoadUserPreferences*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.LoadUserPreferences
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_LoadUserPreferences
+  name: LoadUserPreferences
+  nameWithType: ACC_AudioAccessibility.LoadUserPreferences
+  fullName: ACC_API.ACC_AudioAccessibility.LoadUserPreferences
+- uid: ACC_API.ACC_AudioAccessibility.EnableSubtitlesMenu*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.EnableSubtitlesMenu
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_EnableSubtitlesMenu
+  name: EnableSubtitlesMenu
+  nameWithType: ACC_AudioAccessibility.EnableSubtitlesMenu
+  fullName: ACC_API.ACC_AudioAccessibility.EnableSubtitlesMenu
+- uid: ACC_API.ACC_AudioAccessibility.DisableSubtitlesMenu*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.DisableSubtitlesMenu
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_DisableSubtitlesMenu
+  name: DisableSubtitlesMenu
+  nameWithType: ACC_AudioAccessibility.DisableSubtitlesMenu
+  fullName: ACC_API.ACC_AudioAccessibility.DisableSubtitlesMenu
+- uid: ACC_API.ACC_AudioAccessibility.PlaySubtitle*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.PlaySubtitle
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_PlaySubtitle_System_String_
+  name: PlaySubtitle
+  nameWithType: ACC_AudioAccessibility.PlaySubtitle
+  fullName: ACC_API.ACC_AudioAccessibility.PlaySubtitle
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: ACC_API.ACC_AudioAccessibility.ShowActorsName*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ShowActorsName
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ShowActorsName_System_Boolean_
+  name: ShowActorsName
+  nameWithType: ACC_AudioAccessibility.ShowActorsName
+  fullName: ACC_API.ACC_AudioAccessibility.ShowActorsName
+- uid: ACC_API.ACC_AudioAccessibility.GetActorsNameEnabled*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetActorsNameEnabled
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetActorsNameEnabled
+  name: GetActorsNameEnabled
+  nameWithType: ACC_AudioAccessibility.GetActorsNameEnabled
+  fullName: ACC_API.ACC_AudioAccessibility.GetActorsNameEnabled
+- uid: ACC_API.ACC_AudioAccessibility.ResetActorsName*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetActorsName
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetActorsName
+  name: ResetActorsName
+  nameWithType: ACC_AudioAccessibility.ResetActorsName
+  fullName: ACC_API.ACC_AudioAccessibility.ResetActorsName
+- uid: ACC_API.ACC_AudioAccessibility.ShowActorsNameColors*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ShowActorsNameColors
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ShowActorsNameColors_System_Boolean_
+  name: ShowActorsNameColors
+  nameWithType: ACC_AudioAccessibility.ShowActorsNameColors
+  fullName: ACC_API.ACC_AudioAccessibility.ShowActorsNameColors
+- uid: ACC_API.ACC_AudioAccessibility.GetActorsNameColorsEnabled*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetActorsNameColorsEnabled
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetActorsNameColorsEnabled
+  name: GetActorsNameColorsEnabled
+  nameWithType: ACC_AudioAccessibility.GetActorsNameColorsEnabled
+  fullName: ACC_API.ACC_AudioAccessibility.GetActorsNameColorsEnabled
+- uid: ACC_API.ACC_AudioAccessibility.ResetActorsNameColors*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetActorsNameColors
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetActorsNameColors
+  name: ResetActorsNameColors
+  nameWithType: ACC_AudioAccessibility.ResetActorsNameColors
+  fullName: ACC_API.ACC_AudioAccessibility.ResetActorsNameColors
+- uid: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ChangeSubtitleFontColor_UnityEngine_Color_
+  name: ChangeSubtitleFontColor
+  nameWithType: ACC_AudioAccessibility.ChangeSubtitleFontColor
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontColor
+- uid: UnityEngine.Color
+  commentId: T:UnityEngine.Color
+  parent: UnityEngine
+  isExternal: true
+  name: Color
+  nameWithType: Color
+  fullName: UnityEngine.Color
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: ACC_API.ACC_AudioAccessibility.GetSubtitleFontColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetSubtitleFontColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetSubtitleFontColor
+  name: GetSubtitleFontColor
+  nameWithType: ACC_AudioAccessibility.GetSubtitleFontColor
+  fullName: ACC_API.ACC_AudioAccessibility.GetSubtitleFontColor
+- uid: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetSubtitleFontColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetSubtitleFontColor
+  name: ResetSubtitleFontColor
+  nameWithType: ACC_AudioAccessibility.ResetSubtitleFontColor
+  fullName: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontColor
+- uid: ACC_API.ACC_AudioAccessibility.ChangeSubtitleBackgroundColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ChangeSubtitleBackgroundColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ChangeSubtitleBackgroundColor_UnityEngine_Color_
+  name: ChangeSubtitleBackgroundColor
+  nameWithType: ACC_AudioAccessibility.ChangeSubtitleBackgroundColor
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeSubtitleBackgroundColor
+- uid: ACC_API.ACC_AudioAccessibility.GetSubtitleBackgroundColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetSubtitleBackgroundColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetSubtitleBackgroundColor
+  name: GetSubtitleBackgroundColor
+  nameWithType: ACC_AudioAccessibility.GetSubtitleBackgroundColor
+  fullName: ACC_API.ACC_AudioAccessibility.GetSubtitleBackgroundColor
+- uid: ACC_API.ACC_AudioAccessibility.ResetSubtitleBackgroundColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetSubtitleBackgroundColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetSubtitleBackgroundColor
+  name: ResetSubtitleBackgroundColor
+  nameWithType: ACC_AudioAccessibility.ResetSubtitleBackgroundColor
+  fullName: ACC_API.ACC_AudioAccessibility.ResetSubtitleBackgroundColor
+- uid: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ChangeSubtitleFontSize_System_Int32_
+  name: ChangeSubtitleFontSize
+  nameWithType: ACC_AudioAccessibility.ChangeSubtitleFontSize
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize
+- uid: System.Int32
+  commentId: T:System.Int32
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.int32
+  name: int
+  nameWithType: int
+  fullName: int
+  nameWithType.vb: Integer
+  fullName.vb: Integer
+  name.vb: Integer
+- uid: ACC_API.ACC_AudioAccessibility.GetSubtitleFontSize*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetSubtitleFontSize
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetSubtitleFontSize
+  name: GetSubtitleFontSize
+  nameWithType: ACC_AudioAccessibility.GetSubtitleFontSize
+  fullName: ACC_API.ACC_AudioAccessibility.GetSubtitleFontSize
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontSize*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetSubtitleFontSize
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetSubtitleFontSize
+  name: ResetSubtitleFontSize
+  nameWithType: ACC_AudioAccessibility.ResetSubtitleFontSize
+  fullName: ACC_API.ACC_AudioAccessibility.ResetSubtitleFontSize
+- uid: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesSubtitles*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.LoadUserPreferencesSubtitles
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_LoadUserPreferencesSubtitles
+  name: LoadUserPreferencesSubtitles
+  nameWithType: ACC_AudioAccessibility.LoadUserPreferencesSubtitles
+  fullName: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesSubtitles
+- uid: ACC_API.ACC_AudioAccessibility.ResetSubtitleSettings*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetSubtitleSettings
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetSubtitleSettings
+  name: ResetSubtitleSettings
+  nameWithType: ACC_AudioAccessibility.ResetSubtitleSettings
+  fullName: ACC_API.ACC_AudioAccessibility.ResetSubtitleSettings
+- uid: ACC_API.ACC_AudioAccessibility.EnableVisualNotificationMenu*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.EnableVisualNotificationMenu
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_EnableVisualNotificationMenu
+  name: EnableVisualNotificationMenu
+  nameWithType: ACC_AudioAccessibility.EnableVisualNotificationMenu
+  fullName: ACC_API.ACC_AudioAccessibility.EnableVisualNotificationMenu
+- uid: ACC_API.ACC_AudioAccessibility.DisableVisualNotificationMenu*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.DisableVisualNotificationMenu
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_DisableVisualNotificationMenu
+  name: DisableVisualNotificationMenu
+  nameWithType: ACC_AudioAccessibility.DisableVisualNotificationMenu
+  fullName: ACC_API.ACC_AudioAccessibility.DisableVisualNotificationMenu
+- uid: ACC_API.ACC_AudioAccessibility.PlayVisualNotification*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.PlayVisualNotification
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_PlayVisualNotification_System_String_
+  name: PlayVisualNotification
+  nameWithType: ACC_AudioAccessibility.PlayVisualNotification
+  fullName: ACC_API.ACC_AudioAccessibility.PlayVisualNotification
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ChangeVisualNotificationHorizontalAlignment_System_Int32_
+  name: ChangeVisualNotificationHorizontalAlignment
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationHorizontalAlignment
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetVisualNotificationHorizontalAlignment
+  name: GetVisualNotificationHorizontalAlignment
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationHorizontalAlignment
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetVisualNotificationHorizontalAlignment
+  name: ResetVisualNotificationHorizontalAlignment
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationHorizontalAlignment
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ChangeVisualNotificationVerticalAlignment_System_Int32_
+  name: ChangeVisualNotificationVerticalAlignment
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationVerticalAlignment
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetVisualNotificationVerticalAlignment
+  name: GetVisualNotificationVerticalAlignment
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationVerticalAlignment
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetVisualNotificationVerticalAlignment
+  name: ResetVisualNotificationVerticalAlignment
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationVerticalAlignment
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ChangeVisualNotificationTimeOnScreen_System_Int32_
+  name: ChangeVisualNotificationTimeOnScreen
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationTimeOnScreen
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetVisualNotificationTimeOnScreen
+  name: GetVisualNotificationTimeOnScreen
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationTimeOnScreen
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ChangeVisualNotificationFontColor_UnityEngine_Color_
+  name: ChangeVisualNotificationFontColor
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationFontColor
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontColor
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetVisualNotificationFontColor
+  name: GetVisualNotificationFontColor
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationFontColor
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontColor
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetVisualNotificationFontColor
+  name: ResetVisualNotificationFontColor
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationFontColor
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontColor
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ChangeVisualNotificationBackgroundColor_UnityEngine_Color_
+  name: ChangeVisualNotificationBackgroundColor
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationBackgroundColor
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationBackgroundColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetVisualNotificationBackgroundColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetVisualNotificationBackgroundColor
+  name: GetVisualNotificationBackgroundColor
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationBackgroundColor
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationBackgroundColor
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetVisualNotificationBackgroundColor
+  name: ResetVisualNotificationBackgroundColor
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationBackgroundColor
+- uid: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontSize*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontSize
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ChangeVisualNotificationFontSize_System_Int32_
+  name: ChangeVisualNotificationFontSize
+  nameWithType: ACC_AudioAccessibility.ChangeVisualNotificationFontSize
+  fullName: ACC_API.ACC_AudioAccessibility.ChangeVisualNotificationFontSize
+- uid: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontSize*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontSize
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_GetVisualNotificationFontSize
+  name: GetVisualNotificationFontSize
+  nameWithType: ACC_AudioAccessibility.GetVisualNotificationFontSize
+  fullName: ACC_API.ACC_AudioAccessibility.GetVisualNotificationFontSize
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontSize*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontSize
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetVisualNotificationFontSize
+  name: ResetVisualNotificationFontSize
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationFontSize
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationFontSize
+- uid: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesVisualNotification*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.LoadUserPreferencesVisualNotification
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_LoadUserPreferencesVisualNotification
+  name: LoadUserPreferencesVisualNotification
+  nameWithType: ACC_AudioAccessibility.LoadUserPreferencesVisualNotification
+  fullName: ACC_API.ACC_AudioAccessibility.LoadUserPreferencesVisualNotification
+- uid: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationSettings*
+  commentId: Overload:ACC_API.ACC_AudioAccessibility.ResetVisualNotificationSettings
+  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_ResetVisualNotificationSettings
+  name: ResetVisualNotificationSettings
+  nameWithType: ACC_AudioAccessibility.ResetVisualNotificationSettings
+  fullName: ACC_API.ACC_AudioAccessibility.ResetVisualNotificationSettings

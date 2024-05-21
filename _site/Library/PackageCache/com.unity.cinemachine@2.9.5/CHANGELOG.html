@@ -1,0 +1,597 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Changelog | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Changelog | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../favicon.ico">
+      <link rel="stylesheet" href="../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/CHANGELOG.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../index.html">
+            <img id="logo" class="svg" src="../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="changelog">Changelog</h1>
+
+<p>All notable changes to this package will be documented in this file.</p>
+<p>The format is based on <a href="http://keepachangelog.com/en/1.0.0/">Keep a Changelog</a>
+and this project adheres to <a href="http://semver.org/spec/v2.0.0.html">Semantic Versioning</a>.</p>
+<h2 id="295---2023-01-16">[2.9.5] - 2023-01-16</h2>
+<ul>
+<li>Unity 2022.2 and up: FocusDistance added to lens settings and is pushed to the camera.</li>
+<li>Optimized path gizmo drawing.  Now 3-5 times faster.</li>
+<li>TargetGroup now ignores members whose gameObjects are inactive.</li>
+<li>Bugfix: CinemachinePathBase search radius fixed for not looped paths.</li>
+<li>Regression fix: POV was not handling ReferenceUp correctly</li>
+<li>Bugfix: priority ordering was wrong when the difference between any priority values were smaller than integer min or bigger than integer max values.</li>
+<li>Bugfix: Extensions were not respecting execution order on domain reload.</li>
+</ul>
+<h2 id="294---2022-11-18">[2.9.4] - 2022-11-18</h2>
+<ul>
+<li>Bugfix: VirtualCameras did not set the focal length property of physical cameras.</li>
+<li>Bugfix: could not set main camera to physical mode while a vcam with ModeOverride = None was active</li>
+</ul>
+<h2 id="292---2022-10-21">[2.9.2] - 2022-10-21</h2>
+<ul>
+<li>Bugfix: StateDrivenCamera/Clearshot: Transition glitch when backing out of a transition in progress</li>
+<li>Bugfix: Occasional 1-frame glitch when transitioning between some freelooks</li>
+<li>Bugfix: Transposer with LockToTarget binding sometimes had gimbal lock.</li>
+<li>Bugfix: Collider damping is more robust with extreme FreeLook configurations</li>
+<li>Add support for HDRP 14 (Unity 2022.2)</li>
+<li>Bugfix: InputValueGain mode of axis input was not framerate-independent</li>
+<li>Bugfix: When recording with an accumulation buffer, camera lens was not always set correctly</li>
+<li>Bugfix: POV starts up in its centered position, if recentering is enabled</li>
+<li>Freelook ForcePosition is more precise now.</li>
+</ul>
+<h2 id="291---2022-08-24">[2.9.1] - 2022-08-24</h2>
+<ul>
+<li>Bugfix: CinemachineConfiner was not confining correctly when Confine Screen Edges was enabled and the camera was rotated.</li>
+<li>AimingRig sample is only optionally dependent on UnityEngine.UI.</li>
+<li>Bugfix: A memory leak no longer occurs with PostProcessing if no PP layer is present on the camera.</li>
+<li>Bugfix: Confiner2D confines to midpoint when the camera window is bigger than the axis-aligned bounding box of the input confiner.</li>
+<li>Bugfix: The FadeOut sample scene shader was culling some objects incorrectly.</li>
+<li>Bugfix: Freelook had the wrong heading at the first frame, which could cause a slight jitter.</li>
+<li>Bugfix: FramingTransposer and Composer had a slight rounding error in their Bias fields when the Screen X and Y fields were modified.</li>
+<li>Bugfix: Fixed spurious Z rotations during blend.</li>
+<li>Regression fix: POV is relative to its parent transform.</li>
+<li>Bugfix: Blending speed was not set correctly when blending back and forth between the same cameras.</li>
+<li>Bugfix: AxisState.Recentering.RecenterNow() did not work reliably.</li>
+<li>Bugfix: SensorSize is not saved when not using physical camera.</li>
+<li>Bugfix: No redundant RepaintAllViews calls.</li>
+<li>Clipper library dependency is no longer conflicting with users.</li>
+<li>Bugfix: Standalone profiler no longer crashes with CM.</li>
+<li>Bugfix: Cinemachine does not produce compiler error in unity editor versions older than 2020, when Input System package is installed.</li>
+<li>Bugfix: EmbeddedAssetProperties were not displayed correctly in the editor.</li>
+<li>Bugfix: SaveDuringPlay works with ILists now.</li>
+<li>Bugfix: Paste VirtualCamera and FreeLook components onto prefab works for subcomponents</li>
+<li>Bugfix: CinemachineInputProvider now correctly tracks enabled state of input action</li>
+<li>Bugfix: POV orientation was incorrect with World Up override</li>
+<li>Added AutoEnable option to CinemachineInputHandler</li>
+</ul>
+<h2 id="290-pre6---2022-01-12">[2.9.0-pre.6] - 2022-01-12</h2>
+<ul>
+<li>Bugfix: Negative Near Clip Plane value is kept when camera is orthographic.</li>
+<li>Regression fix: could not change the projection of the main camera if a CM virtual camera is active.</li>
+<li>Regression fix: Axis input was ignoring CM's IgnoreTimeScale setting.</li>
+<li>New feature: CinemachineBrain may control other GameObject instead of the one it is attached to.</li>
+<li>Bugfix: Cinemachine assigns a default input controller delegate that returns 0 when the legacy input system is disabled.</li>
+<li>Cinemachine example scenes show informative text when used with Input System instead of throwing error messages.</li>
+<li>Regression fix: compilation errors when physics module is not present.</li>
+<li>Regression fix: virtual cameras no longer forget that they are targeting groups on domain reload.</li>
+<li>Bugfix: 3rdPersonFollow logged console messages when looking straight up or down.</li>
+<li>BugFix: InputProvider no longer causes a tiny gc alloc every frame.</li>
+<li>Regression fix: CinemachineCollider smoothing time did not reset correctly, so it was working once only.</li>
+<li>Bugfix: Confiner2D now displays the calculated confining area when its vcam is selected.</li>
+<li>Samples no longer throw errors with HDRP and URP. 3rdPersonWithAimMode and Timeline samples no longer have invalid references.</li>
+<li>Bugfix: 3rdPersonFollow shows a warning message when no follow target is assigned like the rest of the body components.</li>
+<li>Added ability to directly set the active blend in CinemachineBrain.</li>
+<li>Bugfix: OnTargetObjectWarped() did not work properly for 3rdPersonFollow.</li>
+<li>Bugfix: POV did not properly handle overridden up.</li>
+<li>Regression fix: removed GC allocs in UpdateTargetCache.</li>
+<li>Bugfix: async scene load/unload could cause jitter.</li>
+<li>Bugfix: Input system should be read only once per render frame.</li>
+<li>Bugfix: Blends were sometimes incorrect when src or dst camera is looking along world up axis.</li>
+<li>Bugfix: Improve accuracy of Group Framing.</li>
+<li>New feature: Added scene view overlay tools for Cinemachine components.</li>
+<li>Cinemachine3rdPersonAim exposes AimTarget, which is the position of where the player would hit.</li>
+</ul>
+<h2 id="280---2021-07-13">[2.8.0] - 2021-07-13</h2>
+<ul>
+<li>Bugfix: Freelook prefabs won't get corrupted after editing the Prefab via its instances.</li>
+<li>Bugfix: 3rdPersonFollow works with Aim components now.</li>
+<li>Bugfix: Blends between vcams, that are rotated so that their up vector is different from World up, are correct now.</li>
+<li>Bugfix: POV recentering did not always recenter correctly, when an axis range was limited.</li>
+<li>Bugfix: Collider sometimes bounced a little when the camera radius was large.</li>
+<li>Bugfix: CinemachineVolumeSettings inspector was making the game view flicker.</li>
+<li>Bugfix: CinemachineVolumeSettings inspector displayed a misleading warning message with URP when focus tracking was enabled.</li>
+<li>Bugfix: Rapidly toggling active cameras before the blends were finished did not use the correct blend time.</li>
+<li>AimingRig sample scene updated with a better reactive crosshair design.</li>
+<li>Added API accessor for Active Blend in Clearshot and StateDrivenCamera.</li>
+<li>Bugfix: Virtual Cameras were not updating in Edit mode when Brain's BlendUpdateMode was FixedUpdate.</li>
+<li>Bugfix: Lens mode override was not working correctly in all cases.</li>
+<li>Collider2D inspector: added warning when collider is of the wrong type.</li>
+</ul>
+<h2 id="280-pre1---2021-04-21">[2.8.0-pre.1] - 2021-04-21</h2>
+<ul>
+<li>Switching targets (Follow, LookAt) is smooth by default. For the old behaviour, set PreviousStateIsValid to false after changing the targets.</li>
+<li>Bugfix: Reversing a blend in progress respects asymmetric blend times.</li>
+<li>Regression fix: CmPostProcessing and CmVolumeSettings components setting Depth of Field now works correctly with Framing Transposer.</li>
+<li>Regression fix: 3rdPersonFollow kept player in view when Z damping was high.</li>
+<li>Regression fix: Physical camera properties were overwritten by vcams when &quot;override mode: physical&quot; was not selected.</li>
+<li>New sample scene: Boss cam demonstrates how to setup a camera that follows the player and looks at the player and the boss. Boss cam also shows examples of custom extensions.</li>
+<li>Added simplified modes to Impulse Source.</li>
+<li>Added secondary reaction settings to Impulse Listener.</li>
+<li>Added Storyboard support for ScreenSpaceOverlay and ScreenSpaceCamera camera render modes.</li>
+<li>Added DampingIntoCollision and DampingFromCollision properties to Cinemachine3rdPersonFollow to control how gradually the camera moves to correct for occlusions.</li>
+<li>Added CinemachineCore.OnTargetObjectWarped() to warp all vcams targeting an object.</li>
+<li>Added ability for vcam to have a negative near clip plane.</li>
+<li>Added Draggable Game Window Guides toggle in Cinemachine preferences. When disabled, Game Window guides are only for visualization.</li>
+<li>Added button to virtual camera inspectors to auto-generate the CinemachineInputProvider component if it is missing.</li>
+<li>Default PostProcessing profile priority is now configurable and defaults to 1000.</li>
+<li>Cinemachine3rdPersonFollow now operates without the physics module and without collision resolution.</li>
+<li>Bugfix: 3rdPersonFollow collision resolution failed when the camera radius was large.</li>
+<li>Bugfix: 3rdPersonFollow damping occured in world space instead of camera space.</li>
+<li>Bugfix: 3rdPersonFollow stuttered when Z damping was high.</li>
+<li>Regression fix: CinemachineInputProvider stopped providing input.</li>
+<li>Bugfix: Lens aspect and sensorSize were updated when lens OverrideMode != None.</li>
+<li>Bugfix: Changing targets on a live vcam misbehaved.</li>
+<li>Bugfix: Framing transposer did not handle empty groups.</li>
+<li>Bugfix: Interrupting a transition with InheritPosition enabled did not work.</li>
+<li>Bugfix: Cinemachine3rdPersonFollow handled collisions by default, now it is disabled by default.</li>
+<li>Bugfix: SaveDuringPlay saved some components that did not have the SaveDuringPlay attribute.</li>
+<li>Regression fix: Entries in the custom blends editor in CM Brain inspector were not selectable.</li>
+<li>GameView guides are drawn only if appropriate inspector subsection is expanded.</li>
+<li>FreeLook rigs are now organized in tabs in the inspector.</li>
+<li>New sample scene: <strong>Boss cam</strong> sample scene demonstrates a camera setup to follow the player and to look at the player and the boss. The scene provides  examples of custom extensions.</li>
+<li>New Sample scene: <strong>2D zoom</strong>, showing how to zoom an orthographic camera with mouse scroll.</li>
+<li>New Sample scene: <strong>2D fighters</strong>, showing how to add/remove targets gradually to/from a TargetGroup based on some conditions (here, it is the y coord of the players).</li>
+<li>Bugfix: CinemachineCollider's displacement damping was being calculated in world space instead of camera space.</li>
+<li>Bugfix: TrackedDolly sometimes introduced spurious rotations if Default Up and no Aim behaviour.</li>
+<li>Bugfix: 3rdPersonFollow's shoulder now changes smoothly with respect to world-up vector changes.</li>
+</ul>
+<h2 id="272---2021-02-15">[2.7.2] - 2021-02-15</h2>
+<ul>
+<li>CinemachineConfiner2D now handles cases where camera window is oversized</li>
+<li>New sample scene (FadeOutNearbyObjects) demonstrating fade out effect for objects between camera and target using shaders. The example includes a cinemachine extension giving convenient control over the shader parameters</li>
+<li>Bugfix (1293429) - Brain could choose vcam with not the highest priority in some cases</li>
+<li>Bugfix: SaveDuringPlay also works on prefab instances</li>
+<li>Bugfix (1272146) - Adding vcam to a prefab asset no longer causes errors in console</li>
+<li>Bugfix (1290171) - Impulse manager was not cleared at playmode start</li>
+<li>Nested Scrub Bubble sample removed (filenames too long), available now as embedded package</li>
+<li>Compilation guards for physics, animation, and imgui. Cinemachine does not hard depend on anything now</li>
+<li>Bugfix: CM StoryBoard had a 1 pixel border</li>
+<li>Bugfix: CM StoryBoard lost viewport reference after hot reload</li>
+<li>Bugfix: FramingTransposer's TargetMovementOnly damping caused a flick.</li>
+<li>Bugfix: FreeLook small drift when no user input if SimpleFollowWithWorldUp</li>
+<li>Bugfix: InheritPosition did not work with SimpleFollow binding mode</li>
+<li>Bugfix: cleanup straggling post processing profiles when no active vcams</li>
+<li>Bugfix: Checking whether the Input Action passed to CinemachineInputHandler is enabled before using it.</li>
+<li>Bugfix: 3rdPersonFollow FOV was blended incorrectly when ReferenceLookAt was set to a faraway target</li>
+<li>Bugfix: Position predictor not properly reset</li>
+<li>Bugfix: Create via menu doesn't create as child of selected object</li>
+<li>Bugfix: Post-processing profiles not cleaned up when no active vcams</li>
+<li>Bugfix: Install CinemachineExamples Asset Package menu item was failing on 2018.4 / macOS</li>
+<li>New sample scene (2DConfinerComplex) demonstrating new CinemachineConfiner2D extension.</li>
+<li>Updated CharacterMovement2D script in 2D sample scenes (2DConfinedTargetGroup, 2DConfiner, 2DConfinerUndersized, 2DTargetGroup) to make jumping responsive.</li>
+<li>Updated 2DConfinedTargetGroup and 2DConfiner scenes to use new CinemachineConfiner2D extension.</li>
+</ul>
+<h2 id="271---2020-11-14">[2.7.1] - 2020-11-14</h2>
+<ul>
+<li>New feature: CinemachineConfiner2D - Improved 2D confiner.</li>
+<li>Added ApplyAfter option to ImpulseListener, to add control over the ordering of extensions</li>
+<li>UI update - Moved Cinemachine menu to GameObject Create menu and Right Click context menu for Hierarchy.</li>
+<li>Virtual Camera Lens inspector supports display of Horizontal FOV</li>
+<li>Virtual Camera Lens can override orthographic and physical camera settings</li>
+<li>Bugfix (1060230) - lens inspector sometimes displayed ortho vs perspective incorrectly for a brief time</li>
+<li>Bugfix (1283984) - Error message when loading new scene with DontDestroyOnLoad</li>
+<li>bugfix (1284701) - Edge-case exception when vcam is deleted</li>
+<li>Storyboard Global Mute moved from Cinemachine menu to Cinemachine preferences.</li>
+<li>Bugfix - long-idle vcams when reawakened sometimes had a single frame with a huge deltaTime</li>
+<li>Bugfix - PostProcessing temporarily stopped being applied after exiting play mode</li>
+</ul>
+<h2 id="263---2020-09-16">[2.6.3] - 2020-09-16</h2>
+<ul>
+<li>Regression fix (1274989) - OnTargetObjectWarped broken for OrbitalTransposer</li>
+<li>Bugfix (1276391) - CM Brain Reset did not reset Custom Blends asset in inspector</li>
+<li>Bugfix (1276343) - CM Brain inspector custom blends misaligned dropdown arrow</li>
+<li>Bugfix (1256530) - disallow multiple components where appropriate</li>
+<li>Bugfix: BlendList camera was incorrectly holding 0-length camera cuts</li>
+<li>Bugfix (1174993) - CM Brain logo was not added to Hierarchy next to Main Camera after adding vcam for the first time after importing CM.</li>
+<li>Bugfix (1100131) - Confiner is aware of 2D collider's offset attribute.</li>
+</ul>
+<h2 id="262---2020-09-02">[2.6.2] - 2020-09-02</h2>
+<h3 id="bugfixes">Bugfixes</h3>
+<ul>
+<li>Regression fix: OnCameraCut Memory leak when using Cinemachine with PostProcessing package</li>
+<li>Bugfix (1272146): Checking for null pipeline, before drawing gizmos.</li>
+<li>Add support for disabling Physics module</li>
+</ul>
+<h2 id="261---2020-08-13">[2.6.1] - 2020-08-13</h2>
+<h3 id="bugfixes-1">Bugfixes</h3>
+<ul>
+<li>Regression Fix: PostProcessing/VolumeSettings FocusTracksTarget was not accounting for lookAt target offset</li>
+<li>Regression fix: Confiner no longer confines noise and impulse</li>
+<li>Bugfix: StateDrivenCamera was choosing parent state if only 1 clip in blendstate, even though there was a vcam assigned to that clip</li>
+<li>Bugfix: vertical group composition was not composing properly</li>
+<li>Bugfix: CinemachineNewVirtualCamera.AddComponent() now works properly</li>
+<li>Bugfix: removed compile errors when Physics2D module is disabled</li>
+<li>Bugfix: brain updates on scene loaded or unloaded</li>
+<li>Bugfix (1252431): Fixed unnecessary GC Memory allocation every frame when using timeline</li>
+<li>Bugfix (1260385): check for prefab instances correctly</li>
+<li>Bugfix (1266191) Clicking on foldout labels in preferences panel toggles their expanded state</li>
+<li>Bugfix (1266196) Composer target Size label in preferences panel was too big</li>
+<li>Bugfix: Scrubbing Cache was locking virtual camera transforms beyond the cache range</li>
+<li>Improved performance of path gizmo drawing</li>
+<li>Timeline Scrubbing Cache supports nested timelines, with some known limitations to be addressed with a future Timeline package release</li>
+<li>Added support for deterministic noise in the context of controlled rendering (via CinemachineCore.CurrentTimeOverride)</li>
+<li>Added Target Offset field to Framing Transposer</li>
+<li>Added Multi-object edit capabilities to virtual cameras and extensions</li>
+<li>Added inspector button to clear the Scrubbing Cache</li>
+</ul>
+<h2 id="260---2020-06-04">[2.6.0] - 2020-06-04</h2>
+<h3 id="new-features-and-bugfixes">New Features and Bugfixes</h3>
+<ul>
+<li>Added AxisState.IInputProvider API to better support custom input systems</li>
+<li>Added CinemachineInpiutProvider behaviour to support Unity's new input system</li>
+<li>Added Timeline Scrubbing cache: when enabled, simulates damping and noise when scrubbing in timeline</li>
+<li>Added ManualUpdate mode to the Brain, to allow for custom game loop logic</li>
+<li>VolumeSettings/PostProcessing: added ability to choose custom target for focus tracking</li>
+<li>Added CinemachineRecomposer for timeline-tweaking of procedural or recorded vcam Aim output</li>
+<li>Added GroupWeightManipulator for animating group member weights</li>
+<li>Impulse: Added PropagationSpeed, to allow the impulse to travel outward in a wave</li>
+<li>Impulse: added support for continuous impulses</li>
+<li>Added CinemachineIndependentImpulseListener, to give ImpulseListener ability to any game object</li>
+<li>Added 3rdPersonFollow and 3rdPersonAim for dead-accurate 3rd-person aiming camera</li>
+<li>Added ForceCameraPosition API of virtual cameras, to manually initialize a camera's position and rotation</li>
+<li>Added example scenes: Aiming Rig and Dual Target to show different 3rd person cmera styles</li>
+<li>FramingTransposer does its work after Aim, so it plays better with Aim components.</li>
+<li>Framing Transposer: add Damped Rotations option.  If unchecked, changes to the vcam's rotation will bypass Damping, and only target motion will be damped.</li>
+<li>Refactored Lookahead - better stability.  New behaviour may require some parameter adjustment in existing content</li>
+<li>Composer and Framing Transposer: improved handling at edge of hard zone (no juddering)</li>
+<li>Orbital Transposer / FreeLook: improved damping when target is moving</li>
+<li>CustomBlends editor UX improvements: allow direct editing of vcam names, as well as dropdown</li>
+<li>Add Convert to TargetGroup option on LookAt and Follow target fields</li>
+<li>Confiner: improved stability when ConfineScreenEdges is selected and confing shape is too small</li>
+<li>Extensions now have PrePipelineMutateState callback</li>
+<li>CinemachineCore.UniformDeltaTimeOverride works in Edit mode</li>
+<li>Added TargetAttachment property to vcams.  Normally 1, this can be used to relax attention to targets - effectively a damping override</li>
+<li>Bugfix: Blend Update Method handling was incorrect and caused judder in some circumstances</li>
+<li>Bugfix: VolumeSettings blending was popping when weight was epsilon if volume altered a non-lerpable value</li>
+<li>Bugfix (1234813) - Check for deleted freelooks</li>
+<li>Bugfix (1219867) - vcam popping on disable if blending</li>
+<li>Bugfix (1214301, 1213836) - disallow structural change when editing vcam prefabs</li>
+<li>Bugfix (1213471, 1213434): add null check in editor</li>
+<li>Bugfix (1213488): no solo for prefab vcams</li>
+<li>Bugfix (1213819): repaintGameView on editor change</li>
+<li>Bugfix (1217306): target group position drifting when empty or when members are descendants of the group</li>
+<li>Bugfix (1218695): Fully qualify UnityEditor.Menu to avoid compile errors in some circumstances</li>
+<li>Bugfix (1222740): Binding Modes, that don't have control over axis value range, are not affected by it.</li>
+<li>Bugfix (1227606): Timeline preview and playmode not the same for composer with hand-animated rotations</li>
+<li>Bugfix: Confiner's cache is reset, when bounding shape/volume is changed.</li>
+<li>Bugfix (1232146): Vcam no longer jerks at edge of confiner bound box.</li>
+<li>Bugfix (1234966): CompositeCollider scale was applied twice.</li>
+</ul>
+<h2 id="250---2020-01-15">[2.5.0] - 2020-01-15</h2>
+<h3 id="support-hdrp-7-and-urp-simultaneously">Support HDRP 7 and URP simultaneously</h3>
+<ul>
+<li>Accommodate simultaneous precesnce of HDRP and URP</li>
+<li>Regression fix: Axis was always recentered in Edit mode, even if recentering is off</li>
+</ul>
+<h2 id="240---2020-01-10">[2.4.0] - 2020-01-10</h2>
+<h3 id="hdrp-7-support-and-bugfixes">HDRP 7 support and bugfixes</h3>
+<ul>
+<li>Storyboard: added global mute function</li>
+<li>New vcams are by default created matching the scene view camera</li>
+<li>Added ApplyBeforeBody option to POV component, to support working with FramingTransposer</li>
+<li>Added RectenterTarget to POV component</li>
+<li>Added OnTransitionFromCamera callback to extensions</li>
+<li>Added Damping to SameAsFollowTarget and HardLockToTarget components</li>
+<li>URP 7.1.3: added CinemachinePixelPerfect extension</li>
+<li>Added Speed Mode to AxisState, to support direct axis control without max speed</li>
+<li>New example scene: OverTheShoulderAim illustrating how to do over-the-shoulder TPS cam, with Normal and Aim modes</li>
+<li>Impulse Manager: added option to ignore timescale</li>
+<li>Framing Transposer: added OnTransition handling for camera rotation if InheritPosition</li>
+<li>Upgrade to support HDRP and Universal RP 7.0.0 API</li>
+<li>Upgrade to support HDRP and Universal RP 7.1.0 API</li>
+<li>Removed Resources diretories</li>
+<li>Sample scenes now available via package manager</li>
+<li>Added optional &quot;Display Name&quot; field to Cinemachine Shot in Timeline</li>
+<li>Added &quot;Adopt Current Camera Settings&quot; item to vcam inspector context menu</li>
+<li>Composer and FramingTransposer: allow the dead zone to extend to 2, and the Screen x,Y can range from -0.5 to 1.5</li>
+<li>HDRP: lens presets include physical settings if physical camera</li>
+<li>Regression Fix: Framing Transposer: ignore LookAt target.  Use Follow exclusively</li>
+<li>Bugfix: Framing Transposer was not handling dynamic changes to FOV properly</li>
+<li>Bugfix: PostProcessing extension was not handling standby update correctly when on Manager Vcams</li>
+<li>Bugfix: PostProcessing extension was leaking a smallamounts of memory when scenes were unloaded</li>
+<li>Bugfixes: (fogbugz 1193311, 1193307, 1192423, 1192414): disallow presets for vcams</li>
+<li>Bugfix: In some heading modes, FreeLook was improperly modifying the axes when activated</li>
+<li>Bugfix: Orbital transposer was improperly filtering the heading in TargetForward heading mode</li>
+<li>Bugfix: added EmbeddedAssetHelper null check</li>
+<li>Bugfix: composer screen guides drawn in correct place for physical camera</li>
+<li>Bugfix: FreeLook was not respecting wait time for X axis recentering</li>
+<li>Bugfix: FreeLook X axis was not always perfectly synched between rigs</li>
+<li>Bugfix (fogbugz 1176866): Collider: clean up static RigidBody on exit</li>
+<li>Bugfix (fogbugz 1174180): framing transposer wrong ortho size calculation</li>
+<li>Bugfix (fogbugz 1158509): Split brain.UpdateMethod into VcamUpdateMethod and BrainUpdateMethod, to make blending work correctly</li>
+<li>Bugfix (fogbugz 1162074): Framing transposer and group transposer only reached half maximum ortho size</li>
+<li>Bugfix (fogbugz 1165599): Transposer: fix gimbal lock issue in LockToTargetWithWorldUp</li>
+<li>Bugfix: VolumeSettings: handle layermask in HDAdditionalCameraData</li>
+<li>Bugfix: use vcam's up when drawing gizmos (orbital transposer and free look)</li>
+</ul>
+<h2 id="234---2019-05-22">[2.3.4] - 2019-05-22</h2>
+<h3 id="postprocessing-v3-and-bugfixes">PostProcessing V3 and bugfixes</h3>
+<ul>
+<li>Added support for PostProcessing V3 - now called CinemachineVolumeSttings</li>
+<li>Added CinemachineCore.GetBlendOverride delegate to allow applications to override any vcam blend when it happens</li>
+<li>When a blend is cancelled by the opposite blend, reduce the blend time</li>
+<li>Orthographic cameras allow a Near Clip of 0</li>
+<li>Timeline won't auto-create CM brains when something dragged onto it</li>
+<li>Confiner: Improvement in automatic path invalidation when number of path points path changes</li>
+<li>Added CinemachineInpuitAxisDriver utility for overriding the default AxisState behaviour</li>
+<li>CinemachineCameraOffset: added customizable stage for when to apply the offset</li>
+<li>Added Loop option to BlendList Camera</li>
+<li>Improved Lookahead: does not automatically recenter</li>
+<li>Brain no longer applies time scaling to fixed delta</li>
+<li>Added dependency on Unity.ugui (2019.2 and up)</li>
+<li>Bugfix: potential endless loop when using Ignore tag in Collider</li>
+<li>Bugfix: Allow externally-driven FeeLook XAxis to work properly with SimpleFollow</li>
+<li>Bugfix: vcams with noise would sometimes show one noiseless frame when they were activated and standby update was not Always</li>
+<li>Bugfix: Generate a cut event if cutting to a blend-in-progess (fogbugz 1150847)</li>
+<li>Bugfix: reset lens shift if not physical camera</li>
+<li>Bugfix: Collider must consider actual target position, not lookahead position</li>
+<li>Bugfix: FreeLook heading RecenterNow was not working</li>
+<li>Bugfix: lookahead now takes the overridden Up into account</li>
+<li>Bugfix: screen composer guides drawn in wrong place for picture-in-picture</li>
+<li>Bugfix: FreeLook now draws only 1 active composer guide at a time (fogbugz 1138263)</li>
+<li>Bugfix: cameras sometimes snapped when interrupting blends</li>
+<li>Bugfix: Path handles no longer scale with the path object</li>
+<li>Bugfix: Framing Transposer Center on Activate was not working properly (fogbugz 1129824)</li>
+<li>Bugfix: FreeLook inherit position</li>
+<li>Bugfix: collider was pushing camera too far if there were multiple overlapping obstacles</li>
+<li>Bugfix: use IsAssignableFrom instead of IsSubclass in several places</li>
+<li>Bugfix: when interrupting a blend in progress, Cut was not respected</li>
+<li>Bugfix: collider minimum occlusion time and smoothing time interaction</li>
+<li>Bugfix: TargetGroup.RemoveMember error (fogbugz 1119028)</li>
+<li>Bugfix: TargetGroup member lerping jerk when member weight near 0</li>
+<li>Bugfix: Transposer angular damping should be 0 only if binding mode not LockToTarget</li>
+</ul>
+<h2 id="233---2019-01-08">[2.3.3] - 2019-01-08</h2>
+<h3 id="temporary-patch-to-get-around-a-unity-bug-in-conditional-dependencies">Temporary patch to get around a Unity bug in conditional dependencies</h3>
+<ul>
+<li>Removed Cinemachine.Timeline namespace, as a workaround for fogbugz 1115321</li>
+</ul>
+<h2 id="231---2019-01-07">[2.3.1] - 2019-01-07</h2>
+<h3 id="bugfixes-2">Bugfixes</h3>
+<ul>
+<li>Added timeline dependency</li>
+<li>OnTargetObjectWarped no longer generates garbage</li>
+</ul>
+<h2 id="230---2018-12-20">[2.3.0] - 2018-12-20</h2>
+<h3 id="support-for-unity-20191">Support for Unity 2019.1</h3>
+<ul>
+<li>Added dependency on new unity.timeline</li>
+<li>Added conditional dependence on PostProcessingV2</li>
+<li>No copying CM gizmo into assets folder</li>
+<li>FreeLook: if inherit position from similar FreeLooks, bypass damping</li>
+<li>Timeline: improve handling when vcam values are tweaked inside shot inspector (fogbugz 1109024)</li>
+</ul>
+<h2 id="228---2018-12-10">[2.2.8] - 2018-12-10</h2>
+<h3 id="bugfixes-optimizations-and-some-experimental-stuff">Bugfixes, optimizations, and some experimental stuff</h3>
+<ul>
+<li>Transposer: added Angular Damping Mode, to support quaternion calculations in gimbal-lock situations</li>
+<li>Framing Transposer and Group Transposer: group composing bugfixes, respect min/max limits</li>
+<li>Added ConemachineCameraOffset extension, to offset the camera a fixed distance at the end of the pipeline</li>
+<li>Dolly Cart: added support for LateUpdate</li>
+<li>State-driven-camera: added [NoSaveDuringPlay] to Animated Target and Layer Index</li>
+<li>Added AxisState.Recentering.RecenterNow() API call to skip wait time and start recentering now (if enabled)</li>
+<li>Added NoLens blend hint, to leave camera Lens settings alone</li>
+<li>Updated documentation (corrections, and relocation to prevent importing)</li>
+<li>Upgrade: added support for nested prefabs in Unity 2018.3 (fogbugz 1077395)</li>
+<li>Optimization: position predictor is more efficient</li>
+<li>Optimization: Composer caches some calculations</li>
+<li>Optimization: Fix editor slowdown when Lens Presets asset is missing</li>
+<li>Experimental: Optional new damping algorithm: attempt to reduce sensitivity to variable framerate</li>
+<li>Experimental: Optional new extra-efficient versions of vcam and FreeLook (not back-compatible)</li>
+<li>Timeline: play/pause doesn't kick out the timeline vcam</li>
+<li>Path editor: make sure game view gets updated when a path waypoint is dragged in the scene view</li>
+<li>Composer guides are shown even if Camera is attached to a renderTexture</li>
+<li>Bugfix: allow impulse definition to be a non-public field (property drawer was complaining)</li>
+<li>Bugfix: added null check for when there is no active virtual camera</li>
+<li>Bugfix: CollisionImpulseSource typo in detection of 2D collider</li>
+<li>Bugfix: PasteComponentValues to prefab vcams and FreeLooks were corrupting scene and prefabs</li>
+<li>Bugfix: Timeline mixer was glitching for single frames at the end of blends</li>
+<li>Bugfix: Added OnTransitionFromCamera() to POV and OrbitalTransposer, to transition axes intelligently</li>
+<li>Regression fix: if no active vcam, don't set the Camera's transform</li>
+</ul>
+<h2 id="227---2018-07-24">[2.2.7] - 2018-07-24</h2>
+<h3 id="mostly-bugfixes">Mostly bugfixes</h3>
+<ul>
+<li>Bugfix: fogbugz case 1053595: Cinemachine Collider leaves hidden collider at origin that interferes with scene objects</li>
+<li>Bugfix: fogbugz case 1063754: empty target group produces console messages</li>
+<li>Bugfix: FreeLook Paste Component Values now pastes the CM subcomponents as well</li>
+<li>Bugfix: added extra null checks to support cases where current vcam is dynamically deleted</li>
+<li>Bugfix: reset BlendList when enabled</li>
+<li>Regression fix: FreeLook axis values get transferred when similar vcams transition</li>
+<li>Bugfix: cutting to BlendList vcam sometimes produced a few bad frames</li>
+<li>Bugfix: smart update tracks the targets more efficiently and correctly, and supports RigidBody interpolation (2018.2 and up)</li>
+<li>Enhancement: POV component interprets POV as relative to parent transform if there is one</li>
+<li>API change: OnCameraLive and CameraActivated events take outgoing vcam also as parameter (may be null)</li>
+</ul>
+<h2 id="220---2018-06-18">[2.2.0] - 2018-06-18</h2>
+<h3 id="impulse-module-and-more">Impulse Module and More</h3>
+<ul>
+<li>New Cinemachine Impulse module for event-driven camera shakes</li>
+<li>New Event Helper script CinemachineTriggerAction takes action on Collider and Collider2D enter/exit events, and exposes them as UnityEvents</li>
+<li>New performance-tuning feature: Standby Update.  Controls how often to update the vcam when it's in Standby.</li>
+<li>New NoiseSettings editor with signal preview</li>
+<li>Added Focal Length or Named FOV presets for Camera Lens</li>
+<li>Added support for Physical Camera: focal length and Lens Offset</li>
+<li>New improved Group framing algorithm: tighter group framing in GroupComposer and FramingTransposer</li>
+<li>Collider: now returns TargetIsObscured if the target is offscreen (great for cameras with fixed aim)</li>
+<li>Collider: added Minimum Occlusion Time setting, to ignore fleeting obstructions</li>
+<li>Collider: added Transparent Layers mask, to specify solid objects that don't obstruct view</li>
+<li>Collider: damping will no longer take the camera through obstacles</li>
+<li>Collider: Added separate damping setting for when target is being occluded vs when camera is being returned to its normal position</li>
+<li>Collider: added Smoothing setting, to reduce camera jumpiness in environements with lots of obstacles</li>
+<li>NoiseSettings: added checkbox for pure sine-wave instead of Perlin wave</li>
+<li>If no LookAt target, PostProcessing FocusTracksTarget offset is relative to camera</li>
+<li>TrackedDolly: Default up mode sets Up to World Up</li>
+<li>Virtual Camera: New Transitions section in inspector that gives more control over blending:
+<ul>
+<li>Blend Hint provides some control over how the position and rotation are interpolated</li>
+<li>Inherit Position checkbox to ensure smooth positional handoff from outgoing camera</li>
+<li>OnCameraLive event gets fired when the camera activates.  Useful for custom handlers.</li>
+</ul>
+</li>
+<li>Added ScreenSpaceAimWhenTargetsDiffer as a vcam blend hint.  This influences what happens when blending between vcams with different LookAt targets</li>
+<li>Increased stability of vcams with very small FOVs</li>
+<li>Framing Transposer no longer requires LookAt to be null</li>
+<li>LensSettings Aspect, Orthographic, IsPhysicalCamera, SensorSize properties no longer internal</li>
+<li>Noise Profiles: don't magically create assets.  Prompt user for filename and location of new or cloned profiles</li>
+<li>Refactored interaction between timeline and CM brain, to improve handling of edge cases (fogbugz case 1048497)</li>
+<li>Bugfix: StateDrivenCamera Editor was not finding states if target was OverrideController</li>
+<li>Bugfix when dragging orbital transposer transform: take bias into account</li>
+<li>Bugfix: SaveDuringPlay was not handling asset fields correctly - was sometimes crushing assets</li>
+<li>Bugfix: SimpleFollow transposers were not initilizing their position correctly at game start</li>
+<li>Bugfix: Timeline with CM shot was causing jitter in some FixedUpdate situations</li>
+<li>Bugfix: Multiple brains with heterogeneous update methods were not behaving correctly.  CM will now support this, but you must make sure that the brains have different layer masks.</li>
+<li>Example scenes now include use of CinemachineTriggerAction script.</li>
+</ul>
+<h2 id="2113---2018-05-09">[2.1.13] - 2018-05-09</h2>
+<h3 id="removed-dependency-on-nonexistant-timeline-package-minor-bugfixes">Removed dependency on nonexistant Timeline package, minor bugfixes</h3>
+<ul>
+<li>Bugfix: Custom Blends &quot;Any to Any&quot; was not working (regression)</li>
+<li>Bugfix: Composer was sometimes getting wrong aspect if multiple brains with different aspect ratios</li>
+<li>Bugfix: could not drag vcam transforms if multiple inspectors and one is hidden</li>
+<li>Bugfix: Framing Transposer initializes in the wrong place - noticeable if dead zone</li>
+</ul>
+<h2 id="2112---2018-02-26">[2.1.12] - 2018-02-26</h2>
+<h3 id="storyboard-bugfixes-and-other-enhancements--also-some-restructuring-for-package-manager">Storyboard, Bugfixes and other enhancements.  Also some restructuring for Package Manager</h3>
+<ul>
+<li>Project restructure: Removed Base, Timeline, and PostFX folders from project root.  PostProcessing code must now be manually imported from Cinemachine menu.  No more dependencies on scripting defines.</li>
+<li>New Storyboard extension, to display images over the vcams.  Comes with a Waveform monitor window for color grading</li>
+<li>New option to specify vcam position blend style: linear, spherical, or cylindrical, based on LookAt target</li>
+<li>Added API to support seamless position warping of target objects: OnTargetObjectWarped().</li>
+<li>Added support for custom blend curves</li>
+<li>Lookahead: added Ignore Y Axis Movement option</li>
+<li>Added support for cascading blends (i.e. blending from mid-blend looks better)</li>
+<li>POV/Orbital/FreeLook axis: exposed Min, Max, and Wrap in the UI, for customized axis range</li>
+<li>FreeLook: added Y Axis recentering</li>
+<li>POV: Added recentering feature to both axes</li>
+<li>Path: Added Normalized Path units option: 0 is start of path, 1 is end.</li>
+<li>Path: added length display in inspector</li>
+<li>Timeline Clip Editor: vcam sections are now collapsible</li>
+<li>API enhancement: added Finalize to Pipeline stages, called even for manager-style vcams</li>
+<li>Bugfix: PostProcessing V2 DoF blending works better</li>
+<li>Bugfix: OrbitalTransposer works better with WorldUp overrides</li>
+<li>Bugfix: Remove StateDrivenCamera &quot;not playing a controller&quot; warning</li>
+<li>Bugfix: Handle exceptions thrown by assemblies that don't want to be introspected</li>
+<li>Bugfix: vcams following physics objects incorrectly snapped to origin after exiting play mode</li>
+<li>Bugfix: predictor now supports time pause</li>
+<li>Bugfix: Moved StartCoroutine in Brain to OnEnable()</li>
+<li>Bugfix: Collider was causing problems in Physics on Android platforms</li>
+<li>Bugfix: dragging a vcam's position updtaes prefabs properly</li>
+<li>Bugfix: All extension now respect the &quot;enabled&quot; checkbox</li>
+<li>Bugfix: Undo for Extasion add will no longer generate null references</li>
+</ul>
+<h2 id="2110---2017-11-28">[2.1.10] - 2017-11-28</h2>
+<h3 id="this-is-the-first-upm-release-of-unity-package-cinemachine">This is the first UPM release of <em>Unity Package Cinemachine</em>.</h3>
+<ul>
+<li>New Aim component: Same As Follow Target simply uses the same orientation as the Follow target</li>
+<li>Perlin Noise component: added inspector UI to clone or locate existing Noise profiles, and to create new ones</li>
+<li>Noise Presets were moved outside of the Examples folder</li>
+<li>Example Assets are now included as embedded package, not imported by default</li>
+<li>Bugfix: FreeLook with PositionDelta was not properly updating the heading</li>
+<li>Bugfix: Transitioning between FreeLooks simetimes caused a short camera freeze</li>
+<li>Bugfix: Added some null checks to FreeLook, to prevent error messages at build time</li>
+</ul>
+<h2 id="219---2017-11-17">[2.1.9] - 2017-11-17</h2>
+<h3 id="initial-version">Initial version.</h3>
+<p><em>Version 2.1.9 cloned from private development repository, corresponding to package released on the asset store</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/CHANGELOG.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

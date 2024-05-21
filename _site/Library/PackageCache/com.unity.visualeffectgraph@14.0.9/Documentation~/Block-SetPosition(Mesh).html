@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Set Position (Mesh) | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Set Position (Mesh) | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetPosition(Mesh).md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<div style="border: solid 1px #999; border-radius:12px; background-color:#EEE; padding: 8px; padding-left:14px; color: #555; font-size:14px;"><b>Experimental:</b> This Feature is currently experimental and is subject to change in later major versions.</div>
+<h1 id="set-position-mesh">Set Position (Mesh)</h1>
+<p>Menu Path : <strong>Position &gt; Set Position (Mesh)</strong></p>
+<p>Menu Path : <strong>Position &gt; Set Position (Skinned Mesh)</strong></p>
+<p>The <strong>Set Position (Mesh)</strong> Block calculates a position based on mesh vertex data and stores the result in the <a href="Reference-Attributes.html">position attribute</a>, based on composition.</p>
+<p>This Block also calculates a direction vector based on the mesh normal, and stores it to the <a href="Reference-Attributes.html">direction attribute</a>, based on composition.</p>
+<p>Note: <a href="Block-VelocityFromDirection&amp;Speed(NewDirection).md">Velocity from Direction and Speed</a> Blocks can then process the direction attribute.</p>
+<h2 id="block-compatibility">Block compatibility</h2>
+<p>This Block is compatible with the following Contexts:</p>
+<ul>
+<li><a href="Context-Initialize.html">Initialize</a></li>
+<li><a href="Context-Update.html">Update</a></li>
+<li>Any output Context</li>
+</ul>
+<h2 id="block-settings">Block settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Spawn Mode</strong></td>
+<td>Enum</td>
+<td>Specifies how to distribute particles within the mesh. The options are:<br>• <strong>Random</strong>: Calculates a per-particle random progress uniform sampling among the chosen primitive in <strong>Placement Mode</strong>.<br>• <strong>Custom</strong>: Allows you to manually specify the sampling parameters.</td>
+</tr>
+<tr>
+<td><strong>Placement mode</strong></td>
+<td>Enum</td>
+<td>Specifies which primitive part of the mesh to sample from:<br>• <strong>Vertex</strong>: Samples positions from all listed vertices.<br>• <strong>Edge</strong>: Samples from an interpolation between two consecutives vertices that are part of a triangle on the mesh. <br>• <strong>Surface</strong>: Samples from an interpolation between three vertices that define a triangle on the mesh.</td>
+</tr>
+<tr>
+<td><strong>Surface coordinates</strong></td>
+<td>Enum</td>
+<td>Specifies the method this Block uses to sample the surface of a triangle.<br>• <strong>Barycentric</strong>: Samples the surface using raw barycentric coordinates. Using this method, sampled positions are not constrained by the triangle edges which is useful if you have baked a position outside of the Visual Effect Graph.<br>• <strong>Uniform</strong>: Samples the surface uniformly within the triangle area.<br>This property only appears if you set <strong>Placement mode</strong> to <strong>Surface</strong> and <strong>Spawn Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Source</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies the kind of geometry to sample from. The options are:<br>• <strong>Mesh</strong>: Samples from a mesh asset.<br>• <strong>Skinned Mesh Renderer</strong>: Samples from a <a href="https://docs.unity3d.com/Manual/class-SkinnedMeshRenderer.html">Skinned Mesh Renderer</a>.</td>
+</tr>
+<tr>
+<td><strong>Composition Position</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how this Block composes the position attribute. The options are:<br>• <strong>Set</strong>: Overwrites the position attribute with the new value.<br>• <strong>Add</strong>: Adds the new value to the position attribute value.<br>• <strong>Multiply</strong>: Multiplies the position attribute value by the new value.<br>• <strong>Blend</strong>: Interpolates between the position attribute value and the new value. You can specify the blend factor between 0 and 1.</td>
+</tr>
+<tr>
+<td><strong>Composition Direction</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how this Block composes the direction attribute. The options are:<br>• <strong>Set</strong>: Overwrites the position attribute with the new value.<br>• <strong>Add</strong>: Adds the new value to the position attribute value.<br>• <strong>Multiply</strong>: Multiplies the position attribute value by the new value.<br>• <strong>Blend</strong>: Interpolates between the position attribute value and the new value. You can specify the blend factor between 0 and 1.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="block-properties">Block properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mesh</strong></td>
+<td>Mesh</td>
+<td>The source mesh asset to sample.<br>This property only appears if you set <strong>Source</strong> to <strong>Mesh</strong>.</td>
+</tr>
+<tr>
+<td><strong>Skinned Mesh Renderer</strong></td>
+<td>Skinned Mesh Renderer</td>
+<td>The source Skinned Mesh Renderer component to sample. This is a reference to a component within the scene. To assign a Skinned Mesh Renderer to this port, create a Skinned Mesh Renderer property in the <a href="Blackboard.html">Blackboard</a> and expose it.<br>This property only appears if you set <strong>Source</strong> to <strong>Skinned Mesh Renderer</strong>.</td>
+</tr>
+<tr>
+<td><strong>Vertex</strong></td>
+<td>uint</td>
+<td>The index of the vertex to sample.<br>This property only appears if you set <strong>Placement mode</strong> to <strong>Vertex</strong> and <strong>Spawn Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Index</strong></td>
+<td>uint</td>
+<td>The start index of the edge to sample from. The Block uses this index and the following index to select the line to sample from.<br>This property only appears if you set <strong>Placement mode</strong> to <strong>Edge</strong> and <strong>Spawn Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Triangle</strong></td>
+<td>uint</td>
+<td>The index of triangle to sample, assuming the index buffer contains a triangle list.<br>This property only appears if you set <strong>Placement mode</strong> to <strong>Surface</strong>, <strong>Spawn Mode</strong> to <strong>Custom</strong>, and <strong>Spawn Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Edge</strong></td>
+<td>float</td>
+<td>The interpolation value the Block uses to sample along the edge. This is the percentage along the edge, from start position to end position, that the sample position is taken.<br>This property only appears if you set <strong>Placement mode</strong> to <strong>Edge</strong> and <strong>Spawn Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Barycentric</strong></td>
+<td>Vector2</td>
+<td>The raw barycentric coordinate to sample from the triangle at. The input is two-dimensional (<strong>X</strong> and <strong>Y</strong>) and the block calculates the <strong>Z</strong> value using the values you input: <strong>Z</strong> = <strong>1</strong> - <strong>X</strong> - <strong>Y</strong>. This sampling method does not constrain the sampled position inside the triangle edges.<br>This property only appears if you set <strong>Placement mode</strong> to <strong>Surface</strong>, <strong>Surface coordinates</strong> to <strong>Barycentric</strong>, and <strong>Spawn Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Square</strong></td>
+<td>Vector2</td>
+<td>The uniform coordinate to sample the triangle at. The Block takes this value and maps it from a square coordinate to triangle space. To do this, it uses the method outline in the paper <a href="https://hal.archives-ouvertes.fr/hal-02073696v2">A Low-Distortion Map Between Triangle and Square</a> (Heitz 2019).<br>This property only appears if you set <strong>Placement mode</strong> to <strong>Surface</strong>, <strong>Surface coordinates</strong> to <strong>Uniform</strong>, and <strong>Spawn Mode</strong> to <strong>Custom</strong>.</td>
+</tr>
+<tr>
+<td><strong>Blend Position</strong></td>
+<td>Float</td>
+<td>The blend percentage between the current position attribute value and the newly calculated position value.<br>This property only appears if you set <strong>Composition Position</strong> to <strong>Blend</strong>.</td>
+</tr>
+<tr>
+<td><strong>Blend Direction</strong></td>
+<td>Float</td>
+<td>The blend percentage between the current direction attribute value and the newly calculated direction value.<br>This property only appears if you set <strong>Composition Direction</strong> to <strong>Blend</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="limitations">Limitations</h2>
+<p>The Mesh sampling feature has the following limitations:</p>
+<ul>
+<li>It only supports <a href="https://docs.unity3d.com/ScriptReference/Rendering.VertexAttributeFormat.Float32.html">VertexAttributeFormat.Float32</a> for all <a href="https://docs.unity3d.com/ScriptReference/Rendering.VertexAttribute.html">VertexAttributes</a> except <a href="https://docs.unity3d.com/ScriptReference/Rendering.VertexAttribute.Color.html">Color</a>, which has to be a four component attribute using either <a href="https://docs.unity3d.com/ScriptReference/Rendering.VertexAttributeFormat.UInt8.html">VertexAttributeFormat.UInt8</a> or <a href="https://docs.unity3d.com/ScriptReference/Rendering.VertexAttributeFormat.Float32.html">VertexAttributeFormat.Float32</a> format.</li>
+<li>If a Mesh is not <a href="https://docs.unity3d.com/ScriptReference/Mesh-isReadable.html">readable</a>, the <strong>Position (Mesh)</strong> Block and <strong>Sample Mesh</strong> Operator return zero values when they attempt to sample from it. For information on how to make a Mesh readable, see <a href="https://docs.unity3d.com/Manual/FBXImporter-Model.html">Model import settings</a>.</li>
+</ul>
+<p><img src="Images/ReadWrite.png" alt=""></p>
+<h2 id="reference-list">Reference list</h2>
+<ul>
+<li>Heitz, Eric. 2019. &quot;A Low-Distortion Map Between Triangle and Square&quot;. <a href="https://hal.archives-ouvertes.fr/hal-02073696v2">hal-02073696v2</a></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Block-SetPosition(Mesh).md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

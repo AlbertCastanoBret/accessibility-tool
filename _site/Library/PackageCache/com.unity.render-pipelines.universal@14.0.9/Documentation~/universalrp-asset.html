@@ -1,0 +1,417 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Universal Render Pipeline Asset | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Universal Render Pipeline Asset | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/universalrp-asset.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="universal-render-pipeline-asset">Universal Render Pipeline Asset</h1>
+
+<p>Any Unity project that uses the Universal Render Pipeline (URP) must have a URP Asset to configure the settings. When you create a project using the URP template, Unity creates the URP Assets in the <strong>Settings</strong> project folder and assigns them in Project Settings. If you are migrating an existing project to URP, you need to <a href="InstallURPIntoAProject.html">create a URP Asset and assign the asset in the Graphics settings</a>.</p>
+<p>The URP Asset controls several graphical features and quality settings for the Universal Render Pipeline.  It is a scriptable object that inherits from ‘RenderPipelineAsset’. When you assign the asset in the Graphics settings, Unity switches from the built-in render pipeline to the URP. You can then adjust the corresponding settings directly in the URP, instead of looking for them elsewhere.</p>
+<p>You can have multiple URP assets and switch between them. For example, you can have one with Shadows on and one with Shadows off. If you switch between the assets to see the effects, you don’t have to manually toggle the corresponding settings for shadows every time. You cannot, however, switch between HDRP/SRP and URP assets, as the
+render pipelines are incompatible.</p>
+<h2 id="ui-overview">UI overview</h2>
+<p>In the URP, you can configure settings for:</p>
+<ul>
+<li><a href="#rendering"><strong>Rendering</strong></a></li>
+<li><a href="#quality"><strong>Quality</strong></a></li>
+<li><a href="#lighting"><strong>Lighting</strong></a></li>
+<li><a href="#shadows"><strong>Shadows</strong></a></li>
+<li><a href="#post-processing"><strong>Post-processing</strong></a></li>
+<li><a href="#adaptive-performance"><strong>Adaptive Performance</strong></a></li>
+</ul>
+<p><strong>Note:</strong> If you have the experimental 2D Renderer enabled (menu: <strong>Graphics Settings</strong> &gt; add the 2D Renderer Asset under <strong>Scriptable Render Pipeline Settings</strong>), some of the options related to 3D rendering in the URP Asset don't have any impact on your final app or game.</p>
+<h3 id="how-to-show-additional-properties">How to show Additional Properties</h3>
+<p>Unity does not show certain advanced properties in the URP Asset by default. To see all available properties:</p>
+<ul>
+<li><p>In the URP Asset, in any section, click the vertical ellipsis icon (⋮) and select <strong>Show Additional Properties</strong></p>
+<p><img src="Images/settings-general/show-additional-properties.png" alt="Show Additional Properties"></p>
+<p>Unity shows all available properties in the current section.</p>
+</li>
+</ul>
+<p>To show all additional properties in all sections:</p>
+<ol>
+<li><p>Click the vertical ellipsis icon (⋮) and select <strong>Show All Additional Properties</strong>. Unity opens the <strong>Core Render Pipeline</strong> section in the <strong>Preferences</strong> window.</p>
+</li>
+<li><p>In the property <strong>Additional Properties &gt; Visibility</strong>, select <strong>All Visible</strong>.</p>
+<p><img src="Images/settings-general/show-all-additional-properties.png" alt="Additional Properties &gt; Visibility &gt; All Visible"></p>
+</li>
+</ol>
+<h3 id="rendering">Rendering</h3>
+<p>The <strong>Rendering</strong> settings control the core part of the pipeline rendered frame.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Depth Texture</strong></td>
+<td>Enables URP to create a <code>_CameraDepthTexture</code>. URP then uses this <a href="https://docs.unity3d.com/Manual/SL-DepthTextures.html">depth texture</a> by default for all Cameras in your Scene. You can override this for individual cameras in the <a href="camera-component-reference.html">Camera Inspector</a>. If you enable this setting, URP uses more memory.</td>
+</tr>
+<tr>
+<td><strong>Opaque Texture</strong></td>
+<td>Enable this to create a <code>_CameraOpaqueTexture</code> as default for all cameras in your Scene. This works like the <a href="https://docs.unity3d.com/Manual/SL-GrabPass.html">GrabPass</a> in the built-in render pipeline. The <strong>Opaque Texture</strong> provides a snapshot of the scene right before URP renders any transparent meshes. You can use this in transparent Shaders to create effects like frosted glass, water refraction, or heat waves. You can override this for individual cameras in the <a href="camera-component-reference.html">Camera Inspector</a>. If you enable this setting, URP uses more memory.</td>
+</tr>
+<tr>
+<td><strong>Opaque Downsampling</strong></td>
+<td>Set the sampling mode on the opaque texture to one of the following:<br><strong>None</strong>:  Produces a copy of the opaque pass in the same resolution as the camera.<br><strong>2x Bilinear</strong>: Produces a half-resolution image with bilinear filtering.<br><strong>4x Box</strong>: Produces a quarter-resolution image with box filtering. This produces a softly blurred copy.<br><strong>4x Bilinear</strong>: Produces a quarter-resolution image with bi-linear filtering.</td>
+</tr>
+<tr>
+<td><strong>Terrain Holes</strong></td>
+<td>If you disable this option, URP removes all Terrain hole Shader variants when you build for the Unity Player, which decreases build time and reduces processing time on the GPU.</td>
+</tr>
+<tr>
+<td><strong>SRP Batcher</strong></td>
+<td>Check this box to enable the SRP Batcher. This is useful if you have many different Materials that use the same Shader. The SRP Batcher is an inner loop that speeds up CPU rendering without affecting GPU performance. When you use the SRP Batcher, it replaces the SRP rendering code inner loop.</td>
+</tr>
+<tr>
+<td><strong>Dynamic Batching</strong></td>
+<td>Enable <a href="https://docs.unity3d.com/Manual/DrawCallBatching.html">Dynamic Batching</a>, to make the render pipeline automatically batch small dynamic objects that share the same Material. This is useful for platforms and graphics APIs that do not support GPU instancing. If your targeted hardware does support GPU instancing, disable <strong>Dynamic Batching</strong>. You can change this at run time.</td>
+</tr>
+<tr>
+<td><strong>Debug Level</strong></td>
+<td>Set the level of debug information that the render pipeline generates. The values are:<br><strong>Disabled</strong>:  Debugging is disabled. This is the default.<br><strong>Profiling</strong>: Makes the render pipeline provide detailed information tags, which you can see in the FrameDebugger.</td>
+</tr>
+<tr>
+<td><strong>Shader Variant Log Level</strong></td>
+<td>Set the level of information about Shader Stripping and Shader Variants you want to display when Unity finishes a build. Values are:<br> <strong>Disabled</strong>: Unity doesn’t log anything.<br><strong>Only Universal</strong>: Unity logs information for all of the <a href="shaders-in-universalrp.html">URP Shaders</a>.<br><strong>All</strong>: Unity logs information for all Shaders in your build.<br> You can see the information in Console panel when your build has finished.</td>
+</tr>
+<tr>
+<td><strong>Store Actions</strong></td>
+<td>Defines if Unity discards or stores the render targets of the DrawObjects Passes. Selecting the <strong>Store</strong> option significantly increases the memory bandwidth on mobile and tile-based GPUs.<br><strong>Auto</strong>: Unity uses the <strong>Discard</strong> option by default, and falls back to the <strong>Store</strong> option if it detects any injected Passes.<br><strong>Discard</strong>:  Unity discards the render targets of render Passes that are not reused later (lower memory bandwidth).<br><strong>Store</strong>: Unity stores all render targets of each Pass (higher memory bandwidth).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quality">Quality</h3>
+<p>These settings control the quality level of the URP. This is where you can make performance better on lower-end hardware or make graphics look better on  higher-end hardware.</p>
+<p><strong>Tip:</strong> If you want to have different settings for different hardware, you can configure these settings across multiple Universal Render Pipeline assets, and switch them out as needed.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HDR</strong></td>
+<td>Enable this to allow rendering in High Dynamic Range (HDR) by default for every camera in your Scene. With HDR, the brightest part of the image can be greater than 1. This gives you a wider range of light intensities, so your lighting looks more realistic. With it, you can still see details and experience less saturation even with bright light. This is useful if you want a wide range of lighting or to use <a href="https://docs.unity3d.com/Manual/PostProcessing-Bloom.html">bloom</a> effects. If you’re targeting lower-end hardware, you can disable this to skip HDR calculations and get better performance. You can override this for individual cameras in the Camera Inspector.</td>
+</tr>
+<tr>
+<td>    HDR Precision</td>
+<td>The precision of the Camera color buffer in HDR rendering. The 64 bit precision lets you avoid banding artifacts, but requires higher bandwidth and might make sampling slower. Default value: 32 bit.</td>
+</tr>
+<tr>
+<td><strong>Anti Aliasing (MSAA)</strong></td>
+<td>Use <a href="anti-aliasing.html#msaa">Multisample Anti-aliasing</a> by default for every Camera in your Scene while rendering. This softens edges of your geometry, so they’re not jagged or flickering. In the drop-down menu, select how many samples to use per pixel: <strong>2x</strong>, <strong>4x</strong>, or <strong>8x</strong>. The more samples you choose, the smoother your object edges are. If you want to skip MSAA calculations, or you don’t need them in a 2D game, select <strong>Disabled</strong>. You can override this for individual cameras in the Camera Inspector.<br><strong>Note:</strong> On mobile platforms that do not support the <a href="https://docs.unity3d.com/ScriptReference/Rendering.RenderBufferStoreAction.StoreAndResolve.html">StoreAndResolve</a> store action, if <strong>Opaque Texture</strong> is selected in the URP asset, Unity ignores the <strong>Anti Aliasing (MSAA)</strong> property at runtime (as if Anti Aliasing (MSAA) is set to Disabled).</td>
+</tr>
+<tr>
+<td><strong>Render Scale</strong></td>
+<td>This slider scales the render target resolution (not the resolution of your current device). Use this when you want to render at a smaller resolution for performance reasons or to upscale rendering to improve quality.  This only scales the game rendering. UI rendering is left at the native resolution for the device.</td>
+</tr>
+<tr>
+<td><strong>Upscaling Filter</strong></td>
+<td>Select which image filter Unity uses when performing the upscaling. Unity performs upscaling when the Render Scale value is less than 1.0.</td>
+</tr>
+<tr>
+<td>    <strong>Automatic</strong></td>
+<td>Unity selects one of the filtering options based on the Render Scale value and the current screen resolution. If integer scaling is possible, Unity selects the Nearest-Neighbor option, otherwise Unity selects the Bilinear option.</td>
+</tr>
+<tr>
+<td>    <strong>Bilinear</strong></td>
+<td>Unity uses the bilinear or linear filtering provided by the graphics API.</td>
+</tr>
+<tr>
+<td>    <strong>Nearest-Neighbor</strong></td>
+<td>Unity uses the nearest-neighbor or point sampling filtering provided by the graphics API.</td>
+</tr>
+<tr>
+<td>    <strong>FidelityFX Super Resolution 1.0</strong></td>
+<td>Unity uses the AMD FidelityFX Super Resolution 1.0 (FSR) technique to perform upscaling.<br>Unlike the other Upscaling Filter options, this filter remains active even at a Render Scale value of 1.0. This filter can still improve image quality even when no scaling is occurring. This also makes the transition between scale values 0.99 and 1.0 less noticeable in cases where dynamic resolution scaling is active.<br><strong>Note</strong>: This filter is only supported on devices that support Unity shader model 4.5 or higher. On devices that do not support Unity shader model 4.5, Unity uses the <strong>Automatic</strong> option instead.</td>
+</tr>
+<tr>
+<td>    <strong>Override FSR Sharpness</strong></td>
+<td>Unity shows this check box when you select the FSR filter. Selecting this check box lets you specify the intensity of the FSR sharpening pass.</td>
+</tr>
+<tr>
+<td>    <strong>FSR Sharpness</strong></td>
+<td>Specify the intensity of the FSR sharpening pass. A value of 0.0 provides no sharpening, a value of 1.0 provides maximum sharpness. This option has no effect when FSR is not the active upscaling filter.</td>
+</tr>
+<tr>
+<td><strong><a name="lod-cross-fade"></a>LOD Cross Fade</strong></td>
+<td>Use this property to enable or disable the LOD cross-fade. If you disable this option, URP removes all LOD cross-fade shader variants when you build the Unity Player, which decreases the build time . If you target a low-end mobile platform, disable this setting so URP doesn't use alpha testing to fade level of detail (LOD) meshes in and out, which reduces processing time on the GPU.</td>
+</tr>
+<tr>
+<td><strong>LOD Cross Fade Dithering Type</strong></td>
+<td>When an <a href="https://docs.unity3d.com/Manual/class-LODGroup.html">LOD group</a> has <strong>Fade Mode</strong> set to <strong>Cross Fade</strong>, Unity renders the Renderer's LOD meshes with cross-fade blending between them using alpha testing. This property defines the type of LOD cross-fade.<br>Options:<br><strong>Bayer Matrix</strong>: better performance than the Blue Noise option, but has a repetitive pattern.<br><strong>Blue Noise</strong>: uses a precomputed blue noise texture and provides a better look than the Bayer Matrix option, but has a slightly higher performance cost.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lighting">Lighting</h3>
+<p>These settings affect the lights in your Scene.</p>
+<p>If you disable some of these settings, the relevant <a href="https://docs.unity3d.com/Manual/shader-keywords">keywords</a> are <a href="shader-stripping.html">stripped from the Shader variables</a>. If there are settings that you know for certain you won’t use in your game or app, you can disable them to improve performance and reduce build time.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Main Light</strong></td>
+<td>These settings affect the main <a href="https://docs.unity3d.com/Manual/Lighting.html">Directional Light</a> in your Scene. You can select this by assigning it as a <a href="https://docs.unity3d.com/Manual/GlobalIllumination.html">Sun Source</a> in the Lighting Inspector. If you don’t assign a sun source, the URP treats the brightest directional light in the Scene as the main light. You can choose between <a href="https://docs.unity3d.com/Manual/LightPerformance.html">Pixel Lighting</a> and <em>None</em>. If you choose None, URP doesn’t render a main light,  even if you’ve set a sun source.</td>
+</tr>
+<tr>
+<td><strong>Cast Shadows</strong></td>
+<td>Check this box to make the main light cast shadows in your Scene. On lower-end platforms, you can disable this setting to reduce how much memory URP uses, and reduce processing time on the CPU and the GPU.</td>
+</tr>
+<tr>
+<td><strong>Shadow Resolution</strong></td>
+<td>This controls how large the shadow map texture for the main light is. High resolutions give sharper, more detailed shadows. If memory or rendering time is an issue, try a lower resolution.</td>
+</tr>
+<tr>
+<td><strong>Mixed Lighting</strong></td>
+<td>When <a href="https://docs.unity3d.com/Manual/LightMode-Mixed.html">Mixed Lighting</a> is enabled, Unity includes mixed lighting shader variants in the build.</td>
+</tr>
+<tr>
+<td><strong>Use Rendering Layers</strong></td>
+<td>With this option selected, you can configure certain Lights to affect only specific GameObjects. For more information on Rendering Layers and how to use them, see the page <a href="features/rendering-layers.html">Rendering Layers</a>. If you enable this setting and you use the Deferred rendering path, URP uses more memory.</td>
+</tr>
+<tr>
+<td><strong>Light Cookies</strong></td>
+<td>When enabled, URP includes light cookie shader variants in the build. If you enable this setting, URP uses more memory. Refer to <a href="light-component.html">Light component reference</a> for more information.</td>
+</tr>
+<tr>
+<td><strong>Additional Lights</strong></td>
+<td>Choose whether to add additional lights that supplement your main light. Choose between <a href="https://docs.unity3d.com/Manual/LightPerformance.html">Per Vertex</a>, <a href="https://docs.unity3d.com/Manual/LightPerformance.html">Per Pixel</a>, or <strong>Disabled</strong>. To reduce processing time on the GPU, set to <strong>Disabled</strong>, or <strong>Per Vertex</strong> if you use the Forward or Forward+ rendering path.</td>
+</tr>
+<tr>
+<td><strong>Per Object Limit</strong></td>
+<td>This slider sets the limit for how many additional lights can affect each GameObject.</td>
+</tr>
+<tr>
+<td><strong>Cast Shadows</strong></td>
+<td>Check this box to make the additional lights cast shadows in your Scene.</td>
+</tr>
+<tr>
+<td><strong>Shadow Atlas Resolution</strong></td>
+<td>Control the size of the textures that cast directional shadows for the additional lights. This is a sprite atlas that packs up to 16 shadow maps. High resolutions give sharper, more detailed shadows. If memory or rendering time is an issue, try a lower resolution.</td>
+</tr>
+<tr>
+<td><strong>Mixed Lighting</strong></td>
+<td>Enable <a href="https://docs.unity3d.com/Manual/LightMode-Mixed.html">Mixed Lighting</a> to configure the pipeline to include mixed lighting shader variants in the build.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shadows">Shadows</h3>
+<p>These settings let you configure how shadows look and behave, and find a good balance between the visual quality and performance.</p>
+<p><img src="Images/lighting/urp-asset-shadows.png" alt="Shadows"></p>
+<p>The <strong>Shadows</strong> section has the following properties.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Max Distance</strong></td>
+<td>The maximum distance from the Camera at which Unity renders the shadows. Unity does not render shadows farther than this distance. Increasing the distance reduces the performance. <br><strong>Note:</strong> This property is in metric units regardless of the value in the <strong>Working Unit</strong> property.</td>
+</tr>
+<tr>
+<td><strong>Working Unit</strong></td>
+<td>The unit in which Unity measures the shadow cascade distances.</td>
+</tr>
+<tr>
+<td><strong>Cascade Count</strong></td>
+<td>The number of <a href="https://docs.unity3d.com/Manual/shadow-cascades.html">shadow cascades</a>. With shadow cascades, you can avoid crude shadows close to the Camera and keep the Shadow Resolution reasonably low. For more information, see the page <a href="https://docs.unity3d.com/Manual/shadow-cascades.html">Shadow Cascades</a>. Increasing the number of cascades reduces the performance. Cascade settings only affects the main light.</td>
+</tr>
+<tr>
+<td>    Split 1</td>
+<td>The distance where cascade 1 ends and cascade 2 starts.</td>
+</tr>
+<tr>
+<td>    Split 2</td>
+<td>The distance where cascade 2 ends and cascade 3 starts.</td>
+</tr>
+<tr>
+<td>    Split 3</td>
+<td>The distance where cascade 3 ends and cascade 4 starts.</td>
+</tr>
+<tr>
+<td>    Last Border</td>
+<td>The size of the area where Unity fades out the shadows. Unity starts fading out shadows at the distance <strong>Max Distance</strong> - <strong>Last Border</strong>, at <strong>Max Distance</strong> the shadows fade to zero.</td>
+</tr>
+<tr>
+<td><strong>Depth Bias</strong></td>
+<td>Use this setting to reduce <a href="https://docs.unity3d.com/Manual/ShadowPerformance.html">shadow acne</a>.</td>
+</tr>
+<tr>
+<td><strong>Normal Bias</strong></td>
+<td>Use this setting to reduce <a href="https://docs.unity3d.com/Manual/ShadowPerformance.html">shadow acne</a>.</td>
+</tr>
+<tr>
+<td><a name="soft-shadows"></a><strong>Soft Shadows</strong></td>
+<td>Select this check box to enable extra processing of the shadow maps to give them a smoother look.<br><strong>Performance impact</strong>: high.<br>When this option is disabled, Unity samples the shadow map once with the default hardware filtering, which reduces processing time on the GPU.</td>
+</tr>
+<tr>
+<td>    Quality</td>
+<td>Select the quality level of soft shadow processing.<br>Available options:<br><strong>Low</strong>: good balance of quality and performance for mobile platforms. Filtering method: 4 PCF taps.<br><strong>Medium</strong>: good balance of quality and performance for desktop platforms. Filtering method: 5x5 tent filter. This is the default value.<br><strong>High</strong>: best quality, higher performance impact. Filtering method: 7x7 tent filter.</td>
+</tr>
+<tr>
+<td><strong>Conservative Enclosing Sphere</strong></td>
+<td>Enable this option to improve shadow frustum culling and prevent Unity from excessively culling shadows in the corners of the shadow cascades.<br>Disable this option only for compatibility purposes of existing projects created in previous Unity versions.<br>If you enable this option in an existing project, you might need to adjust the shadows cascade distances because the shadow culling enclosing spheres change their size and position.<br><strong>Performance impact</strong>: enabling this option is likely to improve performance, because the option minimizes the overlap of shadow cascades, which reduces the number of redundant static shadow casters.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="post-processing">Post-processing</h3>
+<p>This section allows you to fine-tune global post-processing settings.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Post Processing</strong></td>
+<td>This check box turns post-processing on (check box selected) or off (check box cleared) for the current URP asset.<br>If you clear this check box, Unity excludes post-processing shaders and textures from the build, unless one of the following conditions is true:<ul><li>Other assets in the build refer to the assets related to post-processing.</li><li>A different URP asset has the Post Processing property enabled.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Post Process Data</strong></td>
+<td>The asset containing references to shaders and Textures that the Renderer uses for post-processing.<br><strong>Note:</strong> Changes to this property are necessary only for advanced customization use cases.</td>
+</tr>
+<tr>
+<td><strong>Grading Mode</strong></td>
+<td>Select the <a href="https://docs.unity3d.com/Manual/PostProcessing-ColorGrading.html">color grading</a> mode to use for the Project.<ul><li><strong>High Dynamic Range</strong>: This mode works best for high precision grading similar to movie production workflows. Unity applies color grading before tonemapping.</li><li><strong>Low Dynamic Range</strong>: This mode follows a more classic workflow. Unity applies a limited range of color grading after tonemapping.</li></ul></td>
+</tr>
+<tr>
+<td><strong>LUT Size</strong></td>
+<td>Set the size of the internal and external <a href="https://docs.unity3d.com/Manual/PostProcessing-ColorGrading.html">look-up textures (LUTs)</a> that the Universal Render Pipeline uses for color grading. Higher sizes provide more precision, but have a potential cost of performance and memory use. You cannot mix and match LUT sizes, so decide on a size before you start the color grading process.<br>The default value, <strong>32</strong>, provides a good balance of speed and quality.</td>
+</tr>
+<tr>
+<td><strong>Fast sRGB/Linear Conversions</strong></td>
+<td>Select this option to use faster, but less accurate approximation functions when converting between the sRGB and Linear color spaces.</td>
+</tr>
+<tr>
+<td><strong>Volume Update Mode</strong></td>
+<td>Select how Unity updates Volumes: every frame or when triggered via scripting. If you select <strong>Every Frame</strong>, URP requires more processing time on the CPU. In the Editor, Unity updates Volumes every frame when not in the Play mode.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="adaptive-performance">Adaptive Performance</h3>
+<p>This section is available if the Adaptive Performance package is installed in the project. The <strong>Use Adaptive Performance</strong> property lets you enable the Adaptive Performance functionality.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Use Adaptive Performance</strong></td>
+<td>Select this check box to enable the Adaptive Performance functionality, which adjusts the rendering quality at runtime.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/universalrp-asset.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

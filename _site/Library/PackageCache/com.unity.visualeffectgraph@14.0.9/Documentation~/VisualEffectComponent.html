@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Visual Effect (Component) | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Visual Effect (Component) | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VisualEffectComponent.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="visual-effect-component">Visual Effect (Component)</h1>
+
+<p>The Visual Effect Component creates an instance of a Visual Effect in the scene, based on a Visual Effect Graph Asset. It controls how the effect plays, renders and let the user customize the instance by editing <a href="PropertiesAndBlackboard.md#exposed-properties">Exposed Properties</a>.</p>
+<h2 id="how-to-create-a-visual-effect">How to create a Visual Effect</h2>
+<p>To create a Visual Effect:</p>
+<ol>
+<li>Add the Visual Effect component using the <strong>Add Component</strong> menu in the Inspector or  navigate toi <strong>Component &gt; Effects &gt; Visual Effect</strong></li>
+<li>Click the <strong>New</strong> Button, next to the Asset Template property Field.</li>
+<li>Save the new Visual Effect Graph asset.</li>
+</ol>
+<p>The visual effect graph window then opens the newly created asset.</p>
+<p>To create a complete Game Object that contains a Visual Effect Component, navigate to the GameObject menu, click <strong>Visual Effects</strong> and select <strong>Visual Effect</strong>.</p>
+<p>When you drag a Visual Effect Graph Asset from the project view to the scene view or hierarchy view it automatically creates a child Game Object with Visual Effect Component:</p>
+<ul>
+<li>When dropped in the Scene View : In the center of screen in front of the camera.</li>
+<li>When dropped in the Hierarchy under no Parent Game Object : At  the origin of the world.</li>
+<li>When dropped in the Hierarchy under a Parent Game Object : At the parent's transform.</li>
+</ul>
+<h2 id="the-visual-effect-inspector">The Visual Effect Inspector</h2>
+<p>The Visual Effect Inspector helps you configure every instance of a Visual Effect. It displays values only relevant to this particular instance.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Asset Template</td>
+<td>Object Field that references the Visual Effect Graph Unity uses for this Instance.<br><br>The <strong>New/Edit</strong> button allows you to create a new visual effect graph asset or edit the current one. When you click <strong>New/Edit</strong>, Unity opens the Visual Effect Graph asset and connects this scene instance to the Target Game Object panel.</td>
+</tr>
+<tr>
+<td>Random Seed</td>
+<td>An Integer Field that displays the current random seed used for this instance. The <strong>Reseed</strong> button generates a new random seed for this component.</td>
+</tr>
+<tr>
+<td>Reseed On Play</td>
+<td>Boolean setting that computes a new seed at random every time Unity sends the Play Event to the Visual Effect.</td>
+</tr>
+<tr>
+<td>Initial Event Name</td>
+<td>Allows Unity to override the Default Event name (string) sent to the component when it is enabled. (Default : <em>OnPlay</em> ).</td>
+</tr>
+</tbody>
+</table>
+<h4 id="rendering-properties">Rendering properties</h4>
+<p>Rendering properties control how the visual effect instance will render and receive lighting. These properties are stored per-instance in the scene and do not apply modifications to the Visual Effect Graph.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Priority</td>
+<td>Controls the Transparency ordering of the effect.  This property only appears if the Project uses the High Definition Render Pipeline.</td>
+</tr>
+<tr>
+<td>Rendering Layer Mask</td>
+<td>This property functions differently depending on which render pipeline your Project uses. <br>• <strong>High Definition Render Pipeline</strong>: Controls the Lighting Layer Mask if it is configured in the HDRP Asset. <br>• <strong>Universal Render Pipeline</strong>: Determines which rendering layer this Renderer exists on.</td>
+</tr>
+<tr>
+<td>Reflection Probes</td>
+<td>Specifies how reflections in the Scene affect the Renderer.  This property only appears if the Project uses the Universal Render Pipeline.</td>
+</tr>
+<tr>
+<td>Light Probes</td>
+<td>Controls the Use of Light probes to compute the Ambient Lighting of the Effect.</td>
+</tr>
+<tr>
+<td>Anchor Override</td>
+<td>(Visible Only using Blend Probes option for Light Probes) : Defines an alternative transform to compute the position of the probe sampling.</td>
+</tr>
+<tr>
+<td>Proxy Volume Override</td>
+<td>(Visible Only using Proxy Volume option for Light Probes) : Defines an alternative Light Probe Proxy volume in order to compute the probe sampling.</td>
+</tr>
+<tr>
+<td>Sorting Layer</td>
+<td>Specifies the Renderer's group among other <a href="https://docs.unity3d.com/ScriptReference/SpriteRenderer.html">SpriteRenderer</a> components.</td>
+</tr>
+<tr>
+<td>Order in Layer</td>
+<td>Specifies the Renderer's order with a sorting layer relative to other <a href="https://docs.unity3d.com/ScriptReference/SpriteRenderer.html">SpriteRenderer</a> components. See also <a href="https://docs.unity3d.com/ScriptReference/Renderer-sortingOrder.html">Renderer.sortingOrder</a>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="properties">Properties</h4>
+<p>The properties category display any Property that is defined in the Visual Effect Graph Blackboard as an <strong>Exposed Property</strong>. Every property can be overridden from its default value in order to customize the Visual Effect instance in the scene. Some properties can also be edited using Gizmos directly in the scene.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Show Property Gizmos</td>
+<td>Toggles the display of the editing gizmos used to set up some exposed properties (Spheres, Boxes, Cylinders, Transforms, Positions). You can access each gizmo using its dedicated button next to its property.</td>
+</tr>
+<tr>
+<td>Properties</td>
+<td>All properties that have been exposed in the Visual Effect Graph Asset.  You can edit these properties for this instance of the Visual Effect. For more information see <a href="Blackboard.html#exposed-properties-in-inspector">Exposed Properties</a></td>
+</tr>
+</tbody>
+</table>
+<p>To access property values, edit them using the Inspector, use the <a href="https://docs.unity3d.com/2019.3/Documentation/ScriptReference/VFX.VisualEffect.html">C# API</a>, or use Property Binders.</p>
+<h2 id="the-play-controls-window">The Play Controls Window</h2>
+<p>The Play Controls window displays UI Elements that give you control over the currently selected instance of a Visual Effect. It is displayed in the bottom-right corner of the Scene View, when a Visual Effect Game Object is selected.</p>
+<p><img src="Images/PlayControls.png" alt=""></p>
+<p>The play Controls Window displays the following controls:</p>
+<ul>
+<li>Stop (Button) : Resets the effect and set its state to paused.</li>
+<li>Play / Pause (Button) : Toggles the paused state of the effect.</li>
+<li>Step (Button) : Pauses the effect and simulates one frame.</li>
+<li>Restart (Button) : Un-pauses the effect, resets it, and sends the default Play Event.</li>
+<li>Rate (Int Slider) : Sets the play rate of the effect (in percent)</li>
+<li>Set (Popup) : Sets a custom play rate of the effect from the menu.</li>
+<li>Show Bounds (Toggle) : Toggles visibility of the bounds of the effect</li>
+<li>Show Event Tester (Toggle) : Shows Event Tester Utility Window</li>
+<li>Play() and Stop() Buttons : Sends the default OnPlay and OnStop event to the component.</li>
+<li>(Optional) Gizmos (Popup) : Toggles the visibility of property gizmos.</li>
+</ul>
+<h2 id="editing-properties-with-gizmos">Editing Properties with Gizmos</h2>
+<p>You can edit some properties using Gizmos in the scene. In order to enable gizmo editing, click the <strong>Show Property Gizmos</strong> button in the Inspector. Upon enabling property Gizmos, every property that can be edited using Gizmos will display <strong>Edit Gizmo</strong> buttons next to every property that can be edited using gizmos.</p>
+<p><img src="Images/PropertyGizmosInspector.png" alt="Property Gizmos Inspector"></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VisualEffectComponent.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

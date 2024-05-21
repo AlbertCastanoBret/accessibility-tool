@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Visual Effect component API | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Visual Effect component API | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/ComponentAPI.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="visual-effect-component-api">Visual Effect component API</h1>
+
+<p>To create an instance of a <a href="VisualEffectGraphAsset.html">Visual Effect Graph</a> in a Scene, Unity uses the <a href="VisualEffectComponent.html">Visual Effect component</a>. The Visual Effect component attaches to GameObjects in your Scene and references a Visual Effect Graph which defines the visual effect. This allows you to create different instances of effects at various positions and orientations, and control each effect independently. To control an effect at runtime, Unity provides C# API that you can use to modify the Visual Effect component and set <a href="Properties.html">Property</a> overrides.</p>
+<p>This document presents common use cases and describes good practices to consider when you use the <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VisualEffect.html">component API</a>.</p>
+<h2 id="setting-a-visual-effect-graph">Setting a Visual Effect Graph</h2>
+<p>To change the <a href="VisualEffectGraphAsset.html">Visual Effect Graph</a> at runtime, assign a new Visual Effect Graph Asset to the <code>effect.visualEffectAsset </code> property. When you change the Visual Effect Graph, the component resets the value of some of its properties.</p>
+<p>The values that reset are:</p>
+<ul>
+<li><strong>Total Time</strong>: When you change the graph, the API calls the <code>Reset()</code> function which sets this value to 0.0f.</li>
+<li><strong>Event Attributes</strong>: The component discards all Event <a href="Attributes.html">Attribues</a>.</li>
+</ul>
+<p>The values that do <strong>not</strong> reset are:</p>
+<ul>
+<li><strong>Exposed Property Overrides</strong>: If the new Visual Effect Graph Asset exposes a property that has the same name and type as a property from the previous Asset, the value for this property does not reset.</li>
+<li><strong>Random Seed</strong> and <strong>Reset Seed On Play Value</strong>.</li>
+<li><strong>Default Event Override</strong>.</li>
+<li><strong>Rendering Settings overrides</strong>.</li>
+</ul>
+<h2 id="controlling-play-state">Controlling play state</h2>
+<p>You can use the API to control effect playback.</p>
+<h3 id="common-controls">Common controls</h3>
+<ul>
+<li><strong>Play</strong> : <code>effect.Play()</code> or <code>effect.Play(eventAttribute)</code> if needing Event Attributes.</li>
+<li><strong>Stop</strong> : <code>effect.Stop()</code> or <code>effect.Stop(eventAttribute)</code> if needing Event Attributes.</li>
+<li><strong>Pause</strong> : <code>effect.pause = true</code> or  <code>effect.pause = false</code>. Unity does not serialize this change.</li>
+<li><strong>Step</strong> : <code>effect.AdvanceOneFrame()</code>. This only works if <code>effect.pause</code> is set to <code>true</code>.</li>
+<li><strong>Reset Effect</strong> : <code>effect.Reinit()</code> this also :
+<ul>
+<li>Resets <code>TotalTime</code> to 0.0f.</li>
+<li>Re-sends the <strong>Default Event</strong> to the Visual Effect Graph.</li>
+</ul>
+</li>
+<li><strong>Play Rate</strong> : <code>effect.playRate = value</code>. Unity does not serialize this change.</li>
+</ul>
+<h3 id="default-event">Default Event</h3>
+<p>When the Visual Effect component (or the GameObject it attaches to) enables, it sends an <a href="Events.html">Event</a> to the graph. By default, this Event is <code>OnPlay</code> which is the standard start for <a href="Contexts.html#spawn">Spawn Contexts</a>.</p>
+<p>You can change the default Event in the following ways:</p>
+<ul>
+<li>On the <a href="VisualEffectComponent.html">Visual Effect Inspector</a>, change the <strong>Initial Event Name</strong> field.</li>
+<li>In the component API : <code>initialEventName = &quot;MyEventName&quot;;</code>.</li>
+<li>In the component API : <code>initialEventID = Shader.PropertyToID(&quot;MyEventName&quot;);</code>.</li>
+<li>Using the <a href="ExposedPropertyHelper.html">ExposedProperty Helper Class</a>.</li>
+</ul>
+<h2 id="random-seed-control">Random seed control</h2>
+<p>Every effect instance has settings and controls for its random seed. You can modify the seed to influence the random values the Visual Effect Graph uses.</p>
+<ul>
+<li><code>resetSeedOnPlay = true/false</code>: Controls whether Unity computes a new random seed every time you call the <code>ReInit()</code> function. This causes each random value the Visual Effect Graph uses to be different to what it was in previous simulations.</li>
+<li><code>startSeed = intSeed</code>: Sets a manual seed that the <strong>Random Number</strong> Operator uses to create random values for this Visual Effect. Unity ignores this value if <code>resetSeedOnPlay</code> is set to <code>true</code>.</li>
+</ul>
+<p><a name="PropertyInterface"></a></p>
+<h2 id="property-interface">Property interface</h2>
+<p>To access the state and values of Exposed Properties, you can use multiple methods in the <a href="VisualEffectComponent.html">Visual Effect component</a>. Most of the API methods allow access to the property via the following methods:</p>
+<ul>
+<li>A <code>string</code> property name. This is easy to use, but is the least optimized method.</li>
+<li>An <code>int</code> property ID. To generate this ID from a string property name, use <code>Shader.PropertyToID(string name)</code>. This is the most optimized method.</li>
+<li>The <a href="ExposedPropertyHelper.html">ExposedProperty Helper Class</a>. This combines the ease of use the string property name provides with the efficiency of the integer property ID.</li>
+</ul>
+<h3 id="checking-for-exposed-properties">Checking for exposed properties</h3>
+<p>You can check if the component's Visual Effect Graph contains a specific exposed property. To do this, you can use the method from the following group that corresponds to the property's type:</p>
+<ul>
+<li><code>HasInt(property)</code></li>
+<li><code>HasUInt(property)</code></li>
+<li><code>HasBool(property)</code></li>
+<li><code>HasFloat(property)</code></li>
+<li><code>HasVector2(property)</code></li>
+<li><code>HasVector3(property)</code></li>
+<li><code>HasVector4(property)</code></li>
+<li><code>HasGradient(property)</code></li>
+<li><code>HasAnimationCurve(property)</code></li>
+<li><code>HasMesh(property)</code></li>
+<li><code>HasTexture(property)</code></li>
+<li><code>HasMatrix4x4(property)</code></li>
+</ul>
+<p>For each method, if the Visual Effect Graph contains an exposed property of the correct type with the same name or ID you pass in, the method returns <code>true</code>. Otherwise the method returns <code>false</code>.</p>
+<h3 id="getting-the-values-of-exposed-properties">Getting the values of exposed properties</h3>
+<p>The component API allows you to get the value of an exposed property in the component's Visual Effect Graph. To do this, you can use the method from the following group that corresponds to the property's type:</p>
+<ul>
+<li><code>GetInt(property)</code></li>
+<li><code>GetUInt(property)</code></li>
+<li><code>GetBool(property)</code></li>
+<li><code>GetFloat(property)</code></li>
+<li><code>GetVector2(property)</code></li>
+<li><code>GetVector3(property)</code></li>
+<li><code>GetVector4(property)</code></li>
+<li><code>GetGradient(property)</code></li>
+<li><code>GetAnimationCurve(property)</code></li>
+<li><code>GetMesh(property)</code></li>
+<li><code>GetTexture(property)</code></li>
+<li><code>GetMatrix4x4(property)</code></li>
+</ul>
+<p>For each method, if the Visual Effect Graph contains an exposed property of the correct type with the same name or ID you pass in, the method returns the property's value. Otherwise the method returns the default value for the property type.</p>
+<h3 id="setting-the-values-of-exposed-properties">Setting the values of exposed properties</h3>
+<p>The component API allows you to set the value of an exposed property in the component's Visual Effect Graph. To do this, you can use the method from the following group that corresponds to the property's type:</p>
+<ul>
+<li><code>SetInt(property,value)</code></li>
+<li><code>SetUInt(property,value)</code></li>
+<li><code>SetBool(property,value)</code></li>
+<li><code>SetFloat(property,value)</code></li>
+<li><code>SetVector2(property,value)</code></li>
+<li><code>SetVector3(property,value)</code></li>
+<li><code>SetVector4(property,value)</code></li>
+<li><code>SetGradient(property,value)</code></li>
+<li><code>SetAnimationCurve(property,value)</code></li>
+<li><code>SetMesh(property,value)</code></li>
+<li><code>SetTexture(property,value)</code></li>
+<li><code>SetMatrix4x4(property,value)</code></li>
+</ul>
+<p>Each method overrides the value of the corresponding property with the value you pass in.</p>
+<h3 id="resetting-property-overrides-and-default-values">Resetting property overrides and default values</h3>
+<p>The component API allows you to reset property overrides back to their original values. To do this, use the <code>ResetOverride(property)</code> method.</p>
+<h2 id="events">Events</h2>
+<h3 id="sending-events">Sending Events</h3>
+<p>The component API allows you to send <a href="Events.html">Events</a> to the component's Visual Effect Graph at runtime. To do this, use either of the following methods:</p>
+<ul>
+<li><code>SendEvent(eventNameOrId)</code></li>
+<li><code>SendEvent(eventNameOrId, eventAttribute)</code></li>
+</ul>
+<p>The <code>eventNameOrId</code> parameter can be one of the following types:</p>
+<ul>
+<li>A <code>string</code> property name. This is easy to use, but is the least optimized method.</li>
+<li>An <code>int</code> property ID. To generate this ID from a string property name, use <code>Shader.PropertyToID(string name)</code>. This is the most optimized method.</li>
+<li>The <a href="ExposedPropertyHelper.html">ExposedProperty Helper Class</a>. This combines the ease of use the string property name provides with the efficiency of the integer property ID.</li>
+</ul>
+<p>The optional <code>eventAttribute</code> parameter attaches an <strong>Event Attribute Payload</strong> to the Event. They payload provides data that the Graph processes with the Event.</p>
+<p><strong>Note</strong>: When you send an <a href="https://docs.unity3d.com/ScriptReference/VFX.VisualEffect.SendEvent.html">Event</a> (or use the <a href="https://docs.unity3d.com/ScriptReference/VFX.VisualEffect.Simulate.html"><code>.Simulate</code></a>method) the Visual Effect component processes all pushed commands in its next <code>VisualEffect.Update</code> which happens after the <a href="https://docs.unity3d.com/Manual/ExecutionOrder.html"><code>LateUpdate</code></a>.</p>
+<h3 id="event-attributes">Event Attributes</h3>
+<p>Event Attributes are <a href="Attributes.html">Attributes</a> that attach to <a href="Events.html">Events</a> and can be processed by the Visual Effect Graph. To create and store Event Attributes, use the <code>VFXEventAttribute</code> class. The Visual Effect component is responsible for creating instances of the <code>VFXEventAttribute</code> class and creates them based on the currently assigned <a href="VisualEffectGraphAsset.html">Visual Effect Graph</a>.</p>
+<h4 id="creating-event-attributes">Creating Event Attributes</h4>
+<p>To create a <code>VFXEventAttribute</code>, use the <code>CreateVFXEventAttribute()</code> method of the Visual Effect component. If you want to send the same Event multiple times with the same attributes, store the <code>VFXEventAtrribute</code>, rather than create a new one every time you send the Event. When you send an Event to a Visual Effect Graph, Unity creates a copy of the EventAttribute in its current state and sends the copy. This means that, after you send the Event, you can safely modify the EventAttribute without affecting the information sent to the Visual Effect Graph.</p>
+<h4 id="setting-the-attributes-payload">Setting the Attribute's payload</h4>
+<p>After you create an Event Attribute, you use API similar to the Has/Get/Set property methods described in the <a href="#PropertyInterface">Property interface section</a> to set the Attribute Payload.</p>
+<ul>
+<li>Has : <code>HasBool</code>, <code>HasVector3</code>, <code>HasFloat</code>,... To check if an Attribute exists.</li>
+<li>Get : <code>GetBool</code>, <code>GetVector3</code>, <code>GetFloat</code>,... To get the value of an Attribute.</li>
+<li>Set : <code>SetBool</code>, <code>SetVector3</code>, <code>SetFloat</code>,... To set the value of an Attribute.</li>
+</ul>
+<p>For the full Attribute API documentation, see <a href="https://docs.unity3d.com/Documentation/ScriptReference/VFX.VFXEventAttribute.html">VFXEventAttribute</a> in the Unity Script Reference.</p>
+<p>The attribute name or ID can be one of the following types:</p>
+<ul>
+<li>A <code>string</code> property name. This is easy to use, but is the least optimized method.</li>
+<li>An <code>int</code> property ID. To generate this ID from a string property name, use <code>Shader.PropertyToID(string name)</code>. This is the most optimized method.</li>
+<li>The <a href="ExposedPropertyHelper.html">ExposedProperty Helper Class</a>. This combines the ease of use the string property name provides with the efficiency of the integer property ID.</li>
+</ul>
+<h4 id="life-cycle-and-compatibility">Life cycle and compatibility</h4>
+<p>When you create an Event Attribute, it is compatible with the Visual Effect Graph Asset currently assigned to the Visual Effect component. This means that you are able to use the same <code>VFXEventAttribute</code> to send Events to other instances of the same graph. If you change the <code>visualEffectAsset</code> property of a Visual Effect component to another graph, you can no longer use the same <code>VFXEventAttribute</code> to send Events to it.</p>
+<p>If you want to manage multiple Visual Effect instances in the same Scene and want to share Event payloads, you can store one <code>VFXEventAttribute</code> and use it on all the instances.</p>
+<h4 id="example-in-a-monobehaviour">Example (in a MonoBehaviour)</h4>
+<pre><code class="lang-c#">VisualEffect visualEffect;
+VFXEventAttribute eventAttribute;
+
+static readonly ExposedProperty positionAttribute = &quot;Position&quot;
+static readonly ExposedProperty enteredTriggerEvent = &quot;EnteredTrigger&quot;
+
+void Start()
+{
+    visualEffect = GetComponent&lt;VisualEffect&gt;();
+    // Caches an Event Attribute matching the
+    // visualEffect.visualEffectAsset graph.
+    eventAttribute = visualEffect.CreateVFXEventAttribute();
+}
+
+void OnTriggerEnter()
+{
+    // Sets some Attributes
+    eventAttribute.SetVector3(positionAttribute, player.transform.position);
+    // Sends the Event
+    visualEffect.SendEvent(enteredTriggerEvent, eventAttribute);
+}
+</code></pre>
+<h2 id="debugging">Debugging</h2>
+<p>Each Visual Effect component contains the following debug properties:</p>
+<ul>
+<li><code>aliveParticleCount</code>: The number of alive particles in the entire effect.<br><strong>Note</strong>: The component calculates this value asynchronously every second which means that the result may be the number of alive particles during a frame rendered up to a second before you access this property.</li>
+<li><code>culled</code>: Indicates whether any Camera culled the effect in the previous frame.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/ComponentAPI.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

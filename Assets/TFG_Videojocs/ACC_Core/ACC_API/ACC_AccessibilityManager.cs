@@ -12,7 +12,7 @@ using TFG_Videojocs.ACC_HighContrast;
 using UnityEditor;
 #endif
 
-namespace TFG_Videojocs
+namespace ACC_API
 {
     public class ACC_AccessibilityManager : MonoBehaviour
     {

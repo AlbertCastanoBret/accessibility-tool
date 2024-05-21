@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>URP ShaderLab Pass tags | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="URP ShaderLab Pass tags | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/urp-shaders/urp-shaderlab-pass-tags.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="urp-shaderlab-pass-tags">URP ShaderLab Pass tags</h1>
+
+<p>This section contains descriptions of URP-specific ShaderLab Pass tags.</p>
+<blockquote>
+<p><strong>NOTE</strong>: URP does not support the following LightMode tags: <code>Always</code>, <code>ForwardAdd</code>, <code>PrepassBase</code>, <code>PrepassFinal</code>, <code>Vertex</code>, <code>VertexLMRGBM</code>, <code>VertexLM</code>.</p>
+</blockquote>
+<h2 id="lightmode">LightMode<a name="lightmode"></a></h2>
+<p>The value of this tag lets the pipeline determine which Pass to use when executing different parts of the Render Pipeline.</p>
+<p>If you do not set the <code>LightMode</code> tag in a Pass, URP uses the <code>SRPDefaultUnlit</code> tag value for that Pass.</p>
+<p>The <code>LightMode</code> tag can have the following values.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property</strong></th>
+<th style="text-align: left;"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>UniversalForward</strong></td>
+<td style="text-align: left;">The Pass renders object geometry and evaluates all light contributions. URP uses this tag value in the Forward Rendering Path.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>UniversalGBuffer</strong></td>
+<td style="text-align: left;">The Pass renders object geometry without evaluating any light contribution. Use this tag value in Passes that Unity must execute in the Deferred Rendering Path.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>UniversalForwardOnly</strong></td>
+<td style="text-align: left;">The Pass renders object geometry and evaluates all light contributions, similarly to when <strong>LightMode</strong> has the <strong>UniversalForward</strong> value. The difference from <strong>UniversalForward</strong> is that URP can use the Pass for both the Forward and the Deferred Rendering Paths.<br>Use this value if a certain Pass must render objects with the Forward Rendering Path when URP is using the Deferred Rendering Path. For example, use this tag if URP renders a Scene using the Deferred Rendering Path and the Scene contains objects with shader data that does not fit the GBuffer, such as Clear Coat normals.<br>If a shader must render in both the Forward and the  Deferred Rendering Paths, declare two Passes with the <code>UniversalForward</code> and <code>UniversalGBuffer</code> tag values.<br>If a shader must render using the Forward Rendering Path regardless of the Rendering Path that the URP Renderer uses, declare only a Pass with the <code>LightMode</code> tag set to <code>UniversalForwardOnly</code>.<br>If you use the SSAO Renderer Feature, add a Pass with the <code>LightMode</code> tag set to <code>DepthNormalsOnly</code>. For more information, see the <code>DepthNormalsOnly</code> value.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DepthNormalsOnly</strong></td>
+<td style="text-align: left;">Use this value in combination with <code>UniversalForwardOnly</code> in the Deferred Rendering Path. This value lets Unity render the shader in the Depth and normal prepass. In the Deferred Rendering Path, if the Pass with the <code>DepthNormalsOnly</code> tag value is missing, Unity does not generate the ambient occlusion around the Mesh.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Universal2D</strong></td>
+<td style="text-align: left;">The Pass renders objects and evaluates 2D light contributions. URP uses this tag value in the 2D Renderer.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>ShadowCaster</strong></td>
+<td style="text-align: left;">The Pass renders object depth from the perspective of lights into the Shadow map or a depth texture.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>DepthOnly</strong></td>
+<td style="text-align: left;">The Pass renders only depth information from the perspective of a Camera into a depth texture.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Meta</strong></td>
+<td style="text-align: left;">Unity executes this Pass only when baking lightmaps in the Unity Editor. Unity strips this Pass from shaders when building a Player.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SRPDefaultUnlit</strong></td>
+<td style="text-align: left;">Use this <code>LightMode</code> tag value to draw an extra Pass when rendering objects. Application example: draw an object outline. This tag value is valid for both the Forward and the Deferred Rendering Paths.<br>URP uses this tag value as the default value when a Pass does not have a <code>LightMode</code> tag.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="universalmaterialtype">UniversalMaterialType<a name="universalmaterialtype"></a></h2>
+<p>Unity uses this tag in the Deferred Rendering Path.</p>
+<p>The <code>UniversalMaterialType</code> tag can have the following values.</p>
+<p>If this tag is not set in a Pass, Unity uses the <code>Lit</code> value.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property</strong></th>
+<th style="text-align: left;"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Lit</strong></td>
+<td style="text-align: left;">This value indicates that the shader type is Lit. During the G-buffer Pass, Unity uses stencil to mark the pixels that use the Lit shader type (specular model is PBR).<br>Unity uses this value by default, if the tag is not set in a Pass.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>SimpleLit</strong></td>
+<td style="text-align: left;">This value indicates that the shader type is SimpleLit. During the G-buffer Pass, Unity uses stencil to mark the pixels that use the SimpleLit shader type (specular model is Blinn-Phong).</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/urp-shaders/urp-shaderlab-pass-tags.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

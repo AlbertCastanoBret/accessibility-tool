@@ -1,0 +1,494 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>How to create a custom Renderer Feature | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="How to create a custom Renderer Feature | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/containers/create-custom-renderer-feature-1.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="how-to-create-a-custom-renderer-feature">How to create a custom Renderer Feature</h1>
+
+<p>This section describes how to create a custom Renderer Feature for a URP Renderer.</p>
+<p>This section assumes the following:</p>
+<ul>
+<li>The <strong>Scriptable Render Pipeline Settings</strong> property refers to a URP asset (<strong>Project Settings</strong> &gt; <strong>Graphics</strong> &gt; <strong>Scriptable Render Pipeline Settings</strong>).</li>
+</ul>
+<p>This article contains the following sections:</p>
+<ul>
+<li><p><a href="#example-scene">Create example Scene and GameObjects.</a></p>
+</li>
+<li><p><a href="#scriptable-renderer-feature">Create a scriptable Renderer Feature and add it to the Universal Renderer.</a></p>
+</li>
+<li><p><a href="#scriptable-render-pass">Create and enqueue the scriptable Render Pass.</a></p>
+</li>
+<li><p><a href="#execute-method">Implement rendering commands in the Execute method.</a></p>
+</li>
+<li><p><a href="#example-specific-material">Implement the example-specific Material and rendering code.</a></p>
+</li>
+<li><p><a href="#order-of-passes">Change the order of the render passes</a></p>
+</li>
+<li><p><a href="#complete-code">Complete code for this example</a></p>
+</li>
+</ul>
+<h2 id="example-scene">Create example Scene and GameObjects</h2>
+<p>To follow the steps in this section, create a new Scene with the following GameObjects:</p>
+<ol>
+<li><p>Create a plane.</p>
+</li>
+<li><p>Create a new Material and assign it the <code>Universal Render Pipeline/Lit</code> shader. Set the base color to grey (for example, <code>#6A6A6A</code>). Call the Material <code>Plane</code>.</p>
+</li>
+<li><p>Create a Point Light and place it above the plane.</p>
+</li>
+</ol>
+<p>Your Scene should look like the following illustration:</p>
+<p><img src="../Images/customizing-urp/custom-renderer-feature/sample-scene.png" alt="Example Scene"></p>
+<h2 id="scriptable-renderer-feature">Create a scriptable Renderer Feature and add it to the Universal Renderer</h2>
+<p>This part shows how to create a scriptable Renderer Feature and implement the methods that let you configure and inject <code>ScriptableRenderPass</code> instances into the scriptable Renderer.</p>
+<ol>
+<li><p>Create a new C# script. Call the script <code>LensFlareRendererFeature.cs</code>.</p>
+</li>
+<li><p>Open the script, remove all the code from the <code>LensFlareRendererFeature</code> class that Unity created. Add the following <code>using</code> directive.</p>
+<pre><code class="lang-C#">using UnityEngine.Rendering.Universal;
+</code></pre>
+</li>
+<li><p>The <code>LensFlareRendererFeature</code> class must inherit from the <code>ScriptableRendererFeature</code> class.</p>
+<pre><code class="lang-C#">public class LensFlareRendererFeature : ScriptableRendererFeature
+</code></pre>
+</li>
+<li><p>The class must implement the following methods:</p>
+<ul>
+<li><p><code>Create</code>: Unity calls this method on the following events:</p>
+<ul>
+<li><p>When the Renderer Feature loads the first time.</p>
+</li>
+<li><p>When you enable or disable the Renderer Feature.</p>
+</li>
+<li><p>When you change a property in the inspector of the Renderer Feature.</p>
+</li>
+</ul>
+</li>
+<li><p><code>AddRenderPasses</code>: Unity calls this method every frame, once for each Camera. This method lets you inject <code>ScriptableRenderPass</code> instances into the scriptable Renderer.</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>Now you have the custom <code>LensFlareRendererFeature</code> Renderer Feature with its main methods.</p>
+<p>Below is the complete code for this part.</p>
+<pre><code class="lang-C#">using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class LensFlareRendererFeature : ScriptableRendererFeature
+{
+    public override void Create()
+    { }
+
+    public override void AddRenderPasses(ScriptableRenderer renderer,
+    ref RenderingData renderingData)
+    { }
+}
+</code></pre>
+<p>Add the Renderer Feature you created to the the Universal Renderer asset. <a href="../urp-renderer-feature-how-to-add.html">Follow this link to read how to add a Renderer Feature to a Renderer</a>.</p>
+<p><img src="../Images/customizing-urp/custom-renderer-feature/add-new-renderer-feature.png" alt="Add the Lens Flare Renderer Feature to the Universal Renderer."><br><em>Add the Lens Flare Renderer Feature to the Universal Renderer.</em></p>
+<h2 id="scriptable-render-pass">Create and enqueue the scriptable Render Pass</h2>
+<p>This part shows how to create a scriptable Render Pass and and enqueue its instance into the scriptable Renderer.</p>
+<ol>
+<li><p>In the <code>LensFlareRendererFeature</code> class, declare the <code>LensFlarePass</code> class that inherits from <code>ScriptableRenderPass</code>.</p>
+<pre><code class="lang-C#">class LensFlarePass : ScriptableRenderPass
+{ }
+</code></pre>
+</li>
+<li><p>In <code>LensFlarePass</code>, add the <code>Execute</code> method.</p>
+<p>Unity runs the <code>Execute</code> method every frame. In this method, you can implement your custom rendering functionality.</p>
+<pre><code class="lang-C#">public override void Execute(ScriptableRenderContext context,
+ref RenderingData renderingData)
+{ }
+</code></pre>
+</li>
+<li><p>In the <code>LensFlareRendererFeature</code> class, declare a private <code>LensFlarePass</code> field.</p>
+<pre><code class="lang-C#">private LensFlarePass _lensFlarePass;
+</code></pre>
+</li>
+<li><p>In the <code>Create</code> method, instantiate the <code>_lensFlarePass</code> object:</p>
+<pre><code class="lang-C#">_lensFlarePass = new LensFlarePass(FlareSettings);
+</code></pre>
+</li>
+<li><p>In the <code>AddRenderPasses</code> method, use the <code>EnqueuePass</code> method of the <code>renderer</code> object to enqueue <code>_lensFlarePass</code> in the rendering queue.</p>
+<pre><code class="lang-C#">renderer.EnqueuePass(_lensFlarePass);
+</code></pre>
+</li>
+</ol>
+<p>Now your custom <code>LensFlareRendererFeature</code> Renderer Feature is executing the <code>Execute</code> method inside the custom <code>LensFlarePass</code> pass.</p>
+<p>Below is the complete code for this part.</p>
+<pre><code class="lang-C#">using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class LensFlareRendererFeature : ScriptableRendererFeature
+{
+    class LensFlarePass : ScriptableRenderPass
+    {
+        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        {
+            Debug.Log(message: &quot;The Execute() method runs.&quot;);
+        }
+    }
+
+    private LensFlarePass _lensFlarePass;
+
+    public override void Create()
+    {
+        _lensFlarePass = new LensFlarePass();
+    }
+
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+    {
+        renderer.EnqueuePass(_lensFlarePass);
+    }
+}
+</code></pre>
+<h2 id="execute-method">Implement rendering commands in the Execute method</h2>
+<p>This part shows how to implement custom logic in the Execute method.</p>
+<ol>
+<li><p>Create a <a href="https://docs.unity3d.com/2021.2/Documentation/ScriptReference/Rendering.CommandBuffer.html">CommandBuffer</a> type object. This object holds the list of rendering commands to execute.</p>
+<p>In the <code>Execute</code> method, add the following line:</p>
+<pre><code class="lang-C#">CommandBuffer cmd = CommandBufferPool.Get(name: &quot;LensFlarePass&quot;);
+</code></pre>
+<p>The method <code>CommandBufferPool.Get(name: &quot;LensFlarePass&quot;)</code> gets the new command buffer and assigns a name to it.</p>
+</li>
+<li><p>Add the line that executes the command buffer and the line that releases it.</p>
+<p>In the <code>Execute</code> method, add the following lines after the command buffer declaration:</p>
+<pre><code class="lang-C#">context.ExecuteCommandBuffer(cmd);
+CommandBufferPool.Release(cmd);
+</code></pre>
+<p>Now the boilerplate part is ready and we can proceed to implementing the custom rendering logic.</p>
+</li>
+</ol>
+<p>The following steps implement the custom rendering logic.</p>
+<p>In this example, the Renderer Feature draws lens flares as a texture on a Quad. The implementation requires a Material and a mesh (Quad).</p>
+<ol>
+<li><p>In the <code>LensFlarePass</code> class, declare two private fields: <code>Material</code> and <code>Mesh</code>:</p>
+<pre><code class="lang-C#">private Material _material;
+private Mesh _mesh;
+</code></pre>
+<p>Then declare the constructor that takes those variables as arguments:</p>
+<pre><code class="lang-C#">public LensFlarePass(Material material, Mesh mesh)
+{
+    _material = material;
+    _mesh = mesh;
+}
+</code></pre>
+</li>
+<li><p>Now the <code>LensFlarePass</code> class expects two arguments. To initialize the class with the arguments, add the following public fields in the <code>LensFlareRendererFeature</code> class:</p>
+<pre><code class="lang-C#">public Material material;
+public Mesh mesh;
+</code></pre>
+<p>And add the arguments to the <code>LensFlarePass</code> declaration in the <code>Create</code> method:</p>
+<pre><code class="lang-C#">_lensFlarePass = new LensFlarePass(material, mesh);
+</code></pre>
+</li>
+<li><p>In the <code>Execute</code> method, use the <code>DrawMesh</code> method of the <code>cmd</code> object. The method takes the <code>_material</code> and the <code>_mesh</code> fields as arguments. Add the following line between the <code>cmd</code> object declaration and the command <code>context.ExecuteCommandBuffer(cmd)</code>.</p>
+<pre><code class="lang-C#">cmd.DrawMesh(_mesh, Matrix4x4.identity, _material);
+</code></pre>
+<p>To ensure that Unity does call the <code>DrawMesh</code> method with <code>null</code> arguments, in the <code>AddRenderPasses</code> method, wrap the <code>EnqueuePass</code> call in the null check condition:</p>
+<pre><code class="lang-C#">if (material != null &amp;&amp; mesh != null)
+{
+    renderer.EnqueuePass(_lensFlarePass);
+}
+</code></pre>
+</li>
+</ol>
+<p>Now the <code>LensFlarePass</code> class has the following basic logic in the <code>Execute</code> method:</p>
+<ol>
+<li><p>Get the new command buffer and assign it the name <code>LensFlarePass</code>.</p>
+</li>
+<li><p>Add rendering commands.</p>
+</li>
+<li><p>Execute the command buffer.</p>
+</li>
+<li><p>Release the buffer.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>NOTE:</strong> Unity does not enqueue the <code>LensFlarePass</code> pass yet, because the <code>Material</code> and the <code>Mesh</code> properties are null.</p>
+</blockquote>
+<p>Below is the complete code for this part.</p>
+<pre><code class="lang-C#">using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class LensFlareRendererFeature : ScriptableRendererFeature
+{
+    class LensFlarePass : ScriptableRenderPass
+    {
+        private Material _material;
+        private Mesh _mesh;
+
+        public LensFlarePass(Material material, Mesh mesh)
+        {
+            _material = material;
+            _mesh = mesh;
+        }
+
+        public override void Execute(ScriptableRenderContext context,
+            ref RenderingData renderingData)
+        {
+            CommandBuffer cmd = CommandBufferPool.Get(name: &quot;LensFlarePass&quot;);
+            cmd.DrawMesh(_mesh, Matrix4x4.identity, _material);
+            context.ExecuteCommandBuffer(cmd);
+            CommandBufferPool.Release(cmd);
+        }
+    }
+
+    private LensFlarePass _lensFlarePass;
+    public Material material;
+    public Mesh mesh;
+
+    public override void Create()
+    {
+        _lensFlarePass = new LensFlarePass(material, mesh);
+    }
+
+    public override void AddRenderPasses(ScriptableRenderer renderer,
+        ref RenderingData renderingData)
+    {
+        if (material != null &amp;&amp; mesh != null)
+        {
+            renderer.EnqueuePass(_lensFlarePass);
+        }
+    }
+}
+</code></pre>
+<h2 id="example-specific-material">Implement the example-specific Material and rendering code</h2>
+<p>This section shows how to create a Material for the lens flare effect and how to implement the code to render flares at the positions of Lights.</p>
+<ol>
+<li><p>Create a new Material, and assign it the <code>Universal Render Pipeline/Unlit</code> shader. Call the Material <code>LensFlare</code>.</p>
+</li>
+<li><p>For demonstration purpose, change the base color of the Material to red.</p>
+</li>
+<li><p>In the Universal Renderer, in <code>Lens Flare Renderer Feature</code>, select the <code>LensFlare</code> Material in the Material property, and the <code>Quad</code> mesh in the Mesh property.</p>
+<p><img src="../Images/customizing-urp/custom-renderer-feature/select-mesh-and-material.png" alt=""></p>
+</li>
+<li><p>The Renderer Feature draws the quad in the Scene, but at this point it's just black. This is because the <code>Universal Render Pipeline/Unlit</code> shader has multiple passes, and one of them paints the quad black. To change this behavior, use the <code>cmd.DrawMesh</code> method overload that accepts the <code>shaderPass</code> argument, and specify shader pass 0:</p>
+<pre><code class="lang-C#">cmd.DrawMesh(_mesh, Matrix4x4.identity, _material, 0, 0);
+</code></pre>
+</li>
+</ol>
+<p>The following steps show the changes that are specific to the effect implementation in this example. They are for illustrative purposes.</p>
+<ol>
+<li><p>Add the following lines in the <code>Execute</code> method. Place them after the <code>cmd</code> object declaration. These lines ensure that Unity draws the quad with the flare in the following way:</p>
+ <ul>
+     <li>In the screen space.</li>
+     <li>With the correct aspect ratio.</li>
+     <li>For each Light, in the center of the Light.</li>
+ </ul>
+<pre><code class="lang-C#">// Get the Camera data from the renderingData argument.
+Camera camera = renderingData.cameraData.camera;
+// Set the projection matrix so that Unity draws the quad in screen space
+cmd.SetViewProjectionMatrices(Matrix4x4.identity, Matrix4x4.identity);
+// Add the scale variable, use the Camera aspect ratio for the y coordinate
+Vector3 scale = new Vector3(1, camera.aspect, 1);
+// Draw a quad for each Light, at the screen space position of the Light.
+foreach (VisibleLight visibleLight in renderingData.lightData.visibleLights)
+{
+    Light light = visibleLight.light;
+    // Convert the position of each Light from world to viewport point.
+    Vector3 position =
+        camera.WorldToViewportPoint(light.transform.position) * 2 - Vector3.one;
+    // Set the z coordinate of the quads to 0 so that Uniy draws them on the same plane.
+    position.z = 0;
+    // Change the Matrix4x4 argument in the cmd.DrawMesh method to use the position and
+    // the scale variables.
+    cmd.DrawMesh(_mesh, Matrix4x4.TRS(position, Quaternion.identity, scale),
+        _material, 0, 0);
+}
+</code></pre>
+<p>Now Unity draws a quad in the center of each Light.</p>
+<p><img src="../Images/customizing-urp/custom-renderer-feature/quad-in-screen-space-on-light.png" alt=""></p>
+</li>
+<li><p>To visualize the lens flare, make the following changes to the <code>LensFlare</code> Material.</p>
+<p>Add the following texture to the base map:<br><img src="../Images/customizing-urp/custom-renderer-feature/lens-flare-texture.png" alt="Lens flare texture."></p>
+<p>Set the color to white.</p>
+<p>Set <code>Surface Type</code> to <code>Transparent</code>.</p>
+<p>Set <code>Blending Mode</code> to <code>Additive</code>.</p>
+</li>
+</ol>
+<p>Now Unity draws the lens flare texture on the quad, but a part of the flare is not visible:</p>
+<p><img src="../Images/customizing-urp/custom-renderer-feature/skybox-after-lens-flare.png" alt=""></p>
+<p>This is because Unity draws the skybox after the <code>LensFlarePass</code> render pass.</p>
+<h2 id="order-of-passes">Change the order of the render passes</h2>
+<p>To see the order in which Unity draws the render passes, open the <strong>Frame Debugger</strong> (<strong>Window</strong> &gt; <strong>Analysis</strong> &gt; <strong>Frame Debugger</strong>).</p>
+<p><img src="../Images/customizing-urp/custom-renderer-feature/frame-debug-view.png" alt=""></p>
+<p>To enqueue the <code>LensFlarePass</code> pass after the skybox pass, use the <code>renderPassEvent</code> property of <code>LensFlarePass</code>. Assign the property the <code>AfterRenderingSkybox</code> event from the <code>RenderPassEvent</code> enum.</p>
+<p>Make the following changes in the <code>Create</code> method:</p>
+<pre><code class="lang-C#">public override void Create()
+{
+    _lensFlarePass = new LensFlarePass(material, mesh);
+    // Draw the lens flare effect after the skybox.
+    _lensFlarePass.renderPassEvent = RenderPassEvent.AfterRenderingSkybox;
+}
+</code></pre>
+<p>Now Unity draws the lens flare on top of the skybox.</p>
+<p><img src="../Images/customizing-urp/custom-renderer-feature/final-lens-flare-view.png" alt=""></p>
+<h2 id="complete-code">Complete code for this example</h2>
+<p>Below is the complete code for this example.</p>
+<pre><code class="lang-C#">using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+public class LensFlareRendererFeature : ScriptableRendererFeature
+{
+    class LensFlarePass : ScriptableRenderPass
+    {
+        private Material _material;
+        private Mesh _mesh;
+
+        public LensFlarePass(Material material, Mesh mesh)
+        {
+            _material = material;
+            _mesh = mesh;
+        }
+
+        public override void Execute(ScriptableRenderContext context,
+            ref RenderingData renderingData)
+        {
+            CommandBuffer cmd = CommandBufferPool.Get(name: &quot;LensFlarePass&quot;);
+            // Get the Camera data from the renderingData argument.
+            Camera camera = renderingData.cameraData.camera;
+            // Set the projection matrix so that Unity draws the quad in screen space.
+            cmd.SetViewProjectionMatrices(Matrix4x4.identity, Matrix4x4.identity);
+            // Add the scale variable, use the Camera aspect ratio for the y coordinate
+            Vector3 scale = new Vector3(1, camera.aspect, 1);
+
+            // Draw a quad for each Light, at the screen space position of the Light.
+            foreach (VisibleLight visibleLight in renderingData.lightData.visibleLights)
+            {
+                Light light = visibleLight.light;
+                // Convert the position of each Light from world to viewport point.
+                Vector3 position =
+                    camera.WorldToViewportPoint(light.transform.position) * 2 - Vector3.one;
+                // Set the z coordinate of the quads to 0 so that Uniy draws them on the same
+                // plane.
+                position.z = 0;
+                // Change the Matrix4x4 argument in the cmd.DrawMesh method to use
+                // the position and the scale variables.
+                cmd.DrawMesh(_mesh, Matrix4x4.TRS(position, Quaternion.identity, scale),
+                    _material, 0, 0);
+            }
+            context.ExecuteCommandBuffer(cmd);
+            CommandBufferPool.Release(cmd);
+        }
+    }
+
+    private LensFlarePass _lensFlarePass;
+    public Material material;
+    public Mesh mesh;
+
+    public override void Create()
+    {
+        _lensFlarePass = new LensFlarePass(material, mesh);
+        // Draw the lens flare effect after the skybox.
+        _lensFlarePass.renderPassEvent = RenderPassEvent.AfterRenderingSkybox;
+    }
+
+    public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
+    {
+        if (material != null &amp;&amp; mesh != null)
+        {
+            renderer.EnqueuePass(_lensFlarePass);
+        }
+    }
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/containers/create-custom-renderer-feature-1.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

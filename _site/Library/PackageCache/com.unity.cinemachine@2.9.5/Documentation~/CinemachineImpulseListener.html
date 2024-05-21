@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Cinemachine Impulse Listener | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Cinemachine Impulse Listener | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineImpulseListener.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="cinemachine-impulse-listener">Cinemachine Impulse Listener</h1>
+
+<p>Impulse signals and <a href="CinemachineImpulseSourceOverview.html">sources</a> don’t do anything on their own. An <strong>Impulse Listener</strong> is a Cinemachine extension that allows a virtual camera to “hear” impulse vibration signals and react to them.</p>
+<p>Default implementations shipped with Cinemachine respond by applying the received signal directly to the listener’s transform position, causing it to shake along with the signal. Additionally, it’s possible to specify a secondary response - usually a randomized vibration along all positions and rotation axes - to give character to the listener’s movement. It’s as if the listener were supported on springs and then kicked by the impulse signal. In addition to the thrust given by the kick itself, there will be randomized shaking due to the springs.</p>
+<p>When you add an <strong>Impulse Listener</strong> extension to a virtual camera, it makes the camera shake in response to the signals emitted from Impulse Sources. In the simplest case, the Impulse Listener applies the signal verbatim to the camera’s Transform, causing it to shake.</p>
+<p>In the image below, the figure’s feet are Impulse Sources. When they collide with the floor (A) they generate impulses. The camera is an Impulse Listener and reacts to the impulses by shaking (B), which shakes the resulting image in the Game view (C).</p>
+<p><img src="images/ImpulseOverview.png" alt="In this Scene, the figure’s feet are Impulse Sources. When they collide with the floor (A) they generate impulses. The camera is an Impulse Listener and reacts to the impulses by shaking (B), which shakes the resulting image in the Game view (C). "></p>
+<p>To add an Impulse Listener to a Cinemachine virtual camera:</p>
+<ol>
+<li><p>Select the virtual camera, navigate to the Inspector window and expand the <strong>Cinemachine Virtual Camera</strong> script.</p>
+</li>
+<li><p>Go to <strong>Extensions &gt; Add Extension</strong>, and select <strong>CinemachineImpulseListener</strong>.</p>
+</li>
+</ol>
+<p><img src="images/ImpulseListener.png" alt=""></p>
+<p>In the real world, some cameras are mounted less rigidly than others, and tend to shake more as a result. The Impulse Listener’s <strong>Gain</strong> property emulates this behavior by amplifying or attenuating impulse vibration signals. Higher values cause the camera to shake more.</p>
+<blockquote>
+<p><strong>TIP:</strong> You can create your own Impulse Listener to interpret vibration signals any way you like.</p>
+</blockquote>
+<p>By default, an Impulse Listener reacts to every Impulse Source in range, but you can apply <a href="CinemachineImpulseFiltering.html#ChannelFiltering">channel filtering</a> to make a Listener respond to some Sources and ignore others.</p>
+<p>##Properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property:</th>
+<th>Function:</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Apply After</strong></td>
+<td>Obstacles with this tag will be ignored. It is recommended to set this field to the target's tag.</td>
+</tr>
+<tr>
+<td><strong>Channel Mask</strong></td>
+<td>Specifies the Impulse channels to react to. For details, see <a href="CinemachineImpulseFiltering.html#ChannelFiltering">Filtering with channels</a>.</td>
+</tr>
+<tr>
+<td><strong>Gain</strong></td>
+<td>This is how much the received impulse signal will be magnified by for the purposes of reacting. It’s a simple multiplier applied to the incoming signal. The default value is 1.</td>
+</tr>
+<tr>
+<td><strong>Use 2D Distance</strong></td>
+<td>Enable this setting to ignore the z axis when calculating camera distance from the Impulse Source. Use this property for 2D games.</td>
+</tr>
+<tr>
+<td><strong>Use Camera Space</strong></td>
+<td>Interprets the impulse signal in camera space as opposed to world space.  So if the impulse Y axis is vibrating, then the listener will move up and down on its local Y axis.</td>
+</tr>
+<tr>
+<td><strong>Reaction Settings</strong></td>
+<td>Lets you set a secondary noise that gets triggered by the impulse signal. Choose the noise setting and tune it with the amplitude and frequency gain. Duration sets the fade-out time for the secondary noise. Time is approximate. This will scale automatically with stronger impulses.<br><br>The listener combines the original impulse signal and the reaction and applies it to the object it’s on. This could be a camera, a vcam, or any other object. Custom listeners can easily be authored to apply the signal in nonstandard ways (for example, convert Z motion to FOV).</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineImpulseListener.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

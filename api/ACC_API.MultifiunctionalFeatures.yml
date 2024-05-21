@@ -1,0 +1,69 @@
+### YamlMime:ManagedReference
+items:
+- uid: ACC_API.MultifiunctionalFeatures
+  commentId: T:ACC_API.MultifiunctionalFeatures
+  id: MultifiunctionalFeatures
+  parent: ACC_API
+  children:
+  - ACC_API.MultifiunctionalFeatures.AudioManager
+  langs:
+  - csharp
+  - vb
+  name: MultifiunctionalFeatures
+  nameWithType: MultifiunctionalFeatures
+  fullName: ACC_API.MultifiunctionalFeatures
+  type: Enum
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: MultifiunctionalFeatures
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 7
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public enum MultifiunctionalFeatures
+    content.vb: Public Enum MultifiunctionalFeatures
+- uid: ACC_API.MultifiunctionalFeatures.AudioManager
+  commentId: F:ACC_API.MultifiunctionalFeatures.AudioManager
+  id: AudioManager
+  parent: ACC_API.MultifiunctionalFeatures
+  langs:
+  - csharp
+  - vb
+  name: AudioManager
+  nameWithType: MultifiunctionalFeatures.AudioManager
+  fullName: ACC_API.MultifiunctionalFeatures.AudioManager
+  type: Field
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: AudioManager
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 9
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: AudioManager = 0
+    return:
+      type: ACC_API.MultifiunctionalFeatures
+references:
+- uid: ACC_API
+  commentId: N:ACC_API
+  href: ACC_API.html
+  name: ACC_API
+  nameWithType: ACC_API
+  fullName: ACC_API
+- uid: ACC_API.MultifiunctionalFeatures
+  commentId: T:ACC_API.MultifiunctionalFeatures
+  parent: ACC_API
+  href: ACC_API.MultifiunctionalFeatures.html
+  name: MultifiunctionalFeatures
+  nameWithType: MultifiunctionalFeatures
+  fullName: ACC_API.MultifiunctionalFeatures

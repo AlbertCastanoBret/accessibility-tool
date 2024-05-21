@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Terrain Lit shader | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Terrain Lit shader | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/shader-terrain-lit.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="terrain-lit-shader">Terrain Lit shader</h1>
+
+<p>URP uses the Terrain Lit shader for Unity Terrain. This shader is a simpler version of the <a href="lit-shader.html">Lit shader</a>. A Terrain can use a Terrain Lit Material with up to eight <a href="https://docs.unity3d.com/Manual/class-TerrainLayer.html">Terrain Layers</a>.</p>
+<p><img src="Images/terrain/terrain-rendered-with-terrain-lit.png" alt="A Terrain GameObject rendered with the Terrain Lit shader."><br><em>A Terrain GameObject rendered with the Terrain Lit shader.</em></p>
+<h2 id="terrain-lit-material-properties">Terrain Lit Material properties</h2>
+<p>A Terrain Lit shader has the following properties.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enable Height-based Blend</strong></td>
+<td>Enable to have Unity take the height values from the blue channel of the <strong>Mask Map</strong> Texture.<br><br>If you do not enable this property, Unity blends the Terrain Layers based on the weights painted in the splatmap Textures. When you disable this property and the Terrain Lit Shader Material is assigned to a Terrain, URP adds an additional option <strong>Opacity as Density Blend</strong> for each Terrain Layer that is added to that Terrain in the Paint Texture Tool Inspector.<br><br><strong>Note</strong>: Unity ignores this option when more than four Terrain Layers are on the Terrain.</td>
+</tr>
+<tr>
+<td>    <em>Height Transition</em></td>
+<td>Select the size in world units of the smooth transition area between Terrain Layers.</td>
+</tr>
+<tr>
+<td><strong>Enable Per-pixel Normal</strong></td>
+<td>Enable to have Unity sample the normal map Texture on a per-pixel level, preserving more geometry details for distant terrain parts. Unity generates a geometry normal map at runtime from the heightmap, rather than the Mesh geometry. This means you can have high-resolution Mesh normals, even if your Mesh is low resolution.<br><br><strong>Note</strong>: This option only works if you enable <strong>Draw Instanced</strong> on the Terrain.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create-a-terrain-lit-material">Create a Terrain Lit Material</h2>
+<p>To create a Material compatible with a Terrain GameObject:</p>
+<ol>
+<li>Create a new Material (<strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Material</strong>).</li>
+<li>Select the new Material.</li>
+<li>In the Inspector, click the <strong>Shader</strong> drop-down, and select <strong>Universal Render Pipeline</strong> &gt; <strong>Terrain</strong> &gt; <strong>Lit</strong>.</li>
+</ol>
+<h2 id="assign-a-terrain-lit-material-to-a-terrain-gameobject">Assign a Terrain Lit Material to a Terrain GameObject</h2>
+<p>To assign a Terrain Lit Material to a Terrain GameObject:</p>
+<ol>
+<li>Select a Terrain GameObject.</li>
+<li>In the Inspector, click the gear icon on the right side of the Terrain Inspector toolbar to open the <strong>Terrain Settings</strong> section.</li>
+<li>In the <strong>Material</strong> property, select a Terrain Lit Material. Either use the Object picker (circle icon), or drag and drop the Material onto the property.</li>
+</ol>
+<p><img src="Images/terrain/terrain-lit-shader-inspector.png" alt="Terrain GameObject Inspector, Terrain Settings."></p>
+<h2 id="using-the-paint-holes-tool">Using the Paint Holes Tool</h2>
+<p>To use the <strong>Paint Holes</strong> tool on a Terrain, ensure that the <strong>Terrain Holes</strong> check box in your project's URP Asset is checked. Otherwise, the Terrain holes are absent when you build the application.</p>
+<p><img src="Images/terrain/urp-asset-terrain-holes.png" alt="URP Asset, Terrain Holes check box."></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/shader-terrain-lit.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

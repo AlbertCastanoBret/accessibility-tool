@@ -1,0 +1,4849 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/cinemachineAPI.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<h3 id="axisstate">AxisState</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>Axis state for defining how to react to player input.  The settings here control the responsiveness of the axis to player input.</p>
+<h4 id="fields">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Value</strong></td>
+<td>Single</td>
+<td>The current value of the axis.</td>
+</tr>
+<tr>
+<td><strong>m_MaxSpeed</strong></td>
+<td>Single</td>
+<td>The maximum speed of this axis in units/second.</td>
+</tr>
+<tr>
+<td><strong>m_AccelTime</strong></td>
+<td>Single</td>
+<td>The amount of time in seconds it takes to accelerate to MaxSpeed with the supplied Axis at its maximum value.</td>
+</tr>
+<tr>
+<td><strong>m_DecelTime</strong></td>
+<td>Single</td>
+<td>The amount of time in seconds it takes to decelerate the axis to zero if the supplied axis is in a neutral position.</td>
+</tr>
+<tr>
+<td><strong>m_InputAxisName</strong></td>
+<td>String</td>
+<td>The name of this axis as specified in Unity Input manager.  Setting to an empty string will disable the automatic updating of this axis.</td>
+</tr>
+<tr>
+<td><strong>m_InputAxisValue</strong></td>
+<td>Single</td>
+<td>The value of the input axis.  A value of 0 means no input.  You can drive this directly from a custom input system, or you can set the Axis Name and have the value driven by the internal Input Manager.</td>
+</tr>
+<tr>
+<td><strong>m_InvertInput</strong></td>
+<td>Boolean</td>
+<td>If checked, then the raw value of the input axis will be inverted before it is used.</td>
+</tr>
+<tr>
+<td><strong>m_MinValue</strong></td>
+<td>Single</td>
+<td>The minimum value for the axis.</td>
+</tr>
+<tr>
+<td><strong>m_MaxValue</strong></td>
+<td>Single</td>
+<td>The maximum value for the axis.</td>
+</tr>
+<tr>
+<td><strong>m_Wrap</strong></td>
+<td>Boolean</td>
+<td>If checked, then the axis will wrap around at the min/max values, forming a loop.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods">Methods</h4>
+<p><code>Void Validate()</code></p>
+<p>Call from OnValidate: Make sure the fields are sensible.</p>
+<p><code>Boolean Update(Single deltaTime)</code></p>
+<p>Updates the state of this axis based on the axis defined by AxisState.m_AxisName.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Delta time in seconds.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> Returns true if this axis' input was non-zero this Update, false otherwise.</p>
+<h3 id="axisstaterecentering">AxisState.Recentering</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>Helper for automatic axis recentering.</p>
+<h4 id="fields-1">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_enabled</strong></td>
+<td>Boolean</td>
+<td>If checked, will enable automatic recentering of the axis.  If unchecked, recenting is disabled.</td>
+</tr>
+<tr>
+<td><strong>m_WaitTime</strong></td>
+<td>Single</td>
+<td>If no user input has been detected on the axis, the axis will wait this long in seconds before recentering.</td>
+</tr>
+<tr>
+<td><strong>m_RecenteringTime</strong></td>
+<td>Single</td>
+<td>Maximum angular speed of recentering.  Will accelerate into and decelerate out of this.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-1">Methods</h4>
+<p><code>Void Validate()</code></p>
+<p>Call this from OnValidate().</p>
+<p><code>Void CancelRecentering()</code></p>
+<p>Cancel any recentering in progress.</p>
+<p><code>Void DoRecentering(AxisState&amp; axis, Single deltaTime, Single recenterTarget)</code></p>
+<p>Bring the axis back to the centered state.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>axis</strong></td>
+<td>AxisState&amp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>recenterTarget</strong></td>
+<td>Single</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinebasicmultichannelperlin">CinemachineBasicMultiChannelPerlin</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComponentBase</p>
+<p>As a part of the Cinemachine Pipeline implementing the Noise stage, this component adds Perlin Noise to the Camera state, in the Correction channel of the CameraState.</p>
+<p>The noise is created by using a predefined noise profile asset.  This defines the shape of the noise over time.  You can scale this in amplitude or in time, to produce a large family of different noises using the same profile.</p>
+<h4 id="properties">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if the component is valid, i.e.  it has a noise definition and is enabled.</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>Stage</td>
+<td><em>[Get]</em> Get the Cinemachine Pipeline stage that this component implements.  Always returns the Noise stage.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-2">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_NoiseProfile</strong></td>
+<td>NoiseSettings</td>
+<td>The asset containing the Noise Profile.  Define the frequencies and amplitudes there to make a characteristic noise profile.  Make your own or just use one of the many presets.</td>
+</tr>
+<tr>
+<td><strong>m_AmplitudeGain</strong></td>
+<td>Single</td>
+<td>Gain to apply to the amplitudes defined in the NoiseSettings asset.  1 is normal.  Setting this to 0 completely mutes the noise.</td>
+</tr>
+<tr>
+<td><strong>m_FrequencyGain</strong></td>
+<td>Single</td>
+<td>Scale factor to apply to the frequencies defined in the NoiseSettings asset.  1 is normal.  Larger magnitudes will make the noise shake more rapidly.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-2">Methods</h4>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Applies noise to the Correction channel of the CameraState if the delta time is greater than 0.  Otherwise, does nothing.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>How much to advance the perlin noise generator.  Noise is only applied if this value is greater than or equal to 0.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachineblenddefinition">CinemachineBlendDefinition</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>Definition of a Camera blend.  This struct holds the information necessary to generate a suitable AnimationCurve for a Cinemachine Blend.</p>
+<h4 id="properties-1">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BlendCurve</strong></td>
+<td>AnimationCurve</td>
+<td><em>[Get]</em> A normalized AnimationCurve specifying the interpolation curve for this camera blend.  Y-axis values must be in range [0,1] (internally clamped within Blender) and time must be in range of [0, 1].</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-3">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Style</strong></td>
+<td>Style</td>
+<td>Shape of the blend curve.<br><em>Possible Values:</em><br>- <strong>Cut</strong>: Zero-length blend.<br>- <strong>EaseInOut</strong>: S-shaped curve, giving a gentle and smooth transition.<br>- <strong>EaseIn</strong>: Linear out of the outgoing shot, and easy into the incoming.<br>- <strong>EaseOut</strong>: Easy out of the outgoing shot, and linear into the incoming.<br>- <strong>HardIn</strong>: Easy out of the outgoing, and hard into the incoming.<br>- <strong>HardOut</strong>: Hard out of the outgoing, and easy into the incoming.<br>- <strong>Linear</strong>: Linear blend.  Mechanical-looking.<br>- <strong>Custom</strong>: Custom blend curve.<br></td>
+</tr>
+<tr>
+<td><strong>m_Time</strong></td>
+<td>Single</td>
+<td>Duration of the blend, in seconds.</td>
+</tr>
+<tr>
+<td><strong>m_CustomCurve</strong></td>
+<td>AnimationCurve</td>
+<td>A user-defined AnimationCurve, used only if style is Custom.  Curve MUST be normalized, i.e.  time range [0...1], value range [0...1].</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachineblendersettings">CinemachineBlenderSettings</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> ScriptableObject</p>
+<p>Asset that defines the rules for blending between Virtual Cameras.</p>
+<h4 id="fields-4">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_CustomBlends</strong></td>
+<td>CustomBlend[]</td>
+<td>The array containing explicitly defined blends between two Virtual Cameras.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-3">Methods</h4>
+<p><code>AnimationCurve GetBlendCurveForVirtualCameras(String fromCameraName, String toCameraName, AnimationCurve defaultCurve)</code></p>
+<p>Attempts to find a blend curve which matches the to and from cameras as specified.  If no match is found, the function returns either the default blend for this Blender or NULL depending on the state of returnDefaultOnNoMatch.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>fromCameraName</strong></td>
+<td>String</td>
+<td>The game object name of the from camera.</td>
+</tr>
+<tr>
+<td><strong>toCameraName</strong></td>
+<td>String</td>
+<td>The game object name of the to camera.</td>
+</tr>
+<tr>
+<td><strong>defaultCurve</strong></td>
+<td>AnimationCurve</td>
+<td>Curve to return if no curve found.  Can be NULL.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachineblendersettingscustomblend">CinemachineBlenderSettings.CustomBlend</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>Container specifying how two specific Cinemachine Virtual Cameras blend together.</p>
+<h4 id="fields-5">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_From</strong></td>
+<td>String</td>
+<td>When blending from this camera.</td>
+</tr>
+<tr>
+<td><strong>m_To</strong></td>
+<td>String</td>
+<td>When blending to this camera.</td>
+</tr>
+<tr>
+<td><strong>m_Blend</strong></td>
+<td>CinemachineBlendDefinition</td>
+<td>Blend curve definition.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachineblendlistcamera">CinemachineBlendListCamera</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineVirtualCameraBase</p>
+<p><em>Implements:</em> ICinemachineCamera</p>
+<p>This is a virtual camera &quot;manager&quot; that owns and manages a collection of child Virtual Cameras.  When the camera goes live, these child vcams are enabled, one after another, holding each camera for a designated time.  Blends between cameras are specified.  The last camera is held indefinitely.</p>
+<h4 id="properties-2">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Description</strong></td>
+<td>String</td>
+<td><em>[Get]</em> Gets a brief debug description of this virtual camera, for use when displaying debug info.</td>
+</tr>
+<tr>
+<td><strong>LiveChild</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>[Get,Set]</em> Get the current &quot;best&quot; child virtual camera, that would be chosen if the State Driven Camera were active.</td>
+</tr>
+<tr>
+<td><strong>LiveChildOrSelf</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>[Get]</em> Return the live child.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>CameraState</td>
+<td><em>[Get]</em> The State of the current live child.</td>
+</tr>
+<tr>
+<td><strong>LookAt</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the current LookAt target.  Returns parent's LookAt if parent is non-null and no specific LookAt defined for this camera.</td>
+</tr>
+<tr>
+<td><strong>Follow</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the current Follow target.  Returns parent's Follow if parent is non-null and no specific Follow defined for this camera.</td>
+</tr>
+<tr>
+<td><strong>ChildCameras</strong></td>
+<td>CinemachineVirtualCameraBase[]</td>
+<td><em>[Get]</em> The list of child cameras.  These are just the immediate children in the hierarchy.</td>
+</tr>
+<tr>
+<td><strong>IsBlending</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> Is there a blend in progress?</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-6">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_LookAt</strong></td>
+<td>Transform</td>
+<td>Default object for the camera children to look at (the aim target), if not specified in a child camera.  May be empty if all of the children define targets of their own.</td>
+</tr>
+<tr>
+<td><strong>m_Follow</strong></td>
+<td>Transform</td>
+<td>Default object for the camera children wants to move with (the body target), if not specified in a child camera.  May be empty if all of the children define targets of their own.</td>
+</tr>
+<tr>
+<td><strong>m_ShowDebugText</strong></td>
+<td>Boolean</td>
+<td>When enabled, the current child camera and blend will be indicated in the game window, for debugging.</td>
+</tr>
+<tr>
+<td><strong>m_EnableAllChildCameras</strong></td>
+<td>Boolean</td>
+<td>Force all child cameras to be enabled.  This is useful if animating them in Timeline, but consumes extra resources.</td>
+</tr>
+<tr>
+<td><strong>m_ChildCameras</strong></td>
+<td>CinemachineVirtualCameraBase[]</td>
+<td>Internal API for the editor.  Do not use this field.</td>
+</tr>
+<tr>
+<td><strong>m_Instructions</strong></td>
+<td>Instruction[]</td>
+<td>The set of instructions for enabling child cameras.</td>
+</tr>
+<tr>
+<td><strong>CinemachineGUIDebuggerCallback</strong></td>
+<td>Action</td>
+<td>This is deprecated.  It is here to support the soon-to-be-removed Cinemachine Debugger in the Editor.</td>
+</tr>
+<tr>
+<td><strong>m_ExcludedPropertiesInInspector</strong></td>
+<td>String[]</td>
+<td>Inspector control - Use for hiding sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_LockStageInInspector</strong></td>
+<td>Stage[]</td>
+<td>Inspector control - Use for enabling sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_Priority</strong></td>
+<td>Int32</td>
+<td>The priority will determine which camera becomes active based on the state of other cameras and this camera.  Higher numbers have greater priority.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-4">Methods</h4>
+<p><code>virtual Boolean IsLiveChild(ICinemachineCamera vcam)</code></p>
+<p>Check whether the vcam a live child of this camera.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The Virtual Camera to check.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> True if the vcam is currently actively influencing the state of this vcam.
+<code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the vcam that a target got warped, so that the vcam can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void OnTransitionFromCamera(ICinemachineCamera fromCam, Vector3 worldUp, Single deltaTime)</code></p>
+<p>Notification that this virtual camera is going live.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>fromCam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The camera being deactivated.  May be null.</td>
+</tr>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td>Default world Up, set by the CinemachineBrain.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Delta time for time-based effects (ignore if less than or equal to 0).</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void InternalUpdateCameraState(Vector3 worldUp, Single deltaTime)</code></p>
+<p>Called by CinemachineCore at designated update time so the vcam can position itself and track its targets.  This implementation updates all the children, chooses the best one, and implements any required blending.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td>Default world Up, set by the CinemachineBrain.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Delta time for time-based effects (ignore if less than or equal to 0).</td>
+</tr>
+</tbody>
+</table>
+<p><code>protected virtual Void OnEnable()</code></p>
+<p>Makes sure the internal child cache is up to date.</p>
+<p><code>Void OnTransformChildrenChanged()</code></p>
+<p>Makes sure the internal child cache is up to date.</p>
+<p><code>protected virtual Void OnGUI()</code></p>
+<p>Displays the current active camera on the game screen, if requested.</p>
+<p><code>Void ValidateInstructions()</code></p>
+<p>Internal API for the inspector editor.</p>
+<h3 id="cinemachinebrain">CinemachineBrain</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> MonoBehaviour</p>
+<p>CinemachineBrain is the link between the Unity Camera and the Cinemachine Virtual Cameras in the scene.  It monitors the priority stack to choose the current Virtual Camera, and blend with another if necessary.  Finally and most importantly, it applies the Virtual Camera state to the attached Unity Camera.</p>
+<p>The CinemachineBrain is also the place where rules for blending between virtual cameras are defined.  Camera blending is an interpolation over time of one virtual camera position and state to another.  If you think of virtual cameras as cameramen, then blending is a little like one cameraman smoothly passing the camera to another cameraman.  You can specify the time over which to blend, as well as the blend curve shape.  Note that a camera cut is just a zero-time blend.</p>
+<h4 id="properties-3">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OutputCamera</strong></td>
+<td>Camera</td>
+<td><em>[Get]</em> Get the Unity Camera that is attached to this GameObject.  This is the camera that will be controlled by the brain.</td>
+</tr>
+<tr>
+<td><strong>PostProcessingComponent</strong></td>
+<td>Component</td>
+<td><em>[Get,Set]</em> Internal support for opaque post-processing module.</td>
+</tr>
+<tr>
+<td><strong>SoloCamera</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>(static)</em> <em>[Get,Set]</em> API for the Unity Editor.  Show this camera no matter what.  This is static, and so affects all Cinemachine brains.</td>
+</tr>
+<tr>
+<td><strong>DefaultWorldUp</strong></td>
+<td>Vector3</td>
+<td><em>[Get]</em> Get the default world up for the virtual cameras.</td>
+</tr>
+<tr>
+<td><strong>IsBlending</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> Is there a blend in progress?</td>
+</tr>
+<tr>
+<td><strong>ActiveBlend</strong></td>
+<td>CinemachineBlend</td>
+<td><em>[Get]</em> Get the current blend in progress.  Returns null if none.</td>
+</tr>
+<tr>
+<td><strong>ActiveVirtualCamera</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>[Get]</em> Get the current active virtual camera.</td>
+</tr>
+<tr>
+<td><strong>CurrentCameraState</strong></td>
+<td>CameraState</td>
+<td><em>[Get]</em> The current state applied to the unity camera (may be the result of a blend).</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-7">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_ShowDebugText</strong></td>
+<td>Boolean</td>
+<td>When enabled, the current camera and blend will be indicated in the game window, for debugging.</td>
+</tr>
+<tr>
+<td><strong>m_ShowCameraFrustum</strong></td>
+<td>Boolean</td>
+<td>When enabled, the camera's frustum will be shown at all times in the scene view.</td>
+</tr>
+<tr>
+<td><strong>m_IgnoreTimeScale</strong></td>
+<td>Boolean</td>
+<td>When enabled, the cameras will always respond in real-time to user input and damping, even if the game is running in slow motion.</td>
+</tr>
+<tr>
+<td><strong>m_WorldUpOverride</strong></td>
+<td>Transform</td>
+<td>If set, this object's Y axis will define the worldspace Up vector for all the virtual cameras.  This is useful for instance in top-down game environments.  If not set, Up is worldspace Y.  Setting this appropriately is important, because Virtual Cameras don't like looking straight up or straight down.</td>
+</tr>
+<tr>
+<td><strong>m_UpdateMethod</strong></td>
+<td>UpdateMethod</td>
+<td>Use FixedUpdate if all your targets are animated during FixedUpdate (e.g.  RigidBodies), LateUpdate if all your targets are animated during the normal Update loop, and SmartUpdate if you want Cinemachine to do the appropriate thing on a per-target basis.  SmartUpdate is the recommended setting.<br><em>Possible Values:</em><br>- <strong>FixedUpdate</strong>: Virtual cameras are updated in sync with the Physics module, in FixedUpdate.<br>- <strong>LateUpdate</strong>: Virtual cameras are updated in MonoBehaviour LateUpdate.<br>- <strong>SmartUpdate</strong>: Virtual cameras are updated according to how the target is updated.<br></td>
+</tr>
+<tr>
+<td><strong>m_DefaultBlend</strong></td>
+<td>CinemachineBlendDefinition</td>
+<td>The blend that is used in cases where you haven't explicitly defined a blend between two Virtual Cameras.</td>
+</tr>
+<tr>
+<td><strong>m_CustomBlends</strong></td>
+<td>CinemachineBlenderSettings</td>
+<td>This is the asset that contains custom settings for blends between specific virtual cameras in your scene.</td>
+</tr>
+<tr>
+<td><strong>m_CameraCutEvent</strong></td>
+<td>BrainEvent</td>
+<td>This event will fire whenever a virtual camera goes live and there is no blend.</td>
+</tr>
+<tr>
+<td><strong>m_CameraActivatedEvent</strong></td>
+<td>VcamEvent</td>
+<td>This event will fire whenever a virtual camera goes live.  If a blend is involved, then the event will fire on the first frame of the blend.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-5">Methods</h4>
+<p><code>static Color GetSoloGUIColor()</code></p>
+<p>API for the Unity Editor.</p>
+<p><em>Returns:</em> Color used to indicate that a camera is in Solo mode.
+<code>Boolean IsLive(ICinemachineCamera vcam)</code></p>
+<p>True if the ICinemachineCamera the current active camera, or part of a current blend, either directly or indirectly because its parents are live.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The camera to test whether it is live.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> True if the camera is live (directly or indirectly) or part of a blend in progress.</p>
+<h3 id="cinemachineclearshot">CinemachineClearShot</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineVirtualCameraBase</p>
+<p><em>Implements:</em> ICinemachineCamera</p>
+<p>Cinemachine ClearShot is a &quot;manager camera&quot; that owns and manages a set of Virtual Camera gameObject children.  When Live, the ClearShot will check the children, and choose the one with the best quality shot and make it Live.</p>
+<p>This can be a very powerful tool.  If the child cameras have CinemachineCollider extensions, they will analyze the scene for target obstructions, optimal target distance, and other items, and report their assessment of shot quality back to the ClearShot parent, who will then choose the best one.  You can use this to set up complex multi-camera coverage of a scene, and be assured that a clear shot of the target will always be available.</p>
+<p>If multiple child cameras have the same shot quality, the one with the highest priority will be chosen.</p>
+<p>You can also define custom blends between the ClearShot children.</p>
+<h4 id="properties-4">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Description</strong></td>
+<td>String</td>
+<td><em>[Get]</em> Gets a brief debug description of this virtual camera, for use when displaying debug info.</td>
+</tr>
+<tr>
+<td><strong>LiveChild</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>[Get,Set]</em> Get the current &quot;best&quot; child virtual camera, that would be chosen if the ClearShot camera were active.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>CameraState</td>
+<td><em>[Get]</em> The CameraState of the currently live child.</td>
+</tr>
+<tr>
+<td><strong>LiveChildOrSelf</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>[Get]</em> Return the live child.</td>
+</tr>
+<tr>
+<td><strong>LookAt</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the current LookAt target.  Returns parent's LookAt if parent is non-null and no specific LookAt defined for this camera.</td>
+</tr>
+<tr>
+<td><strong>Follow</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the current Follow target.  Returns parent's Follow if parent is non-null and no specific Follow defined for this camera.</td>
+</tr>
+<tr>
+<td><strong>IsBlending</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> Is there a blend in progress?</td>
+</tr>
+<tr>
+<td><strong>ChildCameras</strong></td>
+<td>CinemachineVirtualCameraBase[]</td>
+<td><em>[Get]</em> The list of child cameras.  These are just the immediate children in the hierarchy.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-8">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_LookAt</strong></td>
+<td>Transform</td>
+<td>Default object for the camera children to look at (the aim target), if not specified in a child camera.  May be empty if all children specify targets of their own.</td>
+</tr>
+<tr>
+<td><strong>m_Follow</strong></td>
+<td>Transform</td>
+<td>Default object for the camera children wants to move with (the body target), if not specified in a child camera.  May be empty if all children specify targets of their own.</td>
+</tr>
+<tr>
+<td><strong>m_ShowDebugText</strong></td>
+<td>Boolean</td>
+<td>When enabled, the current child camera and blend will be indicated in the game window, for debugging.</td>
+</tr>
+<tr>
+<td><strong>m_ChildCameras</strong></td>
+<td>CinemachineVirtualCameraBase[]</td>
+<td>Internal API for the editor.  Do not use this filed.</td>
+</tr>
+<tr>
+<td><strong>m_ActivateAfter</strong></td>
+<td>Single</td>
+<td>Wait this many seconds before activating a new child camera.</td>
+</tr>
+<tr>
+<td><strong>m_MinDuration</strong></td>
+<td>Single</td>
+<td>An active camera must be active for at least this many seconds.</td>
+</tr>
+<tr>
+<td><strong>m_RandomizeChoice</strong></td>
+<td>Boolean</td>
+<td>If checked, camera choice will be randomized if multiple cameras are equally desirable.  Otherwise, child list order and child camera priority will be used.</td>
+</tr>
+<tr>
+<td><strong>m_DefaultBlend</strong></td>
+<td>CinemachineBlendDefinition</td>
+<td>The blend which is used if you don't explicitly define a blend between two Virtual Cameras.</td>
+</tr>
+<tr>
+<td><strong>m_CustomBlends</strong></td>
+<td>CinemachineBlenderSettings</td>
+<td>This is the asset which contains custom settings for specific blends.</td>
+</tr>
+<tr>
+<td><strong>CinemachineGUIDebuggerCallback</strong></td>
+<td>Action</td>
+<td>This is deprecated.  It is here to support the soon-to-be-removed Cinemachine Debugger in the Editor.</td>
+</tr>
+<tr>
+<td><strong>m_ExcludedPropertiesInInspector</strong></td>
+<td>String[]</td>
+<td>Inspector control - Use for hiding sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_LockStageInInspector</strong></td>
+<td>Stage[]</td>
+<td>Inspector control - Use for enabling sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_Priority</strong></td>
+<td>Int32</td>
+<td>The priority will determine which camera becomes active based on the state of other cameras and this camera.  Higher numbers have greater priority.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-6">Methods</h4>
+<p><code>virtual Boolean IsLiveChild(ICinemachineCamera vcam)</code></p>
+<p>Check whether the vcam a live child of this camera.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The Virtual Camera to check.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> True if the vcam is currently actively influencing the state of this vcam.
+<code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the vcam that a target got warped, so that the vcam can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void InternalUpdateCameraState(Vector3 worldUp, Single deltaTime)</code></p>
+<p>Internal use only.  Called by CinemachineCore at designated update time so the vcam can position itself and track its targets.  This implementation updates all the children, chooses the best one, and implements any required blending.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td>Default world Up, set by the CinemachineBrain.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Delta time for time-based effects (ignore if less than 0).</td>
+</tr>
+</tbody>
+</table>
+<p><code>protected virtual Void OnEnable()</code></p>
+<p>Makes sure the internal child cache is up to date.</p>
+<p><code>Void OnTransformChildrenChanged()</code></p>
+<p>Makes sure the internal child cache is up to date.</p>
+<p><code>protected virtual Void OnGUI()</code></p>
+<p>Displays the current active camera on the game screen, if requested.</p>
+<p><code>Void ResetRandomization()</code></p>
+<p>If RandomizeChoice is enabled, call this to re-randomize the children next frame.  This is useful if you want to freshen up the shot.</p>
+<p><code>virtual Void OnTransitionFromCamera(ICinemachineCamera fromCam, Vector3 worldUp, Single deltaTime)</code></p>
+<p>Notification that this virtual camera is going live.  This implementation resets the child randomization.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>fromCam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The camera being deactivated.  May be null.</td>
+</tr>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td>Default world Up, set by the CinemachineBrain.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Delta time for time-based effects (ignore if less than or equal to 0).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinecollider">CinemachineCollider</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineExtension</p>
+<p>An add-on module for Cinemachine Virtual Camera that post-processes the final position of the virtual camera.  Based on the supplied settings, the Collider will attempt to preserve the line of sight with the LookAt target of the virtual camera by moving away from objects that will obstruct the view.</p>
+<p>Additionally, the Collider can be used to assess the shot quality and report this as a field in the camera State.</p>
+<h4 id="properties-5">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DebugPaths</strong></td>
+<td>List`1</td>
+<td><em>[Get]</em> Inspector API for debugging collision resolution path.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-9">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_CollideAgainst</strong></td>
+<td>LayerMask</td>
+<td>The Unity layer mask against which the collider will raycast.</td>
+</tr>
+<tr>
+<td><strong>m_IgnoreTag</strong></td>
+<td>String</td>
+<td>Obstacles with this tag will be ignored.  It is a good idea to set this field to the target's tag.</td>
+</tr>
+<tr>
+<td><strong>m_MinimumDistanceFromTarget</strong></td>
+<td>Single</td>
+<td>Obstacles closer to the target than this will be ignored.</td>
+</tr>
+<tr>
+<td><strong>m_AvoidObstacles</strong></td>
+<td>Boolean</td>
+<td>When enabled, will attempt to resolve situations where the line of sight to the target is blocked by an obstacle.</td>
+</tr>
+<tr>
+<td><strong>m_DistanceLimit</strong></td>
+<td>Single</td>
+<td>The maximum raycast distance when checking if the line of sight to this camera's target is clear.  If the setting is 0 or less, the current actual distance to target will be used.</td>
+</tr>
+<tr>
+<td><strong>m_CameraRadius</strong></td>
+<td>Single</td>
+<td>Camera will try to maintain this distance from any obstacle.  Try to keep this value small.  Increase it if you are seeing inside obstacles due to a large FOV on the camera.</td>
+</tr>
+<tr>
+<td><strong>m_Strategy</strong></td>
+<td>ResolutionStrategy</td>
+<td>The way in which the Collider will attempt to preserve sight of the target.<br><em>Possible Values:</em><br>- <strong>PullCameraForward</strong><br>- <strong>PreserveCameraHeight</strong><br>- <strong>PreserveCameraDistance</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_MaximumEffort</strong></td>
+<td>Int32</td>
+<td>Upper limit on how many obstacle hits to process.  Higher numbers may impact performance.  In most environments, 4 is enough.</td>
+</tr>
+<tr>
+<td><strong>m_Damping</strong></td>
+<td>Single</td>
+<td>The gradualness of collision resolution.  Higher numbers will move the camera more gradually away from obstructions.</td>
+</tr>
+<tr>
+<td><strong>m_OptimalTargetDistance</strong></td>
+<td>Single</td>
+<td>If greater than zero, a higher score will be given to shots when the target is closer to this distance.  Set this to zero to disable this feature.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-7">Methods</h4>
+<p><code>Boolean IsTargetObscured(ICinemachineCamera vcam)</code></p>
+<p>See whether an object is blocking the camera's view of the target.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The virtual camera in question.  This might be different from the virtual camera that owns the collider, in the event that the camera has children.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> True if something is blocking the view.
+<code>Boolean CameraWasDisplaced(CinemachineVirtualCameraBase vcam)</code></p>
+<p>See whether the virtual camera has been moved by the collider.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>CinemachineVirtualCameraBase</td>
+<td>The virtual camera in question.  This might be different from the virtual camera that owns the collider, in the event that the camera has children.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> True if the virtual camera has been displaced due to collision or target obstruction.
+<code>protected virtual Void OnDestroy()</code></p>
+<p>Cleanup.</p>
+<p><code>protected virtual Void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, Stage stage, CameraState&amp; state, Single deltaTime)</code></p>
+<p>Callback to to the collision resolution and shot evaluation.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>CinemachineVirtualCameraBase</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>stage</strong></td>
+<td>Stage</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>state</strong></td>
+<td>CameraState&amp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinecomposer">CinemachineComposer</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComponentBase</p>
+<p>This is a CinemachineComponent in the Aim section of the component pipeline.  Its job is to aim the camera at the vcam's LookAt target object, with configurable offsets, damping, and composition rules.</p>
+<p>The composer does not change the camera's position.  It will only pan and tilt the camera where it is, in order to get the desired framing.  To move the camera, you have to use the virtual camera's Body section.</p>
+<h4 id="properties-6">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if component is enabled and has a LookAt defined.</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>Stage</td>
+<td><em>[Get]</em> Get the Cinemachine Pipeline stage that this component implements.  Always returns the Aim stage.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+<tr>
+<td><strong>TrackedPoint</strong></td>
+<td>Vector3</td>
+<td><em>[Get]</em> Internal API for inspector.</td>
+</tr>
+<tr>
+<td><strong>SoftGuideRect</strong></td>
+<td>Rect</td>
+<td><em>[Get,Set]</em> Internal API for the inspector editor.</td>
+</tr>
+<tr>
+<td><strong>HardGuideRect</strong></td>
+<td>Rect</td>
+<td><em>[Get,Set]</em> Internal API for the inspector editor.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-10">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OnGUICallback</strong></td>
+<td>Action</td>
+<td>Used by the Inspector Editor to display on-screen guides.</td>
+</tr>
+<tr>
+<td><strong>m_TrackedObjectOffset</strong></td>
+<td>Vector3</td>
+<td>Target offset from the target object's center in target-local space.  Use this to fine-tune the tracking target position when the desired area is not the tracked object's center.</td>
+</tr>
+<tr>
+<td><strong>m_LookaheadTime</strong></td>
+<td>Single</td>
+<td>This setting will instruct the composer to adjust its target offset based on the motion of the target.  The composer will look at a point where it estimates the target will be this many seconds into the future.  Note that this setting is sensitive to noisy animation, and can amplify the noise, resulting in undesirable camera jitter.  If the camera jitters unacceptably when the target is in motion, turn down this setting, or animate the target more smoothly.</td>
+</tr>
+<tr>
+<td><strong>m_LookaheadSmoothing</strong></td>
+<td>Single</td>
+<td>Controls the smoothness of the lookahead algorithm.  Larger values smooth out jittery predictions and also increase prediction lag.</td>
+</tr>
+<tr>
+<td><strong>m_LookaheadIgnoreY</strong></td>
+<td>Boolean</td>
+<td>If checked, movement along the Y axis will be ignored for lookahead calculations.</td>
+</tr>
+<tr>
+<td><strong>m_HorizontalDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to follow the target in the screen-horizontal direction.  Small numbers are more responsive, rapidly orienting the camera to keep the target in the dead zone.  Larger numbers give a more heavy slowly responding camera.  Using different vertical and horizontal settings can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_VerticalDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to follow the target in the screen-vertical direction.  Small numbers are more responsive, rapidly orienting the camera to keep the target in the dead zone.  Larger numbers give a more heavy slowly responding camera.  Using different vertical and horizontal settings can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_ScreenX</strong></td>
+<td>Single</td>
+<td>Horizontal screen position for target.  The camera will rotate to position the tracked object here.</td>
+</tr>
+<tr>
+<td><strong>m_ScreenY</strong></td>
+<td>Single</td>
+<td>Vertical screen position for target, The camera will rotate to position the tracked object here.</td>
+</tr>
+<tr>
+<td><strong>m_DeadZoneWidth</strong></td>
+<td>Single</td>
+<td>Camera will not rotate horizontally if the target is within this range of the position.</td>
+</tr>
+<tr>
+<td><strong>m_DeadZoneHeight</strong></td>
+<td>Single</td>
+<td>Camera will not rotate vertically if the target is within this range of the position.</td>
+</tr>
+<tr>
+<td><strong>m_SoftZoneWidth</strong></td>
+<td>Single</td>
+<td>When target is within this region, camera will gradually rotate horizontally to re-align towards the desired position, depending on the damping speed.</td>
+</tr>
+<tr>
+<td><strong>m_SoftZoneHeight</strong></td>
+<td>Single</td>
+<td>When target is within this region, camera will gradually rotate vertically to re-align towards the desired position, depending on the damping speed.</td>
+</tr>
+<tr>
+<td><strong>m_BiasX</strong></td>
+<td>Single</td>
+<td>A non-zero bias will move the target position horizontally away from the center of the soft zone.</td>
+</tr>
+<tr>
+<td><strong>m_BiasY</strong></td>
+<td>Single</td>
+<td>A non-zero bias will move the target position vertically away from the center of the soft zone.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-8">Methods</h4>
+<p><code>protected virtual Vector3 GetLookAtPointAndSetTrackedPoint(Vector3 lookAt)</code></p>
+<p>Apply the target offsets to the target location.  Also set the TrackedPoint property, taking lookahead into account.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>lookAt</strong></td>
+<td>Vector3</td>
+<td>The unoffset LookAt point.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> The LookAt point with the offset applied.
+<code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the us that a target got warped, so that we can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void PrePipelineMutateCameraState(CameraState&amp; curState)</code></p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Applies the composer rules and orients the camera accordingly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for calculating damping.  If less than zero, then target will snap to the center of the dead zone.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachineconfiner">CinemachineConfiner</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineExtension</p>
+<p>An add-on module for Cinemachine Virtual Camera that post-processes the final position of the virtual camera.  It will confine the virtual camera's position to the volume specified in the Bounding Volume field.</p>
+<h4 id="properties-7">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> Check if the bounding volume is defined.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-11">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_ConfineMode</strong></td>
+<td>Mode</td>
+<td>The confiner can operate using a 2D bounding shape or a 3D bounding volume.<br><em>Possible Values:</em><br>- <strong>Confine2D</strong><br>- <strong>Confine3D</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_BoundingVolume</strong></td>
+<td>Collider</td>
+<td>The volume within which the camera is to be contained.</td>
+</tr>
+<tr>
+<td><strong>m_BoundingShape2D</strong></td>
+<td>Collider2D</td>
+<td>The 2D shape within which the camera is to be contained.</td>
+</tr>
+<tr>
+<td><strong>m_ConfineScreenEdges</strong></td>
+<td>Boolean</td>
+<td>If camera is orthographic, screen edges will be confined to the volume.  If not checked, then only the camera center will be confined.</td>
+</tr>
+<tr>
+<td><strong>m_Damping</strong></td>
+<td>Single</td>
+<td>How gradually to return the camera to the bounding volume if it goes beyond the borders.  Higher numbers are more gradual.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-9">Methods</h4>
+<p><code>Boolean CameraWasDisplaced(CinemachineVirtualCameraBase vcam)</code></p>
+<p>See whether the virtual camera has been moved by the confiner.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>CinemachineVirtualCameraBase</td>
+<td>The virtual camera in question.  This might be different from the virtual camera that owns the confiner, in the event that the camera has children.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> True if the virtual camera has been repositioned.
+<code>protected virtual Void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, Stage stage, CameraState&amp; state, Single deltaTime)</code></p>
+<p>Callback to to the camera confining.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>CinemachineVirtualCameraBase</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>stage</strong></td>
+<td>Stage</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>state</strong></td>
+<td>CameraState&amp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>Void InvalidatePathCache()</code></p>
+<p>Call this if the bounding shape's points change at runtime.</p>
+<h3 id="cinemachinedollycart">CinemachineDollyCart</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> MonoBehaviour</p>
+<p>This is a very simple behaviour that constrains its transform to a CinemachinePath.  It can be used to animate any objects along a path, or as a Follow target for Cinemachine Virtual Cameras.</p>
+<h4 id="fields-12">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Path</strong></td>
+<td>CinemachinePathBase</td>
+<td>The path to follow.</td>
+</tr>
+<tr>
+<td><strong>m_UpdateMethod</strong></td>
+<td>UpdateMethod</td>
+<td>When to move the cart, if Velocity is non-zero.<br><em>Possible Values:</em><br>- <strong>Update</strong><br>- <strong>FixedUpdate</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_PositionUnits</strong></td>
+<td>PositionUnits</td>
+<td>How to interpret the Path Position.  If set to Path Units, values are as follows: 0 represents the first waypoint on the path, 1 is the second, and so on.  Values in-between are points on the path in between the waypoints.  If set to Distance, then Path Position represents distance along the path.<br><em>Possible Values:</em><br>- <strong>PathUnits</strong><br>- <strong>Distance</strong><br>- <strong>Normalized</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_Speed</strong></td>
+<td>Single</td>
+<td>Move the cart with this speed along the path.  The value is interpreted according to the Position Units setting.</td>
+</tr>
+<tr>
+<td><strong>m_Position</strong></td>
+<td>Single</td>
+<td>The position along the path at which the cart will be placed.  This can be animated directly or, if the velocity is non-zero, will be updated automatically.  The value is interpreted according to the Position Units setting.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachineexternalcamera">CinemachineExternalCamera</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineVirtualCameraBase</p>
+<p><em>Implements:</em> ICinemachineCamera</p>
+<p>This component will expose a non-cinemachine camera to the cinemachine system, allowing it to participate in blends.  Just add it as a component alongside an existing Unity Camera component.</p>
+<h4 id="properties-8">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>State</strong></td>
+<td>CameraState</td>
+<td><em>[Get]</em> Get the CameraState, as we are able to construct one from the Unity Camera.</td>
+</tr>
+<tr>
+<td><strong>LookAt</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> The object that the camera is looking at.</td>
+</tr>
+<tr>
+<td><strong>Follow</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> This vcam defines no targets.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-13">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_LookAt</strong></td>
+<td>Transform</td>
+<td>The object that the camera is looking at.  Setting this will improve the quality of the blends to and from this camera.</td>
+</tr>
+<tr>
+<td><strong>m_PositionBlending</strong></td>
+<td>PositionBlendMethod</td>
+<td>Hint for blending positions to and from this virtual camera.<br><em>Possible Values:</em><br>- <strong>Linear</strong><br>- <strong>Spherical</strong><br>- <strong>Cylindrical</strong><br></td>
+</tr>
+<tr>
+<td><strong>CinemachineGUIDebuggerCallback</strong></td>
+<td>Action</td>
+<td>This is deprecated.  It is here to support the soon-to-be-removed Cinemachine Debugger in the Editor.</td>
+</tr>
+<tr>
+<td><strong>m_ExcludedPropertiesInInspector</strong></td>
+<td>String[]</td>
+<td>Inspector control - Use for hiding sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_LockStageInInspector</strong></td>
+<td>Stage[]</td>
+<td>Inspector control - Use for enabling sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_Priority</strong></td>
+<td>Int32</td>
+<td>The priority will determine which camera becomes active based on the state of other cameras and this camera.  Higher numbers have greater priority.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-10">Methods</h4>
+<p><code>virtual Void InternalUpdateCameraState(Vector3 worldUp, Single deltaTime)</code></p>
+<p>Internal use only.  Do not call this method.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinefollowzoom">CinemachineFollowZoom</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineExtension</p>
+<p>An add-on module for Cinemachine Virtual Camera that adjusts the FOV of the lens to keep the target object at a constant size on the screen, regardless of camera and target position.</p>
+<h4 id="fields-14">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Width</strong></td>
+<td>Single</td>
+<td>The shot width to maintain, in world units, at target distance.</td>
+</tr>
+<tr>
+<td><strong>m_Damping</strong></td>
+<td>Single</td>
+<td>Increase this value to soften the aggressiveness of the follow-zoom.  Small numbers are more responsive, larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+<tr>
+<td><strong>m_MinFOV</strong></td>
+<td>Single</td>
+<td>Lower limit for the FOV that this behaviour will generate.</td>
+</tr>
+<tr>
+<td><strong>m_MaxFOV</strong></td>
+<td>Single</td>
+<td>Upper limit for the FOV that this behaviour will generate.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-11">Methods</h4>
+<p><code>protected virtual Void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, Stage stage, CameraState&amp; state, Single deltaTime)</code></p>
+<p>Callback to preform the zoom adjustment.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>CinemachineVirtualCameraBase</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>stage</strong></td>
+<td>Stage</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>state</strong></td>
+<td>CameraState&amp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachineframingtransposer">CinemachineFramingTransposer</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComponentBase</p>
+<p>This is a Cinemachine Component in the Body section of the component pipeline.  Its job is to position the camera in a fixed screen-space relationship to the vcam's Follow target object, with offsets and damping.</p>
+<p>The camera will be first moved along the camera Z axis until the Follow target is at the desired distance from the camera's X-Y plane.  The camera will then be moved in its XY plane until the Follow target is at the desired point on the camera's screen.</p>
+<p>The FramingTansposer will only change the camera's position in space.  It will not re-orient or otherwise aim the camera.</p>
+<p>For this component to work properly, the vcam's LookAt target must be null.  The Follow target will define what the camera is looking at.</p>
+<p>If the Follow target is a CinemachineTargetGroup, then additional controls will be available to dynamically adjust the camera's view in order to frame the entire group.</p>
+<p>Although this component was designed for orthographic cameras, it works equally well with perspective cameras and can be used in 3D environments.</p>
+<h4 id="properties-9">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SoftGuideRect</strong></td>
+<td>Rect</td>
+<td><em>[Get,Set]</em> Internal API for the inspector editor.</td>
+</tr>
+<tr>
+<td><strong>HardGuideRect</strong></td>
+<td>Rect</td>
+<td><em>[Get,Set]</em> Internal API for the inspector editor.</td>
+</tr>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if component is enabled and has a valid Follow target.</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>Stage</td>
+<td><em>[Get]</em> Get the Cinemachine Pipeline stage that this component implements.  Always returns the Body stage.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+<tr>
+<td><strong>TrackedPoint</strong></td>
+<td>Vector3</td>
+<td><em>[Get]</em> Internal API for inspector.</td>
+</tr>
+<tr>
+<td><strong>m_LastBounds</strong></td>
+<td>Bounds</td>
+<td><em>[Get]</em> For editor visulaization of the calculated bounding box of the group.</td>
+</tr>
+<tr>
+<td><strong>m_lastBoundsMatrix</strong></td>
+<td>Matrix4x4</td>
+<td><em>[Get]</em> For editor visualization of the calculated bounding box of the group.</td>
+</tr>
+<tr>
+<td><strong>TargetGroup</strong></td>
+<td>CinemachineTargetGroup</td>
+<td><em>[Get]</em> Get Follow target as CinemachineTargetGroup, or null if target is not a group.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-15">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OnGUICallback</strong></td>
+<td>Action</td>
+<td>Used by the Inspector Editor to display on-screen guides.</td>
+</tr>
+<tr>
+<td><strong>m_LookaheadTime</strong></td>
+<td>Single</td>
+<td>This setting will instruct the composer to adjust its target offset based on the motion of the target.  The composer will look at a point where it estimates the target will be this many seconds into the future.  Note that this setting is sensitive to noisy animation, and can amplify the noise, resulting in undesirable camera jitter.  If the camera jitters unacceptably when the target is in motion, turn down this setting, or animate the target more smoothly.</td>
+</tr>
+<tr>
+<td><strong>m_LookaheadSmoothing</strong></td>
+<td>Single</td>
+<td>Controls the smoothness of the lookahead algorithm.  Larger values smooth out jittery predictions and also increase prediction lag.</td>
+</tr>
+<tr>
+<td><strong>m_LookaheadIgnoreY</strong></td>
+<td>Boolean</td>
+<td>If checked, movement along the Y axis will be ignored for lookahead calculations.</td>
+</tr>
+<tr>
+<td><strong>m_XDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain the offset in the X-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's x-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_YDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain the offset in the Y-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's y-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_ZDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain the offset in the Z-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's z-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_ScreenX</strong></td>
+<td>Single</td>
+<td>Horizontal screen position for target.  The camera will move to position the tracked object here.</td>
+</tr>
+<tr>
+<td><strong>m_ScreenY</strong></td>
+<td>Single</td>
+<td>Vertical screen position for target, The camera will move to position the tracked object here.</td>
+</tr>
+<tr>
+<td><strong>m_CameraDistance</strong></td>
+<td>Single</td>
+<td>The distance along the camera axis that will be maintained from the Follow target.</td>
+</tr>
+<tr>
+<td><strong>m_DeadZoneWidth</strong></td>
+<td>Single</td>
+<td>Camera will not move horizontally if the target is within this range of the position.</td>
+</tr>
+<tr>
+<td><strong>m_DeadZoneHeight</strong></td>
+<td>Single</td>
+<td>Camera will not move vertically if the target is within this range of the position.</td>
+</tr>
+<tr>
+<td><strong>m_DeadZoneDepth</strong></td>
+<td>Single</td>
+<td>The camera will not move along its z-axis if the Follow target is within this distance of the specified camera distance.</td>
+</tr>
+<tr>
+<td><strong>m_UnlimitedSoftZone</strong></td>
+<td>Boolean</td>
+<td>If checked, then soft zone will be unlimited in size.</td>
+</tr>
+<tr>
+<td><strong>m_SoftZoneWidth</strong></td>
+<td>Single</td>
+<td>When target is within this region, camera will gradually move horizontally to re-align towards the desired position, depending on the damping speed.</td>
+</tr>
+<tr>
+<td><strong>m_SoftZoneHeight</strong></td>
+<td>Single</td>
+<td>When target is within this region, camera will gradually move vertically to re-align towards the desired position, depending on the damping speed.</td>
+</tr>
+<tr>
+<td><strong>m_BiasX</strong></td>
+<td>Single</td>
+<td>A non-zero bias will move the target position horizontally away from the center of the soft zone.</td>
+</tr>
+<tr>
+<td><strong>m_BiasY</strong></td>
+<td>Single</td>
+<td>A non-zero bias will move the target position vertically away from the center of the soft zone.</td>
+</tr>
+<tr>
+<td><strong>m_GroupFramingMode</strong></td>
+<td>FramingMode</td>
+<td>What screen dimensions to consider when framing.  Can be Horizontal, Vertical, or both.<br><em>Possible Values:</em><br>- <strong>Horizontal</strong>: Consider only the horizontal dimension.  Vertical framing is ignored.<br>- <strong>Vertical</strong>: Consider only the vertical dimension.  Horizontal framing is ignored.<br>- <strong>HorizontalAndVertical</strong>: The larger of the horizontal and vertical dimensions will dominate, to get the best fit.<br>- <strong>None</strong>: Don't do any framing adjustment.<br></td>
+</tr>
+<tr>
+<td><strong>m_AdjustmentMode</strong></td>
+<td>AdjustmentMode</td>
+<td>How to adjust the camera to get the desired framing.  You can zoom, dolly in/out, or do both.<br><em>Possible Values:</em><br>- <strong>ZoomOnly</strong><br>- <strong>DollyOnly</strong><br>- <strong>DollyThenZoom</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_GroupFramingSize</strong></td>
+<td>Single</td>
+<td>The bounding box of the targets should occupy this amount of the screen space.  1 means fill the whole screen.  0.5 means fill half the screen, etc.</td>
+</tr>
+<tr>
+<td><strong>m_MaxDollyIn</strong></td>
+<td>Single</td>
+<td>The maximum distance toward the target that this behaviour is allowed to move the camera.</td>
+</tr>
+<tr>
+<td><strong>m_MaxDollyOut</strong></td>
+<td>Single</td>
+<td>The maximum distance away the target that this behaviour is allowed to move the camera.</td>
+</tr>
+<tr>
+<td><strong>m_MinimumDistance</strong></td>
+<td>Single</td>
+<td>Set this to limit how close to the target the camera can get.</td>
+</tr>
+<tr>
+<td><strong>m_MaximumDistance</strong></td>
+<td>Single</td>
+<td>Set this to limit how far from the target the camera can get.</td>
+</tr>
+<tr>
+<td><strong>m_MinimumFOV</strong></td>
+<td>Single</td>
+<td>If adjusting FOV, will not set the FOV lower than this.</td>
+</tr>
+<tr>
+<td><strong>m_MaximumFOV</strong></td>
+<td>Single</td>
+<td>If adjusting FOV, will not set the FOV higher than this.</td>
+</tr>
+<tr>
+<td><strong>m_MinimumOrthoSize</strong></td>
+<td>Single</td>
+<td>If adjusting Orthographic Size, will not set it lower than this.</td>
+</tr>
+<tr>
+<td><strong>m_MaximumOrthoSize</strong></td>
+<td>Single</td>
+<td>If adjusting Orthographic Size, will not set it higher than this.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-12">Methods</h4>
+<p><code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the us that a target got warped, so that we can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Positions the virtual camera according to the transposer rules.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for damping.  If less than 0, no damping is done.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinefreelook">CinemachineFreeLook</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineVirtualCameraBase</p>
+<p><em>Implements:</em> ICinemachineCamera</p>
+<p>A Cinemachine Camera geared towards a 3rd person camera experience.  The camera orbits around its subject with three separate camera rigs defining rings around the target.  Each rig has its own radius, height offset, composer, and lens settings.  Depending on the camera's position along the spline connecting these three rigs, these settings are interpolated to give the final camera position and state.</p>
+<h4 id="properties-10">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RigNames</strong></td>
+<td>String[]</td>
+<td><em>(static)</em> <em>[Get]</em> Names of the 3 child rigs.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>CameraState</td>
+<td><em>[Get]</em> The camera state, which will be a blend of the child rig states.</td>
+</tr>
+<tr>
+<td><strong>LookAt</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the current LookAt target.  Returns parent's LookAt if parent is non-null and no specific LookAt defined for this camera.</td>
+</tr>
+<tr>
+<td><strong>Follow</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the current Follow target.  Returns parent's Follow if parent is non-null and no specific Follow defined for this camera.</td>
+</tr>
+<tr>
+<td><strong>LiveChildOrSelf</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>[Get]</em> Returns the rig with the greatest weight.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-16">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_LookAt</strong></td>
+<td>Transform</td>
+<td>Object for the camera children to look at (the aim target).</td>
+</tr>
+<tr>
+<td><strong>m_Follow</strong></td>
+<td>Transform</td>
+<td>Object for the camera children wants to move with (the body target).</td>
+</tr>
+<tr>
+<td><strong>m_PositionBlending</strong></td>
+<td>PositionBlendMethod</td>
+<td>Hint for blending positions to and from this virtual camera.<br><em>Possible Values:</em><br>- <strong>Linear</strong><br>- <strong>Spherical</strong><br>- <strong>Cylindrical</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_CommonLens</strong></td>
+<td>Boolean</td>
+<td>If enabled, this lens setting will apply to all three child rigs, otherwise the child rig lens settings will be used.</td>
+</tr>
+<tr>
+<td><strong>m_Lens</strong></td>
+<td>LensSettings</td>
+<td>Specifies the lens properties of this Virtual Camera.  This generally mirrors the Unity Camera's lens settings, and will be used to drive the Unity camera when the vcam is active.</td>
+</tr>
+<tr>
+<td><strong>m_YAxis</strong></td>
+<td>AxisState</td>
+<td>The Vertical axis.  Value is 0..1.  Chooses how to blend the child rigs.</td>
+</tr>
+<tr>
+<td><strong>m_YAxisRecentering</strong></td>
+<td>Recentering</td>
+<td>Controls how automatic recentering of the Y axis is accomplished.</td>
+</tr>
+<tr>
+<td><strong>m_XAxis</strong></td>
+<td>AxisState</td>
+<td>The Horizontal axis.  Value is -180...180.  This is passed on to the rigs' OrbitalTransposer component.</td>
+</tr>
+<tr>
+<td><strong>m_Heading</strong></td>
+<td>Heading</td>
+<td>The definition of Forward.  Camera will follow behind.</td>
+</tr>
+<tr>
+<td><strong>m_RecenterToTargetHeading</strong></td>
+<td>Recentering</td>
+<td>Controls how automatic recentering of the X axis is accomplished.</td>
+</tr>
+<tr>
+<td><strong>m_BindingMode</strong></td>
+<td>BindingMode</td>
+<td>The coordinate space to use when interpreting the offset from the target.  This is also used to set the camera's Up vector, which will be maintained when aiming the camera.<br><em>Possible Values:</em><br>- <strong>LockToTargetOnAssign</strong>: Camera will be bound to the Follow target using a frame of reference consisting of the target's local frame at the moment when the virtual camera was enabled, or when the target was assigned.<br>- <strong>LockToTargetWithWorldUp</strong>: Camera will be bound to the Follow target using a frame of reference consisting of the target's local frame, with the tilt and roll zeroed out.<br>- <strong>LockToTargetNoRoll</strong>: Camera will be bound to the Follow target using a frame of reference consisting of the target's local frame, with the roll zeroed out.<br>- <strong>LockToTarget</strong>: Camera will be bound to the Follow target using the target's local frame.<br>- <strong>WorldSpace</strong>: Camera will be bound to the Follow target using a world space offset.<br>- <strong>SimpleFollowWithWorldUp</strong>: Offsets will be calculated relative to the target, using Camera-local axes.<br></td>
+</tr>
+<tr>
+<td><strong>m_SplineCurvature</strong></td>
+<td>Single</td>
+<td>Controls how taut is the line that connects the rigs' orbits, which determines final placement on the Y axis.</td>
+</tr>
+<tr>
+<td><strong>m_Orbits</strong></td>
+<td>Orbit[]</td>
+<td>The radius and height of the three orbiting rigs.</td>
+</tr>
+<tr>
+<td><strong>CinemachineGUIDebuggerCallback</strong></td>
+<td>Action</td>
+<td>This is deprecated.  It is here to support the soon-to-be-removed Cinemachine Debugger in the Editor.</td>
+</tr>
+<tr>
+<td><strong>m_ExcludedPropertiesInInspector</strong></td>
+<td>String[]</td>
+<td>Inspector control - Use for hiding sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_LockStageInInspector</strong></td>
+<td>Stage[]</td>
+<td>Inspector control - Use for enabling sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_Priority</strong></td>
+<td>Int32</td>
+<td>The priority will determine which camera becomes active based on the state of other cameras and this camera.  Higher numbers have greater priority.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-13">Methods</h4>
+<p><code>protected virtual Void OnValidate()</code></p>
+<p>Enforce bounds for fields, when changed in inspector.</p>
+<p><code>CinemachineVirtualCamera GetRig(Int32 i)</code></p>
+<p>Get a child rig.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>i</strong></td>
+<td>Int32</td>
+<td>Rig index.  Can be 0, 1, or 2.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> The rig, or null if index is bad.
+<code>protected virtual Void OnEnable()</code></p>
+<p>Updates the child rig cache.</p>
+<p><code>protected virtual Void OnDestroy()</code></p>
+<p>Makes sure that the child rigs get destroyed in an undo-firndly manner.  Invalidates the rig cache.</p>
+<p><code>virtual Boolean IsLiveChild(ICinemachineCamera vcam)</code></p>
+<p>Check whether the vcam a live child of this camera.  Returns true if the child is currently contributing actively to the camera state.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The Virtual Camera to check.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> True if the vcam is currently actively influencing the state of this vcam.
+<code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the vcam that a target got warped, so that the vcam can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void InternalUpdateCameraState(Vector3 worldUp, Single deltaTime)</code></p>
+<p>Internal use only.  Called by CinemachineCore at designated update time so the vcam can position itself and track its targets.  All 3 child rigs are updated, and a blend calculated, depending on the value of the Y axis.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td>Default world Up, set by the CinemachineBrain.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Delta time for time-based effects (ignore if less than 0).</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void OnTransitionFromCamera(ICinemachineCamera fromCam, Vector3 worldUp, Single deltaTime)</code></p>
+<p>If we are transitioning from another FreeLook, grab the axis values from it.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>fromCam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The camera being deactivated.  May be null.</td>
+</tr>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td>Default world Up, set by the CinemachineBrain.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Delta time for time-based effects (ignore if less than or equal to 0).</td>
+</tr>
+</tbody>
+</table>
+<p><code>Vector3 GetLocalPositionForCameraFromInput(Single t)</code></p>
+<p>Returns the local position of the camera along the spline used to connect the three camera rigs.  Does not take into account the current heading of the camera (or its target).</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>t</strong></td>
+<td>Single</td>
+<td>The t-value for the camera on its spline.  Internally clamped to the value [0,1].</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> The local offset (back + up) of the camera WRT its target based on the supplied t-value.</p>
+<h3 id="cinemachinegroupcomposer">CinemachineGroupComposer</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComposer</p>
+<p>This is a CinemachineComponent in the Aim section of the component pipeline.  Its job is to aim the camera at a target object, with configurable offsets, damping, and composition rules.</p>
+<p>In addition, if the target is a CinemachineTargetGroup, the behaviour will adjust the FOV and the camera distance to ensure that the entire group of targets is framed properly.</p>
+<h4 id="properties-11">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TargetGroup</strong></td>
+<td>CinemachineTargetGroup</td>
+<td><em>[Get]</em> Get LookAt target as CinemachineTargetGroup, or null if target is not a group.</td>
+</tr>
+<tr>
+<td><strong>m_LastBounds</strong></td>
+<td>Bounds</td>
+<td><em>[Get]</em> For editor visulaization of the calculated bounding box of the group.</td>
+</tr>
+<tr>
+<td><strong>m_lastBoundsMatrix</strong></td>
+<td>Matrix4x4</td>
+<td><em>[Get]</em> For editor visualization of the calculated bounding box of the group.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-17">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_GroupFramingSize</strong></td>
+<td>Single</td>
+<td>The bounding box of the targets should occupy this amount of the screen space.  1 means fill the whole screen.  0.5 means fill half the screen, etc.</td>
+</tr>
+<tr>
+<td><strong>m_FramingMode</strong></td>
+<td>FramingMode</td>
+<td>What screen dimensions to consider when framing.  Can be Horizontal, Vertical, or both.<br><em>Possible Values:</em><br>- <strong>Horizontal</strong>: Consider only the horizontal dimension.  Vertical framing is ignored.<br>- <strong>Vertical</strong>: Consider only the vertical dimension.  Horizontal framing is ignored.<br>- <strong>HorizontalAndVertical</strong>: The larger of the horizontal and vertical dimensions will dominate, to get the best fit.<br></td>
+</tr>
+<tr>
+<td><strong>m_FrameDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to frame the group.  Small numbers are more responsive, rapidly adjusting the camera to keep the group in the frame.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+<tr>
+<td><strong>m_AdjustmentMode</strong></td>
+<td>AdjustmentMode</td>
+<td>How to adjust the camera to get the desired framing.  You can zoom, dolly in/out, or do both.<br><em>Possible Values:</em><br>- <strong>ZoomOnly</strong><br>- <strong>DollyOnly</strong><br>- <strong>DollyThenZoom</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_MaxDollyIn</strong></td>
+<td>Single</td>
+<td>The maximum distance toward the target that this behaviour is allowed to move the camera.</td>
+</tr>
+<tr>
+<td><strong>m_MaxDollyOut</strong></td>
+<td>Single</td>
+<td>The maximum distance away the target that this behaviour is allowed to move the camera.</td>
+</tr>
+<tr>
+<td><strong>m_MinimumDistance</strong></td>
+<td>Single</td>
+<td>Set this to limit how close to the target the camera can get.</td>
+</tr>
+<tr>
+<td><strong>m_MaximumDistance</strong></td>
+<td>Single</td>
+<td>Set this to limit how far from the target the camera can get.</td>
+</tr>
+<tr>
+<td><strong>m_MinimumFOV</strong></td>
+<td>Single</td>
+<td>If adjusting FOV, will not set the FOV lower than this.</td>
+</tr>
+<tr>
+<td><strong>m_MaximumFOV</strong></td>
+<td>Single</td>
+<td>If adjusting FOV, will not set the FOV higher than this.</td>
+</tr>
+<tr>
+<td><strong>m_MinimumOrthoSize</strong></td>
+<td>Single</td>
+<td>If adjusting Orthographic Size, will not set it lower than this.</td>
+</tr>
+<tr>
+<td><strong>m_MaximumOrthoSize</strong></td>
+<td>Single</td>
+<td>If adjusting Orthographic Size, will not set it higher than this.</td>
+</tr>
+<tr>
+<td><strong>OnGUICallback</strong></td>
+<td>Action</td>
+<td>Used by the Inspector Editor to display on-screen guides.</td>
+</tr>
+<tr>
+<td><strong>m_TrackedObjectOffset</strong></td>
+<td>Vector3</td>
+<td>Target offset from the target object's center in target-local space.  Use this to fine-tune the tracking target position when the desired area is not the tracked object's center.</td>
+</tr>
+<tr>
+<td><strong>m_LookaheadTime</strong></td>
+<td>Single</td>
+<td>This setting will instruct the composer to adjust its target offset based on the motion of the target.  The composer will look at a point where it estimates the target will be this many seconds into the future.  Note that this setting is sensitive to noisy animation, and can amplify the noise, resulting in undesirable camera jitter.  If the camera jitters unacceptably when the target is in motion, turn down this setting, or animate the target more smoothly.</td>
+</tr>
+<tr>
+<td><strong>m_LookaheadSmoothing</strong></td>
+<td>Single</td>
+<td>Controls the smoothness of the lookahead algorithm.  Larger values smooth out jittery predictions and also increase prediction lag.</td>
+</tr>
+<tr>
+<td><strong>m_LookaheadIgnoreY</strong></td>
+<td>Boolean</td>
+<td>If checked, movement along the Y axis will be ignored for lookahead calculations.</td>
+</tr>
+<tr>
+<td><strong>m_HorizontalDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to follow the target in the screen-horizontal direction.  Small numbers are more responsive, rapidly orienting the camera to keep the target in the dead zone.  Larger numbers give a more heavy slowly responding camera.  Using different vertical and horizontal settings can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_VerticalDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to follow the target in the screen-vertical direction.  Small numbers are more responsive, rapidly orienting the camera to keep the target in the dead zone.  Larger numbers give a more heavy slowly responding camera.  Using different vertical and horizontal settings can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_ScreenX</strong></td>
+<td>Single</td>
+<td>Horizontal screen position for target.  The camera will rotate to position the tracked object here.</td>
+</tr>
+<tr>
+<td><strong>m_ScreenY</strong></td>
+<td>Single</td>
+<td>Vertical screen position for target, The camera will rotate to position the tracked object here.</td>
+</tr>
+<tr>
+<td><strong>m_DeadZoneWidth</strong></td>
+<td>Single</td>
+<td>Camera will not rotate horizontally if the target is within this range of the position.</td>
+</tr>
+<tr>
+<td><strong>m_DeadZoneHeight</strong></td>
+<td>Single</td>
+<td>Camera will not rotate vertically if the target is within this range of the position.</td>
+</tr>
+<tr>
+<td><strong>m_SoftZoneWidth</strong></td>
+<td>Single</td>
+<td>When target is within this region, camera will gradually rotate horizontally to re-align towards the desired position, depending on the damping speed.</td>
+</tr>
+<tr>
+<td><strong>m_SoftZoneHeight</strong></td>
+<td>Single</td>
+<td>When target is within this region, camera will gradually rotate vertically to re-align towards the desired position, depending on the damping speed.</td>
+</tr>
+<tr>
+<td><strong>m_BiasX</strong></td>
+<td>Single</td>
+<td>A non-zero bias will move the target position horizontally away from the center of the soft zone.</td>
+</tr>
+<tr>
+<td><strong>m_BiasY</strong></td>
+<td>Single</td>
+<td>A non-zero bias will move the target position vertically away from the center of the soft zone.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-14">Methods</h4>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Applies the composer rules and orients the camera accordingly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for calculating damping.  If less than zero, then target will snap to the center of the dead zone.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinehardlocktotarget">CinemachineHardLockToTarget</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComponentBase</p>
+<p>This is a CinemachineComponent in the Aim section of the component pipeline.  Its job is to place the camera on the Follow Target.</p>
+<h4 id="properties-12">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if component is enabled and has a LookAt defined.</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>Stage</td>
+<td><em>[Get]</em> Get the Cinemachine Pipeline stage that this component implements.  Always returns the Aim stage.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-15">Methods</h4>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Applies the composer rules and orients the camera accordingly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for calculating damping.  If less than zero, then target will snap to the center of the dead zone.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinehardlookat">CinemachineHardLookAt</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComponentBase</p>
+<p>This is a CinemachineComponent in the Aim section of the component pipeline.  Its job is to aim the camera hard at the LookAt target.</p>
+<h4 id="properties-13">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if component is enabled and has a LookAt defined.</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>Stage</td>
+<td><em>[Get]</em> Get the Cinemachine Pipeline stage that this component implements.  Always returns the Aim stage.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-16">Methods</h4>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Applies the composer rules and orients the camera accordingly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for calculating damping.  If less than zero, then target will snap to the center of the dead zone.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinemixingcamera">CinemachineMixingCamera</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineVirtualCameraBase</p>
+<p><em>Implements:</em> ICinemachineCamera</p>
+<p>CinemachineMixingCamera is a &quot;manager camera&quot; that takes on the state of the weighted average of the states of its child virtual cameras.</p>
+<p>A fixed number of slots are made available for cameras, rather than a dynamic array.  We do it this way in order to support weight animation from the Timeline.  Timeline cannot animate array elements.</p>
+<h4 id="properties-14">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>State</strong></td>
+<td>CameraState</td>
+<td><em>[Get]</em> The blended CameraState.</td>
+</tr>
+<tr>
+<td><strong>LookAt</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Not used.</td>
+</tr>
+<tr>
+<td><strong>Follow</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Not used.</td>
+</tr>
+<tr>
+<td><strong>LiveChildOrSelf</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>[Get]</em> Return the live child.</td>
+</tr>
+<tr>
+<td><strong>ChildCameras</strong></td>
+<td>CinemachineVirtualCameraBase[]</td>
+<td><em>[Get]</em> Get the cached list of child cameras.  These are just the immediate children in the hierarchy.  Note: only the first entries of this list participate in the final blend, up to MaxCameras.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-18">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Weight0</strong></td>
+<td>Single</td>
+<td>The weight of the first tracked camera.</td>
+</tr>
+<tr>
+<td><strong>m_Weight1</strong></td>
+<td>Single</td>
+<td>The weight of the second tracked camera.</td>
+</tr>
+<tr>
+<td><strong>m_Weight2</strong></td>
+<td>Single</td>
+<td>The weight of the third tracked camera.</td>
+</tr>
+<tr>
+<td><strong>m_Weight3</strong></td>
+<td>Single</td>
+<td>The weight of the fourth tracked camera.</td>
+</tr>
+<tr>
+<td><strong>m_Weight4</strong></td>
+<td>Single</td>
+<td>The weight of the fifth tracked camera.</td>
+</tr>
+<tr>
+<td><strong>m_Weight5</strong></td>
+<td>Single</td>
+<td>The weight of the sixth tracked camera.</td>
+</tr>
+<tr>
+<td><strong>m_Weight6</strong></td>
+<td>Single</td>
+<td>The weight of the seventh tracked camera.</td>
+</tr>
+<tr>
+<td><strong>m_Weight7</strong></td>
+<td>Single</td>
+<td>The weight of the eighth tracked camera.</td>
+</tr>
+<tr>
+<td><strong>CinemachineGUIDebuggerCallback</strong></td>
+<td>Action</td>
+<td>This is deprecated.  It is here to support the soon-to-be-removed Cinemachine Debugger in the Editor.</td>
+</tr>
+<tr>
+<td><strong>m_ExcludedPropertiesInInspector</strong></td>
+<td>String[]</td>
+<td>Inspector control - Use for hiding sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_LockStageInInspector</strong></td>
+<td>Stage[]</td>
+<td>Inspector control - Use for enabling sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_Priority</strong></td>
+<td>Int32</td>
+<td>The priority will determine which camera becomes active based on the state of other cameras and this camera.  Higher numbers have greater priority.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-17">Methods</h4>
+<p><code>Single GetWeight(Int32 index)</code></p>
+<p>Get the weight of the child at an index.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>index</strong></td>
+<td>Int32</td>
+<td>The child index.  Only immediate CinemachineVirtualCameraBase children are counted.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> The weight of the camera.  Valid only if camera is active and enabled.
+<code>Void SetWeight(Int32 index, Single w)</code></p>
+<p>Set the weight of the child at an index.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>index</strong></td>
+<td>Int32</td>
+<td>The child index.  Only immediate CinemachineVirtualCameraBase children are counted.</td>
+</tr>
+<tr>
+<td><strong>w</strong></td>
+<td>Single</td>
+<td>The weight to set.  Can be any non-negative number.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Single GetWeight(CinemachineVirtualCameraBase vcam)</code></p>
+<p>Get the weight of the child CinemachineVirtualCameraBase.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>CinemachineVirtualCameraBase</td>
+<td>The child camera.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> The weight of the camera.  Valid only if camera is active and enabled.
+<code>Void SetWeight(CinemachineVirtualCameraBase vcam, Single w)</code></p>
+<p>Set the weight of the child CinemachineVirtualCameraBase.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>CinemachineVirtualCameraBase</td>
+<td>The child camera.</td>
+</tr>
+<tr>
+<td><strong>w</strong></td>
+<td>Single</td>
+<td>The weight to set.  Can be any non-negative number.</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the vcam that a target got warped, so that the vcam can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>protected virtual Void OnEnable()</code></p>
+<p>Makes sure the internal child cache is up to date.</p>
+<p><code>Void OnTransformChildrenChanged()</code></p>
+<p>Makes sure the internal child cache is up to date.</p>
+<p><code>protected virtual Void OnValidate()</code></p>
+<p>Makes sure the weights are non-negative.</p>
+<p><code>virtual Boolean IsLiveChild(ICinemachineCamera vcam)</code></p>
+<p>Check whether the vcam a live child of this camera.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The Virtual Camera to check.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> True if the vcam is currently actively influencing the state of this vcam.
+<code>protected Void InvalidateListOfChildren()</code></p>
+<p>Invalidate the cached list of child cameras.</p>
+<p><code>protected Void ValidateListOfChildren()</code></p>
+<p>Rebuild the cached list of child cameras.</p>
+<p><code>virtual Void InternalUpdateCameraState(Vector3 worldUp, Single deltaTime)</code></p>
+<p>Internal use only.  Do not call this method.  Called by CinemachineCore at designated update time so the vcam can position itself and track its targets.  This implementation computes and caches the weighted blend of the tracked cameras.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td>Default world Up, set by the CinemachineBrain.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Delta time for time-based effects (ignore if less than 0).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachineorbitaltransposer">CinemachineOrbitalTransposer</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineTransposer</p>
+<p>This is a CinemachineComponent in the Body section of the component pipeline.  Its job is to position the camera in a variable relationship to a the vcam's Follow target object, with offsets and damping.</p>
+<p>This component is typically used to implement a camera that follows its target.  It can accept player input from an input device, which allows the player to dynamically control the relationship between the camera and the target, for example with a joystick.</p>
+<p>The OrbitalTransposer introduces the concept of <strong>Heading</strong>, which is the direction in which the target is moving, and the OrbitalTransposer will attempt to position the camera in relationship to the heading, which is by default directly behind the target.  You can control the default relationship by adjusting the Heading Bias setting.</p>
+<p>If you attach an input controller to the OrbitalTransposer, then the player can also control the way the camera positions itself in relation to the target heading.  This allows the camera to move to any spot on an orbit around the target.</p>
+<h4 id="fields-19">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Heading</strong></td>
+<td>Heading</td>
+<td>The definition of Forward.  Camera will follow behind.</td>
+</tr>
+<tr>
+<td><strong>m_RecenterToTargetHeading</strong></td>
+<td>Recentering</td>
+<td>Automatic heading recentering.  The settings here defines how the camera will reposition itself in the absence of player input.</td>
+</tr>
+<tr>
+<td><strong>m_XAxis</strong></td>
+<td>AxisState</td>
+<td>Heading Control.  The settings here control the behaviour of the camera in response to the player's input.</td>
+</tr>
+<tr>
+<td><strong>m_HeadingIsSlave</strong></td>
+<td>Boolean</td>
+<td>Drive the x-axis setting programmatically.  Automatic heading updating will be disabled.</td>
+</tr>
+<tr>
+<td><strong>m_BindingMode</strong></td>
+<td>BindingMode</td>
+<td>The coordinate space to use when interpreting the offset from the target.  This is also used to set the camera's Up vector, which will be maintained when aiming the camera.<br><em>Possible Values:</em><br>- <strong>LockToTargetOnAssign</strong>: Camera will be bound to the Follow target using a frame of reference consisting of the target's local frame at the moment when the virtual camera was enabled, or when the target was assigned.<br>- <strong>LockToTargetWithWorldUp</strong>: Camera will be bound to the Follow target using a frame of reference consisting of the target's local frame, with the tilt and roll zeroed out.<br>- <strong>LockToTargetNoRoll</strong>: Camera will be bound to the Follow target using a frame of reference consisting of the target's local frame, with the roll zeroed out.<br>- <strong>LockToTarget</strong>: Camera will be bound to the Follow target using the target's local frame.<br>- <strong>WorldSpace</strong>: Camera will be bound to the Follow target using a world space offset.<br>- <strong>SimpleFollowWithWorldUp</strong>: Offsets will be calculated relative to the target, using Camera-local axes.<br></td>
+</tr>
+<tr>
+<td><strong>m_FollowOffset</strong></td>
+<td>Vector3</td>
+<td>The distance vector that the transposer will attempt to maintain from the Follow target.</td>
+</tr>
+<tr>
+<td><strong>m_XDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain the offset in the X-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's x-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_YDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain the offset in the Y-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's y-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_ZDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain the offset in the Z-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's z-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_PitchDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to track the target rotation's X angle.  Small numbers are more responsive.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+<tr>
+<td><strong>m_YawDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to track the target rotation's Y angle.  Small numbers are more responsive.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+<tr>
+<td><strong>m_RollDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to track the target rotation's Z angle.  Small numbers are more responsive.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-18">Methods</h4>
+<p><code>protected virtual Void OnValidate()</code></p>
+<p><code>Single UpdateHeading(Single deltaTime, Vector3 up, AxisState&amp; axis)</code></p>
+<p>Update the X axis and calculate the heading.  This can be called by a delegate with a custom axis.  Used for damping.  If less than 0, no damping is done.World Up, set by the CinemachineBrainAxis value.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for damping.  If less than 0, no damping is done.</td>
+</tr>
+<tr>
+<td><strong>up</strong></td>
+<td>Vector3</td>
+<td>World Up, set by the CinemachineBrain.</td>
+</tr>
+<tr>
+<td><strong>axis</strong></td>
+<td>AxisState&amp;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> Axis value.
+<code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the us that a target got warped, so that we can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Positions the virtual camera according to the transposer rules.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for damping.  If less than 0, no damping is done.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachineorbitaltransposerheading">CinemachineOrbitalTransposer.Heading</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>How the &quot;forward&quot; direction is defined.  Orbital offset is in relation to the forward direction.</p>
+<h4 id="fields-20">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Definition</strong></td>
+<td>HeadingDefinition</td>
+<td>How 'forward' is defined.  The camera will be placed by default behind the target.  PositionDelta will consider 'forward' to be the direction in which the target is moving.<br><em>Possible Values:</em><br>- <strong>PositionDelta</strong>: Target heading calculated from the difference between its position on the last update and current frame.<br>- <strong>Velocity</strong>: Target heading calculated from its Rigidbody's velocity.  If no Rigidbody exists, it will fall back to HeadingDerivationMode.PositionDelta.<br>- <strong>TargetForward</strong>: Target heading calculated from the Target Transform's euler Y angle.<br>- <strong>WorldForward</strong>: Default heading is a constant world space heading.<br></td>
+</tr>
+<tr>
+<td><strong>m_VelocityFilterStrength</strong></td>
+<td>Int32</td>
+<td>Size of the velocity sampling window for target heading filter.  This filters out irregularities in the target's movement.  Used only if deriving heading from target's movement (PositionDelta or Velocity).</td>
+</tr>
+<tr>
+<td><strong>m_Bias</strong></td>
+<td>Single</td>
+<td>Where the camera is placed when the X-axis value is zero.  This is a rotation in degrees around the Y axis.  When this value is 0, the camera will be placed behind the target.  Nonzero offsets will rotate the zero position around the target.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinepath">CinemachinePath</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachinePathBase</p>
+<p>Defines a world-space path, consisting of an array of waypoints, each of which has position, tangent, and roll settings.  Bezier interpolation is performed between the waypoints, to get a smooth and continuous path.</p>
+<h4 id="properties-15">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MinPos</strong></td>
+<td>Single</td>
+<td><em>[Get]</em> The minimum value for the path position.</td>
+</tr>
+<tr>
+<td><strong>MaxPos</strong></td>
+<td>Single</td>
+<td><em>[Get]</em> The maximum value for the path position.</td>
+</tr>
+<tr>
+<td><strong>Looped</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if the path ends are joined to form a continuous loop.</td>
+</tr>
+<tr>
+<td><strong>DistanceCacheSampleStepsPerSegment</strong></td>
+<td>Int32</td>
+<td><em>[Get]</em> When calculating the distance cache, sample the path this many times between points.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-21">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Looped</strong></td>
+<td>Boolean</td>
+<td>If checked, then the path ends are joined to form a continuous loop.</td>
+</tr>
+<tr>
+<td><strong>m_Waypoints</strong></td>
+<td>Waypoint[]</td>
+<td>The waypoints that define the path.  They will be interpolated using a bezier curve.</td>
+</tr>
+<tr>
+<td><strong>m_Resolution</strong></td>
+<td>Int32</td>
+<td>Path samples per waypoint.  This is used for calculating path distances.</td>
+</tr>
+<tr>
+<td><strong>m_Appearance</strong></td>
+<td>Appearance</td>
+<td>The settings that control how the path will appear in the editor scene view.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-19">Methods</h4>
+<p><code>virtual Vector3 EvaluatePosition(Single pos)</code></p>
+<p>Get a worldspace position of a point along the path.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pos</strong></td>
+<td>Single</td>
+<td>Postion along the path.  Need not be normalized.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> World-space position of the point along at path at pos.
+<code>virtual Vector3 EvaluateTangent(Single pos)</code></p>
+<p>Get the tangent of the curve at a point along the path.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pos</strong></td>
+<td>Single</td>
+<td>Postion along the path.  Need not be normalized.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> World-space direction of the path tangent.  Length of the vector represents the tangent strength.
+<code>virtual Quaternion EvaluateOrientation(Single pos)</code></p>
+<p>Get the orientation the curve at a point along the path.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pos</strong></td>
+<td>Single</td>
+<td>Postion along the path.  Need not be normalized.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> World-space orientation of the path, as defined by tangent, up, and roll.</p>
+<h3 id="cinemachinepathwaypoint">CinemachinePath.Waypoint</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>A waypoint along the path.</p>
+<h4 id="fields-22">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>position</strong></td>
+<td>Vector3</td>
+<td>Position in path-local space.</td>
+</tr>
+<tr>
+<td><strong>tangent</strong></td>
+<td>Vector3</td>
+<td>Offset from the position, which defines the tangent of the curve at the waypoint.  The length of the tangent encodes the strength of the bezier handle.  The same handle is used symmetrically on both sides of the waypoint, to ensure smoothness.</td>
+</tr>
+<tr>
+<td><strong>roll</strong></td>
+<td>Single</td>
+<td>Defines the role of the path at this waypoint.  The other orientation axes are inferred from the tangent and world up.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinepathbaseappearance">CinemachinePathBase.Appearance</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>This class holds the settings that control how the path will appear in the editor scene view.  The path is not visible in the game view.</p>
+<h4 id="fields-23">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pathColor</strong></td>
+<td>Color</td>
+<td>The color of the path itself when it is active in the editor.</td>
+</tr>
+<tr>
+<td><strong>inactivePathColor</strong></td>
+<td>Color</td>
+<td>The color of the path itself when it is inactive in the editor.</td>
+</tr>
+<tr>
+<td><strong>width</strong></td>
+<td>Single</td>
+<td>The width of the railroad-tracks that are drawn to represent the path.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinepov">CinemachinePOV</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComponentBase</p>
+<p>This is a CinemachineComponent in the Aim section of the component pipeline.  Its job is to aim the camera in response to the user's mouse or joystick input.</p>
+<p>The composer does not change the camera's position.  It will only pan and tilt the camera where it is, in order to get the desired framing.  To move the camera, you have to use the virtual camera's Body section.</p>
+<h4 id="properties-16">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if component is enabled and has a LookAt defined.</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>Stage</td>
+<td><em>[Get]</em> Get the Cinemachine Pipeline stage that this component implements.  Always returns the Aim stage.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-24">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_VerticalAxis</strong></td>
+<td>AxisState</td>
+<td>The Vertical axis.  Value is -90..90.  Controls the vertical orientation.</td>
+</tr>
+<tr>
+<td><strong>m_VerticalRecentering</strong></td>
+<td>Recentering</td>
+<td>Controls how automatic recentering of the Vertical axis is accomplished.</td>
+</tr>
+<tr>
+<td><strong>m_HorizontalAxis</strong></td>
+<td>AxisState</td>
+<td>The Horizontal axis.  Value is -180..180.  Controls the horizontal orientation.</td>
+</tr>
+<tr>
+<td><strong>m_HorizontalRecentering</strong></td>
+<td>Recentering</td>
+<td>Controls how automatic recentering of the Horizontal axis is accomplished.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-20">Methods</h4>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Applies the axis values and orients the camera accordingly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for calculating damping.  Not used.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinesameasfollowtarget">CinemachineSameAsFollowTarget</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComponentBase</p>
+<p>This is a CinemachineComponent in the Aim section of the component pipeline.  Its job is to match the orientation of the Follow target.</p>
+<h4 id="properties-17">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if component is enabled and has a Follow target defined.</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>Stage</td>
+<td><em>[Get]</em> Get the Cinemachine Pipeline stage that this component implements.  Always returns the Aim stage.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-21">Methods</h4>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Orients the camera to match the Follow target's orientation.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Not used.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinesmoothpath">CinemachineSmoothPath</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachinePathBase</p>
+<p>Defines a world-space path, consisting of an array of waypoints, each of which has position and roll settings.  Bezier interpolation is performed between the waypoints, to get a smooth and continuous path.  The path will pass through all waypoints, and (unlike CinemachinePath) first and second order continuity is guaranteed.</p>
+<h4 id="properties-18">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MinPos</strong></td>
+<td>Single</td>
+<td><em>[Get]</em> The minimum value for the path position.</td>
+</tr>
+<tr>
+<td><strong>MaxPos</strong></td>
+<td>Single</td>
+<td><em>[Get]</em> The maximum value for the path position.</td>
+</tr>
+<tr>
+<td><strong>Looped</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if the path ends are joined to form a continuous loop.</td>
+</tr>
+<tr>
+<td><strong>DistanceCacheSampleStepsPerSegment</strong></td>
+<td>Int32</td>
+<td><em>[Get]</em> When calculating the distance cache, sample the path this many times between points.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-25">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Looped</strong></td>
+<td>Boolean</td>
+<td>If checked, then the path ends are joined to form a continuous loop.</td>
+</tr>
+<tr>
+<td><strong>m_Waypoints</strong></td>
+<td>Waypoint[]</td>
+<td>The waypoints that define the path.  They will be interpolated using a bezier curve.</td>
+</tr>
+<tr>
+<td><strong>m_Resolution</strong></td>
+<td>Int32</td>
+<td>Path samples per waypoint.  This is used for calculating path distances.</td>
+</tr>
+<tr>
+<td><strong>m_Appearance</strong></td>
+<td>Appearance</td>
+<td>The settings that control how the path will appear in the editor scene view.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-22">Methods</h4>
+<p><code>virtual Void InvalidateDistanceCache()</code></p>
+<p>Call this if the path changes in such a way as to affect distances or other cached path elements.</p>
+<p><code>virtual Vector3 EvaluatePosition(Single pos)</code></p>
+<p>Get a worldspace position of a point along the path.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pos</strong></td>
+<td>Single</td>
+<td>Postion along the path.  Need not be normalized.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> World-space position of the point along at path at pos.
+<code>virtual Vector3 EvaluateTangent(Single pos)</code></p>
+<p>Get the tangent of the curve at a point along the path.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pos</strong></td>
+<td>Single</td>
+<td>Postion along the path.  Need not be normalized.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> World-space direction of the path tangent.  Length of the vector represents the tangent strength.
+<code>virtual Quaternion EvaluateOrientation(Single pos)</code></p>
+<p>Get the orientation the curve at a point along the path.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>pos</strong></td>
+<td>Single</td>
+<td>Postion along the path.  Need not be normalized.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> World-space orientation of the path, as defined by tangent, up, and roll.</p>
+<h3 id="cinemachinesmoothpathwaypoint">CinemachineSmoothPath.Waypoint</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>A waypoint along the path.</p>
+<h4 id="fields-26">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>position</strong></td>
+<td>Vector3</td>
+<td>Position in path-local space.</td>
+</tr>
+<tr>
+<td><strong>roll</strong></td>
+<td>Single</td>
+<td>Defines the roll of the path at this waypoint.  The other orientation axes are inferred from the tangent and world up.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinestatedrivencamera">CinemachineStateDrivenCamera</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineVirtualCameraBase</p>
+<p><em>Implements:</em> ICinemachineCamera</p>
+<p>This is a virtual camera &quot;manager&quot; that owns and manages a collection of child Virtual Cameras.  These child vcams are mapped to individual states in an animation state machine, allowing you to associate specific vcams to specific animation states.  When that state is active in the state machine, then the associated camera will be activated.</p>
+<p>You can define custom blends and transitions between child cameras.</p>
+<p>In order to use this behaviour, you must have an animated target (i.e.  an object animated with a state machine) to drive the behaviour.</p>
+<h4 id="properties-19">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Description</strong></td>
+<td>String</td>
+<td><em>[Get]</em> Gets a brief debug description of this virtual camera, for use when displaying debug info.</td>
+</tr>
+<tr>
+<td><strong>LiveChild</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>[Get,Set]</em> Get the current &quot;best&quot; child virtual camera, that would be chosen if the State Driven Camera were active.</td>
+</tr>
+<tr>
+<td><strong>LiveChildOrSelf</strong></td>
+<td>ICinemachineCamera</td>
+<td><em>[Get]</em> Return the live child.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>CameraState</td>
+<td><em>[Get]</em> The State of the current live child.</td>
+</tr>
+<tr>
+<td><strong>LookAt</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the current LookAt target.  Returns parent's LookAt if parent is non-null and no specific LookAt defined for this camera.</td>
+</tr>
+<tr>
+<td><strong>Follow</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the current Follow target.  Returns parent's Follow if parent is non-null and no specific Follow defined for this camera.</td>
+</tr>
+<tr>
+<td><strong>ChildCameras</strong></td>
+<td>CinemachineVirtualCameraBase[]</td>
+<td><em>[Get]</em> The list of child cameras.  These are just the immediate children in the hierarchy.</td>
+</tr>
+<tr>
+<td><strong>IsBlending</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> Is there a blend in progress?</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-27">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_LookAt</strong></td>
+<td>Transform</td>
+<td>Default object for the camera children to look at (the aim target), if not specified in a child camera.  May be empty if all of the children define targets of their own.</td>
+</tr>
+<tr>
+<td><strong>m_Follow</strong></td>
+<td>Transform</td>
+<td>Default object for the camera children wants to move with (the body target), if not specified in a child camera.  May be empty if all of the children define targets of their own.</td>
+</tr>
+<tr>
+<td><strong>m_AnimatedTarget</strong></td>
+<td>Animator</td>
+<td>The state machine whose state changes will drive this camera's choice of active child.</td>
+</tr>
+<tr>
+<td><strong>m_LayerIndex</strong></td>
+<td>Int32</td>
+<td>Which layer in the target state machine to observe.</td>
+</tr>
+<tr>
+<td><strong>m_ShowDebugText</strong></td>
+<td>Boolean</td>
+<td>When enabled, the current child camera and blend will be indicated in the game window, for debugging.</td>
+</tr>
+<tr>
+<td><strong>m_EnableAllChildCameras</strong></td>
+<td>Boolean</td>
+<td>Force all child cameras to be enabled.  This is useful if animating them in Timeline, but consumes extra resources.</td>
+</tr>
+<tr>
+<td><strong>m_ChildCameras</strong></td>
+<td>CinemachineVirtualCameraBase[]</td>
+<td>Internal API for the editor.  Do not use this field.</td>
+</tr>
+<tr>
+<td><strong>m_Instructions</strong></td>
+<td>Instruction[]</td>
+<td>The set of instructions associating virtual cameras with states.  These instructions are used to choose the live child at any given moment.</td>
+</tr>
+<tr>
+<td><strong>m_DefaultBlend</strong></td>
+<td>CinemachineBlendDefinition</td>
+<td>The blend which is used if you don't explicitly define a blend between two Virtual Camera children.</td>
+</tr>
+<tr>
+<td><strong>m_CustomBlends</strong></td>
+<td>CinemachineBlenderSettings</td>
+<td>This is the asset which contains custom settings for specific child blends.</td>
+</tr>
+<tr>
+<td><strong>m_ParentHash</strong></td>
+<td>ParentHash[]</td>
+<td>Internal API for the Inspector editor.</td>
+</tr>
+<tr>
+<td><strong>CinemachineGUIDebuggerCallback</strong></td>
+<td>Action</td>
+<td>This is deprecated.  It is here to support the soon-to-be-removed Cinemachine Debugger in the Editor.</td>
+</tr>
+<tr>
+<td><strong>m_ExcludedPropertiesInInspector</strong></td>
+<td>String[]</td>
+<td>Inspector control - Use for hiding sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_LockStageInInspector</strong></td>
+<td>Stage[]</td>
+<td>Inspector control - Use for enabling sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_Priority</strong></td>
+<td>Int32</td>
+<td>The priority will determine which camera becomes active based on the state of other cameras and this camera.  Higher numbers have greater priority.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-23">Methods</h4>
+<p><code>virtual Boolean IsLiveChild(ICinemachineCamera vcam)</code></p>
+<p>Check whether the vcam a live child of this camera.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>ICinemachineCamera</td>
+<td>The Virtual Camera to check.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> True if the vcam is currently actively influencing the state of this vcam.
+<code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the vcam that a target got warped, so that the vcam can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void InternalUpdateCameraState(Vector3 worldUp, Single deltaTime)</code></p>
+<p>Internal use only.  Do not call this method.  Called by CinemachineCore at designated update time so the vcam can position itself and track its targets.  This implementation updates all the children, chooses the best one, and implements any required blending.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td>Default world Up, set by the CinemachineBrain.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Delta time for time-based effects (ignore if less than or equal to 0).</td>
+</tr>
+</tbody>
+</table>
+<p><code>protected virtual Void OnEnable()</code></p>
+<p>Makes sure the internal child cache is up to date.</p>
+<p><code>Void OnTransformChildrenChanged()</code></p>
+<p>Makes sure the internal child cache is up to date.</p>
+<p><code>protected virtual Void OnGUI()</code></p>
+<p>Displays the current active camera on the game screen, if requested.</p>
+<p><code>static String CreateFakeHashName(Int32 parentHash, String stateName)</code></p>
+<p>API for the inspector editor.  Animation module does not have hashes for state parents, so we have to invent them in order to implement nested state handling.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>parentHash</strong></td>
+<td>Int32</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>stateName</strong></td>
+<td>String</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>Void ValidateInstructions()</code></p>
+<p>Internal API for the inspector editor.</p>
+<h3 id="cinemachinestoryboard">CinemachineStoryboard</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineExtension</p>
+<p>An add-on module for Cinemachine Virtual Camera that places an image in screen space over the camera's output.</p>
+<h4 id="fields-28">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_ShowImage</strong></td>
+<td>Boolean</td>
+<td>If checked, the specified image will be displayed as an overlay over the virtual camera's output.</td>
+</tr>
+<tr>
+<td><strong>m_Image</strong></td>
+<td>Texture</td>
+<td>The image to display.</td>
+</tr>
+<tr>
+<td><strong>m_Aspect</strong></td>
+<td>FillStrategy</td>
+<td>How to handle differences between image aspect and screen aspect.<br><em>Possible Values:</em><br>- <strong>BestFit</strong><br>- <strong>CropImageToFit</strong><br>- <strong>StretchToFit</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_Alpha</strong></td>
+<td>Single</td>
+<td>The opacity of the image.  0 is transparent, 1 is opaque.</td>
+</tr>
+<tr>
+<td><strong>m_Center</strong></td>
+<td>Vector2</td>
+<td>The screen-space position at which to display the image.  Zero is center.</td>
+</tr>
+<tr>
+<td><strong>m_Rotation</strong></td>
+<td>Vector3</td>
+<td>The screen-space rotation to apply to the image.</td>
+</tr>
+<tr>
+<td><strong>m_Scale</strong></td>
+<td>Vector2</td>
+<td>The screen-space scaling to apply to the image.</td>
+</tr>
+<tr>
+<td><strong>m_SyncScale</strong></td>
+<td>Boolean</td>
+<td>If checked, X and Y scale are synchronized.</td>
+</tr>
+<tr>
+<td><strong>m_MuteCamera</strong></td>
+<td>Boolean</td>
+<td>If checked, Camera transform will not be controlled by this virtual camera.</td>
+</tr>
+<tr>
+<td><strong>m_SplitView</strong></td>
+<td>Single</td>
+<td>Wipe the image on and off horizontally.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-24">Methods</h4>
+<p><code>protected virtual Void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, Stage stage, CameraState&amp; state, Single deltaTime)</code></p>
+<p>Standard CinemachineExtension callback.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>vcam</strong></td>
+<td>CinemachineVirtualCameraBase</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>stage</strong></td>
+<td>Stage</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>state</strong></td>
+<td>CameraState&amp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>protected virtual Void OnDestroy()</code></p>
+<p><code>protected virtual Void ConnectToVcam(Boolean connect)</code></p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>connect</strong></td>
+<td>Boolean</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinetargetgroup">CinemachineTargetGroup</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> MonoBehaviour</p>
+<p>Defines a group of target objects, each with a radius and a weight.  The weight is used when calculating the average position of the target group.  Higher-weighted members of the group will count more.  The bounding box is calculated by taking the member positions, weight, and radii into account.</p>
+<h4 id="properties-20">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BoundingBox</strong></td>
+<td>Bounds</td>
+<td><em>[Get]</em> The axis-aligned bounding box of the group, computed using the targets positions and radii.</td>
+</tr>
+<tr>
+<td><strong>IsEmpty</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> Return true if there are no members with weight &gt; 0.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-29">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_PositionMode</strong></td>
+<td>PositionMode</td>
+<td>How the group's position is calculated.  Select GroupCenter for the center of the bounding box, and GroupAverage for a weighted average of the positions of the members.<br><em>Possible Values:</em><br>- <strong>GroupCenter</strong>: Group position will be the center of the group's axis-aligned bounding box.<br>- <strong>GroupAverage</strong>: Group position will be the weighted average of the positions of the members.<br></td>
+</tr>
+<tr>
+<td><strong>m_RotationMode</strong></td>
+<td>RotationMode</td>
+<td>How the group's rotation is calculated.  Select Manual to use the value in the group's transform, and GroupAverage for a weighted average of the orientations of the members.<br><em>Possible Values:</em><br>- <strong>Manual</strong>: Manually set in the group's transform.<br>- <strong>GroupAverage</strong>: Weighted average of the orientation of its members.<br></td>
+</tr>
+<tr>
+<td><strong>m_UpdateMethod</strong></td>
+<td>UpdateMethod</td>
+<td>When to update the group's transform based on the position of the group members.<br><em>Possible Values:</em><br>- <strong>Update</strong><br>- <strong>FixedUpdate</strong><br>- <strong>LateUpdate</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_Targets</strong></td>
+<td>Target[]</td>
+<td>The target objects, together with their weights and radii, that will contribute to the group's average position, orientation, and size.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-25">Methods</h4>
+<p><code>Bounds GetViewSpaceBoundingBox(Matrix4x4 mView)</code></p>
+<p>The axis-aligned bounding box of the group, in a specific reference frame.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>mView</strong></td>
+<td>Matrix4x4</td>
+<td>The frame of reference in which to compute the bounding box.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> The axis-aligned bounding box of the group, in the desired frame of reference.</p>
+<h3 id="cinemachinetargetgrouptarget">CinemachineTargetGroup.Target</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>Holds the information that represents a member of the group.</p>
+<h4 id="fields-30">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The target objects.  This object's position and orientation will contribute to the group's average position and orientation, in accordance with its weight.</td>
+</tr>
+<tr>
+<td><strong>weight</strong></td>
+<td>Single</td>
+<td>How much weight to give the target when averaging.  Cannot be negative.</td>
+</tr>
+<tr>
+<td><strong>radius</strong></td>
+<td>Single</td>
+<td>The radius of the target, used for calculating the bounding box.  Cannot be negative.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinetrackeddolly">CinemachineTrackedDolly</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComponentBase</p>
+<p>A Cinemachine Virtual Camera Body component that constrains camera motion to a CinemachinePath.  The camera can move along the path.</p>
+<p>This behaviour can operate in two modes: manual positioning, and Auto-Dolly positioning.  In Manual mode, the camera's position is specified by animating the Path Position field.  In Auto-Dolly mode, the Path Position field is animated automatically every frame by finding the position on the path that's closest to the virtual camera's Follow target.</p>
+<h4 id="properties-21">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if component is enabled and has a path.</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>Stage</td>
+<td><em>[Get]</em> Get the Cinemachine Pipeline stage that this component implements.  Always returns the Body stage.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-31">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Path</strong></td>
+<td>CinemachinePathBase</td>
+<td>The path to which the camera will be constrained.  This must be non-null.</td>
+</tr>
+<tr>
+<td><strong>m_PathPosition</strong></td>
+<td>Single</td>
+<td>The position along the path at which the camera will be placed.  This can be animated directly, or set automatically by the Auto-Dolly feature to get as close as possible to the Follow target.  The value is interpreted according to the Position Units setting.</td>
+</tr>
+<tr>
+<td><strong>m_PositionUnits</strong></td>
+<td>PositionUnits</td>
+<td>How to interpret Path Position.  If set to Path Units, values are as follows: 0 represents the first waypoint on the path, 1 is the second, and so on.  Values in-between are points on the path in between the waypoints.  If set to Distance, then Path Position represents distance along the path.<br><em>Possible Values:</em><br>- <strong>PathUnits</strong><br>- <strong>Distance</strong><br>- <strong>Normalized</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_PathOffset</strong></td>
+<td>Vector3</td>
+<td>Where to put the camera relative to the path position.  X is perpendicular to the path, Y is up, and Z is parallel to the path.  This allows the camera to be offset from the path itself (as if on a tripod, for example).</td>
+</tr>
+<tr>
+<td><strong>m_XDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain its position in a direction perpendicular to the path.  Small numbers are more responsive, rapidly translating the camera to keep the target's x-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_YDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain its position in the path-local up direction.  Small numbers are more responsive, rapidly translating the camera to keep the target's y-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_ZDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain its position in a direction parallel to the path.  Small numbers are more responsive, rapidly translating the camera to keep the target's z-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_CameraUp</strong></td>
+<td>CameraUpMode</td>
+<td>How to set the virtual camera's Up vector.  This will affect the screen composition, because the camera Aim behaviours will always try to respect the Up direction.<br><em>Possible Values:</em><br>- <strong>Default</strong>: Leave the camera's up vector alone.  It will be set according to the Brain's WorldUp.<br>- <strong>Path</strong>: Take the up vector from the path's up vector at the current point.<br>- <strong>PathNoRoll</strong>: Take the up vector from the path's up vector at the current point, but with the roll zeroed out.<br>- <strong>FollowTarget</strong>: Take the up vector from the Follow target's up vector.<br>- <strong>FollowTargetNoRoll</strong>: Take the up vector from the Follow target's up vector, but with the roll zeroed out.<br></td>
+</tr>
+<tr>
+<td><strong>m_PitchDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to track the target rotation's X angle.  Small numbers are more responsive.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+<tr>
+<td><strong>m_YawDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to track the target rotation's Y angle.  Small numbers are more responsive.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+<tr>
+<td><strong>m_RollDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to track the target rotation's Z angle.  Small numbers are more responsive.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+<tr>
+<td><strong>m_AutoDolly</strong></td>
+<td>AutoDolly</td>
+<td>Controls how automatic dollying occurs.  A Follow target is necessary to use this feature.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-26">Methods</h4>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Positions the virtual camera according to the transposer rules.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for damping.  If less that 0, no damping is done.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinetrackeddollyautodolly">CinemachineTrackedDolly.AutoDolly</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>Controls how automatic dollying occurs.</p>
+<h4 id="fields-32">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Enabled</strong></td>
+<td>Boolean</td>
+<td>If checked, will enable automatic dolly, which chooses a path position that is as close as possible to the Follow target.  Note: this can have significant performance impact.</td>
+</tr>
+<tr>
+<td><strong>m_PositionOffset</strong></td>
+<td>Single</td>
+<td>Offset, in current position units, from the closest point on the path to the follow target.</td>
+</tr>
+<tr>
+<td><strong>m_SearchRadius</strong></td>
+<td>Int32</td>
+<td>Search up to how many waypoints on either side of the current position.  Use 0 for Entire path.</td>
+</tr>
+<tr>
+<td><strong>m_SearchResolution</strong></td>
+<td>Int32</td>
+<td>We search between waypoints by dividing the segment into this many straight pieces.  The higher the number, the more accurate the result, but performance is proportionally slower for higher numbers.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinetransposer">CinemachineTransposer</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineComponentBase</p>
+<p>This is a CinemachineComponent in the Body section of the component pipeline.  Its job is to position the camera in a fixed relationship to the vcam's Follow target object, with offsets and damping.</p>
+<p>The Transposer will only change the camera's position in space.  It will not re-orient or otherwise aim the camera.  To that, you need to instruct the vcam in the Aim section of its pipeline.</p>
+<h4 id="properties-22">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EffectiveOffset</strong></td>
+<td>Vector3</td>
+<td><em>[Get]</em> Get the target offset, with sanitization.</td>
+</tr>
+<tr>
+<td><strong>IsValid</strong></td>
+<td>Boolean</td>
+<td><em>[Get]</em> True if component is enabled and has a valid Follow target.</td>
+</tr>
+<tr>
+<td><strong>Stage</strong></td>
+<td>Stage</td>
+<td><em>[Get]</em> Get the Cinemachine Pipeline stage that this component implements.  Always returns the Body stage.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-33">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_BindingMode</strong></td>
+<td>BindingMode</td>
+<td>The coordinate space to use when interpreting the offset from the target.  This is also used to set the camera's Up vector, which will be maintained when aiming the camera.<br><em>Possible Values:</em><br>- <strong>LockToTargetOnAssign</strong>: Camera will be bound to the Follow target using a frame of reference consisting of the target's local frame at the moment when the virtual camera was enabled, or when the target was assigned.<br>- <strong>LockToTargetWithWorldUp</strong>: Camera will be bound to the Follow target using a frame of reference consisting of the target's local frame, with the tilt and roll zeroed out.<br>- <strong>LockToTargetNoRoll</strong>: Camera will be bound to the Follow target using a frame of reference consisting of the target's local frame, with the roll zeroed out.<br>- <strong>LockToTarget</strong>: Camera will be bound to the Follow target using the target's local frame.<br>- <strong>WorldSpace</strong>: Camera will be bound to the Follow target using a world space offset.<br>- <strong>SimpleFollowWithWorldUp</strong>: Offsets will be calculated relative to the target, using Camera-local axes.<br></td>
+</tr>
+<tr>
+<td><strong>m_FollowOffset</strong></td>
+<td>Vector3</td>
+<td>The distance vector that the transposer will attempt to maintain from the Follow target.</td>
+</tr>
+<tr>
+<td><strong>m_XDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain the offset in the X-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's x-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_YDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain the offset in the Y-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's y-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_ZDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to maintain the offset in the Z-axis.  Small numbers are more responsive, rapidly translating the camera to keep the target's z-axis offset.  Larger numbers give a more heavy slowly responding camera.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td><strong>m_PitchDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to track the target rotation's X angle.  Small numbers are more responsive.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+<tr>
+<td><strong>m_YawDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to track the target rotation's Y angle.  Small numbers are more responsive.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+<tr>
+<td><strong>m_RollDamping</strong></td>
+<td>Single</td>
+<td>How aggressively the camera tries to track the target rotation's Z angle.  Small numbers are more responsive.  Larger numbers give a more heavy slowly responding camera.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-27">Methods</h4>
+<p><code>protected virtual Void OnValidate()</code></p>
+<p>Derived classes should call this from their OnValidate() implementation.</p>
+<p><code>virtual Void MutateCameraState(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Positions the virtual camera according to the transposer rules.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td>The current camera state.</td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for damping.  If less than 0, no damping is done.</td>
+</tr>
+</tbody>
+</table>
+<p><code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the us that a target got warped, so that we can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>protected Void InitPrevFrameStateInfo(CameraState&amp; curState, Single deltaTime)</code></p>
+<p>Initializes the state for previous frame if appropriate.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>curState</strong></td>
+<td>CameraState&amp;</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>protected Void TrackTarget(Single deltaTime, Vector3 up, Vector3 desiredCameraOffset, Vector3&amp; outTargetPosition, Quaternion&amp; outTargetOrient)</code></p>
+<p>Positions the virtual camera according to the transposer rules.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td>Used for damping.  If less than 0, no damping is done.</td>
+</tr>
+<tr>
+<td><strong>up</strong></td>
+<td>Vector3</td>
+<td>Current camera up.</td>
+</tr>
+<tr>
+<td><strong>desiredCameraOffset</strong></td>
+<td>Vector3</td>
+<td>Where we want to put the camera relative to the follow target.</td>
+</tr>
+<tr>
+<td><strong>outTargetPosition</strong></td>
+<td>Vector3&amp;</td>
+<td>Resulting camera position.</td>
+</tr>
+<tr>
+<td><strong>outTargetOrient</strong></td>
+<td>Quaternion&amp;</td>
+<td>Damped target orientation.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Vector3 GeTargetCameraPosition(Vector3 worldUp)</code></p>
+<p>Internal API for the Inspector Editor, so it can draw a marker at the target.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>Quaternion GetReferenceOrientation(Vector3 worldUp)</code></p>
+<p>Internal API for the Inspector Editor, so it can draw a marker at the target.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="cinemachinevirtualcamera">CinemachineVirtualCamera</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> CinemachineVirtualCameraBase</p>
+<p><em>Implements:</em> ICinemachineCamera</p>
+<p>This behaviour is intended to be attached to an empty Transform GameObject, and it represents a Virtual Camera within the Unity scene.</p>
+<p>The Virtual Camera will animate its Transform according to the rules contained in its CinemachineComponent pipeline (Aim, Body, and Noise).  When the virtual camera is Live, the Unity camera will assume the position and orientation of the virtual camera.</p>
+<p>A virtual camera is not a camera.  Instead, it can be thought of as a camera controller, not unlike a cameraman.  It can drive the Unity Camera and control its position, orientation, lens settings, and PostProcessing effects.  Each Virtual Camera owns its own Cinemachine Component Pipeline, through which you provide the instructions for dynamically tracking specific game objects.</p>
+<p>A virtual camera is very lightweight, and does no rendering of its own.  It merely tracks interesting GameObjects, and positions itself accordingly.  A typical game can have dozens of virtual cameras, each set up to follow a particular character or capture a particular event.</p>
+<p>A Virtual Camera can be in any of three states:</p>
+<ul>
+<li><strong>Live</strong>: The virtual camera is actively controlling the Unity Camera.  The virtual camera is tracking its targets and being updated every frame.</li>
+<li><strong>Standby</strong>: The virtual camera is tracking its targets and being updated every frame, but no Unity Camera is actively being controlled by it.  This is the state of a virtual camera that is enabled in the scene but perhaps at a lower priority than the Live virtual camera.</li>
+<li><strong>Disabled</strong>: The virtual camera is present but disabled in the scene.  It is not actively tracking its targets and so consumes no processing power.  However, the virtual camera can be made live from the Timeline.</li>
+</ul>
+<p>The Unity Camera can be driven by any virtual camera in the scene.  The game logic can choose the virtual camera to make live by manipulating the virtual cameras' enabled flags and their priorities, based on game logic.</p>
+<p>In order to be driven by a virtual camera, the Unity Camera must have a CinemachineBrain behaviour, which will select the most eligible virtual camera based on its priority or on other criteria, and will manage blending.</p>
+<h4 id="properties-23">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>State</strong></td>
+<td>CameraState</td>
+<td><em>[Get]</em> The CameraState object holds all of the information necessary to position the Unity camera.  It is the output of this class.</td>
+</tr>
+<tr>
+<td><strong>LookAt</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the LookAt target for the Aim component in the CinemachinePipeline.  If this vcam is a part of a meta-camera collection, then the owner's target will be used if the local target is null.</td>
+</tr>
+<tr>
+<td><strong>Follow</strong></td>
+<td>Transform</td>
+<td><em>[Get,Set]</em> Get the Follow target for the Body component in the CinemachinePipeline.  If this vcam is a part of a meta-camera collection, then the owner's target will be used if the local target is null.</td>
+</tr>
+<tr>
+<td><strong>UserIsDragging</strong></td>
+<td>Boolean</td>
+<td><em>[Get,Set]</em> API for the editor, to make the dragging of position handles behave better.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-34">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_LookAt</strong></td>
+<td>Transform</td>
+<td>The object that the camera wants to look at (the Aim target).  If this is null, then the vcam's Transform orientation will define the camera's orientation.</td>
+</tr>
+<tr>
+<td><strong>m_Follow</strong></td>
+<td>Transform</td>
+<td>The object that the camera wants to move with (the Body target).  If this is null, then the vcam's Transform position will define the camera's position.</td>
+</tr>
+<tr>
+<td><strong>m_PositionBlending</strong></td>
+<td>PositionBlendMethod</td>
+<td>Hint for blending positions to and from this virtual camera.<br><em>Possible Values:</em><br>- <strong>Linear</strong><br>- <strong>Spherical</strong><br>- <strong>Cylindrical</strong><br></td>
+</tr>
+<tr>
+<td><strong>m_Lens</strong></td>
+<td>LensSettings</td>
+<td>Specifies the lens properties of this Virtual Camera.  This generally mirrors the Unity Camera's lens settings, and will be used to drive the Unity camera when the vcam is active.</td>
+</tr>
+<tr>
+<td><strong>CinemachineGUIDebuggerCallback</strong></td>
+<td>Action</td>
+<td>This is deprecated.  It is here to support the soon-to-be-removed Cinemachine Debugger in the Editor.</td>
+</tr>
+<tr>
+<td><strong>m_ExcludedPropertiesInInspector</strong></td>
+<td>String[]</td>
+<td>Inspector control - Use for hiding sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_LockStageInInspector</strong></td>
+<td>Stage[]</td>
+<td>Inspector control - Use for enabling sections of the Inspector UI.</td>
+</tr>
+<tr>
+<td><strong>m_Priority</strong></td>
+<td>Int32</td>
+<td>The priority will determine which camera becomes active based on the state of other cameras and this camera.  Higher numbers have greater priority.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-28">Methods</h4>
+<p><code>virtual Void InternalUpdateCameraState(Vector3 worldUp, Single deltaTime)</code></p>
+<p>Internal use only.  Do not call this method.  Called by CinemachineCore at the appropriate Update time so the vcam can position itself and track its targets.  This class will invoke its pipeline and generate a CameraState for this frame.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>worldUp</strong></td>
+<td>Vector3</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>deltaTime</strong></td>
+<td>Single</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>protected virtual Void OnEnable()</code></p>
+<p>Make sure that the pipeline cache is up-to-date.</p>
+<p><code>protected virtual Void OnDestroy()</code></p>
+<p>Calls the DestroyPipelineDelegate for destroying the hidden child object, to support undo.</p>
+<p><code>protected virtual Void OnValidate()</code></p>
+<p>Enforce bounds for fields, when changed in inspector.</p>
+<p><code>Void InvalidateComponentPipeline()</code></p>
+<p>Editor API: Call this when changing the pipeline from the editor.  Will force a rebuild of the pipeline cache.</p>
+<p><code>Transform GetComponentOwner()</code></p>
+<p>Get the hidden CinemachinePipeline child object.</p>
+<p><code>CinemachineComponentBase[] GetComponentPipeline()</code></p>
+<p>Get the component pipeline owned by the hidden child pipeline container.  For most purposes, it is preferable to use the GetCinemachineComponent method.</p>
+<p><code>CinemachineComponentBase GetCinemachineComponent(Stage stage)</code></p>
+<p>Get the component set for a specific stage.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>stage</strong></td>
+<td>Stage</td>
+<td>The stage for which we want the component.<br><em>Possible Values:</em><br>- <strong>Body</strong><br>- <strong>Aim</strong><br>- <strong>Noise</strong><br>- <strong>Finalize</strong><br></td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> The Cinemachine component for that stage, or null if not defined.
+<code>T GetCinemachineComponent[T]()</code></p>
+<p>Get an existing component of a specific type from the cinemachine pipeline.</p>
+<p><code>T AddCinemachineComponent[T]()</code></p>
+<p>Add a component to the cinemachine pipeline.</p>
+<p><code>Void DestroyCinemachineComponent[T]()</code></p>
+<p>Remove a component from the cinemachine pipeline.</p>
+<p><code>virtual Void OnTargetObjectWarped(Transform target, Vector3 positionDelta)</code></p>
+<p>This is called to notify the vcam that a target got warped, so that the vcam can update its internal state to make the camera also warp seamlessly.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>target</strong></td>
+<td>Transform</td>
+<td>The object that was warped.</td>
+</tr>
+<tr>
+<td><strong>positionDelta</strong></td>
+<td>Vector3</td>
+<td>The amount the target's position changed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="lenssettings">LensSettings</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>Describes the FOV and clip planes for a camera.  This generally mirrors the Unity Camera's lens settings, and will be used to drive the Unity camera when the vcam is active.</p>
+<h4 id="fields-35">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FieldOfView</strong></td>
+<td>Single</td>
+<td>This is the camera view in vertical degrees.  For cinematic people, a 50mm lens on a super-35mm sensor would equal a 19.6 degree FOV.</td>
+</tr>
+<tr>
+<td><strong>OrthographicSize</strong></td>
+<td>Single</td>
+<td>When using an orthographic camera, this defines the half-height, in world coordinates, of the camera view.</td>
+</tr>
+<tr>
+<td><strong>NearClipPlane</strong></td>
+<td>Single</td>
+<td>This defines the near region in the renderable range of the camera frustum.  Raising this value will stop the game from drawing things near the camera, which can sometimes come in handy.  Larger values will also increase your shadow resolution.</td>
+</tr>
+<tr>
+<td><strong>FarClipPlane</strong></td>
+<td>Single</td>
+<td>This defines the far region of the renderable range of the camera frustum.  Typically you want to set this value as low as possible without cutting off desired distant objects.</td>
+</tr>
+<tr>
+<td><strong>Dutch</strong></td>
+<td>Single</td>
+<td>Camera Z roll, or tilt, in degrees.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-29">Methods</h4>
+<p><code>static LensSettings FromCamera(Camera fromCamera)</code></p>
+<p>Creates a new LensSettings, copying the values from the supplied Camera.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>fromCamera</strong></td>
+<td>Camera</td>
+<td>The Camera from which the FoV, near and far clip planes will be copied.</td>
+</tr>
+</tbody>
+</table>
+<p><code>static LensSettings Lerp(LensSettings lensA, LensSettings lensB, Single t)</code></p>
+<p>Linearly blends the fields of two LensSettings and returns the result.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>lensA</strong></td>
+<td>LensSettings</td>
+<td>The LensSettings to blend from.</td>
+</tr>
+<tr>
+<td><strong>lensB</strong></td>
+<td>LensSettings</td>
+<td>The LensSettings to blend to.</td>
+</tr>
+<tr>
+<td><strong>t</strong></td>
+<td>Single</td>
+<td>The interpolation value.  Internally clamped to the range [0,1].</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> Interpolated settings.
+<code>Void Validate()</code></p>
+<p>Make sure lens settings are sane.  Call this from OnValidate().</p>
+<h3 id="noisesettings">NoiseSettings</h3>
+<p><em>Type:</em> class</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p><em>Inherits:</em> ScriptableObject</p>
+<p>This is an asset that defines a noise profile.  A noise profile is the shape of the noise as a function of time.  You can build arbitrarily complex shapes by combining different base perlin noise frequencies at different amplitudes.</p>
+<p>The frequencies and amplitudes should be chosen with care, to ensure an interesting noise quality that is not obviously repetitive.</p>
+<p>As a mathematical side-note, any arbitrary periodic curve can be broken down into a series of fixed-amplitude sine-waves added together.  This is called fourier decomposition, and is the basis of much signal processing.  It doesn't really have much to do with this asset, but it's super interesting!</p>
+<h4 id="properties-24">Properties</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PositionNoise</strong></td>
+<td>TransformNoiseParams[]</td>
+<td><em>[Get]</em> Gets the array of positional noise channels for this NoiseSettings.</td>
+</tr>
+<tr>
+<td><strong>OrientationNoise</strong></td>
+<td>TransformNoiseParams[]</td>
+<td><em>[Get]</em> Gets the array of orientation noise channels for this NoiseSettings.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fields-36">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>m_Position</strong></td>
+<td>TransformNoiseParams[]</td>
+<td>These are the noise channels for the virtual camera's position.  Convincing noise setups typically mix low, medium and high frequencies together, so start with a size of 3.</td>
+</tr>
+<tr>
+<td><strong>m_Orientation</strong></td>
+<td>TransformNoiseParams[]</td>
+<td>These are the noise channels for the virtual camera's orientation.  Convincing noise setups typically mix low, medium and high frequencies together, so start with a size of 3.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="methods-30">Methods</h4>
+<p><code>Void CopyFrom(NoiseSettings other)</code></p>
+<p>Clones the contents of the other asset into this one.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>other</strong></td>
+<td>NoiseSettings</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><code>static Vector3 GetCombinedFilterResults(TransformNoiseParams[] noiseParams, Single time, Vector3 timeOffsets)</code></p>
+<p>Get the noise signal value at a specific time.</p>
+<table>
+<thead>
+<tr>
+<th><em>Param</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>noiseParams</strong></td>
+<td>TransformNoiseParams[]</td>
+<td>The parameters that define the noise function.</td>
+</tr>
+<tr>
+<td><strong>time</strong></td>
+<td>Single</td>
+<td>The time at which to sample the noise function.</td>
+</tr>
+<tr>
+<td><strong>timeOffsets</strong></td>
+<td>Vector3</td>
+<td>Start time offset for each channel.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns:</em> The 3-channel noise signal value at the specified time.</p>
+<h3 id="noisesettingsnoiseparams">NoiseSettings.NoiseParams</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>Describes the behaviour for a channel of noise.</p>
+<h4 id="fields-37">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Amplitude</strong></td>
+<td>Single</td>
+<td>The amplitude of the noise for this channel.  Larger numbers vibrate higher.</td>
+</tr>
+<tr>
+<td><strong>Frequency</strong></td>
+<td>Single</td>
+<td>The frequency of noise for this channel.  Higher magnitudes vibrate faster.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="noisesettingstransformnoiseparams">NoiseSettings.TransformNoiseParams</h3>
+<p><em>Type:</em> struct</p>
+<p><em>Namespace:</em> Cinemachine</p>
+<p>Contains the behaviour of noise for the noise module for all 3 cardinal axes of the camera.</p>
+<h4 id="fields-38">Fields</h4>
+<table>
+<thead>
+<tr>
+<th><em>Name</em></th>
+<th><em>Type</em></th>
+<th><em>Description</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>X</strong></td>
+<td>NoiseParams</td>
+<td>Noise definition for X-axis.</td>
+</tr>
+<tr>
+<td><strong>Y</strong></td>
+<td>NoiseParams</td>
+<td>Noise definition for Y-axis.</td>
+</tr>
+<tr>
+<td><strong>Z</strong></td>
+<td>NoiseParams</td>
+<td>Noise definition for Z-axis.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/cinemachineAPI.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

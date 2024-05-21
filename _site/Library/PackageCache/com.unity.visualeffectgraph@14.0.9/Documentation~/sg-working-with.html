@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Working with Shader Graph in the Visual Effect Graph | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Working with Shader Graph in the Visual Effect Graph | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sg-working-with.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="working-with-shader-graph-in-the-visual-effect-graph">Working with Shader Graph in the Visual Effect Graph</h1>
+
+<p>Visual Effect Graphs (VFX Graphs) can use compatible Shader Graphs to render particles. This enables you to build custom shaders to use in visual effects. This document explains:</p>
+<ul>
+<li><a href="#make-shader-graph-compatible">How to make a Shader Graph compatible with Visual Effect Graphs</a></li>
+<li><a href="#use-shader-graph-in-vfx">How to set up a Visual Effect Graph to use a Shader Graph to render particles</a></li>
+<li><a href="#upgrade-your-project">How to upgrade an existing project</a></li>
+<li><a href="#known-limitations">Known limitations of the Visual Effect Graph</a></li>
+</ul>
+<h2 id="make-shader-graph-compatible">Make a Shader Graph compatible with a Visual Effect Graph</h2>
+<p>To make a Shader Graph compatible with the Visual Effect Graph:</p>
+<ol>
+<li>Open a shader in the <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@14.0/manual/index.html">Shader Graph window</a>.</li>
+<li>In the <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@14.0/manual/Graph-Settings-Tab.html">Graph Settings tab</a>, specify the render pipeline <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@14.0/manual/Graph-Target.html">Target</a> (<strong>HDRP</strong> or <strong>Universal</strong>).</li>
+<li>Enable <strong>Support VFX Graph</strong>.</li>
+</ol>
+<p><img src="./Images/shader-graph-target-and-support-vfx-graph.png" alt="Graph Settings UI showing Target selection and VFX Graph Support"></p>
+<p>A Shader Graph shader that is compatible with the Visual Effect Graph can also work as a regular shader. Most HDRP and URP Shader Graph shaders support the Visual Effect Graph. For exceptions, see <a href="#known-limitations">Known Limitations</a>.</p>
+<p><strong>Note</strong>: VFX Graph support does not impact runtime performance but Shader Graphs which use <strong>Support VFX Graph</strong> take longer to compile.</p>
+<h2 id="upgrade-your-project">Upgrade your project</h2>
+<p>Unity versions <strong>2021.2</strong>, and earlier use the deprecated <strong>Visual Effect</strong> Target to integrate Shader Graphs with Visual Effect Graphs.</p>
+<p>The <strong>Visual Effect</strong> Target  limits functionality and requires you to use the following:</p>
+<ul>
+<li>Dedicated VFX shaders</li>
+<li>The <a href="https://docs.unity3d.com/Manual/StandardShaderMetallicVsSpecular.html">Metallic</a> workflow</li>
+</ul>
+<p>To upgrade a project to use the new render pipeline Target:</p>
+<ol>
+<li>Go to <strong>Edit</strong> &gt; <strong>Preferences</strong> &gt; <strong>Visual Effects</strong>.</li>
+<li>Enable <strong>Improved Shader Graph Generation</strong>.</li>
+<li>In the <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@14.0/manual/Graph-Settings-Tab.html">Graph Settings tab</a> of the shader add a <strong>HDRP</strong> or <strong>Universal</strong> Target.</li>
+<li>Enable <strong>Support VFX Graph</strong>.</li>
+<li>Remove the <strong>Visual Effect</strong> Target.</li>
+</ol>
+<h2 id="use-shader-graph-in-vfx">Use a Shader Graph in a Visual Effect Graph</h2>
+<p>To make a visual effect with Shader Graph:</p>
+<ol>
+<li>Go to <strong>Edit</strong> &gt; <strong>Preferences</strong> &gt; <strong>Visual Effects</strong>.</li>
+<li>Enable <strong>Experimental Operators/Blocks</strong>. This reveals a Shader Graph slot in the output.</li>
+<li>Open your Visual Effect Graph in the Visual Effect Graph window. If you do not have a Visual Effect Graph, go to <strong>Create</strong> &gt; <strong>Visual Effects</strong> &gt; <strong>Visual Effect Graph</strong> to create a new one.</li>
+<li>In the interface for output contexts, assign your compatible Shader Graph to the <strong>Shader Graph</strong> property. To do this, either search for the Shader Graph directly in the Asset Picker, or drag the Shader Graph sub-asset to the <strong>Shader Graph</strong> slot:
+<img src="./Images/vfx-graph-shader-graph-output.gif" alt="Drag Shader the Graph sub-asset to VFX Shader Graph slot"></li>
+<li>Click on the output context to view it in the Inspector.</li>
+</ol>
+<p>You can make changes to the Shader Graph's Surface Options in the output context.</p>
+<p><strong>Note</strong>: Any edits you make to a Shader Graph in the VFX Graph are local to the VFX Graph and do not affect the Shader Graph asset.</p>
+<h3 id="visual-effect-graph-output-compatibility">Visual Effect Graph output compatibility</h3>
+<p>The following output contexts support Shader Graphs:</p>
+<ul>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.visualeffectgraph@14.0/manual/Context-OutputParticleMesh.html">Particle Mesh</a> (including Particle Lit Mesh)</li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.visualeffectgraph@14.0/manual/Context-OutputPrimitive.html">Particle Primitive</a> (including Particle Quad, Particle Triangle, Particle Octagon, Particle Lit Quad, Particle Lit Triangle, and Particle Lit Octagon)</li>
+<li>Particle Strip Quad (including Particle Lit Strip Quad)</li>
+</ul>
+<h2 id="known-limitations">Known limitations</h2>
+<p>Visual Effect Graph does not support the following <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@14.0/manual/Blackboard.html">Blackboard</a> features:</p>
+<ul>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@14.0/manual/Diffusion-Profile-Node.html">Diffusion Profile</a></li>
+<li><a href="https://docs.unity3d.com/Manual/svt-use-in-shader-graph.html">Virtual Texture</a></li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@14.0/manual/Gradient-Node.html">Gradient</a></li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@14.0/manual/Keywords.html">Keyword</a></li>
+</ul>
+<p>Shader Graph does not support some features in specific Targets.</p>
+<ul>
+<li>The HDRP Target does not support the following:
+<ul>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@14.0/manual/master-stack-decal.html">Decal Shader Graph</a>.</li>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@14.0/manual/Motion-Vectors.html">Motion vectors</a> for vertex animation.</li>
+</ul>
+</li>
+<li>The URP target does not support the following:
+<ul>
+<li><a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@14.0/manual/ShaderGraph.html">Sprite Shader Graphs</a> and <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@14.0/manual/decal-shader.html">Decal Shader Graphs</a>.</li>
+</ul>
+</li>
+<li>The Visual Effect Target (deprecated) does not support:
+<ul>
+<li>HDRP or Universal material types.</li>
+<li>Access to the shader's Vertex stage.</li>
+</ul>
+</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sg-working-with.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

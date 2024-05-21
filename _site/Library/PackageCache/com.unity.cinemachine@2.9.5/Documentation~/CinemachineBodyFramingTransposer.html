@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Framing Transposer | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Framing Transposer | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBodyFramingTransposer.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="framing-transposer">Framing Transposer</h1>
+
+<p>This Virtual Camera <strong>Body</strong> algorithm moves the camera in a fixed screen-space relationship to the <strong>Follow</strong> target. You can also specify offsets, damping, and composition rules. <strong>Framing Transposer</strong> only changes the camera’s position in space. It does not re-orient or otherwise aim the camera.</p>
+<p><strong>Framing Transposer</strong> is designed for 2D and orthographic cameras. But it works also with perspective cameras and 3D environments.</p>
+<p>This algorithm first moves the camera along the camera Z axis until the <strong>Follow</strong> target is at the desired distance from the camera’s X-Y plane. It then moves the camera in its X-Y plane until the <strong>Follow</strong> target is at the desired point on the camera’s screen.</p>
+<p><strong>Note</strong>: <strong>Framing Transposer</strong> ignores the LookAt target - only the Follow target is used.</p>
+<p>If the <strong>Follow</strong> target is a <a href="CinemachineTargetGroup.html">Target Group</a>, then additional properties are available to frame the entire group.</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Lookahead Time</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Adjusts the offset of the Virtual Camera from the Follow target based on the motion of the target. Cinemachine estimates the point where the target will be this many seconds into the future. This feature is sensitive to noisy animation and can amplify the noise, resulting in undesirable camera jitter. If the camera jitters unacceptably when the target is in motion, turn down this property, or animate the target more smoothly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lookahead Smoothing</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The smoothness of the lookahead algorithm. Larger values smooth out jittery predictions and increase prediction lag.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Lookahead Ignore Y</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">If checked, ignore movement along the Y axis for lookahead calculations.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>X Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How responsively the camera tries to maintain the offset in the x-axis. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly.  Using different settings per axis can yield a wide range of camera behaviors.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Y Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How responsively the camera tries to maintain the offset in the y-axis. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Z Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How responsively the camera tries to maintain the offset in the z-axis. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Target Movement Only</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">If this is enabled, then damping only applies to the motion of the target.  Camera rotation changes will bypass damping.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Screen X</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Horizontal screen position for target. The camera moves to position the tracked object here.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Screen Y</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Vertical screen position for target, The camera moves to position the tracked object here.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Camera Distance</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The distance to maintain along the camera axis from the Follow target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dead Zone Width</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Do not move the camera horizontally when the target is within this range of the position.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dead Zone Height</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Do not move the camera vertically if the target is within this range of the position.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dead Zone Depth</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Do not move the camera along its z-axis if the Follow target is within this distance of the specified camera distance.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Unlimited Soft Zone</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">If checked, then the soft zone is unlimited in size.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Soft Zone Width</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">When the target is in this range, move the camera horizontally to frame the target in the dead zone. The Damping properties affect the rate of the camera movement.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Soft Zone Height</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">When the target is in this range, move the camera vertically to frame the target in the dead zone. The Damping properties affect the rate of the camera movement.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bias X</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Moves the target position horizontally away from the center of the soft zone.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Bias Y</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Moves the target position vertically away from the center of the soft zone.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Group Framing Mode</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Available when Follow specifies a <a href="CinemachineTargetGroup.html">Target Group</a>. Specifies the screen dimensions to consider when framing.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Horizontal</em></td>
+<td style="text-align: left;">Consider only the horizontal dimension. Ignore vertical framing.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Vertical</em></td>
+<td style="text-align: left;">Consider only the vertical dimension. Ignore horizontal framing.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Horizontal And Vertical</em></td>
+<td style="text-align: left;">Use the larger of the horizontal and vertical dimensions to get the best fit.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>None</em></td>
+<td style="text-align: left;">Don’t do any framing adjustment.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Adjustment Mode</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How to adjust the camera to get the desired framing. You can zoom, dolly in or out, or do both. Available when Follow specifies a Target Group.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Zoom Only</em></td>
+<td style="text-align: left;">Don’t move the camera, only adjust the FOV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Dolly Only</em></td>
+<td style="text-align: left;">Move the camera, don’t change the FOV.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Dolly Then Zoom</em></td>
+<td style="text-align: left;">Move the camera as much as permitted by the ranges, then adjust the FOV if necessary to make the shot.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Group Framing Size</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The bounding box that the targets should occupy. Use 1 to fill the whole screen, 0.5 to fill half the screen, and so on. Available when Follow specifies a Target Group.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Max Dolly In</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The maximum distance toward the target to move the camera. Available when Follow specifies a Target Group.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Max Dolly Out</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The maximum distance away from the target to move the camera. Available when Follow specifies a Target Group.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Minimum Distance</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Set this to limit how close to the target the camera can get. Available when Follow specifies a Target Group.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Maximum Distance</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Set this to limit how far from the target the camera can get. Available when Follow specifies a Target Group.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Minimum FOV</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">If adjusting FOV, do not set the FOV lower than this. Available when Follow specifies a Target Group.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Maximum FOV</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">If adjusting FOV, do not set the FOV higher than this. Available when Follow specifies a Target Group.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Minimum Ortho Size</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">If adjusting Orthographic Size, do not set it lower than this. Available when Follow specifies a Target Group.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Maximum Ortho Size</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">If adjusting Orthographic Size, do not set it higher than this. Available when Follow specifies a Target Group.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBodyFramingTransposer.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Shared Output Settings and Properties | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Shared Output Settings and Properties | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-OutputSharedSettings.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="shared-output-settings-and-properties">Shared Output Settings and Properties</h1>
+
+<p>All outputs share these settings and property ports. The only exception is the Shader Graph setting which most outputs support, but not all of them.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shader Graph</strong></td>
+<td>Specifies the <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@latest">Shader Graph</a> Unity uses to render particles this output produces. If you assign a Shader Graph to this property, the Inspector hides some settings and properties that are duplicates of those in the Shader Graph. Also, the Inspector exposes all the Surface Options from the Shader Graph which allows you to edit the Shader Graph properties inside the Inspector for the context. For information on the Surface Options this adds to the Inspector, see the documentation for the type of Shader Graph you assigned. For example, if you assigned an HDRP Lit Shader Graph, see the documentation for the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest?subfolder=/manual/master-stack-lit.html">Lit Shader Graph</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="render-state-settings">Render State Settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Blend Mode</strong></td>
+<td>Enum</td>
+<td>Specifies the blending method for the system and determines how to use the alpha. The options are :<br>• <strong>Opaque</strong>: Does not use the alpha value and renders the output in the opaque pass. This also writes to the depth buffer.<br>• <strong>Alpha</strong>: Uses the <a href="https://docs.unity3d.com/Manual/SL-Blend.html">standard alpha blend</a> mode and renders the output in the transparent pass. By default, this enables GPU sorting for particle outputs (which you can override using the <strong>Sort</strong> setting).<br>• <strong>Premultiplied Alpha</strong>: Uses the <a href="https://docs.unity3d.com/Manual/SL-Blend.html">premultiplied alpha blend mode</a> and renders the output in the transparent pass. By default, this enables GPU sorting for particle outputs (which you can override using the <strong>Sort</strong> setting).<br>• <strong>Additive</strong>: Uses the <a href="https://docs.unity3d.com/Manual/SL-Blend.html">additive blend mode</a> for alpha and renders the output in the transparent pass.</td>
+</tr>
+<tr>
+<td><strong>Use Alpha Clipping</strong></td>
+<td>Bool</td>
+<td>Indicates whether the system uses alpha clipping and discards pixels under a certain alpha threshold. If you enable this property, use the <strong>Alpha Threshold</strong> input to set the alpha value below which the system discards pixels.</td>
+</tr>
+<tr>
+<td><strong>Sorting Priority</strong></td>
+<td>Int</td>
+<td><strong>(Inspector)</strong> An offset Unity applies to the rendering order. This setting corresponds to the Material <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest?subfolder=/manual/Renderer-And-Material-Priority.html">Sorting Priority</a> in HDRP and Material <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@latest?subfolder=/manual/simple-lit-shader.html">Sorting Priority</a> in URP. It is equivalent to modifying the <a href="https://docs.unity3d.com/ScriptReference/Material-renderQueue.html">Material.renderQueue</a> property. This value can be negative or positive. HDRP and URP clamps this value between -50 and 50.</td>
+</tr>
+<tr>
+<td><strong>Generate Motion Vectors</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether particles in the system write motion vectors and thus whether the System generates a motion vector pass. This is useful when you want temporal effects, like temporal anti-aliasing or motion blur, to take the output into account. Not all outputs can generate motion vectors and in that case, this setting is not visible.<br>If you enable this setting with a transparent output, an <strong>Alpha Threshold</strong> input port appears. Use this port to specify the minimum alpha the system requires a pixel to have to write motion vectors for it. This is because motion vectors cannot be blended.</td>
+</tr>
+<tr>
+<td><strong>Exclude From TU And AA</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the render pipeline excludes particles from temporal upscalers (TU) and temporal anti-aliasing (AA). This is useful when particles look blurry when TAA  is enabled and especially useful for fast moving particles. Not all outputs can exclude TAA and in that case, this setting is not visible.</td>
+</tr>
+<tr>
+<td><strong>Cast Shadows</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether particles in the system cast shadows and thus whether the System generates a shadow pass.<br>If you enable this settings with a transparent output, an <strong>Alpha Threshold</strong> port appears. Use this port to specify the minimum alpha the system requires a pixel to have to write it to the shadow pass. This is because shadows cannot be transparent.</td>
+</tr>
+<tr>
+<td><strong>Cull Mode</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies the cull mode to use with the system. The options are:<br>• <strong>Default</strong>: Use the default cull mode for the system.<br>• <strong>Front</strong>: Culls front faces of particles in the system.<br>• <strong>Back</strong>: Culls back faces of particles in the system.<br>• <strong>Off</strong>: Culls no faces. This mode makes the output render both front and back faces.</td>
+</tr>
+<tr>
+<td><strong>Z Write Mode</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies the depth writing mode to use with the system. The options are:<br>• <strong>Default</strong>: Uses the default depth write mode for the system. This is typically <strong>On</strong> for opaque and <strong>Off</strong> for transparent.<br>• <strong>On</strong>: Enables depth writing for the system.<br>• <strong>Off</strong>: Disables depth writing for the system.</td>
+</tr>
+<tr>
+<td><strong>Z Test Mode</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies the depth test mode to use with the system. The options are:<br>• <strong>Default</strong>: Use the default depth testing mode for the system. This is typically <strong>On</strong>.<br>• <strong>On</strong>: Enables depth testing for the system.<br>• <strong>Off</strong>: Disables depth testing for the system. This means the output renders regardless of whether the pixels are occluded by closer geometry.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="particle-options-settings">Particle Options Settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Color Mapping</strong></td>
+<td>Enum</td>
+<td>Specifies how to use the main texture to color particle pixels. The options are:<br>• <strong>Default</strong>: Uses the main Texture color directly (and multiplies it with particle color.<br>• <strong>GradientMapped</strong>: Uses the Texture alpha to fetch color from the created <strong>Gradient</strong> port (and then multiplies it with particle color.<br>This property only appears on output Contexts that support texturing.</td>
+</tr>
+<tr>
+<td><strong>UV Mode</strong></td>
+<td>Enum</td>
+<td>Specifies how to use UVs for texturing. The options are:<br>• <strong>Default</strong>: Uses UVs as-is to sample textures.<br>• <strong>Flipbook</strong>: Uses sub-UVs to sample in a flipbook texture. To specify the dimensions of the flipbook texture (frame count per axis) use the <strong>Flip Book Size</strong> property. To determine the current frame of the flipbook, this Context uses the <strong>tex index</strong> attribute of the particle. In this mode, the Context does not interpolate between flipbook frames.<br>• <strong>FlipbookBlend</strong>: Same as <strong>Flipbook</strong> but uses linear interpolation to blend between frames. This mode uses the fractional part of the <strong>tex index</strong> attribute to calculate the interpolation amount.<br>• <strong>ScaleAndBias</strong>: Scales and biases the UV before the Context samples the texture.<br>• <strong>FlipbookMotionBlend</strong>: Same as <strong>FlipbookBlend</strong> but uses an additional motion vector texture. To specify the motion vector texture, use the <strong>Motion Vector Map</strong> input port. To scale the motion vectors, use the <strong>Motion Vector Scale</strong> input port.<br>This property only appears on output Contexts that support texturing.</td>
+</tr>
+<tr>
+<td><strong>Use Soft Particle</strong></td>
+<td>Bool</td>
+<td>Indicates whether to use soft particles. Soft particles remove hard intersections between particles and geometry. To specify a maximum distance to geometry at which to fade particles out, use the <strong>Soft Particle Fade Distance</strong>.<br>This property only appears if <strong>Blend Mode</strong> is not set to <strong>Opaque</strong>.</td>
+</tr>
+<tr>
+<td><strong>Flipbook Layout</strong></td>
+<td>Enum</td>
+<td>Specifies the layout of the flipbook. The options are:<br>• <strong>Texture 2D</strong>: Uses a single Texture with multiple frames.<br>• <strong>Texture 2D Array</strong>: Uses a Texture array with multiple slices.<br>This property only appears if you set <strong>UV Mode</strong> to <strong>Flipbook</strong>, <strong>FlipbookBlend</strong>, or <strong>FlipbookMotionBlend</strong>.</td>
+</tr>
+<tr>
+<td><strong>Sort</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies if this VFX Graph system uses sorting.<br>When the VFX Graph sorts particles for a system, it uses an additional compute pass and calculates how it sorts particles based on the option you have set in <strong>Sort Mode</strong>. <br>The options for this property are: <br>• <strong>Auto</strong>: The VFX Graph determines whether to sort the system's particles or not. Unity automatically sets sorting to <strong>On</strong> for the non-commutative blend modes <strong>Alpha</strong> and <strong>Premulitplied Alpha</strong>.<br>• <strong>On</strong>: Enables particle sorting.<br>• <strong>Off</strong>: Disables particle sorting. When you use this mode, enable <strong>Indirect Draw</strong>, and use the <strong>Alpha</strong> or <strong>Premultiplied Alpha</strong> blend mode, this causes a flickering effect. This is because the particle order for each frame is not deterministic.<br><br><strong>Note:</strong> The more particles VFX Graph needs to sort, the more resources the sorting process uses. This can make sorting a resource-intensive operation.<br>When you enable particle sorting, Unity enables <strong>Indirect Draw</strong> automatically.</td>
+</tr>
+<tr>
+<td><strong>Sort Mode</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how Unity sorts the particles of the Output context. The options are:<br>• <strong>Distance To Camera</strong> : Unity renders particles that are closest to the Camera in front of all other particles<br>• <strong>Youngest in Front</strong> : Unity renders particles with the smallest <strong>Age</strong> attribute in front of all other particles. <br>• <strong>Camera Depth</strong> : Unity renders particles that are closest to the Camera plane in front of all other particles. <br>• <strong>Custom</strong> : This mode creates a <strong>Sort Key</strong> field in the Output context. You can use this to enter a value that Unity graph-computes for each particle. Unity renders particles with the largest <strong>Sort Key</strong> values in front of particles with lower <strong>Sort Key</strong> values.<br><br><strong>Note</strong>: When Unity sorts particles, it does not take into account any changes you make to the particles' attributes in the Output context. Exceptions to this rule are Output contexts that use <strong>Compute Culling</strong>, <strong>Frustrum Culling</strong>, <strong>Generate Motion Vectors</strong>, <strong>Multi Meshes</strong> or <strong>LOD</strong>.</td>
+</tr>
+<tr>
+<td><strong>Revert Sorting</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Reverses the order in which Unity draws particles from the Output context.</td>
+</tr>
+<tr>
+<td><strong>Indirect Draw</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the system only outputs alive particles as opposed to outputting all particles and culling dead ones in the vertex shader. Enable this setting to improve performance when the number of particles is not at the system capacity or there is a high number of vertices per particle (typically with mesh outputs).<br>Other settings can implicitly enable <strong>Indirect Draw</strong>. In this case, this setting is enabled, but not visible. The settings that can implicitly enable <strong>Indirect Draw</strong> are <strong>Sort</strong>, <strong>Compute Culling</strong>, and <strong>Frustum Culling</strong>.</td>
+</tr>
+<tr>
+<td><strong>Compute Culling</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the system culls particles that are not alive in a compute pass rather than in the vertex shader. Enable this to improve performance if you set the <strong>alive</strong> attribute in the output and have a high number of vertices per particle.<br>If you enable <strong>Frustum Culling</strong>, it implicitly enables <strong>Indirect Draw</strong> too. In this case, this setting is enabled, but not visible.</td>
+</tr>
+<tr>
+<td><strong>Frustum Culling</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether to cull particles that are outside of the camera frustum in a compute pass. Enable this to improve the performance of large systems where a significant amount of particles can be out of the camera frustum.<br>Note that frustum culling can cause issues with shadow casting as the system does not take culled particles outside of the camera frustum into account during shadow passes.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="context-properties">Context Properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alpha Threshold</strong></td>
+<td>float</td>
+<td>Specifies the alpha threshold to use for pixel clipping. The system only renders pixels with an alpha value above this threshold.<br>This port only appears if at least one of the following condition is met:<br>• <strong>Use Alpha Clipping</strong> is enabled: Alpha clipping is active for all render passes including main color pass.<br>• <strong>Generate Motion Vectors</strong> is enabled and the <strong>Blend Mode</strong> is not <strong>Opaque</strong>: Alpha clipping is active during the motion vector pass.<br>• <strong>Cast Shadows</strong> is enabled and the <strong>Blend Mode</strong> is not <strong>Opaque</strong>: Alpha clipping is active during the shadow pass.</td>
+</tr>
+<tr>
+<td><strong>Gradient</strong></td>
+<td>Gradient</td>
+<td>The gradient to use to sample color from texture alpha.<br>This property only appears if you set <strong>Color Mapping</strong> to <strong>GradientMapped</strong>.</td>
+</tr>
+<tr>
+<td><strong>Flip Book Size</strong></td>
+<td>float2</td>
+<td>The number of frames in the flipbook along x and y dimensions.<br>This property only appears if you set <strong>UV Mode</strong> to one that specifies a flipbook.</td>
+</tr>
+<tr>
+<td><strong>Motion Vector Map</strong></td>
+<td>Texture2D</td>
+<td>The texture to use to sample 2D motion vectors for a given pixel.<br>This property only appears if you set <strong>UV Mode</strong> to <strong>FlipbookMotionBlend</strong>.</td>
+</tr>
+<tr>
+<td><strong>Motion Vector Scale</strong></td>
+<td>float</td>
+<td>The scale to apply to sampled motion vectors.<br>This property only appears if you set <strong>UV Mode</strong> to <strong>FlipbookMotionBlend</strong>.</td>
+</tr>
+<tr>
+<td><strong>UV Scale</strong></td>
+<td>float2</td>
+<td>The scale to apply to the UVs before sampling textures.<br>This property only appears if you set <strong>UV Mode</strong> to <strong>ScaleAndBias</strong>.</td>
+</tr>
+<tr>
+<td><strong>UV Bias</strong></td>
+<td>float2</td>
+<td>The bias to apply to UVs before sampling textures.<br>This property only appears if you set <strong>UV Mode</strong> to <strong>ScaleAndBias</strong>.</td>
+</tr>
+<tr>
+<td><strong>Soft Particle Fade Distance</strong></td>
+<td>float</td>
+<td>The maximum distance in world space where a particle begins to fade.<br>This property only appears if you enable <strong>Use Soft Particle</strong>.</td>
+</tr>
+<tr>
+<td><strong>Sort Key</strong></td>
+<td>float</td>
+<td>The value Unity uses to sort the particles. Unity renders particles with the largest <strong>Sort Key</strong> value in front.<br>This property only appears if you enable <strong>Sort Mode</strong> and set it to <strong>Custom</strong>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-OutputSharedSettings.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

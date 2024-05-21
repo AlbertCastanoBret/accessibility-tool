@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Introduction to the 2D Lighting system | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Introduction to the 2D Lighting system | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Lights-2D-intro.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="introduction-to-the-2d-lighting-system">Introduction to the 2D Lighting system</h1>
+
+<p>The 2D Lighting system included with URP consists of a set of artist friendly tools and runtime components that help you quickly create a lit 2D Scene through core Unity components such as the <a href="https://docs.unity3d.com/Manual/class-SpriteRenderer.html">Sprite Renderer</a>, and 2D Light components that act as 2D counterparts to familiar 3D Light components.</p>
+<p>These tools are designed to integrate seamlessly with 2D Renderers such as the <a href="https://docs.unity3d.com/Manual/Sprites.html">Sprite Renderer</a>, <a href="https://docs.unity3d.com/Manual/class-Tilemap.html">Tilemap Renderer</a>, and <a href="https://docs.unity3d.com/Manual/class-SpriteShapeRenderer.html">Sprite Shape Renderer</a>. This system of tools and components are optimized for mobile systems, and for running on multiple platforms.</p>
+<h2 id="differences-from-3d-lights">Differences from 3D Lights</h2>
+<p>There are a number of key differences between the implementation and behavior of 2D Lights and 3D Light, which consists of the following:</p>
+<h3 id="new-2d-specific-components-and-render-pass">New 2D specific components and render pass</h3>
+<p>The 2D lighting systems includes its own set of 2D Light components, <a href="ShaderGraph.html">Shader Graph</a> sub-targets and a custom 2D render pass that are specifically designed for 2D lighting and rendering. Editor tooling for the 2D Lights and pass configuration are also included in the package.</p>
+<h3 id="coplanar">Coplanar</h3>
+<p>The 2D lighting model was designed specifically to work with 2D worlds that are coplanar and multi-layered. A 2D Light does not require depth separation between it and the object it is lighting. The 2D shadow system also works in coplanar and does not require depth separation.</p>
+<h3 id="not-physically-based">Not physically based</h3>
+<p>The lighting calculation in 2D Lights is not physics based as it is with 3D Lights. The details of the lighting model calculation can be found here.</p>
+<h3 id="no-interoperability-with-3d-lights-and-3d-renderers">No interoperability with 3D Lights and 3D Renderers</h3>
+<p>Currently both 3D and 2D Lights can only affect 3D and 2D Renderers respectively. 2D Lighting does not work on or effect 3D Renderers such as the <a href="https://docs.unity3d.com/Manual/class-MeshRenderer.html">Mesh Renderer</a>, while 3D Lighting will similarly have no effect on 2D Renderers such as the <a href="https://docs.unity3d.com/Manual/class-SpriteRenderer.html">Sprite Renderer</a>. While interoperability between the respective Lights and Renderers may be developed in the future, currently a combination of 2D and 3D Lights and 2D and 3D Renderers in a single Scene can be achieved by using the camera stacking technique.</p>
+<h2 id="technical-details-of-the-2d-lighting-graphics-pipeline">Technical details of the 2D Lighting graphics pipeline</h2>
+<p>The 2D Lighting graphics pipeline rendering process can be broken down into 2 distinct phases:</p>
+<ol>
+<li>Drawing the Light Render Textures</li>
+<li>Drawing the Renderers</li>
+</ol>
+<p>Light Render Textures are <a href="https://docs.unity3d.com/Manual/class-RenderTexture.html">Render Textures</a> that contain information about the Light’s color and shape in screen space.</p>
+<p>These two phases are only repeated  for each distinctly lit set of Light Layers. In other words, if <a href="https://docs.unity3d.com/Manual/class-TagManager.html#SortingLayers">Sorting Layers</a> 1 through 4 have the exact same set of Lights, it will only perform the above set of operations once.</p>
+<p>The default setup allows a number of <a href="https://docs.unity3d.com/Manual/DrawCallBatching.html">batches</a> to be drawn ahead of time before drawing the Renderers to reduce target switching. The ideal setup would allow the pipeline to render the Light Render Textures for all the batches and only then move on to draw the Renderers. This prevents loading and unloading of the color target. Refer to <a href="#optimization">Optimization</a> for more detailed information.</p>
+<h3 id="pre-phase-calculate-sorting-layer-batching"><a name="pre-phase">Pre-phase: Calculate Sorting Layer batching</a></h3>
+<p>Before proceeding with the rendering phases, the 2D Lighting graphics pipeline first analyses the Scene to assess which Layers can be batched together in a single draw operation. The following is the criteria that determine whether Layers are batched together:</p>
+<ol>
+<li>They are consecutive Layers.</li>
+<li>They share the exact same set of Lights.</li>
+</ol>
+<p>It is highly recommended to batch as many Layers as possible to minimize the number of Light Render Textures draw operations and improve performance.</p>
+<h3 id="phase-1-draw-light-render-textures">Phase 1: Draw Light Render Textures</h3>
+<p>After the pre-phase batching, the pipeline then draws the Light Textures for that batch. This essentially draws the Light’s shape onto a Render Texture. The light’s color and shape can be blended onto the target Light Render Texture using Additive or Alpha Blended depending on the light’s setup.</p>
+<p><img src="Images/2D/introduction_phase1.png" alt=""></p>
+<p>It is worth noting that a Light Render Texture is only created when at least one 2D Light is targeting it. For example, if all the lights of a Layer only uses <strong>Blendstyle #1</strong>, then only one Light Render Texture is created.</p>
+<h3 id="phase-2-draw-renderers">Phase 2: Draw Renderers</h3>
+<p>Once all the Light Render Textures have been drawn, the pipeline proceeds to draw the Renderers. The system will keep track of which set of Renderers are drawn by which set of Light Render Textures. They are associated during the batching process in the <a href="#pre-phase">pre-phase</a>.</p>
+<p>When the Renderers are being drawn, it will have access to all (one for each blend style) the available Light Render Textures. In the shader, the final color is calculated by combining the input color with colors from the Light Render Texture using the specified operation.</p>
+<p><img src="Images/2D/introduction_phase2.png" alt=""></p>
+<p>An example of a setup with four active blend styles illustrating how multiple blend styles come together. In most cases, you would typically only need two blend styles for your desired effect.</p>
+<h2 id="optimization">Optimization</h2>
+<p>In addition to the standard optimization techniques such as reducing draw calls, culling and optimizing shaders, there are several techniques and considerations that are unique to the 2D Lighting graphics pipeline.</p>
+<h3 id="number-of-blend-styles">Number of blend styles</h3>
+<p>The easiest way to increase rendering performance is to reduce the number of blend styles used. Each blend style is a Render Texture that needs to be rendered and subsequently uploaded.</p>
+<p>Reducing the number of blend styles has a direct impact on the performance. For simple scenes a single blend style could suffice. It is also common to use up to 2 blend styles in a scene.</p>
+<h3 id="light-render-texture-scale">Light Render Texture scale</h3>
+<p>The 2D Lighting system relies on screen space Light Render Texture to capture light contribution. This means there are a lot of Render Texture drawing subsequent uploading. Choosing the right Render Texture size directly impacts the performance.</p>
+<p>By default it is set at 0.5x of screen resolution. Smaller Light Render Texture size will give better performance at the cost of visual artifact. Half screen size resolution provides a good performance with almost no noticeable artifact in most situations.</p>
+<p>Experiment and find a scale suitable for your project.</p>
+<h3 id="layer-batching">Layer Batching</h3>
+<p>To further reduce the number of Light Render Textures, it is crucial to make the Sorting Layer batchable. Layers that are batched together share the same set of Light Render Textures. Uniquely lit layers will have its own set thus increasing the amount of work needed.</p>
+<p>Layers can be batch together if they share the same set of lights.</p>
+<h3 id="pre-rendering-of-light-render-texture">Pre-rendering of Light Render Texture</h3>
+<p>Multiple sets of Light Render Textures can be rendered ahead of drawing the Renderers. In an ideal situation, all the Light Render Textures will be rendered upfront and only then will the pipeline proceed with drawing the Renderers onto the final color output. This reduces the need to load/unload/reload of final color output.</p>
+<p>In a very complex setup with many distinctly lit Layers, it may not be practical to pre-render all Light Render Textures. The limit can be configured in the 2D Renderer Data inspector.</p>
+<h3 id="normal-maps">Normal Maps</h3>
+<p>Using normal maps to simulate depth is currently a very expensive operation. If it is enabled, a full size Render Texture is created during a depth pre-pass and the Renderers are drawn onto it. This is done for each Layer batch.</p>
+<p>If the normal mapping effect to simulate depth perception is not needed, ensure that all lights have the normal map option disabled.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Lights-2D-intro.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

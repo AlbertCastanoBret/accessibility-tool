@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Using Code Coverage | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Using Code Coverage | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.testtools.codecoverage@1.2.4/Documentation~/UsingCodeCoverage.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="using-code-coverage">Using Code Coverage</h1>
+
+<h2 id="using-code-coverage-with-burst-compiler">Using Code Coverage with Burst compiler</h2>
+<p>If you use the <a href="https://docs.unity3d.com/Packages/com.unity.burst@latest">Burst package</a> and have jobs compiled with Burst, you will need to disable Burst compilation in order to get full coverage. To disable Burst compilation you can do <strong>one</strong> of the following:</p>
+<ul>
+<li>Uncheck <strong>Enable Compilation</strong> under <strong>Jobs</strong> &gt; <strong>Burst</strong> &gt; <strong>Enable Compilation</strong>.</li>
+<li>Pass <code>--burst-disable-compilation</code> to the command line.</li>
+</ul>
+<h2 id="using-code-coverage-with-code-optimization">Using Code Coverage with Code Optimization</h2>
+<p>Code Optimization was introduced in 2020.1. Code Optimization mode defines whether Unity Editor compiles scripts in Debug or Release mode. Debug mode enables C# debugging and it is required in order to obtain accurate code coverage. To ensure Code optimization is set to Debug mode you can do <strong>one</strong> of the following:</p>
+<ul>
+<li>Switch to Debug mode in the Editor (bottom right corner, select the <strong>Bug icon</strong> &gt; <strong>Switch to debug mode</strong>).</li>
+<li>Using the CompilationPipeline api, set <code>CompilationPipeline.codeOptimization = CodeOptimization.Debug</code>.</li>
+<li>Pass <code>-debugCodeOptimization</code> to the command line.</li>
+</ul>
+<h2 id="excluding-code-from-code-coverage">Excluding code from Code Coverage</h2>
+<p>Any code that should not be contributing to the Code Coverage calculation can be excluded by adding the <a href="https://docs.unity3d.com/ScriptReference/TestTools.ExcludeFromCoverageAttribute.html"><code>ExcludeFromCoverage</code></a> attribute. This attribute can be added to Assemblies, Classes, Constructors, Methods and Structs. Note that you can also use the .NET <a href="https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.codeanalysis.excludefromcodecoverageattribute?view=netcore-2.0"><code>ExcludeFromCodeCoverage</code></a> attribute.</p>
+<h2 id="ignoring-tests-for-code-coverage">Ignoring tests for Code Coverage</h2>
+<p>To ignore tests when running with Code Coverage, use the <a href="https://docs.unity3d.com/Packages/com.unity.test-framework@latest/index.html?subfolder=/manual/reference-attribute-conditionalignore.html">ConditionalIgnore</a> attribute, passing the <code>&quot;IgnoreForCoverage&quot;</code> ID.</p>
+<h4 id="example">Example</h4>
+<pre><code>public class MyTestClass
+{
+    [Test, ConditionalIgnore(&quot;IgnoreForCoverage&quot;, &quot;This test is disabled when ran with code coverage&quot;)]
+    public void TestNeverRunningWithCodeCoverage()
+    {
+        Assert.Pass();
+    }
+}
+</code></pre>
+<h2 id="subscribing-to-code-coverage-session-events">Subscribing to Code Coverage session events</h2>
+<p>Use the <a href="https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@latest/index.html?subfolder=/api/UnityEditor.TestTools.CodeCoverage.Events.html">Events API</a> to subscribe to events invoked during a Code Coverage session.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.testtools.codecoverage@1.2.4/Documentation~/UsingCodeCoverage.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

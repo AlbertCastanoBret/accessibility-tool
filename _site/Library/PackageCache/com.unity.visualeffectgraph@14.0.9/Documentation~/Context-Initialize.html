@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Initialize | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Initialize | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-Initialize.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="initialize">Initialize</h1>
+
+<p>Menu Path : <strong>Context &gt; Initialize Particle</strong></p>
+<p>The <strong>Initialize</strong> Context processes a <a href="Context-Spawn.html">Spawn Event</a> or a <a href="Context-GPUEvent">GPU Event</a> and initializes new elements for a Particle or ParticleStrip simulation.</p>
+<h2 id="context-settings">Context settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Space</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> The <a href="https://docs.unity3d.com/Packages/com.unity.visualeffectgraph@latest/index.html?subfolder=/manual/Systems.html%23system-simulation-spaces">simulation space</a> for the system.</td>
+</tr>
+<tr>
+<td><strong>Data Type</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> The data type for the elements in the system. The options are:<br>• <strong>Particle</strong>: The system spawns particles.<br>• <strong>Particle Strip</strong>: The system spawns particle strips.</td>
+</tr>
+<tr>
+<td><strong>Capacity</strong></td>
+<td>UInt</td>
+<td>The fixed amount of elements in the simulation. This count scales the memory allocation of the particle system.</td>
+</tr>
+<tr>
+<td><strong>Particle Per Strip Count</strong></td>
+<td>Uint</td>
+<td>The fixed amount of particles per particle strip.<br>This setting only appears if you set <strong>Data Type</strong> to <strong>Particle Strip</strong>.</td>
+</tr>
+<tr>
+<td><strong>Bounds Setting Mode</strong></td>
+<td>Enum</td>
+<td><strong>Bounds Setting Mode</strong>: Specifies how to set the bounding box of the System. The options are:<br>• <strong>Manual</strong>: You set the bounds directly using the <strong>Bounds</strong> input property.<br>• <strong>Recorded</strong>: Allows you to record the System from the Target visual effect GameObject panel.<br>• <strong>Automatic</strong>: Unity calculates the bounds automatically.<br><br>For more information about these modes and the bounds of a visual effect in general, see <a href="visual-effect-bounds.html">Visual effect bounds</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="context-input-properties">Context input properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bounds</strong></td>
+<td><a href="Type-AABox.html">AABox</a></td>
+<td>The bounding box defined for the system. This property is evaluated accordingly to the <strong>Culling Flags</strong> property defined in the <a href="https://docs.unity3d.com/Packages/com.unity.visualeffectgraph@latest/index.html?subfolder=/manual/VisualEffectGraphAsset.html">Visual Effect Asset</a>.</td>
+</tr>
+<tr>
+<td><strong>Bounds Padding</strong></td>
+<td>Vector3</td>
+<td>Additional padding to apply to the visual effect's bounding box. For more information about the bounds of a visual effect, see <a href="visual-effect-bounds.html">Visual effect bounds</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="flow">Flow</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Port</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Input</strong></td>
+<td>Connection from a <a href="Context-Spawn.html">Spawn</a>, <a href="Context-GPUEvent.html">GPU Event</a>, or <a href="Context-Event.html">Event</a> Context. For more information on input flow compatibility, see <a href="#input-flow-compatibility">Input flow compatibility</a>.</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>Connection to an <a href="Context-Update.html">Update</a> (Single) or Output (Single/Multiple) Context.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="details">Details</h2>
+<h3 id="overspawn">Overspawn</h3>
+<p>To create new elements, you can add <a href="Blocks.html">Blocks</a> to the Context's body. The Visual Effect Graph adds these Blocks to the simulation if there is memory left to create them. After execution, Unity discards all elements that can not be injected this way.</p>
+<h4 id="the-alive-attribute">The Alive attribute</h4>
+<p>Setting the <a href="https://docs.unity3d.com/Packages/com.unity.visualeffectgraph@latest/index.html?subfolder=/manual/Reference-Attributes.html%23attribute-usage-and-implicit-behavior">Alive attribute</a> to false in the Initialize context creates a dead particle.</p>
+<p>While doing this allows you to discard particles at their birth, overspawn still applies. The particle is considered dead only in the next update call. This means that you cannot create more particles (alive or dead) than the remaining count allows.</p>
+<h3 id="call-order">Call order</h3>
+<p>The Visual Effect Graph executes the Initialize Context only once per new element, prior to its first Update. At the frame of execution, the Visual Effect Graph initializes the new element, executes the element's first update, and finally renders the element.</p>
+<h3 id="source-attribute-availability">Source attribute availability</h3>
+<p>In an Initialize Context, Blocks and Operators can read from <a href="https://docs.unity3d.com/Packages/com.unity.visualeffectgraph@latest/index.html?subfolder=/manual/Attributes.html%23source">source attributes</a>, by using a Get Attribute (Source) Operator, or an Inherit &lt;Attribute&gt; Block.</p>
+<h3 id="input-flow-compatibility">Input flow compatibility</h3>
+<p>Initialize Contexts can connect from one or many SpawnEvent outputting Contexts with the following rules:</p>
+<ul>
+<li>Initialize Contexts can connect from any number of Spawn and/or Event Contexts.</li>
+<li>Initialize Contexts can connect from a single GPU Event Context.</li>
+<li>You can not mix GPU and CPU Event/Spawn Contexts to the input port. If you connect both GPU Event and Spawn Contexts, the Console shows the following error: <code>Exception while compiling expression graph: System.InvalidOperationException: Cannot mix GPU &amp; CPU spawners in init</code></li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-Initialize.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

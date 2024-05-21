@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Operators | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Operators | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operators.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="operators">Operators</h1>
+
+<p>Operators are the atomic elements of the <a href="GraphLogicAndPhilosophy.html#property-workflow-horizontal-logic">Property Workflow</a>. These Nodes allow you to define custom expressions in Visual Effect Graphs that you can use to create custom behaviors. For instance compute values from math operations and use the result of these operations to sample curves, gradients, to use the resulting values into <a href="Blocks.html">Block</a> or <a href="Contexts.html">Context</a> input <a href="Properties.html">Properties</a>.</p>
+<p><img src="Images/Operators.png" alt="Operators"></p>
+<h2 id="adding-operator-nodes">Adding Operator Nodes</h2>
+<p>You can add Operator Nodes in the followings ways:</p>
+<ul>
+<li>In the Create Node Menu:
+<ul>
+<li>Right-click in an empty space and select <strong>Create Node</strong> from the menu.</li>
+<li>Right-click on a edge and selecting <strong>Create Node</strong> from the menu.</li>
+<li>Press the Spacebar key when the cursor is in an empty space.</li>
+<li>Drag an Edge Connection from a Property, then release in an empty space.</li>
+</ul>
+</li>
+<li>Duplicate Nodes:
+<ul>
+<li>Select <strong>Duplicate</strong> in the Context menu (or Ctrl+D).</li>
+<li><strong>Copy</strong>, <strong>Cut</strong> and <strong>Paste</strong> the Operator from Context menu (or Ctrl+C/Ctrl+X then Ctrl+V).</li>
+</ul>
+</li>
+</ul>
+<h2 id="configuring-operators">Configuring Operators</h2>
+<p>When you change the Operator <a href="GraphLogicAndPhilosophy.html#settings">Settings</a> in the Node UI or the Inspector, the Operator changes how it looks and behaves.</p>
+<p>For example, when you change the Cull Mode of a <code>Position (Depth)</code> Operator from <strong>None</strong> to <strong>Range</strong>, Unity adds an extra <strong>Depth Range</strong> property to the Operator.</p>
+<h2 id="uniform-operators">Uniform Operators</h2>
+<p>Uniform Operators are Nodes that you can use with a single input of a Variable Type. For example, you can use absolute values for a float, a Vector3 or an Integer.</p>
+<p><img src="Images/OperatorsUniform.png" alt=""></p>
+<p>The output type of any Uniform Operator is always the same as its input Type. Connecting a new input with a different type will change automatically the output type of the operator. If you want to manually set the Node to a specific type, see <strong>Configuring Uniform Operators</strong>.</p>
+<h5 id="configuring-uniform-operators">Configuring Uniform Operators</h5>
+<p><img src="Images/OperatorsUniformOptions.png" alt=""></p>
+<p>Press the Options icon in the top-right corner to switch the Node view to Configuration mode. In this mode you can manually change the operator Type.</p>
+<h2 id="unified-operators">Unified Operators</h2>
+<p>In addition to the Uniform Operators, some operators with many inputs can handle <strong>multiple inputs of Variable Types</strong>. These Nodes are called <strong>Unified Operators</strong>.</p>
+<p>For example, the <strong>Lerp</strong> Operator can interpolate between two Vectors uniformly based on a float or every component using a Vector of the Same Length.</p>
+<p><img src="Images/OperatorsUnified.png" alt=""></p>
+<p>Unified Operators have type constraints but allow some flexibility in order to adapt to some variety of types.</p>
+<h4 id="configuring-unified-operators">Configuring Unified Operators</h4>
+<p><img src="Images/OperatorsUnifiedOptions.png" alt=""></p>
+<p>Press the Options icon in the top-right corner to switch the Node view to Configuration mode. In this mode you can manually change the operator Types for every input. In some cases, changing one input type will change another input type in order to maintain compatibility.</p>
+<h2 id="cascaded-operators">Cascaded Operators</h2>
+<p><strong>Cascaded Operators</strong> process a variable input count. These operators can process many outputs and handle different input Types, like <strong>Unified Operators</strong></p>
+<p>For example, the Add Node allows you to add many inputs of different types using a single Node.</p>
+<p><img src="Images/OperatorsCascaded.png" alt=""></p>
+<p>You can connect many inputs to a Cascaded Operator. To add a new item to the list, connect an edge to the last gray input at the bottom of the Nod. This creates a new input that uses the property type you connected.</p>
+<p>When you delete a connection, Unity also removes the input property from the list. However you can also delete an input property manually using the Configuration Mode.</p>
+<h4 id="configuring-cascaded-operators">Configuring Cascaded Operators</h4>
+<p><img src="Images/OperatorsCascadedOptions.png" alt=""></p>
+<p>Press the Options icon in the top-right corner to switch the Node view to Configuration mod. In this mode you can:</p>
+<ul>
+<li>Rename Inputs using their Text Field.</li>
+<li>Change Input Types using the type Popup.</li>
+<li>Reorder Inputs by dragging the Handle on the left of each input line.</li>
+<li>Manually Add Inputs using the ''+'' button.</li>
+<li>Delete Selected Input using the ''-'' button.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Operators.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using ACC_API;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Samples.RebindUI;
 using UnityEngine.UI;
 
 namespace TFG_Videojocs.ACC_RemapControls

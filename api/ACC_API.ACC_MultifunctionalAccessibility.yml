@@ -1,0 +1,1148 @@
+### YamlMime:ManagedReference
+items:
+- uid: ACC_API.ACC_MultifunctionalAccessibility
+  commentId: T:ACC_API.ACC_MultifunctionalAccessibility
+  id: ACC_MultifunctionalAccessibility
+  parent: ACC_API
+  children:
+  - ACC_API.ACC_MultifunctionalAccessibility.#ctor
+  - ACC_API.ACC_MultifunctionalAccessibility.DisableAudioManagerMenu
+  - ACC_API.ACC_MultifunctionalAccessibility.EnableAudioManagerMenu
+  - ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource(System.String)
+  - ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources
+  - ACC_API.ACC_MultifunctionalAccessibility.GetAllAudioSources
+  - ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource(System.String)
+  - ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifiunctionalFeatures)
+  - ACC_API.ACC_MultifunctionalAccessibility.GetVolume(System.String)
+  - ACC_API.ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes
+  - ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences
+  - ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot(System.String,System.String,System.String)
+  - ACC_API.ACC_MultifunctionalAccessibility.Play3DSound(System.String,System.String,System.String)
+  - ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String)
+  - ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String)
+  - ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration
+  - ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifiunctionalFeatures)
+  - ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures,System.Boolean)
+  - ACC_API.ACC_MultifunctionalAccessibility.SetVolume(System.String,System.Single)
+  - ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound(System.String)
+  - ACC_API.ACC_MultifunctionalAccessibility.StopAll3DSounds
+  - ACC_API.ACC_MultifunctionalAccessibility.StopAllSounds
+  - ACC_API.ACC_MultifunctionalAccessibility.StopSound(System.String)
+  langs:
+  - csharp
+  - vb
+  name: ACC_MultifunctionalAccessibility
+  nameWithType: ACC_MultifunctionalAccessibility
+  fullName: ACC_API.ACC_MultifunctionalAccessibility
+  type: Class
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ACC_MultifunctionalAccessibility
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 12
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public class ACC_MultifunctionalAccessibility
+    content.vb: Public Class ACC_MultifunctionalAccessibility
+  inheritance:
+  - System.Object
+- uid: ACC_API.ACC_MultifunctionalAccessibility.#ctor
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.#ctor
+  id: '#ctor'
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ACC_MultifunctionalAccessibility()
+  nameWithType: ACC_MultifunctionalAccessibility.ACC_MultifunctionalAccessibility()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.ACC_MultifunctionalAccessibility()
+  type: Constructor
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: .ctor
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 15
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  syntax:
+    content: public ACC_MultifunctionalAccessibility()
+    content.vb: Public Sub New()
+  overload: ACC_API.ACC_MultifunctionalAccessibility.#ctor*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.New()
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.New()
+  name.vb: New()
+- uid: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures,System.Boolean)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures,System.Boolean)
+  id: SetFeatureState(ACC_API.MultifiunctionalFeatures,System.Boolean)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: SetFeatureState(MultifiunctionalFeatures, bool)
+  nameWithType: ACC_MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures, bool)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures, bool)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: SetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 35
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Toggles the state of a specified feature within the audio management system.
+  example: []
+  syntax:
+    content: public void SetFeatureState(MultifiunctionalFeatures feature, bool state)
+    parameters:
+    - id: feature
+      type: ACC_API.MultifiunctionalFeatures
+      description: The feature to be modified.
+    - id: state
+      type: System.Boolean
+      description: The state to set for the feature (true for enabled, false for disabled).
+    content.vb: Public Sub SetFeatureState(feature As MultifiunctionalFeatures, state As Boolean)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures, Boolean)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures, Boolean)
+  name.vb: SetFeatureState(MultifiunctionalFeatures, Boolean)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifiunctionalFeatures)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifiunctionalFeatures)
+  id: GetFeatureState(ACC_API.MultifiunctionalFeatures)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetFeatureState(MultifiunctionalFeatures)
+  nameWithType: ACC_MultifunctionalAccessibility.GetFeatureState(MultifiunctionalFeatures)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifiunctionalFeatures)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 50
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves the enabled state of a specified multifunctional feature.
+  example: []
+  syntax:
+    content: public bool GetFeatureState(MultifiunctionalFeatures feature)
+    parameters:
+    - id: feature
+      type: ACC_API.MultifiunctionalFeatures
+      description: The multifunctional feature to check, e.g., audio manager.
+    return:
+      type: System.Boolean
+      description: True if the specified feature is enabled, false otherwise.
+    content.vb: Public Function GetFeatureState(feature As MultifiunctionalFeatures) As Boolean
+  overload: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifiunctionalFeatures)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifiunctionalFeatures)
+  id: ResetFeatureState(ACC_API.MultifiunctionalFeatures)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetFeatureState(MultifiunctionalFeatures)
+  nameWithType: ACC_MultifunctionalAccessibility.ResetFeatureState(MultifiunctionalFeatures)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifiunctionalFeatures)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetFeatureState
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 69
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Resets the state of the specified multifunctional feature to its default settings.
+  example: []
+  syntax:
+    content: public void ResetFeatureState(MultifiunctionalFeatures feature)
+    parameters:
+    - id: feature
+      type: ACC_API.MultifiunctionalFeatures
+      description: The multifunctional feature to reset (e.g., audio manager).
+    content.vb: Public Sub ResetFeatureState(feature As MultifiunctionalFeatures)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences
+  id: LoadUserPreferences
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: LoadUserPreferences()
+  nameWithType: ACC_MultifunctionalAccessibility.LoadUserPreferences()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: LoadUserPreferences
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 82
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Loads and applies the user's accessibility preferences related to multifunctional features.
+  example: []
+  syntax:
+    content: public void LoadUserPreferences()
+    content.vb: Public Sub LoadUserPreferences()
+  overload: ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.EnableAudioManagerMenu
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.EnableAudioManagerMenu
+  id: EnableAudioManagerMenu
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: EnableAudioManagerMenu()
+  nameWithType: ACC_MultifunctionalAccessibility.EnableAudioManagerMenu()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.EnableAudioManagerMenu()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: EnableAudioManagerMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 92
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Enables the audio manager menu through the associated high contrast manager.
+  example: []
+  syntax:
+    content: public void EnableAudioManagerMenu()
+    content.vb: Public Sub EnableAudioManagerMenu()
+  overload: ACC_API.ACC_MultifunctionalAccessibility.EnableAudioManagerMenu*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.DisableAudioManagerMenu
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.DisableAudioManagerMenu
+  id: DisableAudioManagerMenu
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: DisableAudioManagerMenu()
+  nameWithType: ACC_MultifunctionalAccessibility.DisableAudioManagerMenu()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.DisableAudioManagerMenu()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: DisableAudioManagerMenu
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 100
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Disables the high contrast menu through the associated high contrast manager.
+  example: []
+  syntax:
+    content: public void DisableAudioManagerMenu()
+    content.vb: Public Sub DisableAudioManagerMenu()
+  overload: ACC_API.ACC_MultifunctionalAccessibility.DisableAudioManagerMenu*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource(System.String)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource(System.String)
+  id: GetAudioSource(System.String)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetAudioSource(string)
+  nameWithType: ACC_MultifunctionalAccessibility.GetAudioSource(string)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetAudioSource
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 111
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves an AudioSource object based on a specified identifier.
+  example: []
+  syntax:
+    content: public AudioSource GetAudioSource(string audioSource)
+    parameters:
+    - id: audioSource
+      type: System.String
+      description: The name of the audio source to retrieve.
+    return:
+      type: UnityEngine.AudioSource
+      description: The AudioSource corresponding to the given name.
+    content.vb: Public Function GetAudioSource(audioSource As String) As AudioSource
+  overload: ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.GetAudioSource(String)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource(String)
+  name.vb: GetAudioSource(String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource(System.String)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource(System.String)
+  id: Get3DAudioSource(System.String)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: Get3DAudioSource(string)
+  nameWithType: ACC_MultifunctionalAccessibility.Get3DAudioSource(string)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: Get3DAudioSource
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 121
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves a 3D AudioSource object based on a specified GameObject identifier.
+  example: []
+  syntax:
+    content: public AudioSource Get3DAudioSource(string gameObject)
+    parameters:
+    - id: gameObject
+      type: System.String
+      description: The name of the GameObject to retrieve the 3D audio source for.
+    return:
+      type: UnityEngine.AudioSource
+      description: The 3D AudioSource corresponding to the given GameObject.
+    content.vb: Public Function Get3DAudioSource(gameObject As String) As AudioSource
+  overload: ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.Get3DAudioSource(String)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource(String)
+  name.vb: Get3DAudioSource(String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetAllAudioSources
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.GetAllAudioSources
+  id: GetAllAudioSources
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetAllAudioSources()
+  nameWithType: ACC_MultifunctionalAccessibility.GetAllAudioSources()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetAllAudioSources()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetAllAudioSources
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 130
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves a list of all AudioSource objects currently managed by the audio manager.
+  example: []
+  syntax:
+    content: public List<AudioSource> GetAllAudioSources()
+    return:
+      type: System.Collections.Generic.List{UnityEngine.AudioSource}
+      description: A list of all AudioSource objects.
+    content.vb: Public Function GetAllAudioSources() As List(Of AudioSource)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.GetAllAudioSources*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources
+  id: GetAll3DAudioSources
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetAll3DAudioSources()
+  nameWithType: ACC_MultifunctionalAccessibility.GetAll3DAudioSources()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetAll3DAudioSources
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 139
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Retrieves a list of all 3D AudioSource objects currently managed by the audio manager.
+  example: []
+  syntax:
+    content: public List<AudioSource> GetAll3DAudioSources()
+    return:
+      type: System.Collections.Generic.List{UnityEngine.AudioSource}
+      description: A list of all 3D AudioSource objects.
+    content.vb: Public Function GetAll3DAudioSources() As List(Of AudioSource)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String)
+  id: PlaySound(System.String,System.String)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: PlaySound(string, string)
+  nameWithType: ACC_MultifunctionalAccessibility.PlaySound(string, string)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.PlaySound(string, string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: PlaySound
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 149
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Plays a sound using the specified audio source and clip.
+  example: []
+  syntax:
+    content: public void PlaySound(string audioSource, string audioClip)
+    parameters:
+    - id: audioSource
+      type: System.String
+      description: The name of the audio source.
+    - id: audioClip
+      type: System.String
+      description: The name of the audio clip to play.
+    content.vb: Public Sub PlaySound(audioSource As String, audioClip As String)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.PlaySound*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.PlaySound(String, String)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.PlaySound(String, String)
+  name.vb: PlaySound(String, String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.Play3DSound(System.String,System.String,System.String)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.Play3DSound(System.String,System.String,System.String)
+  id: Play3DSound(System.String,System.String,System.String)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: Play3DSound(string, string, string)
+  nameWithType: ACC_MultifunctionalAccessibility.Play3DSound(string, string, string)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.Play3DSound(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: Play3DSound
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 160
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Plays a 3D sound using the specified audio source, audio clip, and GameObject.
+  example: []
+  syntax:
+    content: public void Play3DSound(string audioSource, string audioClip, string gameObject)
+    parameters:
+    - id: audioSource
+      type: System.String
+      description: The name of the audio source.
+    - id: audioClip
+      type: System.String
+      description: The name of the audio clip to play.
+    - id: gameObject
+      type: System.String
+      description: The name of the GameObject to associate the 3D sound with.
+    content.vb: Public Sub Play3DSound(audioSource As String, audioClip As String, gameObject As String)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.Play3DSound*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.Play3DSound(String, String, String)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.Play3DSound(String, String, String)
+  name.vb: Play3DSound(String, String, String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String)
+  id: PlayOneShot(System.String,System.String)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: PlayOneShot(string, string)
+  nameWithType: ACC_MultifunctionalAccessibility.PlayOneShot(string, string)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(string, string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: PlayOneShot
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 170
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Plays a sound clip once using the specified audio source.
+  example: []
+  syntax:
+    content: public void PlayOneShot(string audioSource, string audioClip)
+    parameters:
+    - id: audioSource
+      type: System.String
+      description: The name of the audio source.
+    - id: audioClip
+      type: System.String
+      description: The name of the audio clip to play.
+    content.vb: Public Sub PlayOneShot(audioSource As String, audioClip As String)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.PlayOneShot(String, String)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(String, String)
+  name.vb: PlayOneShot(String, String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot(System.String,System.String,System.String)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot(System.String,System.String,System.String)
+  id: Play3DOneShot(System.String,System.String,System.String)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: Play3DOneShot(string, string, string)
+  nameWithType: ACC_MultifunctionalAccessibility.Play3DOneShot(string, string, string)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot(string, string, string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: Play3DOneShot
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 181
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Plays a 3D sound clip once using the specified audio source and GameObject.
+  example: []
+  syntax:
+    content: public void Play3DOneShot(string audioSource, string audioClip, string gameObject)
+    parameters:
+    - id: audioSource
+      type: System.String
+      description: The name of the audio source.
+    - id: audioClip
+      type: System.String
+      description: The name of the audio clip to play once.
+    - id: gameObject
+      type: System.String
+      description: The name of the GameObject to associate the 3D sound with.
+    content.vb: Public Sub Play3DOneShot(audioSource As String, audioClip As String, gameObject As String)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.Play3DOneShot(String, String, String)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot(String, String, String)
+  name.vb: Play3DOneShot(String, String, String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.StopSound(System.String)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.StopSound(System.String)
+  id: StopSound(System.String)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: StopSound(string)
+  nameWithType: ACC_MultifunctionalAccessibility.StopSound(string)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.StopSound(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: StopSound
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 190
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Stops playing the sound from the specified audio source.
+  example: []
+  syntax:
+    content: public void StopSound(string audioSource)
+    parameters:
+    - id: audioSource
+      type: System.String
+      description: The name of the audio source to stop.
+    content.vb: Public Sub StopSound(audioSource As String)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.StopSound*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.StopSound(String)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.StopSound(String)
+  name.vb: StopSound(String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound(System.String)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound(System.String)
+  id: Stop3DSound(System.String)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: Stop3DSound(string)
+  nameWithType: ACC_MultifunctionalAccessibility.Stop3DSound(string)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: Stop3DSound
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 199
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Stops playing the 3D sound associated with the specified GameObject.
+  example: []
+  syntax:
+    content: public void Stop3DSound(string gameObject)
+    parameters:
+    - id: gameObject
+      type: System.String
+      description: The name of the GameObject whose 3D sound should stop playing.
+    content.vb: Public Sub Stop3DSound(gameObject As String)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.Stop3DSound(String)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound(String)
+  name.vb: Stop3DSound(String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.StopAllSounds
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.StopAllSounds
+  id: StopAllSounds
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: StopAllSounds()
+  nameWithType: ACC_MultifunctionalAccessibility.StopAllSounds()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.StopAllSounds()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: StopAllSounds
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 207
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Stops all currently playing sounds.
+  example: []
+  syntax:
+    content: public void StopAllSounds()
+    content.vb: Public Sub StopAllSounds()
+  overload: ACC_API.ACC_MultifunctionalAccessibility.StopAllSounds*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.StopAll3DSounds
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.StopAll3DSounds
+  id: StopAll3DSounds
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: StopAll3DSounds()
+  nameWithType: ACC_MultifunctionalAccessibility.StopAll3DSounds()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.StopAll3DSounds()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: StopAll3DSounds
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 215
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Stops all currently playing 3D sounds.
+  example: []
+  syntax:
+    content: public void StopAll3DSounds()
+    content.vb: Public Sub StopAll3DSounds()
+  overload: ACC_API.ACC_MultifunctionalAccessibility.StopAll3DSounds*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.SetVolume(System.String,System.Single)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.SetVolume(System.String,System.Single)
+  id: SetVolume(System.String,System.Single)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: SetVolume(string, float)
+  nameWithType: ACC_MultifunctionalAccessibility.SetVolume(string, float)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.SetVolume(string, float)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: SetVolume
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 225
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Sets the volume for a specific audio source.
+  example: []
+  syntax:
+    content: public void SetVolume(string audioSource, float volume)
+    parameters:
+    - id: audioSource
+      type: System.String
+      description: The name of the audio source.
+    - id: volume
+      type: System.Single
+      description: The volume level to set (range typically from 0.0 to 1.0).
+    content.vb: Public Sub SetVolume(audioSource As String, volume As Single)
+  overload: ACC_API.ACC_MultifunctionalAccessibility.SetVolume*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.SetVolume(String, Single)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.SetVolume(String, Single)
+  name.vb: SetVolume(String, Single)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetVolume(System.String)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.GetVolume(System.String)
+  id: GetVolume(System.String)
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: GetVolume(string)
+  nameWithType: ACC_MultifunctionalAccessibility.GetVolume(string)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetVolume(string)
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: GetVolume
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 236
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Retrieves the volume level for a specified audio source using the AudioManager.
+
+    If a PlayerPrefs audioSourceKey exists for the audio source, it returns the saved value.
+  example: []
+  syntax:
+    content: public float GetVolume(string audioSource)
+    parameters:
+    - id: audioSource
+      type: System.String
+      description: The name of the audio source for which the volume is queried.
+    return:
+      type: System.Single
+      description: The volume level of the specified audio source as a float.
+    content.vb: Public Function GetVolume(audioSource As String) As Single
+  overload: ACC_API.ACC_MultifunctionalAccessibility.GetVolume*
+  nameWithType.vb: ACC_MultifunctionalAccessibility.GetVolume(String)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.GetVolume(String)
+  name.vb: GetVolume(String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes
+  id: LoadPreferencesAudioSourceVolumes
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: LoadPreferencesAudioSourceVolumes()
+  nameWithType: ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: LoadPreferencesAudioSourceVolumes
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 244
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Configures all audio source volumes to the user's saved preferences.
+  example: []
+  syntax:
+    content: public void LoadPreferencesAudioSourceVolumes()
+    content.vb: Public Sub LoadPreferencesAudioSourceVolumes()
+  overload: ACC_API.ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes*
+- uid: ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration
+  id: ResetAudioManagerConfiguration
+  parent: ACC_API.ACC_MultifunctionalAccessibility
+  langs:
+  - csharp
+  - vb
+  name: ResetAudioManagerConfiguration()
+  nameWithType: ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration()
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: ResetAudioManagerConfiguration
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 253
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: >-
+    Resets the volumes of all audio sources managed by the AudioManager.
+
+    This function calls the ResetAudioManagerConfiguration method on the AudioManager instance to revert audio source volumes to their default settings.
+  example: []
+  syntax:
+    content: public void ResetAudioManagerConfiguration()
+    content.vb: Public Sub ResetAudioManagerConfiguration()
+  overload: ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration*
+references:
+- uid: ACC_API
+  commentId: N:ACC_API
+  href: ACC_API.html
+  name: ACC_API
+  nameWithType: ACC_API
+  fullName: ACC_API
+- uid: System.Object
+  commentId: T:System.Object
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.object
+  name: object
+  nameWithType: object
+  fullName: object
+  nameWithType.vb: Object
+  fullName.vb: Object
+  name.vb: Object
+- uid: System
+  commentId: N:System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System
+  nameWithType: System
+  fullName: System
+- uid: ACC_API.ACC_MultifunctionalAccessibility.#ctor*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.#ctor
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility__ctor
+  name: ACC_MultifunctionalAccessibility
+  nameWithType: ACC_MultifunctionalAccessibility.ACC_MultifunctionalAccessibility
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.ACC_MultifunctionalAccessibility
+  nameWithType.vb: ACC_MultifunctionalAccessibility.New
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.New
+  name.vb: New
+- uid: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_SetFeatureState_ACC_API_MultifiunctionalFeatures_System_Boolean_
+  name: SetFeatureState
+  nameWithType: ACC_MultifunctionalAccessibility.SetFeatureState
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState
+- uid: ACC_API.MultifiunctionalFeatures
+  commentId: T:ACC_API.MultifiunctionalFeatures
+  parent: ACC_API
+  href: ACC_API.MultifiunctionalFeatures.html
+  name: MultifiunctionalFeatures
+  nameWithType: MultifiunctionalFeatures
+  fullName: ACC_API.MultifiunctionalFeatures
+- uid: System.Boolean
+  commentId: T:System.Boolean
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.boolean
+  name: bool
+  nameWithType: bool
+  fullName: bool
+  nameWithType.vb: Boolean
+  fullName.vb: Boolean
+  name.vb: Boolean
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_GetFeatureState_ACC_API_MultifiunctionalFeatures_
+  name: GetFeatureState
+  nameWithType: ACC_MultifunctionalAccessibility.GetFeatureState
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState
+- uid: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_ResetFeatureState_ACC_API_MultifiunctionalFeatures_
+  name: ResetFeatureState
+  nameWithType: ACC_MultifunctionalAccessibility.ResetFeatureState
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState
+- uid: ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_LoadUserPreferences
+  name: LoadUserPreferences
+  nameWithType: ACC_MultifunctionalAccessibility.LoadUserPreferences
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences
+- uid: ACC_API.ACC_MultifunctionalAccessibility.EnableAudioManagerMenu*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.EnableAudioManagerMenu
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_EnableAudioManagerMenu
+  name: EnableAudioManagerMenu
+  nameWithType: ACC_MultifunctionalAccessibility.EnableAudioManagerMenu
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.EnableAudioManagerMenu
+- uid: ACC_API.ACC_MultifunctionalAccessibility.DisableAudioManagerMenu*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.DisableAudioManagerMenu
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_DisableAudioManagerMenu
+  name: DisableAudioManagerMenu
+  nameWithType: ACC_MultifunctionalAccessibility.DisableAudioManagerMenu
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.DisableAudioManagerMenu
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_GetAudioSource_System_String_
+  name: GetAudioSource
+  nameWithType: ACC_MultifunctionalAccessibility.GetAudioSource
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource
+- uid: System.String
+  commentId: T:System.String
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.string
+  name: string
+  nameWithType: string
+  fullName: string
+  nameWithType.vb: String
+  fullName.vb: String
+  name.vb: String
+- uid: UnityEngine.AudioSource
+  commentId: T:UnityEngine.AudioSource
+  parent: UnityEngine
+  isExternal: true
+  name: AudioSource
+  nameWithType: AudioSource
+  fullName: UnityEngine.AudioSource
+- uid: UnityEngine
+  commentId: N:UnityEngine
+  isExternal: true
+  name: UnityEngine
+  nameWithType: UnityEngine
+  fullName: UnityEngine
+- uid: ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_Get3DAudioSource_System_String_
+  name: Get3DAudioSource
+  nameWithType: ACC_MultifunctionalAccessibility.Get3DAudioSource
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetAllAudioSources*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.GetAllAudioSources
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_GetAllAudioSources
+  name: GetAllAudioSources
+  nameWithType: ACC_MultifunctionalAccessibility.GetAllAudioSources
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetAllAudioSources
+- uid: System.Collections.Generic.List{UnityEngine.AudioSource}
+  commentId: T:System.Collections.Generic.List{UnityEngine.AudioSource}
+  parent: System.Collections.Generic
+  definition: System.Collections.Generic.List`1
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<AudioSource>
+  nameWithType: List<AudioSource>
+  fullName: System.Collections.Generic.List<UnityEngine.AudioSource>
+  nameWithType.vb: List(Of AudioSource)
+  fullName.vb: System.Collections.Generic.List(Of UnityEngine.AudioSource)
+  name.vb: List(Of AudioSource)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - uid: UnityEngine.AudioSource
+    name: AudioSource
+    isExternal: true
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - uid: UnityEngine.AudioSource
+    name: AudioSource
+    isExternal: true
+  - name: )
+- uid: System.Collections.Generic.List`1
+  commentId: T:System.Collections.Generic.List`1
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  name: List<T>
+  nameWithType: List<T>
+  fullName: System.Collections.Generic.List<T>
+  nameWithType.vb: List(Of T)
+  fullName.vb: System.Collections.Generic.List(Of T)
+  name.vb: List(Of T)
+  spec.csharp:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: <
+  - name: T
+  - name: '>'
+  spec.vb:
+  - uid: System.Collections.Generic.List`1
+    name: List
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1
+  - name: (
+  - name: Of
+  - name: " "
+  - name: T
+  - name: )
+- uid: System.Collections.Generic
+  commentId: N:System.Collections.Generic
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system
+  name: System.Collections.Generic
+  nameWithType: System.Collections.Generic
+  fullName: System.Collections.Generic
+  spec.csharp:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+  spec.vb:
+  - uid: System
+    name: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+  - name: .
+  - uid: System.Collections
+    name: Collections
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections
+  - name: .
+  - uid: System.Collections.Generic
+    name: Generic
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.collections.generic
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_GetAll3DAudioSources
+  name: GetAll3DAudioSources
+  nameWithType: ACC_MultifunctionalAccessibility.GetAll3DAudioSources
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources
+- uid: ACC_API.ACC_MultifunctionalAccessibility.PlaySound*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.PlaySound
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_PlaySound_System_String_System_String_
+  name: PlaySound
+  nameWithType: ACC_MultifunctionalAccessibility.PlaySound
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.PlaySound
+- uid: ACC_API.ACC_MultifunctionalAccessibility.Play3DSound*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.Play3DSound
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_Play3DSound_System_String_System_String_System_String_
+  name: Play3DSound
+  nameWithType: ACC_MultifunctionalAccessibility.Play3DSound
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.Play3DSound
+- uid: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_PlayOneShot_System_String_System_String_
+  name: PlayOneShot
+  nameWithType: ACC_MultifunctionalAccessibility.PlayOneShot
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot
+- uid: ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_Play3DOneShot_System_String_System_String_System_String_
+  name: Play3DOneShot
+  nameWithType: ACC_MultifunctionalAccessibility.Play3DOneShot
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot
+- uid: ACC_API.ACC_MultifunctionalAccessibility.StopSound*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.StopSound
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_StopSound_System_String_
+  name: StopSound
+  nameWithType: ACC_MultifunctionalAccessibility.StopSound
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.StopSound
+- uid: ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_Stop3DSound_System_String_
+  name: Stop3DSound
+  nameWithType: ACC_MultifunctionalAccessibility.Stop3DSound
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound
+- uid: ACC_API.ACC_MultifunctionalAccessibility.StopAllSounds*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.StopAllSounds
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_StopAllSounds
+  name: StopAllSounds
+  nameWithType: ACC_MultifunctionalAccessibility.StopAllSounds
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.StopAllSounds
+- uid: ACC_API.ACC_MultifunctionalAccessibility.StopAll3DSounds*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.StopAll3DSounds
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_StopAll3DSounds
+  name: StopAll3DSounds
+  nameWithType: ACC_MultifunctionalAccessibility.StopAll3DSounds
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.StopAll3DSounds
+- uid: ACC_API.ACC_MultifunctionalAccessibility.SetVolume*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.SetVolume
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_SetVolume_System_String_System_Single_
+  name: SetVolume
+  nameWithType: ACC_MultifunctionalAccessibility.SetVolume
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.SetVolume
+- uid: System.Single
+  commentId: T:System.Single
+  parent: System
+  isExternal: true
+  href: https://learn.microsoft.com/dotnet/api/system.single
+  name: float
+  nameWithType: float
+  fullName: float
+  nameWithType.vb: Single
+  fullName.vb: Single
+  name.vb: Single
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetVolume*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.GetVolume
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_GetVolume_System_String_
+  name: GetVolume
+  nameWithType: ACC_MultifunctionalAccessibility.GetVolume
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetVolume
+- uid: ACC_API.ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_LoadPreferencesAudioSourceVolumes
+  name: LoadPreferencesAudioSourceVolumes
+  nameWithType: ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes
+- uid: ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration*
+  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_ResetAudioManagerConfiguration
+  name: ResetAudioManagerConfiguration
+  nameWithType: ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration

@@ -1,0 +1,434 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Deferred Rendering Path in URP | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Deferred Rendering Path in URP | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/rendering/deferred-rendering-path.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="deferred-rendering-path-in-urp">Deferred Rendering Path in URP</h1>
+
+<p>URP Universal Renderer supports the following Rendering Paths:</p>
+<ul>
+<li>Forward</li>
+<li>Forward+</li>
+<li>Deferred</li>
+</ul>
+<p>For information on differences between the rendering paths, see section <a href="../urp-universal-renderer.html#rendering-path-comparison">Rendering Path comparison</a>.</p>
+<p>This section describes the Deferred Rendering Path.</p>
+<p><img src="../Images/rendering-deferred/deferred-intro-image.png" alt="Scene rendered with the Deferred Rendering Path"><br><em>Sample Scene rendered with the Deferred Rendering Path.</em></p>
+<p>This section contains the following topics:</p>
+<ul>
+<li><p><a href="#how-to-enable">How to select the Deferred Rendering Path</a></p>
+</li>
+<li><p><a href="#requirements">Unity Player system requirements</a></p>
+</li>
+<li><p><a href="#implementation-details">Implementation details</a></p>
+</li>
+<li><p><a href="#relevant-code-files">Relevant code files</a></p>
+</li>
+<li><p><a href="#shaderlab-pass-tags">ShaderLab Pass tags</a></p>
+</li>
+<li><p><a href="#limitations-and-performance">Limitations and performance</a></p>
+</li>
+</ul>
+<h2 id="how-to-enable">How to select the Deferred Rendering Path</h2>
+<p>To select the Rendering Path, use the property <strong>Lighting</strong> &gt; <strong>Rendering Path</strong> in the URP Universal Renderer asset.</p>
+<p><img src="../Images/rendering-deferred/urp-renderer-select-deferred-path.png" alt="Select the Rendering Path in the URP Universal Renderer asset"></p>
+<p>When you select the Deferred Rendering Path, Unity shows the <a href="#accurate-g-buffer-normals">Accurate G-buffer normals</a> property.</p>
+<p>The <strong>Accurate G-buffer normals</strong> property lets you configure how Unity encodes the normals when storing them in the geometry buffer (G-buffer).</p>
+<ul>
+<li><p><strong>Accurate G-buffer normals</strong> off: This option increases performance, especially on mobile GPUs, but might lead to color banding artifacts on smooth surfaces.</p>
+</li>
+<li><p><strong>Accurate G-buffer normals</strong> on: Unity uses the octahedron encoding to store values of normal vectors in the RGB channel of a normal texture. With this encoding, values of normal vectors are more accurate, but the encoding and decoding operations put extra load on the GPU. This option does not support decal normal blending when used with the <a href="../renderer-feature-decal.html#screen-space-technique">Screen Space decal technique</a>.</p>
+</li>
+</ul>
+<p>For more information about this setting, see the section <a href="#accurate-g-buffer-normals">Encoding of normals in G-buffer</a>.</p>
+<h2 id="requirements">Unity Player system requirements</h2>
+<p>The Deferred Rendering Path has the following requirements and limitations on top of the general system requirements for the Unity Player.</p>
+<ul>
+<li><p>Minimum Shader Model: Shader Model 4.5.</p>
+</li>
+<li><p>Deferred Rendering Path does not support the OpenGL and OpenGL ES API.<br>If a project with the Deferred Rendering Path is built for platforms using those API, the application falls back to the Forward Rendering Path.</p>
+</li>
+</ul>
+<h2 id="implementation-details">Implementation details</h2>
+<p>This section describes the implementation details of this feature, and technical details about how this feature functions.</p>
+<h3 id="g-buffer-layout">G-buffer layout</h3>
+<p>This section describes how Unity stores material attributes in the G-buffer in the Deferred Rendering Path.</p>
+<p>The following illustration shows the data structure for each pixel of the render targets that Unity uses in the Deferred Rendering Path.</p>
+<p><img src="../Images/rendering-deferred/data-structure-render-targets-g-buffer.png" alt="Data structure of the render targets that Unity uses in the Deferred Rendering Path"></p>
+<p>The data structure consists of the following components.</p>
+<p><strong>Albedo (sRGB)</strong></p>
+<p>This field contains the albedo color in sRGB format, 24 bits.</p>
+<p><strong>MaterialFlags</strong></p>
+<p>This field is a bit field that contains Material flags:</p>
+<ul>
+<li><p>Bit 0, <strong>ReceiveShadowsOff</strong>: if set, the pixel does not receive dynamic shadows.</p>
+</li>
+<li><p>Bit 1, <strong>SpecularHighlightsOff</strong>: if set, the pixel does not receive specular highlights.</p>
+</li>
+<li><p>Bit 2, <strong>SubtractiveMixedLighting</strong>: if set, the pixel uses subtractive mixed lighting.</p>
+</li>
+<li><p>Bit 3, <strong>SpecularSetup</strong>: if set, the Material uses the specular workflow.</p>
+</li>
+</ul>
+<p>Bits 4-7 are reserved for future use.</p>
+<p>For more technical details, see the file <code>/ShaderLibrary/UnityGBuffer.hlsl</code>.</p>
+<p><strong>Specular</strong></p>
+<p>This field contains the following values:</p>
+<ul>
+<li><p>SimpleLit Material: RGB specular color stored in 24 bits.</p>
+</li>
+<li><p>Lit Material with metallic workflow: reflectivity stored in 8 bits, 16 bits are not used.</p>
+</li>
+<li><p>Lit Material with specular workflow: RGB specular color stored in 24 bits.</p>
+</li>
+</ul>
+<p><strong>Occlusion</strong></p>
+<p>This field contains the baked occlusion value from the baked lighting. For real-time lighting, Unity calculates the ambient occlusion value by combining the baked occlusion value with the SSAO value.</p>
+<p><strong>Normal</strong></p>
+<p>This field contains the world space normals encoded in 24 bits. For information on the encoding of normals, see section <a href="#accurate-g-buffer-normals">Encoding of normals in G-buffer</a>.</p>
+<p><strong>Smoothness</strong></p>
+<p>This field stores the smoothness value for the SimpleLit and Lit materials.</p>
+<p><strong>Emissive/GI/Lighting</strong></p>
+<p>This render target contains the Material emissive output and baked lighting. Unity fills this field during the G-buffer Pass. During the deferred shading pass, Unity stores lighting results in this render target.</p>
+<p>Render target format:</p>
+<ul>
+<li><p><strong>B10G11R11_UFloatPack32</strong>, unless one of the following conditions is true:</p>
+<ul>
+<li><p>In URP Asset, the setting <strong>Quality</strong> &gt; <strong>HDR</strong> is turned on, and the target Player platform does not support HDR.</p>
+</li>
+<li><p>In Player Settings, the setting <strong>PreserveFramebufferAlpha</strong> is true.</p>
+</li>
+</ul>
+</li>
+<li><p><strong>R16G6B16A16_SFloat</strong>, if Unity cannot use <strong>B10G11R11_UFloatPack32</strong> because of the project settings.</p>
+</li>
+<li><p>If Unity cannot use one of the other formats in the list, it uses what the following method returns: <code>SystemInfo.GetGraphicsFormat(DefaultFormat.HDR)</code>.</p>
+</li>
+</ul>
+<p><strong>ShadowMask</strong></p>
+<p>Unity adds this render target to the G-buffer layout when Lighting Mode is set to Subtractive or Shadow mask.</p>
+<p>The Subtractive and the Shadow mask modes are optimized for the Forward Rendering Path, and are less efficient in the Deferred Rendering Path. In the Deferred Rendering Path,  avoid using these modes and use the Baked Indirect mode instead to improve GPU performance.</p>
+<p><strong>Rendering Layer Mask</strong></p>
+<p>Unity adds this render target to the G-buffer layout when the Use Rendering Layers option is enabled (URP Asset, <strong>Lighting</strong> &gt; <strong>Use Rendering Layers</strong>).</p>
+<p>Using Rendering Layers might have an impact on the GPU performance. For more information, see the page <a href="../features/rendering-layers.html#performance">Rendering Layers</a>.</p>
+<p><strong>Depth as Color</strong></p>
+<p>Unity adds this render target to the G-buffer layout when Native Render Pass is enabled on platforms that support it. Unity renders depth as a color into this render target. This render target has the following purpose:</p>
+<ul>
+<li><p>Improves performance on Vulkan devices.</p>
+</li>
+<li><p>Lets Unity get the depth buffer on Metal API, which does not allow fetching the depth from the DepthStencil buffer within the same render pass.</p>
+</li>
+</ul>
+<p>The format of the Depth as Color render target is <code>GraphicsFormat.R32_SFloat</code>.</p>
+<p><strong>DepthStencil</strong></p>
+<p>Unity reserves the four highest bits of this render target to mark the Material type. See also <a href="../urp-shaders/urp-shaderlab-pass-tags.html#universalmaterialtype">URP Pass tags: UniversalMaterialType</a>.</p>
+<p>For this render target, Unity selects either the <code>D32F_S8</code> format, or the <code>D24S8</code> format depending on the platform.</p>
+<h3 id="accurate-g-buffer-normals">Encoding of normals in G-buffer</h3>
+<p>In the Deferred Rendering Path, Unity stores normals in the G-buffer. Unity encodes each normal as a 24 bit value.</p>
+<p>When you select the <strong>Deferred</strong> option in the <strong>Rendering Path</strong> property in the URP Universal Renderer asset, Unity shows the <strong>Accurate G-buffer normals</strong> property.</p>
+<p><img src="../Images/rendering-deferred/urp-renderer-accurate-g-buffer-normals.png" alt="The Accurate G-buffer normals property in the URP Universal Renderer asset"></p>
+<p>The <strong>Accurate G-buffer normals</strong> property lets you configure how Unity encodes the normals.</p>
+<ul>
+<li><p><strong>Accurate G-buffer normals</strong> off: Unity stores values of normal vectors in the G-buffer in the RGB channel of a normal texture, 8 bit per value (x, y, z). The values are quantized with the loss of accuracy. This option increases performance, especially on mobile GPUs, but might lead to color banding artifacts on smooth surfaces.</p>
+</li>
+<li><p><strong>Accurate G-buffer normals</strong> on: Unity uses the octahedron encoding to store values of normal vectors in the RGB channel of a normal texture. With this encoding, values of normal vectors are more accurate, but the encoding and decoding operations put extra load on the GPU. This option does not support decal normal blending when used with the <a href="../renderer-feature-decal.html#screen-space-technique">Screen Space decal technique</a>.<br>The precision of the encoded normal vectors is similar to the precision of the sampled values in the Forward Rendering Path.</p>
+</li>
+</ul>
+<p>The following illustration shows the visual difference between the two options when the Camera is very close to the GameObject:</p>
+<p><img src="../Images/rendering-deferred/difference-accurate-g-buffer-normals-on-off.png" alt="Accurate G-buffer normals, visual difference between the two options."></p>
+<p><strong>Performance considerations</strong></p>
+<p>With <strong>Accurate G-buffer normals</strong> option turned on, there is extra load on the GPU because of the encoding and decoding operations. This load is insignificant for desktop platforms and consoles, but might be considerable for mobile GPUs.</p>
+<p>Turning the option on does not increase the memory footprint. To store the normals, Unity uses the same RGB channel in the normal texture regardless of the encoding.</p>
+<h3 id="render-passes">Deferred Rendering Path render Passes</h3>
+<p>The following table shows the sequence of Render Pass events in the Deferred Rendering Path.</p>
+<table>
+    <thead>
+    <tr>
+        <th>Render Pass events</th>
+        <th>Deferred Rendering Path Passes</th>
+        <th>SSAO Renderer Feature Passes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>BeforeRendering</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>BeforeRenderingShadows</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>AfterRenderingShadows</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>BeforeRenderingPrePasses</td>
+        <td>Depth, or depth and normal prepass (Forward only materials)</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>AfterRenderingPrePasses</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>BeforeRenderingGbuffer</td>
+        <td>G-buffer Pass (GBufferPass)</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>&#160;</td>
+        <td>Copy G-buffer depth texture</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>AfterRenderingGbuffer</td>
+        <td>&#160;</td>
+        <td>SSAO (optional)</td>
+    </tr>
+    <tr>
+        <td>BeforeRenderingDeferredLights</td>
+        <td>&#160;</td>
+        <td rowspan="4"><img src="../Images/rendering-deferred/decorator-or.png"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>Deferred rendering (stencil)</td>
+    </tr>
+    <tr>
+        <td>AfterRenderingDeferredLights</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>BeforeRenderingOpaques</td>
+        <td>Opaque Forward-only Materials</td>
+    </tr>
+    <tr>
+        <td>AfterRenderingOpaques</td>
+        <td>&#160;</td>
+        <td>SSAO and blending (optional)</td>
+    </tr>
+    <tr>
+        <td>BeforeRenderingSkybox</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>AfterRenderingSkybox</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>BeforeRenderingTransparents</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>AfterRenderingTransparents</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>BeforeRenderingPostProcessing</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>AfterRenderingPostProcessing</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    <tr>
+        <td>AfterRendering</td>
+        <td>&#160;</td>
+        <td>&#160;</td>
+    </tr>
+    </tbody><tbody>
+</tbody></table>
+<p>The following sections describe the Deferred Rendering Path render Passes.</p>
+<h4 id="depth-or-depth-and-normal-prepass">Depth, or depth and normal prepass</h4>
+<p>In the Deferred Rendering Path, in the depth prepass or depth and normal prepass, Unity renders only the Materials that do not support the deferred rendering model. For example, Materials using the Complex Lit shader are such Materials.</p>
+<p>In the Deferred Rendering Path, Unity does not use the depth prepass to generate a copy of the depth buffer (this behavior is different in the Forward Rendering Path).</p>
+<p>If the Universal Renderer has the SSAO Renderer Feature, Unity executes the depth and normal prepass. SSAO uses the screen-space depth and normal buffers to calculate ambient occlusion.</p>
+<h4 id="optional-passes-ssao-ssao-with-blending">Optional passes: SSAO, SSAO with blending</h4>
+<p>If the Universal Renderer has the SSAO Renderer Feature, and the <strong>After Opaque</strong> option is disabled (the option is disabled by default), Unity executes the SSAO Pass at the AfterRenderingGbuffer event. The SSAO Renderer Feature calculates the SSAO texture. Unity samples this texture in the Deferred rendering Pass and in the Pass that renders Forward-only Materials.</p>
+<p>Using this Pass order, Unity can combine the baked occlusion with the real-time occlusion from the SSAO Renderer Feature, and avoid double-darkening from the baked and the real-time ambient occlusion.</p>
+<p>When the After Opaque option is enabled, Unity executes the SSAO and blending Pass at the AfterRenderingOpaques event, after rendering the Forward-only Materials. Unity then executes an extra full screen Pass to overlay the SSAO texture onto the Emissive/GI/Lighting buffer. This causes over-darkening of the areas that receive baked occlusion and real-time occlusion.</p>
+<p><strong>Performance considerations</strong></p>
+<p>On mobile platforms with TBDR architecture, with the <strong>After Opaque</strong> option is disabled, Unity requires an extra render target for load and store operations. This has a significant performance impact.</p>
+<p>Enabling the <strong>After Opaque</strong> option on mobile platforms improves GPU performance. On mobile platforms with TBDR architecture, enabling this option avoids extra render target load and store operations.</p>
+<h4 id="forward-only-pass">Forward-only Pass</h4>
+<p>Certain Unity shaders use lighting models that Unity cannot render in the Deferred Rendering Path.</p>
+<p>Examples of such shaders:</p>
+<ul>
+<li><p><strong>Complex Lit</strong>: the Lighting model of this shader (for example, the Clear Coat effect) is too complex and extra Material properties cannot fit into the G-buffer.</p>
+</li>
+<li><p><strong>Baked Lit</strong> and <strong>Unlit</strong>: these shaders do not calculate real-time lighting, that's why Unity renders them into the Emissive/GI/Lighting buffer directly during the Forward-only pass. This is faster than evaluating the shaders in the Deferred rendering (stencil) pass.</p>
+</li>
+<li><p><strong>Custom shaders</strong>: Unity renders the shaders that do not declare the Pass tags required by the Deferred Rendering Path as Forward-only. The required Pass tags are: <code>LightMode</code>, and <code>UniversalMaterialType</code>. For more information, see <a href="../urp-shaders/urp-shaderlab-pass-tags.html">URP Pass tags</a>.</p>
+</li>
+</ul>
+<p>Unity renders Materials with such shaders in the Forward Rendering Path. For the SSAO Renderer Feature to be able to calculate ambient occlusion for the Materials using the <strong>Complex Lit</strong> shader, Unity must render such Materials in the depth and normal prepass first. This is because Unity does not render those Materials in the G-buffer pass (GBufferPass). For more information, see <a href="../urp-shaders/urp-shaderlab-pass-tags.html">URP Pass tags</a>.</p>
+<h4 id="general-implementation-notes">General implementation notes</h4>
+<p>For maximum platform compatibility, the URP Deferred Rendering Path uses the light stencil volume technique to render light volumes and apply deferred shading.</p>
+<h2 id="relevant-code-files">Relevant code files</h2>
+<p>This section contains the list of files that contain the code related to the Deferred Rendering Path.</p>
+<ul>
+<li><p>The main class that handles the Deferred Rendering Path:</p>
+<pre><code>com.unity.render-pipelines.universal\Runtime\DeferredLights.cs
+</code></pre>
+</li>
+<li><p>ScriptableRenderPass for the G-Buffer pass:</p>
+<pre><code>com.unity.render-pipelines.universal\Runtime\Passes\GBufferPass.cs
+</code></pre>
+</li>
+<li><p>ScriptableRenderPass for the deferred shading pass:</p>
+<pre><code>com.unity.render-pipelines.universal\Runtime\Passes\DeferredPass.cs
+</code></pre>
+</li>
+<li><p>Shader asset for the deferred shading:</p>
+<pre><code>com.unity.render-pipelines.universal\Shaders\Utils\StencilDeferred.shader
+</code></pre>
+</li>
+<li><p>Utility functions for the deferred shading:</p>
+<pre><code>com.unity.render-pipelines.universal\Shaders\Utils\Deferred.hlsl
+</code></pre>
+</li>
+<li><p>Utility functions for storing and loading the Material properties from the G-buffer:</p>
+<pre><code>com.unity.render-pipelines.universal\Shaders\Utils\UnityGBuffer.hlsl
+</code></pre>
+</li>
+</ul>
+<h2 id="shaderlab-pass-tags">ShaderLab Pass tags</h2>
+<p>To enable Unity to render a shader in the Deferred Rendering Path, the shader must have a Pass with the following tag definition:</p>
+<p><code>&quot;LightMode&quot; = &quot;UniversalGBuffer&quot;</code></p>
+<p>Unity executes the shader with such <code>LightMode</code> tag during the G-buffer Pass.</p>
+<p>To indicate that Unity must render a certain Material in the Forward-only Pass in the Deferred Rendering Path, add the following tags to a shader Pass:</p>
+<p><code>&quot;LightMode&quot; = &quot;UniversalForwardOnly&quot;</code></p>
+<p><code>&quot;LightMode&quot; = &quot;DepthNormalsOnly&quot;</code></p>
+<p>To specify the shader lighting model (Lit, SimpleLit), use the <code>UniversalMaterialType</code> tag.</p>
+<p>For more information, see the section <a href="../urp-shaders/urp-shaderlab-pass-tags.html#lightmode">URP Pass tags: LightMode</a>.</p>
+<h2 id="limitations-and-performance">Limitations and performance</h2>
+<p>This section describes the limitations of the Deferred Rendering Path.</p>
+<h3 id="terrain-blending">Terrain blending</h3>
+<p>When blending more than four Terrain layers, the Deferred Rendering Path generates slightly different results from the Forward Rendering Path. This happens because in the Forward Rendering Path, Unity processes the first four layers separately from the next four layers using multi-pass rendering.</p>
+<p>In the Forward Rendering Path, Unity merges Material properties and calculates lighting for the combined properties of four layers at once. Unity then processes the next four layers in the same way and alpha-blends the lighting results.</p>
+<p>In the Deferred Rendering Path, Unity combines Terrain layers in the G-buffer pass, four layers at a time, and then calculates lighting only once during the deferred rendering pass. This difference with the Forward Rendering Path leads to <a href="#terrain-visual-diff">visually different outcomes</a>.</p>
+<p>Unity combines the Material properties in the G-buffer using hardware blending (four layers at a time), which limits how correct the combination of property values is. For example, pixel normals cannot be correctly combined using the alpha blend equation alone, because one Terrain layer might contain coarse Terrain detail while another layer might contain fine detail. Averaging or summing normals results in loss of accuracy.</p>
+<blockquote>
+<p><strong>NOTE:</strong> Turning the setting <a href="#accurate-g-buffer-normals">Accurate G-buffer normals</a> on breaks Terrain blending. With this setting turned on, Unity encodes normals using octahedron encoding. Normals in different layers encoded this way cannot be blended together because of the bitwise nature of the encoding (2 x 12 bits). If your application requires more than four Terrain layers, turn the <strong>Accurate G-buffer normals</strong> setting off.</p>
+</blockquote>
+<p><a name="terrain-visual-diff"></a>The following illustration shows the visual difference when rendering Terrain layers with different Rendering Paths.</p>
+<p><img src="../Images/rendering-deferred/terrain-layers-forward.png" alt="Terrain layers rendered with the Forward Rendering Path"><br><em>Terrain layers rendered with the Forward Rendering Path</em></p>
+<p><img src="../Images/rendering-deferred/terrain-layers-deferred.png" alt="Terrain layers rendered with the Deferred Rendering Path"><br><em>Terrain layers rendered with the Deferred Rendering Path</em></p>
+<h3 id="baked-global-illumination-and-lighting-modes">Baked Global Illumination and Lighting Modes</h3>
+<p>When Baked Global Illumination is enabled, the Subtractive and the Shadowmask Lighting modes put extra load on the GPU in the Deferred Rendering Path.</p>
+<p>The Deferred Rendering Path supports the Subtractive and the Shadowmask Lighting modes for compatibility reasons, but, unlike the case with the Forward Rendering Path, these modes do not provide any improvements in performance. In the Deferred Rendering Path, Unity processes all meshes using the same Lighting algorithm and stores the extra Lighting properties required by Subtractive and the Shadowmask modes in the <a href="#g-buffer-layout">ShadowMask render target</a>.</p>
+<p>In the Deferred Rendering Path, the Baked Indirect Lighting mode provides better performance, since it does not require the ShadowMask render target.</p>
+<h3 id="rendering-layers">Rendering layers</h3>
+<p>URP implements the Rendering Layers feature that lets you configure which Lights in a Scene affect specific meshes. Lights assigned to a specific Rendering Layer only affect the meshes assigned to the same Rendering Layer.</p>
+<p>For more information on Rendering Layers, see the page <a href="../features/rendering-layers.html">Rendering Layers</a>.</p>
+<p><strong>Performance impact</strong></p>
+<p>The Rendering Layers feature requires an extra G-buffer render target to store the rendering layer mask (32 bits). The extra render target is likely to have a negative impact on GPU performance.</p>
+<p><strong>Implementation notes</strong></p>
+<p>In the Forward Rendering Path, the <a href="https://docs.unity3d.com/Manual/Layers.html">Layers</a> feature lets you tell Unity to render specific meshes with a specific set of Lights. The <a href="https://docs.unity3d.com/Manual/Layers.html">Layers</a> feature uses the culling mask system.</p>
+<p>The Deferred Rendering Path cannot use the layer system with light culling masks, because the shading is deferred to a later stage in the rendering loop (see the <strong>Deferred rendering (stencil)</strong> step in the <a href="#render-passes">Deferred Rendering Path render Passes</a> table.)</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/rendering/deferred-rendering-path.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

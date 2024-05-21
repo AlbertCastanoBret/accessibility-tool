@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Blackboard | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Blackboard | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Blackboard.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="blackboard">Blackboard</h1>
+
+<p>The Blackboard is a utility panel in the <a href="VisualEffectGraphWindow.html">Visual Effect Graph window</a> that allows you to manage <strong>properties</strong>. Here, you can define, order, and categorize properties. You can also expose properties so that you can access them from outside the graph.</p>
+<p>Properties you define in the Blackboard are global variables that you can use multiple times throughout the graph. For example, you can define a bounding box property once and then use it for multiple particle systems in the graph.</p>
+<p><img src="Images/Blackboard-Properties.png" alt="Blackboard-Properties"></p>
+<p>Properties in the Blackboard are either <strong>constants</strong> or <strong>exposed</strong>. If you make a property exposed, you can see and edit it on the <a href="VisualEffectComponent.html">Visual Effect Component</a> as well as via the C# API.</p>
+<p>To differentiate between exposed properties and constants, the Blackboard displays a green dot on the left of an exposed property's label.</p>
+<h2 id="using-the-blackboard">Using the Blackboard</h2>
+<p>To open the Blackboard, click the <strong>Blackboard</strong> button in the Visual Effect Graph window <a href="VisualEffectGraphWindow.html#Toolbar">Toolbar</a>. To resize the Blackboard, click on any edge or corner and drag. To reposition the Blackboard, click on the header and drag.</p>
+<h3 id="menu-category">Menu Category</h3>
+<p>In order to set the Menu path of the currently edited Subgraph, you can double-click the sub-title of the blackboard and enter the desired Category Name, then validate using the Return Key</p>
+<p><img src="Images/Blackboard-Category.gif" alt="Blackboard-Category"></p>
+<h3 id="creating-properties">Creating properties</h3>
+<p>To create a property, click the plus (<strong>+</strong>) button in the top-right of the Blackboard then select a property type from the menu.</p>
+<p>You can also convert an inline Operator to a property. To do this, right-click on the Node and select either:</p>
+<ul>
+<li><strong>Convert to Property</strong> if you want to create a constant.</li>
+<li><strong>Convert to Exposed Property</strong> if you want to create an exposed property</li>
+</ul>
+<p>Regardless of the option you choose, you can enable or disable the <strong>Exposed</strong> setting later.</p>
+<h3 id="editing-properties">Editing properties</h3>
+<p>To edit a property in the Blackboard, click the folding arrow to the left of the property. This exposes settings that you can use to edit the property. Different properties expose different settings. The core settings are:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exposed</strong></td>
+<td>Specifies whether the property is exposed or not. When enabled, you can see and edit the property on the <a href="VisualEffectComponent.html">Visual Effect Component</a> as well as via the C# API.</td>
+</tr>
+<tr>
+<td><strong>Value</strong></td>
+<td>Specifies the default value of the property. The Visual Effect Graph uses this value if you do not expose the property or if you expose the property, but do not override it.</td>
+</tr>
+<tr>
+<td><strong>Tooltip</strong></td>
+<td>Specifies text that appears when you hover over the property in the Inspector for the Visual Effect.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="filtering-properties">Filtering properties</h3>
+<p>Float, Int and Uint properties have some filter mode :</p>
+<ul>
+<li>default. does nothing special. You will edit the property value in a textfield.</li>
+<li>Range. You will specify a minimum and a maximum value in the blackboard and you will edit the property with a slider instead of just a textfield</li>
+<li>Enum. Exclusive to uint, You will specify a list of names in the blackboard and you will edit the property with a popup menu.</li>
+</ul>
+<h3 id="arranging-properties">Arranging properties</h3>
+<ul>
+<li>To <strong>rename</strong> a property:
+<ol>
+<li>Either double click the property name or right-click the property name and select <strong>Rename</strong> from the context menu.</li>
+<li>In the editable field, type the new name.</li>
+<li>Finally, to validate the change, press the <strong>Enter</strong> key or click away from the field.</li>
+</ol>
+</li>
+<li>To <strong>reorder</strong> properties, <strong>drag and drop</strong> them in the Blackboard.</li>
+<li>To <strong>delete</strong> a property, either:
+<ul>
+<li>Right-click the property then select <strong>Delete</strong> from the context menu.</li>
+<li>Select the property then press the <strong>Delete</strong> key (for macOS, <strong>Cmd</strong> + <strong>Delete</strong> key).</li>
+</ul>
+</li>
+</ul>
+<h3 id="property-categories">Property categories</h3>
+<p>Categories allow you to sort properties into groups so you can manage them more easily. You can <strong>rename</strong>, <strong>reorder</strong>, and <strong>delete</strong> categories in the same way as you can for properties.</p>
+<ul>
+<li>To <strong>create</strong> a category, click the plus (<strong>+</strong>) button in the top-right of the Blackboard, then select <strong>Category</strong> from the menu.</li>
+<li>You can <strong>drag and drop</strong> properties from one category to another, or if you want a property to not be part of any category, to the top of the window.</li>
+</ul>
+<h2 id="property-nodes">Property Nodes</h2>
+<p>Property Nodes look slightly different to standard Nodes. They display the property name and a green dot if the property is exposed.</p>
+<p>You can expand them to use a sub-member of the property value.</p>
+<p><img src="Images/PropertyNode.png" alt="PropertyNode"></p>
+<h2 id="exposed-properties-in-the-inspector">Exposed Properties in the Inspector</h2>
+<p>When you enable the <strong>Exposed</strong> setting for a property, the property becomes visible in the <strong>Properties</strong> section of the Inspector for a <a href="VisualEffectComponent.html">Visual Effect</a>. Properties appear in the same order and categories that you set in the Blackboard.</p>
+<p><img src="Images/Properties-Inspector.png" alt="Properties-Inspector"></p>
+<h3 id="overriding-property-values">Overriding property values</h3>
+<p>To edit a property value, you need to override it. To do this, enable the checkbox to the left of the property's name. When you enable this checkbox, the Visual Effect Graph uses the value that you specify in the Inspector. If you disable this checkbox, the Visual Effect Graph uses the default value that you set in the Blackboard.</p>
+<h3 id="using-gizmos">Using Gizmos</h3>
+<p>You can use Gizmos to edit certain advanced property types. To enable Gizmo editing, click the <strong>Show Property Gizmos</strong> button. To use a Gizmo to edit a compatible property, click the <strong>Edit</strong> button next to the property.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Blackboard.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

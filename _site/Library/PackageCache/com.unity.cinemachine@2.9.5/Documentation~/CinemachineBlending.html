@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Blending between Virtual Cameras | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Blending between Virtual Cameras | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBlending.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="blending-between-virtual-cameras">Blending between Virtual Cameras</h1>
+
+<p>Use blending properties to specify how the Cinemachine Brain component performs a blend between virtual cameras.</p>
+<p>A Cinemachine blend is not a fade, wipe, or dissolve. Rather, Cinemachine Brain performs a smooth animation of the position, rotation, and other settings of the Unity camera from one Virtual Camera to the next.</p>
+<p>For blends between specific Virtual Cameras, use the <strong>Custom Blends</strong> list in the Cinemachine Brain component. Use the <strong>Default Blend</strong> property in Cinemachine Brain to specify blends between Virtual Cameras that do not have custom blends.</p>
+<p><img src="images/CinemachineCustomBlends.png" alt="Custom Blends list in Cinemachine Brain"></p>
+<p>The <strong>From</strong> and <strong>To</strong> settings are name-based, not references. This means that Cinemachine finds cameras by matching their names to the settings. They are not linked to specific GameObjects.  The built-in dropdowns can be used to select a virtual camera from the current scene, or the name can be typed directly into the text boxes.  If a name does not match any virtual camera in the current scene, the field will be highlighted in yellow.</p>
+<p>Use the reserved name <strong>**ANY CAMERA**</strong> to blend from or to any Virtual Camera.</p>
+<p>When Cinemachine begins a transition from one virtual camera to another, it will look in this asset for an entry that matches the upcoming transition, and apply that blend definition.</p>
+<ul>
+<li>If none is found, then the CinemachineBrain's DefaultBlend setting will apply.</li>
+<li>If multiple entries in the Custom Blends asset match the upcoming transition, Cinemachine will choose the one with the strongest specificity.  For example, if blending from vcam1 to vcam2, and the custom blends asset contains an entry for <em>vcam1-to-AnyCamera</em>, and another entry for <em>vcam1-to-vcam2</em>, then the <em>vcam1-to-vcam2</em> entry will apply.</li>
+<li>If multiple entries in the Custom Blends asset match the upcoming transition with equally-strong specificity, then the first one found will apply.</li>
+</ul>
+<h2 id="properties">Properties:</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>From</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The name of the Virtual Camera to blend from. Use the name **ANY CAMERA** to blend from any Virtual Camera. This property is available only for custom blends.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>To</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The name of the Virtual Camera to blend to. Use the name **ANY CAMERA** to blend to any Virtual Camera. This property is available only for custom blends.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Style Default Blend</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Shape of the blend curve.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Cut</em></td>
+<td style="text-align: left;">Zero-length blend.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Ease In Out</em></td>
+<td style="text-align: left;">S-shaped curve, giving a gentle and smooth transition.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Ease In</em></td>
+<td style="text-align: left;">Linear out of the outgoing Virtual Camera, and ease into the incoming Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Ease Out</em></td>
+<td style="text-align: left;">Ease out of the outgoing Virtual Camera, and blend linearly into the incoming Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Hard In</em></td>
+<td style="text-align: left;">Ease out of the outgoing Virtual Camera, and accelerate into the incoming Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Hard Out</em></td>
+<td style="text-align: left;">Accelerate out of the outgoing Virtual Camera, and ease into the incoming Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Linear</em></td>
+<td style="text-align: left;">Linear blend. mechanical-looking.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Custom</em></td>
+<td style="text-align: left;">Custom blend curve. Allows you to draw a custom blend curve.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Time</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Duration (in seconds) of the blend.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBlending.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>2D Renderer and Shader Graph | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="2D Renderer and Shader Graph | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/ShaderGraph.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="2d-renderer-and-shader-graph">2D Renderer and Shader Graph</h1>
+
+<h2 id="creating-a-lit-shader">Creating a Lit Shader</h2>
+<ol>
+<li><p>Create a new Asset by selecting <strong>Assets &gt; Create &gt; Shader Graph &gt; URP &gt; Sprite Lit Shader Graph</strong>. The Shader Graph Asset is then created in the Asset window.</p>
+<p><img src="Images/2D/2d-urp12-create-lit-shader.png" alt="">
+<br></p>
+</li>
+<li><p>Double-click the new Asset to open the <strong>Shader Graph</strong>.
+<img src="Images/2D/2d-urp12-open-shader-graph.png" alt="">
+<br></p>
+</li>
+<li><p>Create three <strong>Sample Texture 2D</strong> Nodes by right-clicking on the Shader Graph window and selecting <strong>Create Node</strong>, then search for and select the <strong>Sample Texture 2D</strong> option.
+<img src="Images/2D/2d-urp12-create-node.png" alt="">
+<br></p>
+</li>
+<li><p>Change the <strong>Type</strong> of one of the Nodes to <strong>Normal</strong>.
+<img src="Images/2D/2d-urp12-3-node-normal.png" alt="">
+<br></p>
+</li>
+<li><p>Attach the RGBA(4) <strong>Output Slot</strong> of the <strong>Default Type</strong> Nodes as shown below. Note that you should attach the <strong>Normal Type</strong> Node's Output Slot to the <strong>Normal(Tangent Space)(3)</strong> Input Slot.
+<img src="Images/2D/2d-urp12-attach-textures.png" alt="">
+<br></p>
+</li>
+<li><p>Create three <strong>Texture 2D</strong> properties by selecting the <strong>+</strong> on the <a href="http://docs.unity3d.com/Packages/com.unity.shadergraph@12.0/manual/Blackboard.html">Blackboard</a>, and then select <strong>Texture 2D</strong>. Name them 'MainTex', 'MaskTex', and 'NormalMap' for this example.
+<img src="Images/2D/2d-urp12-3-create-texture-2D.png" alt=""> <img src="Images/2D/2d-urp12-3-three-textures.png" alt="">
+<br></p>
+</li>
+<li><p>Drag each of the <strong>Texture 2D</strong> properties onto the editor window. Attach each of the properties to the <strong>Input Slots</strong> of the Sample Texture 2D Nodes as shown below. Note that the 'NormalMap' property must be attached to the <strong>Normal Type</strong> Node only.
+<img src="Images/2D/2d-urp12-3-attach-properties.png" alt="">
+<br></p>
+</li>
+<li><p>Select <strong>Save Asset</strong> to save the Shader.
+<img src="Images/2D/2d-urp12-3-save-shader.png" alt=""></p>
+</li>
+</ol>
+<p>You can now apply the newly built Shader to materials.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/ShaderGraph.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

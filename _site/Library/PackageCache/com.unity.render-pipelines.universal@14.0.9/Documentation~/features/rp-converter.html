@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Render Pipeline Converter | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Render Pipeline Converter | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/features/rp-converter.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="render-pipeline-converter">Render Pipeline Converter</h1>
+
+<p>The <strong>Render Pipeline Converter</strong> converts assets made for a Built-in Render Pipeline project to assets compatible with URP.</p>
+<blockquote>
+<p><strong>NOTE:</strong> The conversion process makes irreversible changes to the project. Back up your project before the conversion.</p>
+</blockquote>
+<h2 id="how-to-use-the-render-pipeline-converter">How to use the Render Pipeline Converter</h2>
+<p>To convert project assets:</p>
+<ol>
+<li><p>Select <strong>Window</strong> &gt; <strong>Rendering</strong> &gt; <strong>Render Pipeline Converter</strong>. Unity opens the Render Pipeline Converter window.</p>
+<p><img src="../Images/rp-converter/rp-converter-dialog.png" alt="Render Pipeline Converter dialog"></p>
+</li>
+<li><p>Select the conversion type.</p>
+<p><img src="../Images/rp-converter/conversion-types.png" alt="Conversion type"></p>
+</li>
+<li><p>Depending on the conversion type, the dialog shows the available converters. Select or clear the check boxes next to converter names to enable or disable the converters.</p>
+<p><img src="../Images/rp-converter/select-converters.png" alt="Select converters"></p>
+<p>For the list of available converters, see the section <a href="#converters">Converters</a>.</p>
+</li>
+<li><p>Click <strong>Initialize Converters</strong>. The Render Pipeline Converter preprocesses the assets in the project and shows the list of elements to convert. Select or clear check boxes next to assets to include or exclude them from the conversion process.</p>
+<p><img src="../Images/rp-converter/initialize.png" alt="Initialize converters"></p>
+<p>The following illustration shows initialized converters.</p>
+<p><img src="../Images/rp-converter/after-initialize.png" alt="Initialized converters"></p>
+<p>Click a converter to see the list of items that a converter is about to convert.</p>
+<p><img src="../Images/rp-converter/converter-detailed-view.png" alt="Converter detailed view"></p>
+<p><strong>Yellow icon</strong>: a yellow icon next to an element indicates that a user action might be required to run the conversion. Hover the mouse pointer over the icon to see the description of the issue.</p>
+</li>
+<li><p>Click <strong>Convert Assets</strong> to start the conversion process.</p>
+<blockquote>
+<p><strong>NOTE:</strong> The conversion process makes irreversible changes to the project. Back up your project before the conversion.</p>
+</blockquote>
+<p>When the conversion process finishes, the window shows the status of each converter.</p>
+<p><img src="../Images/rp-converter/conversion-finished.png" alt="Conversion finished"></p>
+<p><strong>Green check mark</strong>: the conversion went without issues.</p>
+<p><strong>Yellow icon</strong>: the conversion finished with warnings and might require user action.</p>
+<p><strong>Red icon</strong>: the conversion failed.</p>
+</li>
+<li><p>Click a converter to see the list of processed items in that converter.</p>
+<p><img src="../Images/rp-converter/conversion-finished-details.png" alt="Conversion finished. Detailed view of a converter"></p>
+<p>After reviewing the converted project, close the Render Pipeline Converter window.</p>
+</li>
+</ol>
+<h2 id="converters">Conversion types and converters</h2>
+<p>The Render Pipeline Converter let's you select one of the following conversion types:</p>
+<ul>
+<li><p>Built-in Render Pipeline to URP</p>
+</li>
+<li><p>Built-in Render Pipeline 2D to URP 2D</p>
+</li>
+<li><p>Upgrade 2D URP Assets</p>
+</li>
+</ul>
+<p>When you select on of the conversion types, the tool shows you the available converters.</p>
+<p>The following sections describe the converters available for each conversion type.</p>
+<h3 id="built-in-render-pipeline-to-urp">Built-in Render Pipeline to URP</h3>
+<p>This conversion type converts project elements from the Built-in Render Pipeline to URP.</p>
+<p>Available converters:</p>
+<ul>
+<li><p><strong>Rendering Settings</strong></p>
+<p>This converter creates the URP Asset and Renderer assets. Then the converter evaluates the settings in the Built-in Render Pipeline project and converts them into equivalent properties in the URP assets.</p>
+</li>
+<li><p><strong>Material Upgrade</strong></p>
+<p>This converter converts the Materials. The converter works on pre-built Materials that are supplied by Unity, it does not support Materials with custom shaders.</p>
+</li>
+<li><p><strong>Animation Clip Converter</strong></p>
+<p>This converter converts the animation clips. It runs after the <strong>Material Upgrade</strong> converter finishes.</p>
+<blockquote>
+<p><strong>NOTE:</strong> This converter is available only if the project contains animations that affect the properties of Materials, or Post-processing Stack v2 properties.</p>
+</blockquote>
+</li>
+<li><p><strong>Read-only Material Converter</strong></p>
+<p>This converter converts the pre-built read-only Materials, where the <strong>Material Upgrade</strong> converter cannot replace the shader. This converter indexes the project and creates a temporary <code>.index</code> file, which might take a significant time.</p>
+<p>Examples of read-only Materials: <code>Default-Diffuse</code>, <code>Default-Line</code>, <code>Dafault-Terrain-Diffuse</code>, etc.</p>
+</li>
+<li><p><strong>Post-Processing Stack v2 Converter</strong></p>
+<p>This converter converts PPv2 Volumes, Profiles, and Layers to URP Volumes, Profiles, and Cameras. This converter indexes the project and creates a temporary <code>.index</code> file, which might take a significant time.</p>
+</li>
+</ul>
+<h3 id="built-in-render-pipeline-2d-to-urp-2d">Built-in Render Pipeline 2D to URP 2D</h3>
+<p>This conversion type converts elements of a project from Built-in Render Pipeline 2D to URP 2D.</p>
+<p>Available converters:</p>
+<ul>
+<li><p><strong>Material and Material Reference Upgrade</strong></p>
+<p>This converter converts all Materials and Material references from Built-in Render Pipeline 2D to URP 2D.</p>
+</li>
+</ul>
+<h3 id="upgrade-2d-urp-assets">Upgrade 2D URP Assets</h3>
+<p>This conversion type upgrades assets of a 2D project from an earlier URP version to the current URP version.</p>
+<p>Available converters:</p>
+<ul>
+<li><p><strong>Parametric to Freeform Light Upgrade</strong></p>
+<p>This converter converts all parametric lights to freeform lights.</p>
+</li>
+</ul>
+<h1 id="run-conversion-using-api-or-cli">Run conversion using API or CLI</h1>
+<p>The Render Pipeline Converter implements the <a href="xref:UnityEditor.Rendering.Universal.Converters">Converters</a> class with <a href="xref:UnityEditor.Rendering.Universal.Converters.RunInBatchMode(UnityEditor.Rendering.Universal.ConverterContainerId)">RunInBatchMode</a> methods that let you run the conversion process from a command line.</p>
+<p>For example, the following script initializes and executes the converters <strong>Material Upgrade</strong>, and <strong>Read-only Material Converter</strong>.</p>
+<pre><code class="lang-C#">using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEditor.Rendering.Universal;
+using UnityEngine;
+
+public class MyUpgradeScript : MonoBehaviour
+{
+    public static void ConvertBuiltinToURPMaterials()
+    {
+        Converters.RunInBatchMode(
+            ConverterContainerId.BuiltInToURP
+            , new List&lt;ConverterId&gt; {
+                ConverterId.Material,
+                ConverterId.ReadonlyMaterial
+            }
+            , ConverterFilter.Inclusive
+        );
+        EditorApplication.Exit(0);
+    }
+}
+</code></pre>
+<p>To run the example conversion from the command line, use the following command:</p>
+<pre><code>&quot;&lt;path to Unity application&gt; -projectPath &lt;project path&gt; -batchmode -executeMethod MyUpgradeScript.ConvertBuiltinToURPMaterials
+</code></pre>
+<p>See also: <a href="https://docs.unity3d.com/Manual/EditorCommandLineArguments.html">Unity Editor command line arguments</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/features/rp-converter.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

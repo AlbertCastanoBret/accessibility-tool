@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>POV | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="POV | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineAimPOV.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="pov">POV</h1>
+
+<p>This Virtual Camera <strong>Aim</strong> algorithm aims the camera in response to the user’s input.</p>
+<h2 id="properties">Properties:</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Vertical Axis</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Controls the vertical orientation of the Virtual Camera’s aim.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Value</em></td>
+<td style="text-align: left;">The current value of the axis to aim the camera at, in degrees. Accepted values are -90 to 90.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Value Range</em></td>
+<td style="text-align: left;">The minimum and maximum values for the vertical axis of the Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Wrap</em></td>
+<td style="text-align: left;">If checked, the axis wraps around the Value Range values, forming a loop.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Max Speed</em></td>
+<td style="text-align: left;">The maximum speed of this axis in degrees/second, or the multipler for the input value if Speed Mode is set to <em>InputValueGain</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Speed Mode</em></td>
+<td style="text-align: left;">How the axis responds to input. <em>MaxSpeed</em> (the default) clamps the maximum speed at which the axis can change, regardless of the input.  <em>Input Value Gain</em> multiplies the input value by MaxSpeed.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Accel Time</em></td>
+<td style="text-align: left;">The amount of time in seconds it takes to accelerate to Max Speed with the supplied axis at its maximum value.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Decel Time</em></td>
+<td style="text-align: left;">The amount of time in seconds it takes to decelerate the axis to zero if the supplied axis is in a neutral position.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Input Axis Name</em></td>
+<td style="text-align: left;">The name of this axis as specified in Unity Input Manager. To disable the automatic updating of this axis, set this property to an empty string.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Input Axis Value</em></td>
+<td style="text-align: left;">The value of the input axis. A value of 0 means no input. You can drive this directly from a custom input system, or you can set the Input Axis Name and have the value driven by the Unity Input Manager.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Invert</em></td>
+<td style="text-align: left;">Check to invert the raw value of the input axis before it is used.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vertical Recentering</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Controls automatic vertical recentering when the player gives no input.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Enabled</em></td>
+<td style="text-align: left;">Check to enable automatic vertical recentering.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Wait Time</em></td>
+<td style="text-align: left;">If no user input has been detected on the vertical axis, the camera waits this long in seconds before recentering.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Recentering Time</em></td>
+<td style="text-align: left;">Maximum angular speed of recentering. Accelerates into and decelerates out of this.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Horizontal Axis</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Controls the horizontal orientation.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Value</em></td>
+<td style="text-align: left;">The current value of the axis, in degrees. Accepted values are -180 to 180.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Value Range</em></td>
+<td style="text-align: left;">The minimum and maximum values for the axis.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Wrap</em></td>
+<td style="text-align: left;">If checked, the axis wraps around the Value Range values, forming a loop.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Max Speed</em></td>
+<td style="text-align: left;">The maximum speed of this axis in degrees/second, or the multipler for the input value if Speed Mode is set to <em>InputValueGain</em>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Speed Mode</em></td>
+<td style="text-align: left;">How the axis responds to input.  <em>MaxSpeed</em> (the default) clamps the maximum speed at which the axis can change, regardless of the input.  <em>Input Value Gain</em> multiplies the input value by MaxSpeed.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Accel Time</em></td>
+<td style="text-align: left;">The amount of time in seconds it takes to accelerate to Max Speed with the supplied Axis at its maximum value.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Decel Time</em></td>
+<td style="text-align: left;">The amount of time in seconds it takes to decelerate the axis to zero if the supplied axis is in a neutral position.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Input Axis Name</em></td>
+<td style="text-align: left;">The name of this axis as specified in the Unity Input Manager. Set this property to an empty string to disable automatic update of this axis.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Input Axis Value</em></td>
+<td style="text-align: left;">The value of the input axis. A value of 0 means no input. You can drive this directly from a custom input system, or you can set the Input Axis Name and have the value driven by the Unity Input Manager.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Invert</em></td>
+<td style="text-align: left;">Check to invert the raw value of the input axis before it is used.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Horizontal Recentering</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Controls automatic vertical recentering when the player gives no input.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Enabled</em></td>
+<td style="text-align: left;">Check to enable automatic vertical recentering.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Wait Time</em></td>
+<td style="text-align: left;">If no user input has been detected on the vertical axis, the camera waits this long in seconds before recentering.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Recentering Time</em></td>
+<td style="text-align: left;">Maximum angular speed of recentering. Accelerates into and decelerates out of this.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineAimPOV.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

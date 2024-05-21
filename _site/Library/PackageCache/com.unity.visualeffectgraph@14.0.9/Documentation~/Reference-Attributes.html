@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Standard Attribute Reference | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Standard Attribute Reference | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Reference-Attributes.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="standard-attribute-reference">Standard Attribute Reference</h1>
+
+<h2 id="standard-attributes">Standard Attributes</h2>
+<p>Here is a comprehensive List of all commonly used attributes, with a brief description and usages.</p>
+<h3 id="basic-simulation-attributes">Basic Simulation Attributes</h3>
+<p>The Initialize and Update Contexts use Simulation Attributes to apply behavior to <strong>simulated elements</strong> such as Particles or Particle Trails.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>position</code></td>
+<td>Vector3</td>
+<td>The position of a simulated element, expressed in the corresponding <a href="Systems.html">System Space</a>, in System Units</td>
+<td>(0,0,0)</td>
+</tr>
+<tr>
+<td><code>velocity</code></td>
+<td>Vector3</td>
+<td>The current self-velocity of the simulated element, expressed as a 3D Vector in the corresponding <a href="Systems.html">System Space</a>, in System Units per Second.</td>
+<td>(0,0,0)</td>
+</tr>
+<tr>
+<td><code>age</code></td>
+<td>float</td>
+<td>The age of the simulated element, since its spawn, expressed in Seconds.</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td><code>lifetime</code></td>
+<td>float</td>
+<td>The life expectancy of a simulated element, expressed in Seconds.</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td><code>alive</code></td>
+<td>bool</td>
+<td>Whether the simulated element is alive or not.</td>
+<td>true</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>float</td>
+<td>The size of a simulated element, in system Units.</td>
+<td>0.1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="advanced-simulation-attributes">Advanced Simulation Attributes</h3>
+<p>Some attributes are a bit more advanced and will be used by default in most simulations. However, you can alter these attributes to enhance how other attributes behave.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mass</code></td>
+<td>float</td>
+<td>The mass of a particle in Kg/dm^3</td>
+<td>1.0 (defaults to 1kg per liter of water)</td>
+</tr>
+<tr>
+<td><code>direction</code></td>
+<td>Vector</td>
+<td>You can use this attribute in the following ways:<br>•As a storage helper to store arbitrary direction.<br>•Use any block that sets a shape position to write to the direction attribute. For example, Set Position (Shape : Circle).</td>
+<td>(0.0, 0.0, 1.0)</td>
+</tr>
+<tr>
+<td><code>angle</code></td>
+<td>Vector3</td>
+<td><strong>Variadic:</strong> Euler rotation of a simulated element, expressed as a Vector of Degrees Values.</td>
+<td>(0,0,0)</td>
+</tr>
+<tr>
+<td><code>angularVelocity</code></td>
+<td>Vector3</td>
+<td><strong>Variadic:</strong> Euler rotation speed of a simulated element, expressed as a Vector of Degrees per second values.</td>
+<td>(0,0,0)</td>
+</tr>
+<tr>
+<td><code>oldPosition</code></td>
+<td>Vector3</td>
+<td><strong>Deprecated:</strong> This attribute is a storage Helper if you want to back-up current position of a simulated element, before integrating its velocity.</td>
+<td>(0,0,0)</td>
+</tr>
+<tr>
+<td><code>targetPosition</code></td>
+<td>Vector3</td>
+<td>This attribute has various purposes: it can be a storage Helper if you want to store a position to reach, then compute a vector in order to reach this Target Position. In Line Renderers, this attribute can be also used to set the end of each line particle.</td>
+<td>(0,0,0)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rendering-attributes">Rendering Attributes</h3>
+<p>Rendering Attributes are not used in simulation but are useful when you want to render a simulated element.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>color</code></td>
+<td>Vector3</td>
+<td>The R,G, and B Components of the Rendered Element.</td>
+<td>1,1,1</td>
+</tr>
+<tr>
+<td><code>alpha</code></td>
+<td>float</td>
+<td>The alpha Component of the Rendered Element</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>size</code></td>
+<td>float</td>
+<td>The uniform size of a rendered element, in system Units, applied to its <strong>unit representation</strong></td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><code>scale</code></td>
+<td>Vector3</td>
+<td>The Non-uniform Scale multiplier of a rendered element, applied to its <strong>unit representation</strong></td>
+<td>(1,1,1)</td>
+</tr>
+<tr>
+<td><code>pivot</code></td>
+<td>Vector3</td>
+<td>The Origin position of a rendered element, in its <strong>unit representation</strong></td>
+<td>(0,0,0)</td>
+</tr>
+<tr>
+<td><code>texIndex</code></td>
+<td>float</td>
+<td>The animation frame used for sampling Flipbook UVs for a rendered element.</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td><code>axisX</code></td>
+<td>Vector3</td>
+<td>The computed Right axis of the rendered Element.</td>
+<td>(1,0,0)</td>
+</tr>
+<tr>
+<td><code>axisY</code></td>
+<td>Vector3</td>
+<td>The computed Up axis of the rendered Element.</td>
+<td>(0,1,0)</td>
+</tr>
+<tr>
+<td><code>axisZ</code></td>
+<td>Vector3</td>
+<td>The computed Forward axis of the rendered Element.</td>
+<td>(0,0,1)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="system-attributes">System Attributes</h3>
+<p>System Attributes provide information about system values. These attributes are available as <strong>Read Only</strong>, which means you can only read them using the <code>Get &lt;Attribute&gt;</code> Operator.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>particleID</code></td>
+<td>uint</td>
+<td>A unique ID that refers to 1 particle</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>seed</code></td>
+<td>uint</td>
+<td>A unique seed used for random number computations.</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>spawnCount</code></td>
+<td>uint</td>
+<td>A SpawnEvent attribute available as Source Attribute in Spawn Contexts, that describes how many particles were spawned this frame.</td>
+<td>(0,0,0)</td>
+</tr>
+<tr>
+<td><code>spawnTime</code></td>
+<td>float</td>
+<td>A SpawnEvent attribute available as Source Attribute in Spawn Contexts, that contains a Spawn Context internal time (when exported using a <strong>Set Spawn Time</strong> Spawn Block)</td>
+<td>0.0</td>
+</tr>
+<tr>
+<td><code>particleIndexInStrip</code></td>
+<td>uint</td>
+<td>The index in the Particle Strip Ring Buffer where is located this element.</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h2 id="attribute-usage-and-implicit-behavior">Attribute Usage and Implicit Behavior</h2>
+<p>Some attributes combinations are used in various implicit cases during simulation and rendering. Here is a list of the usages and an explanation of their relationships.</p>
+<h4 id="velocity-and-position--integration">Velocity and Position : Integration</h4>
+<p>During an Update simulation : any system that uses the <code>velocity</code> attribute will  integrate the velocity to the positions, every frame.</p>
+<p>Velocity integration basically used the following formula: <code>position += velocity * deltaTime</code></p>
+<blockquote>
+<p>Automatic Velocity Integration can be disabled by selecting the Update Context, then setting the Integration enum to <strong>None</strong>.</p>
+</blockquote>
+<h4 id="age-lifetime-and-alive">Age, Lifetime and Alive</h4>
+<p>Setting a Lifetime attribute to a particle in an Initialize Context, will implicitly add the following behaviors to an Update Context:</p>
+<ul>
+<li>Particle will age using the formula <code>age += deltaTime</code></li>
+<li>Particles will be reaped using the formula : <code>alive = (age &lt; lifeTime)</code></li>
+</ul>
+<blockquote>
+<p>Automatic particle aging can be disabled by selecting the Update Context, then setting the Age Particles value to <strong>False</strong>.</p>
+</blockquote>
+<blockquote>
+<p>Automatic particle reaping can be disabled by selecting the Update Context, then setting the Reap Particles value to <strong>False</strong>.</p>
+</blockquote>
+<blockquote>
+<p><strong>Immortal Particles:</strong> Particles with no lifetime will be considered as immortal. You can still kill them explicitly by setting their <code>alive</code> attribute to <code>false</code>.</p>
+</blockquote>
+<h4 id="angle-and-angular-velocity--angular-integration">Angle and Angular Velocity : Angular Integration</h4>
+<p>During an Update simulation : any system that uses the <code>angularVelocity</code> attribute will  integrate the angular Velocity to the angles, every frame.</p>
+<p>Angular Velocity integration basically used the following formula: <code>angle += angularVelocity * deltaTime</code></p>
+<blockquote>
+<p>Automatic Velocity Integration can be disabled by selecting the Update Context, then setting the Angular Integration Enum to <strong>None</strong>.</p>
+</blockquote>
+<h4 id="axisx-axisy-and-axisz">AxisX, AxisY and AxisZ</h4>
+<p>These three attributes define the <strong>unit representation</strong> 3d coordinate system. While these axis are expected to be normalized, you can use non-normalized lengths and non-orthogonal angles between all three axis.</p>
+<blockquote>
+<p>Most of the time, these axis are set using the Orient Block (Output Context Only).</p>
+</blockquote>
+<h4 id="size-scale-and-pivot">Size, Scale and Pivot</h4>
+<p>In order to apply scaling and rotation to simulated elements, Visual Effect Graph uses 3 attributes:</p>
+<ul>
+<li><code>size</code> (float) : uniform size of the particle.</li>
+<li><code>scale</code>(Vector3) : per-axis size of the particle.</li>
+<li><code>pivot</code> (Vector3) : pivot position in the unit representation.</li>
+</ul>
+<p>The <strong>Pivot</strong> of a particle is computed in an unit box of size 1 : the <strong>unit representation</strong>. By default, it is (0,0,0), the center of the box. You can change its Value to adjust the center of the box. Every face is located at -0.5 or 0.5 in each axis.</p>
+<p><img src="Images/Pivot2D.png" alt="Pivot Representation in 2D"></p>
+<p>The pivot representation can be also generalized in 3D, with the Z Axis being used for depth.</p>
+<p><img src="Images/Pivot3D.png" alt="Unit box Representation in 3D"></p>
+<blockquote>
+<p>Using the Z-Component for Quad Particles using Camera Facing will pull the element towards the camera position or plane, or push it away so it appears more in front, or behind its actual position.</p>
+</blockquote>
+<p><strong>Scaling</strong> of a particle applies two multipliers the <strong>unit representation</strong> box:</p>
+<ul>
+<li>The uniform <code>size</code></li>
+<li>The non-uniform <code>scale</code></li>
+</ul>
+<p>You can use these attributes to perform uniform and non-uniform scaling independently. For example, use the particle scale to compute an initial random scale, and use the size attribute to animate every element, keeping its ratio.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Reference-Attributes.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

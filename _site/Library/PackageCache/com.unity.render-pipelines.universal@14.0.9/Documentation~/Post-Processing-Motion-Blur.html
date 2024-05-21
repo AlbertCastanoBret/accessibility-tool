@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Motion Blur | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Motion Blur | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Post-Processing-Motion-Blur.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="motion-blur">Motion Blur</h1>
+
+<p><img src="Images/post-proc/motion-blur-off.png" alt="Motion Blur off">
+<br><em>Scene with Motion Blur effect turned off.</em></p>
+<p><img src="Images/post-proc/motion-blur.png" alt="Motion Blur on">
+<br><em>Scene with Motion Blur effect turned on.</em></p>
+<p>The Motion Blur effect simulates the blur that occurs in an image when a real-world camera films objects moving faster than the camera’s exposure time. This is usually due to rapidly moving objects, or a long exposure time.</p>
+<p>Universal Render Pipeline (URP) only blurs camera motions.</p>
+<h2 id="using-motion-blur">Using Motion Blur</h2>
+<p><strong>Motion Blur</strong> uses the <a href="Volumes.html">Volume</a> system, so to enable and modify <strong>Motion Blur</strong> properties, you must add a <strong>Motion Blur</strong> override to a <a href="Volumes.html">Volume</a> in your Scene. To add <strong>Motion Blur</strong> to a Volume:</p>
+<ol>
+<li>In the Scene or Hierarchy view, select a GameObject that contains a Volume component to view it in the Inspector.</li>
+<li>In the Inspector, navigate to <strong>Add Override &gt; Post-processing</strong>, and click on <strong>Motion Blur</strong>. URP now applies <strong>Motion Blur</strong> to any Camera this Volume affects.</li>
+</ol>
+<h2 id="properties">Properties</h2>
+<p><img src="Images/Inspectors/MotionBlur.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quality</strong></td>
+<td>Set the quality of the effect. Lower presets give better performance, but at a lower visual quality.</td>
+</tr>
+<tr>
+<td><strong>Intensity</strong></td>
+<td>Set the strength of the motion blur filter to a value from 0 to 1. Higher values give a stronger blur effect, but can cause lower performance, depending on the <strong>Clamp</strong> parameter.</td>
+</tr>
+<tr>
+<td><strong>Clamp</strong></td>
+<td>Set the maximum length that the velocity resulting from Camera rotation can have.  This limits the blur at high velocity, to avoid excessive performance costs. The value is measured as a fraction of the screen's full resolution. The value range is 0 to 0.2. The default value is 0.05.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="troubleshooting-performance-issues">Troubleshooting performance issues</h2>
+<p>To decrease the performance impact of Motion Blur, you can:</p>
+<ul>
+<li>Reduce the <strong>Quality</strong>. A lower quality setting gives higher performance but may exhibit more visual artifacts.</li>
+<li>Decrease the <strong>Clamp</strong> to reduce the maximum velocity that Unity takes into account. Lower values give higher performance.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Post-Processing-Motion-Blur.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

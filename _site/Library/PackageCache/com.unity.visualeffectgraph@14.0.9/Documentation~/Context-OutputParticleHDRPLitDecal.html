@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Output Particle HDRP Lit Decal | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Output Particle HDRP Lit Decal | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-OutputParticleHDRPLitDecal.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="output-particle-hdrp-lit-decal">Output Particle HDRP Lit Decal</h1>
+
+<p>The <strong>Output Particle HDRP Lit Decal</strong> Context uses a decal to render a particle system. A decal is a box that the Visual Effect Graph projects a texture into. Unity renders that texture on any geometry that intersects the decal along its xy plane. This means decal particles that don’t intersect any geometry are not visible. When a decal is not visible, it still contributes to the resource intensity required to simulate and render the system.</p>
+<p>This Context can project its properties onto a surface using a Base Color map (albedo), a Normal Map, or a Mask Map. It does not support <a href="https://docs.unity3d.com/Packages/com.unity.shadergraph@latest">Shader Graph</a>. To use this context, enable <strong>Decals</strong> in the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html?subfolder=/manual/HDRP-Asset.html">HDRP Asset</a> and in the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest?subfolder=/manual/Frame-Settings.html">HDRP Settings</a>.</p>
+<p>Menu Path : <strong>Context &gt; Output Particle HDRP Lit Decal</strong></p>
+<p>The <strong>Output Particle HDRP Lit Decal</strong> Context can affect the following properties of the surface it projects onto:</p>
+<ul>
+<li>Base Color</li>
+<li>Metalness</li>
+<li>Ambient Occlusion</li>
+<li>Smoothness</li>
+<li>Normal</li>
+</ul>
+<p>The particles project their properties along their positive Z-axis.</p>
+<p>Below is a list of settings and properties specific to the Output Particle HDRP Lit Decal Context. For information about the generic output settings this Context shares with all other Contexts, see <a href="Context-OutputLitSettings.html">Output Lit Settings and Properties</a>.</p>
+<h1 id="context-settings">Context Settings</h1>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Normal Opacity Channel</strong></td>
+<td>Enum</td>
+<td>Use this drop-down to select the map that controls the opacity of the normal map opacity:• <strong>Base Color Map Alpha</strong>: Uses the alpha channel of the <strong>Base Map</strong>’s color picker to control the opacity.• <strong>Mask Map Blue</strong>: Uses the blue channel of the <strong>Mask Map</strong> to control opacity.</td>
+</tr>
+<tr>
+<td><strong>Mask Opacity Channel</strong></td>
+<td>Enum</td>
+<td>Use this drop-down to select the source of the <strong>Mask Map</strong> opacity:• <strong>Base Color Map Alpha</strong>: Uses the alpha channel of the <strong>Base Map</strong>’s color picker to control the opacity of the Mask Map.• <strong>Mask Map Blue</strong>: Uses the blue channel of the <strong>Mask Map</strong>  to control its opacity.</td>
+</tr>
+<tr>
+<td><strong>Affect Base Color</strong></td>
+<td>Bool</td>
+<td>Enable this checkbox to make this decal use the <strong>Base Color</strong> properties.  When this property is disabled the decal has no effect on the  Base Color.  HDRP still uses the alpha channel of the base color as an opacity for the other properties when this property is enabled or disabled.</td>
+</tr>
+<tr>
+<td><strong>Affect Metal</strong></td>
+<td>Bool</td>
+<td>Enable the checkbox to make the decal use the metallic property of its <strong>Mask Map</strong>. Otherwise the decal has no metallic effect. Uses the red channel of the <strong>Mask Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Affect Ambient Occlusion</strong></td>
+<td>Bool</td>
+<td>Enable this checkbox to make the decal use the ambient occlusion property of its <strong>Mask Map</strong>. When this property is disabled the decal has no ambient occlusion effect. This property uses the green channel of the <strong>Mask Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Affect Smoothness</strong></td>
+<td>Bool</td>
+<td>Enable this checkbox to make the decal use the smoothness property of its <strong>Mask Map</strong>.  When this property is disabled the decal has no smoothness effect.  This property uses the alpha channel of the <strong>Mask Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Decal Layer</strong></td>
+<td>Enum</td>
+<td>The layer that specifies which Materials Unity projects the decal onto.  Unity displays the decal onto any Mesh Renderers or Terrain that use a matching Decal Layer.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="context-properties">Context Properties</h1>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fade Factor</strong></td>
+<td>Float</td>
+<td>Change this value to fade the decal in and out. A value of 0 makes the decal fully transparent, and a value of 1 does not change the overall opacity.</td>
+</tr>
+<tr>
+<td><strong>Angle Fade</strong></td>
+<td>Vector2</td>
+<td>Use the min-max slider to control the fade out range of the decal (in degrees) based on the angle between the Decal backward direction and the vertex normal of the receiving surface.  This property is only available when the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@12.0/manual/Decal.html">Decal Layers</a> feature is enabled. This value is clamped between 0 and 180 degrees.</td>
+</tr>
+<tr>
+<td><strong>Ambient Occlusion</strong></td>
+<td>Float</td>
+<td>Use the slider to set the strength of the ambient occlusion effect of the decal. This property only has an effect when you enable the <strong>Metal and Ambient Occlusion properties</strong> checkbox in your <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@12.0/manual/HDRP-Asset.html#Decals">HDRP Asset</a>.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="limitations">Limitations</h1>
+<ul>
+<li>This Output does not support Shader Graph.</li>
+<li>For this Context to work, enable Decals in the HDRP Asset and in the HDRP Settings.</li>
+<li>Unity does not consider the <strong>Angle Fade</strong> value when <strong>Decal Layers</strong> is disabled in the HDRP Asset and the HDRP Settings.</li>
+<li>Unity only considers Metalness and Ambient Occlusion if the <strong>Rendering &gt; Decals &gt; Metal</strong> <strong>and Ambient Occlusion Properties</strong> are enabled in the HDRP Asset. When this property is disabled, the Metalness and Ambient Occlusion are visible, but they won’t have any effect.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-OutputParticleHDRPLitDecal.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

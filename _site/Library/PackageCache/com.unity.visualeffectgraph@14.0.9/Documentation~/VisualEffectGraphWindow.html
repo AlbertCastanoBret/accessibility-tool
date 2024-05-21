@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>The Visual Effect Graph window | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="The Visual Effect Graph window | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VisualEffectGraphWindow.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="the-visual-effect-graph-window">The Visual Effect Graph window</h1>
+
+<p>The Visual Effect Graph window is the main window for Visual Effect Graph. This is where you can edit Visual Effect Graph Assets, and Subgraph Assets. The window displays a workspace that consists of the Systems, Contexts, and Operators that a  <a href="VisualEffectGraphAsset.html">Visual Effect Graph Asset</a> contains.</p>
+<p><img src="Images/vfx-graph-window.png" alt="VisualEffectGraph-Window"></p>
+<h2 id="opening-the-visual-effect-graph-window">Opening the Visual Effect Graph window</h2>
+<p>To open the Visual Effect Graph window, you can use any of the following methods:</p>
+<ul>
+<li>In the Project window, double-Click a <a href="VisualEffectGraphAsset.html">Visual Effect Graph</a> Asset or <a href="Subgraph.html">SubGraph</a> Asset. You can also click the <strong>Open</strong> button in the Inspector for the respective Asset. This connects the Asset that you open to the window.</li>
+<li>In the Inspector for a <a href="VisualEffectComponent.html#the-visual-effect-inspector">Visual Effect component</a>, click the <strong>Edit</strong> button next to the <strong>Asset Template</strong> property. This connects the Asset assigned to <strong>Asset Template</strong> to the window.</li>
+<li>In the menu, select <strong>Window &gt; Visual Effects &gt; Visual Effect Graph</strong>. This opens an empty Visual Effect Graph window so you need to open a Visual Effect Graph Asset to use the editor.</li>
+</ul>
+<h2 id="the-visual-effect-graph-window-layout">The Visual Effect Graph window layout</h2>
+<p>Inside the Visual Effect Graph window, there are multiple zones and panels.</p>
+<p><img src="Images/vfx-graph-window-details.png" alt="VisualEffectGraphWindow"></p>
+<ul>
+<li><strong><a href="#Toolbar">Toolbar</a></strong> (Red) : This bar contains controls that affect the Visual Effect Graph globally. This includes controls that specify when Unity compiles the Visual Effect Graph as well as controls that let you display/hide certain panels.</li>
+<li><strong><a href="#NodeWorkspace">Node Workspace</a></strong> (Green) : This is where you can view and edit the Visual Effect Graph.</li>
+<li><strong><a href="#Blackboard">Blackboard</a></strong> (Blue) : This panel displays the properties that the Visual Effect Graph uses.</li>
+<li><strong><a href="#TargetGameObject">VFX Control</a></strong> (Purple) : This panel displays controls for the GameObject currently attached.</li>
+</ul>
+<p><a name="Toolbar"></a></p>
+<h3 id="toolbar">Toolbar</h3>
+<p>The Visual Effect Graph window Toolbar contains functionality to operate on a Visual Effect Graph Asset.</p>
+<p><img src="Images/vfx-toolbar.png" alt="Toolbar"></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Save</strong> <br> <img src="Images/save.png" alt=""></td>
+<td><strong>Action</strong> : Use this button to save the Visual Effect Graph that is currently open and its subgraphs.<br><strong>Dropdown</strong>:<br><br>• <strong>Save as…</strong>: Saves the Visual Effect Graph under a specified name and/or location.<br>• <strong>Show in Inspector</strong>: Focuses the Visual Effect Graph's Asset in the Inspector.</td>
+</tr>
+<tr>
+<td><strong>Compile</strong> <br> <img src="Images/compile.png" alt=""></td>
+<td><strong>Action</strong> : Recompiles the open Visual Effect Graph.<br><strong>Dropdown</strong>:<br><br>• <strong>Auto Compile</strong>: Automatically compiles the Visual Effect Graph.<br>• <strong>Auto Reinit</strong>: Automatically reinitializes an attached component when a value changes in the <strong>Spawner</strong> or <strong>Init</strong> contexts.<br>• <strong>Prewarm Time</strong>: Specifies the duration of the prewarm used with <strong>Auto Reinit</strong>. If the VFX already has a runtime prewarm, it ignores this setting.<br>•<strong>Runtime Mode</strong>: Forces optimized compilation, even when the editor is open.<br>• <strong>Shader Debug Symbols</strong>: Forces shader debug symbols generation when Unity compiles the authored VFX asset.<br>• <strong>Shader Validation</strong>: Forces shader compilation when the effect recompiles, even if no visual effect is visible. This displays the Shader errors in the Scene.</td>
+</tr>
+<tr>
+<td><strong>Auto Attach</strong> <br> <img src="Images/auto-attach.png" alt=""></td>
+<td><strong>Toggle</strong>: Toggles the visibility of the Auto Attachment panel. The <strong>Auto Attachment</strong> panel allows you to attach the open Visual Effect Graph to a GameObject by selecting it in the Hierarchy. Once you have attached the visual effect to a GameObject, it enables the Visual Effect controls in the VFX Control panel and allows you to tweak gizmos in the Scene View.</td>
+</tr>
+<tr>
+<td><strong>Lock</strong></td>
+<td><strong>Toggle</strong>: Toggles lock/unlock for auto attachments. If you set the toggle to unlocked - you can attach the open Visual Effect Graph to a GameObject by selecting items in the Hierarchy. If you set the toggle to locked - The GameObject that is currently attached becomes locked and auto attachments are disabled. The Visual Effect Graph then can not be attached by selecting items in the Hierarchy. You can manually keep the lock and change the attachment in the object picker of the Auto Attach panel.</td>
+</tr>
+<tr>
+<td><strong>Blackboard</strong> <br> <img src="Images/blackboard.png" alt=""></td>
+<td><strong>Toggle</strong>: Toggles the visibility of the <strong>Blackboard Panel</strong>.</td>
+</tr>
+<tr>
+<td><strong>VFX Control</strong> <br> <img src="Images/vfx-control.png" alt=""></td>
+<td><strong>Toggle</strong>: Toggles the visibility of the VFX Control.</td>
+</tr>
+<tr>
+<td><strong>Help</strong> <br> <img src="Images/help.png" alt=""></td>
+<td><strong>Toggle</strong>: Opens the Visual Effect Graph <a href="https://docs.unity3d.com/Packages/com.unity.visualeffectgraph@latest/">manual</a>.<br><br><strong>Dropdown</strong>:<br><br><strong>VFX Graph Additions</strong>: Installs pre-made visual effects and utility operators made with Visual Effect Graph. These include Bonfire, Lightning, Smoke and Sparks effect examples. There are also various operators and Subgraph Blocks:<br><br>• <strong>Get Strip Progress</strong>: A subgraph that calculates the progress of a particle in the strip in the range 0 to 1. You can use this to sample curves and gradients to modify the strip based on its progress.<br><br>• <strong>Encompass (Point)</strong>: A subgraph that grows the bounds of an AABox to encompass a point.<br><br>• <strong>Degrees to Radians and Radians to Degrees</strong>: Subgraphs that help you to convert between radians and degrees within your graph.<br><br><strong>Output Event Helpers</strong>: This version of the Visual Effect Graph introduces new helper scripts to the OutputEvent Helpers sample to help you to set up OutputEvents:<br><br>• <strong>Cinemachine Camera Shake</strong>: An Output Event Handler script that triggers a Camera shake through a <a href="https://docs.unity3d.com/Packages/com.unity.cinemachine@latest/index.html?subfolder=/manual/CinemachineImpulseSourceOverview.html">Cinemachine Impulse Source</a>, on a given output event.<br><br>• <strong>Play audio</strong>:  An Output Event Handler script that plays a single AudioSource on a given output event.<br><br>• <strong>Spawn a Prefab</strong>:  An Output Event Handler script that spawns Prefabs (managed from a pool) on a given output event. It uses position, angle, scale, and lifetime to position the Prefab and disable it after a delay. To synchronize other values, you can use other scripts inside the Prefab:<br><br>• <strong>Change Prefab Light</strong>: An example that demonstrates how to synchronize a light with your effect.<br><br>• <strong>Change Prefab RigidBody Velocity</strong>: An example that demonstrates how to synchronize changing the velocity of a RigidBody with your effect.<br><br>• <strong>RigidBody</strong>: An Output Event Handler script that applies a force or velocity change to a RigidBody on a given output event.<br><br>• <strong>Unity Event</strong>: An Output Event Handler that raises a UnityEvent on a given output event.<br><br>• <strong><a href="https://unity.com/visual-effect-graph">VFX Graph Home</a></strong>: Opens the Visual Effect Graph home page.<br><br>• <strong><a href="https://forum.unity.com/forums/visual-effect-graph.428/">Forum</a></strong>: Opens a Visual Effect Graph sub-forum.<br><br>• <strong>[Github] <a href="https://github.com/Unity-Technologies/SpaceshipDemo">Spaceship Demo</a></strong>: Opens a repository of AAA Playable First person demo showcasing effects made with Visual Effect Graph and rendered with the High Definition Render Pipeline.<br><br>• <strong>[Github] <a href="https://github.com/Unity-Technologies/VisualEffectGraph-Samples">VFX Graph Samples</a></strong>: Opens a repository that contains sample scenes and visual effects made with Visual Effect Graph.</td>
+</tr>
+<tr>
+<td><strong>Version Control</strong> <br> <img src="Images/version-control.png" alt=""></td>
+<td><strong>Action</strong>: When you enable <a href="https://docs.unity3d.com/Manual/Versioncontrolintegration.html">Version Control</a>, these buttons become available. Click the main button to check out the changes you made in the asset file.<br><br><strong>Dropdown</strong>:<br><br>• <strong>Get Latest</strong>: Updates the asset file with latest changes from the repository.<br>• <strong>Submit</strong>: Submits the current state of the asset to the Version Control System.<br>• <strong>Revert</strong>: Discards the changes you made to the asset.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="NodeWorkspace"></a></p>
+<h3 id="node-workspace">Node Workspace</h3>
+<p>The Node workspace is the area below the toolbar. Here you can navigate and edit the graph. The Node workspace also holds the <strong>Blackboard</strong> and <strong>Target VisualEffect GameObject</strong> panels.</p>
+<p><a name="Blackboard"></a></p>
+<h3 id="blackboard">Blackboard</h3>
+<p>The <strong>Blackboard</strong> is a panel that allows you to manage properties that the Visual Effect Graph uses. It is a floating panel that is independent of the zoom and position of the current Workspace view. The window always displays this panel on top of Nodes in the <strong>Node Workspace</strong>.</p>
+<p>To resize this panel, click on any edge or corner and drag. To reposition this panel, click on the header of the panel and drag.</p>
+<p>For more information, see <a href="Blackboard.html">Blackboard</a>.</p>
+<p><a name="TargetGameObject"></a></p>
+<h3 id="vfx-control">VFX Control</h3>
+<p>The VFX Control panel displays the controls for the GameObject it is currently attached to. It enables you to:</p>
+<ul>
+<li>Control playback options</li>
+<li>Trigger Events</li>
+<li>Use Debug Modes</li>
+<li>Record the bounds of the visual effect. For more information about bounds recording, see <a href="visual-effect-bounds.html">Visual effect bounds</a>.</li>
+</ul>
+<p>It is a floating panel that is independent of the zoom and position of the current Workspace view. The window always displays this panel on top of Nodes in the <strong>Node Workspace</strong>.</p>
+<p>To resize this panel, click on any edge or corner and drag. To reposition this panel, click on the header of the panel and drag.</p>
+<h2 id="using-the-node-workspace">Using the Node Workspace</h2>
+<h3 id="navigating-the-workspace">Navigating the Workspace</h3>
+<p>The navigation controls for the Node Workspace are similar to those that other graph-based Unity features use:</p>
+<h4 id="move-around-the-graph">Move around the graph:</h4>
+<ul>
+<li>Middle click and drag.</li>
+<li>Hold the <strong>Alt</strong> key, click and drag.</li>
+</ul>
+<h4 id="zoom-in-and-out-using-">Zoom in and out using :</h4>
+<ul>
+<li>To zoom in, scroll the Mouse Wheel up.</li>
+<li>To zoom out, scroll the Mouse Wheel down.</li>
+</ul>
+<h4 id="select-elements">Select elements:</h4>
+<ul>
+<li>To select elements individually, click on them.
+<ul>
+<li>To add to/remove an element from the current selection, hold the <strong>Ctrl</strong> key and click on it.</li>
+</ul>
+</li>
+<li>To create a selection rectangle, click in empty space and drag. This selects every element that the rectangle touches.
+<ul>
+<li>You can use a selection rectangle to add to/remove elements from the current selection. To do this, hold the <strong>Ctrl</strong> key and use the method described above to create a new selection rectangle.</li>
+</ul>
+</li>
+<li>To create a selection marquee, hold the <strong>Shift</strong> key, click in empty space, and drag to create a path. This selects every element that the path/marquee touches.</li>
+<li>To clear the current selection, click in empty space.</li>
+</ul>
+<h4 id="focus">Focus</h4>
+<ul>
+<li>To focus on a specific Node/group of Nodes, select the Node/Nodes and press the <strong>F</strong> key.</li>
+<li>To focus on the entire graph, clear the current selection and press the <strong>F</strong> key.</li>
+</ul>
+<h4 id="copy-cut-and-paste-and-duplicate-elements">Copy, Cut and Paste, and Duplicate elements:</h4>
+<ul>
+<li>Right click on an element, or group of elements, to open a menu that displays relevant commands.</li>
+<li>Keyboard Shortcuts:
+<ul>
+<li><strong>Copy</strong>: Ctrl+C.</li>
+<li><strong>Cut</strong>: Ctrl+X.</li>
+<li><strong>Paste</strong>: Ctrl+V.</li>
+<li><strong>Duplicate</strong>: Ctrl+D.</li>
+<li><strong>Duplicate with edges</strong>: Ctrl+Alt+D.</li>
+</ul>
+</li>
+</ul>
+<h3 id="adding-graph-elements">Adding graph elements</h3>
+<p>To add graph elements, you can use any of the following methods:</p>
+<ul>
+<li><strong>Right-click Menu</strong> : Right-click to open the menu, select <strong>Add Node</strong>, then select the <strong>Node</strong> you want to add from the menu. This action is context-sensitive, based on the element that is below your cursor, and only provides you with graph elements that are compatible.</li>
+<li><strong>Spacebar Menu</strong> : This shortcut is the equivalent of making a right-click, then selecting <strong>Add Node</strong>.</li>
+<li>Interactive Connections : When creating an edge from a port (either property or workflow), drag the edge around and release the click into empty space to display the Node Menu. This action is context-sensitive, based on the source port's type, and only provides you with compatible graph elements that you can connect to.</li>
+</ul>
+<h3 id="manipulating-graph-elements">Manipulating graph elements</h3>
+<p>You can manipulate graph elements in the workspace :</p>
+<h4 id="moving-elements">Moving elements</h4>
+<ul>
+<li>To move an element around the workspace, left click on the element's header, drag the element to a new position, and release the mouse button.</li>
+<li>To move <a href="Blocks.html">Blocks</a> inside a Context, or move them to another Context, click on the Block's header, drag the Block to a new position, and release the mouse button.</li>
+</ul>
+<h4 id="resizing-elements">Resizing elements</h4>
+<p>Some elements, such as Sticky Notes, support resizing. To do this, click on any edge or corner, drag until you reach the desired element size, and release the mouse button.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/VisualEffectGraphWindow.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

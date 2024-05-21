@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Cinemachine Blend List Camera | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Cinemachine Blend List Camera | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBlendListCamera.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="cinemachine-blend-list-camera">Cinemachine Blend List Camera</h1>
+
+<p>The <strong>Cinemachine Blend List Camera</strong> component executes a sequence of blends or cuts among its child Virtual Cameras.</p>
+<p>When the Blend List camera is activated, it executes its list of instructions, activating the first child Virtual Camera in the list, holding for a designated time, then cutting or blending to the next child, and so on. The Blend List camera holds the last Virtual Camera until Cinemachine Brain or Timeline deactivates the Blend List camera.</p>
+<p><strong>Tip</strong>: Use a Blend List Camera instead of  <a href="CinemachineTimeline.html">Timeline</a> for simpler, automatic sequences.</p>
+<h2 id="properties">Properties:</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Solo</strong></td>
+<td style="text-align: left;">Toggles whether or not the Blend List camera is temporarily live. Use this property to get immediate visual feedback in the <a href="https://docs.unity3d.com/Manual/GameView.html">Game view</a> to adjust the Virtual Camera.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Game Window Guides</strong></td>
+<td style="text-align: left;">Toggles the visibility of compositional guides in the Game view. This property applies to all Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Save During Play</strong></td>
+<td style="text-align: left;">Check to <a href="CinemachineSavingDuringPlay.html">apply the changes while in Play mode</a>.  Use this feature to fine-tune a Virtual Camera without having to remember which properties to copy and paste. This property applies to all Virtual Cameras.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Priority</strong></td>
+<td style="text-align: left;">The importance of this Blend List camera for choosing the next shot. A higher value indicates a higher priority. Cinemachine Brain chooses the next live Virtual Camera from all Virtual Cameras that are activated and have the same or higher priority as the current live Virtual Camera. This property has no effect when using a Virtual Camera with Timeline.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Standby Update</strong></td>
+<td style="text-align: left;">Controls how often the virtual camera is updated when the virtual camera is not live.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Loop</strong></td>
+<td style="text-align: left;">When enabled, the child virtual cameras will cycle indefintely instead of stopping on the last virtual camera in the list.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Look At</strong></td>
+<td style="text-align: left;">The default target GameObject that the children Virtual Camera move with. The Blend List camera uses this target when the child does not specify this target. May be empty if all of the children define targets of their own.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Follow</strong></td>
+<td style="text-align: left;">The default target GameObject to aim the Unity camera at. The Blend List camera uses this target when the child does not specify this target. May be empty if all of the children define targets of their own.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Show Debug Text</strong></td>
+<td style="text-align: left;">Check to display a textual summary of the live Virtual Camera and blend in the view.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Enable All Child Cameras</strong></td>
+<td style="text-align: left;">Check to activate all child cameras. This is useful if animating them in Timeline, but consumes extra resources.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Instructions</strong></td>
+<td style="text-align: left;">The set of instructions for enabling child cameras.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineBlendListCamera.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>The SDF Bake Tool window | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="The SDF Bake Tool window | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sdf-bake-tool-window.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="the-sdf-bake-tool-window">The SDF Bake Tool window</h1>
+
+<p>The SDF Bake Tool window generates <a href="sdf-in-vfx-graph.html">Signed Distance Field</a> (SDF) assets from a Mesh or a Prefab that contains Meshes. The SDF Bake Tool window works in the Unity Editor. To bake an SDF at runtime, see <a href="sdf-bake-tool-api.html">SDF Bake Tool API</a>.</p>
+<p>To open the SDF Bake Tool window, select <strong>Window</strong> &gt; <strong>Visual Effects</strong> &gt; <strong>Utilities</strong> &gt; <strong>SDF Bake Tool</strong>.</p>
+<h2 id="working-with-the-sdf-bake-tool-window">Working with the SDF Bake Tool window</h2>
+<p>In the Unity Editor, in the <a href="VisualEffectGraphWindow.html">Visual Effect Graph window</a>, blocks and operators, such as <a href="Block-CollideWithSignedDistanceField.html">Collide With Signed Distance Field</a>, take an SDF as an input.</p>
+<p><img src="Images/sdf-update-particle-context.png" alt=""></p>
+<p><em>A screenshot of the Update Particle context.</em></p>
+<p>To create an SDF asset to use in the Unity Editor, you can use the SDF Bake Tool window:</p>
+<ol>
+<li>Open the SDF Bake Tool window (menu: <strong>Window</strong> &gt; <strong>Visual Effects</strong> &gt; <strong>Utilities</strong> &gt; <strong>SDF Bake Tool</strong>)<br><img src="Images/sdf-bake-tool-window.png" alt=""><br><em>The SDF Bake Tool window previewing a Mesh asset and its SDF representation.</em></li>
+<li>Choose an asset to generate an SDF representation for. If you want to generate an SDF to represent a single Mesh asset, set <strong>Model Source</strong> to <strong>Mesh</strong>. If you want to generate an SDF that represents multiple Meshes, set <strong>Model Source</strong> to <strong>Prefab</strong>. This mode generates an SDF that represents the combination of every Mesh in a Prefab's hierarchy.</li>
+<li>By default, the SDF Bake Tool sets the bounds of the <a href="sdf-bake-tool.html#baking-box">baking box</a> to be equal to the bounding box of the geometry. To scale the baking box, use <strong>Box Size</strong>. To move the baking box, use <strong>Box Center</strong>.</li>
+<li>Choose a <strong>Maximal Resolution</strong> for the resulting SDF texture. The <strong>Maximal Resolution</strong> corresponds to the resolution along the longest side of the box.</li>
+<li>To preview the result with the current properties, select <strong>Bake Mesh</strong>. If <strong>Preview Object</strong> is set to <strong>None</strong> or <strong>Mesh</strong>, the SDF Bake Tool window does not display the resulting SDF texture. To display the texture, set <strong>Preview Object</strong> to either <strong>Mesh And Texture</strong> or <strong>Texture</strong>. If you want the preview to update in real time as you change values, enable <strong>Live Update</strong>. Note that baking an SDF is a resource-intensive operation. Enabling <strong>Live Update</strong> can cause slowdowns or instabilities depending on the capabilities of your computer.</li>
+<li>If the input Mesh does not explicitly separate its interior from its exterior (for example if it contains holes, self-intersections, open boundaries, or self-containing geometry), the resulting SDF can misclassify some regions. To help mitigate these artifacts, there are Additional Properties](#properties) that you can manually expose.</li>
+<li>Save the SDF as an asset in your project: select <strong>Save SDF</strong>. The SDF Bake tool window saves the SDF that is currently visible in the preview.</li>
+</ol>
+<p>You can now use the resulting SDF asset as an input for several blocks and operators. For a list of blocks and operators that use SDF assets, see <a href="sdf-in-vfx-graph.html">SDFs in the Visual Effect Graph</a>.</p>
+<p>To make it easier to iterate over signed distance fields, the SDF Bake Tool window uses an asset to store its property values. This enables you to save and restore the settings you used to create a particular SDF texture asset. The window exposes this asset in the <strong>Settings Asset</strong> property. To save the current property values to the asset, click <strong>Save Settings</strong>. To restore the settings from another asset, use one of the following methods:</p>
+<ul>
+<li>Assign the asset to the <strong>Settings Asset</strong> property.</li>
+<li>With the SDF Bake Tool window open, select the asset in the Project window.</li>
+<li>In the Project window, double-click the asset. If the SDF Bake Tool window isn't open, this opens the window and assigns the asset.</li>
+</ul>
+<p>Note: To use the SDF asset with the <a href="Block-CollideWithSignedDistanceField.html">Collide With Signed Distance Field</a> block. In the block, set the <strong>Size</strong> of the <strong>Field Transform</strong> to match the <strong>Box Size</strong> that you used in the SDF Bake Tool.</p>
+<h2 id="properties">Properties</h2>
+<p>The SDF Bake Tool window includes default properties, which should suit most use cases, and additional properties that further tweak the baking process. The additional properties are invisible by default. To show them:</p>
+<ol>
+<li>To the right of the window's header, select the <strong>More</strong> menu (⋮).</li>
+<li>Enable <strong>Show Additional Properties</strong>.</li>
+</ol>
+<p><img src="Images/sdf-bake-tool-additional-properties.png" alt=""></p>
+<p><em>The SDF Bake Tool window and the context menu that includes the additional properties toggle.</em></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Settings Asset</strong></td>
+<td>Specifies the settings asset that stores the properties in this window. To save the current settings, click <strong>Save Settings</strong>. To restore the settings from another asset, either assign the asset to this property, select the asset while the window is open, or double-click the asset while the window is closed.</td>
+</tr>
+<tr>
+<td><strong>Maximal resolution</strong></td>
+<td>The resolution of the largest side of the resulting 3D texture.</td>
+</tr>
+<tr>
+<td><strong>Box Center</strong></td>
+<td>The center of the <a href="sdf-bake-tool.html#baking-box">baking box</a>.</td>
+</tr>
+<tr>
+<td><strong>Desired Box Size</strong></td>
+<td>The desired per-axis size of the <a href="sdf-bake-tool.html#baking-box">baking box</a>.</td>
+</tr>
+<tr>
+<td><strong>Actual Box Size</strong></td>
+<td>The actual per-axis size of the <a href="sdf-bake-tool.html#baking-box">baking box</a>. This might slightly differ from the Desired Box Size, to ensure that the voxels in the texture are cubic.</td>
+</tr>
+<tr>
+<td><strong>Live Update</strong></td>
+<td>Indicates whether to update the preview in real time. If you enable this property, the SDF Bake Tool rebakes the Mesh every time a property in this window changes. This can be a resource-intensive operation if you set the <strong>Maximal Resolution</strong> or <strong>Sign Passes Count</strong> to a high value.</td>
+</tr>
+<tr>
+<td><strong>Lift Size Limit</strong></td>
+<td>Enable this property to bake to a higher resolution than the default maximum of 256<sup>3</sup>. When you enable this property, the baked texture can have up to 512<sup>3</sup> voxels. A high resolution can be resource-intensive.<br><br> When the baking box is not a cube the <strong>Maximal resolution</strong> is the number of voxels along the longest axis. This means the maximal resolution can be higher than 512.<br><br>This property only appears if you <a href="#properties">show additional properties</a>.</td>
+</tr>
+<tr>
+<td><strong>Baking Parameters</strong></td>
+<td>When the input geometry does not explicitly separate an inside from the outside, for example, because of holes or self-intersection, the baking process can produce unwanted results. The properties in this <strong>Baking Parameters</strong> section of the Inspector can help to mitigate these cases.<br><br>The properties in this section only appear if you <a href="#properties">show additional properties</a>.</td>
+</tr>
+<tr>
+<td>- <strong>Sign Passes Count</strong></td>
+<td>The number of neighboring texels that the SDF Bake Tool uses to calculate whether the current texel is inside or outside the Mesh. Increasing this value reduces artifacts caused by geometry that do not explicitly separate an inside from the outside (for example because of holes or self-intersection).<br><br>This property only appears if you <a href="#properties">show additional properties</a>.</td>
+</tr>
+<tr>
+<td>- <strong>In/Out Threshold</strong></td>
+<td>The threshold from which the SDF Bake Tool considers voxels to be outside. To separate the insides of the geometry from the outside, each texel in the texture has a score that determines whether or not it is outside. Low values for this property mean the SDF Bake Tool considers more points as inside. High values for this property mean the SDF Bake Tool considers more points to be outside.<br><br>This property only appears if you <a href="#properties">show additional properties</a>.</td>
+</tr>
+<tr>
+<td>- <strong>Surface Offset</strong></td>
+<td>Scales the surface of the SDF. Positive values enlarge the surface of the SDF and negative values shrink the surface of the SDF.<br><br>This property only appears if you <a href="#properties">show additional properties</a>.</td>
+</tr>
+<tr>
+<td><strong>Fit Padding</strong></td>
+<td>Per-axis padding to apply when using the <strong>Fit Box to Mesh</strong> and <strong>Fit Cube to Mesh</strong> buttons.  <br><br>This property only appears if you <a href="#properties">show additional properties</a>.</td>
+</tr>
+<tr>
+<td><strong>Fit Box to Mesh</strong></td>
+<td>Sets the center and size of the <a href="sdf-bake-tool.html#baking-box">baking box</a> so that it fits the bounds of the Mesh. To add padding around the Mesh, use the <strong>Fit Padding</strong> property.</td>
+</tr>
+<tr>
+<td><strong>Fit Cube to Mesh</strong></td>
+<td>Sets the center and size of the <a href="sdf-bake-tool.html#baking-box">baking box</a> so that it is the smallest possible cube that contains bounds of the Mesh. The cube's side length thus matches the longest side of the Mesh. To add padding around the Mesh, use the <strong>Fit Padding</strong> property.</td>
+</tr>
+<tr>
+<td><strong>Model Source</strong></td>
+<td>Specifies the source of the input Mesh. The options are:<br>• <strong>Mesh</strong>: Directly uses a Mesh asset as the input Mesh.<br>• <strong>Mesh Prefab</strong>: Uses all the Meshes within a Prefab as the input. This mode creates one SDF that represents the combination of all the Meshes in the Prefab's hierarchy.</td>
+</tr>
+<tr>
+<td><strong>Mesh</strong></td>
+<td>The Mesh to generate an SDF for.<br><br>This property only appears if you set <strong>Model Source</strong> to <strong>Mesh</strong>.</td>
+</tr>
+<tr>
+<td><strong>Mesh Prefab</strong></td>
+<td>The Prefab to generate an SDF for. The SDF Bake tool creates an SDF that represents the combination of all the Meshes in this Prefab's hierarchy. The Prefab must contain at least one Mesh Filter or Skinned Mesh Renderer that references a Mesh. For Skinned Mesh Renderers, the SDF Bake Tool uses the Mesh in its rest pose.<br><br>This property only appears if you set <strong>Model Source</strong> to <strong>Mesh Prefab</strong>.</td>
+</tr>
+<tr>
+<td><strong>Preview Object</strong></td>
+<td>Specifies how the SDF Bake Tool displays a preview of the SDF. If you want the preview to include the output SDF texture, you need to bake the input Mesh at least once. If you preview the output SDF texture, this is the exact texture the SDF Bake Tool saves when you select <strong>Save SDF</strong>. The options for this property are:<br>• <strong>Mesh And Texture</strong>: Displays both the input Mesh and the output SDF texture side-by-side. <br>• <strong>Mesh</strong>: Displays a preview of the input Mesh.<br>• <strong>Texture</strong>: Displays a preview of the output SDF texture.<br>• <strong>None</strong>: Does not show a preview.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/sdf-bake-tool-window.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

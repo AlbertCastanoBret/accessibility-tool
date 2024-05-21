@@ -1,0 +1,245 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/LightTypes.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<h2 id="freeform">Freeform</h2>
+<p><img src="Images/2D/LightType_Freeform.png" alt="Freeform Properties"></p>
+<p>Select the <strong>Freeform</strong> Light type to create a Light from an editable polygon with a spline editor. To begin editing your shape, select the Light and find the <img src="Images/2D/image_20.png" alt="">button in its Inspector window. Select it to enable the shape editing mode.</p>
+<p>Add new control points by clicking the mouse along the inner polygon’s outline. Remove control points selecting the point and pressing the Delete key.</p>
+<p>The following additional properties are available to the <strong>Freeform</strong> Light type.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Falloff</strong></td>
+<td>Adjust the amount the blending from solid to transparent, starting from the center of the shape to its edges.</td>
+</tr>
+<tr>
+<td><strong>Falloff Intensity</strong></td>
+<td>Adjusts the falloff curve of the Light.</td>
+</tr>
+<tr>
+<td><strong>Falloff Offset</strong></td>
+<td>Sets the offset for the outer falloff shape.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><img src="Images/2D/image_21.png" alt="Light Editing Mode"></th>
+<th><img src="Images/2D/image_22.png" alt="Light Effect"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Freeform Light in edit mode</td>
+<td>Resulting Light Effect</td>
+</tr>
+</tbody>
+</table>
+<p>When creating a <strong>Freeform</strong> Light, take care to avoid self-intersection as this may cause unintended lighting results. Self-intersection may occur by creating outlines where edges cross one another, or by enlarging falloff until it overlaps itself. To prevent such issues, it is recommended to edit the shape of the Light until the conditions creating the self-intersection no longer occur.</p>
+<table>
+<thead>
+<tr>
+<th><img src="Images/2D/2D_FreeformOutlineIntersection0.png" alt="Freeform Self Intersection"></th>
+<th><img src="Images/2D/2D_FreeformOutlineIntersection1.png" alt="Freeform Self Intersection"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Outline self-intersection in Edit mode.</td>
+<td>Light effect with a black triangular artifact</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><img src="Images/2D/2D_FreeformFalloffIntersection0.png" alt="Freeform Self Intersection"></th>
+<th><img src="Images/2D/2D_FreeformFalloffIntersection1.png" alt="Freeform Self Intersection"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Falloff overlap in Edit mode</td>
+<td>Light effect with double lighted areas with overlapping falloff</td>
+</tr>
+</tbody>
+</table>
+<h2 id="parametric">Parametric</h2>
+<p>The <strong>Parametric</strong> light type has been deprecated. To convert existing Parametric lights to <strong>Freeform</strong> lights, Edit &gt; Rendering &gt; Lights &gt; Upgrade Project/Scene URP Parametric Lights to Freeform</p>
+<h2 id="sprite">Sprite</h2>
+<p>Select the <strong>Sprite</strong> Light type to create a Light based on a selected Sprite by assigning the selected Sprite to the additional Sprite property.</p>
+<p><img src="Images/2D/LightType_Sprite.png" alt="The Sprite property"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sprite</strong></td>
+<td>Select a Sprite as the Light source.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><img src="Images/2D/image_24.png" alt="Selected Sprite"></th>
+<th><img src="Images/2D/image_25.png" alt="Resulting Light effect"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Selected Sprite</td>
+<td>Resulting Light effect</td>
+</tr>
+</tbody>
+</table>
+<h2 id="spot">Spot</h2>
+<p>Select the <strong>Spot</strong> Light type for great control over the angle and direction of the selected Light with the following additional properties.</p>
+<p><img src="Images/2D/LightType_Point.png" alt="Point Light properties"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Radius Inner</strong></td>
+<td>Set the inner radius here or with the gizmo. Light within the inner radius will be at maximum <a href="2DLightProperties.html#intensity">intensity</a>.</td>
+</tr>
+<tr>
+<td><strong>Radius Outer</strong></td>
+<td>Set the outer radius here or with the gizmo. Light intensity decreases to zero as it approaches the outer radius.</td>
+</tr>
+<tr>
+<td><strong>Inner / Outer Spot Angle</strong></td>
+<td>Set the angles with this slider or with the gizmo. Light within the inner and outer angles will be at the intensity specified by inner and outer radius.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><img src="Images/2D/image_27.png" alt="Point Light editing Mode"></th>
+<th><img src="Images/2D/image_28.png" alt="Resulting light effect"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point Light in Edit mode</td>
+<td>Resulting Light effect</td>
+</tr>
+</tbody>
+</table>
+<h2 id="global">Global</h2>
+<p>Global Lights light all objects on the <a href="2DLightProperties.html#target-sorting-layers">targeted sorting layers</a>. Only one global Light can be used per <a href="LightBlendStyles.html">Blend Style</a>, and per sorting layer.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/LightTypes.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

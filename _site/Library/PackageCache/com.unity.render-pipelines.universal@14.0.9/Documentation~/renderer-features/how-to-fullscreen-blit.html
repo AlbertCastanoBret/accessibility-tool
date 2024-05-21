@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Perform a full screen blit in URP | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Perform a full screen blit in URP | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/renderer-features/how-to-fullscreen-blit.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="perform-a-full-screen-blit-in-urp">Perform a full screen blit in URP</h1>
+
+<p>The example on this page describes how to create a custom Renderer Feature that performs a full screen blit.</p>
+<h2 id="example-overview">Example overview</h2>
+<p>This example implements the following solution:</p>
+<ul>
+<li><p>A <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@12.0/api/UnityEngine.Rendering.Universal.ScriptableRendererFeature.html">custom Renderer Feature</a> calls a custom <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@12.0/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html">Render Pass</a>.</p>
+</li>
+<li><p>The <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@12.0/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html">Render Pass</a> blits the Opaque Texture to the the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@7.0/api/UnityEngine.Rendering.Universal.ScriptableRenderer.html#UnityEngine_Rendering_Universal_ScriptableRenderer_cameraColorTarget">Camera color target</a> for the current renderer. The render pass uses the command buffer to draw a full screen mesh for both eyes.</p>
+</li>
+</ul>
+<p>The example includes <a href="#shader">the shader</a> that performs the GPU side of the rendering. The shader samples the color buffer using XR sampler macros.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>This example requires the following:</p>
+<ul>
+<li>The <strong>Scriptable Render Pipeline Settings</strong> property refers to a URP asset (<strong>Project Settings</strong> &gt; <strong>Graphics</strong> &gt; <strong>Scriptable Render Pipeline Settings</strong>).</li>
+</ul>
+<h2 id="example-objects">Create example Scene and GameObjects</h2>
+<p>To follow the steps in this example, create a new Scene with the following GameObjects:</p>
+<ol>
+<li><p>Create a Cube. Ensure that the Cube is clearly visible from the main Camera.</p>
+<p><img src="../Images/how-to/blit/example-scene.png" alt=""></p>
+</li>
+</ol>
+<p>Now you have the Scene necessary to follow the steps in this example.</p>
+<h2 id="example-implementation">Example implementation</h2>
+<p>This section assumes that you created a Scene as described in section <a href="#example-objects">Create example Scene and GameObjects</a>.</p>
+<p>Follow these steps to create a <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@12.0/api/UnityEngine.Rendering.Universal.ScriptableRendererFeature.html">custom Renderer Feature</a> with a custom <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@12.0/api/UnityEngine.Rendering.Universal.ScriptableRenderPass.html">Render Pass</a>.</p>
+<ol>
+<li><p>Create a new C# script. Call it <code>ColorBlitRendererFeature.cs</code>. This script implements the custom Renderer Feature.</p>
+<pre><code class="lang-C#">using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+internal class ColorBlitRendererFeature : ScriptableRendererFeature
+{
+    public Shader m_Shader;
+    public float m_Intensity;
+
+    Material m_Material;
+
+    ColorBlitPass m_RenderPass = null;
+
+    public override void AddRenderPasses(ScriptableRenderer renderer,
+                                    ref RenderingData renderingData)
+    {
+        if (renderingData.cameraData.cameraType == CameraType.Game)
+            renderer.EnqueuePass(m_RenderPass);
+    }
+
+    public override void SetupRenderPasses(ScriptableRenderer renderer,
+                                        in RenderingData renderingData)
+    {
+        if (renderingData.cameraData.cameraType == CameraType.Game)
+        {
+            // Calling ConfigureInput with the ScriptableRenderPassInput.Color argument
+            // ensures that the opaque texture is available to the Render Pass.
+            m_RenderPass.ConfigureInput(ScriptableRenderPassInput.Color);
+            m_RenderPass.SetTarget(renderer.cameraColorTargetHandle, m_Intensity);
+        }
+    }
+
+    public override void Create()
+    {
+        m_Material = CoreUtils.CreateEngineMaterial(m_Shader);
+        m_RenderPass = new ColorBlitPass(m_Material);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        CoreUtils.Destroy(m_Material);
+    }
+}
+</code></pre>
+</li>
+<li><p>Create a new C# script. Call it <code>ColorBlitPass.cs</code>. This script implements the custom Render Pass that performs the custom blit draw call.</p>
+<p>This Render Pass uses the <code>Blitter.BlitCameraTexture</code> method to draw a full-screen quad and perform the blit operation.</p>
+<blockquote>
+<p><strong>NOTE:</strong> Do not use the <code>cmd.Blit</code> method in URP XR projects because that method has compatibility issues with the URP XR integration. Using <code>cmd.Blit</code> might implicitly enable or disable XR shader keywords, which breaks XR SPI rendering.</p>
+</blockquote>
+<pre><code class="lang-C#">using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
+
+internal class ColorBlitPass : ScriptableRenderPass
+{
+    ProfilingSampler m_ProfilingSampler = new ProfilingSampler(&quot;ColorBlit&quot;);
+    Material m_Material;
+    RTHandle m_CameraColorTarget;
+    float m_Intensity;
+
+    public ColorBlitPass(Material material)
+    {
+        m_Material = material;
+        renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
+    }
+
+    public void SetTarget(RTHandle colorHandle, float intensity)
+    {
+        m_CameraColorTarget = colorHandle;
+        m_Intensity = intensity;
+    }
+
+    public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
+    {
+        ConfigureTarget(m_CameraColorTarget);
+    }
+
+    public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+    {
+        var cameraData = renderingData.cameraData;
+        if (cameraData.camera.cameraType != CameraType.Game)
+            return;
+
+        if (m_Material == null)
+            return;
+
+        CommandBuffer cmd = CommandBufferPool.Get();
+        using (new ProfilingScope(cmd, m_ProfilingSampler))
+        {
+            m_Material.SetFloat(&quot;_Intensity&quot;, m_Intensity);
+            Blitter.BlitCameraTexture(cmd, m_CameraColorTarget, m_CameraColorTarget, m_Material, 0);
+        }
+        context.ExecuteCommandBuffer(cmd);
+        cmd.Clear();
+
+        CommandBufferPool.Release(cmd);
+    }
+}
+</code></pre>
+</li>
+<li><p><a name="shader"></a>Create the shader that performs the blit operation. Call the shader file <code>ColorBlit.shader</code>. The vertex function outputs the full-screen quad position. The fragment function samples the color buffer and returns the <code>color * float4(0, _Intensity, 0, 1)</code> value to the render target.</p>
+<pre><code class="lang-hlsl">Shader &quot;ColorBlit&quot;
+{
+        SubShader
+    {
+        Tags { &quot;RenderType&quot;=&quot;Opaque&quot; &quot;RenderPipeline&quot; = &quot;UniversalPipeline&quot;}
+        LOD 100
+        ZWrite Off Cull Off
+        Pass
+        {
+            Name &quot;ColorBlitPass&quot;
+
+            HLSLPROGRAM
+            #include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;
+            // The Blit.hlsl file provides the vertex shader (Vert),
+            // input structure (Attributes) and output strucutre (Varyings)
+            #include &quot;Packages/com.unity.render-pipelines.core/Runtime/Utilities/Blit.hlsl&quot;
+
+            #pragma vertex Vert
+            #pragma fragment frag
+
+            TEXTURE2D_X(_CameraOpaqueTexture);
+            SAMPLER(sampler_CameraOpaqueTexture);
+
+            float _Intensity;
+
+            half4 frag (Varyings input) : SV_Target
+            {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+                float4 color = SAMPLE_TEXTURE2D_X(_CameraOpaqueTexture, sampler_CameraOpaqueTexture, input.texcoord);
+                return color * float4(0, _Intensity, 0, 1);
+            }
+            ENDHLSL
+        }
+    }
+}
+</code></pre>
+</li>
+<li><p>Add the <code>ColorBlitRendererFeature</code> to the Universal Renderer asset.</p>
+<p><img src="../Images/how-to/blit/add-renderer-feature.png" alt="Add Renderer Feature"></p>
+<p>For information on how to add a Renderer Feature, see the page <a href="../urp-renderer-feature-how-to-add.html">How to add a Renderer Feature to a Renderer</a>.</p>
+<p>For this example, set the Intensity property to 1.5.</p>
+</li>
+<li><p>Unity shows the following views:</p>
+<p><img src="../Images/how-to/blit/final-scene-and-game-view.png" alt="Final Scene and Game views"></p>
+<blockquote>
+<p><strong>NOTE:</strong> To visualize the example in XR, configure the project to use XR SDK. <a href="https://docs.unity3d.com/Packages/com.unity.xr.mock-hmd@latest/index.html">Add the MockHMD XR Plugin to the project</a>. Set the <strong>Render Mode</strong> property to <strong>Single Pass Instanced</strong>.</p>
+</blockquote>
+</li>
+</ol>
+<p>The example is complete.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/renderer-features/how-to-fullscreen-blit.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

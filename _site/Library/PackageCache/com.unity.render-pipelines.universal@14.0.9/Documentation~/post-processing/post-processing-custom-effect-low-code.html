@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>How to create a custom post-processing effect | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="How to create a custom post-processing effect | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/post-processing/post-processing-custom-effect-low-code.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="how-to-create-a-custom-post-processing-effect">How to create a custom post-processing effect</h1>
+
+<p>The example on this page shows how to use a Full Screen Render Pass to create a grayscale custom post-processing effect.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>This example requires the following:</p>
+<ul>
+<li><p>A Unity project with the URP package installed.</p>
+</li>
+<li><p>The <strong>Scriptable Render Pipeline Settings</strong> property refers to a URP asset (<strong>Project Settings</strong> &gt; <strong>Graphics</strong> &gt; <strong>Scriptable Render Pipeline Settings</strong>).</p>
+</li>
+</ul>
+<h2 id="create-a-fullscreen-shader-graph">Create a Fullscreen Shader Graph</h2>
+<p>You must create a Fullscreen Shader Graph to create a custom post-processing effect.</p>
+<ol>
+<li><p>Create a new Shader Graph in your Project. To do this right-click in the Project window and select <strong>Create</strong> &gt; <strong>Shader Graph</strong> &gt; <strong>URP</strong> &gt; <strong>Fullscreen Shader Graph</strong>.</p>
+</li>
+<li><p>Add a <strong>URP Sample Buffer</strong> node. To do this right-click in the Shader Graph window, and select <strong>Create Node</strong>. Then locate and select <strong>URP Sample Buffer</strong>.</p>
+</li>
+<li><p>In the <strong>URP Sample Buffer</strong> node's <strong>Source Buffer</strong> dropdown menu, select <strong>BlitSource</strong>.</p>
+</li>
+<li><p>Add a <strong>Vector 3</strong> node.</p>
+</li>
+<li><p>Assign the <strong>Vector 3</strong> node the following values:</p>
+<ul>
+<li><strong>X</strong> = 0.2126</li>
+<li><strong>Y</strong> = 0.7152</li>
+<li><strong>Z</strong> = 0.0722</li>
+</ul>
+</li>
+<li><p>Add a <strong>Dot Product</strong> node.</p>
+</li>
+<li><p>Connect the nodes as shown below.</p>
+<p><img src="../Images/post-proc/custom-effect/grayscale-effect-shader-graph.png" alt="Grayscale Fullscreen Shader Graph with all nodes connected."></p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>Connection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>URP Sample Buffer</strong></td>
+<td><strong>Output</strong> to <strong>Dot Product A</strong></td>
+</tr>
+<tr>
+<td><strong>Vector 3</strong></td>
+<td><strong>Out</strong> to <strong>Dot Product B</strong></td>
+</tr>
+<tr>
+<td><strong>Dot Product</strong></td>
+<td><strong>Out</strong> to <strong>Fragment Base Color</strong></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li><p>Save your Shader Graph.</p>
+</li>
+<li><p>Create a new Material in your Project. To do this right-click in the Project window and select <strong>Create</strong> &gt; <strong>Material</strong>.</p>
+</li>
+<li><p>Apply the Shader Graph shader to the Material. To do this, open the Material in the Inspector and select <strong>Shader</strong> &gt; <strong>Shader Graphs</strong>, then select the Shader Graph you created in the previous steps.</p>
+</li>
+</ol>
+<h2 id="use-the-material-in-a-full-screen-pass-renderer-feature">Use the Material in a Full Screen Pass Renderer Feature</h2>
+<p>Once you've created a compatible Shader Graph and Material, you can use the Material with a Full Screen Pass Renderer Feature to create a custom post-processing effect.</p>
+<ol>
+<li>In the Project window, select a URP Renderer.</li>
+<li>In the Inspector, click <strong>Add Renderer Feature</strong> and select <strong>Full Screen Pass Renderer Feature</strong>. For more information on adding Renderer Features see <a href="../urp-renderer-feature-how-to-add.html">How to add a Renderer Feature to a Renderer</a>.</li>
+<li>Set the <strong>Post Process Material</strong> to the Material you created with the Fullscreen Shader Graph.</li>
+<li>Set <strong>Injection Point</strong> to <strong>After Rendering Post Processing</strong>.</li>
+<li>Set <strong>Requirements</strong> to <strong>Color</strong>.</li>
+</ol>
+<p>You should now see the effect in both Scene view and Game view.</p>
+<p><img src="../Images/post-proc/custom-effect/grayscale-custom-effect.png" alt="Example scene with a grayscale custom post-processing effect.">
+<br><em>Example scene with a grayscale custom post-processing effect.</em></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/post-processing/post-processing-custom-effect-low-code.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

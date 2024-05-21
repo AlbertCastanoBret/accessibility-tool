@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Paint Texture | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Paint Texture | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/paint-texture.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="paint-texture">Paint Texture</h1>
+
+<p>Use the <strong>Paint Texture</strong> tool to paint <a href="https://docs.unity3d.com/Manual/class-TerrainLayer.html">Terrain Layers</a> onto your Terrain. A Terrain Layer represents a combination of textures and values that describe the surface of your Terrain (such as grass, snow, or sand).</p>
+<p><strong>Note:</strong> This tool overrides the built-in <a href="https://docs.unity3d.com/Manual/terrain-PaintTexture.html">Paint Texture</a>, and adds newer features such as the Terrain Layer Eyedropper tool, Terrain Layer selection UI, and Terrain Layer Palettes.</p>
+<p>To select the Paint Texture tool:</p>
+<ol>
+<li>Select a Terrain tile to bring up the Terrain Inspector.</li>
+<li>In the Terrain Inspector, click the Paint Terrain (brush) icon.</li>
+<li>Select Paint Texture from the drop-down menu.</li>
+</ol>
+<p><img src="images/2-60-paint-texture-01.png" alt=""></p>
+<p>To configure the tool, create a new Terrain Layer, or download an example from the Asset Store, such as the free <a href="https://assetstore.unity.com/packages/2d/textures-materials/nature/terrain-tools-sample-asset-pack-145808">Terrain Tools Sample Asset Pack</a>.</p>
+<p>To create a new Terrain Layer, go to the <strong>Layers</strong> section, and type the name of your Layer in the <strong>Create New Layer</strong> field. Next, click the <strong>Create</strong> button next to the field, and select a Texture in the dialog to use it to create a new Layer.</p>
+<p>To modify this newly created Terrain Layer, you must either select the Terrain Layer asset in your Project window, or expand the Terrain Layer Editor that appears in the Paint Texture tool UI. If you select <strong>Add Layer</strong>, you can add an existing Terrain Layer to your Terrain. You can also use the object picker (circle icon) next to each layer name in the <strong>Layer Palette</strong> to change the assigned Terrain Layer. These actions open a dialog box that lets you select a Terrain Layer, as shown below.</p>
+<p><img src="images/2-60-paint-texture-02.png" alt=""></p>
+<p>For more detailed information about Terrain Layers, see <a href="https://docs.unity3d.com/Manual/class-TerrainLayer.html">Terrain Layers</a>.</p>
+<p>The Terrain Layer Eyedropper tool lets you select a Terrain Layer directly from the Terrain. To use the Eyedropper tool, hold down <strong>Shift + A</strong>, and click on an area of the Terrain to select its Terrain Layer. See<a href="brush-controls-shortcut-keys.html"> Common Brush controls and shortcut keys</a> for more information about shortcut keys.</p>
+<p><img src="images/2-60-paint-texture-03.png" alt=""></p>
+<h2 id="layers">Layers</h2>
+<p><img src="images/2-60-paint-texture-04.png" alt=""></p>
+<p>The <strong>Layer Palette Profile</strong> lets you save and load Terrain Layer Palettes using a preset asset file. This allows you to recreate the same Layer Palette from a prior one, and you can share preset files with other team members to expedite Terrain creation.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Terrain Palette Asset</strong></td>
+<td>Lets you select and load a Terrain Layer Palette from your project’s <code>Assets</code> folder.</td>
+</tr>
+<tr>
+<td><strong>Save</strong></td>
+<td>Writes the current Layer Palette settings to the file specified in the <strong>Layer Palette Profile</strong> field.</td>
+</tr>
+<tr>
+<td><strong>Save Asset</strong></td>
+<td>Opens a <strong>Create New Palette</strong> dialog that lets you save the current Layer Palette settings to a new Terrain Palette asset in your project’s <code>Assets</code> folder.</td>
+</tr>
+<tr>
+<td><strong>Revert</strong></td>
+<td>Reverts the current Layer Palette settings to those of the file specified in the <strong>Layer Palette Profile</strong> field.</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>Layer Palette</strong> reorderable list allows you to change each Layer’s assigned alphamap channel by dragging UI elements. To simultaneously remove multiple Layers, enable the checkbox for each corresponding Layer, and then press the <strong>Remove Selected Layers</strong> button.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layer Palette</strong></td>
+<td>Lets you select or deselect Terrain Layers.</td>
+</tr>
+<tr>
+<td><strong>Add Layer</strong></td>
+<td>Opens a <strong>Select Terrain Layer</strong> dialog that lets you select Terrain Layers saved in your project’s <code>Assets</code> folder.</td>
+</tr>
+<tr>
+<td><strong>Remove Layer</strong></td>
+<td>Removes the currently active Terrain Layer.</td>
+</tr>
+<tr>
+<td><strong>Remove Selected Layer</strong></td>
+<td>To simultaneously remove multiple Terrain Layers, enable the checkbox for each corresponding layer, and then press the <strong>Remove Selected Layers</strong> button.</td>
+</tr>
+<tr>
+<td><strong>Create New Layer</strong></td>
+<td>Use this text field to specify a name for a new Terrain Layer to create.</td>
+</tr>
+<tr>
+<td><strong>Create</strong></td>
+<td>After you enter a name, press the <strong>Create</strong> button to open a dialog for creating a new Terrain Layer.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/paint-texture.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

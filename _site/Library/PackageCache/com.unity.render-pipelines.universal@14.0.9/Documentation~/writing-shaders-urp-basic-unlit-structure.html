@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>URP unlit basic shader | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="URP unlit basic shader | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/writing-shaders-urp-basic-unlit-structure.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="urp-unlit-basic-shader">URP unlit basic shader</h1>
+
+<p>This example shows a basic URP-compatible shader. This shader fills the mesh shape with a color predefined in the shader code.</p>
+<p>To see the shader in action, copy and paste the following ShaderLab code into the Shader asset.</p>
+<pre><code class="lang-c++">// This shader fills the mesh shape with a color predefined in the code.
+Shader &quot;Example/URPUnlitShaderBasic&quot;
+{
+    // The properties block of the Unity shader. In this example this block is empty
+    // because the output color is predefined in the fragment shader code.
+    Properties
+    { }
+
+    // The SubShader block containing the Shader code.
+    SubShader
+    {
+        // SubShader Tags define when and under which conditions a SubShader block or
+        // a pass is executed.
+        Tags { &quot;RenderType&quot; = &quot;Opaque&quot; &quot;RenderPipeline&quot; = &quot;UniversalPipeline&quot; }
+
+        Pass
+        {
+            // The HLSL code block. Unity SRP uses the HLSL language.
+            HLSLPROGRAM
+            // This line defines the name of the vertex shader.
+            #pragma vertex vert
+            // This line defines the name of the fragment shader.
+            #pragma fragment frag
+
+            // The Core.hlsl file contains definitions of frequently used HLSL
+            // macros and functions, and also contains #include references to other
+            // HLSL files (for example, Common.hlsl, SpaceTransforms.hlsl, etc.).
+            #include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;
+
+            // The structure definition defines which variables it contains.
+            // This example uses the Attributes structure as an input structure in
+            // the vertex shader.
+            struct Attributes
+            {
+                // The positionOS variable contains the vertex positions in object
+                // space.
+                float4 positionOS   : POSITION;
+            };
+
+            struct Varyings
+            {
+                // The positions in this struct must have the SV_POSITION semantic.
+                float4 positionHCS  : SV_POSITION;
+            };
+
+            // The vertex shader definition with properties defined in the Varyings
+            // structure. The type of the vert function must match the type (struct)
+            // that it returns.
+            Varyings vert(Attributes IN)
+            {
+                // Declaring the output object (OUT) with the Varyings struct.
+                Varyings OUT;
+                // The TransformObjectToHClip function transforms vertex positions
+                // from object space to homogenous clip space.
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                // Returning the output.
+                return OUT;
+            }
+
+            // The fragment shader definition.
+            half4 frag() : SV_Target
+            {
+                // Defining the color variable and returning it.
+                half4 customColor = half4(0.5, 0, 0, 1);
+                return customColor;
+            }
+            ENDHLSL
+        }
+    }
+}
+</code></pre>
+<p>The fragment shader colors the GameObject dark red (RGB value (0.5, 0, 0)).</p>
+<p><img src="Images/shader-examples/unlit-shader-tutorial-basic-hardcoded-color.png" alt="The shader paints the GameObject dark red"></p>
+<p>The following section introduces you to the structure of this basic Unity shader.</p>
+<p><a name="basic-shaderlab-structure"></a></p>
+<h2 id="basic-shaderlab-structure">Basic ShaderLab structure</h2>
+<p>Unity shaders are written in a Unity-specific language called <a href="https://docs.unity3d.com/Manual/SL-Shader.html">ShaderLab</a>.</p>
+<p>The Unity shader in this example has the following blocks:</p>
+<ul>
+<li><a href="#shader">Shader</a></li>
+<li><a href="#properties">Properties</a></li>
+<li><a href="#subshader">SubShader</a></li>
+<li><a href="#pass">Pass</a></li>
+<li><a href="#hlsl">HLSLPROGRAM</a></li>
+</ul>
+<h3 id="shader">Shader block</h3>
+<p>ShaderLab code starts with the <code>Shader</code> declaration.</p>
+<pre><code class="lang-c++">Shader &quot;Example/URPUnlitShaderBasic&quot;
+</code></pre>
+<p>The path in this declaration determines the display name and location of the Unity shader in the Shader menu on a Material. The method <a href="https://docs.unity3d.com/ScriptReference/Shader.Find.html">Shader.Find</a> also uses this path.</p>
+<p><img src="Images/shader-examples/urp-material-ui-shader-path.png" alt="Location of the shader in the Shader menu on a Material"></p>
+<h3 id="properties">Properties block</h3>
+<p>The <a href="https://docs.unity3d.com/Manual/SL-Properties.html">Properties</a> block contains the declarations of properties that users can set in the Inspector window on a Material.</p>
+<p>In this example, the Properties block is empty, because this Unity shader does not expose any Material properties that a user can define.</p>
+<h3 id="subshader">SubShader block</h3>
+<p>A Unity shader source file contains one or more <a href="https://docs.unity3d.com/Manual/SL-SubShader.html">SubShader</a> blocks. When rendering a mesh, Unity selects the first SubShader that is compatible with the GPU on the target device.</p>
+<p>A SubShader block can optionally contain a SubShader Tags block. Use the <code>Tags</code> keyword to declare a SubShader Tags block.</p>
+<pre><code>Tags { &quot;RenderType&quot; = &quot;Opaque&quot; &quot;RenderPipeline&quot; = &quot;UniversalPipeline&quot; }
+</code></pre>
+<p>A SubShader Tag with a name of <code>RenderPipeline</code> tells Unity which render pipelines to use this SubShader with, and the value of <code>UniversalPipeline</code> indicates that Unity should use this SubShader with URP.</p>
+<p>To execute the same shader in different render pipelines, create multiple SubShader blocks with different <code>RenderPipeline</code> tag values. To execute a SubShader block in HDRP, set the <code>RenderPipeline</code> tag to <code>HDRenderPipeline</code>, to execute it in the Built-in Render Pipeline, set <code>RenderPipeline</code> to an empty value.</p>
+<p>For more information on SubShader Tags, see <a href="https://docs.unity3d.com/Manual/SL-SubShaderTags.html">ShaderLab: SubShader Tags</a>.</p>
+<h3 id="pass">Pass block</h3>
+<p>In this example, there is one Pass block that contains the HLSL program code. For more information on Pass blocks, see <a href="https://docs.unity3d.com/Manual/SL-Pass.html">ShaderLab: Pass</a>.</p>
+<p>A Pass block can optionally contain a Pass tags block. For more information, see <a href="urp-shaders/urp-shaderlab-pass-tags.html">URP ShaderLab Pass tags</a>.</p>
+<h3 id="hlsl">HLSLPROGRAM block</h3>
+<p>This block contains the HLSL program code.</p>
+<blockquote>
+<p><strong>NOTE</strong>: HLSL language is the preferred language for URP shaders.</p>
+</blockquote>
+<blockquote>
+<p><strong>NOTE</strong>: URP supports the CG language. If you add the CGPROGRAM/ENDCGPROGRAM block in a shader, Unity includes shaders from the Built-in Render Pipeline library automatically. If you include shaders from the SRP shader library, some SRP shader macros and functions might conflict with the Built-in Render Pipeline shader functions. Shaders with the CGPROGRAM block are not SRP Batcher compatible.</p>
+</blockquote>
+<p>This block contains the <code>#include</code> declaration with the reference to the <code>Core.hlsl</code> file.</p>
+<pre><code class="lang-c++">#include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;
+</code></pre>
+<p>The <code>Core.hlsl</code> file contains definitions of frequently used HLSL macros and functions, and also contains #include references to other HLSL files (for example, <code>Common.hlsl</code> and  <code>SpaceTransforms.hlsl</code>).</p>
+<p>For example, the vertex shader in the HLSL code uses the <code>TransformObjectToHClip</code> function from the <code>SpaceTransforms.hlsl</code> file. The function transforms vertex positions from object space to homogenous space:</p>
+<pre><code class="lang-c++">Varyings vert(Attributes IN)
+{
+    Varyings OUT;
+    OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+    return OUT;
+}
+</code></pre>
+<p>The fragment shader in this basic HLSL code outputs the single color predefined in the code:</p>
+<pre><code class="lang-c++">half4 frag() : SV_Target
+{
+    half4 customColor;
+    customColor = half4(0.5, 0, 0, 1);
+    return customColor;
+}
+</code></pre>
+<p>Section <a href="writing-shaders-urp-unlit-color.html">URP unlit shader with color input</a> shows how to add the editable color property in the Inspector window on the Material.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/writing-shaders-urp-basic-unlit-structure.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

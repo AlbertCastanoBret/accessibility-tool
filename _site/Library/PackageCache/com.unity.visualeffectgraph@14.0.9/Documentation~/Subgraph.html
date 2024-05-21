@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Subgraph | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Subgraph | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Subgraph.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="subgraph">Subgraph</h1>
+
+<p>A Visual Effect Subgraph is an Asset that contains a part of a Visual Effect Graph that can be used in another Visual Effect Graph or Subgraph. Subgraphs appear as a single Node.</p>
+<p>Subgraphs can be used in graphs as three main usages:</p>
+<ul>
+<li><strong>System Subgraph</strong>:  One, or many <a href="Systems.html">Systems</a> contained into one Graph.</li>
+<li><strong>Block Subgraph</strong>: A set of <a href="Blocks.html">Blocks</a> and <a href="Operators.html">Operators</a> packaged together and used as a Block.</li>
+<li><strong>Operator Subgraph</strong>: A set of <a href="Operators.html">Operators</a> packaged together and used as an Operator.</li>
+</ul>
+<p>Subgraphs allow you to factorize commonly used sets of Nodes in a graph into reusable Assets and adds them to the Library.</p>
+<h2 id="system-subgraphs">System Subgraphs</h2>
+<p>System Subgraphs are Visual Effect Graphs that are <strong>nested</strong> inside other Visual Effect Graphs:</p>
+<p><img src="Images/SystemSubgraph.png" alt=""></p>
+<p>Visual Effect Graphs used as Subgraphs appear as a <a href="Contexts.html">Context</a> that presents:</p>
+<ul>
+<li><strong>Exposed Properties</strong> defined in the subgraph.</li>
+<li><strong>Events</strong> used in the subgraph.</li>
+</ul>
+<h3 id="creating-system-subgraphs">Creating System Subgraphs</h3>
+<p>To create a System Subgraph:</p>
+<ol>
+<li>Create a Visual Effect Graph in the Project Window.</li>
+<li>Select one or many Systems in a Visual Effect Graph.</li>
+<li>Navigate to the the Right-Click context menu and select <strong>Convert to Subgraph</strong>.</li>
+<li>Save the Graph Asset in the Save File dialog.</li>
+</ol>
+<p>Creating a subgraph using this method replaces all converted content with a System Subgraph Node.</p>
+<h3 id="editing-system-subgraphs">Editing System Subgraphs</h3>
+<p>To edit a System Subgraph that is open in the Visual Effect Graph window:</p>
+<ol>
+<li>Double-click the Visual Effect Graph Asset in the Project view.</li>
+<li>Right-click the System Subgraph Context.</li>
+<li>Select Enter Subgraph in the context menu.</li>
+</ol>
+<h3 id="using-a-system-subgraph-in-a-visual-effect-graph">Using a System Subgraph in a Visual Effect Graph</h3>
+<p>To add a System Subgraph Node to your Graph, drag a Visual Effect Graph from your Project View to the Visual Effect Graph window.</p>
+<h3 id="customizing-system-subgraph-nodes">Customizing System Subgraph Nodes</h3>
+<p>You can customize System Subgraph properties in the same way you customise Visual Effect Graph properties. You can also use Operators to create custom expressions in that extend the behavior of the systems contained in the subgraph.</p>
+<p>You can send Events to the Workflow inputs of the System Subgraph Node using Event or Spawn Context.</p>
+<h2 id="block-subgraphs">Block Subgraphs</h2>
+<p>Block Subgraphs are specific Subgraphs that only contain Operators and Blocks. You can use Block Subgraphs as Blocks inside another Visual Effect Graph or SubGraph.</p>
+<p><img src="Images/BlockSubgraph.png" alt=""></p>
+<h3 id="creating-block-subgraphs">Creating Block Subgraphs</h3>
+<p>To create a Block Subgraph:</p>
+<ol>
+<li>Create a Visual Effect Subgraph Block in the Project Window using <strong>Asset/Create/Visual Effects/Visual Effect Subgraph Block</strong>.</li>
+<li>Select one or more Blocks and optionally Operators in a Visual Effect Graph</li>
+<li>Navigate to the the Right-Click context menu and select <strong>Convert to Subgraph Block</strong></li>
+<li>Save the Sub Graph Asset in the Save File Dialog.</li>
+</ol>
+<p>When you create a subgraph using this method, Unity replaces all converted content with a Block Subgraph Node.</p>
+<h3 id="editing-block-subgraphs">Editing Block Subgraphs</h3>
+<p>You can edit a Block Subgraph in one of the following ways:</p>
+<ul>
+<li>Open a Block Subgraph in the Visual Effect Graph window.</li>
+<li>Double click the Subgraph Asset in the Project view.</li>
+<li>Right-click the subgraph Block and selecting Enter Subgraph in the context menu.</li>
+</ul>
+<p><img src="Images/BlockSubgraphContext.png" alt=""></p>
+<p>You can add Blocks inside the non-removable Context named Block Subgraph.</p>
+<ul>
+<li>All Blocks indside the Block Subgraph Context execute in order when used as a subgraph</li>
+<li>You can customize the Context using the following Properties:
+<ul>
+<li><strong>Suitable Contexts</strong> : Determines which Context types are compatible with the Block Subgraph</li>
+</ul>
+</li>
+</ul>
+<p>You can define the Menu Category the subgraph Block appears in the <a href="Blackboard.html">Blackboard</a></p>
+<h3 id="using-block-subgraphs">Using Block Subgraphs</h3>
+<p>To add a Block Subgraph Node to your Graph:</p>
+<ul>
+<li>Drag a Visual Effect Subgraph Block Asset from your Project View to the Visual Effect Graph window, inside a Context's Block Area.</li>
+</ul>
+<p>Or:</p>
+<ul>
+<li>Use the Add Block Menu by typing the Block Subgraph Asset name.</li>
+</ul>
+<h3 id="customizing-block-subgraphs">Customizing Block Subgraphs</h3>
+<p>You can customize Block Subgraph properties in the same way as regular Block properties. , You can also use Operators to create custom expressions in order to extend the behavior of the Block used as subgraph.</p>
+<h2 id="operator-subgraphs">Operator Subgraphs</h2>
+<p>Operator Subgraphs are specific Subgraphs Assets that only contain Operators and that can be used as Operators inside another Visual Effect Graph or Sub Graph.</p>
+<p><img src="Images/OperatorSubgraph.png" alt=""></p>
+<h3 id="creating-operator-subgraphs">Creating Operator Subgraphs</h3>
+<p>To create an Operator Subgraph:</p>
+<ol>
+<li>Create a Visual Effect Subgraph Operator in the Project Window <strong>Asset/Create/Visual Effects/Visual Effect Subgraph Operator</strong></li>
+<li>Select one or more Operators in a Visual Effect Graph,</li>
+<li>Navigate to the Right-Click context menu and select <strong>Convert to Subgraph Operator</strong></li>
+<li>Save the Sub Graph Asset in the Save File Dialog.</li>
+</ol>
+<p>When you create a subgraph using this method, Unity replaces all converted content with an Operator Subgraph Node.</p>
+<h3 id="editing-operator-subgraphs">Editing Operator Subgraphs</h3>
+<p>To edit an Operator Subgraph by opening it in the Visual Effect Graph window:</p>
+<ul>
+<li>Double-click the Subgraph Asset in the Project view</li>
+</ul>
+<p>Or:</p>
+<ul>
+<li>Right-click the subgraph Block and selecting Enter Subgraph in the context menu.</li>
+</ul>
+<p>You can set up Input and Output Properties for the Operator in the Blackboard Window:</p>
+<ul>
+<li>To create <strong>Input</strong> Properties, add new Properties and enable their <strong>Exposed</strong> Flag.</li>
+<li>To create <strong>Output</strong> Properties, add new Properties, and move them to the <strong>Output Category</strong>.</li>
+</ul>
+<p>Use the <a href="Blackboard.html">Blackboard</a> to define the Menu Category that the subgraph Block appears in.</p>
+<h3 id="using-operator-subgraphs">Using Operator Subgraphs</h3>
+<p>To add an Operator Subgraph Node to your Graph:</p>
+<ul>
+<li>Drag a Visual Effect Subgraph Block Asset from your Project View to the Visual Effect Graph window, inside a Context's Block Area.</li>
+</ul>
+<p>Or:</p>
+<ul>
+<li>Use the Add Block Menu, by typing the Block Subgraph Asset name.</li>
+</ul>
+<h3 id="customizing-operator-subgraphs">Customizing Operator Subgraphs</h3>
+<p>You can customize Operator Subgraph properties in the same way as regular Block properties. You can also use Operators to create custom expressions in order to extend the behavior of the Block used as subgraph.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Subgraph.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

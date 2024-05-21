@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Event Binders | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Event Binders | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/EventBinders.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<div style="border: solid 1px #999; border-radius:12px; background-color:#EEE; padding: 8px; padding-left:14px; color: #555; font-size:14px;"><b>Experimental:</b> This feature is currently experimental and is subject to change in later major versions. To use this feature, enable <b>Experimental Operators/Blocks</b> in the <b>Visual Effects</b> tab of your Project's Preferences.</div>
+<h1 id="event-binders">Event Binders</h1>
+<p>Event Binders refer to a set of <strong>MonoBehaviour</strong> Scripts that help you trigger <a href="Events.html">Events</a> in <a href="VisualEffectComponent.html">Visual Effects</a> when a particular event happens in the Scene. For example, when a Renderer becomes visible. Event Binders can also attach <a href="Events.html#eventattribute-payloads">Event Attribute Payloads</a> to the Events that they send.</p>
+<h2 id="mouse-event-binder">Mouse Event Binder</h2>
+<p>The Mouse Event Binder triggers an event in the target Visual Effect based on actions that you perform with the mouse (for example, clicking, hovering, or dragging).</p>
+<p><img src="Images/EventBinders-Mouse.png" alt=""></p>
+<p><strong>Requires:</strong> A Collider on the same GameObject as this component.</p>
+<p><strong>Properties:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Target</strong></td>
+<td>The Visual Effect instance to trigger the Event on.</td>
+</tr>
+<tr>
+<td><strong>Event Name</strong></td>
+<td>The name of the Event to trigger.</td>
+</tr>
+<tr>
+<td><strong>Activation</strong></td>
+<td>Specifies when this component triggers the Event:<br>• <strong>OnMouseDown</strong>: When you click down on the Collider.<br>• <strong>OnMouseUp</strong>: When you release a click on the Collider.<br>• <strong>OnMouseEnter</strong>: When the cursor enters the Collider's on-screen area.<br>• <strong>OnMouseExit</strong>: When the cursor exits the Collider's on-screen area.<br>• <strong>OnMouseOver</strong>: When the cursor hovers over the Collider's on-screen area.<br>• <strong>OnMouseDrag</strong>: When you drag the mouse over the Collider's on-screen area.</td>
+</tr>
+<tr>
+<td><strong>Raycast Mouse Position</strong></td>
+<td>Specifies whether to use a <code>position </code> EventAttribute as the result of a raycast towards the Collider.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rigid-body-collision-event-binder">Rigid Body Collision Event Binder</h2>
+<p>The Rigid Body Collision Event Binder triggers an Event in the target Visual Effect every time something collides with the Rigidbody attached to the same GameObject as this component. This binder also attaches the collision world position to the <code>position</code> EventAttribute, and the contact Normal to the <code>velocity </code> EventAttribute.</p>
+<p><img src="Images/EventBinders-RBCollision.png" alt=""></p>
+<p><strong>Requires:</strong> A Rigidbody and a Collider on the same GameObject as this component.</p>
+<p><strong>Properties:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Properties</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Target</strong></td>
+<td>The Visual Effect instance to trigger the Event on.</td>
+</tr>
+<tr>
+<td><strong>Event Name</strong></td>
+<td>The name of the event to trigger.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="trigger-event-binder">Trigger Event Binder</h2>
+<p>The Trigger Event Binder triggers an Event in the target Visual Effect every time a Collider from a list interacts with the attached trigger Collider. This binder also attaches the world position of the Collider instigator to the <code>position</code> EventAttribute.</p>
+<p><img src="Images/EventBinders-Trigger.png" alt=""></p>
+<p><strong>Requires:</strong> A Collider with <strong>Is Trigger</strong> set to <code> true</code> on the same GameObject as this component.</p>
+<p><strong>Properties:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Target</strong></td>
+<td>The Visual Effect instance to trigger the Event on.</td>
+</tr>
+<tr>
+<td><strong>Event Name</strong></td>
+<td>The name of the Event to trigger.</td>
+</tr>
+<tr>
+<td><strong>Colliders</strong></td>
+<td>A list of Colliders that trigger the Event when something interacts with them.</td>
+</tr>
+<tr>
+<td><strong>Activation</strong></td>
+<td>Specifies which action triggers the Event:<br>• <strong>OnEnter</strong>: Triggers the Event when any Collider enters the trigger.<br>• <strong>OnExit</strong>: Triggers the Event when any Collider exits the trigger.<br>• <strong>OnStay</strong>: Triggers the Event when any Collider stays in the trigger.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="visibility-event-binder">Visibility Event Binder</h2>
+<p>The Visibility Event Binder triggers an Event in the target Visual Effect every time the Renderer attached to this GameObject becomes visible or invisible.</p>
+<p><img src="Images/EventBinders-Visibility.png" alt=""></p>
+<p><strong>Requires:</strong> A Renderer on the same GameObject as this component.</p>
+<p><strong>Properties:</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Target</strong></td>
+<td>The Visual Effect instance to trigger the Event on.</td>
+</tr>
+<tr>
+<td><strong>Event Name</strong></td>
+<td>The name of the Event to trigger.</td>
+</tr>
+<tr>
+<td><strong>Activation</strong></td>
+<td>Specifies when to trigger the Event:<br>• <strong>OnBecameVisible</strong>: Triggers the Event on the frame that the Renderer goes from invisible to visible.<br>• <strong>OnBecameInvisible</strong>: Triggers the Event on the frame that the Renderer goes from visible to invisible.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/EventBinders.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

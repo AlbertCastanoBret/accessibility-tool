@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Properties | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Properties | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Properties.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="properties">Properties</h1>
+
+<p>Properties are editable fields that you can connect to graph elements using <a href="GraphLogicAndPhilosophy.html">Property workflow</a>. They can be found on graph elements such as  <a href="Contexts.html">Contexts</a>,  <a href="Blocks.html">Blocks</a> and <a href="Operators.html">Operators</a>.</p>
+<h2 id="using-properties">Using Properties</h2>
+<p>Properties are displayed on graph elements and will change their value accordingly to their actual value in the graph : Connecting another property to a property slot will display the computed value of the connected property.</p>
+<p>After disconnecting a connected property, the field reverts to the previously set property value.</p>
+<h2 id="property-types">Property Types</h2>
+<p>Properties in Visual Effect Graph can be of any Type, including the following:</p>
+<ul>
+<li>boolean</li>
+<li>integer</li>
+<li>float</li>
+<li>Vectors</li>
+<li>Textures</li>
+<li>AnimationCurve</li>
+<li>Gradient</li>
+</ul>
+<h3 id="accessing-property-components">Accessing Property Components</h3>
+<p><img src="Images/PropertyComponents.png" alt=""></p>
+<p>Properties that are made of multiple components (such as Vectors, or Colors) can display every component individually in order to connect these to other properties of compatible type. Use the arrow next to the property to unfold the components.</p>
+<h3 id="casting-properties">Casting Properties</h3>
+<p>Properties can connect between base types to perform a cast. Casts change the data type you are working on in order to inherit its properties. For example, if you cast a float to integer, the float can use integer division.</p>
+<p><img src="Images/PropertyCast.png" alt=""></p>
+<p>Casting from one type to another abides with the following rules:</p>
+<ul>
+<li>All Casting rules from HLSL apply:
+<ul>
+<li>Except Boolean types that cannot be cast.</li>
+<li>Scalars will cast into vectors by setting all components.</li>
+</ul>
+</li>
+<li>Vectors cast into vectors of lesser size by taking only the first N components.</li>
+</ul>
+<h3 id="compound-property-types">Compound Property Types</h3>
+<p>Compound Property Types are made from base data types. These types describe more complex data structures. For example, a Sphere is composed of a Position (Vector3) and a radius (float).</p>
+<p>Expand Compound Property Types to access their components.</p>
+<p><img src="Images/PropertyCompound.png" alt=""></p>
+<h3 id="spaceable-properties">Spaceable Properties</h3>
+<p>Spaceable Properties are Property Types that carry <strong>Space information</strong> (Local/World) with its value. This information is used by the graph to perform automatic space transformations when required.</p>
+<p>Click on the Space Modifier to the left of the Property Field to change it.</p>
+<p>For Example, a Position type carries a Vector3 value and a Spaceable Property. If you set the Spaceable Property to Local [0,1,0], this tells the graph that we refer to the 0,1,0 value in local space.</p>
+<p>Depending on the <a href="Systems.html#system-spaces">System Simulation Space</a>, the value will be automatically transformed to the simulation space if required.</p>
+<blockquote>
+<p>Tip:  You can use the Change Space Operator to manually change a Property Space.</p>
+</blockquote>
+<h2 id="property-nodes">Property Nodes</h2>
+<p>Property Nodes are <a href="Operators.html">Operators</a> that give access to Graph-Wide Properties defined in the <a href="Blackboard.html">Blackboard</a>. These properties allow you to reuse the same value throughout the graph at different places.</p>
+<p><img src="Images/PropertyNodes.png" alt=""></p>
+<ul>
+<li>Property Nodes display a Green dot left to the Property name if the property is exposed.</li>
+<li>To create a Property Node:
+<ul>
+<li>Drag the Node from the Blackboard Panel into the Workspace.</li>
+<li>Open the Right Click context menu, open the <strong>Create Node</strong> menu and select the desired property from the Property category.</li>
+</ul>
+</li>
+<li>To convert a Property Node to an Inline Node of the same type, right-click the property Node and select <strong>Convert to Inline</strong></li>
+<li>When you delete a property from the Blackboard, Unity also deletes its property Node instances from the graph.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Properties.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

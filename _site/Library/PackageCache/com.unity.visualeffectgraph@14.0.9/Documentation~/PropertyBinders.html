@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Property Binders | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Property Binders | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/PropertyBinders.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="property-binders">Property Binders</h1>
+
+<p>Property Binders are C# Behaviors you can attach to a GameObject that has a <a href="VisualEffectComponent.html">Visual Effect Component</a>. Use these behaviors to make connections between scene or gameplay values and <a href="Blackboard.html#exposed-properties-in-inspector">Exposed Properties</a> for this Visual Effect instance.</p>
+<p>For example, a Sphere Binder can automatically set the position and the radius of a Sphere Exposed Property using the values of a sphere collider that is linked in the scene.</p>
+<h2 id="adding-property-binders">Adding Property Binders</h2>
+<p><img src="Images/PropertyBinder.png" alt=""></p>
+<p>You can add Property Binders through a common MonoBehaviour called <strong>VFX Property Binder</strong>. This behavior allows you to use one or more <strong>Property Bindings</strong>. Each property binding is creates a relationship between an <a href="Blackboard.html#exposed-properties-in-inspector">Exposed Property</a> and a runtime or scene element.</p>
+<p>You can also add Property binders through the <strong>Add Component</strong> menu. Unity creates a VFX Property Binder component automatically if one does not already exist.</p>
+<h2 id="built-in-property-binders">Built-in Property Binders</h2>
+<p>The Visual Effect Graph package comes with the following built-in property binders:</p>
+<ul>
+<li>Audio
+<ul>
+<li><strong>Audio Spectrum to AttributeMap :</strong> Bakes the Audio Spectrum to an Attribute map and binds it to a Texture2D and uint Count properties.</li>
+</ul>
+</li>
+<li>GameObject:
+<ul>
+<li><strong>Enabled</strong> : Binds the Enabled flag of a Game Object to a bool property.</li>
+</ul>
+</li>
+<li>Point Cache:
+<ul>
+<li><strong>Hierarchy to AttributeMap</strong> : Binds positions an target positions of a hierarchy of transforms to Texture2Ds AttributeMaps and uint Count.</li>
+<li><strong>Multiple Position Binder</strong>: Binds positions of a list of transforms to a Texture2D AttributeMap and uint Count.</li>
+</ul>
+</li>
+<li>Input:
+<ul>
+<li><strong>Axis</strong> : Binds the float value of an Input Axis to a float property.</li>
+<li><strong>Button</strong> : Binds the bool value of a button press state to a bool property.</li>
+<li><strong>Key</strong> : Binds the bool value of a keyboard key press state to a bool property.</li>
+<li><strong>Mouse</strong> : Binds the general values of a mouse (Position, Velocity, Clicks) to exposed properties.</li>
+<li><strong>Touch</strong> : Binds a input values of a Touch Input (Position, Velocity) to exposed properties.</li>
+</ul>
+</li>
+<li>Utility:
+<ul>
+<li><strong>Light</strong> : Binds Light Properties (Color, Brightness, Radius) to exposed properties.</li>
+<li><strong>Plane</strong> : Binds Plane Properties (Position, Normal) to exposed properties.</li>
+<li><strong>Terrain</strong> : Binds Terrain Properties (Size, Height Map) to exposed properties.</li>
+</ul>
+</li>
+<li>Transform:
+<ul>
+<li><strong>Position</strong>: Binds game object position to vector exposed property.</li>
+<li><strong>Position (previous)</strong>: Binds previous game object position to vector exposed property.</li>
+<li><strong>Transform</strong>: Binds game object transform to transform exposed property.</li>
+<li><strong>Velocity</strong>: Binds game object velocity to vector exposed property.</li>
+</ul>
+</li>
+<li>Physics:
+<ul>
+<li><strong>Raycast</strong>: Performs a Physics Raycast and binds its result values (hasHit, Position, Normal) to exposed properties..</li>
+</ul>
+</li>
+<li>Collider:
+<ul>
+<li><strong>Sphere</strong>: Binds properties of a Sphere Collider to a Sphere exposed property.</li>
+</ul>
+</li>
+<li>UI:
+<ul>
+<li><strong>Dropdown</strong>: Binds the index of a Dropdown to a uint exposed property.</li>
+<li><strong>Slider</strong>: Binds the value of a float slider to a uint exposed property.</li>
+<li><strong>Toggle</strong>: Binds the bool value of a toggle to a bool exposed property.</li>
+</ul>
+</li>
+</ul>
+<h2 id="writing-property-binders">Writing Property Binders</h2>
+<p>To write property binders, add new C# classes to your project and extend the <code>UnityEngine.VFX.Utility.VFXBinderBase</code> class .</p>
+<p>To extend the <code>VFXBinderBase</code> class, use one of the following methods:</p>
+<ul>
+<li><code>bool IsValid(VisualEffect component)</code>: A method that validates that the binding can be made. The VFX Property Binder component will only perform the <code>UpdateBinding()</code> if this method returns true. You need to implement all checks in this method in order to determine if the binding.</li>
+<li><code>void UpdateBinding(VisualEffect component)</code>: This method applies the bindings if <code>IsValid</code> returns true.</li>
+</ul>
+<h4 id="example-code">Example Code</h4>
+<p>The following example presents a simple Property Binder that sets a float Property value to the distance between the current game object and another (target) Game Object:</p>
+<pre><code>using UnityEngine;
+using UnityEngine.VFX;
+using UnityEngine.VFX.Utility;
+
+// The VFXBinder Attribute will populate this class into the property binding's add menu.
+[VFXBinder(&quot;Transform/Distance&quot;)]
+// The class need to extend VFXBinderBase
+public class DistanceBinder : VFXBinderBase
+{
+    // VFXPropertyBinding attributes enables the use of a specific
+    // property drawer that populates the VisualEffect properties of a
+    // certain type.
+    [VFXPropertyBinding(&quot;System.Single&quot;)]
+    public ExposedProperty distanceProperty;
+
+    public Transform target;
+
+    // The IsValid method need to perform the checks and return if the binding
+    // can be achieved.
+    public override bool IsValid(VisualEffect component)
+    {
+        return target != null &amp;&amp; component.HasFloat(distanceProperty);
+    }
+
+    // The UpdateBinding method is the place where you perform the binding,
+    // by assuming that it is valid. This method will be called only if
+    // IsValid returned true.
+    public override void UpdateBinding(VisualEffect component)
+    {
+        component.SetFloat(distanceProperty, Vector3.Distance(transform.position, target.position));
+    }
+}```
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/PropertyBinders.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

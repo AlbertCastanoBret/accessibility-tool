@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Cinemachine Collider | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Cinemachine Collider | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineCollider.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="cinemachine-collider">Cinemachine Collider</h1>
+
+<p><strong>Cinemachine Collider</strong> is an <a href="CinemachineVirtualCameraExtensions.html">extension</a> for the Cinemachine Virtual Camera. It post-processes the final position of the Virtual Camera to attempt to preserve the line of sight with the <strong>Look At</strong> target of the Virtual Camera. It does this by moving away from the GameObjects that obstruct the view.</p>
+<p>Add a Cinemachine Collider extension to a Cinemachine Virtual Camera to do any of the following tasks:</p>
+<ul>
+<li><p>Push the camera away from obstructing obstacles in the Scene.</p>
+</li>
+<li><p>Place the camera in front of obstacles that come between the Virtual Camera and its <strong>Look At</strong> target.</p>
+</li>
+<li><p>Evaluate shot quality. <strong>Shot quality</strong> is a measure of the distance of the Virtual Camera from its ideal position, the distance of the Virtual Camera to its target, and the obstacles that block the view of the target. Other modules use shot quality, including <a href="CinemachineClearShot.html">Clear Shot</a>.</p>
+</li>
+</ul>
+<p>The Collider uses a <a href="https://docs.unity3d.com/Manual/script-PhysicsRaycaster.html">Physics Raycaster</a>. Therefore, Cinemachine Collider requires that potential obstacles have <a href="https://docs.unity3d.com/Manual/CollidersOverview.html">collider</a> volumes. There is a performance cost for this requirement. If this cost is prohibitive in your game, consider implementing this functionality in a different way.</p>
+<h2 id="properties">Properties:</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Collide Against</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Cinemachine Collider considers GameObjects in these layers to be potential obstacles. It ignores GameObjects that are not in the selected layers.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Minimum Distance From Target</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Ignore obstacles that are less than this distance from the target's pivot point.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Avoid Obstacles</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Check to allow the Collider to move the camera in the Scene when the target is obscured by an obstacle. Use the Distance Limit, Camera Radius, and Strategy properties to adjust how to avoid obstacles. If left unchecked, the Cinemachine Collider will report shot quality based on obstacles, but will not attempt to move the camera to improve the shot.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Distance Limit</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The maximum raycast distance when checking if the line of sight to this camera’s target is clear. Enter 0 to use the current actual distance to the target. Available when Avoid Obstacles is checked.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Camera Radius</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Distance to maintain from any obstacle. Try to keep this value small for best results. Increase it if you are seeing inside obstacles due to a large FOV on the camera.  Available when Avoid Obstacles is checked.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Strategy</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">The way in which the Collider attempts to preserve sight of the target.  Available when Avoid Obstacles is checked.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Pull Camera Forward</em></td>
+<td style="text-align: left;">Move the camera forward along its Z axis until it is in front of the obstacle that is nearest to the target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Preserve Camera Height</em></td>
+<td style="text-align: left;">Move the camera to an alternate point of view while attempting to keep the camera at its original height.</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><em>Preserve Camera Distance</em></td>
+<td style="text-align: left;">Move the camera to an alternate point of view while attempting to keep the camera at its original distance from the target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Smoothing Time</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Minimum number of seconds to hold the camera at the nearest point to the target. Can be used to reduce excess camera movement in environments with lots of obstacles.  Available when Avoid Obstacles is checked.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Damping</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How quickly to return the camera to its normal position after an occlusion has gone away. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly.  Available when Avoid Obstacles is checked.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Damping When Occluded</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">How quickly to move the camera to avoid an obstacle. Small numbers make the camera more responsive. Larger numbers make the camera respond more slowly. Available when Avoid Obstacles is checked.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Optimal Target Distance</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">If greater than zero, give a higher score to shots when the target is closer to this distance. Set this property to 0 to disable this feature.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Transparent Layers</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Objects on these layers will never obstruct the view of the target.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Minimum Occlusion Time</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Do not take action action unless the occulsion has lasted at least this long.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Maximum Effort</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Upper limit on how many obstacle hits to process. Higher numbers may impact performance.  In most environments four (4) hits is enough.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Ignore Tag</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Obstacles with this tag will be ignored. It is recommended to set this field to the target's tag.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.cinemachine@2.9.5/Documentation~/CinemachineCollider.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

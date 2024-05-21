@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Requirements and setup | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Requirements and setup | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Setup.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="requirements-and-setup">Requirements and setup</h1>
+
+<p>Install the following Editor and package versions to begin working with the <strong>2D Renderer</strong>:</p>
+<ul>
+<li><p><strong>Unity 2021.2.0b1</strong> or later</p>
+</li>
+<li><p><strong>Universal Render Pipeline</strong> version 10 or higher (available via the Package Manager)</p>
+</li>
+</ul>
+<h2 id="2d-renderer-setup">2D Renderer Setup</h2>
+<ol>
+<li><p>Create a new Project using the <a href="https://docs.unity3d.com/Manual/ProjectTemplates.html">2D template</a>.<img src="Images/2D/New_Project_With_Template.png" alt=""></p>
+</li>
+<li><p>Create a new <strong>Pipeline Asset</strong> and <strong>Renderer Asset</strong> by going to the <strong>Assets</strong> menu and selecting <strong>Create &gt; Rendering &gt; URP Asset (with 2D Renderer)</strong>.
+<img src="Images/2D/2d-urp12-create-renderer-asset.png" alt="">
+<br></p>
+</li>
+<li><p>Enter the name for both the Pipeline and Renderer Assets. The name is automatically applied to both, with &quot;_Renderer&quot; appended to the name of the Renderer Asset.
+<img src="Images/2D/2d-urp12-pipeline-renderer-assets.png" alt="">
+<br></p>
+</li>
+<li><p>The Renderer Asset is automatically assigned to the Pipeline Asset.
+<img src="Images/2D/2d-urp12-pipeline-renderer-assigned.png" alt="">
+<br></p>
+</li>
+<li><p>To set the graphics quality settings, there are two options:</p>
+<p><strong>Option 1: For a single setting across all platforms</strong></p>
+<ol>
+<li>Go to <strong>Edit &gt; Project Settings</strong> and select the <strong>Graphics</strong> category.
+<img src="Images/2D/2d-urp12-graphics-srpsettings.png" alt="">
+<br></li>
+<li>Drag the <strong>Pipeline Asset</strong> created earlier to the <strong>Scriptable Render Pipeline Settings</strong> box, and adjust the quality settings.
+<br></li>
+</ol>
+<p><strong>Option 2: For settings per quality level</strong></p>
+<ol>
+<li>Go to <strong>Edit &gt; Project Settings</strong> and select the <a href="https://docs.unity3d.com/Manual/class-QualitySettings.html">Quality</a> category.
+<img src="Images/2D/2d-urp12-graphics-qualitysettings.png" alt="">
+<br></li>
+<li>Select the quality levels to be included in your Project.</li>
+<li>Drag the <strong>Pipeline Asset</strong> created earlier to the <strong>Rendering</strong> box.
+<img src="Images/2D/2d-urp12-graphics-quality-add-rendering-asset.png" alt="">
+<br></li>
+<li>Repeat steps 2-3 for each quality level and platform included in your Project.</li>
+</ol>
+</li>
+</ol>
+<p>The <strong>2D Renderer</strong> is now set up for your Project.</p>
+<p><strong>Note:</strong> If you use the <strong>2D Renderer</strong> in your Project, some of the options related to 3D rendering in the <strong>Universal Render Pipeline Asset</strong> will not affect or impact on your final app or game.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/Setup.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

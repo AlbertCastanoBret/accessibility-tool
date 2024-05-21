@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Output Lit | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Output Lit | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-OutputLitSettings.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="output-lit">Output Lit</h1>
+
+<p>Menu Path : <strong>Context &gt; Output [Data Type] Lit [Type]</strong></p>
+<p><em>(Output Particle (Lit) Quad, Output Particle (Lit) Mesh, Output ParticleStrip (Lit), etc.)</em></p>
+<p><img src="Images/Context-OutputLitExample.gif" alt="img"></p>
+<p>Lit Outputs are a variant of outputs which can receive lighting information and support additional texture and material types pertaining to lighting. They are useful in scenarios where the visual effect needs to react to the lighting in the scene.</p>
+<h2 id="render-pipeline-compatibility">Render pipeline compatibility</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th><strong>Universal Render Pipeline (URP)</strong></th>
+<th><strong>High Definition Render Pipeline (HDRP)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lit outputs</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>Below is a list of settings and properties specific to lit outputs. For information about the generic output settings this Context shares with all other Contexts, see <a href="Context-OutputSharedSettings.html">Global Output Settings and Properties</a>.</p>
+<h2 id="context-settings">Context settings</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Setting</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Normal Bending</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether this output supports normal bending. If you enable this property, the <strong>Normal Bending Factor</strong> slider appears which you can use to adjust the curvature of the normals.<br>This property only appears on <strong>Lit Planar Primitives</strong> (quad, triangle, octagon) and <strong>Lit Particle Strips</strong>.</td>
+</tr>
+<tr>
+<td><strong>Material Type <sub>[HDRP]</sub></strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> <strong>(HDRP)</strong> Specifies the surface type for the output. This determines how the particles react to light. The options are: <br>• <strong>Standard</strong>:  The standard lit material that supports most lighting features.<br>• <strong>Specular Color</strong>: Allows you to manually define the specular color.<br>• <strong>Translucent</strong>:  Uses a <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html?subfolder=/manual/Diffusion-Profile.html">Diffusion Profile</a> to simulate light passing through particles.<br>• <strong>Simple Lit</strong>: Allows you to toggle specific lighting calculations to improve performance. Only point, spot, and direction lights affect particles in this mode. This mode. This mode renders particles in forward mode.<br>• <strong>Simple Lit Translucent</strong>: Similar to <strong>Simple Lit</strong>, but with a Translucent workflow to simulate light passing through objects. <br>• <strong>Six Way Smoke Lit</strong>: Uses baked smoke data stored in <strong>Positive Axes Light Map</strong> and <strong>Negative Axes Light Map</strong> to simulate realistic smoke lighting.</td>
+</tr>
+<tr>
+<td><strong>Workflow Mode</strong> <strong><sub>[URP]</sub></strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies the surface type for the output. This determines how the particles react to light. The options are: <br>• <strong>Metallic</strong>:  The standard lit material, which exposes a <strong>Metallic</strong> slider.<br>• <strong>Specular</strong>: Allows you to manually define a <strong>Specular Color</strong>, which makes it possible to have a specular reflection of a different color than the diffuse reflection.</td>
+</tr>
+<tr>
+<td><strong>Smoothness Source</strong> <strong><sub>[URP]</sub></strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies the smoothness map source. It can be the alpha channel of the Metallic Map, the Base Color Map, or the Specular Map, if they are used in the output. The individual enum options are only available if the respective maps are enabled.</td>
+</tr>
+<tr>
+<td><strong>Only Ambient Lighting</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether output particles only receive light from ambient light sources and light probes. Disable this setting to have particles receive lighting from all light sources in the scene.</td>
+</tr>
+<tr>
+<td><strong>Use Base Color Map</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies what parts of the base color map to apply to the output. The options are:<br>• <strong>None</strong>: Does not apply the base color map to the output.<br>• <strong>Color</strong>: Only applies the color channels of the base color map to the output.<br>• <strong>Alpha</strong>: Only applies the alpha channel of the base color map to the output.<br>• <strong>Color and Alpha</strong>: Applies the color channels and alpha channel of the base color map to the output.</td>
+</tr>
+<tr>
+<td><strong>Use Mask Map</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the output accepts a mask map input to control how the particle receives lighting.</td>
+</tr>
+<tr>
+<td><strong>Use Occlusion Map</strong> <strong><sub>[URP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the output accepts an Occlusion Map to simulate shadowing from ambient lighting.</td>
+</tr>
+<tr>
+<td><strong>Use Metallic Map</strong> <strong><sub>[URP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the output accepts a metallic map to multiply the metallic value with.<br>This property only appears if you set <strong>Workflow Mode</strong> to <strong>Metallic</strong>.</td>
+</tr>
+<tr>
+<td><strong>Use Specular Map</strong> <strong><sub>[URP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the output accepts a specular map to multiply the specular value with.<br>This property only appears if you set <strong>Workflow Mode</strong> to <strong>Specular</strong>.</td>
+</tr>
+<tr>
+<td><strong>Use Normal Map</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the output accepts a normal map input to simulate additional surface details when illuminated.</td>
+</tr>
+<tr>
+<td><strong>Use Emissive Map</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the output accepts an emissive map to control how particles glow, independently of how they are lit.</td>
+</tr>
+<tr>
+<td><strong>Color Mode</strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies how to apply the per-particle color attribute to the particles. The options are:<br>• <strong>None</strong>: Disregards the color attribute.<br>• <strong>Base Color</strong>: Uses the color attribute as the particle's base color.<br>• <strong>Emissive</strong>: Uses the color attribute as the particle's emissive color.<br>• <strong>Base Color and Emissive</strong>: Uses the color attribute as both the particle's base color and emissive color.</td>
+</tr>
+<tr>
+<td><strong>Use Emissive</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the output supports emissive particles. Enable this setting to expose the <strong>Emissive Color</strong> property which you can use to make particles glow.</td>
+</tr>
+<tr>
+<td><strong>Double-Sided</strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether one-sided particles, like quads, should render from both sides. This flips the normals for particles when they are viewed from behind which means they also receive correct lighting information.<br>Note: If you enable this setting, also set <strong>Cull Mode</strong> to <strong>Off</strong>. Otherwise, Unity culls the backside of the particle and thus does not render both sides of the particle.</td>
+</tr>
+<tr>
+<td><strong>Preserve Specular Lighting</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> When enabled, specular lighting will be rendered, regardless of the particle’s opacity. This setting is useful for creating glass-like effects where transparent particles still reflect light.</td>
+</tr>
+<tr>
+<td><strong>Diffusion Profile Asset</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td><a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html?subfolder=/manual/Diffusion-Profile.html">Diffusion Profile</a></td>
+<td><strong>(Inspector)</strong> The Diffusion Profile that determines how to simulate light which passes through the particle. <br>Note: You also must add the Diffusion Profile to the <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html?subfolder=/manual/HDRP-Asset.html**">HDRP asset</a>** or to a <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html?subfolder=/manual/Volumes.html">Volume’s</a> <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html?subfolder=/manual/Override-Diffusion-Profile.html">Diffusion Profile Override</a> in the Scene .<br>This setting only appears if you set <strong>Material Type</strong> to <strong>Translucent</strong> or <strong>Simple Lit Translucent</strong>.</td>
+</tr>
+<tr>
+<td><strong>Multiply Thickness With Alpha</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether to multiply the <strong>Thickness</strong> of the particle by its alpha value.<br>This setting only appears if you set <strong>Material Type</strong> to <strong>Translucent</strong> or <strong>Simple Lit Translucent</strong>.</td>
+</tr>
+<tr>
+<td><strong>Smoke Emissive Mode</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Enum</td>
+<td><strong>(Inspector)</strong> Specifies what information HDRP uses to control the emissive color of the particle: <br>• <strong>None</strong>: The particle does not have an emissive color.<br>• <strong>Single Channel</strong>: Uses the Alpha channel of the <strong>Negative Axes Light Map</strong> to retrieve the emission intensity and remaps this value to an emissive color with the <strong>Emissive Gradient</strong>. <br>• <strong>Map</strong>: Uses an <strong>Emissive Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Receive Shadows</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the particle receives shadows.<br>This setting only appears if you set <strong>Material Type</strong> to <strong>Simple Lit</strong>, <strong>Simple Lit Translucent</strong>, or <strong>Six Way Smoke Lit</strong>.</td>
+</tr>
+<tr>
+<td><strong>Enable Specular</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the particle receives specular highlights.<br>This setting only appears if you set <strong>Material Type</strong> to <strong>Simple Lit</strong> or <strong>Simple Lit Translucent</strong>.</td>
+</tr>
+<tr>
+<td><strong>Enable Cookie</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether light cookies affect the particle or not. This setting only appears if you set <strong>Material Type</strong> to <strong>Simple Lit</strong>, <strong>Simple Lit Translucent</strong> or <strong>Six Way Smoke Lit</strong>.</td>
+</tr>
+<tr>
+<td><strong>Enable Env Light</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Bool</td>
+<td><strong>(Inspector)</strong> Indicates whether the particle receives the environment light set in the global <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html?subfolder=/manual/Volume-Profile.html">Volume Profile</a>. <br>This setting only appears if you set <strong>Material Type</strong> to <strong>Simple Lit</strong> or <strong>Simple Lit Translucent</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="context-properties">Context properties</h2>
+<table>
+<thead>
+<tr>
+<th><strong>Input</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Smoothness</strong></td>
+<td>Float (slider)</td>
+<td>The smoothness of the particle. Smoother surfaces bounce light off more uniformly, creating clearer reflections.</td>
+</tr>
+<tr>
+<td><strong>Metallic</strong></td>
+<td>Float (slider)</td>
+<td>The metallicity of the particle. Metallic surfaces reflect their environment more, making their albedo color less visible.<br>This property only appears if <strong>Material Type</strong> is set to <strong>Standard</strong> or <strong>Simple Lit</strong>.</td>
+</tr>
+<tr>
+<td><strong>Occlusion Map</strong> <strong><sub>[URP]</sub></strong></td>
+<td>Texture2D</td>
+<td>Controls the occlusion across the surface of the material. For more information about occlusion mapping and its effects, see <a href="https://docs.unity3d.com/Manual/StandardShaderMaterialParameterOcclusionMap.html">Occlusion mapping</a>.<br>This property only appears if you enable <strong>Use Occlusion Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Specular Map</strong> <strong><sub>[URP]</sub></strong></td>
+<td>Texture2D</td>
+<td>Controls the specular color across the surface of the material. To get the final specular intensity value, Unity multiplies this value by <strong>Specular Color</strong>.<br>This property only appears if you enable <strong>Use Specular Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Metallic Map</strong> <strong><sub>[URP]</sub></strong></td>
+<td>Texture2D</td>
+<td>Controls the metallicity across the surface of the material.To get the final metallicity value, Unity multiplies this value by <strong>Metallic</strong>.<br>This property only appears if you enable <strong>Use Metallic Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Normal Bending Factor</strong></td>
+<td>Float (slider)</td>
+<td>The amount by which to bend the normals. More bent normals create a rounder look.<br>This property only appears if you enable <strong>Normal Bending</strong>.</td>
+</tr>
+<tr>
+<td><strong>Thickness</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Float (slider)</td>
+<td>The thickness of the translucent particles. This affects the influence of the <strong>Diffusion Profile Asset</strong>.<br>This property only appears if <strong>Material Type</strong> is set to <strong>Translucent</strong> or <strong>Simple Lit Translucent</strong>.</td>
+</tr>
+<tr>
+<td><strong>Base Color Map</strong></td>
+<td>Texture2D</td>
+<td>The base color (RGB) and opacity (A) of the particle.<br>This property only appears if you set <strong>Use Base Color Map</strong> to anything other than ‘None’.</td>
+</tr>
+<tr>
+<td><strong>Mask Map</strong> <strong><sub>[HDRP]</sub></strong></td>
+<td>Texture2D</td>
+<td>The <a href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@latest/index.html?subfolder=/manual/Mask-Map-and-Detail-Map.html">mask map</a> for the particle - Metallic (R), Ambient Occlusion (G), and Smoothness (A).<br>This property only appears if you enable <strong>Use Mask Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Normal Map</strong></td>
+<td>Texture2D</td>
+<td>The normal map the system uses to get normals, in the tangent space, for the particle.<br>This property only appears if you enable <strong>Use Normal Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Emissive Map</strong></td>
+<td>Texture2D</td>
+<td>The emissive map (RGB) the system uses to make particles glow.<br>This property only appears if you enable <strong>Use Emissive Map</strong>.</td>
+</tr>
+<tr>
+<td><strong>Positive Axes Light Map</strong></td>
+<td>Texture2D</td>
+<td>The Texture that contains lighting data from the positive axis in each Texture channel:<br>• Right (R) <br>• Up (G) <br>• Back (B) <br>• Opacity (A) <br>This property only appears if you set <strong>Material Type</strong> to <strong>Six Way Smoke Lit</strong>.</td>
+</tr>
+<tr>
+<td><strong>Negative Axes Light Map</strong></td>
+<td>Texture2D</td>
+<td>The Texture that contains lighting data from the positive axis in each Texture channel:<br>• Left (R) <br>• Bottom (G) <br>• Front (B) <br>• Emissive Mask (A): Select this channel this when you use the <strong>Single Channel</strong> Smoke Emissive Mode.  <br>This property only appears if you set <strong>Material Type</strong> to <strong>Six Way Smoke Lit</strong>.</td>
+</tr>
+<tr>
+<td><strong>Emission Gradient</strong></td>
+<td>Gradient</td>
+<td>The gradient Unity uses to sample emissive color from the Alpha channel of the <strong>Negative Axes Light Map</strong>. This property only appears if you set <strong>Material Type</strong> to <strong>Six Way Smoke Lit</strong>.</td>
+</tr>
+<tr>
+<td><strong>Emission Multiplier</strong></td>
+<td>Float</td>
+<td>The amount by which Unity multiplies values in the <strong>Emission Gradient</strong>. <br>This property only appears if you set <strong>Material Type</strong> to <strong>Six Way Smoke Lit</strong>.</td>
+</tr>
+<tr>
+<td><strong>Alpha Remap</strong></td>
+<td>Curve</td>
+<td>Uses a curve to remap the particle's opacity value.<br>This property only appears if you set <strong>Material Type</strong> to <strong>Six Way Smoke Lit</strong>.</td>
+</tr>
+<tr>
+<td><strong>Base Color</strong></td>
+<td>Color</td>
+<td>The base color of the particle.<br>This property only appears if <strong>Color Mode</strong> is set to <strong>None</strong>.</td>
+</tr>
+<tr>
+<td><strong>Emissive Color</strong></td>
+<td>Color</td>
+<td>The emissive color the system uses to make particles glow.<br>This property only appears if you enable <strong>Use Emissive</strong>.</td>
+</tr>
+<tr>
+<td><strong>Specular Color</strong></td>
+<td>Color</td>
+<td>The specular color of the particle.<br>This property only appears if <strong>Material Type</strong> is set to <strong>Specular Color</strong> or <strong>Workflow Mode</strong> is set to <strong>Specular</strong>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/Context-OutputLitSettings.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Rendering in the Universal Render Pipeline | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Rendering in the Universal Render Pipeline | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/rendering-in-universalrp.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="rendering-in-the-universal-render-pipeline">Rendering in the Universal Render Pipeline</h1>
+
+<p>The Universal Render Pipeline (URP) renders Scenes using the following components:</p>
+<ul>
+<li>URP Renderer. URP contains the following Renderers:
+<ul>
+<li><a href="urp-universal-renderer.html">Universal Renderer</a>.</li>
+<li><a href="Setup.html#2d-renderer-setup">2D Renderer</a>.</li>
+</ul>
+</li>
+<li><a href="shading-model.html">Shading models</a> for shaders shipped with URP</li>
+<li>Camera</li>
+<li><a href="universalrp-asset.html">URP Asset</a></li>
+</ul>
+<p>The following illustration shows the frame rendering loop of the URP Universal Renderer.</p>
+<p><img src="Images/Graphics/Rendering_Flowchart.png" alt="URP Universal Renderer, Forward Rendering Path"></p>
+<p>When the <a href="InstallURPIntoAProject.html">render pipeline is active in Graphics Settings</a>, Unity uses URP to render all Cameras in your Project, including game and Scene view cameras, Reflection Probes, and the preview windows in your Inspectors.</p>
+<p>The URP renderer executes a Camera loop for each Camera, which performs the following steps:</p>
+<ol>
+<li>Culls rendered objects in your Scene</li>
+<li>Builds data for the renderer</li>
+<li>Executes a renderer that outputs an image to the framebuffer.</li>
+</ol>
+<p>For more information about each step, see <a href="#camera-loop">Camera loop</a>.</p>
+<p>In the <a href="https://docs.unity3d.com/ScriptReference/Rendering.RenderPipelineManager.html">RenderPipelineManager</a> class, URP provides events that you can use to execute code before and after rendering a frame, and before and after rendering each Camera loop. The events are:</p>
+<ul>
+<li><a href="https://docs.unity3d.com/ScriptReference/Rendering.RenderPipelineManager-beginCameraRendering.html">beginCameraRendering</a></li>
+<li><a href="https://docs.unity3d.com/ScriptReference/Rendering.RenderPipelineManager-beginFrameRendering.html">beginFrameRendering</a></li>
+<li><a href="https://docs.unity3d.com/ScriptReference/Rendering.RenderPipelineManager-endCameraRendering.html">endCameraRendering</a></li>
+<li><a href="https://docs.unity3d.com/ScriptReference/Rendering.RenderPipelineManager-endFrameRendering.html">endFrameRendering</a></li>
+</ul>
+<p>For the example of how to use the beginCameraRendering event, see the page <a href="using-begincamerarendering.html">Using the beginCameraRendering event</a>.</p>
+<h2 id="camera-loop">Camera loop</h2>
+<p>The Camera loop performs the following steps:</p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Setup Culling Parameters</strong></td>
+<td>Configures parameters that determine how the culling system culls Lights and shadows. You can override this part of the render pipeline with a custom renderer.</td>
+</tr>
+<tr>
+<td><strong>Culling</strong></td>
+<td>Uses the culling parameters from the previous step to compute a list of visible renderers, shadow casters, and Lights that are visible to the Camera. Culling parameters and Camera <a href="https://docs.unity3d.com/ScriptReference/Camera-layerCullDistances.html">layer distances</a> affect culling and rendering performance.</td>
+</tr>
+<tr>
+<td><strong>Build Rendering Data</strong></td>
+<td>Catches information based on the culling output, quality settings from the <a href="universalrp-asset.html">URP Asset</a>, <a href="cameras.html">Camera</a>, and the current running platform to build the <code>RenderingData</code>. The rendering data tells the renderer the amount of rendering work and quality required for the Camera and the currently chosen platform.</td>
+</tr>
+<tr>
+<td><strong>Setup Renderer</strong></td>
+<td>Builds a list of render passes, and queues them for execution according to the rendering data. You can override this part of the render pipeline with a custom renderer.</td>
+</tr>
+<tr>
+<td><strong>Execute Renderer</strong></td>
+<td>Executes each render pass in the queue. The renderer outputs the Camera image to the framebuffer.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/rendering-in-universalrp.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

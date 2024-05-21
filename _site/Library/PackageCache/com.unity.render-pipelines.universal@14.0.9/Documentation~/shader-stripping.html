@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Shader Stripping | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Shader Stripping | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/shader-stripping.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="shader-stripping">Shader Stripping</h1>
+
+<p>The shaders in the Universal Render Pipeline (URP) use <a href="https://docs.unity3d.com/Manual/shader-keywords">shader keywords</a> to support many different features, which can mean Unity compiles a lot of <a href="https://docs.unity3d.com/Manual/shader-variants">shader variants</a>.</p>
+<p>If you disable features in the <a href="universalrp-asset.html">URP Asset</a>, URP automatically excludes ('strips') the related shader variants. This speeds up builds, and reduces memory usage and file sizes.</p>
+<p>For example, if your project doesn't use shadows for directional lights, by default Unity still includes variants that support directional light shadows in your build. If you disable <strong>Cast Shadows</strong> in the URP Asset, URP strips these variants.</p>
+<p>If you want to examine the code that strips shaders in URP, see the <code>Editor/ShaderPreprocessor.cs</code> file. The file uses the <a href="https://docs.unity3d.com/ScriptReference/Build.IPreprocessShaders.html">IPreprocessShaders</a> API.</p>
+<p>For more information on stripping shader variants, see the following pages:</p>
+<ul>
+<li><a href="https://docs.unity3d.com/Manual/shader-how-many-variants.html">Check how many shader variants you have</a>.</li>
+<li>See the <a href="https://docs.unity3d.com/Manual/shader-variant-stripping.html">standard guidance about shader stripping</a>, which applies to all render pipelines.</li>
+</ul>
+<h2 id="strip-feature-shader-variants">Strip feature shader variants</h2>
+<p>By default, URP compiles variants where a feature is enabled, and variants where a feature is disabled.</p>
+<p>To reduce the number of variants, you can enable <strong>Strip Unused Variants</strong> in the <a href="urp-global-settings.html">URP Global Settings</a> and do the following:</p>
+<ul>
+<li>Disable a feature in all URP Assets in your build, so URP keeps only variants where the feature is disabled.</li>
+<li>Enable a feature in all URP Assets in your build, so URP keeps only variants where the feature is enabled.</li>
+</ul>
+<p>If you disable the <strong>Strip Unused Variants setting</strong>, URP can't strip variants where the feature is disabled. This might increase the number of variants.</p>
+<h3 id="disable-a-feature">Disable a feature</h3>
+<p>To let Unity strip variants related to a feature, make sure you disable it in all the URP Assets in your build.</p>
+<p>Unity includes the following URP Assets in your build:</p>
+<ul>
+<li>The URP Asset you set as the default render pipeline asset in <a href="https://docs.unity3d.com/Manual/class-GraphicsSettings.html">Graphics Settings</a>.</li>
+<li>Any URP Asset you set as a <strong>Render Pipeline Asset</strong> in a <a href="https://docs.unity3d.com/Manual/class-QualitySettings.html">Quality Settings level</a> you enable for the current build target.</li>
+</ul>
+<p>Avoid including URP Assets in your build that use different <a href="urp-universal-renderer.html#rendering-path-comparison">rendering paths</a> because this causes Unity to create two sets of variants for each keyword.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Feature</strong></th>
+<th><strong>How to disable the feature</strong></th>
+<th><strong>Shader keywords this turns off</strong></th>
+<th><strong>Rendering Path</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Accurate G-buffer normals</td>
+<td>Disable <strong>Accurate G-buffer normals</strong> in the URP Asset. This has no effect on platforms that use the Vulkan graphics API.</td>
+<td><code>_GBUFFER_NORMALS_OCT</code></td>
+<td>Deferred</td>
+</tr>
+<tr>
+<td>Additional lights</td>
+<td>In the <strong>URP Asset</strong>, in the <strong>Lighting section</strong>, disable <strong>Additional Lights</strong>.</td>
+<td><code>_ADDITIONAL_LIGHTS</code>, <code>_ADDITIONAL_LIGHTS_VERTEX</code></td>
+<td>Forward</td>
+</tr>
+<tr>
+<td>Ambient occlusion</td>
+<td>Remove the <a href="post-processing-ssao.html">Ambient Occlusion</a> Renderer Feature in all Renderers that URP Assets use.</td>
+<td><code>_SCREEN_SPACE_OCCLUSION</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Decals</td>
+<td>Remove the <a href="renderer-feature-decal.html">Decals</a> Renderer Feature in all Renderers that URP Assets use.</td>
+<td><code>_DBUFFER_MRT1</code>, <code>_DBUFFER_MRT2</code>, <code>_DBUFFER_MRT3</code>, <code>_DECAL_NORMAL_BLEND_LOW</code>, <code>_DECAL_NORMAL_BLEND_MEDIUM</code>, <code>_DECAL_NORMAL_BLEND_HIGH</code>,  <code>_DECAL_LAYERS</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Fast sRGB to linear conversion</td>
+<td>In the <strong>URP Asset</strong>, in the <strong>Post-processing</strong> section, disable <strong>Fast sRGB/Linear conversions</strong>.</td>
+<td><code>_USE_FAST_SRGB_LINEAR_CONVERSION</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Holes in terrain</td>
+<td>In the <strong>URP Asset</strong>, in the <strong>Rendering</strong> section, disable <strong>Terrain Holes</strong>.</td>
+<td><code>_ALPHATEST_ON</code></td>
+<td>Forward</td>
+</tr>
+<tr>
+<td>Light cookies</td>
+<td>Remove <a href="https://docs.unity3d.com/Manual/Cookies.html">Cookie textures</a> from all the lights in your project.</td>
+<td><code>_LIGHT_COOKIES</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Rendering Layers for lights</td>
+<td>Disable <a href="features/rendering-layers.html">Rendering Layers for Lights</a>.</td>
+<td><code>_LIGHT_LAYERS</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Reflection Probe blending</td>
+<td>Disable <a href="lighting/reflection-probes.html#configuring-reflection-probe-settings">Probe Blending</a>.</td>
+<td><code>_REFLECTION_PROBE_BLENDING</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Reflection Probe box projection</td>
+<td>Disable <a href="lighting/reflection-probes.html#configuring-reflection-probe-settings">Box Projection</a>.</td>
+<td><code>_REFLECTION_PROBE_BOX_PROJECTION</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Render Pass</td>
+<td>Disable <strong>Native Render</strong> in all Renderers that URP Assets use.</td>
+<td><code>_RENDER_PASS_ENABLED</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Shadows from additional lights</td>
+<td>In the URP Asset, in the <strong>Additional Lights</strong> section, disable <strong>Cast Shadows</strong>.</td>
+<td><code>_ADDITIONAL_LIGHT_SHADOWS</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Shadows from the main light</td>
+<td>In the URP Asset, in the <strong>Main Light</strong> section, disable <strong>Cast Shadows</strong>. The keywords Unity removes might depend on your settings.</td>
+<td><code>_MAIN_LIGHT_SHADOWS</code>, <code>_MAIN_LIGHT_SHADOWS_CASCADE</code>, <code>_MAIN_LIGHT_SHADOWS_SCREEN</code></td>
+<td>Forward and Deferred</td>
+</tr>
+<tr>
+<td>Soft shadows</td>
+<td>In the URP Asset, in the <strong>Shadows</strong> section, disable <strong>Soft shadows</strong>.</td>
+<td><code>_SHADOWS_SOFT</code></td>
+<td>Forward and Deferred</td>
+</tr>
+</tbody>
+</table>
+<h2 id="strip-post-processing-shader-variants">Strip post-processing shader variants</h2>
+<p>Enable <strong>Strip Unused Post Processing Variants</strong> in <a href="urp-global-settings.html">URP Global Settings</a> to strip shader variants for <a href="VolumeOverrides.html">Volume Overrides</a> you don't use.</p>
+<p>For example if your project uses only the Bloom effect, URP keeps Bloom variants but strips all other post-processing variants.</p>
+<p>Unity checks for Volume Overrides in all scenes, so you can't strip variants by removing a Scene from your build but keeping it in your project.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Volume Override removed</strong></th>
+<th><strong>Shader keywords this turns off</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bloom</td>
+<td><code>_BLOOM_HQ</code>, <code>BLOOM_HQ_DIRT</code>, <code>_BLOOM_LQ</code>, <code>BLOOM_LQ_DIRT</code></td>
+</tr>
+<tr>
+<td>Chromatic Aberration</td>
+<td><code>_CHROMATIC_ABERRATION</code></td>
+</tr>
+<tr>
+<td>Film Grain</td>
+<td><code>_FILM_GRAIN</code></td>
+</tr>
+<tr>
+<td>HDR Grading</td>
+<td><code>_HDR_GRADING</code></td>
+</tr>
+<tr>
+<td>Lens Distortion</td>
+<td><code>_DISTORTION</code></td>
+</tr>
+<tr>
+<td>Tonemapping</td>
+<td><code>_TONEMAP_ACES</code>, <code>_TONEMAP_NEUTRAL</code>, <code>_TONEMAP_GRADING</code></td>
+</tr>
+</tbody>
+</table>
+<p>You should also enable <strong>Strip Screen Coord Override Variants</strong> in URP Global Settings, unless you override screen coordinates to support post processing on large numbers of multiple displays ('cluster' displays).</p>
+<h2 id="strip-xr-and-vr-shader-variants">Strip XR and VR shader variants</h2>
+<p>If you don't use <a href="https://docs.unity3d.com/Manual/XR.html">XR</a> or <a href="https://docs.unity3d.com/Manual/VROverview.html">VR</a>, you can <a href="https://docs.unity3d.com/Documentation/Manual/upm-ui.html">disable the XR and VR modules</a>. This allows URP to strip XR and VR related shader variants from its standard shaders.</p>
+<h2 id="remove-variants-if-you-use-a-custom-renderer-feature">Remove variants if you use a custom Renderer Feature</h2>
+<p>If you create a <a href="xref:UnityEngine.Rendering.Universal.ScriptableRendererFeature">custom Renderer Feature</a>, you can use the <a href="https://docs.unity3d.com/2023.1/Documentation/ScriptReference/ShaderKeywordFilter.FilterAttribute.html">FilterAttribute</a> API to remove shader variants when you enable or disable settings in the <a href="universalrp-asset.html">URP Asset</a>.</p>
+<p>For example, you can do the following:</p>
+<ol>
+<li>Use <a href="https://docs.unity3d.com/ScriptReference/SerializeField.html">[SerializeField]</a> to add a Boolean variable to the custom Renderer Feature and add it as a checkbox in the URP Asset Inspector.</li>
+<li>Use <a href="https://docs.unity3d.com/2023.1/Documentation/ScriptReference/ShaderKeywordFilter.RemoveIfAttribute.html">ShaderKeywordFilter.RemoveIf</a> to remove shader variants when you enable the checkbox.</li>
+</ol>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/shader-stripping.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

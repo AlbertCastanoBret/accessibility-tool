@@ -1,0 +1,143 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Import Heightmap | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Import Heightmap | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/toolbox-import-heightmap.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="import-heightmap">Import Heightmap</h1>
+
+<p>The <strong>Create New Terrain</strong> wizard has an <strong>Import Heightmap</strong> section, which lets you import a heightmap or a series of heightmaps for creating new Terrain. Click the checkbox on the expander menu to enable this option.</p>
+<p><img src="images/Toolbox_Create_Heightmap.png" alt=""></p>
+<h2 id="import-modes">Import modes</h2>
+<p>Heightmaps must be in the RAW format, and the size of each heightmap must be a power of two. There are three import modes: <strong>Global</strong>, <strong>Batch</strong>, and <strong>Tiles</strong>.</p>
+<h3 id="global">Global</h3>
+<p><strong>Global</strong> mode lets you import one heightmap for use on all Terrain tiles. There are two options for the heightmap format.</p>
+<p>By default, you can select a single channel heightmap from the project in the Texture field.</p>
+<p><img src="images/Toolbox_Heightmap_UseTexture2D.png" alt=""></p>
+<p>The second option is to enable the <strong>Use Raw File</strong> checkbox, which lets you select a RAW file heightmap texture to use.</p>
+<p><img src="images/Toolbox_Heightmap_UseRawFile.png" alt=""></p>
+<h3 id="batch">Batch</h3>
+<p><strong>Batch</strong> mode lets you import a list of heightmaps, and applies one heightmap per tile. Provide the folder path where heightmaps reside. The Toolbox then imports each heightmap, and automatically assigns them to the respective tiles. For auto-assignment to work, you must name the heightmaps properly.</p>
+<p><img src="images/Toolbox_Heightmap_Batch.png" alt=""></p>
+<p>Heightmap filenames must end with two index digits — the index along the X axis, and the index along the Z axis. For example, <code>MtStHelens_0_0</code>, <code>MtStHelens_0_1</code>, <code>MtStHelens_1_0</code>, and <code>MtStHelens_1_1</code> creates a 2 x 2 tiled Terrain comprising the four heightmaps. The heightmap files look like this in file explorer.</p>
+<p><img src="images/Toolbox_Heightmap_BatchFileNaming.png" alt=""></p>
+<h3 id="tiles">Tiles</h3>
+<p><strong>Tiles</strong> mode lets you assign a heightmap manually to each tile slot, and there are no file naming requirements.</p>
+<p><img src="images/Toolbox_Heightmap_Tiles.png" alt=""></p>
+<h2 id="information-and-warning-boxes">Information and warning boxes</h2>
+<p><img src="images/Toolbox_Heightmap_InfoBox.png" alt=""></p>
+<p>The information and warning boxes inform you if there is missing data, or if the selected Texture settings differ from that of the Terrain.</p>
+<h2 id="heightmap-settings">Heightmap settings</h2>
+<p><img src="images/Toolbox_Heightmap_Settings.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Height Remap</strong></td>
+<td>Remaps the 0 and 1 values of the heightmap to minimum and maximum Terrain heights.</td>
+</tr>
+<tr>
+<td><strong>Flip Axis</strong></td>
+<td>Flips the axis horizontally or vertically, or does not flip them.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/toolbox-import-heightmap.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

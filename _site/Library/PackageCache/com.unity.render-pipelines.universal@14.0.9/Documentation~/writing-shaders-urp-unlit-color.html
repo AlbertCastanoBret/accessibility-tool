@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>URP unlit shader with color input | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="URP unlit shader with color input | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/writing-shaders-urp-unlit-color.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="urp-unlit-shader-with-color-input">URP unlit shader with color input</h1>
+
+<p>The Unity shader in this example adds the <strong>Base Color</strong> property to the Material. You can select the color using that property and the shader fills the mesh shape with the color.</p>
+<p>Use the Unity shader source file from section <a href="writing-shaders-urp-basic-unlit-structure.html">URP unlit basic shader</a> and make the following changes to the ShaderLab code:</p>
+<ol>
+<li><p>Add the <code>_BaseColor</code> property definition to the Properties block:</p>
+<pre><code class="lang-c++">Properties
+{
+    [MainColor] _BaseColor(&quot;Base Color&quot;, Color) = (1, 1, 1, 1)
+}
+</code></pre>
+<p>This declaration adds the <code>_BaseColor</code> property with the label <strong>Base Color</strong> to the Material:</p>
+<p><img src="Images/shader-examples/urp-material-prop-base-color.png" alt="Base Color property on a Material"></p>
+<p>When you declare a property with the <code>[MainColor]</code> attribute, Unity uses this property as the <a href="https://docs.unity3d.com/ScriptReference/Material-color.html">main color</a> of the Material.</p>
+<blockquote>
+<p><strong>Note</strong>: For compatibility reasons, the <code>_Color</code> property name is a reserved name. Unity uses a property with the name <code>_Color</code> as the <a href="https://docs.unity3d.com/ScriptReference/Material-color.html">main color</a> even it does not have the <code>[MainColor]</code> attribute.</p>
+</blockquote>
+</li>
+<li><p>When you declare a property in the Properties block, you also need to declare it in the HLSL code.</p>
+<blockquote>
+<p><strong>NOTE</strong>: To ensure that the Unity shader is SRP Batcher compatible, declare all Material properties inside a single <code>CBUFFER</code> block with the name <code>UnityPerMaterial</code>. For more information on the SRP Batcher, see the page <a href="https://docs.unity3d.com/Manual/SRPBatcher.html">Scriptable Render Pipeline (SRP) Batcher</a>.</p>
+</blockquote>
+<p>Add the following code before the vertex shader:</p>
+<pre><code class="lang-c++">CBUFFER_START(UnityPerMaterial)
+    half4 _BaseColor;
+CBUFFER_END
+</code></pre>
+</li>
+<li><p>Change the code in the fragment shader so that it returns the <code>_BaseColor</code> property.</p>
+<pre><code class="lang-c++">half4 frag() : SV_Target
+{
+    return _BaseColor;
+}
+</code></pre>
+</li>
+</ol>
+<p>Now you can select the color in the <strong>Base Color</strong> field in the Inspector window. The fragment shader fills the mesh with the color you select.</p>
+<p><img src="Images/shader-examples/unlit-shader-tutorial-color-field-with-scene.png" alt="Base Color field on a Material"></p>
+<p>Below is the complete ShaderLab code for this example.</p>
+<pre><code class="lang-c++">// This shader fills the mesh shape with a color that a user can change using the
+// Inspector window on a Material.
+Shader &quot;Example/URPUnlitShaderColor&quot;
+{
+    // The _BaseColor variable is visible in the Material's Inspector, as a field
+    // called Base Color. You can use it to select a custom color. This variable
+    // has the default value (1, 1, 1, 1).
+    Properties
+    {
+        [MainColor] _BaseColor(&quot;Base Color&quot;, Color) = (1, 1, 1, 1)
+    }
+
+    SubShader
+    {
+        Tags { &quot;RenderType&quot; = &quot;Opaque&quot; &quot;RenderPipeline&quot; = &quot;UniversalPipeline&quot; }
+
+        Pass
+        {
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include &quot;Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl&quot;
+
+            struct Attributes
+            {
+                float4 positionOS   : POSITION;
+            };
+
+            struct Varyings
+            {
+                float4 positionHCS  : SV_POSITION;
+            };
+
+            // To make the Unity shader SRP Batcher compatible, declare all
+            // properties related to a Material in a a single CBUFFER block with
+            // the name UnityPerMaterial.
+            CBUFFER_START(UnityPerMaterial)
+                // The following line declares the _BaseColor variable, so that you
+                // can use it in the fragment shader.
+                half4 _BaseColor;
+            CBUFFER_END
+
+            Varyings vert(Attributes IN)
+            {
+                Varyings OUT;
+                OUT.positionHCS = TransformObjectToHClip(IN.positionOS.xyz);
+                return OUT;
+            }
+
+            half4 frag() : SV_Target
+            {
+                // Returning the _BaseColor value.
+                return _BaseColor;
+            }
+            ENDHLSL
+        }
+    }
+}
+</code></pre>
+<p>Section <a href="writing-shaders-urp-unlit-texture.html">Drawing a texture</a> shows how to draw a texture on the mesh.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/writing-shaders-urp-unlit-color.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

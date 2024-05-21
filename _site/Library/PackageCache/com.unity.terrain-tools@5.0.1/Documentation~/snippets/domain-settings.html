@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/snippets/domain-settings.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../../index.html">
+            <img id="logo" class="svg" src="../../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+
+<p>The domain settings alter the controls for each noise type.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Noise Type</strong></td>
+<td>There are five noise patterns that you can select.<br>• <strong>Billow</strong> is similar to <strong>Perlin</strong> noise, but with more rounded features that resemble natural phenomena, such as treetops and hills.<br>• <strong>Perlin</strong> is a noise where the visual details are the same size. This is good for close-up mountain details.<br>• <strong>Ridge</strong> is billow noise filtered through an absolute function that is then inverted. This is good for ridges and deep valleys. <br>• <strong>Value</strong> is a noise that creates a lattice of points, which are assigned random values. The noise function then returns an interpolated number based on the values of the surrounding lattice points. This is good for close up mountain details.<br>• <strong>Voronoi</strong> is a Worley derivative noise that comes close to simulating textures of stone, water, or biological cells.</td>
+</tr>
+<tr>
+<td><strong>Fractal Type</strong></td>
+<td>There are three options that you can select.<br>• <strong>Fbm</strong>, which stands for fractal Brownian motion. This is good for mountainous shapes.<br>• <strong>Strata</strong> is an n-dimensional noise fed into one-dimensional Gradient noise. This is good for natural banding like in marble, tree rings, and terraces.<br>• <strong>None</strong> turns off all the noise modifier options, resulting in the raw output of the <strong>Noise Type</strong> function you select.</td>
+</tr>
+<tr>
+<td><strong>Strata Offset</strong></td>
+<td>This property only appears if you set the <strong>Fractal Type</strong> to <strong>Strata</strong>. Unity applies this vertical offset value to the strata.</td>
+</tr>
+<tr>
+<td><strong>Strata Scale</strong></td>
+<td>This property only appears if you set the <strong>Fractal Type</strong> to <strong>Strata</strong>. Unity applies this multiplier to the strata. Higher <strong>Strata Scale</strong> values produce more banding.</td>
+</tr>
+<tr>
+<td><strong>Octaves</strong></td>
+<td>The number of iterations of noise to layer together. Each octave is a layer of noise applied on top of the current accumulation of octaves, and each layer has different <strong>Amplitude</strong> and <strong>Frequency</strong> factors.<br><br>Generally, each subsequent octave is smaller in scale and magnitude than the previous octave. This adds finer and finer details to the combined noise signal at each octave.</td>
+</tr>
+<tr>
+<td><strong>Amplitude</strong></td>
+<td>The unmodified multiplier of the output of each octave of noise.</td>
+</tr>
+<tr>
+<td><strong>Persistence</strong></td>
+<td>The scaling factor to apply to the <strong>Amplitude</strong> at each octave.</td>
+</tr>
+<tr>
+<td><strong>Frequency</strong></td>
+<td>The feature size of the noise domain space at the first octave.</td>
+</tr>
+<tr>
+<td><strong>Lacunarity</strong></td>
+<td>The scaling factor to apply to the <strong>Frequency</strong> at each octave.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/snippets/domain-settings.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

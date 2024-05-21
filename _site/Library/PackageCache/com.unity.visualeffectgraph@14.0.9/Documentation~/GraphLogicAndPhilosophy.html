@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Visual Effect Graph Logic | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Visual Effect Graph Logic | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/GraphLogicAndPhilosophy.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="visual-effect-graph-logic">Visual Effect Graph Logic</h1>
+
+<p>The Visual Effect Graph uses two distinct workflows:</p>
+<ul>
+<li><p>A <strong>processing</strong> (vertical) logic which links customizable stages together to define the lifetime of a system.</p>
+</li>
+<li><p>A <strong>property</strong> (horizontal) logic which connects different <a href="Contexts.html">Contexts</a> to define how the particles look and behave.</p>
+</li>
+</ul>
+<h2 id="processing-workflow-vertical-logic">Processing workflow (vertical logic)</h2>
+<p>The processing workflow links together a succession of customizable stages to define the complete system logic. This is where you can determine when the spawn, initialization, updating, and rendering of the particles happen during the effect.</p>
+<p>The processing workflow connects Contexts using their <strong>flow slots</strong> located at the top and the bottom of the Context Node.</p>
+<p>The processing logic defines the different stages of processing of a visual effect. Each stage consists of a large colored container called a <a href="Contexts.html">Contexts</a>. Each Context connects to another compatible Context, which defines how the next stage of processing uses the current Context.</p>
+<p>Contexts can contain elements called <a href="Blocks.html">Blocks</a>. Every Block is a stackable Node that is in charge of one operation. You can reorder Blocks to change the order in which Unity processes a visual effect. Unity executes the Blocks in a Context from top to bottom.</p>
+<h2 id="property-workflow-horizontal-logic">Property workflow (horizontal logic)</h2>
+<p>In the horizontal property workflow, you can define mathematical operations to enhance the visual effect. This affects how the particles look and behave.</p>
+<p>The property workflow connects Contexts using the <strong>Property Slots</strong> of their Blocks. The left side is the input and the right side is the output.</p>
+<p>The Visual Effect Graph comes with a large Block and Node library that you can use to define the behavior of your visual effect. The network of Nodes that you create controls the horizontal flow of data that the render pipeline passes to the Blocks within your graph's Contexts.</p>
+<p>To customize how particles behave, you can connect horizontal Nodes to a Block to create a custom a mathematical expression. To do this, use the <strong>Create Node</strong> context menu to add Nodes, change their values, then connect the Nodes to Block properties.</p>
+<h2 id="graph-elements">Graph elements</h2>
+<p>A Visual Effect Graph provides a workspace where you can create graph elements and connect them together to define effect behaviors. The Visual Effect Graph comes with many different types of graph elements that fit into the workspace.</p>
+<h3 id="workspace">Workspace</h3>
+<p>A Visual Effect Graph provides a <strong>Workspace</strong> where you can create graph elements and connect them together to define effect behaviors.</p>
+<p><img src="Images/SystemVisual.png" alt="The vertical workflow contains Systems, which then contain Contexts, which then contain Blocks. Together, they determine when something happens during the “lifecycle” of the visual effect."></p>
+<h3 id="systems">Systems</h3>
+<p><a href="Systems.html">Systems</a> are the main components of a Visual Effect. Every system defines one distinct part that the render pipeline simulates and renders alongside other systems. In the graph, systems that are defined by a succession of Contexts appear as dashed outlines (see the image above).</p>
+<ul>
+<li>A <strong>Spawn System</strong> consists of a single Spawn Context.</li>
+<li>A <strong>Particle System</strong> consists  of a succession of an Initialize, then Update, then Output context.</li>
+<li>A <strong>Mesh Output System</strong> consists of a single Mesh Output Context.</li>
+</ul>
+<h3 id="contexts">Contexts</h3>
+<p><a href="Contexts.html">Contexts</a> are the parts of a System that define a stage of processing. Contexts connect together to define a system.</p>
+<p>The four most common Contexts in a Visual Effect Graph are:</p>
+<ul>
+<li><strong>Spawn</strong>. If active, Unity calls this every Frame, and computes the amount of particles to spawn.</li>
+<li><strong>Initialize</strong>. Unity calls this at the “birth” of every particle, This defines the initial state of the particle.</li>
+<li><strong>Update</strong>. Unity calls this every frame for all particles, and uses this to perform simulations, for example Forces and Collisions.</li>
+<li><strong>Output</strong>. Unity calls this every frame for every particle. This determines the shape of a particle, and performs pre-render transformations.</li>
+</ul>
+<p><strong>Note:</strong> Some Contexts, for example the Output Mesh, do not connect to any other Contexts as they do not relate to other systems.</p>
+<h3 id="blocks">Blocks</h3>
+<p><a href="Blocks.html">Blocks</a> are Nodes that you can stack into a Context. Every Block is in charge of one operation. For example, it can apply a force to the velocity, collide with a sphere, or set a random color.</p>
+<p>When you create a Block, you can reorder it within it current Context, or move it to another compatible Context.</p>
+<p>To customize a Block, you can:</p>
+<ul>
+<li><p>Adjust a property. To do this, connect a property Port to another Node with an Edge.</p>
+</li>
+<li><p>Adjust the settings of a property. Settings are editable values without ports that you cannot connect to other Nodes.</p>
+</li>
+</ul>
+<h3 id="operators">Operators</h3>
+<p><a href="Operators.html">Operators</a> are Nodes that compose the low-level operations of the <strong>property workflow</strong>. You can connect Nodes together to generate custom behaviors. Node networks connect to Ports that belong to Blocks or Contexts.</p>
+<h3 id="graph-common-elements">Graph Common Elements</h3>
+<p>While the graph elements are different, their contents and behavior tend to be the same. Graph elements share the following features and layout items:</p>
+<h4 id="settings">Settings</h4>
+<p>Settings are Fields that you cannot connect to using the property workflow. Every graph element displays settings:</p>
+<ul>
+<li>In the <strong>Graph</strong> : Between the Title and the property container in the Graph.</li>
+<li>In the <strong>Inspector</strong> : When you select a Node, the Inspector displays additional, advanced settings.</li>
+</ul>
+<p>If you change the value of a setting, you need to recompile the Graph to see the effect.</p>
+<h4 id="properties">Properties</h4>
+<p><a href="Properties.html">Properties</a> are Fields that you can edit and connect to using the property workflow. You can connect them to other properties contained in other graph elements.</p>
+<h2 id="other-graph-elements">Other graph elements</h2>
+<h3 id="groups">Groups</h3>
+<p>You can group Nodes together to organize your graphs. You can drag grouped Nodes around together and even give them a title to describe what the group does. To add a Group, select multiple Nodes, right-click, and select <strong>Group Selection</strong>.</p>
+<h3 id="sticky-notes">Sticky Notes</h3>
+<p>Sticky Notes are draggable comment elements you can add to leave explanations or reminders for co-workers or yourself.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/GraphLogicAndPhilosophy.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

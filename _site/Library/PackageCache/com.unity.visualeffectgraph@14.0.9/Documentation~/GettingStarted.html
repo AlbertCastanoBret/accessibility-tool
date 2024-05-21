@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Getting started with Visual Effect Graph | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Getting started with Visual Effect Graph | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/GettingStarted.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="getting-started-with-visual-effect-graph">Getting started with Visual Effect Graph</h1>
+
+<p>This page shows you how  to install Visual Effect Graph, and gives a brief overview of how to <a href="#creating-visual-effect-graphs">create</a>, <a href="#editing-a-visual-effect-graph">edit</a>, and <a href="#previewing-a-graph-s-effects">preview</a> effects with Visual Effect Graph. For an overview of how the graph works, see <a href="GraphLogicAndPhilosophy.html">Graph Logic and Philosophy</a>.
+Visual Effect Graph is a Unity package that uses a <a href="https://docs.unity3d.com/Manual/ScriptableRenderPipeline.html">Scriptable Render Pipeline</a> to render visual effects. Visual Effect graph uses on compute Shaders to simulate effects.</p>
+<h2 id="requirements">Requirements</h2>
+<p>For information on system requirements for the Visual Effect Graph, see <a href="System-Requirements.html">Requirements and compatibility</a>.</p>
+<h2 id="installing-visual-effect-graph">Installing Visual Effect Graph</h2>
+<p>To install the Visual Effect Graph package:</p>
+<ol>
+<li>Open a Unity project.
+2. Open the <strong>Package Manager</strong> window (<strong>Window &gt; Package Manager</strong>).
+3. In the <strong>Package Manager</strong> window, in the <strong>Packages</strong> field, select <strong>Unity Registry</strong>.
+4. Select <strong>Visual Effect Graph</strong> from the list of packages.
+5. In the bottom right corner of the Package Manager window, select <strong>Install</strong>. Unity installs Visual Effect Graph into your Project.</li>
+</ol>
+<p><img src="Images/InstallVisualEffectGraph.png" alt=""></p>
+<h3 id="using-the-correct-version-of-visual-effect-graph">Using the correct version of Visual Effect Graph</h3>
+<p>Every Visual Effect Graph package works with a Scriptable Render Pipeline package of the same version. If you want to upgrade the Visual Effect Graph package, you must also upgrade the render pipeline package that you’re using.</p>
+<p>For example, the Visual Effect Graph package version 6.5.3-preview in Package Manager works with the High Definition RP package
+version 6.5.3-preview.</p>
+<h2 id="creating-visual-effect-graphs">Creating Visual Effect Graphs</h2>
+<p>To use Visual Effect Graph, you must first create a <a href="VisualEffectGraphAsset.html">Visual Effect Graph Asset</a> .</p>
+<p>To create a Visual Effect Graph Asset:</p>
+<ol>
+<li>In Unity, click <strong>Assets</strong> &gt; <strong>Create</strong> &gt; <strong>Visual Effects</strong> &gt; <strong>Visual Effect Graph</strong>.</li>
+</ol>
+<p>To make a copy of a Visual Effect Graph Asset:</p>
+<ol>
+<li>In the Project window, select the Visual Effect Asset you want to make a copy of.</li>
+<li>In the top navigation bar, select <strong>Edit</strong> &gt; <strong>Duplicate</strong>.  You’ve now created a copy.</li>
+</ol>
+<h2 id="using-visual-effect-graphs-in-scenes">Using Visual Effect Graphs in Scenes</h2>
+<p>To use a Visual Effect Graph, you must add a <a href="#Creating-Visual-Effect-Graphs">Visual Effect</a> to the Scene.</p>
+<p>To do so, you can:</p>
+<ul>
+<li>Drag and drop a Visual Effect Graph Asset from the Project Window into the Hierarchy Window. <br>When you drop the Asset on an existing GameObject, this adds a new child GameObject with a Visual Effect Component, and assigns the graph to it. <br>When you drop the Asset on an empty space, Unity creates a new Visual Effect GameObject and assigns the graph to it.</li>
+<li>Drag and drop a Visual Effect Graph Asset from the Project Window to the Scene View Window. This makes the graph appear in front of the Camera.</li>
+</ul>
+<p>When you’ve added the Visual Effect Graph Asset to you Hierarchy, Unity attaches the Asset to a <a href="VisualEffectComponent.html">Visual Effect Component</a>, which references the Asset.</p>
+<h2 id="editing-a-visual-effect-graph">Editing a Visual Effect Graph</h2>
+<p>To edit Visual Effect Graph Assets in the  <a href="VisualEffectGraphWindow.html">Visual Effect Graph window</a> :</p>
+<ul>
+<li>Open the Visual Effect Graph window (menu: <strong>Window</strong>_ &gt; <strong>Visual Effects</strong>) with an empty graph. This prompts you to open a Visual Effect Graph Asset.</li>
+<li>Select an existing Visual Effect Graph Asset, and click the <strong>Edit</strong> button in the Inspector. This opens the Visual Effect Graph window with the graph contained in this Asset.</li>
+<li>Select the Visual Effect component (menu: next to the Asset template, click <strong>Edit</strong>). This opens the Visual Effect Graph window and with the graph contained in the referenced Asset.</li>
+</ul>
+<h2 id="previewing-a-graphs-effect">Previewing a graph’s effect</h2>
+<p>To preview an effect, you can:</p>
+<ul>
+<li><p>Select a Visual Effect Graph Asset and use the Inspector Preview window.</p>
+</li>
+<li><p>Place your effect directly in the Scene as a Visual Effect GameObject.</p>
+</li>
+</ul>
+<p>This lets you edit parameters directly in the Scene, see the lighting on your effect, and use the <a href="VisualEffectGraphWindow.html#target-visual-effect-gameobject">Target GameObject Panel</a> features for the specific target instance of your effect.</p>
+<h2 id="manipulating-graph-elements">Manipulating graph elements</h2>
+<p>When you open an Asset inside the Visual Effect Graph window, you can see and edit the graph for that specific Asset.</p>
+<p>A Visual Effect Graph contains <a href="Operators.html">Operator Nodes</a> and <a href="Blocks.html">Blocks</a>. Each Node is in charge of processing its input properties. You can link Nodes together to perform a series of calculations. All Nodes end up connecting into a Block (or a Context) : A Block defines an operation on an effect, based on its input properties.</p>
+<p>When you link several Blocks together, these form a Context. For more information about Nodes, Blocks, and Contexts in the Visual Effect Graph, see <a href="GraphLogicAndPhilosophy.html">Graph Logic</a>.</p>
+<p>Every change you make to a graph has immediate consequences on the behavior of your effect, and you can preview the changes in real time. Every time you add, remove, or connect a Node, the graph recompiles all the elements that have changed, and restarts the effect. However, changing values (for example, editing a curve) does not make Unity recompile anything and affects the simulation in real time.
+To add Nodes, you can either:</p>
+<ul>
+<li>Right-click in the graph, and select <strong>Create Node</strong>.</li>
+<li>Press the spacebar on your keyboard.</li>
+<li>Click and drag an edge from an existing port, and release the click in an empty space.</li>
+</ul>
+<p>When you do any of the above actions, the <strong>Create Node</strong> menu appears. Here, you can see the Nodes, Blocks, and Contexts that are compatible with that specific location in the graph.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.visualeffectgraph@14.0.9/Documentation~/GettingStarted.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

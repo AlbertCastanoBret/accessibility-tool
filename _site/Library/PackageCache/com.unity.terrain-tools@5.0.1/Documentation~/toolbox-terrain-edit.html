@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Terrain Edit | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Terrain Edit | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/toolbox-terrain-edit.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="terrain-edit">Terrain Edit</h1>
+
+<p>The <strong>Terrain Edit</strong> section contains three tools — <strong>Duplicate</strong>, <strong>Clean Remove</strong>, and <strong>Split</strong>.</p>
+<p><img src="images/4-31-toolbox-terrain-edit-01.png" alt=""></p>
+<h2 id="duplicate">Duplicate</h2>
+<p>The <strong>Duplicate</strong> tool copies selected Terrain in the Scene or Hierarchy, and also copies the associated Terrain data asset files. By doing so, the duplicated Terrain does not share the same Terrain data assets with the source Terrain, which allows you to edit the duplicates without modifying the original Terrain.</p>
+<p>To start the copy process, select your source Terrain in the Scene or Hierarchy, and click the <strong>Duplicate</strong> button. You cannot undo this process.</p>
+<h2 id="clean-remove">Clean Remove</h2>
+<p><strong>Clean Remove</strong> lets you delete selected Terrain in the Scene or Hierarchy, and also delete the corresponding Terrain data asset files.</p>
+<p>To start the clean remove process, select your target Terrain in the Scene or Hierarchy, and click the <strong>Remove</strong> button. You cannot undo this process.</p>
+<h2 id="split">Split</h2>
+<p>The <strong>Split</strong> tool lets you divide Terrain into smaller tiles while properly preserving Terrain height, Terrain Layers, and other details.</p>
+<p><img src="images/4-31-toolbox-terrain-edit-02.png" alt=""></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tile Split</strong></td>
+<td>The number of tiles along the X and Z axes after the split.</td>
+</tr>
+<tr>
+<td><strong>Auto Update Terrain Settings</strong></td>
+<td>Enable the checkbox to copy settings from the original Terrain. Disable the checkbox to use default Terrain settings on the new tiles.</td>
+</tr>
+<tr>
+<td><strong>Keep Original Terrain</strong></td>
+<td>Enable the checkbox to keep a copy of the original Terrain even after the split. Disable the checkbox to remove the original Terrain after the split.</td>
+</tr>
+</tbody>
+</table>
+<p>After you configure these settings, click the <strong>Split</strong> button to divide the selected Terrain in the Scene or Hierarchy.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.terrain-tools@5.0.1/Documentation~/toolbox-terrain-edit.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

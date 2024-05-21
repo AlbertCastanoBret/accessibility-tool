@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Installing the Universal Render Pipeline into an existing Project | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Installing the Universal Render Pipeline into an existing Project | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/InstallURPIntoAProject.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="installing-the-universal-render-pipeline-into-an-existing-project">Installing the Universal Render Pipeline into an existing Project</h1>
+
+<p>You can download and install the latest version of the Universal Render Pipeline (URP) to your existing Project via the <a href="https://docs.unity3d.com/Packages/com.unity.package-manager-ui@latest/index.html">Package Manager system</a>, and then install it into your Project. If you don’t have an existing Project, see documentation on <a href="creating-a-new-project-with-urp.html">how to start a new URP Project from a Template</a>.</p>
+<h2 id="before-you-begin">Before you begin</h2>
+<p>URP uses its own <a href="integration-with-post-processing.html">integrated post-processing solution</a>. If you have the Post Processing Version 2 package installed in your Project, you need to delete the Post Processing Version 2 package before you install URP into your Project. When you have installed URP, you can then recreate your post-processing effects.</p>
+<p>URP does not currently support custom post-processing effects. If your Project uses custom post-processing effects, these cannot currently be recreated in URP. Custom post-processing effects will be supported in a forthcoming release of URP.</p>
+<h2 id="installing-urp">Installing URP</h2>
+<ol>
+<li>In Unity, open your Project.</li>
+<li>In the top navigation bar, select <strong>Window &gt; Package Manager</strong> to open the <strong>Package Manager</strong> window.</li>
+<li>In the <strong>Packages</strong> menu, select <strong>Unity Registry</strong>. This shows the list of available packages for the version of Unity that you are currently running.</li>
+<li>Select <strong>Universal RP</strong> from the list of packages.</li>
+<li>In the bottom right corner of the Package Manager window, select <strong>Install</strong>. Unity installs URP directly into your Project.</li>
+</ol>
+<h2 id="configuring-urp">Configuring URP</h2>
+<p>Before you can start using URP, you need to configure it. To do this, you need to create a Scriptable Render Pipeline Asset and adjust your Graphics settings.</p>
+<h3 id="creating-the-universal-render-pipeline-asset">Creating the Universal Render Pipeline Asset</h3>
+<p>The <a href="universalrp-asset.html">Universal Render Pipeline Asset</a> (URP Asset) contains the global rendering and quality settings of your project, and creates the rendering pipeline instance. The rendering pipeline instance contains intermediate resources and the render pipeline implementation.</p>
+<p>To create a Universal Render Pipeline Asset:</p>
+<ol>
+<li>In the Editor, go to the Project window.</li>
+<li>Right-click in the Project window, and select  <strong>Create &gt; Rendering &gt; URP Asset</strong>. Alternatively, navigate to the menu bar at the top, and select <strong>Assets &gt; Create &gt; Rendering &gt; URP Asset</strong>.</li>
+</ol>
+<p>You can either leave the default name for the new Universal Render Pipeline Asset, or type a new one.</p>
+<h3 id="set-urp-active">Set URP as the active render pipeline</h3>
+<p>To set URP as the active render pipeline:</p>
+<ol>
+<li><p>In your project, locate the Render Pipeline Asset that you want to use.<br><strong>Tip</strong>: to find all URP Assets in a project, use the following query in the search field: <code>t:universalrenderpipelineasset</code>.</p>
+</li>
+<li><p>Select <strong>Edit</strong> &gt; <strong>Project Settings</strong> &gt; <strong>Graphics</strong>.</p>
+</li>
+<li><p>In the <strong>Scriptable Render Pipeline Settings</strong> field, select the URP Asset. When you select the URP Asset, the available Graphics settings change immediately.</p>
+</li>
+</ol>
+<p><strong>Optional</strong>:</p>
+<p>Set an override URP Assets for different quality levels:</p>
+<ol>
+<li><p>Select <strong>Edit</strong> &gt; <strong>Project Settings</strong> &gt; <strong>Quality</strong>.</p>
+</li>
+<li><p>Select a quality level. In the <strong>Render Pipeline Asset</strong> field, select the Render Pipeline Asset.</p>
+</li>
+</ol>
+<h2 id="upgrading-your-shaders">Upgrading your shaders</h2>
+<p>If your project uses the prebuilt <a href="https://docs.unity3d.com/Manual/shader-StandardShader.html">Standard Shader</a>, or custom Unity shaders made for the Built-in Render Pipeline, you must convert them to URP-compatible Unity shaders. For more information on this topic, see <a href="upgrading-your-shaders.html">Upgrading your Shaders</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/InstallURPIntoAProject.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

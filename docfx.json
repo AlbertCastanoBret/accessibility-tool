@@ -1,0 +1,75 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "D:/Github/tfg_videojocs",
+          "files": [
+            "**/*.csproj"
+          ],
+          "exclude": [
+            "Assets/Plugins/**"
+          ]
+        },
+        {
+          "src": "C:/Program Files/Unity/Hub/Editor/2022.3.14f1/Editor/Data/Managed",
+          "files": [
+            "**/*.dll"
+          ]
+        }
+      ],
+      "dest": "api",
+      "filter": "filter.yml",
+      "properties": {
+        "TargetFramework": "netstandard2.0",
+        "DefineConstants": "UNITY_EDITOR"
+      }
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site", 
+    "template": [
+      "default",
+      "modern"
+    ],
+    "globalMetadata": {
+      "_appName": "Accessibility Pro Toolkit",
+      "_appTitle": "Accessibility Pro Toolkit",
+      "_enableSearch": true,
+      "pdf": false
+    },
+    "sitemap": {
+      "baseUrl": "https://albertcastanobret.github.io/tfg_videojocs/",
+      "changefreq": "weekly",
+      "fileOptions": {
+          "api/*": {
+              "changefreq": "daily"
+            }
+        }
+    },
+    "xref": [
+        "https://albertcastanobret.github.io/UnityXrefMaps/xrefmap.yml"
+    ],
+    "xrefService": [
+        "https://xref.docs.microsoft.com/query?uid={uid}"
+    ],
+    "dest": "../_site"
+  }
+}

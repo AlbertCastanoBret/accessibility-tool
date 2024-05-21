@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Universal Renderer | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Universal Renderer | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/urp-universal-renderer.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../logo.svg" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="universal-renderer">Universal Renderer</h1>
+
+<p>This page describes the URP Universal Renderer settings.</p>
+<p>For more information on rendering in URP, see also <a href="rendering-in-universalrp.html">Rendering in the Universal Render Pipeline</a>.</p>
+<h2 id="rendering-paths">Rendering Paths</h2>
+<p>The URP Universal Renderer implements two Rendering Paths:</p>
+<ul>
+<li><p>Forward Rendering Path.</p>
+</li>
+<li><p><a href="rendering/forward-plus-rendering-path.html">Forward+ Rendering Path</a>.</p>
+</li>
+<li><p><a href="rendering/deferred-rendering-path.html">Deferred Rendering Path</a>.</p>
+</li>
+</ul>
+<h3 id="rendering-path-comparison">Rendering Path comparison</h3>
+<p>The following table shows the differences between the Forward and the Deferred Rendering Paths in URP.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Forward</th>
+<th>Forward+</th>
+<th>Deferred</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Maximum number of real-time lights per object.</td>
+<td>9</td>
+<td>Unlimited. <a href="rendering/forward-plus-rendering-path.html">The per-Camera limit applies</a>.</td>
+<td>Unlimited</td>
+</tr>
+<tr>
+<td>Per-pixel normal encoding</td>
+<td>No encoding (accurate normal values).</td>
+<td>No encoding (accurate normal values).</td>
+<td>Two options:<ul><li>Quantization of normals in G-buffer (loss of accuracy, better performance).</li><li>Octahedron encoding (accurate normals, might have significant performance impact on mobile GPUs).</li></ul>For more information, see the section <a href="rendering/deferred-rendering-path.html#accurate-g-buffer-normals">Encoding of normals in G-buffer</a>.</td>
+</tr>
+<tr>
+<td>MSAA</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Vertex lighting</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Camera stacking</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Supported with a limitation: Unity renders only the base Camera using the Deferred Rendering Path. Unity renders all overlay Cameras using the Forward Rendering Path.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-find-the-universal-renderer-asset">How to find the Universal Renderer asset</h2>
+<p>To find the Universal Renderer asset that a URP asset is using:</p>
+<ol>
+<li><p>Select a URP asset.</p>
+</li>
+<li><p>In the Renderer List section, click a renderer item or the vertical ellipsis icon (⋮) next to a renderer.</p>
+<p><img src="Images/urp-assets/find-renderer.png" alt="How to find the Universal Renderer asset"></p>
+</li>
+</ol>
+<h2 id="universal-renderer-asset-reference">Universal Renderer asset reference</h2>
+<p>This section describes the properties of the Universal Renderer asset.</p>
+<h3 id="filtering">Filtering</h3>
+<p>This section contains properties that define which layers the renderer draws.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Opaque Layer Mask</strong></td>
+<td style="text-align: left;">Select which opaque layers this Renderer draws</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Transparent Layer Mask</strong></td>
+<td style="text-align: left;">Select which transparent layers this Renderer draws</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rendering">Rendering</h3>
+<p>This section contains properties related to rendering.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Rendering Path</strong></td>
+<td style="text-align: left;">Select the Rendering Path.<br>Options:<ul><li><strong>Forward</strong>: The Forward Rendering Path.</li><li><strong>Forward+</strong>: The <a href="rendering/forward-plus-rendering-path.html">Forward+ Rendering Path</a>.</li><li><strong>Deferred</strong>: The <a href="rendering/deferred-rendering-path.html">Deferred Rendering Path</a>.</li></ul></td>
+</tr>
+<tr>
+<td style="text-align: left;">  <strong>Depth Priming Mode</strong></td>
+<td style="text-align: left;">This property determines when Unity performs depth priming.<br>Depth Priming can improve GPU frame timings by reducing the number of pixel shader executions. The performance improvement depends on the amount of overlapping pixels in the opaque pass and the complexity of the pixel shaders that Unity can skip by using depth priming.<br>The feature has an upfront memory and performance cost. The feature uses a depth prepass to determine which pixel shader invocations Unity can skip, and the feature adds the depth prepass if it's not available yet.<br>The options are:<ul><li><strong>Disabled</strong>: Unity does not perform depth priming.</li><li><strong>Auto</strong>: If there is a Render Pass that requires a depth prepass, Unity performs the depth prepass and depth priming.</li><li><strong>Forced</strong>: Unity always performs depth priming. To do this, Unity also performs a depth prepass for every render pass. <strong>Note</strong>: Depth priming is disabled at runtime on certain hardware (Tile Based Deferred Rendering) regardless of this setting.</li></ul>On Android, iOS, and Apple TV, Unity performs depth priming only in the Forced mode. On tiled GPUs, which are common to those platforms, depth priming might reduce performance when combined with MSAA.<br><br>This property is available only if <strong>Rendering Path</strong> is set to <strong>Forward</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;">  <strong>Accurate G-buffer normals</strong></td>
+<td style="text-align: left;">Indicates whether to use a more resource-intensive normal encoding/decoding method to improve visual quality.<br><br>This property is available only if <strong>Rendering Path</strong> is set to <strong>Deferred</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Depth Texture Mode</strong></td>
+<td style="text-align: left;">Specifies at which stage in the render pipeline URP should copy the scene depth to a depth texture. The options are:<ul><li><strong>After Opaques</strong>: URP copies the scene depth after the opaques render pass.</li><li><strong>After Transparents</strong>: URP copies the scene depth after the transparents render pass.</li><li><strong>Force Prepass</strong>: URP does a depth prepass to generate the scene depth texture.</li></ul><strong>Note</strong>: On mobile devices, the <strong>After Transparents</strong> option can lead to a significant improvement in memory bandwidth. This is because the Copy Depth pass causes a switch in render target between the Opaque pass and the Transparents pass. When this occurs, Unity stores the contents of the Color Buffer in the main memory, and then loads it again once the Copy Depth pass is complete. The impact increases significantly when MSAA is enabled, because Unity must also store and load the MSAA data alongside the Color Buffer.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="native-renderpass">Native RenderPass</h3>
+<p>This section contains properties related to URP's Native RenderPass API.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Native RenderPass</strong></td>
+<td style="text-align: left;">Indicates whether to use URP's Native RenderPass API. When enabled, URP uses this API to structure render passes. As a result, you can use <a href="https://docs.unity3d.com/Manual/SL-PlatformDifferences.html#using-shader-framebuffer-fetch">programmable blending</a> in custom URP shaders. Enable Native RenderPass if you use Vulkan, Metal or DirectX 12 graphics APIs, so URP automatically reduces how often it copies render textures into and out of memory. For more information about the RenderPass API, see <a href="https://docs.unity3d.com/ScriptReference/Rendering.ScriptableRenderContext.BeginRenderPass.html">ScriptableRenderContext.BeginRenderPass</a>.<br><br><strong>Note</strong>: Enabling this property has no effect on OpenGL ES.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shadows">Shadows</h3>
+<p>This section contains properties related to rendering shadows.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Transparent Receive Shadows</strong></td>
+<td style="text-align: left;">When this option is on, Unity draws shadows on transparent objects.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="overrides">Overrides</h3>
+<p>This section contains Render Pipeline properties that this Renderer overrides.</p>
+<h4 id="stencil">Stencil</h4>
+<p>With this check box selected, the Renderer processes the Stencil buffer values.</p>
+<p><img src="Images/urp-assets/urp-universal-renderer-stencil-on.png" alt="URP Universal Renderer Stencil override"></p>
+<p>For more information on how Unity works with the Stencil buffer, see <a href="https://docs.unity3d.com/Manual/SL-Stencil.html">ShaderLab: Stencil</a>.</p>
+<h3 id="compatibility">Compatibility</h3>
+<p>This section contains settings related to backwards compatibility.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Property</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Intermediate Texture</strong></td>
+<td style="text-align: left;">This property lets you force URP to renders via an intermediate texture.<br>Options: <ul><li><strong>Auto</strong>: URP uses the information provided by the <code>ScriptableRenderPass.ConfigureInput</code> method to determine automatically whether rendering via an intermediate texture is necessary.</li><li><strong>Always</strong>: forces rendering via an intermediate texture. Use this option only for compatibility with Renderer Features that do not declare their inputs with <code>ScriptableRenderPass.ConfigureInput</code>. Using this option might have a significant performance impact on some platforms.</li></ul></td>
+</tr>
+</tbody>
+</table>
+<h3 id="renderer-features">Renderer Features</h3>
+<p>This section contains the list of Renderer Features assigned to the selected Renderer.</p>
+<p>For information on how to add a Renderer Feature, see <a href="urp-renderer-feature-how-to-add.html">How to add a Renderer Feature to a Renderer</a>.</p>
+<p>URP contains the pre-built Renderer Feature called <a href="renderer-features/renderer-feature-render-objects.html">Render Objects</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.render-pipelines.universal@14.0.9/Documentation~/urp-universal-renderer.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
