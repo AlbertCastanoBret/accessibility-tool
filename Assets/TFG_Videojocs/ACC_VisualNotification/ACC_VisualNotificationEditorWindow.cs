@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TFG_Videojocs;
@@ -59,6 +60,14 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
         CreateSettingsContainer();
         CreateBottomContainer();
         controller.RestoreDataAfterCompilation();
+        
+        if (!String.IsNullOrEmpty(EditorPrefs.GetString(typeof(ACC_VisualNotificationEditorWindow) + "Open")))
+        {
+            var name = EditorPrefs.GetString(typeof(ACC_VisualNotificationEditorWindow) + "Open");
+            controller.isEditing = true;
+            controller.LoadJson(name);
+            EditorPrefs.SetString(typeof(ACC_VisualNotificationEditorWindow) + "Open", "");
+        }
     }
 
     public void CreateTable()

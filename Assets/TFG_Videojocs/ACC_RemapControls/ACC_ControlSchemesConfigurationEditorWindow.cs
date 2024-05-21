@@ -29,7 +29,6 @@ namespace TFG_Videojocs.ACC_RemapControls
             window.controller.isEditing = true;
             window.inputActionAsset = inputActionAsset;
             
-            
             window.CreateGUI();
             window.controller.LoadOnlyEditableWindow(inputActionAsset.name, inputActionAsset);
             window.PositionWindowInBottomRight();
@@ -54,6 +53,14 @@ namespace TFG_Videojocs.ACC_RemapControls
             CreateBottomContainer();
             
             controller.RestoreDataAfterCompilation();
+            
+            if (!String.IsNullOrEmpty(EditorPrefs.GetString(typeof(ACC_ControlSchemesConfigurationEditorWindow) + "Open")))
+            {
+                var name = EditorPrefs.GetString(typeof(ACC_ControlSchemesConfigurationEditorWindow) + "Open");
+                controller.isEditing = true;
+                controller.LoadJson(name);
+                EditorPrefs.SetString(typeof(ACC_ControlSchemesConfigurationEditorWindow) + "Open", "");
+            }
         }
         
         private void CreateDropdownField()

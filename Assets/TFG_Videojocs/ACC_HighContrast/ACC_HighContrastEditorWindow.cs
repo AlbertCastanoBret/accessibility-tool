@@ -1,4 +1,5 @@
 #if UNITY_EDITOR
+using System;
 using System.Linq;
 using TFG_Videojocs.ACC_HighContrast.Toilet;
 using UnityEditor;
@@ -63,6 +64,14 @@ namespace TFG_Videojocs.ACC_HighContrast
             CreateBottomContainer();
             
             controller.RestoreDataAfterCompilation();
+            
+            if (!String.IsNullOrEmpty(EditorPrefs.GetString(typeof(ACC_HighContrastEditorWindow) + "Open")))
+            {
+                var name = EditorPrefs.GetString(typeof(ACC_HighContrastEditorWindow) + "Open");
+                controller.isEditing = true;
+                controller.LoadJson(name);
+                EditorPrefs.SetString(typeof(ACC_HighContrastEditorWindow) + "Open", "");
+            }
         }
         public void CreateTable()
         {

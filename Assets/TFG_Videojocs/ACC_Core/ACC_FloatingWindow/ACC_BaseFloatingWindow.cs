@@ -17,17 +17,24 @@ namespace TFG_Videojocs
         
         private Vector2 fixedPosition = new Vector2(100, 100);
         private bool positionSet = false;
-
+        
         protected void OnEnable()
         {
             controller = new TController();
             controller.Initialize(this as TWindow);
             CompilationPipeline.compilationStarted += controller.SerializeDataForCompilation;
             EditorApplication.playModeStateChanged += controller.OnPlayModeStateChanged;
+            EditorApplication.quitting -= OnEditorQuitting;
+            EditorApplication.quitting += OnEditorQuitting;
         }
         private void OnDisable()
         {
             CompilationPipeline.compilationStarted -= controller.SerializeDataForCompilation;
+        }
+        private void OnEditorQuitting()
+        {
+            var key = GetType() + "Open";
+            EditorPrefs.SetString(key, controller.oldName);
         }
         protected void OnDestroy()
         {

@@ -60,6 +60,14 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
         CreateBottomContainer();
         
         controller.RestoreDataAfterCompilation();
+        
+        if (!String.IsNullOrEmpty(EditorPrefs.GetString(typeof(ACC_SubtitlesEditorWindow) + "Open")))
+        {
+            var name = EditorPrefs.GetString(typeof(ACC_SubtitlesEditorWindow) + "Open");
+            controller.isEditing = true;
+            controller.LoadJson(name);
+            EditorPrefs.SetString(typeof(ACC_SubtitlesEditorWindow) + "Open", "");
+        }
     }
     
     private void CreateTable()

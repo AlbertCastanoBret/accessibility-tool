@@ -1,5 +1,7 @@
 #if UNITY_EDITOR
+using System;
 using TFG_Videojocs;
+using TFG_Videojocs.ACC_RemapControls;
 using TFG_Videojocs.ACC_Sound.ACC_Example;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -36,6 +38,14 @@ public class ACC_AudioManagerEditorWindow : ACC_BaseFloatingWindow<ACC_AudioMana
         CreateBottomContainer();
         
         controller.RestoreDataAfterCompilation();
+        
+        if (!String.IsNullOrEmpty(EditorPrefs.GetString(typeof(ACC_AudioManagerEditorWindow) + "Open")))
+        {
+            var name = EditorPrefs.GetString(typeof(ACC_AudioManagerEditorWindow) + "Open");
+            controller.isEditing = true;
+            controller.LoadJson(name);
+            EditorPrefs.SetString(typeof(ACC_AudioManagerEditorWindow) + "Open", "");
+        }
     }
     
     public void CreateTable()
