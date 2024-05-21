@@ -79,7 +79,7 @@ internal class ACC_InitializationWindow : EditorWindow
         var step2Label = new Label("Step 2: ");
         step2Label.AddToClassList("list-label");
         step2Label.style.width = 50;
-        var step2 = new TextElement() {text = "To create this object, you can use the button at the bottom of this window or the Refresh Accessibility Manager button in the Accessibility Window."};
+        var step2 = new TextElement() {text = "To create this object, you can use the button at the bottom of this window or the Refresh Accessibility Manager button in the Accessibility Window. When refreshing Accessibility Manager, shaders will be disabled and you will have to enable them again in high-contrast settings. Also, the Input Action Asset will be removed from the inspector and you will have to re-assign it."};
         step2Container.Add(step2Label);
         step2Container.Add(step2);
         step2Container.style.marginBottom = 12;
@@ -176,6 +176,39 @@ internal class ACC_InitializationWindow : EditorWindow
         step10Container.Add(step10Label);
         step10Container.Add(step10);
         
+        var step11Container = new VisualElement();
+        step11Container.AddToClassList("list-container");
+        var step11Label = new Label("4. ");
+        step11Label.AddToClassList("list-label");
+        step11Label.style.width = 20;
+        var step11 = new TextElement()
+        {
+            text = "Delete the keys created during testing, allowing for easy resetting and reconfiguration.",
+            enableRichText = true
+        };
+        step11Container.Add(step11Label);
+        step11Container.Add(step11);
+        
+        var subtitle5 = new Label("4. Persistence of Settings");
+        subtitle5.AddToClassList("subtitle");
+        var extraText3 = new TextElement
+        {
+            text =
+                "The plugin works with <b>PlayerPrefs</b>, so the values entered for each feature will be saved. This functionality is available both in the editor and in the build. However, in the editor, developers can delete the keys created during testing from the inspector, allowing for easy resetting and reconfiguration.",
+            enableRichText = true
+        };
+        extraText3.style.marginBottom = 12;
+        
+        var subtitle6 = new Label("5. Settings Templates for Each Feature");
+        subtitle6.AddToClassList("subtitle");
+        var extraText4 = new TextElement
+        {
+            text =
+                "Each feature comes with its own configuration window template. These templates allows the player to adjust settings specific to each feature, such as font size, text color, background color, audio source options, and more. Also, This enables you to fine-tune the settings according to your needs and preferences.",
+            enableRichText = true
+        };
+        extraText4.style.marginBottom = 12;
+        
         var createButton = new Button() { text = "Create" };
         createButton.AddToClassList("button");
         createButton.clicked += () =>
@@ -208,6 +241,13 @@ internal class ACC_InitializationWindow : EditorWindow
         instructionsContainer.Add(step8Container);
         instructionsContainer.Add(step9Container);
         instructionsContainer.Add(step10Container);
+        instructionsContainer.Add(step11Container);
+        
+        instructionsContainer.Add(subtitle5);
+        instructionsContainer.Add(extraText3);
+        
+        instructionsContainer.Add(subtitle6);
+        instructionsContainer.Add(extraText4);
         
         rootVisualElement.Add(instructionsContainer);
         rootVisualElement.Add(createButton);

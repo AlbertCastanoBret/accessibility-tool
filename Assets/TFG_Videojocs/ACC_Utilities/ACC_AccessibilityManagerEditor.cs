@@ -1,10 +1,9 @@
-using System;
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 namespace TFG_Videojocs.ACC_Utilities
 {
@@ -130,7 +129,7 @@ namespace TFG_Videojocs.ACC_Utilities
             GUILayout.EndHorizontal();
             
             GUILayout.BeginHorizontal();
-            EditorGUILayout.PropertyField(featureEnabledProperty);
+            EditorGUILayout.PropertyField(featureEnabledProperty, new GUIContent(featureEnabledProperty.displayName + " (Editor and Build)", "The value entered here will be used in the editor and in the build."));
             if (PlayerPrefs.HasKey(feature + "Enabled"))
             {
                 if (GUILayout.Button("Reset Enable", new GUIStyle(GUI.skin.button)
@@ -165,7 +164,7 @@ namespace TFG_Videojocs.ACC_Utilities
             GUILayout.EndHorizontal();
             
             GUILayout.BeginHorizontal();
-            EditorGUILayout.PropertyField(showFeatureMenuProperty);
+            EditorGUILayout.PropertyField(showFeatureMenuProperty, new GUIContent(showFeatureMenuProperty.displayName + " (Only Editor)", "The value entered here will only be used in the editor."));
             GUILayout.EndHorizontal();
             
             GUILayout.BeginHorizontal();
@@ -377,3 +376,4 @@ namespace TFG_Videojocs.ACC_Utilities
         }
     }
 }
+#endif

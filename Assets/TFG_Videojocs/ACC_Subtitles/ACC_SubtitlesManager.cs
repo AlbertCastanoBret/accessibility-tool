@@ -346,7 +346,9 @@ public class ACC_SubtitlesManager : MonoBehaviour
     public void SetShowActorsName(bool showActorsName)
     {
         this.showActorsName = showActorsName;
+        #if UNITY_EDITOR
         ACC_AccessibilityManager.Instance.OnValidate();
+        #endif
     }
     public bool GetShowActorsName()
     {

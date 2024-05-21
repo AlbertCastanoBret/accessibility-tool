@@ -24,7 +24,7 @@ namespace TFG_Videojocs.ACC_Sound
             }
         }
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
 
         public void SetUniqueID()
         {
@@ -39,8 +39,10 @@ namespace TFG_Videojocs.ACC_Sound
             if (!string.Equals(originalName, name, StringComparison.Ordinal)) originalName = name;
             if(!string.Equals(this.name, originalName, StringComparison.Ordinal)) this.name = originalName;
         }
+    #endif
     }
     
+    #if UNITY_EDITOR
     [CustomEditor(typeof(ACC_IDGenerator))]
     public class NonEditableNameEditor : Editor
     {
@@ -50,5 +52,5 @@ namespace TFG_Videojocs.ACC_Sound
             DrawDefaultInspector();
         }
     }
-#endif
+    #endif
 }

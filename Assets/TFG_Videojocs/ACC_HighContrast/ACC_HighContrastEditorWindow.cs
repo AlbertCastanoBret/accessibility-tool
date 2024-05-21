@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using System.Linq;
 using TFG_Videojocs.ACC_HighContrast.Toilet;
 using UnityEditor;
@@ -150,7 +150,6 @@ namespace TFG_Videojocs.ACC_HighContrast
         }
         private void CreateHighContrastSettings(VisualElement row)
         {
-            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
             var tagContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
             tagContainer.style.display = DisplayStyle.None;
             
@@ -161,6 +160,7 @@ namespace TFG_Videojocs.ACC_HighContrast
             var dropdownTag = (DropdownField)uiElementFactory.CreateDropdownField("table-row-option-input", "Tag:", tagList, tag, "table-row-option-input-label",
                 onValueChanged: value =>
                 {
+                    var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
                     var currentRow = tableScrollView.IndexOf(row)-1;
                     ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
                     newHighContrastData.tag = value;
@@ -181,7 +181,7 @@ namespace TFG_Videojocs.ACC_HighContrast
             var colorField = uiElementFactory.CreateColorField("table-row-option-input", "Color:", color,  "table-row-option-input-label",
                 value =>
                 {
-                    
+                    var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
                     var currentRow = tableScrollView.IndexOf(row)-1;
                     ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
                     newHighContrastData.color = new Color(value.r, value.g, value.b, value.a);
@@ -202,6 +202,7 @@ namespace TFG_Videojocs.ACC_HighContrast
             var outlineColorField = uiElementFactory.CreateColorField("table-row-option-input", "Outline Color:", outlineColor, "table-row-option-input-label",
                 value =>
                 {
+                    var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
                     var currentRow = tableScrollView.IndexOf(row)-1;
                     ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
                     newHighContrastData.outlineColor = new Color(value.r, value.g, value.b, value.a);
@@ -223,6 +224,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                 uiElementFactory.CreateSliderWithFloatField("table-row-multi-input", "Outline Thickness:", 0, 1, outlineThickness, onValueChanged:
                     value =>
                     {
+                        var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
                         var currentRow = tableScrollView.IndexOf(row)-1;
                         ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
                         newHighContrastData.outlineThickness = value;
@@ -274,7 +276,6 @@ namespace TFG_Videojocs.ACC_HighContrast
         {
             settingsContainer.Clear();
             var settingsTitle = uiElementFactory.CreateLabel("title", "Settings");
-            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
             
             var nameInput = uiElementFactory.CreateTextField( "option-input", "Name: ", controller.currentData.name, "option-input-label", 
                 value => controller.currentData.name = value);
@@ -282,6 +283,7 @@ namespace TFG_Videojocs.ACC_HighContrast
             var previsualizationToggle = uiElementFactory.CreateToggle("option-input", "Previsualize: ", false, "option-input-label",
                     value =>
                     {
+                        var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
                         controller.isPrevisualizing = value;
                         if (controller.isPrevisualizing)
                         {
@@ -311,10 +313,10 @@ namespace TFG_Videojocs.ACC_HighContrast
         private void CreateBottomContainer()
         {
             var bottomContainer = uiElementFactory.CreateVisualElement("container-row");
-            var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
             bottomContainer.style.marginTop = new StyleLength(Length.Auto());
             var createSubtitleButton = uiElementFactory.CreateButton("Save", "button", () =>
             {
+                var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
                 if (controller.isCreatingNewFileOnCreation || controller.isEditing)
                 {
                     controller.HandleSave(this);
@@ -330,6 +332,7 @@ namespace TFG_Videojocs.ACC_HighContrast
             
             refreshButton = uiElementFactory.CreateButton("Refresh", "button", () =>
             {
+                var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
                 if (controller.isCreatingNewFileOnCreation || controller.isEditing)
                 {
                     accessibilityManager.shadersAdded = false;
@@ -367,3 +370,4 @@ namespace TFG_Videojocs.ACC_HighContrast
         }
     }
 }
+#endif

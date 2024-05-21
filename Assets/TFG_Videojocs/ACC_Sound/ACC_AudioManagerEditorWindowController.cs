@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
 using System.Linq;
-using System.Threading.Tasks;
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_Utilities;
 using UnityEditor;
-using UnityEngine;
 
 public class ACC_AudioManagerEditorWindowController : ACC_FloatingWindowController<ACC_AudioManagerEditorWindow, ACC_AudioManagerData>
 {
@@ -46,3 +43,4 @@ public class ACC_AudioManagerEditorWindowController : ACC_FloatingWindowControll
         window.CreateTable();
     }
 }
+#endif

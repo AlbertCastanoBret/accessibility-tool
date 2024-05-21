@@ -7,7 +7,6 @@ using TFG_Videojocs.ACC_RemapControls;
 using TFG_Videojocs.ACC_Sound;
 using TFG_Videojocs.ACC_Sound.ACC_Example;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,6 +18,7 @@ namespace TFG_Videojocs.ACC_Utilities
 {
     public class ACC_PrefabHelper
     {
+        #if UNITY_EDITOR
         public static void CreatePrefab(string feature, string jsonFile = "")
         {
             if(Application.isPlaying) return;
@@ -36,6 +36,7 @@ namespace TFG_Videojocs.ACC_Utilities
             Object.DestroyImmediate(gameObject, true);
             AssetDatabase.Refresh();
         }
+        #endif
         public static GameObject InstantiatePrefabAsChild(string feature, GameObject parent, string jsonFile="")
         {
             var folder = "ACC_" + feature + "/";
@@ -52,6 +53,7 @@ namespace TFG_Videojocs.ACC_Utilities
 
             return GameObject.Instantiate(prefab, parent.transform);
         }
+        #if UNITY_EDITOR
         private static GameObject CreateGameObject(string feature, string jsonFile = "")
         {
             string name = "ACC_" + feature + "Manager";
@@ -656,5 +658,6 @@ namespace TFG_Videojocs.ACC_Utilities
             }
             return null;
         }
+        #endif
     }
 }

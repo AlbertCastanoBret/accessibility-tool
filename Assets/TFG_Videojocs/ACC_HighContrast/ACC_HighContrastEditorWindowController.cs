@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using TFG_Videojocs.ACC_Utilities;
 
 namespace TFG_Videojocs.ACC_HighContrast.Toilet
@@ -18,3 +19,4 @@ namespace TFG_Videojocs.ACC_HighContrast.Toilet
         }
     }
 }
+#endif
