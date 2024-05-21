@@ -33,7 +33,7 @@
           "**/*.{md,yml}"
         ],
         "exclude": [
-          "_site/**"
+          "docs/**"
         ]
       }
     ],
@@ -44,7 +44,7 @@
         ]
       }
     ],
-    "output": "_site", 
+    "output": "docs", 
     "template": [
       "default",
       "modern"
@@ -52,6 +52,7 @@
     "globalMetadata": {
       "_appName": "Accessibility Pro Toolkit",
       "_appTitle": "Accessibility Pro Toolkit",
+      "_appLogoPath": "images/logo.png",
       "_enableSearch": true,
       "pdf": false
     },
@@ -70,6 +71,6 @@
     "xrefService": [
         "https://xref.docs.microsoft.com/query?uid={uid}"
     ],
-    "dest": "../_site"
+    "dest": "../docs"
   }
 }

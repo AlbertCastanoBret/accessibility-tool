@@ -20,10 +20,12 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: MobilityFeatures
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 8
+    startLine: 11
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Enum representing different mobility accessibility features.
+  example: []
   syntax:
     content: public enum MobilityFeatures
     content.vb: Public Enum MobilityFeatures
@@ -45,10 +47,12 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: RemapControls
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 10
+    startLine: 16
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Remapping of controls for accessibility.
+  example: []
   syntax:
     content: RemapControls = 0
     return:

@@ -10,12 +10,7 @@ items:
   - ACC_API.ACC_AccessibilityManager.LoadAllUserPreferences
   - ACC_API.ACC_AccessibilityManager.MobilityAccessibility
   - ACC_API.ACC_AccessibilityManager.MultifunctionalAccessibility
-  - ACC_API.ACC_AccessibilityManager.OnHierarchyChanged
-  - ACC_API.ACC_AccessibilityManager.Previsualize(TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData)
-  - ACC_API.ACC_AccessibilityManager.StopPrevisualize
   - ACC_API.ACC_AccessibilityManager.VisualAccessibility
-  - ACC_API.ACC_AccessibilityManager.shadersAdded
-  - ACC_API.ACC_AccessibilityManager.subtitlesEnabled
   langs:
   - csharp
   - vb
@@ -61,54 +56,20 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Instance
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 18
+    startLine: 22
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Gets the singleton instance of the ACC_AccessibilityManager.
+  example: []
   syntax:
     content: public static ACC_AccessibilityManager Instance { get; }
     parameters: []
     return:
       type: ACC_API.ACC_AccessibilityManager
+      description: The instance of the ACC_AccessibilityManager.
     content.vb: Public Shared Property Instance As ACC_AccessibilityManager
   overload: ACC_API.ACC_AccessibilityManager.Instance*
-- uid: ACC_API.ACC_AccessibilityManager.subtitlesEnabled
-  commentId: F:ACC_API.ACC_AccessibilityManager.subtitlesEnabled
-  id: subtitlesEnabled
-  parent: ACC_API.ACC_AccessibilityManager
-  langs:
-  - csharp
-  - vb
-  name: subtitlesEnabled
-  nameWithType: ACC_AccessibilityManager.subtitlesEnabled
-  fullName: ACC_API.ACC_AccessibilityManager.subtitlesEnabled
-  type: Field
-  source:
-    remote:
-      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-      branch: main
-      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
-    id: subtitlesEnabled
-    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 23
-  assemblies:
-  - Assembly-CSharp
-  namespace: ACC_API
-  syntax:
-    content: >-
-      [SerializeField]
-
-      public bool subtitlesEnabled
-    return:
-      type: System.Boolean
-    content.vb: >-
-      <SerializeField>
-
-      Public subtitlesEnabled As Boolean
-  attributes:
-  - type: UnityEngine.SerializeField
-    ctor: UnityEngine.SerializeField.#ctor
-    arguments: []
 - uid: ACC_API.ACC_AccessibilityManager.AudioAccessibility
   commentId: P:ACC_API.ACC_AccessibilityManager.AudioAccessibility
   id: AudioAccessibility
@@ -127,54 +88,20 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: AudioAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 34
+    startLine: 31
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Gets the instance of the ACC_AudioAccessibility associated with this manager.
+  example: []
   syntax:
     content: public ACC_AudioAccessibility AudioAccessibility { get; }
     parameters: []
     return:
       type: ACC_API.ACC_AudioAccessibility
+      description: The instance of ACC_AudioAccessibility.
     content.vb: Public Property AudioAccessibility As ACC_AudioAccessibility
   overload: ACC_API.ACC_AccessibilityManager.AudioAccessibility*
-- uid: ACC_API.ACC_AccessibilityManager.shadersAdded
-  commentId: F:ACC_API.ACC_AccessibilityManager.shadersAdded
-  id: shadersAdded
-  parent: ACC_API.ACC_AccessibilityManager
-  langs:
-  - csharp
-  - vb
-  name: shadersAdded
-  nameWithType: ACC_AccessibilityManager.shadersAdded
-  fullName: ACC_API.ACC_AccessibilityManager.shadersAdded
-  type: Field
-  source:
-    remote:
-      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-      branch: main
-      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
-    id: shadersAdded
-    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 43
-  assemblies:
-  - Assembly-CSharp
-  namespace: ACC_API
-  syntax:
-    content: >-
-      [HideInInspector]
-
-      public bool shadersAdded
-    return:
-      type: System.Boolean
-    content.vb: >-
-      <HideInInspector>
-
-      Public shadersAdded As Boolean
-  attributes:
-  - type: UnityEngine.HideInInspector
-    ctor: UnityEngine.HideInInspector.#ctor
-    arguments: []
 - uid: ACC_API.ACC_AccessibilityManager.VisualAccessibility
   commentId: P:ACC_API.ACC_AccessibilityManager.VisualAccessibility
   id: VisualAccessibility
@@ -193,15 +120,18 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: VisualAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 44
+    startLine: 51
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Gets the instance of the ACC_VisualAccessibility associated with this manager.
+  example: []
   syntax:
     content: public ACC_VisualAccessibility VisualAccessibility { get; }
     parameters: []
     return:
       type: ACC_API.ACC_VisualAccessibility
+      description: The instance of ACC_VisualAccessibility.
     content.vb: Public Property VisualAccessibility As ACC_VisualAccessibility
   overload: ACC_API.ACC_AccessibilityManager.VisualAccessibility*
 - uid: ACC_API.ACC_AccessibilityManager.MobilityAccessibility
@@ -222,15 +152,18 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: MobilityAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 57
+    startLine: 67
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Gets the instance of the ACC_MobilityAccessibility associated with this manager.
+  example: []
   syntax:
     content: public ACC_MobilityAccessibility MobilityAccessibility { get; }
     parameters: []
     return:
       type: ACC_API.ACC_MobilityAccessibility
+      description: The instance of ACC_MobilityAccessibility.
     content.vb: Public Property MobilityAccessibility As ACC_MobilityAccessibility
   overload: ACC_API.ACC_AccessibilityManager.MobilityAccessibility*
 - uid: ACC_API.ACC_AccessibilityManager.MultifunctionalAccessibility
@@ -251,15 +184,18 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: MultifunctionalAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 67
+    startLine: 85
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Gets the instance of the ACC_MultifunctionalAccessibility associated with this manager.
+  example: []
   syntax:
     content: public ACC_MultifunctionalAccessibility MultifunctionalAccessibility { get; }
     parameters: []
     return:
       type: ACC_API.ACC_MultifunctionalAccessibility
+      description: The instance of ACC_MultifunctionalAccessibility.
     content.vb: Public Property MultifunctionalAccessibility As ACC_MultifunctionalAccessibility
   overload: ACC_API.ACC_AccessibilityManager.MultifunctionalAccessibility*
 - uid: ACC_API.ACC_AccessibilityManager.LoadAllUserPreferences
@@ -280,7 +216,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadAllUserPreferences
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 248
+    startLine: 272
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -290,87 +226,6 @@ items:
     content: public void LoadAllUserPreferences()
     content.vb: Public Sub LoadAllUserPreferences()
   overload: ACC_API.ACC_AccessibilityManager.LoadAllUserPreferences*
-- uid: ACC_API.ACC_AccessibilityManager.OnHierarchyChanged
-  commentId: M:ACC_API.ACC_AccessibilityManager.OnHierarchyChanged
-  id: OnHierarchyChanged
-  parent: ACC_API.ACC_AccessibilityManager
-  langs:
-  - csharp
-  - vb
-  name: OnHierarchyChanged()
-  nameWithType: ACC_AccessibilityManager.OnHierarchyChanged()
-  fullName: ACC_API.ACC_AccessibilityManager.OnHierarchyChanged()
-  type: Method
-  source:
-    remote:
-      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-      branch: main
-      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
-    id: OnHierarchyChanged
-    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 276
-  assemblies:
-  - Assembly-CSharp
-  namespace: ACC_API
-  syntax:
-    content: public void OnHierarchyChanged()
-    content.vb: Public Sub OnHierarchyChanged()
-  overload: ACC_API.ACC_AccessibilityManager.OnHierarchyChanged*
-- uid: ACC_API.ACC_AccessibilityManager.Previsualize(TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData)
-  commentId: M:ACC_API.ACC_AccessibilityManager.Previsualize(TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData)
-  id: Previsualize(TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData)
-  parent: ACC_API.ACC_AccessibilityManager
-  langs:
-  - csharp
-  - vb
-  name: Previsualize(ACC_HighContrastData)
-  nameWithType: ACC_AccessibilityManager.Previsualize(ACC_HighContrastData)
-  fullName: ACC_API.ACC_AccessibilityManager.Previsualize(TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData)
-  type: Method
-  source:
-    remote:
-      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-      branch: main
-      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
-    id: Previsualize
-    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 355
-  assemblies:
-  - Assembly-CSharp
-  namespace: ACC_API
-  syntax:
-    content: public void Previsualize(ACC_HighContrastData highContrastData = null)
-    parameters:
-    - id: highContrastData
-      type: TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData
-    content.vb: Public Sub Previsualize(highContrastData As ACC_HighContrastData = Nothing)
-  overload: ACC_API.ACC_AccessibilityManager.Previsualize*
-- uid: ACC_API.ACC_AccessibilityManager.StopPrevisualize
-  commentId: M:ACC_API.ACC_AccessibilityManager.StopPrevisualize
-  id: StopPrevisualize
-  parent: ACC_API.ACC_AccessibilityManager
-  langs:
-  - csharp
-  - vb
-  name: StopPrevisualize()
-  nameWithType: ACC_AccessibilityManager.StopPrevisualize()
-  fullName: ACC_API.ACC_AccessibilityManager.StopPrevisualize()
-  type: Method
-  source:
-    remote:
-      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-      branch: main
-      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
-    id: StopPrevisualize
-    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 425
-  assemblies:
-  - Assembly-CSharp
-  namespace: ACC_API
-  syntax:
-    content: public void StopPrevisualize()
-    content.vb: Public Sub StopPrevisualize()
-  overload: ACC_API.ACC_AccessibilityManager.StopPrevisualize*
 references:
 - uid: ACC_API
   commentId: N:ACC_API
@@ -443,17 +298,6 @@ references:
   name: ACC_AccessibilityManager
   nameWithType: ACC_AccessibilityManager
   fullName: ACC_API.ACC_AccessibilityManager
-- uid: System.Boolean
-  commentId: T:System.Boolean
-  parent: System
-  isExternal: true
-  href: https://learn.microsoft.com/dotnet/api/system.boolean
-  name: bool
-  nameWithType: bool
-  fullName: bool
-  nameWithType.vb: Boolean
-  fullName.vb: Boolean
-  name.vb: Boolean
 - uid: ACC_API.ACC_AccessibilityManager.AudioAccessibility*
   commentId: Overload:ACC_API.ACC_AccessibilityManager.AudioAccessibility
   href: ACC_API.ACC_AccessibilityManager.html#ACC_API_ACC_AccessibilityManager_AudioAccessibility
@@ -512,50 +356,3 @@ references:
   name: LoadAllUserPreferences
   nameWithType: ACC_AccessibilityManager.LoadAllUserPreferences
   fullName: ACC_API.ACC_AccessibilityManager.LoadAllUserPreferences
-- uid: ACC_API.ACC_AccessibilityManager.OnHierarchyChanged*
-  commentId: Overload:ACC_API.ACC_AccessibilityManager.OnHierarchyChanged
-  href: ACC_API.ACC_AccessibilityManager.html#ACC_API_ACC_AccessibilityManager_OnHierarchyChanged
-  name: OnHierarchyChanged
-  nameWithType: ACC_AccessibilityManager.OnHierarchyChanged
-  fullName: ACC_API.ACC_AccessibilityManager.OnHierarchyChanged
-- uid: ACC_API.ACC_AccessibilityManager.Previsualize*
-  commentId: Overload:ACC_API.ACC_AccessibilityManager.Previsualize
-  href: ACC_API.ACC_AccessibilityManager.html#ACC_API_ACC_AccessibilityManager_Previsualize_TFG_Videojocs_ACC_HighContrast_ACC_HighContrastData_
-  name: Previsualize
-  nameWithType: ACC_AccessibilityManager.Previsualize
-  fullName: ACC_API.ACC_AccessibilityManager.Previsualize
-- uid: TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData
-  commentId: T:TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData
-  parent: TFG_Videojocs.ACC_HighContrast
-  href: TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData.html
-  name: ACC_HighContrastData
-  nameWithType: ACC_HighContrastData
-  fullName: TFG_Videojocs.ACC_HighContrast.ACC_HighContrastData
-- uid: TFG_Videojocs.ACC_HighContrast
-  commentId: N:TFG_Videojocs.ACC_HighContrast
-  href: TFG_Videojocs.html
-  name: TFG_Videojocs.ACC_HighContrast
-  nameWithType: TFG_Videojocs.ACC_HighContrast
-  fullName: TFG_Videojocs.ACC_HighContrast
-  spec.csharp:
-  - uid: TFG_Videojocs
-    name: TFG_Videojocs
-    href: TFG_Videojocs.html
-  - name: .
-  - uid: TFG_Videojocs.ACC_HighContrast
-    name: ACC_HighContrast
-    href: TFG_Videojocs.ACC_HighContrast.html
-  spec.vb:
-  - uid: TFG_Videojocs
-    name: TFG_Videojocs
-    href: TFG_Videojocs.html
-  - name: .
-  - uid: TFG_Videojocs.ACC_HighContrast
-    name: ACC_HighContrast
-    href: TFG_Videojocs.ACC_HighContrast.html
-- uid: ACC_API.ACC_AccessibilityManager.StopPrevisualize*
-  commentId: Overload:ACC_API.ACC_AccessibilityManager.StopPrevisualize
-  href: ACC_API.ACC_AccessibilityManager.html#ACC_API_ACC_AccessibilityManager_StopPrevisualize
-  name: StopPrevisualize
-  nameWithType: ACC_AccessibilityManager.StopPrevisualize
-  fullName: ACC_API.ACC_AccessibilityManager.StopPrevisualize

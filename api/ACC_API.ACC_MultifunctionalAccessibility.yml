@@ -5,14 +5,13 @@ items:
   id: ACC_MultifunctionalAccessibility
   parent: ACC_API
   children:
-  - ACC_API.ACC_MultifunctionalAccessibility.#ctor
   - ACC_API.ACC_MultifunctionalAccessibility.DisableAudioManagerMenu
   - ACC_API.ACC_MultifunctionalAccessibility.EnableAudioManagerMenu
   - ACC_API.ACC_MultifunctionalAccessibility.Get3DAudioSource(System.String)
   - ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources
   - ACC_API.ACC_MultifunctionalAccessibility.GetAllAudioSources
   - ACC_API.ACC_MultifunctionalAccessibility.GetAudioSource(System.String)
-  - ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifiunctionalFeatures)
+  - ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifunctionalFeatures)
   - ACC_API.ACC_MultifunctionalAccessibility.GetVolume(System.String)
   - ACC_API.ACC_MultifunctionalAccessibility.LoadPreferencesAudioSourceVolumes
   - ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences
@@ -21,8 +20,8 @@ items:
   - ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String)
   - ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String)
   - ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration
-  - ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifiunctionalFeatures)
-  - ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures,System.Boolean)
+  - ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifunctionalFeatures)
+  - ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifunctionalFeatures,System.Boolean)
   - ACC_API.ACC_MultifunctionalAccessibility.SetVolume(System.String,System.Single)
   - ACC_API.ACC_MultifunctionalAccessibility.Stop3DSound(System.String)
   - ACC_API.ACC_MultifunctionalAccessibility.StopAll3DSounds
@@ -42,7 +41,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ACC_MultifunctionalAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 12
+    startLine: 18
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -51,45 +50,16 @@ items:
     content.vb: Public Class ACC_MultifunctionalAccessibility
   inheritance:
   - System.Object
-- uid: ACC_API.ACC_MultifunctionalAccessibility.#ctor
-  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.#ctor
-  id: '#ctor'
+- uid: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifunctionalFeatures,System.Boolean)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifunctionalFeatures,System.Boolean)
+  id: SetFeatureState(ACC_API.MultifunctionalFeatures,System.Boolean)
   parent: ACC_API.ACC_MultifunctionalAccessibility
   langs:
   - csharp
   - vb
-  name: ACC_MultifunctionalAccessibility()
-  nameWithType: ACC_MultifunctionalAccessibility.ACC_MultifunctionalAccessibility()
-  fullName: ACC_API.ACC_MultifunctionalAccessibility.ACC_MultifunctionalAccessibility()
-  type: Constructor
-  source:
-    remote:
-      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-      branch: main
-      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
-    id: .ctor
-    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 15
-  assemblies:
-  - Assembly-CSharp
-  namespace: ACC_API
-  syntax:
-    content: public ACC_MultifunctionalAccessibility()
-    content.vb: Public Sub New()
-  overload: ACC_API.ACC_MultifunctionalAccessibility.#ctor*
-  nameWithType.vb: ACC_MultifunctionalAccessibility.New()
-  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.New()
-  name.vb: New()
-- uid: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures,System.Boolean)
-  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures,System.Boolean)
-  id: SetFeatureState(ACC_API.MultifiunctionalFeatures,System.Boolean)
-  parent: ACC_API.ACC_MultifunctionalAccessibility
-  langs:
-  - csharp
-  - vb
-  name: SetFeatureState(MultifiunctionalFeatures, bool)
-  nameWithType: ACC_MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures, bool)
-  fullName: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures, bool)
+  name: SetFeatureState(MultifunctionalFeatures, bool)
+  nameWithType: ACC_MultifunctionalAccessibility.SetFeatureState(MultifunctionalFeatures, bool)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifunctionalFeatures, bool)
   type: Method
   source:
     remote:
@@ -98,36 +68,36 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: SetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 35
+    startLine: 41
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
   summary: Toggles the state of a specified feature within the audio management system.
   example: []
   syntax:
-    content: public void SetFeatureState(MultifiunctionalFeatures feature, bool state)
+    content: public void SetFeatureState(MultifunctionalFeatures feature, bool state)
     parameters:
     - id: feature
-      type: ACC_API.MultifiunctionalFeatures
+      type: ACC_API.MultifunctionalFeatures
       description: The feature to be modified.
     - id: state
       type: System.Boolean
       description: The state to set for the feature (true for enabled, false for disabled).
-    content.vb: Public Sub SetFeatureState(feature As MultifiunctionalFeatures, state As Boolean)
+    content.vb: Public Sub SetFeatureState(feature As MultifunctionalFeatures, state As Boolean)
   overload: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState*
-  nameWithType.vb: ACC_MultifunctionalAccessibility.SetFeatureState(MultifiunctionalFeatures, Boolean)
-  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifiunctionalFeatures, Boolean)
-  name.vb: SetFeatureState(MultifiunctionalFeatures, Boolean)
-- uid: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifiunctionalFeatures)
-  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifiunctionalFeatures)
-  id: GetFeatureState(ACC_API.MultifiunctionalFeatures)
+  nameWithType.vb: ACC_MultifunctionalAccessibility.SetFeatureState(MultifunctionalFeatures, Boolean)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifunctionalFeatures, Boolean)
+  name.vb: SetFeatureState(MultifunctionalFeatures, Boolean)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifunctionalFeatures)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifunctionalFeatures)
+  id: GetFeatureState(ACC_API.MultifunctionalFeatures)
   parent: ACC_API.ACC_MultifunctionalAccessibility
   langs:
   - csharp
   - vb
-  name: GetFeatureState(MultifiunctionalFeatures)
-  nameWithType: ACC_MultifunctionalAccessibility.GetFeatureState(MultifiunctionalFeatures)
-  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifiunctionalFeatures)
+  name: GetFeatureState(MultifunctionalFeatures)
+  nameWithType: ACC_MultifunctionalAccessibility.GetFeatureState(MultifunctionalFeatures)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState(ACC_API.MultifunctionalFeatures)
   type: Method
   source:
     remote:
@@ -136,33 +106,33 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 50
+    startLine: 56
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
   summary: Retrieves the enabled state of a specified multifunctional feature.
   example: []
   syntax:
-    content: public bool GetFeatureState(MultifiunctionalFeatures feature)
+    content: public bool GetFeatureState(MultifunctionalFeatures feature)
     parameters:
     - id: feature
-      type: ACC_API.MultifiunctionalFeatures
+      type: ACC_API.MultifunctionalFeatures
       description: The multifunctional feature to check, e.g., audio manager.
     return:
       type: System.Boolean
       description: True if the specified feature is enabled, false otherwise.
-    content.vb: Public Function GetFeatureState(feature As MultifiunctionalFeatures) As Boolean
+    content.vb: Public Function GetFeatureState(feature As MultifunctionalFeatures) As Boolean
   overload: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState*
-- uid: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifiunctionalFeatures)
-  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifiunctionalFeatures)
-  id: ResetFeatureState(ACC_API.MultifiunctionalFeatures)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifunctionalFeatures)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifunctionalFeatures)
+  id: ResetFeatureState(ACC_API.MultifunctionalFeatures)
   parent: ACC_API.ACC_MultifunctionalAccessibility
   langs:
   - csharp
   - vb
-  name: ResetFeatureState(MultifiunctionalFeatures)
-  nameWithType: ACC_MultifunctionalAccessibility.ResetFeatureState(MultifiunctionalFeatures)
-  fullName: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifiunctionalFeatures)
+  name: ResetFeatureState(MultifunctionalFeatures)
+  nameWithType: ACC_MultifunctionalAccessibility.ResetFeatureState(MultifunctionalFeatures)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifunctionalFeatures)
   type: Method
   source:
     remote:
@@ -171,19 +141,19 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 69
+    startLine: 75
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
   summary: Resets the state of the specified multifunctional feature to its default settings.
   example: []
   syntax:
-    content: public void ResetFeatureState(MultifiunctionalFeatures feature)
+    content: public void ResetFeatureState(MultifunctionalFeatures feature)
     parameters:
     - id: feature
-      type: ACC_API.MultifiunctionalFeatures
+      type: ACC_API.MultifunctionalFeatures
       description: The multifunctional feature to reset (e.g., audio manager).
-    content.vb: Public Sub ResetFeatureState(feature As MultifiunctionalFeatures)
+    content.vb: Public Sub ResetFeatureState(feature As MultifunctionalFeatures)
   overload: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState*
 - uid: ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences
   commentId: M:ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences
@@ -203,7 +173,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadUserPreferences
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 82
+    startLine: 88
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -231,7 +201,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: EnableAudioManagerMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 92
+    startLine: 98
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -259,7 +229,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: DisableAudioManagerMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 100
+    startLine: 106
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -287,7 +257,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetAudioSource
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 111
+    startLine: 117
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -325,7 +295,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Get3DAudioSource
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 121
+    startLine: 127
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -363,7 +333,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetAllAudioSources
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 130
+    startLine: 136
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -394,7 +364,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetAll3DAudioSources
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 139
+    startLine: 145
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -425,7 +395,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: PlaySound
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 149
+    startLine: 155
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -463,7 +433,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Play3DSound
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 160
+    startLine: 166
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -504,7 +474,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: PlayOneShot
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 170
+    startLine: 176
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -542,7 +512,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Play3DOneShot
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 181
+    startLine: 187
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -583,7 +553,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: StopSound
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 190
+    startLine: 196
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -618,7 +588,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Stop3DSound
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 199
+    startLine: 205
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -653,7 +623,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: StopAllSounds
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 207
+    startLine: 213
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -681,7 +651,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: StopAll3DSounds
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 215
+    startLine: 221
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -709,7 +679,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: SetVolume
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 225
+    startLine: 231
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -747,7 +717,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetVolume
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 236
+    startLine: 242
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -788,7 +758,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadPreferencesAudioSourceVolumes
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 244
+    startLine: 250
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -816,7 +786,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetAudioManagerConfiguration
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 253
+    startLine: 259
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -854,28 +824,19 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ACC_API.ACC_MultifunctionalAccessibility.#ctor*
-  commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.#ctor
-  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility__ctor
-  name: ACC_MultifunctionalAccessibility
-  nameWithType: ACC_MultifunctionalAccessibility.ACC_MultifunctionalAccessibility
-  fullName: ACC_API.ACC_MultifunctionalAccessibility.ACC_MultifunctionalAccessibility
-  nameWithType.vb: ACC_MultifunctionalAccessibility.New
-  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.New
-  name.vb: New
 - uid: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState*
   commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState
-  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_SetFeatureState_ACC_API_MultifiunctionalFeatures_System_Boolean_
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_SetFeatureState_ACC_API_MultifunctionalFeatures_System_Boolean_
   name: SetFeatureState
   nameWithType: ACC_MultifunctionalAccessibility.SetFeatureState
   fullName: ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState
-- uid: ACC_API.MultifiunctionalFeatures
-  commentId: T:ACC_API.MultifiunctionalFeatures
+- uid: ACC_API.MultifunctionalFeatures
+  commentId: T:ACC_API.MultifunctionalFeatures
   parent: ACC_API
-  href: ACC_API.MultifiunctionalFeatures.html
-  name: MultifiunctionalFeatures
-  nameWithType: MultifiunctionalFeatures
-  fullName: ACC_API.MultifiunctionalFeatures
+  href: ACC_API.MultifunctionalFeatures.html
+  name: MultifunctionalFeatures
+  nameWithType: MultifunctionalFeatures
+  fullName: ACC_API.MultifunctionalFeatures
 - uid: System.Boolean
   commentId: T:System.Boolean
   parent: System
@@ -889,13 +850,13 @@ references:
   name.vb: Boolean
 - uid: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState*
   commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState
-  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_GetFeatureState_ACC_API_MultifiunctionalFeatures_
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_GetFeatureState_ACC_API_MultifunctionalFeatures_
   name: GetFeatureState
   nameWithType: ACC_MultifunctionalAccessibility.GetFeatureState
   fullName: ACC_API.ACC_MultifunctionalAccessibility.GetFeatureState
 - uid: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState*
   commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState
-  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_ResetFeatureState_ACC_API_MultifiunctionalFeatures_
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_ResetFeatureState_ACC_API_MultifunctionalFeatures_
   name: ResetFeatureState
   nameWithType: ACC_MultifunctionalAccessibility.ResetFeatureState
   fullName: ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState

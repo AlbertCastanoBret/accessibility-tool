@@ -5,7 +5,6 @@ items:
   id: ACC_AudioAccessibility
   parent: ACC_API
   children:
-  - ACC_API.ACC_AudioAccessibility.#ctor
   - ACC_API.ACC_AudioAccessibility.ChangeSubtitleBackgroundColor(UnityEngine.Color)
   - ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontColor(UnityEngine.Color)
   - ACC_API.ACC_AudioAccessibility.ChangeSubtitleFontSize(System.Int32)
@@ -66,7 +65,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ACC_AudioAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 20
+    startLine: 30
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -75,35 +74,6 @@ items:
     content.vb: Public Class ACC_AudioAccessibility
   inheritance:
   - System.Object
-- uid: ACC_API.ACC_AudioAccessibility.#ctor
-  commentId: M:ACC_API.ACC_AudioAccessibility.#ctor
-  id: '#ctor'
-  parent: ACC_API.ACC_AudioAccessibility
-  langs:
-  - csharp
-  - vb
-  name: ACC_AudioAccessibility()
-  nameWithType: ACC_AudioAccessibility.ACC_AudioAccessibility()
-  fullName: ACC_API.ACC_AudioAccessibility.ACC_AudioAccessibility()
-  type: Constructor
-  source:
-    remote:
-      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-      branch: main
-      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
-    id: .ctor
-    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 27
-  assemblies:
-  - Assembly-CSharp
-  namespace: ACC_API
-  syntax:
-    content: public ACC_AudioAccessibility()
-    content.vb: Public Sub New()
-  overload: ACC_API.ACC_AudioAccessibility.#ctor*
-  nameWithType.vb: ACC_AudioAccessibility.New()
-  fullName.vb: ACC_API.ACC_AudioAccessibility.New()
-  name.vb: New()
 - uid: ACC_API.ACC_AudioAccessibility.SetFeatureState(ACC_API.AudioFeatures,System.Boolean)
   commentId: M:ACC_API.ACC_AudioAccessibility.SetFeatureState(ACC_API.AudioFeatures,System.Boolean)
   id: SetFeatureState(ACC_API.AudioFeatures,System.Boolean)
@@ -122,7 +92,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: SetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 55
+    startLine: 65
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -160,7 +130,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 76
+    startLine: 86
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -195,7 +165,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 103
+    startLine: 113
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -227,7 +197,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadUserPreferences
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 119
+    startLine: 129
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -255,7 +225,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: EnableSubtitlesMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 130
+    startLine: 140
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -283,7 +253,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: DisableSubtitlesMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 138
+    startLine: 148
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -311,7 +281,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: PlaySubtitle
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 147
+    startLine: 157
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -346,7 +316,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ShowActorsName
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 158
+    startLine: 168
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -381,7 +351,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetActorsNameEnabled
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 169
+    startLine: 179
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -412,7 +382,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetActorsName
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 183
+    startLine: 193
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -443,7 +413,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ShowActorsNameColors
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 192
+    startLine: 202
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -478,7 +448,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetActorsNameColorsEnabled
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 203
+    startLine: 213
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -509,7 +479,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetActorsNameColors
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 217
+    startLine: 227
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -540,7 +510,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeSubtitleFontColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 226
+    startLine: 236
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -572,7 +542,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetSubtitleFontColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 238
+    startLine: 248
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -603,7 +573,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetSubtitleFontColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 255
+    startLine: 265
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -634,7 +604,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeSubtitleBackgroundColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 264
+    startLine: 274
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -666,7 +636,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetSubtitleBackgroundColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 276
+    startLine: 286
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -697,7 +667,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetSubtitleBackgroundColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 293
+    startLine: 303
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -728,7 +698,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeSubtitleFontSize
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 302
+    startLine: 312
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -763,7 +733,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetSubtitleFontSize
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 314
+    startLine: 324
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -794,7 +764,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetSubtitleFontSize
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 328
+    startLine: 338
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -825,7 +795,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadUserPreferencesSubtitles
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 336
+    startLine: 346
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -853,7 +823,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetSubtitleSettings
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 345
+    startLine: 355
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -884,7 +854,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: EnableVisualNotificationMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 357
+    startLine: 367
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -912,7 +882,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: DisableVisualNotificationMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 365
+    startLine: 375
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -940,7 +910,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: PlayVisualNotification
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 375
+    startLine: 385
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -978,7 +948,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeVisualNotificationHorizontalAlignment
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 399
+    startLine: 409
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1013,7 +983,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetVisualNotificationHorizontalAlignment
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 415
+    startLine: 425
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1044,7 +1014,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetVisualNotificationHorizontalAlignment
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 429
+    startLine: 439
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1075,7 +1045,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeVisualNotificationVerticalAlignment
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 438
+    startLine: 448
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1110,7 +1080,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetVisualNotificationVerticalAlignment
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 454
+    startLine: 464
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1141,7 +1111,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetVisualNotificationVerticalAlignment
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 468
+    startLine: 478
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1172,7 +1142,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeVisualNotificationTimeOnScreen
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 477
+    startLine: 487
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1207,7 +1177,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetVisualNotificationTimeOnScreen
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 488
+    startLine: 498
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1238,7 +1208,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeVisualNotificationFontColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 502
+    startLine: 512
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1270,7 +1240,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetVisualNotificationFontColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 514
+    startLine: 524
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1301,7 +1271,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetVisualNotificationFontColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 531
+    startLine: 541
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1332,7 +1302,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeVisualNotificationBackgroundColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 540
+    startLine: 550
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1364,7 +1334,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetVisualNotificationBackgroundColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 552
+    startLine: 562
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1395,7 +1365,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetVisualNotificationBackgroundColor
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 569
+    startLine: 579
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1426,7 +1396,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeVisualNotificationFontSize
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 578
+    startLine: 588
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1461,7 +1431,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetVisualNotificationFontSize
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 590
+    startLine: 600
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1492,7 +1462,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetVisualNotificationFontSize
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 604
+    startLine: 614
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1523,7 +1493,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadUserPreferencesVisualNotification
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 612
+    startLine: 622
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1551,7 +1521,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetVisualNotificationSettings
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 624
+    startLine: 634
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1590,15 +1560,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ACC_API.ACC_AudioAccessibility.#ctor*
-  commentId: Overload:ACC_API.ACC_AudioAccessibility.#ctor
-  href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility__ctor
-  name: ACC_AudioAccessibility
-  nameWithType: ACC_AudioAccessibility.ACC_AudioAccessibility
-  fullName: ACC_API.ACC_AudioAccessibility.ACC_AudioAccessibility
-  nameWithType.vb: ACC_AudioAccessibility.New
-  fullName.vb: ACC_API.ACC_AudioAccessibility.New
-  name.vb: New
 - uid: ACC_API.ACC_AudioAccessibility.SetFeatureState*
   commentId: Overload:ACC_API.ACC_AudioAccessibility.SetFeatureState
   href: ACC_API.ACC_AudioAccessibility.html#ACC_API_ACC_AudioAccessibility_SetFeatureState_ACC_API_AudioFeatures_System_Boolean_

@@ -16,12 +16,22 @@ namespace ACC_API
 {
     public class ACC_AccessibilityManager : MonoBehaviour
     {
+        /// <summary>
+        /// Gets the singleton instance of the ACC_AccessibilityManager.
+        /// </summary>
+        /// <value>The instance of the ACC_AccessibilityManager.</value>
         public static ACC_AccessibilityManager Instance { get; private set; } 
         internal GameObject accCanvas { get; private set; }
         
         //Audio Accessibility
         
-        [SerializeField] public bool subtitlesEnabled;
+        /// <summary>
+        /// Gets the instance of the ACC_AudioAccessibility associated with this manager.
+        /// </summary>
+        /// <value>The instance of ACC_AudioAccessibility.</value>
+        public ACC_AudioAccessibility AudioAccessibility { get; private set;}
+        
+        [SerializeField] internal bool subtitlesEnabled;
         #if UNITY_EDITOR
         [SerializeField] internal bool showSubtitlesMenu;
         private bool prevShowSubtitlesMenu, prevSubtitlesEnabled;
@@ -32,19 +42,30 @@ namespace ACC_API
         [SerializeField] internal bool showVisualNotificationMenu;
         private bool prevShowVisualNotificationMenu, prevVisualNotificationEnabled;
         #endif
-        public ACC_AudioAccessibility AudioAccessibility { get; private set;}
         
         //Visual Accessibility
+        
+        /// <summary>
+        /// Gets the instance of the ACC_VisualAccessibility associated with this manager.
+        /// </summary>
+        /// <value>The instance of ACC_VisualAccessibility.</value>
+        public ACC_VisualAccessibility VisualAccessibility { get; private set; }
         
         [SerializeField] internal bool highContrastEnabled;
         #if UNITY_EDITOR
         [SerializeField] internal bool showHighContrastMenu, isPrevisualizing;
         private bool prevShowHighContrastMenu, prevHighContrastEnabled;
         #endif
-        [HideInInspector] public bool shadersAdded;
-        public ACC_VisualAccessibility VisualAccessibility { get; private set; }
+        internal bool shadersAdded;
+        
         
         //Mobility Accessibility
+        
+        /// <summary>
+        /// Gets the instance of the ACC_MobilityAccessibility associated with this manager.
+        /// </summary>
+        /// <value>The instance of ACC_MobilityAccessibility.</value>
+        public ACC_MobilityAccessibility MobilityAccessibility { get; private set; }
         
         [SerializeField] internal bool remapControlsEnabled;
         #if UNITY_EDITOR
@@ -55,17 +76,20 @@ namespace ACC_API
         [SerializeField] internal List<string> remapControlsMenus;
         [SerializeField] internal string currentRemapControlsMenu;
         private string prevCurrentRemapControlsMenu;
-        public ACC_MobilityAccessibility MobilityAccessibility { get; private set; }
         
         //Multifunctional Accessibility
+        
+        /// <summary>
+        /// Gets the instance of the ACC_MultifunctionalAccessibility associated with this manager.
+        /// </summary>
+        /// <value>The instance of ACC_MultifunctionalAccessibility.</value>
+        public ACC_MultifunctionalAccessibility MultifunctionalAccessibility { get; private set; }
         
         [SerializeField] internal bool audioManagerEnabled;
         #if UNITY_EDITOR
         [SerializeField] internal bool showAudioManagerMenu;
         private bool prevShowAudioManagerMenu, prevAudioManagerEnabled;
         #endif
-        
-        public ACC_MultifunctionalAccessibility MultifunctionalAccessibility { get; private set; }
             
         private bool sceneLoaded;
         
@@ -96,7 +120,7 @@ namespace ACC_API
                 MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
                 
                 MultifunctionalAccessibility = new ACC_MultifunctionalAccessibility();
-                MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
+                MultifunctionalAccessibility.InitializeState(MultifunctionalFeatures.AudioManager, audioManagerEnabled);
                 
                 #if UNITY_EDITOR
                 if (showAudioManagerMenu) MultifunctionalAccessibility.EnableAudioManagerMenu();
@@ -164,7 +188,7 @@ namespace ACC_API
                 
                 if (audioManagerEnabled != prevAudioManagerEnabled)
                 {
-                    MultifunctionalAccessibility.InitializeState(MultifiunctionalFeatures.AudioManager, audioManagerEnabled);
+                    MultifunctionalAccessibility.InitializeState(MultifunctionalFeatures.AudioManager, audioManagerEnabled);
                     prevAudioManagerEnabled = audioManagerEnabled;
                 }
             }
@@ -274,7 +298,7 @@ namespace ACC_API
         }
         
         #if UNITY_EDITOR
-        public void OnHierarchyChanged() 
+        internal void OnHierarchyChanged() 
         {
             Material highContrastColorMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast-Color.mat");
             Material highContrastOutlineMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast_Outline.mat");
@@ -353,7 +377,7 @@ namespace ACC_API
                 }
             }
         }
-        public void Previsualize(ACC_HighContrastData highContrastData=null)
+        internal void Previsualize(ACC_HighContrastData highContrastData=null)
         {
             if (shadersAdded)
             {
@@ -423,7 +447,7 @@ namespace ACC_API
                 }
             }
         }
-        public void StopPrevisualize()
+        internal void StopPrevisualize()
         {
             if (shadersAdded)
             {

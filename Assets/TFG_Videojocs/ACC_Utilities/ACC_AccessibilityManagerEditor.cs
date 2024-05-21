@@ -246,7 +246,7 @@ namespace TFG_Videojocs.ACC_Utilities
                     break;
                 case "AudioManager":
                     if (ACC_AccessibilityManager.Instance != null) 
-                        ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.ResetFeatureState(MultifiunctionalFeatures.AudioManager);
+                        ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.ResetFeatureState(MultifunctionalFeatures.AudioManager);
                     else
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled);
                     break;
@@ -342,7 +342,7 @@ namespace TFG_Videojocs.ACC_Utilities
                     break;
                 case "AudioManager":
                     if (ACC_AccessibilityManager.Instance != null)
-                        ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.ResetFeatureState(MultifiunctionalFeatures.AudioManager);
+                        ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.ResetFeatureState(MultifunctionalFeatures.AudioManager);
                     else
                     {
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled);

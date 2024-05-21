@@ -1,0 +1,73 @@
+### YamlMime:ManagedReference
+items:
+- uid: ACC_API.MultifunctionalFeatures
+  commentId: T:ACC_API.MultifunctionalFeatures
+  id: MultifunctionalFeatures
+  parent: ACC_API
+  children:
+  - ACC_API.MultifunctionalFeatures.AudioManager
+  langs:
+  - csharp
+  - vb
+  name: MultifunctionalFeatures
+  nameWithType: MultifunctionalFeatures
+  fullName: ACC_API.MultifunctionalFeatures
+  type: Enum
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: MultifunctionalFeatures
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 10
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Enum representing different multifunctional accessibility features.
+  example: []
+  syntax:
+    content: public enum MultifunctionalFeatures
+    content.vb: Public Enum MultifunctionalFeatures
+- uid: ACC_API.MultifunctionalFeatures.AudioManager
+  commentId: F:ACC_API.MultifunctionalFeatures.AudioManager
+  id: AudioManager
+  parent: ACC_API.MultifunctionalFeatures
+  langs:
+  - csharp
+  - vb
+  name: AudioManager
+  nameWithType: MultifunctionalFeatures.AudioManager
+  fullName: ACC_API.MultifunctionalFeatures.AudioManager
+  type: Field
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: AudioManager
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
+    startLine: 15
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Features related to managing audio accessibility.
+  example: []
+  syntax:
+    content: AudioManager = 0
+    return:
+      type: ACC_API.MultifunctionalFeatures
+references:
+- uid: ACC_API
+  commentId: N:ACC_API
+  href: ACC_API.html
+  name: ACC_API
+  nameWithType: ACC_API
+  fullName: ACC_API
+- uid: ACC_API.MultifunctionalFeatures
+  commentId: T:ACC_API.MultifunctionalFeatures
+  parent: ACC_API
+  href: ACC_API.MultifunctionalFeatures.html
+  name: MultifunctionalFeatures
+  nameWithType: MultifunctionalFeatures
+  fullName: ACC_API.MultifunctionalFeatures

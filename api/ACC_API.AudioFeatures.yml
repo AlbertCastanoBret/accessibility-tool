@@ -21,10 +21,12 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: AudioFeatures
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 14
+    startLine: 17
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Enum representing different audio accessibility features.
+  example: []
   syntax:
     content: public enum AudioFeatures
     content.vb: Public Enum AudioFeatures
@@ -46,10 +48,12 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Subtitles
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 16
+    startLine: 22
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Subtitles for audio content.
+  example: []
   syntax:
     content: Subtitles = 0
     return:
@@ -72,10 +76,12 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: VisualNotification
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AudioAccessibility.cs
-    startLine: 17
+    startLine: 27
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Visual notifications for audio events.
+  example: []
   syntax:
     content: VisualNotification = 1
     return:

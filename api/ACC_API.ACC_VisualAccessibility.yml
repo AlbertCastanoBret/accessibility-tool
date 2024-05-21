@@ -5,7 +5,6 @@ items:
   id: ACC_VisualAccessibility
   parent: ACC_API
   children:
-  - ACC_API.ACC_VisualAccessibility.#ctor
   - ACC_API.ACC_VisualAccessibility.ChangeHighContrastConfiguration(System.String)
   - ACC_API.ACC_VisualAccessibility.DisableHighContrastMenu
   - ACC_API.ACC_VisualAccessibility.EnableHighContrastMenu
@@ -31,7 +30,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ACC_VisualAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 12
+    startLine: 18
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -40,35 +39,6 @@ items:
     content.vb: Public Class ACC_VisualAccessibility
   inheritance:
   - System.Object
-- uid: ACC_API.ACC_VisualAccessibility.#ctor
-  commentId: M:ACC_API.ACC_VisualAccessibility.#ctor
-  id: '#ctor'
-  parent: ACC_API.ACC_VisualAccessibility
-  langs:
-  - csharp
-  - vb
-  name: ACC_VisualAccessibility()
-  nameWithType: ACC_VisualAccessibility.ACC_VisualAccessibility()
-  fullName: ACC_API.ACC_VisualAccessibility.ACC_VisualAccessibility()
-  type: Constructor
-  source:
-    remote:
-      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-      branch: main
-      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
-    id: .ctor
-    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 16
-  assemblies:
-  - Assembly-CSharp
-  namespace: ACC_API
-  syntax:
-    content: public ACC_VisualAccessibility()
-    content.vb: Public Sub New()
-  overload: ACC_API.ACC_VisualAccessibility.#ctor*
-  nameWithType.vb: ACC_VisualAccessibility.New()
-  fullName.vb: ACC_API.ACC_VisualAccessibility.New()
-  name.vb: New()
 - uid: ACC_API.ACC_VisualAccessibility.SetFeatureState(ACC_API.VisualFeatures,System.Boolean)
   commentId: M:ACC_API.ACC_VisualAccessibility.SetFeatureState(ACC_API.VisualFeatures,System.Boolean)
   id: SetFeatureState(ACC_API.VisualFeatures,System.Boolean)
@@ -87,7 +57,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: SetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 36
+    startLine: 42
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -125,7 +95,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 51
+    startLine: 57
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -160,7 +130,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 70
+    startLine: 76
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -192,7 +162,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadUserPreferences
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 83
+    startLine: 89
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -220,7 +190,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: EnableHighContrastMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 93
+    startLine: 99
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -248,7 +218,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: DisableHighContrastMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 101
+    startLine: 107
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -276,7 +246,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeHighContrastConfiguration
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 110
+    startLine: 116
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -311,7 +281,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetCurrentHighContrastConfiguration
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 119
+    startLine: 125
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -342,7 +312,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetHighContrastConfigurations
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 132
+    startLine: 138
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -373,7 +343,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadUserPreferencesHighContrast
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 140
+    startLine: 146
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -401,7 +371,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetHighContrastConfiguration
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 148
+    startLine: 154
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -436,15 +406,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ACC_API.ACC_VisualAccessibility.#ctor*
-  commentId: Overload:ACC_API.ACC_VisualAccessibility.#ctor
-  href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility__ctor
-  name: ACC_VisualAccessibility
-  nameWithType: ACC_VisualAccessibility.ACC_VisualAccessibility
-  fullName: ACC_API.ACC_VisualAccessibility.ACC_VisualAccessibility
-  nameWithType.vb: ACC_VisualAccessibility.New
-  fullName.vb: ACC_API.ACC_VisualAccessibility.New
-  name.vb: New
 - uid: ACC_API.ACC_VisualAccessibility.SetFeatureState*
   commentId: Overload:ACC_API.ACC_VisualAccessibility.SetFeatureState
   href: ACC_API.ACC_VisualAccessibility.html#ACC_API_ACC_VisualAccessibility_SetFeatureState_ACC_API_VisualFeatures_System_Boolean_

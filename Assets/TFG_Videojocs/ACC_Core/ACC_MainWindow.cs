@@ -93,7 +93,7 @@ internal class ACC_MainWindow : EditorWindow
         audibleButton.clicked += () => { UpdateAccessibilityContainer(typeof(AudioFeatures));};
         visualButton.clicked += () => { UpdateAccessibilityContainer(typeof(VisualFeatures)); };
         cognitiveButton.clicked += () => { UpdateAccessibilityContainer(typeof(MobilityFeatures)); };
-        multifunctionalButton.clicked += () => { UpdateAccessibilityContainer(typeof(MultifiunctionalFeatures)); };
+        multifunctionalButton.clicked += () => { UpdateAccessibilityContainer(typeof(MultifunctionalFeatures)); };
         
         sidebar.Add(audibleButton);
         sidebar.Add(visualButton);
@@ -147,7 +147,7 @@ internal class ACC_MainWindow : EditorWindow
         if(featuretype==typeof(AudioFeatures))CreateAudioBox(box, index);
         else if (featuretype==typeof(VisualFeatures))CreateVisibilityBox(box, index);
         else if (featuretype==typeof(MobilityFeatures))CreateMobilityBox(box, index);
-        else if (featuretype==typeof(MultifiunctionalFeatures))CreateMultifunctionalBox(box, index);
+        else if (featuretype==typeof(MultifunctionalFeatures))CreateMultifunctionalBox(box, index);
         return box;
     }
     private void CreateAudioBox(VisualElement box, int index)
@@ -199,7 +199,7 @@ internal class ACC_MainWindow : EditorWindow
     }
     private void CreateMultifunctionalBox(VisualElement box, int index)
     {
-        switch (Enum.GetName(typeof(MultifiunctionalFeatures), index))
+        switch (Enum.GetName(typeof(MultifunctionalFeatures), index))
         {
             case "AudioManager":
                 DefaultBox( box, 

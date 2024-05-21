@@ -20,10 +20,12 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: VisualFeatures
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 7
+    startLine: 10
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: Enum representing different visual accessibility features.
+  example: []
   syntax:
     content: public enum VisualFeatures
     content.vb: Public Enum VisualFeatures
@@ -45,10 +47,12 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: HighContrast
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_VisualAccessibility.cs
-    startLine: 9
+    startLine: 15
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
+  summary: High contrast mode for better visibility.
+  example: []
   syntax:
     content: HighContrast = 0
     return:

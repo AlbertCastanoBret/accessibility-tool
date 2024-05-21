@@ -12,9 +12,19 @@ using ColorUtility = UnityEngine.ColorUtility;
 
 namespace ACC_API
 {
+    /// <summary>
+    /// Enum representing different audio accessibility features.
+    /// </summary>
     public enum AudioFeatures
     {
+        /// <summary>
+        /// Subtitles for audio content.
+        /// </summary>
         Subtitles,
+
+        /// <summary>
+        /// Visual notifications for audio events.
+        /// </summary>
         VisualNotification,
     }
 
@@ -25,7 +35,7 @@ namespace ACC_API
         private ACC_SubtitlesManager accSubtitlesManager;
         private ACC_VisualNotificationManager accVisualNotificationManager;
 
-        public ACC_AudioAccessibility()
+        internal ACC_AudioAccessibility()
         {
             accSubtitlesManager = ACC_PrefabHelper
                 .InstantiatePrefabAsChild("Subtitles", ACC_AccessibilityManager.Instance.accCanvas)

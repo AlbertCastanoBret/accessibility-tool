@@ -5,24 +5,30 @@ using UnityEngine;
 
 namespace ACC_API
 {
-    public enum MultifiunctionalFeatures
+    /// <summary>
+    /// Enum representing different multifunctional accessibility features.
+    /// </summary>
+    public enum MultifunctionalFeatures
     {
+        /// <summary>
+        /// Features related to managing audio accessibility.
+        /// </summary>
         AudioManager
     }
     
     public class ACC_MultifunctionalAccessibility
     {
         private ACC_AudioManager accAudioManager;
-        public ACC_MultifunctionalAccessibility()
+        internal ACC_MultifunctionalAccessibility()
         {
             accAudioManager = ACC_PrefabHelper.InstantiatePrefabAsChild("Audio", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_AudioManager>();
         }
         
-        internal void InitializeState(MultifiunctionalFeatures feature, bool state)
+        internal void InitializeState(MultifunctionalFeatures feature, bool state)
         {
             switch (feature)
             {
-                case MultifiunctionalFeatures.AudioManager:
+                case MultifunctionalFeatures.AudioManager:
                     accAudioManager.InitializeAudioManager(state);
                     break;
             }
@@ -33,11 +39,11 @@ namespace ACC_API
         /// </summary>
         /// <param name="feature">The feature to be modified.</param>
         /// <param name="state">The state to set for the feature (true for enabled, false for disabled).</param>
-        public void SetFeatureState(MultifiunctionalFeatures feature, bool state)
+        public void SetFeatureState(MultifunctionalFeatures feature, bool state)
         {
             switch (feature)
             {
-                case MultifiunctionalFeatures.AudioManager:
+                case MultifunctionalFeatures.AudioManager:
                     accAudioManager.SetAudioManager(state);
                     break;
             }
@@ -48,11 +54,11 @@ namespace ACC_API
         /// </summary>
         /// <param name="feature">The multifunctional feature to check, e.g., audio manager.</param>
         /// <returns>True if the specified feature is enabled, false otherwise.</returns>
-        public bool GetFeatureState(MultifiunctionalFeatures feature)
+        public bool GetFeatureState(MultifunctionalFeatures feature)
         {
             switch (feature)
             {
-                case MultifiunctionalFeatures.AudioManager:
+                case MultifunctionalFeatures.AudioManager:
                     if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled))
                     {
                         return PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.AudioManagerEnabled) == 1;
@@ -67,11 +73,11 @@ namespace ACC_API
         /// Resets the state of the specified multifunctional feature to its default settings.
         /// </summary>
         /// <param name="feature">The multifunctional feature to reset (e.g., audio manager).</param>
-        public void ResetFeatureState(MultifiunctionalFeatures feature)
+        public void ResetFeatureState(MultifunctionalFeatures feature)
         {
             switch (feature)
             {
-                case MultifiunctionalFeatures.AudioManager:
+                case MultifunctionalFeatures.AudioManager:
                     accAudioManager.ResetAudioManagerState();
                     break;
             }

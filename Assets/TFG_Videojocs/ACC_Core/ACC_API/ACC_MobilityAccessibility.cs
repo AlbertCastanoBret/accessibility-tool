@@ -6,15 +6,21 @@ using UnityEngine.InputSystem;
 
 namespace ACC_API
 {
+    /// <summary>
+    /// Enum representing different mobility accessibility features.
+    /// </summary>
     public enum MobilityFeatures
     {
+        /// <summary>
+        /// Remapping of controls for accessibility.
+        /// </summary>
         RemapControls
     }
 
     public class ACC_MobilityAccessibility
     {
         private ACC_RemapControlsManager accRemapControlsManager;
-        public ACC_MobilityAccessibility()
+        internal ACC_MobilityAccessibility()
         {
             accRemapControlsManager = ACC_PrefabHelper.InstantiatePrefabAsChild(
                     "RemapControls", 

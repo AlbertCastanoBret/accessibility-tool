@@ -5,7 +5,6 @@ items:
   id: ACC_MobilityAccessibility
   parent: ACC_API
   children:
-  - ACC_API.ACC_MobilityAccessibility.#ctor
   - ACC_API.ACC_MobilityAccessibility.ChangeBinding(System.String,System.Int32,UnityEngine.InputSystem.InputBinding)
   - ACC_API.ACC_MobilityAccessibility.ChangeControlScheme(System.String)
   - ACC_API.ACC_MobilityAccessibility.DisableRemapControlsMenu
@@ -32,7 +31,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ACC_MobilityAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 13
+    startLine: 19
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -41,35 +40,6 @@ items:
     content.vb: Public Class ACC_MobilityAccessibility
   inheritance:
   - System.Object
-- uid: ACC_API.ACC_MobilityAccessibility.#ctor
-  commentId: M:ACC_API.ACC_MobilityAccessibility.#ctor
-  id: '#ctor'
-  parent: ACC_API.ACC_MobilityAccessibility
-  langs:
-  - csharp
-  - vb
-  name: ACC_MobilityAccessibility()
-  nameWithType: ACC_MobilityAccessibility.ACC_MobilityAccessibility()
-  fullName: ACC_API.ACC_MobilityAccessibility.ACC_MobilityAccessibility()
-  type: Constructor
-  source:
-    remote:
-      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-      branch: main
-      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
-    id: .ctor
-    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 16
-  assemblies:
-  - Assembly-CSharp
-  namespace: ACC_API
-  syntax:
-    content: public ACC_MobilityAccessibility()
-    content.vb: Public Sub New()
-  overload: ACC_API.ACC_MobilityAccessibility.#ctor*
-  nameWithType.vb: ACC_MobilityAccessibility.New()
-  fullName.vb: ACC_API.ACC_MobilityAccessibility.New()
-  name.vb: New()
 - uid: ACC_API.ACC_MobilityAccessibility.SetFeatureState(ACC_API.MobilityFeatures,System.Boolean)
   commentId: M:ACC_API.ACC_MobilityAccessibility.SetFeatureState(ACC_API.MobilityFeatures,System.Boolean)
   id: SetFeatureState(ACC_API.MobilityFeatures,System.Boolean)
@@ -88,7 +58,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: SetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 40
+    startLine: 46
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -126,7 +96,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 55
+    startLine: 61
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -161,7 +131,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetFeatureState
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 74
+    startLine: 80
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -193,7 +163,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadUserPreferences
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 87
+    startLine: 93
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -221,7 +191,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: EnableRemapControlsMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 96
+    startLine: 102
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -256,7 +226,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: DisableRemapControlsMenu
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 104
+    startLine: 110
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -284,7 +254,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeControlScheme
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 113
+    startLine: 119
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -319,7 +289,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ChangeBinding
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 124
+    startLine: 130
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -360,7 +330,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetBinding
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 134
+    startLine: 140
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -398,7 +368,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetAllBindings
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 142
+    startLine: 148
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -426,7 +396,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadUserPreferencesRemapControls
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 150
+    startLine: 156
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -454,7 +424,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetControlSchemeBindings
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MobilityAccessibility.cs
-    startLine: 159
+    startLine: 165
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -496,15 +466,6 @@ references:
   name: System
   nameWithType: System
   fullName: System
-- uid: ACC_API.ACC_MobilityAccessibility.#ctor*
-  commentId: Overload:ACC_API.ACC_MobilityAccessibility.#ctor
-  href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility__ctor
-  name: ACC_MobilityAccessibility
-  nameWithType: ACC_MobilityAccessibility.ACC_MobilityAccessibility
-  fullName: ACC_API.ACC_MobilityAccessibility.ACC_MobilityAccessibility
-  nameWithType.vb: ACC_MobilityAccessibility.New
-  fullName.vb: ACC_API.ACC_MobilityAccessibility.New
-  name.vb: New
 - uid: ACC_API.ACC_MobilityAccessibility.SetFeatureState*
   commentId: Overload:ACC_API.ACC_MobilityAccessibility.SetFeatureState
   href: ACC_API.ACC_MobilityAccessibility.html#ACC_API_ACC_MobilityAccessibility_SetFeatureState_ACC_API_MobilityFeatures_System_Boolean_

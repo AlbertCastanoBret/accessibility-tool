@@ -5,16 +5,22 @@ using UnityEngine;
 
 namespace ACC_API
 {
+    /// <summary>
+    /// Enum representing different visual accessibility features.
+    /// </summary>
     public enum VisualFeatures
     {
-        HighContrast,
+        /// <summary>
+        /// High contrast mode for better visibility.
+        /// </summary>
+        HighContrast
     }
     
     public class ACC_VisualAccessibility
     {
         private ACC_HighContrastManager accHighContrastManager;
         
-        public ACC_VisualAccessibility()
+        internal ACC_VisualAccessibility()
         {
             accHighContrastManager = ACC_PrefabHelper.InstantiatePrefabAsChild("HighContrast", ACC_AccessibilityManager.Instance.accCanvas).GetComponent<ACC_HighContrastManager>();
         }
