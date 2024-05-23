@@ -9,7 +9,7 @@ public abstract class AbstractInteractable : MonoBehaviour
     [HideInInspector][SerializeField] protected GameObject canvas;
     [HideInInspector][SerializeField] protected InventorySystem inventorySystem;
     protected GameObject colliderInteractor;
-    private GameObject cursor;
+    //private GameObject cursor;
     
     protected void Awake()
     {
@@ -19,7 +19,7 @@ public abstract class AbstractInteractable : MonoBehaviour
         inventorySystem = player.transform.Find("Inventory")?.GetComponent<InventorySystem>();
         colliderInteractor = Camera.main.transform.Find("ColliderInteractor").gameObject;
         isOver = false;
-        cursor = GameObject.FindGameObjectWithTag("Cursor");
+        //cursor = GameObject.FindGameObjectWithTag("Cursor");
     }
     
     public void PassOver()

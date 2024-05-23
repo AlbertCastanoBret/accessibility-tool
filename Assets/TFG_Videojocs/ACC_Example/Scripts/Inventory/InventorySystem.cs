@@ -40,7 +40,7 @@ public class InventorySystem : MonoBehaviour
     {
         //Get references to the scene objects
         player = GameObject.FindGameObjectWithTag("Player");
-        hud = GameObject.FindGameObjectWithTag("UI").GetComponent<HUD>();
+        //hud = GameObject.FindGameObjectWithTag("UI").GetComponent<HUD>();
         interactor = GameObject.FindGameObjectWithTag("Interactor").GetComponent<Interactor>();
         mainCamera = Camera.main.transform;
         
@@ -54,13 +54,13 @@ public class InventorySystem : MonoBehaviour
     
         //Add listeners to the Unity Events
         onLookUp.AddListener(player.GetComponent<FPSController>().SetIsInspecting);
-        onLookUp.AddListener(hud.ChangeStateInventoryMenu);
-        updateCounter.AddListener(hud.UpdateItemCounter);
-        isReadable.AddListener(hud.ChangeStateIsCanReadInv);
-        changeText.AddListener(hud.ChangeReadTextInv);
-        showText.AddListener(hud.ShowReadTextInv);
-        isUsable.AddListener(hud.ChangeStateUse);
-        addDescription.AddListener(hud.AddDescriptionInventory);
+        // onLookUp.AddListener(hud.ChangeStateInventoryMenu);
+        // updateCounter.AddListener(hud.UpdateItemCounter);
+        // isReadable.AddListener(hud.ChangeStateIsCanReadInv);
+        // changeText.AddListener(hud.ChangeReadTextInv);
+        // showText.AddListener(hud.ShowReadTextInv);
+        // isUsable.AddListener(hud.ChangeStateUse);
+        // addDescription.AddListener(hud.AddDescriptionInventory);
         
         //Add the starting objects to the inventory
         foreach (var item in startingObject)
