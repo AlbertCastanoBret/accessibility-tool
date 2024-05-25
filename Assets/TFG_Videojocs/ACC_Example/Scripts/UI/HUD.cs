@@ -42,7 +42,7 @@ public class HUD : MonoBehaviour
     private AudioSource audioSource;
     private void Start()
     {
-        audioSource = GameObject.FindGameObjectWithTag("SFX Audio Source").GetComponent<AudioSource>();
+        audioSource = GameObject.FindGameObjectWithTag("SFXAudioSource").GetComponent<AudioSource>();
         depthOfFieldController = GameObject.FindGameObjectWithTag("CameraRoot").GetComponent<DepthOfFieldController>();
         videoTapeSubtitles.GetComponent<PlayableDirector>().stopped += OnStopPlayingTimeline;
     }

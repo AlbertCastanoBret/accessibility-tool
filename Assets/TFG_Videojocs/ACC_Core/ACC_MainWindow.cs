@@ -110,11 +110,16 @@ internal class ACC_MainWindow : EditorWindow
         var accessibilityManager = GameObject.Find("ACC_AccessibilityManager");
         if (accessibilityManager) DestroyImmediate(accessibilityManager);
         accessibilityManager = new GameObject("ACC_AccessibilityManager");
-        accessibilityManager.AddComponent<ACC_AccessibilityManager>();
+        var accessibilityManagerComponent = accessibilityManager.AddComponent<ACC_AccessibilityManager>();
             
         ACC_PrefabHelper.CreatePrefab("Subtitles");
         ACC_PrefabHelper.CreatePrefab("VisualNotification");
         ACC_PrefabHelper.CreatePrefab("HighContrast");
+        
+        Material highContrastColorMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast-Color.mat");
+        Material highContrastOutlineMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast_Outline.mat");
+        accessibilityManagerComponent.highContrastColorMaterial = highContrastColorMaterial;
+        accessibilityManagerComponent.highContrastOutlineMaterial = highContrastOutlineMaterial;
         
         var loadedData = ACC_JSONHelper.LoadJson<ACC_AudioManagerData>("ACC_AudioManager/ACC_AudioManager");
         if (loadedData == null)
@@ -223,6 +228,7 @@ internal class ACC_MainWindow : EditorWindow
         }
         
         var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
+        if (accessibilityManager == null) return new Label("Please create an Accessibility Manager first.");
         
         var container = new VisualElement();
         var addShadersToggle = new Toggle("Shaders Added: ");
@@ -385,9 +391,11 @@ internal class ACC_MainWindow : EditorWindow
             InputActionValueChanged(evt.newValue as InputActionAsset, dynamicControlSchemesContainer, remapControlsButtonContainer, createActionsButton);
         });
         
-        if (FindObjectOfType<ACC_AccessibilityManager>().remapControlsAsset != null)
+        var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
+        if (accessibilityManager != null)
         {
-            inputAction.value = FindObjectOfType<ACC_AccessibilityManager>().remapControlsAsset;
+            if (accessibilityManager.remapControlsAsset == null) return;
+            inputAction.value = accessibilityManager.remapControlsAsset;
             InputActionValueChanged( (InputActionAsset)inputAction.value, dynamicControlSchemesContainer, remapControlsButtonContainer, createActionsButton);
             dynamicControlSchemesContainer.Clear();
             dynamicControlSchemesContainer.Add(remapControlsButtonContainer);
@@ -415,7 +423,7 @@ internal class ACC_MainWindow : EditorWindow
             dynamicControlSchemesContainer.Add(createActionsButton);
         }
             
-        accessibilityManager.remapControlsAsset = inputActionAsset;
+        if (accessibilityManager != null) accessibilityManager.remapControlsAsset = inputActionAsset;
             
         if (inputActionAsset == null) return;
         var devices = inputActionAsset.controlSchemes
@@ -430,8 +438,8 @@ internal class ACC_MainWindow : EditorWindow
             .Where(device => device != null)
             .Distinct()
             .ToList();
-            
-        FindObjectOfType<ACC_AccessibilityManager>().remapControlsMenus = new List<string>(devices);
+        
+        if (accessibilityManager != null) accessibilityManager.remapControlsMenus = new List<string>(devices);
     }
     private void CreateInputActionAsset()
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -56,7 +57,9 @@ namespace ACC_API
         [SerializeField] internal bool showHighContrastMenu, isPrevisualizing;
         private bool prevShowHighContrastMenu, prevHighContrastEnabled;
         #endif
-        internal bool shadersAdded;
+        [SerializeField] internal bool shadersAdded;
+        [SerializeField] internal Material highContrastColorMaterial, highContrastOutlineMaterial;
+        internal bool canChangeShaders = true;
         
         
         //Mobility Accessibility
@@ -114,7 +117,7 @@ namespace ACC_API
                 AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
                 VisualAccessibility = new ACC_VisualAccessibility();
-                VisualAccessibility.InitializeState(VisualFeatures.HighContrast, highContrastEnabled);
+                VisualAccessibility.InitializeState(VisualFeatures.HighContrast, true);
                 
                 MobilityAccessibility = new ACC_MobilityAccessibility();
                 MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);
@@ -147,8 +150,8 @@ namespace ACC_API
             //AudioAccessibility.ResetVisualNotificationSettings();
             //AudioAccessibility.ChangeSubtitleFontSize(20);
             //AudioAccessibility.ShowActorsName(false);
-            AudioAccessibility.PlaySubtitle("A");
-            MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
+            //AudioAccessibility.PlaySubtitle("A");
+            //MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             //MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
             //AudioAccessibility.ChangeVisualNotificationVerticalAlignment(2);
             //AudioAccessibility.ResetSubtitleSettings();
@@ -300,8 +303,7 @@ namespace ACC_API
         #if UNITY_EDITOR
         internal void OnHierarchyChanged() 
         {
-            Material highContrastColorMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast-Color.mat");
-            Material highContrastOutlineMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast_Outline.mat");
+            if (sceneLoaded) return;
             if (shadersAdded)
             {
                 GameObject[] goArray = FindObjectsOfType<GameObject>();
@@ -482,6 +484,7 @@ namespace ACC_API
         {
             foreach (var material in renderer.sharedMaterials)
             {
+                if (material == null) return null;
                 if (material.HasProperty("_OcclusionMap") && material.GetTexture("_OcclusionMap") != null)
                     return material.GetTexture("_OcclusionMap");
             }
@@ -489,20 +492,18 @@ namespace ACC_API
         }
         private bool AlreadyHasHighContrastColorMaterial(Renderer renderer)
         {
-            Material highContrastMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast-Color.mat");
             foreach (var mat in renderer.sharedMaterials)
             {
-                if (mat == highContrastMaterial)
+                if (mat == highContrastColorMaterial)
                     return true;
             }
             return false;
         }
         private bool AlreadyHasHighContrastOutlineMaterial(Renderer renderer)
         {
-            Material highContrastMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast_Outline.mat");
             foreach (var mat in renderer.sharedMaterials)
             {
-                if (mat == highContrastMaterial)
+                if (mat == highContrastOutlineMaterial)
                     return true;
             }
             return false;

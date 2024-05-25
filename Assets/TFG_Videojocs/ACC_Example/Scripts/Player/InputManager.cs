@@ -70,7 +70,7 @@ public class InputManager : MonoBehaviour
         playerActions.DoorClick.started += ctx => OnStartMouseInteraction?.Invoke();
         playerActions.DoorClick.canceled += ctx => OnCancelMouseInteraction?.Invoke();
 
-        uiActions.PauseMenu.performed += ctx => OnPauseMenu?.Invoke();
+        //uiActions.PauseMenu.performed += ctx => OnPauseMenu?.Invoke();
         uiActions.ScrollWheel.performed += ctx => OnMouseScroll?.Invoke(ctx.ReadValue<Vector2>());
     }
 

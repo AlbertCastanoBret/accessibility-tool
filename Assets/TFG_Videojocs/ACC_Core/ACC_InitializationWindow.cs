@@ -252,11 +252,15 @@ internal class ACC_InitializationWindow : EditorWindow
         var accessibilityManager = GameObject.Find("ACC_AccessibilityManager");
         if (accessibilityManager) DestroyImmediate(accessibilityManager);
         accessibilityManager = new GameObject("ACC_AccessibilityManager");
-        accessibilityManager.AddComponent<ACC_AccessibilityManager>();
+        var accessibilityManagerComponent = accessibilityManager.AddComponent<ACC_AccessibilityManager>();
         
         ACC_PrefabHelper.CreatePrefab("Subtitles");
         ACC_PrefabHelper.CreatePrefab("VisualNotification");
         ACC_PrefabHelper.CreatePrefab("HighContrast");
+        Material highContrastColorMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast-Color.mat");
+        Material highContrastOutlineMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/TFG_Videojocs/ACC_HighContrast/High-Contrast_Outline.mat");
+        accessibilityManagerComponent.highContrastColorMaterial = highContrastColorMaterial;
+        accessibilityManagerComponent.highContrastOutlineMaterial = highContrastOutlineMaterial;
         
         var loadedData = ACC_JSONHelper.LoadJson<ACC_AudioManagerData>("ACC_AudioManager/ACC_AudioManager");
         if (loadedData == null)

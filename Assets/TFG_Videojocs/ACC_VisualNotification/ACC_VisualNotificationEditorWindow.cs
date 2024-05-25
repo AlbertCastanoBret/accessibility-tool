@@ -135,15 +135,17 @@ public class ACC_VisualNotificationEditorWindow : ACC_BaseFloatingWindow<ACC_Vis
     }
     private void CreateSound(VisualElement row, string soundGuid, int key)
     {
+        var audioClipPath = AssetDatabase.GUIDToAssetPath(soundGuid);
+        var audioClip = AssetDatabase.LoadAssetAtPath<AudioClip>(audioClipPath);
+        
+        if (audioClip == null) return;
+        
         var soundContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
         soundContainer.style.display = DisplayStyle.None;
         
         var soundCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
         soundCell.AddToClassList("table-secondary-row-content-hover");
         soundCell.style.width = new Length(100, LengthUnit.Percent);
-        
-        var audioClipPath = AssetDatabase.GUIDToAssetPath(soundGuid);
-        var audioClip = AssetDatabase.LoadAssetAtPath<AudioClip>(audioClipPath);
         
         var icon = uiElementFactory.CreateImage("table-cell-icon",
             AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/TFG_Videojocs/ACC_Sound/d_AudioImporter Icon.png"));

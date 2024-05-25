@@ -11,6 +11,7 @@ namespace TFG_Videojocs.ACC_HighContrast
         private ACC_HighContrastData loadedData;
         private bool isEnabled;
         private GameObject highContrastSettings, highContrastToggle, highContrastScrollList;
+        private Material highContrastColorMaterial, highContrastOutlineMaterial;
 
         private void Awake()
         {
@@ -109,6 +110,9 @@ namespace TFG_Videojocs.ACC_HighContrast
                 highContrastToggle.GetComponent<Toggle>().onValueChanged.AddListener(OnToggleValueChanged);
             }
             ACC_AccessibilityManager.Instance.highContrastEnabled = state;
+            highContrastColorMaterial = ACC_AccessibilityManager.Instance.highContrastColorMaterial;
+            highContrastOutlineMaterial = ACC_AccessibilityManager.Instance.highContrastOutlineMaterial;
+            //ACC_AccessibilityManager.Instance.canChangeShaders = false;
         }
         public void SetHighContrastMode(bool state)
         {
@@ -153,7 +157,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                     if (go.activeInHierarchy)
                     {
                         Renderer renderer = go.GetComponent<Renderer>();
-                        if (renderer != null)
+                        if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer))
                         {
                             var ambientOcclusionTexture = GetAmbientOcclusionTexture(renderer);
                             var materials = renderer.sharedMaterials;
@@ -213,7 +217,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                     if (go.activeInHierarchy)
                     {
                         Renderer renderer = go.GetComponent<Renderer>();
-                        if (renderer != null)
+                        if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer))
                         {
                             var materials = renderer.sharedMaterials;
                             materials[^2].renderQueue = 50;
@@ -247,7 +251,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                             Renderer renderer = go.GetComponent<Renderer>();
                             var highContrastConfiguration =
                                 loadedData.highContrastConfigurations.Items.Find(x => go.CompareTag(x.value.tag));
-                            if (renderer != null && highContrastConfiguration != null)
+                            if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer) && highContrastConfiguration != null)
                             {
                                 var materials = renderer.sharedMaterials;
                                 materials[^2].renderQueue = -50;
@@ -265,7 +269,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                                     highContrastConfiguration.value.outlineThickness);
                                 renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             }
-                            else if (renderer != null && highContrastConfiguration == null)
+                            else if (renderer != null && AlreadyHasHighContrastColorMaterial(renderer) && highContrastConfiguration == null)
                             {
                                 var materials = renderer.sharedMaterials;
                                 materials[^2].renderQueue = -50;
@@ -286,6 +290,15 @@ namespace TFG_Videojocs.ACC_HighContrast
                 }
             }
         }
+        private bool AlreadyHasHighContrastColorMaterial(Renderer renderer)
+        {
+            foreach (var mat in renderer.sharedMaterials)
+            {
+                if (mat == highContrastColorMaterial)
+                    return true;
+            }
+            return false;
+        }
         public List<string> GetHighContrastConfigurations()
         {
             ACC_HighContrastData[] configurations =
@@ -302,6 +315,7 @@ namespace TFG_Videojocs.ACC_HighContrast
         {
             foreach (var material in renderer.sharedMaterials)
             {
+                if (material == null) return null;
                 if (material.HasProperty("_OcclusionMap") && material.GetTexture("_OcclusionMap") != null)
                     return material.GetTexture("_OcclusionMap");
             }
