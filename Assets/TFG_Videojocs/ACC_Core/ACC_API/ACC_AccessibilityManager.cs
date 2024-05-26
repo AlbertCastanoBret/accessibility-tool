@@ -117,7 +117,7 @@ namespace ACC_API
                 AudioAccessibility.InitializeState(AudioFeatures.VisualNotification, visualNotificationEnabled);
                 
                 VisualAccessibility = new ACC_VisualAccessibility();
-                VisualAccessibility.InitializeState(VisualFeatures.HighContrast, true);
+                VisualAccessibility.InitializeState(VisualFeatures.HighContrast, highContrastEnabled);
                 
                 MobilityAccessibility = new ACC_MobilityAccessibility();
                 MobilityAccessibility.InitializeState(MobilityFeatures.RemapControls, remapControlsEnabled);

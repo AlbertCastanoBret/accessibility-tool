@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class InputManager : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class InputManager : MonoBehaviour
     public static event InteractActionHandler OnRead;
     public static event InteractActionHandler OnUse;
     public static event InteractActionHandler OnPauseMenu;
+    public static event InteractActionHandler On1;
     
     public static event InteractActionHandler OnFlashlight;
 
@@ -70,7 +72,7 @@ public class InputManager : MonoBehaviour
         playerActions.DoorClick.started += ctx => OnStartMouseInteraction?.Invoke();
         playerActions.DoorClick.canceled += ctx => OnCancelMouseInteraction?.Invoke();
 
-        //uiActions.PauseMenu.performed += ctx => OnPauseMenu?.Invoke();
+        uiActions.PauseMenu.performed += ctx => OnPauseMenu?.Invoke();
         uiActions.ScrollWheel.performed += ctx => OnMouseScroll?.Invoke(ctx.ReadValue<Vector2>());
     }
 

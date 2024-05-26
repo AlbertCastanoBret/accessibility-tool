@@ -409,7 +409,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   inventorySystem: {fileID: 0}
-  vhsTapes: []
+  vhsTapes:
+  - {fileID: 11400000, guid: bc8d6d11b1a727a4883308ee8db8492a, type: 2}
   screen: {fileID: 1495295423081752757}
   videoPlayer: {fileID: 1495295423081752762}
   reproductor: {fileID: 4261589783743382063}
@@ -774,6 +775,7 @@ GameObject:
   - component: {fileID: 5957905046183305089}
   - component: {fileID: 5957905046183305095}
   - component: {fileID: 4261589783743382063}
+  - component: {fileID: 9164716854699182557}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -968,6 +970,25 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &9164716854699182557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5957905046183305088}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMask: {fileID: 2100000, guid: 106f3ff43a17d4967a2b64c7a92e49ec, type: 2}
+  outlineFill: {fileID: 2100000, guid: 311313efa011949e98b6761d652ad13c, type: 2}
+  outlineColor: {r: 1, g: 1, b: 1, a: 0}
+  outlineWidth: 8
+  fadeDuration: 1
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7926582168978088744
 GameObject:
   m_ObjectHideFlags: 0

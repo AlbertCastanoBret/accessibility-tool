@@ -45,6 +45,9 @@ public class TvController : AbstractPuzzleController, I_InteractablePuzzleContro
     public void PutVhsTape(InventoryItemData inventoryItemData, int index)
     {
         int i = vhsTapes.FindIndex(tape => tape.id == inventoryItemData.id);
+        Debug.Log(i);
+        Debug.Log(isPlaying);
+        
         if (isPlaying==false && i != -1 && currentVhsTape==null)
         {
             if (i == 0) firstTape = true;
@@ -67,8 +70,8 @@ public class TvController : AbstractPuzzleController, I_InteractablePuzzleContro
         inventoryItemDataAnimation.Play();
         yield return new WaitForSeconds(inventoryItemDataAnimation.clip.length);
         
-        reproductor.Play("TancarReproductor");
-        yield return new WaitForSeconds(reproductor.GetClip("TancarReproductor").length+0.5f);
+        reproductor.Play("ClosePlayer");
+        yield return new WaitForSeconds(reproductor.GetClip("ClosePlayer").length+0.5f);
 
         videoPlayer.clip = currentVhsTape.videoClip;
         videoPlayer.SetTargetAudioSource(0, screen.GetComponent<AudioSource>());
@@ -114,8 +117,8 @@ public class TvController : AbstractPuzzleController, I_InteractablePuzzleContro
         currentGameObject.GetComponent<Collider>().enabled = true;
         yield return new WaitForSeconds(inventoryItemDataAnimation.GetClip("Tape2").length);
         
-        reproductor.Play("TancarReproductor");
-        yield return new WaitForSeconds(reproductor.GetClip("TancarReproductor").length+0.5f);
+        reproductor.Play("ClosePlayer");
+        yield return new WaitForSeconds(reproductor.GetClip("ClosePlayer").length+0.5f);
         
         isPlaying = false;
         inventorySystem.Add(currentVhsTape);

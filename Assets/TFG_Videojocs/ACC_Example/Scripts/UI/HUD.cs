@@ -148,24 +148,16 @@ public class HUD : MonoBehaviour
     {
         if (!fpsController.GetIsInspecting())
         {
-            if (!optionsMenu.activeSelf)
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+            if (pauseMenu.activeSelf)
             {
-                pauseMenu.SetActive(!pauseMenu.activeSelf);
-                if (pauseMenu.activeSelf)
-                {
-                    depthOfFieldController.enableBlur();
-                    audioSource.PlayOneShot(openMenuSound);
-                }
-                else
-                {
-                    depthOfFieldController.disableBlur();
-                    audioSource.PlayOneShot(openMenuSound);
-                }
-
+                depthOfFieldController.enableBlur();
+                //audioSource.PlayOneShot(openMenuSound);
             }
             else
             {
-                pauseMenu.GetComponent<PauseMenu>().ExitOptionsMenu();
+                depthOfFieldController.disableBlur();
+                //audioSource.PlayOneShot(openMenuSound);
             }
         }
     }
