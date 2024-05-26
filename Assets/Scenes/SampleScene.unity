@@ -3208,6 +3208,72 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
+--- !u!1 &1254020440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1254020442}
+  - component: {fileID: 1254020441}
+  m_Layer: 0
+  m_Name: ACC_AccessibilityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1254020441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254020440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6710ebd5e3fc54984fc89422d4065a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subtitlesEnabled: 1
+  showSubtitlesMenu: 0
+  visualNotificationEnabled: 1
+  showVisualNotificationMenu: 0
+  highContrastEnabled: 1
+  showHighContrastMenu: 0
+  isPrevisualizing: 0
+  shadersAdded: 1
+  highContrastColorMaterial: {fileID: 2100000, guid: 2082beb940857eb428ed38f05b40c1b1, type: 2}
+  highContrastOutlineMaterial: {fileID: 2100000, guid: 3d158f59efb6c964395dd1c5e098c7f0, type: 2}
+  remapControlsEnabled: 1
+  showRemapControlsMenu: 0
+  remapControlsAsset: {fileID: -944628639613478452, guid: f13062e559891e0409d5a9794491ff50, type: 3}
+  remapControlsMenus:
+  - Keyboard, Mouse
+  - Gamepad
+  - Touchscreen
+  - Joystick
+  - XRController
+  currentRemapControlsMenu: Keyboard, Mouse
+  audioManagerEnabled: 1
+  showAudioManagerMenu: 0
+--- !u!4 &1254020442
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254020440}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1279724133
 Material:
   serializedVersion: 8
@@ -4246,72 +4312,6 @@ Material:
     m_Colors:
     - _Color: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0}
   m_BuildTextureStacks: []
---- !u!1 &1598394647
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1598394649}
-  - component: {fileID: 1598394648}
-  m_Layer: 0
-  m_Name: ACC_AccessibilityManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1598394648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1598394647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca6710ebd5e3fc54984fc89422d4065a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subtitlesEnabled: 1
-  showSubtitlesMenu: 0
-  visualNotificationEnabled: 1
-  showVisualNotificationMenu: 0
-  highContrastEnabled: 1
-  showHighContrastMenu: 0
-  isPrevisualizing: 0
-  shadersAdded: 1
-  highContrastColorMaterial: {fileID: 2100000, guid: 2082beb940857eb428ed38f05b40c1b1, type: 2}
-  highContrastOutlineMaterial: {fileID: 2100000, guid: 3d158f59efb6c964395dd1c5e098c7f0, type: 2}
-  remapControlsEnabled: 1
-  showRemapControlsMenu: 0
-  remapControlsAsset: {fileID: -944628639613478452, guid: 9c5788b76639bbd4c9799337d8c10951, type: 3}
-  remapControlsMenus:
-  - Keyboard, Mouse
-  - Gamepad
-  - Touchscreen
-  - Joystick
-  - XRController
-  currentRemapControlsMenu: Keyboard, Mouse
-  audioManagerEnabled: 1
-  showAudioManagerMenu: 0
---- !u!4 &1598394649
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1598394647}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!21 &1660313184
 Material:
   serializedVersion: 8
@@ -5225,6 +5225,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: -3189892495730855020, guid: 849e1e85c9cfd154285fcf956250a3f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: -2502370353123401509, guid: 849e1e85c9cfd154285fcf956250a3f7, type: 3}
       propertyPath: m_Materials.Array.size
       value: 4
@@ -5261,9 +5265,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 849e1e85c9cfd154285fcf956250a3f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 1699933582186627098, guid: 849e1e85c9cfd154285fcf956250a3f7, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699933582186627098, guid: 849e1e85c9cfd154285fcf956250a3f7, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 7606260754067082336, guid: 849e1e85c9cfd154285fcf956250a3f7, type: 3}
       propertyPath: m_Materials.Array.size
@@ -5677,4 +5689,4 @@ SceneRoots:
   - {fileID: 970900502}
   - {fileID: 773498831}
   - {fileID: 417610526}
-  - {fileID: 1598394649}
+  - {fileID: 1254020442}

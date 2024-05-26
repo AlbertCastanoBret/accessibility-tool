@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 6786258461489757135}
   - component: {fileID: 6786258461489757134}
   - component: {fileID: 6786258461489757133}
-  - component: {fileID: 1800323201195250668}
-  - component: {fileID: 1624444465723551143}
   m_Layer: 10
   m_Name: Wall004
   m_TagString: Untagged
@@ -151,32 +149,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.93603, y: 0.0000008324609, z: 1.6880871}
   m_Center: {x: 0.79289556, y: 0.02476319, z: 0.9993559}
---- !u!114 &1800323201195250668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6704150318296113875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8daabc996ca59f2499036f801bf8d55c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileX: 1
-  tileY: 1
---- !u!114 &1624444465723551143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6704150318296113875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e829c87dc2a2ed2419c5f67848317fe4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 11400000, guid: a086f686223eed942816c70be67841b0, type: 2}
-  exportAllChildren: 0
-  terrainSimplificationLevel: 0

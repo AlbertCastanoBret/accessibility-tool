@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 8986407737764375970}
   - component: {fileID: 5685966447321927766}
   - component: {fileID: 2574261489424016732}
-  - component: {fileID: 6423315468743581419}
   - component: {fileID: 2574261489424016723}
-  - component: {fileID: 2574261489424016722}
   m_Layer: 9
   m_Name: Wall001
   m_TagString: Untagged
@@ -86,20 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6423315468743581419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2892014994936637018}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8daabc996ca59f2499036f801bf8d55c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileX: 1
-  tileY: 1
 --- !u!65 &2574261489424016723
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121,18 +105,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 9.321347, y: 0.000000946364, z: 1.688087}
   m_Center: {x: 4.6606727, y: 0.04445385, z: 0.9993562}
---- !u!114 &2574261489424016722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2892014994936637018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e829c87dc2a2ed2419c5f67848317fe4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  material: {fileID: 11400000, guid: a086f686223eed942816c70be67841b0, type: 2}
-  exportAllChildren: 0
-  terrainSimplificationLevel: 0
