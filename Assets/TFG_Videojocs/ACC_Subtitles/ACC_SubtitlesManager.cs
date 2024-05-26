@@ -285,6 +285,11 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         if (subtitleSettings != null) subtitleSettings.SetActive(false);
     }
+    public void HideSubtitles(bool state)
+    {
+        subtitleText.gameObject.SetActive(!state);
+        backgroundColor.gameObject.SetActive(!state);
+    }
     public void LoadSubtitles(string jsonFile)
     {
         loadedData = ACC_JSONHelper.LoadJson<ACC_SubtitleData>("ACC_Subtitles/" + jsonFile);

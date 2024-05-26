@@ -280,6 +280,11 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     {
         if (visualNotificationSettings != null) visualNotificationSettings.SetActive(false);
     }
+    public void HideVisualNotification(bool state)
+    {
+        text.gameObject.SetActive(!state);
+        backgroundColor.gameObject.SetActive(!state);
+    }
     public void LoadVisualNotification(string jsonFile)
     {
         loadedData = ACC_JSONHelper.LoadJson<ACC_VisualNotificationData>("ACC_VisualNotification/" + jsonFile);

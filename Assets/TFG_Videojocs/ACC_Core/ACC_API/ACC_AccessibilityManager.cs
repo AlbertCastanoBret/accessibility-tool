@@ -420,12 +420,15 @@ namespace ACC_API
                             MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
                             propColorBlock.SetColor("_Color", highContrastConfiguration.value.color);
+                            propColorBlock.SetFloat("_MinDistance", highContrastConfiguration.value.colorMinDistance);
+                            propColorBlock.SetFloat("_MaxDistance", highContrastConfiguration.value.colorMaxDistance);
                             renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
                             
                             MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             propOutlineBlock.SetColor("_OutlineColor", highContrastConfiguration.value.outlineColor);
                             propOutlineBlock.SetFloat("_OutlineThickness", highContrastConfiguration.value.outlineThickness);
+                            propOutlineBlock.SetFloat("_OutlineFadeDistance", highContrastConfiguration.value.outlineFadeDistance);
                             renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             
                             if(ambientOcclusionTexture != null)
@@ -446,12 +449,15 @@ namespace ACC_API
                             MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
                             propColorBlock.SetColor("_Color", new Color(0.3679245f, 0.3679245f, 0.3679245f, 1));
+                            propColorBlock.SetFloat("_MinDistance", 2);
+                            propColorBlock.SetFloat("_MaxDistance", 6);
                             renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
                             
                             MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             propOutlineBlock.SetColor("_OutlineColor", Color.white);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0.6f);
+                            propOutlineBlock.SetFloat("_OutlineFadeDistance", 5);
                             renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             if(ambientOcclusionTexture != null)
                             {
@@ -484,12 +490,15 @@ namespace ACC_API
                             MaterialPropertyBlock propColorBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propColorBlock, materials.Length - 2);
                             propColorBlock.SetColor("_Color", new Color(0.3679245f, 0.3679245f, 0.3679245f, 1));
+                            propColorBlock.SetFloat("_MinDistance", 2);
+                            propColorBlock.SetFloat("_MaxDistance", 6);
                             renderer.SetPropertyBlock(propColorBlock, materials.Length - 2);
                             
                             MaterialPropertyBlock propOutlineBlock = new MaterialPropertyBlock();
                             renderer.GetPropertyBlock(propOutlineBlock, materials.Length - 1);
                             propOutlineBlock.SetColor("_OutlineColor", Color.white);
                             propOutlineBlock.SetFloat("_OutlineThickness", 0);
+                            propOutlineBlock.SetFloat("_OutlineFadeDistance", 5);
                             renderer.SetPropertyBlock(propOutlineBlock, materials.Length - 1);
                         }
                     }

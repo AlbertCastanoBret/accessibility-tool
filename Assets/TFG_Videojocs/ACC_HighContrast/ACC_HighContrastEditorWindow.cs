@@ -203,6 +203,48 @@ namespace TFG_Videojocs.ACC_HighContrast
                     }
                 });
             
+            var minDistanceColorContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
+            minDistanceColorContainer.style.display = DisplayStyle.None;
+            
+            var minDistanceColorCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
+            var minDistanceColor = controller.currentData.highContrastConfigurations.Items
+                .Find(x => x.key == tableScrollView.IndexOf(row) - 1).value.colorMinDistance;
+            var minDistanceColorField = uiElementFactory.CreateSliderWithFloatField("table-row-multi-input", "Min Distance Color:", 1, 10, minDistanceColor, onValueChanged:
+                value =>
+                {
+                    var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
+                    var currentRow = tableScrollView.IndexOf(row)-1;
+                    ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
+                    newHighContrastData.colorMinDistance = value;
+                    controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, newHighContrastData);
+                    if (controller.isPrevisualizing)
+                    {
+                        accessibilityManager.Previsualize(controller.currentData);
+                        EditorUtility.SetDirty(accessibilityManager);
+                    }
+                });
+            
+            var maxDistanceColorContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
+            maxDistanceColorContainer.style.display = DisplayStyle.None;
+            
+            var maxDistanceColorCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
+            var maxDistanceColor = controller.currentData.highContrastConfigurations.Items
+                .Find(x => x.key == tableScrollView.IndexOf(row) - 1).value.colorMaxDistance;
+            var maxDistanceColorField = uiElementFactory.CreateSliderWithFloatField("table-row-multi-input", "Max Distance Color:", 3, 50, maxDistanceColor, onValueChanged:
+                value =>
+                {
+                    var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
+                    var currentRow = tableScrollView.IndexOf(row)-1;
+                    ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
+                    newHighContrastData.colorMaxDistance = value;
+                    controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, newHighContrastData);
+                    if (controller.isPrevisualizing)
+                    {
+                        accessibilityManager.Previsualize(controller.currentData);
+                        EditorUtility.SetDirty(accessibilityManager);
+                    }
+                });
+                
             var outlineColorContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
             outlineColorContainer.style.display = DisplayStyle.None;
             
@@ -246,11 +288,38 @@ namespace TFG_Videojocs.ACC_HighContrast
                         }
                     });
             
+            var outlineFadeDistanceContainer = uiElementFactory.CreateVisualElement("table-secondary-row");
+            outlineFadeDistanceContainer.style.display = DisplayStyle.None;
+            
+            var outlineFadeDistanceCell = uiElementFactory.CreateVisualElement("table-secondary-row-content");
+            var outlineFadeDistance = controller.currentData.highContrastConfigurations.Items
+                .Find(x => x.key == tableScrollView.IndexOf(row) - 1).value.outlineFadeDistance;
+            var outlineFadeDistanceField = uiElementFactory.CreateSliderWithFloatField("table-row-multi-input", "Outline Fade Distance:", 1, 50, outlineFadeDistance, onValueChanged:
+                value =>
+                {
+                    var accessibilityManager = FindObjectOfType<ACC_AccessibilityManager>();
+                    var currentRow = tableScrollView.IndexOf(row)-1;
+                    ACC_HighContrastConfiguration newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
+                    newHighContrastData.outlineFadeDistance = value;
+                    controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, newHighContrastData);
+                    if (controller.isPrevisualizing)
+                    {
+                        accessibilityManager.Previsualize(controller.currentData);
+                        EditorUtility.SetDirty(accessibilityManager);
+                    }
+                });
+            
             tagCell.Add(dropdownTag);
             tagContainer.Add(tagCell);
             
             colorCell.Add(colorField);
             colorContainer.Add(colorCell);
+            
+            minDistanceColorCell.Add(minDistanceColorField);
+            minDistanceColorContainer.Add(minDistanceColorCell);
+            
+            maxDistanceColorCell.Add(maxDistanceColorField);
+            maxDistanceColorContainer.Add(maxDistanceColorCell);
             
             outlineColorCell.Add(outlineColorField);
             outlineColorContainer.Add(outlineColorCell);
@@ -258,10 +327,16 @@ namespace TFG_Videojocs.ACC_HighContrast
             outlineThicknessCell.Add(outlineThicknessField);
             outlineThicknessContainer.Add(outlineThicknessCell);
             
+            outlineFadeDistanceCell.Add(outlineFadeDistanceField);
+            outlineFadeDistanceContainer.Add(outlineFadeDistanceCell);
+            
             row.Add(tagContainer);
             row.Add(colorContainer);
+            row.Add(minDistanceColorContainer);
+            row.Add(maxDistanceColorContainer);
             row.Add(outlineColorContainer);
             row.Add(outlineThicknessContainer);
+            row.Add(outlineFadeDistanceContainer);
         }
         private void ToggleControlSchemeDisplay(Button arrowButton, VisualElement audioSource)
         {
