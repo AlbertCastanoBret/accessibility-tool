@@ -159,6 +159,11 @@ public class HUD : MonoBehaviour
                 ACC_AccessibilityManager.Instance.VisualAccessibility.DisableHighContrastMenu();
                 ACC_AccessibilityManager.Instance.MobilityAccessibility.DisableRemapControlsMenu();
                 ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.DisableAudioManagerMenu();
+                ACC_AccessibilityManager.Instance.EnableCanvas();
+            }
+            else
+            {
+                ACC_AccessibilityManager.Instance.DisableCanvas();
             }
         }
     }

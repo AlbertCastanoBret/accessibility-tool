@@ -193,6 +193,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                 backgroundColor.gameObject.SetActive(false);
                 loadedData = null;
                 Resources.UnloadUnusedAssets();
+                ACC_AccessibilityManager.Instance.DisableCanvas();
             }
         }
     }

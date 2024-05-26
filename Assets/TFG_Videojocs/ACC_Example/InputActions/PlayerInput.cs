@@ -55,15 +55,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Sprint"",
-                    ""type"": ""Button"",
-                    ""id"": ""80220e11-1457-495c-9f61-3a7de356f8d9"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Flashlight"",
                     ""type"": ""Button"",
                     ""id"": ""75f095dc-07ed-46a3-8179-bc5d7dbe9dfa"",
@@ -339,17 +330,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""14e0b4f4-75a7-475d-96cb-30a135bd6812"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1125,7 +1105,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
         m_Player_DoorClick = m_Player.FindAction("DoorClick", throwIfNotFound: true);
         m_Player_LeaveInteract = m_Player.FindAction("LeaveInteract", throwIfNotFound: true);
@@ -1213,7 +1192,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Flashlight;
     private readonly InputAction m_Player_DoorClick;
     private readonly InputAction m_Player_LeaveInteract;
@@ -1231,7 +1209,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
         public InputAction @DoorClick => m_Wrapper.m_Player_DoorClick;
         public InputAction @LeaveInteract => m_Wrapper.m_Player_LeaveInteract;
@@ -1260,9 +1237,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Sprint.started += instance.OnSprint;
-            @Sprint.performed += instance.OnSprint;
-            @Sprint.canceled += instance.OnSprint;
             @Flashlight.started += instance.OnFlashlight;
             @Flashlight.performed += instance.OnFlashlight;
             @Flashlight.canceled += instance.OnFlashlight;
@@ -1306,9 +1280,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Sprint.started -= instance.OnSprint;
-            @Sprint.performed -= instance.OnSprint;
-            @Sprint.canceled -= instance.OnSprint;
             @Flashlight.started -= instance.OnFlashlight;
             @Flashlight.performed -= instance.OnFlashlight;
             @Flashlight.canceled -= instance.OnFlashlight;
@@ -1532,7 +1503,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnSprint(InputAction.CallbackContext context);
         void OnFlashlight(InputAction.CallbackContext context);
         void OnDoorClick(InputAction.CallbackContext context);
         void OnLeaveInteract(InputAction.CallbackContext context);

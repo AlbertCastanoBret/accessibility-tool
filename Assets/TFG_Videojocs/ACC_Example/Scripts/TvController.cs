@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ACC_API;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -44,9 +45,8 @@ public class TvController : AbstractPuzzleController, I_InteractablePuzzleContro
 
     public void PutVhsTape(InventoryItemData inventoryItemData, int index)
     {
+        if (inventoryItemData == null) return;
         int i = vhsTapes.FindIndex(tape => tape.id == inventoryItemData.id);
-        Debug.Log(i);
-        Debug.Log(isPlaying);
         
         if (isPlaying==false && i != -1 && currentVhsTape==null)
         {
@@ -77,6 +77,7 @@ public class TvController : AbstractPuzzleController, I_InteractablePuzzleContro
         videoPlayer.SetTargetAudioSource(0, screen.GetComponent<AudioSource>());
         videoPlayer.Play();
         onStartTape.Invoke(currentVhsTape.timelineAsset);
+        ACC_AccessibilityManager.Instance.AudioAccessibility.PlaySubtitle("TapeSubtitles");
         
         light.SetActive(true);
         screen.GetComponent<MeshRenderer>().material = materials[1];

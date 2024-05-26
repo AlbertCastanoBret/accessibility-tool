@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Video;
 
 public class InputManager : MonoBehaviour
@@ -24,8 +25,6 @@ public class InputManager : MonoBehaviour
     public static event InteractActionHandler OnRead;
     public static event InteractActionHandler OnUse;
     public static event InteractActionHandler OnPauseMenu;
-    public static event InteractActionHandler On1;
-    
     public static event InteractActionHandler OnFlashlight;
 
     public delegate void MouseInteractionHandler(Vector2 value);
@@ -46,34 +45,63 @@ public class InputManager : MonoBehaviour
     private void OnEnable()
     {
         playerInput.Enable();
-
-        playerActions.Sprint.performed += ctx => fpsController.OnSprint();
-        playerActions.Sprint.canceled += ctx => fpsController.OnSprintEnd();
-
-        playerActions.Interact.performed += ctx => OnInteraction?.Invoke();
-        playerActions.LeaveInteract.performed += ctx => OnLeaveInteraction?.Invoke();
-
-        playerActions.ArrowRight.performed += ctx => OnArrowRight?.Invoke();
-        playerActions.ArrowLeft.performed += ctx => OnArrowLeft?.Invoke();
-        
-        playerActions.ArrowUp.performed += ctx => OnArrowUp?.Invoke();
-        playerActions.ArrowDown.performed += ctx => OnArrowDown?.Invoke();
-
-        playerActions.Inventory.performed += ctx => OnInventory?.Invoke();
-
-        playerActions.Read.performed += ctx => OnRead?.Invoke();
-
-        playerActions.Use.performed += ctx => OnUse?.Invoke();
-
-        playerActions.Flashlight.performed += ctx => fpsController.OnFlashlightEnabled();
-        
-        playerActions.Flashlight.performed += ctx => OnFlashlight?.Invoke();
         
         playerActions.DoorClick.started += ctx => OnStartMouseInteraction?.Invoke();
         playerActions.DoorClick.canceled += ctx => OnCancelMouseInteraction?.Invoke();
 
         uiActions.PauseMenu.performed += ctx => OnPauseMenu?.Invoke();
         uiActions.ScrollWheel.performed += ctx => OnMouseScroll?.Invoke(ctx.ReadValue<Vector2>());
+    }
+
+    public void OnInteract(InputAction.CallbackContext ctxt)
+    { 
+        OnInteraction?.Invoke();
+    }
+    
+    public void OnLeaveInteract(InputAction.CallbackContext ctxt)
+    {
+        OnLeaveInteraction?.Invoke();
+    }
+    
+    public void OnArrowRightPress(InputAction.CallbackContext ctxt)
+    {
+        OnArrowRight?.Invoke();
+    }
+    
+    public void OnArrowLeftPress(InputAction.CallbackContext ctxt)
+    {
+        OnArrowLeft?.Invoke();
+    }
+    
+    public void OnArrowUpPress(InputAction.CallbackContext ctxt)
+    {
+        OnArrowUp?.Invoke();
+    }
+    
+    public void OnArrowDownPress(InputAction.CallbackContext ctxt)
+    {
+        OnArrowDown?.Invoke();
+    }
+    
+    public void OnInventoryPress(InputAction.CallbackContext ctxt)
+    {
+        OnInventory?.Invoke();
+    }
+    
+    public void OnReadPress(InputAction.CallbackContext ctxt)
+    {
+        OnRead?.Invoke();
+    }
+    
+    public void OnUsePress(InputAction.CallbackContext ctxt)
+    {
+        OnUse?.Invoke();
+    }
+    
+    public void OnFlashlightPress(InputAction.CallbackContext ctxt)
+    {
+        fpsController.OnFlashlightEnabled();
+        OnFlashlight?.Invoke();
     }
 
     private void OnDisable()
@@ -83,8 +111,7 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        fpsController.Move(playerActions.Move.ReadValue<Vector2>());
-        playerLook.Look(playerActions.Look.ReadValue<Vector2>()); //aixo estava a LateUpdate, per si dona algun problema tornar-ho a posar a LateUpdate
+        playerLook.Look(playerActions.Look.ReadValue<Vector2>());
     }
     
     private void FixedUpdate()

@@ -18,7 +18,6 @@ public class PauseMenu : MonoBehaviour
     {
         inputManager = GameObject.Find("Player").GetComponent<InputManager>();
         OnPauseMenu.AddListener(inputManager.ChangeStateActionMap);
-        ACC_AccessibilityManager.Instance.DisableCanvas();
         
         for (int i = 0; i < buttons.transform.childCount; i++)
         {
