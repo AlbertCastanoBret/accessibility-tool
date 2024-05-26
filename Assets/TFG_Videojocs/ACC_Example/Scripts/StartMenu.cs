@@ -1,0 +1,35 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+public class StartMenu : MonoBehaviour
+{
+    [HideInInspector] [SerializeField] private UnityEvent OnPauseMenu;
+    private InputManager inputManager;
+    
+    private void Awake()
+    {
+        inputManager = GameObject.Find("Player").GetComponent<InputManager>();
+        OnPauseMenu.AddListener(inputManager.ChangeStateActionMap);
+    }
+    void Start()
+    {
+        OnPauseMenu.Invoke();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 0f;
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            OnPauseMenu.Invoke();
+            gameObject.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1f;
+        }
+    }
+}

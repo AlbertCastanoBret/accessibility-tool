@@ -39,7 +39,7 @@ internal class ACC_InitializationWindow : EditorWindow
     {
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/TFG_Videojocs/ACC_Core/ACC_InitializationWindow.uss");
 
-        var title = new Label("Accessibility Plugin");
+        var title = new Label("Accessibility Pro Toolkit");
         title.AddToClassList("title");
         
         var texture = AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/TFG_Videojocs/ACC_Utilities/ACC_Logo.png");
