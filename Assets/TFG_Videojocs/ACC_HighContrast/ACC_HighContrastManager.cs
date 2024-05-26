@@ -248,6 +248,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                     {
                         if (go.activeInHierarchy)
                         {
+                            go.isStatic = false;
                             Renderer renderer = go.GetComponent<Renderer>();
                             var highContrastConfiguration =
                                 loadedData.highContrastConfigurations.Items.Find(x => go.CompareTag(x.value.tag));
