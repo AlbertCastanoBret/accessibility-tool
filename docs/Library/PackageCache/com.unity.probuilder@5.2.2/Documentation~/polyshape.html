@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> Poly Shape tool | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" Poly Shape tool | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/polyshape.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="poly-shape-tool-icon-poly-shape-tool"><img src="images/icons/NewPolyShape.png" alt="Poly Shape Tool icon"> Poly Shape tool</h1>
+
+<p>Use the Poly Shape tool to <a href="workflow-create-polyshape.html">create a custom polygonal shape</a>. When you activate the Poly Shape tool to create a new shape, the <strong>Poly Shape Tool</strong> panel appears in the bottom of the Scene view. After you initially <a href="workflow-create-polyshape.html">create a Poly Shape</a>, the Poly Shape is still active, but in editing mode:</p>
+<p><img src="images/Experimental_PolyShapeInspector.png" alt="The Poly Shape tool in editing mode"></p>
+<p><strong>(A)</strong> You can toggle the <img src="images/icons/tlbx-icon-polyshape.png" alt=""> Edit Poly Shape button on the <strong>Tools</strong> panel to toggle the Poly Shape editing mode on and off.</p>
+<p><strong>(B)</strong> You can modify the <strong>Extrusion</strong> (height of the Mesh) and the <strong>Flip Normals</strong> properties on the <strong>Poly Shape</strong> component.</p>
+<p><strong>(C)</strong> The <strong>Poly Shape Tool</strong> panel lets you the modify the <strong>Extrusion</strong> and the <strong>Flip Normals</strong> properties too. The <strong>Quit Editing</strong> button exits the Poly Shape editing mode.</p>
+<p>While the Poly Shape editing mode is active, you can also modify the base shape by adding, deleting, or moving any of the points that define the Poly Shape.</p>
+<blockquote>
+<p><strong>Note</strong>: If you are in editing mode immediately after creating a new Poly Shape Mesh, you can also click <strong>New Poly Shape</strong> (<img src="images/icons/NewPolyShape.png" alt="Poly Shape Icon">) on the ProBuilder toolbar to exit the Poly Shape tool.</p>
+</blockquote>
+<h2 id="editing-a-poly-shape">Editing a Poly Shape</h2>
+<p>If you exited the Poly Shape tool, you can re-activate it to modify the <strong>Extrusion</strong> and the <strong>Flip Normals</strong> properties. To re-activate the Poly Shape editing mode:</p>
+<ol>
+<li><p>Select the Poly Shape you want to modify. The <strong>Tools</strong> panel displays the <img src="images/icons/tlbx-icon-polyshape.png" alt=""> Edit Poly Shape button and the <strong>Poly Shape</strong> component appears in the Inspector with the <strong>Edit Poly Shape</strong> button.</p>
+<p><img src="images/Experimental_PolyShapeInspector-edit.png" alt="The Tools panel in the Scene view (A) and the Poly Shape component in the Inspector"></p>
+</li>
+<li><p>Click either button to activate the Poly Shape editing mode.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> You can modify Mesh elements on the Poly Shape Mesh with the standard ProBuilder editing tools. However, each time you re-enter Poly Shape editing mode, you lose any element changes.</p>
+</blockquote>
+<p>To modify the shape in Poly Shape editing mode, perform the following tasks in the Scene view:</p>
+<ul>
+<li>Click and drag existing control points to move them around.</li>
+<li>Click existing control points to select them, then use <strong>Backspace</strong> (Windows) or <strong>Delete</strong> (macOS) to remove the points from the shape.</li>
+<li>Click along the perimeter line to add new control points.</li>
+<li>Click and drag the handle in the center of the Mesh to set the height.</li>
+</ul>
+<p>You can also use the controls in the <strong>Poly Shape</strong> component in the Inspector to:</p>
+<ul>
+<li>Enter a value to use for the height of the Mesh in the <strong>Extrusion</strong> property.</li>
+<li>Enable or disable the <strong>Flip Normals</strong> option to toggle whether the Camera displays the interior or exterior of the Mesh.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/polyshape.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

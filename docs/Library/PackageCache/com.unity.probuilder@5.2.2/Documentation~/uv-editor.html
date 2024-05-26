@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> UV Editor window | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" UV Editor window | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/uv-editor.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="uv-editor-icon-uv-editor-window"><img src="images/icons/Panel_UVEditor.png" alt="UV Editor icon"> UV Editor window</h1>
+
+<p>Use the UV Editor window to manage texture mapping on the selected Mesh.</p>
+<p>To open this window, navigate to the <a href="toolbar.html">ProBuilder toolbar</a> and click the <strong>UV Editor</strong> button ( <img src="images/icons/Panel_UVEditor.png" alt="UV Editor icon"> ).</p>
+<blockquote>
+<p><strong>Tip:</strong> You can also access this window from the ProBuilder menu (<strong>Tools</strong> &gt; <strong>ProBuilder</strong> &gt; <strong>Editors</strong> &gt; <strong>Open UV Editor</strong>).</p>
+</blockquote>
+<p><img src="images/UVPanel_FullWindow_Letters.png" alt="UV Editor window"></p>
+<p><strong>(A)</strong> The <a href="uv-editor-toolbar.html">UV Editor toolbar</a> contains general features for working with UVs.</p>
+<p><strong>(B)</strong> The <a href="uv_dropdown.html">UV drop-down menu</a> allows you to switch between UV channels:</p>
+<ul>
+<li>Choose <strong>UV</strong> to edit the UV mapping for shaders.</li>
+<li>Choose <strong>UV2 (read-only)</strong> to regenerate your baked or realtime lightmaps.</li>
+</ul>
+<p><strong>(C)</strong> The <strong>Actions</strong> panel is a dynamic panel, similar to the <a href="toolbar.html">ProBuilder toolbar</a>:</p>
+<ul>
+<li>What kind of UVs you are editing (shader UVs or lightmap UV2s) determine which set of options appear in the panel.</li>
+<li>For shader UV options, you can switch between using manual UV editing or auto-texturing, and these each have their own specific options as well. For more information, see <a href="#uv-modes">UV editing modes</a>.</li>
+<li>Only actions compatible with the selected UV element type (vertex, edge, face) are available. If you are in object selection mode when you open the UV Editor, all options are disabled: you must select one or more faces, edges, or vertices to continue.</li>
+</ul>
+<p><strong>(D)</strong> You can use the UV viewer to view and edit the selected object's UV elements directly.</p>
+<blockquote>
+<p><strong>Tip</strong>: While working in the UV viewer's work area (canvas), sometimes the Texture becomes only partially visible (for example, if you zoomed in so you could see more detail on the Texture). To quickly re-center the Texture, use the <strong>0</strong> shortcut. You can also re-map this shortcut with the Shortcuts Manager.</p>
+</blockquote>
+<p><a name="uv-modes"></a></p>
+<h2 id="uv-editing-modes">UV editing modes</h2>
+<p>The UV Editor supports two modes when you edit texture mapping:</p>
+<ul>
+<li><p><a href="auto-uvs-actions.html">Automatic</a> : ProBuilder manages the texture mapping according to the settings in the <a href="auto-uvs-actions.html">Actions panel</a> automatically, even when you resize the Mesh. This is the default. Use this mode for simple texturing work, especially architectural or hard-surface items. Tiling, Offset, Rotation, and other controls are available, while ProBuilder automatically manages the projection and updates it as you modify the Mesh geometry.</p>
+<p>For example, use automatic tiling to for a brick texture on a wall. This maintains the size and orientation of the brick even if you resize the wall. Textures like brick with a repeating pattern are ideal for automatic mode.</p>
+</li>
+<li><p><a href="manual-uvs-actions.html">Manual</a> : Use the UV Editor to precisely unwrap and edit UVs, render UV Templates, project UVs, and more. To modify the texture mapping, you move, rotate, and resize the UV elements against the Texture in the viewer. ProBuilder provides two texture projection methods (<strong>Box</strong> and <strong>Planar</strong>), along with several helpers in the <a href="manual-uvs-actions.html">Actions panel</a> to help you select and edit elements.</p>
+<p>For example, you can use a texture image for an element with details like a building where some areas contain windows or doors. Using the Manual mode in these cases is ideal, because you can position the UV elements precisely against the image.</p>
+</li>
+</ul>
+<p>Each face supports only one mode at a time, but you can use a mixture of the two modes on the same Mesh. This is especially useful when some parts of a Model need to have tiling Textures, while others are unwrapped. If you select several faces at once, and some are in Automatic mode and others are in Manual, the Actions panel displays both buttons: <strong>Convert to Manual</strong> and <strong>Convert to Auto</strong>.</p>
+<p><img src="images/UVPanel_MixedMode.png" alt="Actions panel when some selected faces are in Automatic editing mode and some are Manual"></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/uv-editor.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

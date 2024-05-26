@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interacting with ProBuilder | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interacting with ProBuilder | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/overview-ui.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="interacting-with-probuilder">Interacting with ProBuilder</h1>
+
+<p><img src="images/overview-ui.png" alt="ProBuilder User Interface"></p>
+<p>ProBuilder provides several ways to interact with its tools and actions:</p>
+<p><strong>(A)</strong> The <a href="#sceneinfo">Scene Information</a></p>
+<p><strong>(B)</strong> The <a href="menu.html">ProBuilder menu</a></p>
+<p><strong>(C)</strong> <a href="hotkeys.html">ProBuilder shortcuts</a></p>
+<p><strong>(D)</strong> <a href="#pb_editors">Editor windows</a></p>
+<p><strong>(E)</strong> The <a href="preferences.html">ProBuilder Preferences</a> window</p>
+<p><strong>(F)</strong> <a href="#pb_transform">Transform tools</a> for ProBuilder</p>
+<p><strong>(G)</strong> <a href="#pb_comp">ProBuilder component</a> windows</p>
+<p><strong>(H)</strong> The <a href="toolbar.html">ProBuilder toolbar</a> and the <a href="edit-mode-toolbar.html">Edit mode toolbar</a></p>
+<p><strong>(I)</strong> <a href="toolbar.html#pb_options">Options for ProBuilder actions</a></p>
+<p><strong>(J)</strong> ProBuilder's custom <a href="ref_tools.html">Tool</a> panel</p>
+<p><a name="sceneinfo"></a></p>
+<h2 id="scene-information">Scene Information</h2>
+<p><img src="images/show-scene-info.png" alt="Dimensions Overlay"></p>
+<p><strong>Scene Information</strong> displays information about the Meshes in the scene, and which elements are selected.</p>
+<p>To toggle this on or off, use the <strong>Show Scene Info</strong> setting in the <a href="preferences.html#info_overlay">Preferences</a>.</p>
+<p><a name="pb_editors"></a></p>
+<h2 id="editor-windows">Editor windows</h2>
+<p><img src="images/pb_editors.png" alt="Editor windows"></p>
+<p>Editor windows provide <a href="tool-panels.html">features</a> with extended functionality. For example, the UV Editor window (in the example image above) allows you to perform advanced texture manipulations, including texture mapping, UV unwrapping, and tiling.</p>
+<p>To access these windows, use the <a href="menu.html">Probuilder menu</a>, <a href="hotkeys.html">shortcuts</a>, or the tool section of the <a href="toolbar.html">ProBuilder toolbar</a>.</p>
+<p><a name="pb_comp"></a></p>
+<h2 id="component-sections-in-the-inspector">Component sections in the Inspector</h2>
+<p><img src="images/pb_comp.png" alt="Pro Builder Shape, Poly Shape, ProBuilder MeshFilter, and Bezier Shape components"></p>
+<p>Most of these component sections appear in the Inspector when you create a Mesh with one of the creation tools:</p>
+<ul>
+<li><a href="shape-tool.html">Shape</a></li>
+<li><a href="polyshape.html">Poly Shape</a></li>
+<li><a href="bezier.html">Bezier shape</a> (Experimental)</li>
+</ul>
+<p>When you first activate a creation tool, Unity adds these components to the new GameObject. They expose specific properties defined in the corresponding scripts which help define the topology. After you create the new Mesh, you can re-activate the tool for the same Mesh and change these properties to modify the Mesh's shape.</p>
+<blockquote>
+<p><strong>Note</strong>: When you re-activate one of these tools, you lose any modifications you made to the Mesh through an action or through the <a href="cut-tool.html">Cut</a> tool. For example, imagine you create a new Poly Shape with five points, and then extrude one of the faces. Next, you decide to remove one of the points, so you enter Poly Shape editing mode again. The extrusion disappears as soon as you re-enter Poly Shape editing mode.</p>
+</blockquote>
+<p>In addition to these creation tool components, every ProBuilder object has a <a href="ProBuilderMesh.html">ProBuilder MeshFilter</a> component. It lets you customize lightmap UV parameters for each object. When you <a href="Object_ProBuilderize.html">ProBuilderize</a> a Mesh that was either exported into Unity or created as a regular primitive Unity Mesh, Unity adds this component to the Mesh.</p>
+<p><a name="pb_transform"></a></p>
+<h2 id="transform-tools-in-probuilder">Transform tools in ProBuilder</h2>
+<p><img src="images/pb_transform.png" alt="Translating a Face in ProBuilder"></p>
+<p>Most of the time, you interact with ProBuilder with translation, rotation, and scaling tools in much the same way that you interact with Unity. However, ProBuilder uses a combination of <a href="modes.html">Edit modes</a> and special <a href="hotkeys.html">key combinations</a> to interact at a much deeper level with your Meshes.</p>
+<p>For example, you can use the Shift key with the scaling and translation tools in <a href="modes.html">Face mode</a> to create <a href="Face_Inset.html">insets</a> and <a href="Face_Extrude.html">extrusions</a>. This allows you to build complex Meshes easily.</p>
+<p>For an overview of working with ProBuilder, see <a href="workflow-create.html">Creating Meshes</a>, <a href="workflow-edit.html">Editing Meshes</a>, and <a href="workflow-texture-mapping.html">Materials, Shaders, Textures, and UVs</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/overview-ui.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

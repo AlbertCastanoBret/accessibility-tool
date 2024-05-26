@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> Shape tool | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" Shape tool | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/shape-tool.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="shape-tool-icon-shape-tool"><img src="images/icons/Panel_Shapes.png" alt="Shape Tool icon"> Shape tool</h1>
+
+<p>Use the Shape tool to <a href="workflow-create-predefined.html">create new ProBuilder Meshes</a> based on common primitive shapes, such as cylinders, arches, and stairs. When you activate the Shape tool to create a new shape, the <strong>Create Shape</strong> panel appears in the bottom of the Scene view. You can either draw in the Scene view or set the properties directly in the <strong>Create Shape</strong> panel to define a bounding box that will hold the new shape. You can also customize any shape-specific settings, and then either exit the tool or create another new shape.</p>
+<blockquote>
+<p><strong>Tip</strong>: After you create a new shape and exit the tool, you can redefine the bounding box, switch primitive shapes, and change the shape-specific settings when you select the Edit Shape icon <img src="images/icons/Panel_Shapes.png" alt="Edit Shape icon"> from the <strong>Tools</strong> panel. If you made any modifications to the Mesh topology (such as <a href="Vert_Split.html">splitting vertices</a>, <a href="Edge_Connect.html">connecting edges</a>, or <a href="Face_Extrude.html">extruding faces</a>), you must reset the shape to remove all manual changes before you can proceed.</p>
+</blockquote>
+<p><img src="images/shape-tool.png" alt="When you create a new shape, the Create Shape properties appear. When you edit an existing shape, the Edit Shape properties appear."></p>
+<p><strong>(A)</strong> Shape icons let you choose the shape's primitive when you are drawing a new shape.</p>
+<p><strong>(B)</strong> The <strong>Tools</strong> panel displays the Edit Shape icon <img src="images/icons/Panel_Shapes.png" alt="Edit Shape icon"> when you have a Shape Mesh selected. You can toggle this icon to turn the editing mode on and off.</p>
+<p><strong>(C)</strong> The <strong>Snapping</strong> option only appears when you use ProBuilder inside a version of Unity prior to 2021.1. It enables auto-snapping for the Shape tool. For more information, see <a href="#Snapping">Snapping</a>.</p>
+<p><strong>(D)</strong> The <strong>Shape Properties</strong> section lets you switch to a new shape primitive and define the size of the bounding box. When you are drawing a new shape, the <strong>Pivot</strong> property lets you specify whether to place the pivot at the corner or in the middle of the bounding box. For details, see <a href="#ShapeProperties">Choosing the shape and size</a>.</p>
+<p><strong>(E)</strong> The <strong>&lt;Shape&gt; settings</strong> section lets you customize the new shape with properties that are specific to each shape. For example, you can change the number of sides (faces) for both cylinders and cones, but for cylinders you can also set the smoothing group and set segment heights for the sides. For details, see <a href="#ShapeSpecificSettings">Customizing specific shapes</a>.</p>
+<p><a name="ShapeProperties"></a></p>
+<h2 id="choosing-the-shape-and-size">Choosing the shape and size</h2>
+<p>The properties under the <strong>Shape Properties</strong> section let you choose a shape primitive and define the parameters of the bounding box in which ProBuilder draws the shape.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Property:</strong></th>
+<th><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shape drop-down menu</td>
+<td>Select the shape primitive you want to create. For details, see <a href="#ShapeSpecificSettings">Customizing specific shapes</a>.</td>
+</tr>
+<tr>
+<td><strong>Pivot</strong></td>
+<td>Select whether you want ProBuilder to create the Mesh's pivot handle in the <strong>First Corner</strong> of the shape's bounding box or in its <strong>Center</strong>. The &quot;first corner&quot; is where you first clicked in the Scene view to define the bounding box.<br><br><strong>Note</strong>: This property is only available when you are creating the shape.</td>
+</tr>
+<tr>
+<td><strong>X (Length)</strong><br> <strong>Y (Height)</strong> <br><strong>Z (Width)</strong></td>
+<td>You can define the bounding box's size with these properties on every shape. When you select a different shape primitive or change any of these properties, ProBuilder automatically transforms the shape to fit the dimensions of the bounding box.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="ShapeSpecificSettings"></a></p>
+<h2 id="customizing-specific-shapes">Customizing specific shapes</h2>
+<p>The following sections contain information about each shape primitive, including a list of any shape-specific properties available:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/icons/tool-arch.png" alt="Arch icon"> <a href="Arch.html">Arch</a> shape primitive<br><img src="images/icons/tool-cone.png" alt="Cone icon"> <a href="Cone.html">Cone</a> shape primitive<br><img src="images/icons/tool-cube.png" alt="Cube icon"> <a href="Cube.html">Cube</a> shape primitive<br><img src="images/icons/tool-cylinder.png" alt="Cylinder icon"> <a href="Cylinder.html">Cylinder</a> shape primitive<br><img src="images/icons/tool-door.png" alt="Door icon"> <a href="Door.html">Door</a> shape primitive<br><img src="images/icons/tool-pipe.png" alt="Pipe icon"> <a href="Pipe.html">Pipe</a> shape primitive</td>
+<td><img src="images/icons/tool-plane.png" alt="Plane icon"> <a href="Plane.html">Plane</a> shape primitive<br><img src="images/icons/tool-prism.png" alt="Prism icon"> <a href="Prism.html">Prism</a> shape primitive<br><img src="images/icons/tool-sphere.png" alt="Sphere icon"> <a href="Sphere.html">Sphere</a> shape primitive<br><img src="images/icons/tool-sprite.png" alt="Sprite icon"> <a href="Sprite.html">Sprite</a> shape primitive<br><img src="images/icons/tool-stairs.png" alt="Stairs icon"> <a href="Stair.html">Stairs</a> shape primitive<br><img src="images/icons/tool-torus.png" alt="Torus icon"> <a href="Torus.html">Torus</a> shape primitive</td>
+</tr>
+</tbody>
+</table>
+<p>ProBuilder Meshes are similar to other GameObjects in Unity in terms of how they interact with other GameObjects and respond to Physics in the scene. However, you can use <a href="workflow-edit.html">ProBuilder editing features</a> to customize and deform the Mesh topology after you create them.</p>
+<p><a name="Snapping"></a></p>
+<h2 id="snapping">Snapping</h2>
+<p>To set a more accurate size, snap the bounding box to <a href="https://docs.unity3d.com/Manual/GridSnapping.html">Unity's grid</a> while you draw or move the preview shape in the Scene view. To do this, enable auto-snapping with the Shape tool by using one of the following methods that matches the version of the Editor you are using:</p>
+<ul>
+<li><strong>Version 2021.1 and later</strong>: <a href="https://docs.unity3d.com/Manual/GridSnapping.html#grid-snap">Activate Unity auto-snapping</a> in the Editor. The <strong>Snapping</strong> option is not available because ProBuilder uses the Editor's auto-snapping setting.</li>
+<li><strong>Versions 2019.4 through 2020.3</strong>: Enable the <strong>Snapping</strong> option. ProBuilder ignores Unity's auto-snapping setting in these versions of the Unity Editor.</li>
+</ul>
+<blockquote>
+<p><strong>Note</strong>: Auto-snapping is only available when your <a href="https://docs.unity3d.com/Manual/PositioningGameObjects.html#GizmoHandlePositions">gizmo handle</a> is set to <strong>Global</strong> in any version of Unity.</p>
+</blockquote>
+<p>Regardless of whether auto-snapping is enabled, you can hold the <strong>Ctrl/Cmd</strong> key while drawing or positioning the new shape to move by increments. To set the size of these increments, use the <strong>Increment Snap</strong> property on the <a href="https://docs.unity3d.com/Manual/GridSnapping.html#grid-and-snap">Grid and Snap</a> window.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/shape-tool.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

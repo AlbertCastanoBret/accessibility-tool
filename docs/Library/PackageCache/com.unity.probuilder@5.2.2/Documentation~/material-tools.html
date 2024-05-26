@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> Material Editor window | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" Material Editor window | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/material-tools.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="material-editor-icon-material-editor-window"><img src="images/icons/Panel_Materials.png" alt="Material Editor icon"> Material Editor window</h1>
+
+<p>Use the <strong>Material Editor</strong> to apply Materials to objects or faces.</p>
+<p><img src="images/material-tools.png" alt="The Material Editor window"></p>
+<p><strong>(A)</strong> Use the <a href="#quick">Quick Material</a> section to set up a Material to apply with a button or a shortcut.</p>
+<p><strong>(B)</strong> Use the <a href="#palette">Material Palette</a> section to designate several Materials to use with buttons or shortcuts. You can also save and load new Palettes, and add more slots to use for Materials.</p>
+<p>To open this window, navigate to the <a href="toolbar.html">ProBuilder toolbar</a> and click the <strong>Material Editor</strong> button ( <img src="images/icons/Panel_Materials.png" alt="Material Editor icon"> ).</p>
+<blockquote>
+<p><strong>Tip:</strong> You can also access this window from the ProBuilder menu (<strong>Tools</strong> &gt; <strong>ProBuilder</strong> &gt; <strong>Editors</strong> &gt; <strong>Open Material Editor</strong>).</p>
+</blockquote>
+<p>For an overview of working with Materials and texture mapping, see <a href="workflow-texture-mapping.html">Materials, Shaders, Textures, and UVs</a>.</p>
+<p><a name="quick"></a></p>
+<h2 id="quick-material">Quick Material</h2>
+<p>The <strong>Quick Material</strong> section allows you to specify a Material to apply with either the shortcut combination or the <strong>Apply</strong> button.</p>
+<p><img src="images/material-tools-quick.png" alt="Quick Material section"></p>
+<p><strong>(A)</strong> You can <a href="#qset">set a reference to the Material</a> to use as the &quot;quick&quot; Material.</p>
+<p><strong>(B)</strong> ProBuilder shows a preview when you set a quick Material.</p>
+<blockquote>
+<p><strong>Note:</strong> If you are working in Windows, this preview might not appear.</p>
+</blockquote>
+<p><strong>(C)</strong> With a quick Material defined, any time you click <strong>Apply</strong>, ProBuilder <a href="#qapply">applies the quick Material</a> to the selected faces. Alternatively, you can hold down <strong>Ctrl/Cmd+Shift</strong> and click on a face to apply the quick Material to the clicked face.</p>
+<p><strong>(D)</strong> Click <strong>Match Selection</strong> to change the quick Material to match the Material that is already on the selected face.</p>
+<p><a name="qset"></a></p>
+<h3 id="setting-a-quick-material">Setting a quick Material</h3>
+<p>To set a quick Material, set a reference to a Material Asset you want to use as the quick Material. You can drag in the Asset from the Project view or use the object picker next to the reference property.</p>
+<p>If there's a face on a GameObject in the scene that is already using the Material you want to set as quick, select that face and click the <strong>Match Selection</strong> button.</p>
+<p><a name="qapply"></a></p>
+<h3 id="applying-the-quick-material">Applying the quick Material</h3>
+<p>To apply the quick Material:</p>
+<ol>
+<li>Select the object or face(s) you want to apply the quick Material to.</li>
+<li>Click the <strong>Apply</strong> button or use the <strong>Ctrl/Cmd+Shift+Click</strong> shortcut combination.</li>
+</ol>
+<p><a name="palette"></a></p>
+<h2 id="material-palette">Material Palette</h2>
+<p>A Material Palette is a convenient way to keep several Materials ready to apply, either with the Material Editor or with shortcut combinations.</p>
+<p>You can set up to 10 different Materials on the Palette, or expand the slots in your Palette if you need more.</p>
+<p>You can also save your Palette as a custom Palette and load it in other Scenes or sessions to use it again.</p>
+<p><img src="images/material-tools-palette.png" alt="Material Palette section"></p>
+<p><strong>(A)</strong> Create a new Material Palette or select a saved Palette to load from the Palette drop-down menu.</p>
+<p><strong>(B)</strong> Set a reference to the Material Palette you want to load.</p>
+<p><strong>(C)</strong> Use one of the buttons to apply the associated Material to the selected face(s). Alternatively, you can use the shortcut displayed on the button (<strong>Alt/Opt+&lt;number&gt;</strong>) or select the preset from the ProBuilder menu (<strong>Tools</strong> &gt; <strong>ProBuilder</strong> &gt; <strong>Materials</strong> &gt; <strong>Apply Material Preset &lt;number&gt;</strong>).</p>
+<p><strong>(D)</strong> Set a reference to the Material you want to use in this slot of the Material Palette.</p>
+<p><strong>(E)</strong> To delete an extra slot, click the red square on the right edge of the button.</p>
+<p><strong>(F)</strong> Click <strong>Add</strong> to add a new slot to the Material Palette.</p>
+<p><a name="set"></a></p>
+<h3 id="defining-materials-on-a-palette">Defining Materials on a Palette</h3>
+<p>To set Materials on your Palette, set a reference to a Material Asset you want to use in a specific Material slot. You can drag in the Asset from the Project view or use the object picker next to the reference property.</p>
+<p><a name="apply"></a></p>
+<h3 id="applying-material-from-the-palette">Applying Material from the Palette</h3>
+<p>To apply a specific Material from the Palette:</p>
+<ol>
+<li>Select the object or face(s) you want to apply the Material to.</li>
+<li>Click the button to the left of the Material you want to apply. For example, if you want to apply the Material in the third slot, click the button that displays <strong>Alt + 3</strong>.</li>
+</ol>
+<blockquote>
+<p><strong>Tip:</strong> You can find the number of the Material preset on each slot's button. Then you can use that number to apply its Material directly using either of these methods:</p>
+<ul>
+<li>Use the <strong>Alt/Opt+#</strong> shortcut.</li>
+<li>Select the Material preset from the ProBuilder menu (<strong>Tools</strong> &gt; <strong>ProBuilder</strong> &gt; <strong>Materials</strong> &gt; <strong>Apply Material Preset #</strong>).</li>
+</ul>
+</blockquote>
+<p><a name="wells"></a></p>
+<h3 id="defining-your-own-material-slots-in-your-palette">Defining your own Material slots in your Palette</h3>
+<p>By default, the Material Palette provides 10 slots (numbered 1 to 0) for your Materials. However, if you need to add more slots to your Palette, you can add any number of extra slots using this procedure:</p>
+<ol>
+<li>Click the <strong>Add</strong> button at the bottom of the <strong>Material Editor</strong> window.</li>
+</ol>
+<p>A new slot appears with an <strong>Apply</strong> button on the left and the Material picker on the right.</p>
+<ol start="2">
+<li>Pick your new Material to use in the new slot.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> You can't set up new shortcuts for the new slots but you can click their buttons in the Material Editor to apply them.</p>
+</blockquote>
+<p>To remove any extra slots from your Palette:</p>
+<ul>
+<li>Click the red square on the right side of the <strong>Apply</strong> button.</li>
+</ul>
+<p><a name="save"></a></p>
+<h3 id="saving-a-custom-palette">Saving a custom Palette</h3>
+<p>To save the current Palette to an Asset file:</p>
+<ol>
+<li><p>In the <strong>Material Palette</strong> drop-down menu, select <strong>New Material Palette</strong>.</p>
+<p>A new file with the default name of <code>Material Palette.asset</code> appears under the <code>Assets</code> folder in the <strong>Project</strong> view.</p>
+</li>
+<li><p>(Optional) Change the filename to something that helps you identify it for future use.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Warning:</strong> As soon as you make a change to your Material Palette, ProBuilder automatically saves it to the Palette.</p>
+</blockquote>
+<p><a name="load"></a></p>
+<h3 id="loading-a-custom-palette">Loading a custom Palette</h3>
+<p>All Material Palette Asset files in the current Project appear as menu items in the <strong>Material Palette</strong> drop-down menu in the <strong>Material Editor</strong> window.</p>
+<p>To load a saved Material Palette from file:</p>
+<ul>
+<li>Select the saved palette by name from the <strong>Material Palette</strong> drop-down menu.</li>
+</ul>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/material-tools.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

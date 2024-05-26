@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Stairs | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Stairs | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/Stair.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="stairs">Stairs</h1>
+
+<p>You can create straight stairs, curved stairs, long stairs, stairs with a lot of steps, wide stairs, and stairs without side polygons.</p>
+<p><img src="images/shape-tool_stair.png" alt="Stairs shapes"></p>
+<p>You can customize the shape of your stairs with these shape-specific properties:</p>
+<!--
+
+
+| **Property:** | **Description:** |
+|:-- |:-- |
+| __Steps Generation__ | Select how you want ProBuilder to build steps:<br /><br />- Select the **Height** method if you want ProBuilder to generate a predictable height for each step in the staircase. This means that if you increase the height of the overall size of the staircase, the number of of steps increases.<br />- Select the **Count** method if you want ProBuilder to generate a specific number of steps, regardless of any changes in the size of the staircase. This means that if you increase the height of the overall size of the stairs, each step becomes higher.<br /><br />The default value is the **Count** method. |
+| __Steps Height__ | Set the fixed height of each step on the stairs. The default value is 0.2. <br /><br />This property is only available when the **Steps Generation** method is set to **Height**. |
+| __Homogeneous Steps__ | Enable this option to force every step to be the exactly the same height. This is enabled by default.<br /><br />This property is only available when the **Steps Generation** method is set to **Height**. |
+| __Steps Count__ | Set the fixed number of steps that the stairs always has. The default value is 10. Valid values range from 1 to 256.<br /><br />This property is only available when the **Steps Generation** method is set to **Count**. |
+| __Sides__ | Enable this option to draw polygons on the sides of the stairs. This is enabled by default. You can disable this option if the sides of your stairs are not visible to the Camera (for example, if your stairs are built into a wall). |
+| __Circumference__ | Set the degree of curvature on the stairs in degrees, where 0 makes straight stairs and 360 makes stairs in a complete circle. Remember that you might need to increase the number of stairs to compensate as you increase this value. The default value is 0. Valid values range from 0 to 360. |
+
+-->
+<table>
+<thead>
+<tr>
+<th colspan="2"><strong>Property:</strong></th>
+<th><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2"><strong>Steps Generation</strong></td>
+<td>Select whether you want ProBuilder to build the same number of steps regardless of how the size of the stairs changes (the default) or make each step the same height and automatically adapt the number of steps to match the stairs size.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Height</strong></td>
+<td>Select this method if you want ProBuilder to generate a predictable height for each step in the staircase. This means that if you increase the height of the overall size of the staircase, the number of steps increases.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Count</strong></td>
+<td>Select this method if you want ProBuilder to generate a specific number of steps, regardless of any changes in the size of the staircase. This means that if you increase the height of the overall size of the stairs, each step becomes higher. This is the default value.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Steps Height</strong></td>
+<td>Set the fixed height of each step on the stairs. The default value is 0.2. <br><br>This property is only available when the <strong>Steps Generation</strong> method is set to <strong>Height</strong>.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Homogeneous Steps</strong></td>
+<td>Enable this option to force every step to be the exactly the same height. This is enabled by default.<br><br>If disabled, the height of the last step is smaller than the others depending on the remaining height.<br><br>This property is only available when the <strong>Steps Generation</strong> method is set to <strong>Height</strong>.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Steps Count</strong></td>
+<td>Set the fixed number of steps that the stairs always has. The default value is 10. Valid values range from 1 to 256.<br><br>This property is only available when the <strong>Steps Generation</strong> method is set to <strong>Count</strong>.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Sides</strong></td>
+<td>Enable this option to draw polygons on the sides of the stairs. This is enabled by default. You can disable this option if the sides of your stairs are not visible to the camera (for example, if your stairs are built into a wall).</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Circumference</strong></td>
+<td>Set the degree of curvature on the stairs in degrees, where 0 makes straight stairs and 360 makes stairs in a complete circle. Remember that you might need to increase the number of stairs to compensate as you increase this value. The default value is 0. Valid values range from -360 (full turn to the left) to 360 (full turn to the right).</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/Stair.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

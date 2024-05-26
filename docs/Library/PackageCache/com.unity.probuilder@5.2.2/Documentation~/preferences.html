@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>ProBuilder Preferences window | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="ProBuilder Preferences window | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/preferences.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="probuilder-preferences-window">ProBuilder Preferences window</h1>
+
+<p>To define how you interact with ProBuilder, you can customize the user interface and how the tools work.</p>
+<p><img src="images/preferences.png" alt="Preferences Window"></p>
+<p>ProBuilder provides the following preference sections, which you can change to suit your needs:</p>
+<ul>
+<li><a href="#dimover">Dimensions Overlay</a></li>
+<li><a href="#experimental">Experimental</a></li>
+<li><a href="#general">General</a></li>
+<li><a href="#graphics">Graphics</a></li>
+<li><a href="#prefs_editing">Mesh Editing</a></li>
+<li><a href="#settings">Mesh Settings</a></li>
+<li><a href="#snapping">Snap Settings</a></li>
+<li><a href="#toolbar">Toolbar</a></li>
+<li><a href="#uvs">UV Editor</a></li>
+</ul>
+<p><a name="dimover"></a></p>
+<h2 id="dimensions-overlay">Dimensions Overlay</h2>
+<p>Use this setting to customize the <a href="menu-dimover.html">Dimensions Overlay</a>.</p>
+<p><img src="images/prefs_dimover.png" alt="Dimensions Overlay section"></p>
+<p>By default, the overlay shows the dimensions of the selected Mesh elements only, but you can use the <strong>Bounds Display</strong> property to change this to show the dimensions of the select GameObjects, regardless of what elements (vertices, edges, or faces) are selected.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Object</strong></td>
+<td style="text-align: left;">Select this option to use the selected object(s) to calculate the dimensions of the world space bounds for the information that appears on the overlay.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Element</strong></td>
+<td style="text-align: left;">Select this option to use the selected element(s) to calculate the dimensions of the world space bounds for the information that appears on the overlay. This is the default.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="experimental"></a></p>
+<h2 id="experimental">Experimental</h2>
+<p>Use these settings to enable and disable ProBuilder experimental features.</p>
+<blockquote>
+<p><strong>Warning:</strong> Experimental features are untested and might break your Project.</p>
+</blockquote>
+<p><img src="images/prefs_experimental.png" alt="Experimental section"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Experimental Features Enabled</strong></td>
+<td style="text-align: left;">Enable this option to access the <a href="bezier.html">New Bezier Shape</a> experimental feature in the ProBuilder toolbar, and the <strong>Store Mesh as Asset</strong> option. <br><br><strong>Note:</strong> This setting has no affect on access to the <a href="boolean.html">Boolean (CSG) Tool</a>, which is always available from the <a href="menu-experimental.html">Experimental menu</a>.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Meshes Are Assets</strong></td>
+<td style="text-align: left;">Enable this option to store Mesh information in the Project instead of in each separate Scene level.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note</strong>: When you toggle Experimental Features on or off, Unity has to recompile scripts because the changes add or remove functionality in Unity. This means that there is a delay before this option appears to change.</p>
+</blockquote>
+<p><a name="general"></a></p>
+<h2 id="general">General</h2>
+<p>Use these properties to set some basic options for ProBuilder.</p>
+<p><img src="images/prefs_general.png" alt="General section"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Show Action Notifications</strong></td>
+<td style="text-align: left;">Enable this option if you want ProBuilder to notify you when performing actions.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a name="autouvs"></a><strong>Auto Lightmap UVs</strong></td>
+<td style="text-align: left;">Enable this option to generate the UV2 channel after every geometry edit. This means you don't have to manually generate them every time the Mesh changes.<br><br>UV2 channel generation for Meshes is necessary for lighting, but can be time-consuming. If you are editing objects with large numbers of vertices, disable this to save resources.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Show Missing Lightmap UVs Warning</strong></td>
+<td style="text-align: left;">Enable this option to show a warning in the console if ProBuilder shapes are missing a valid UV2 channel when Unity performs a lightmap bake.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Show Handle Info</strong></td>
+<td style="text-align: left;">Enable this option to display the information for moving, rotating, and scaling deltas in the bottom right of the Scene view. <br><br><strong>Note</strong>: If you have the <a href="https://docs.unity3d.com/Manual/UsingCustomEditorTools.html#ToolModesAccessSceneViewPanel">Component Editor <strong>Tools</strong> panel</a> open in the Scene view, it covers this information. Close the panel to display the information.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a name="info_overlay"></a><strong>Show Scene Info</strong></td>
+<td style="text-align: left;">Enable this option to display the Mesh information overlay in the top left of the Scene view. These details include overall face, vertex and triangle counts, and the number of elements currently selected:<br><img src="images/info_overlay.png" alt="Scene information overlay"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Script Stripping</strong></td>
+<td style="text-align: left;">Enable this option to automatically remove the extra data ProBuilder stores in a Scene. This includes all ProBuilder scripts, so if you are using the runtime API you should disable this feature.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="graphics"></a></p>
+<h2 id="graphics">Graphics</h2>
+<p>Use these settings to customize the size and color of Mesh elements.</p>
+<p><img src="images/prefs_graphics.png" alt="Graphics section"></p>
+<p>By default, the <strong>Use Unity Colors</strong> option is enabled. However, you can disable this option to set custom colors for a number of elements.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><a name="preselection"></a><strong>Show Hover Highlight</strong></td>
+<td style="text-align: left;">Enable this option to highlight the closest Mesh elements when your cursor moves towards them. <br><br><strong>Tip:</strong> You can also set the color to use for highlighting with the <a href="#preselection_color">Preselection</a> property.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a name="sel-xray"></a><strong>Selection X-Ray</strong></td>
+<td style="text-align: left;">Enable this option to display any selected hidden geometry.<br><img src="images/prefs_graphics-xray.png" alt=""></td>
+</tr>
+<tr>
+<td style="text-align: left;"><a name="unitycolors"></a><strong>Use Unity Colors</strong></td>
+<td style="text-align: left;">Enable this property to use the <a href="https://docs.unity3d.com/Manual/Preferences.html#colors">standard Unity Color preferences</a>. By default, this property is enabled.<br><br>When you disable this option, a number of properties appear below. These allow you to specify your own colors to use instead of the Unity colors. For example, you can specify different colors for selected and unselected faces, edges, and vertices.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Dither Face Overlay</strong></td>
+<td style="text-align: left;">Enable this option to use dithering (dotted overlay) when you hover over or select items. If you disable this option, the overlay appears solid instead.<br><br>This property is only available when <strong>Use Unity Colors</strong> is disabled.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Wireframe</strong></td>
+<td style="text-align: left;">Pick the color ProBuilder uses to display the Mesh's wireframe.<br><br>This property is only available when <strong>Use Unity Colors</strong> is disabled.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a name="preselection_color"></a><strong>Preselection</strong></td>
+<td style="text-align: left;">Pick the color ProBuilder uses to highlight the closest Mesh element. The <a href="#preselection">Show Preselection Highlight</a> property must be enabled in order to display highlights.<br><br>This property is only available when <strong>Use Unity Colors</strong> is disabled.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Selected Face Color</strong></td>
+<td style="text-align: left;">Pick the color ProBuilder uses to display the selected face(s) in a ProBuilder Mesh.<br><br>This property is only available when <strong>Use Unity Colors</strong> is disabled.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Unselected Edge Color</strong></td>
+<td style="text-align: left;">Pick the color ProBuilder uses to display the unselected edges in a ProBuilder Mesh.<br><br>This property is only available when <strong>Use Unity Colors</strong> is disabled.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Selected Edge Color</strong></td>
+<td style="text-align: left;">Pick the color ProBuilder uses to display the selected edge(s) in a ProBuilder Mesh.<br><br>This property is only available when <strong>Use Unity Colors</strong> is disabled.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Unselected Vertex Color</strong></td>
+<td style="text-align: left;">Pick the color ProBuilder uses to display the unselected vertices in a ProBuilder Mesh.<br><br>This property is only available when <strong>Use Unity Colors</strong> is disabled.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Selected Vertex Color</strong></td>
+<td style="text-align: left;">Pick the color ProBuilder uses to display the selected vertex (or vertices) in a ProBuilder Mesh.<br><br>This property is only available when <strong>Use Unity Colors</strong> is disabled.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Vertex Size</strong></td>
+<td style="text-align: left;">Set the size to render the vertex points on ProBuilder Meshes in the Scene view.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Line Size</strong></td>
+<td style="text-align: left;">Set the size to render the edges on ProBuilder Meshes in the Scene view. <br><br><strong>Note:</strong> On macOS, this property is only available if you use <a href="https://www.opengl.org/">OpenGL</a> instead of Metal.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Wireframe Size</strong></td>
+<td style="text-align: left;">Set the size to render the ProBuilder Mesh wireframe in the Scene view. <br><br><strong>Note:</strong> On macOS, this property is only available if you use <a href="https://www.opengl.org/">OpenGL</a> instead of Metal.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="prefs_editing"></a></p>
+<h2 id="mesh-editing">Mesh Editing</h2>
+<p>Use these settings to customize interacting with Meshes.</p>
+<p><img src="images/prefs_editing.png" alt="Mesh Editing section"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Auto Resize Colliders</strong></td>
+<td style="text-align: left;">Enable this option to automatically resize colliders according to Mesh bounds as you edit.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a name="bridge"></a><strong>Allow non-manifold actions</strong></td>
+<td style="text-align: left;">Enable this option if you want to edit your Meshes with advanced techniques, such as <a href="Edge_Bridge.html">bridging closed edges</a>. Note that these complex actions can break your project unless you are familiar with their concepts and how to apply them. <br>By default, this option is disabled.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="settings"></a></p>
+<h2 id="mesh-settings">Mesh Settings</h2>
+<p>Use these settings to establish default behavior for some ProBuilder options.</p>
+<p><img src="images/prefs_settings.png" alt="Mesh Settings section"></p>
+<table>
+<thead>
+<tr>
+<th colspan="2"><strong>Property:</strong></th>
+<th><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2"><a name="defmat"></a><strong>Material</strong></td>
+<td>Set a reference to the default Material you want to use for ProBuilder Meshes. By default, ProBuilder uses the ProBuilderDefault Material when creating new Meshes.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Static Editor Flags</strong></td>
+<td>Choose one of the <a href="https://docs.unity3d.com/Manual/StaticObjects.html">Unity Static Settings</a> as the default for new ProBuilder Meshes. The default value is <strong>Nothing</strong>.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Mesh Collider is Convex</strong></td>
+<td>Enable this option to set the default convex collider state for new ProBuilder objects.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Pivot Location</strong></td>
+<td>Choose the default pivot location for new ProBuilder objects.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>First Corner</strong></td>
+<td>Use the "first corner" as the pivot point for the newly created Mesh. The first corner refers to where you first clicked in the Scene view to create it.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Center</strong></td>
+<td>Use the center of the newly instantiated object as the pivot point.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Snap New Shape To Grid</strong></td>
+<td>Enable this option to snap a newly instantiated object to the nearest grid point (as determined by <strong>ProGrids</strong>).</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Shadow Casting Mode</strong></td>
+<td>Choose how new ProBuilder Meshes cast shadows. The default value is <strong>Two Sided</strong>.<br>See the <strong>Cast Shadows</strong> property on the <a href="https://docs.unity3d.com/Manual/class-MeshRenderer.html">Mesh Renderer</a> component for more information on this setting.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Collider Type</strong></td>
+<td>Set the default type of <a href="https://docs.unity3d.com/Manual/CollidersOverview.html">collision primitive</a> to use for new ProBuilder objects. The default is <strong>Mesh Collider</strong>.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>None</strong></td>
+<td>Do not use a collider.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Box Collider</strong></td>
+<td>Use a <a href="https://docs.unity3d.com/Manual/class-BoxCollider.html">basic cube</a> for the collider.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Mesh Collider</strong></td>
+<td>Use a <a href="https://docs.unity3d.com/Manual/class-MeshCollider.html">custom shape collider</a> to match the newly created Mesh. This is the default.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Lightmap UVs Settings</strong></td>
+<td>Set defaults for the standard <a href="https://docs.unity3d.com/Manual/LightingGiUvs-GeneratingLightmappingUVs.html">Lightmap UVs parameters</a>. To return to the default settings, click the <strong>Reset</strong> button.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="snapping"></a></p>
+<h2 id="snap-settings">Snap Settings</h2>
+<p>Use these properties to customize how snapping behaves with ProBuilder.</p>
+<p><img src="images/prefs_snapping.png" alt="Toolbar section"></p>
+<table>
+<thead>
+<tr>
+<th colspan="2"><strong>Property:</strong></th>
+<th><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td colspan="2"><strong>Snap As Group</strong></td>
+<td>Enable this option if you want each selected item to keep the same relative position to each other while snapping. This is the default. Disable this option to snap each selected item to the grid independently.</td>
+</tr>
+<tr>
+<td colspan="2"><strong>Snap Axis</strong></td>
+<td>Choose how vertices snap to the grid while moving.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Active Axis</strong></td>
+<td>Vertices snap only along the currently active axis. This is the default.</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>All Axes</strong></td>
+<td>Vertices snap to all axes simultaneously.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="toolbar"></a></p>
+<h2 id="toolbar">Toolbar</h2>
+<p>Use these properties to set default behavior for the <a href="toolbar.html">ProBuilder toolbar</a>.</p>
+<p><img src="images/prefs_toolbar.png" alt="Toolbar section"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Shift Key Tooltips</strong></td>
+<td style="text-align: left;">Enable this option to only show tooltips when the mouse cursor is hovering over a button and you are holding down <strong>Shift</strong>.<br>By default, tooltips appear when the mouse cursor hovers over a button for more than a second.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a name="icongui"></a><strong>Icon GUI</strong></td>
+<td style="text-align: left;">Enable this option to use toolbar buttons that <a href="toolbar.html#buttonmode">display icons only</a>. <br>Disable this option to use toolbar buttons that <a href="toolbar.html#buttonmode">display text only</a>.<br><strong>Note:</strong> You can also <a href="customizing.html#buttons">use the context menu</a> to switch between icons and text.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a name="toolbarloc"></a><strong>Toolbar Location</strong></td>
+<td style="text-align: left;">Choose the location where you want the <a href="edit-mode-toolbar.html">Edit Mode toolbar</a> to appear in the Scene view. Possible locations are:<br><br>- <strong>Upper Center</strong><br>- <strong>Upper Left</strong><br>- <strong>Upper Right</strong><br>- <strong>Bottom Center</strong><br>- <strong>Bottom Left</strong><br>- <strong>Bottom Right</strong></td>
+</tr>
+</tbody>
+</table>
+<p><a name="uvs"></a></p>
+<h2 id="uv-editor">UV Editor</h2>
+<p>Use this setting to customize the <a href="uv-editor.html">UV Editor window</a>.</p>
+<p><img src="images/prefs_uvs.png" alt="UV Editor section"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Grid Size</strong></td>
+<td style="text-align: left;">Size of the grid in the UV Editor, for visual and functional purposes.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/preferences.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

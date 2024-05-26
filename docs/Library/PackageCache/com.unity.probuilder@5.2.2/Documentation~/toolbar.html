@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>The ProBuilder toolbar | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="The ProBuilder toolbar | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/toolbar.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="the-probuilder-toolbar">The ProBuilder toolbar</h1>
+
+<p>You can open the <strong>ProBuilder</strong> toolbar from Unity’s top menu: <strong>Tools</strong> &gt; <strong>ProBuilder</strong> &gt; <strong>ProBuilder Window</strong>.</p>
+<p><img src="images/toolbar_main.png" alt="The ProBuilder toolbar, displaying text buttons in a dockable container"></p>
+<p>When you open the main <strong>ProBuilder</strong> toolbar, the <a href="edit-mode-toolbar.html">Edit mode toolbar</a> also opens in the active Scene view, where you can see and change the <a href="modes.html">current editing mode</a>.</p>
+<p>Use the <strong>ProBuilder</strong> toolbar to access Editor windows, selection, creation, and editing tools for Meshes.</p>
+<p><a name="category"></a></p>
+<h2 id="tool-categories">Tool categories</h2>
+<p>The ProBuilder toolbar is color-coded to help you quickly choose tools by type:</p>
+<ul>
+<li><strong>Orange</strong> to access <a href="tool-panels.html">tools and windows</a></li>
+<li><strong>Blue</strong> to access <a href="selection-tools.html">selection actions</a></li>
+<li><strong>Green</strong> for <a href="object-actions.html">Object actions</a></li>
+<li><strong>Red</strong> for Element actions (on <a href="vertex.html">Vertex</a>, <a href="edge.html">Edge</a>, and <a href="face.html">Face</a> geometry)</li>
+</ul>
+<p><img src="images/ExampleImage_Toolbar_ColorCategories.png" alt="Toolbar Categories Example"></p>
+<h3 id="dynamic-layout">Dynamic layout</h3>
+<p>The ProBuilder window dynamically changes to match your current edit mode and element selection:</p>
+<ul>
+<li>Buttons only appear if you can use them with your <a href="modes.html">current edit mode</a>.</li>
+<li>Buttons are disabled if you cannot use them on the current selection.</li>
+</ul>
+<p><a name="buttonmode"></a></p>
+<h3 id="toolbar-display-modes">Toolbar display modes</h3>
+<p>The ProBuilder toolbar displays buttons as either text or icons.</p>
+<p><img src="images/toolbar_text_v_icon.png" alt="Text mode and Icon mode"></p>
+<blockquote>
+<p><strong>Tip:</strong> By default, the toolbar appears in Text mode, but you can switch to Icon mode instead. You can also resize the toolbar and switch between making it floating and dockable. See <a href="customizing.html#toolbar">Customizing ProBuilder</a> for details.</p>
+</blockquote>
+<p><a name="pb_options"></a></p>
+<h3 id="options-for-probuilder-tools">Options for ProBuilder tools</h3>
+<p>Some actions (such as <a href="Face_Extrude.html">Extrude</a>, <a href="Vert_Collapse.html">Collapse</a>, and <a href="Selection_Grow.html">Grow Selection</a>) also have extra options or custom settings, which can change how ProBuilder performs the action by default. If there are options available for an action, an indicator appears in the top-right corner of the button which allows you to access the <strong>Options</strong> window:</p>
+<ul>
+<li>In <strong>Icon Mode</strong>, the gear <img src="images/icons/Options.png" alt="Options Icon"> indicator appears next to an action button if there are options available. To open the <strong>Options</strong> window, <strong>Alt+Click</strong> anywhere on the button.</li>
+<li>In <strong>Text Mode</strong>, the <code>+</code> icon appears on the right side of an action button if there are options available. To open the <strong>Options</strong> window, click on the button's <code>+</code> icon.</li>
+</ul>
+<blockquote>
+<p><strong>Caution:</strong> When you change one of these options, those changes become the default settings for that action in the scene until you change them again.</p>
+</blockquote>
+<p><img src="images/pb_options.png" alt="Options for Select Material tool"></p>
+<p>For example, the <a href="Selection_SelectByMaterial.html">Select by Material</a> action allows you to specify whether ProBuilder limits the new selection to match only faces on the currently selected object or faces on any object in the scene.</p>
+<blockquote>
+<p><strong>Note:</strong> The documentation for each action includes information about any options.</p>
+</blockquote>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/toolbar.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

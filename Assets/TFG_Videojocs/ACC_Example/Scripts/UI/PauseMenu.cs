@@ -8,7 +8,7 @@ using Cursor = UnityEngine.Cursor;
 public class PauseMenu : MonoBehaviour
 {
     [HideInInspector] [SerializeField] private UnityEvent OnPauseMenu;
-    [SerializeField] private PlayerLook playerLook;
+    [SerializeField] private GameObject title;
     [SerializeField] private GameObject buttons;
 
     private GameObject currentOption;
@@ -18,21 +18,56 @@ public class PauseMenu : MonoBehaviour
     {
         inputManager = GameObject.Find("Player").GetComponent<InputManager>();
         OnPauseMenu.AddListener(inputManager.ChangeStateActionMap);
+        ACC_AccessibilityManager.Instance.DisableCanvas();
         
         for (int i = 0; i < buttons.transform.childCount; i++)
         {
             if (i == 0)
             {
-                UnityEngine.Debug.Log(buttons.transform.GetChild(i).name);
-                buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(ACC_AccessibilityManager.Instance.AudioAccessibility.EnableSubtitlesMenu);
-                buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(Debug);
+                buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener( () =>
+                {
+                    ACC_AccessibilityManager.Instance.AudioAccessibility.EnableSubtitlesMenu();
+                    title.SetActive(false);
+                    buttons.SetActive(false);
+                });
+            }
+            else if (i == 1)
+            {
+                buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener( () =>
+                {
+                    ACC_AccessibilityManager.Instance.AudioAccessibility.EnableVisualNotificationMenu();
+                    title.SetActive(false);
+                    buttons.SetActive(false);
+                });
+            }
+            else if (i == 2)
+            {
+                buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    ACC_AccessibilityManager.Instance.VisualAccessibility.EnableHighContrastMenu();
+                    title.SetActive(false);
+                    buttons.SetActive(false);
+                });
+            }
+            else if (i == 3)
+            {
+                buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    ACC_AccessibilityManager.Instance.MobilityAccessibility.EnableRemapControlsMenu("Keyboard, Mouse");
+                    title.SetActive(false);
+                    buttons.SetActive(false);
+                });
+            }
+            else if (i == 4)
+            {
+                buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.EnableAudioManagerMenu();
+                    title.SetActive(false);
+                    buttons.SetActive(false);
+                });
             }
         }
-    }
-
-    private void Debug()
-    {
-        UnityEngine.Debug.Log("PauseMenu");
     }
 
     private void OnEnable()

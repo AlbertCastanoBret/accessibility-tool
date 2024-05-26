@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Creating Meshes | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Creating Meshes | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/workflow-create.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="creating-meshes">Creating Meshes</h1>
+
+<p>ProBuilder provides several different tools for creating editable Meshes in Unity.</p>
+<p>The most common approach is to <a href="workflow-create-predefined.html">build a predefined shape</a> with the <a href="shape-tool.html">Shape tool</a>, which includes a library of shapes. These predefined shapes include standard geometric shapes, and some more complex shapes which correspond to objects that are common in level-building. For example, the <strong>Shape</strong> tool provides simple cubes, prisms, toruses, and other simple geometry that you can use to create buildings, vehicles, and other objects. It also provides some convenient predefined shapes that are typically found in buildings, such as stairs, arches and doors.</p>
+<p><img src="images/ShapeToolTypes.png" alt="Mesh shape types"></p>
+<p>To create predefined shapes, you can use either of the following methods with the Shape tool:</p>
+<ul>
+<li>Draw a bounding box in the Scene view. Then you can choose a primitive shape and customize it where possible with shape-specific parameters.</li>
+<li>Define the dimensions of the shape's bounding box on the <strong>Create Shape</strong> panel and customize it where possible with shape-specific parameters. Then <strong>Shift</strong>+click in the Scene view where you want ProBuilder to draw it.</li>
+</ul>
+<p>For example, the cube shape doesn't have any shape-specific parameters, but the stairs shape lets you set the curvature, the number of steps, and whether to build sides.</p>
+<p><img src="images/Example_ShapeToolsWithCurvedStair.png" alt="Shape Tool Example"></p>
+<p>If you need to make a Mesh shaped unlike any of the predefined shapes, you have several options:</p>
+<ul>
+<li>You can use the <a href="polyshape.html">Poly Shape tool</a> to create a custom 2-dimensional shape and then extrude that shape into a 3-dimensional Mesh. This is a good strategy for quickly building an irregular structure, like a medieval church or a star-shaped building.</li>
+<li>You can use the <a href="bezier.html">experimental Bezier tool</a> to define a bezier curve around which ProBuilder extrudes a Mesh. For example, you can use this tool to create tunnels with lots of twists and turns.</li>
+<li>You can apply an <a href="boolean.html">experimental Boolean operation</a> on two or more Mesh objects to create a new object. You can choose to create only the difference between the two (Intersection), or everything but the difference between the two (Subtraction), or one big Mesh that encompasses the two original Meshes plus the space in between them (Union).</li>
+</ul>
+<blockquote>
+<p><strong>Warning:</strong> Bezier shapes and Boolean operations are experimental, meaning that they are still under development, and might reduce ProBuilder's stability. Use with caution.</p>
+</blockquote>
+<p>Whichever method you use to create your Mesh, you can edit it using any of the <a href="workflow-edit.html">ProBuilder editing features</a>, <a href="workflow-vertexcolors.html">apply vertex colors</a>, <a href="workflow-edit-smoothing.html">smooth its sharp edges</a>, and <a href="workflow-materials.html">apply Materials and Textures</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/workflow-create.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Tools vs. actions | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Tools vs. actions | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/tools.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="tools-vs-actions">Tools vs. actions</h1>
+
+<p>Tools provide a modal environment where you can perform complex tasks, such as creating new Meshes or defining precise cuts on an existing Mesh. For example, when you create Meshes, you can use the <a href="shape-tool.html">New Shape</a> tool or the <a href="polyshape.html">Poly Shape</a> tool. Both of these are modal tools so that you can define dimensions and set any shape-specific properties available before ProBuilder builds the final Mesh. The <a href="cut-tool.html">Cut</a> tool is also modal because you have to define several points on a Mesh where you want to create a new edge before ProBuilder creates the new face.</p>
+<blockquote>
+<p><strong>Tip</strong>: When you activate a tool, its text button is highlighted on the ProBuilder toolbar. You can click the button again to exit the tool.</p>
+</blockquote>
+<p>Actions are immediate changes, such as selecting all faces with a specific color or splitting a single edge. As soon as you initiate an action, ProBuilder performs that action. For example, <a href="Selection_Grow.html">Grow Selection</a> is an action that you initiate from the menu, toolbar button, or shortcut and it finishes immediately. You can modify its options to change the behavior of the action, but the options appear in a non-modal window.</p>
+<p>Actions are often only available in specific <a href="modes.html">Edit modes</a>, whereas tools are generally available in all modes. For example, you can launch the Cut tool in every mode except the Object mode and it behaves exactly the same, but most actions are specific to the selected element and behave differently, such as subdividing an element:</p>
+<ul>
+<li><a href="Edge_Subdivide.html">Subdivide Edge</a> divides the selected edge(s) into multiple edges.</li>
+<li><a href="Face_Subdivide.html">Subdivide Face</a> adds a vertex at the center of each selected face and connects them in the center.</li>
+<li><a href="Object_Subdivide.html">Subdivide Object</a> divides every face on the selected objects.</li>
+</ul>
+<p>For a list of tools available in this version of ProBuilder, see <a href="ref_tools.html">Tools reference</a>.</p>
+<p>For a list of actions available in this version of ProBuilder, see <a href="ref_actions.html">Action reference</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/tools.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Creating a pre-defined ProBuilder shape | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Creating a pre-defined ProBuilder shape | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/workflow-create-predefined.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="creating-a-pre-defined-probuilder-shape">Creating a pre-defined ProBuilder shape</h1>
+
+<p>Use the Shape tool to create a ProBuilder Mesh from a predefined shape primitive. ProBuilder builds these Mesh shapes inside a bounding box that you define:</p>
+<p><img src="images/shapes-bboxes.png" alt="Previews of various shapes inside the same bounding box"></p>
+<p>The bounding box defines the size of each shape primitive using x, y, and z values relative to the &quot;first corner&quot; of the box: that is, the first click you make in the Scene view. If you switch between shape primitives when drawing or editing a shape, ProBuilder instantly adjusts the dimensions of the shape to fit within the bounding box.</p>
+<p>To define the bounding box, you can either draw it in the Scene view or set the dimensions on the <strong>Create Shape</strong> panel and then click in the Scene view to tell ProBuilder where you want to place the new shape. ProBuilder always builds the new shape on top of any existing Mesh in the Scene or, if there is no Mesh under your mouse, on the plane defined in the <a href="https://docs.unity3d.com/Manual/GridSnapping.html">settings for Unity's Grid snapping</a>.</p>
+<p>To create a Mesh from a predefined shape:</p>
+<ol>
+<li>Open the ProBuilder window (in Unity's top menu: <strong>Tools</strong> &gt; <strong>ProBuilder window</strong>).</li>
+</ol>
+<p>The <a href="edit-mode-toolbar.html">Edit Mode toolbar</a> and the <a href="toolbar.html">ProBuilder toolbar</a> appear.</p>
+<ol start="2">
+<li>From the ProBuilder toolbar, click the <strong>New Shape</strong> (<img src="images/icons/Panel_Shapes.png" alt="Shape Tool icon">) tool. The <a href="shape-tool.html">Create Shape</a> panel appears in the bottom of the Scene view and the <strong>New Shape</strong> text button is highlighted.</li>
+</ol>
+<blockquote>
+<p><strong>Tip:</strong> You can also use the <strong>Ctrl/Cmd+Shift+K</strong> shortcut or use the menu (<strong>Tools</strong> &gt; <strong>ProBuilder</strong> &gt; <strong>Editors</strong> &gt; <strong>New Shape</strong>) to activate the Shape tool.</p>
+</blockquote>
+<ol start="3">
+<li><p>From the top of the <strong>Create Shape</strong> panel, choose the icon that matches the shape you'd like to create. Any shape-specific properties appear under the <strong>&lt;Shape&gt; Settings</strong> section at the bottom.</p>
+</li>
+<li><p>Set the shape-specific options (width, height, radius, number of stairs) according to the type of shape. For example, the <a href="Stair.html">Stairs</a> shape lets you customize the height of the steps, how curved to make them, and whether to create faces for the sides.</p>
+</li>
+</ol>
+<p><img src="images/Example_ShapeToolsWithCurvedStair2.png" alt="Preview of the stairs inside the bounding box"></p>
+<ol start="5">
+<li><p>While the Shape tool is active, you can't use the transform tools, but you can use the Camera to orbit around the new shape and zoom in and out.</p>
+</li>
+<li><p>In the Scene view, click and hold the left mouse button to draw the base of the bounding box (along the x-axis and the z-axis) and then release the mouse button to validate the base. Move the mouse up (or down) the y-axis to draw the height, and then click to finalize the new Mesh.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Tip</strong>: Alternatively, you can set all the properties on the <strong>Create Shape</strong> panel, including the bounding-box dimensions, and then hover over the Scene view while holding Shift to see a preview of the Mesh. When you are satisfied with how it looks and where it appears in the scene, click in the Scene view to finish creating the new Mesh.</p>
+<p><strong>Note</strong>: If you draw the shape on an axis-aligned plane, enable auto-snapping to set a more accurate size on the defined shape than drawing freehand. Alternatively, you can move the shape by increments defined by the <a href="https://docs.unity3d.com/Manual/GridSnapping.html#grid-and-snap">Increment Snap</a> value instead. For more information, see <a href="shape-tool.html#Snapping">Snapping</a>.</p>
+</blockquote>
+<ol start="7">
+<li><p>To modify the last shape you created, you can change the properties on the <strong>Create Shape</strong> panel.</p>
+</li>
+<li><p>To create copies of the last shape you created, hold Shift to see a preview of the Mesh while moving in the Scene view, and then click to build the Mesh copy at that spot. You can do this as many times as you like until you exit the tool.</p>
+</li>
+<li><p>To exit the tool, click the <strong>New Shape</strong> button again or select Esc.</p>
+</li>
+</ol>
+<p><strong>Note</strong>: If you decide later that you want to switch primitive shapes, change the size of the bounding box, or modify any of the shape-specific properties, select the Edit Shape icon <img src="images/icons/Panel_Shapes.png" alt="Edit Shape icon"> from the <strong>Tools</strong> panel.</p>
+<p>After you create a Mesh shape, you can use any of the <a href="workflow-edit.html">ProBuilder editing tools</a> to fine-tune or customize that shape further. For example, you can build a plain cube and then use the <strong>Extrude Face</strong> and <strong>Delete Face</strong> tools to create windows and doorways to make a house.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/workflow-create-predefined.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

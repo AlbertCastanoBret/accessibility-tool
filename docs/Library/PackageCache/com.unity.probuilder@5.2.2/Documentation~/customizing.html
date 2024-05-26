@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Customizing ProBuilder | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Customizing ProBuilder | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/customizing.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="customizing-probuilder">Customizing ProBuilder</h1>
+
+<p>There are a number of ways to customize the way you work with ProBuilder. You can set preferences on the <a href="preferences.html">ProBuilder Preferences</a> window:</p>
+<ul>
+<li><a href="preferences.html#dimover">Dimensions Overlay</a>: Customize which elements are used for the dimensions overlay.</li>
+<li><a href="preferences.html#experimental">Experimental</a>: Toggle ProBuilder beta features.</li>
+<li><a href="preferences.html#general">General</a>: This section contains a variety of settings, many of which control what information appears in the Scene view (see <a href="#toolbar">Interaction and display</a>).</li>
+<li><a href="preferences.html#graphics">Graphics</a>: Mostly these settings control the look of Unity (see <a href="#toolbar">Interaction and display</a>).</li>
+<li><a href="preferences.html#mesh-editing">Mesh Editing</a>: Define behavior specific to editing Meshes.</li>
+<li><a href="preferences.html#mesh-settings">Mesh Settings</a>: Define defaults for ProBuilder Meshes (such as default Material, collider type, and shadows).</li>
+<li><a href="preferences.html#snapping">Snap Settings</a>: Customize how snapping behaves with ProBuilder.</li>
+<li><a href="preferences.html#toolbar">Toolbar</a>: Customize how the toolbars appear. See <a href="#toolbar">below</a> for details.</li>
+<li><a href="preferences.html#uv-editor">UV Editor</a>: Change the size of the grid on the <a href="uv-editor.html">UV Editor</a> window.</li>
+</ul>
+<p>In addition, you can limit the types of <a href="#logging">messages</a> ProBuilder displays in the Console and whether to write them to a file.</p>
+<p><a name="logging"></a></p>
+<h2 id="logging">Logging</h2>
+<p>You can choose what types of messages ProBuilder should log, and where the messages should appear. For example, you can set up logs to appear in your Unity console, to a log file locally, or both at the same time. You can also limit the log to only error messages, warning messages, debug messages, basic information, or any combination of these messages types.</p>
+<p>For details, see the documentation on the <a href="menu-debug.html">Debug menu</a>.</p>
+<p><a name="toolbar"></a></p>
+<h2 id="interaction-and-display">Interaction and display</h2>
+<p>ProBuilder can display information about the Meshes in your Scene. For example, you can see the dimensions of your Mesh with <a href="menu-dimover.html">Dimensions Overlay</a>. You can also enable <a href="preferences.html#info_overlay">Show Scene Info</a> to see how many vertices, edges, and faces are in the Scene and which are currently selected. ProBuilder can echo the name of the action you are performing if you enable the <a href="preferences.html#general">Show Action Notifications</a> preference.</p>
+<p>You can use the Unity color scheme, or disable the <a href="preferences.html#unitycolors">Use Unity Colors</a> preference to set your own colors for the ProBuilder geometry elements. When disabled, a number of other properties appear that allow you to set the colors for the <strong>Wireframe</strong> and the hover color (<strong>Preselection</strong>). You can also define distinct colors for vertices, edges, and faces in both selected and unselected states. You can also change the size of the points that appear for vertices (<strong>Vertex Size</strong>), and the lines that appear for edges or wireframe (<strong>Line Size</strong>).</p>
+<p>In addition, you can customize several things about any of the toolbars that ProBuilder provides:</p>
+<ul>
+<li>You can <a href="#dock">dock the toolbar or let it float</a> over the Unity window.</li>
+<li>You can <a href="#resize">resize the toolbar</a> both horizontally and vertically.</li>
+</ul>
+<p>You can also choose whether to display <a href="toolbar.html#buttonmode">text or icons</a> on the ProBuilder toolbar.</p>
+<p><a name="buttons"></a></p>
+<h3 id="text-vs-icon-mode">Text vs Icon mode</h3>
+<p>To define whether ProBuilder displays <a href="toolbar.html#buttonmode">text or icons</a> for each tool:</p>
+<ol>
+<li><p>Right-click on any empty space in the toolbar.</p>
+<p><img src="images/cus_switchmodes.png" alt="Use Text Mode or Use Icon Mode"></p>
+</li>
+<li><p>Choose either <strong>Use Text Mode</strong> or <strong>Use Icon Mode</strong> from the context menu.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> You can also use the <strong>Use Icon GUI</strong> option in the <a href="preferences.html#icongui">ProBuilder Preferences</a> window.</p>
+</blockquote>
+<p><a name="dock"></a></p>
+<h3 id="floating-vs-dockable">Floating vs Dockable</h3>
+<p>To change whether the toolbar <a href="https://docs.unity3d.com/Manual/CustomizingYourWorkspace.html">docks or floats</a> in the Scene view:</p>
+<ol>
+<li>Right-click on any empty space in the toolbar.</li>
+</ol>
+<p><img src="images/cus_switchwindows.png" alt="Use Floating or Dockable Window"></p>
+<ol start="2">
+<li>Choose either <strong>Open As Floating Window</strong> or <strong>Open As Dockable Window</strong> from the <strong>Window</strong> submenu of the context menu.</li>
+</ol>
+<p><a name="resize"></a></p>
+<h3 id="resizing-the-toolbar">Resizing the toolbar</h3>
+<p>To resize the ProBuilder toolbar, click and drag the corners and sides of the toolbar until it is at the right size and shape.</p>
+<p>ProBuilder re-orders the icon or text contents to best fit the window size.</p>
+<p><img src="images/Toolbar_ResizingExample.png" alt="Text vs Icon modes"></p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/customizing.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -271,6 +271,22 @@ namespace ACC_API
         }
         
         /// <summary>
+        /// Enables the canvas by setting its active state to true.
+        /// </summary>
+        public void EnableCanvas()
+        {
+            accCanvas.SetActive(true);
+        }
+
+        /// <summary>
+        /// Disables the canvas by setting its active state to false.
+        /// </summary>
+        public void DisableCanvas()
+        {
+            accCanvas.SetActive(false);
+        }
+        
+        /// <summary>
         /// Loads user preferences for all accessibility modules.
         /// </summary>
         public void LoadAllUserPreferences()

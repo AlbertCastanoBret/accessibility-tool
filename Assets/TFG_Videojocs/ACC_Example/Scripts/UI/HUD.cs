@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ACC_API;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Playables;
@@ -44,7 +45,7 @@ public class HUD : MonoBehaviour
     {
         audioSource = GameObject.FindGameObjectWithTag("SFXAudioSource").GetComponent<AudioSource>();
         depthOfFieldController = GameObject.FindGameObjectWithTag("CameraRoot").GetComponent<DepthOfFieldController>();
-        videoTapeSubtitles.GetComponent<PlayableDirector>().stopped += OnStopPlayingTimeline;
+        //videoTapeSubtitles.GetComponent<PlayableDirector>().stopped += OnStopPlayingTimeline;
     }
 
     private void OnEnable()
@@ -149,15 +150,15 @@ public class HUD : MonoBehaviour
         if (!fpsController.GetIsInspecting())
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);
-            if (pauseMenu.activeSelf)
+            if (!pauseMenu.activeSelf)
             {
-                depthOfFieldController.enableBlur();
-                //audioSource.PlayOneShot(openMenuSound);
-            }
-            else
-            {
-                depthOfFieldController.disableBlur();
-                //audioSource.PlayOneShot(openMenuSound);
+                pauseMenu.transform.Find("Title").gameObject.SetActive(true);
+                pauseMenu.transform.Find("ButtonsContainer").gameObject.SetActive(true);
+                ACC_AccessibilityManager.Instance.AudioAccessibility.DisableSubtitlesMenu();
+                ACC_AccessibilityManager.Instance.AudioAccessibility.DisableVisualNotificationMenu();
+                ACC_AccessibilityManager.Instance.VisualAccessibility.DisableHighContrastMenu();
+                ACC_AccessibilityManager.Instance.MobilityAccessibility.DisableRemapControlsMenu();
+                ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.DisableAudioManagerMenu();
             }
         }
     }

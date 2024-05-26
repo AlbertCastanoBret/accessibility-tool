@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Actions panel: Auto UV Mode | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Actions panel: Auto UV Mode | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/auto-uvs-actions.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="actions-panel-auto-uv-mode">Actions panel: Auto UV Mode</h1>
+
+<p>In Auto mode, the <strong>Actions</strong> panel displays the <strong>UV Mode: Auto</strong> label and the settings for automatic texture mapping. To access this panel, click the <strong>Convert to Auto</strong> button from the <a href="manual-uvs-actions.html">Actions panel in Manual UV Mode</a>.</p>
+<p>The Auto mode provides the following features to help you with texture mapping:</p>
+<ul>
+<li>The <a href="#Alignment">Tiling &amp; Alignment</a> section defines the Texture's basic layout.</li>
+<li>The <a href="#Transform">Transform</a> section helps you set the position, orientation, and scaling in U and V.</li>
+<li>The <a href="#Special">Special</a> section provides settings for changing UV direction.</li>
+<li>The <a href="#Groups">Texture Groups</a> section helps you manage tiling across multiple faces using Texture groups.</li>
+<li>Click the <strong>Reset UVs</strong> button when you want to clear any edits you made on the selected face(s). This can be very useful, especially if you are just learning how to use ProBuilder for texture mapping.</li>
+</ul>
+<p><img src="images/UV_AutoActions.png" alt="Actions Panel on the UV Editor window"></p>
+<p>To switch back to the <strong>Actions</strong> panel in <strong>Manual UV Mode</strong> and convert all selected faces to <a href="manual-uvs-actions.html">use manual UVs</a>, click the <strong>Convert to Manual</strong> button.</p>
+<blockquote>
+<p><strong>Tip:</strong> When you convert from Auto UVs to Manual there is no loss of resolution. However, if you modify vertices or edges individually in Manual mode, those changes don't transfer over to Auto mode.</p>
+</blockquote>
+<p>These settings are interconnected: if you change a <strong>Transform</strong> setting, it might affect something you previously set under the <strong>Tiling &amp; Alignment</strong> section. For example, the <strong>Anchor</strong> refers to a location on the original UV face that has a <strong>Tiling</strong> value of 1. If you change the <strong>Tiling</strong> (scale) value, you might need to readjust the <strong>Offset</strong> to compensate.</p>
+<p><a name="Alignment"></a></p>
+<h2 id="tiling--alignment">Tiling &amp; Alignment</h2>
+<p>Use the <strong>Fill Mode</strong> and <strong>Anchor</strong> properties to define how you want the image to appear across the selected face(s). These are basic guidelines for ProBuilder to be able to manage the Texture projection automatically. For more precise controls, use the <a href="manual-uvs-actions.html">Manual mode</a> instead.</p>
+<h3 id="fill-mode">Fill Mode</h3>
+<p>The <strong>Fill Mode</strong> defines how to treat the UV image; whether to repeat it (to create a tile effect), stretch it, or fit it along the U or V axis.</p>
+<p><img src="images/UV_FillModes.png" alt="Shows 3 modes for filling the face with a Texture"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Value:</strong></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Tile</strong></td>
+<td style="text-align: left;">Continuously tile (repeat) the UVs across the object.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Fit</strong></td>
+<td style="text-align: left;">Uniformly scale UVs to size.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Stretch</strong></td>
+<td style="text-align: left;">Expand the selection on all sides to fill space.</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> Certain configurations on the <a href="#Transform">Transform</a> and <a href="#Special">Special</a> settings can neutralize the effect of the <strong>Fill Mode</strong>. For example, if you use the <strong>Stretch</strong> mode and you reduce the <strong>Tiling</strong> value (scale up the UV face), the UV might no longer show the entire image.</p>
+</blockquote>
+<h3 id="anchor">Anchor</h3>
+<p>Define where on the UV face the texture image appears. ProBuilder projects the image from the selected anchor point, so if you set it to <strong>Lower Left</strong>, the image projects up and to the right.</p>
+<p>By default this is set to <strong>None</strong>, but you can select any of the following points:</p>
+<p><img src="images/UV_AutoActions-Anchor.png" alt="Anchor points on a Mesh"></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>(A)</strong> <strong>Upper Left</strong></td>
+<td><strong>(B)</strong> <strong>Upper Center</strong></td>
+<td><strong>(C)</strong> <strong>Upper Right</strong></td>
+</tr>
+<tr>
+<td><strong>(D)</strong> <strong>Middle Left</strong></td>
+<td><strong>(E)</strong> <strong>Middle Center</strong></td>
+<td><strong>(F)</strong> <strong>Middle Right</strong></td>
+</tr>
+<tr>
+<td><strong>(G)</strong> <strong>Lower Left</strong></td>
+<td><strong>(H)</strong> <strong>Lower Center</strong></td>
+<td><strong>(I)</strong> <strong>Lower Right</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Anchor points represent a point on the original UV face (before you scale or tile it).</p>
+<p><a name="Transform"></a></p>
+<h2 id="transform">Transform</h2>
+<p>The <strong>Transform</strong> section allows you to set precise values for the 2-dimensional size, rotation, and scale of the UV faces relative to the Texture image. When you modify these values, the changes appear in the UV Viewer.</p>
+<p>Alternatively, you can also manipulate the <strong>Offset</strong>, <strong>Rotation</strong>, and <strong>Tiling</strong> directly in the UV Viewer with the standard Unity Transform controls.</p>
+<blockquote>
+<p><strong>Note:</strong> You can only change transform values for a <img src="images/icons/EditModes_Face.png" alt="UV Face edit mode"> face. If you try to switch to the <img src="images/icons/EditModes_Vertex.png" alt="UV Vertex edit mode"> vertex or <img src="images/icons/EditModes_Edge.png" alt="UV Edge edit mode"> edge <a href="edit-mode-toolbar.html">UV editing modes</a>, the UV Editor changes the Actions panel to <a href="manual-uvs-actions.html">Manual UV Mode</a>.</p>
+</blockquote>
+<h3 id="offset">Offset</h3>
+<p>Enter exact offset <strong>X</strong> and <strong>Y</strong> values, or drag the input fields to adjust.</p>
+<p>The offset value represents an offset from the <strong>Anchor</strong> position along the U or V axis.</p>
+<h3 id="rotation">Rotation</h3>
+<p>Enter exact rotation values here in degrees (0-360), or drag the slider to adjust.</p>
+<p>Don't forget that you are rotating the UV face, not the image. As you rotate the UV face to the right in the UV Viewer, the image projected on the Mesh face in the Scene view rotates to the left.</p>
+<h3 id="tiling">Tiling</h3>
+<p>There are three ways to change the size of a UV face in the UV Editor:</p>
+<ul>
+<li>Enter exact scale values in the <strong>X</strong> and <strong>Y</strong> properties for each axis. These values represent the size of the UV face relative to the Texture. For example, when you enter a value of 0.5 in <strong>Y</strong>, this halves the height of the UV face on the image, whereas a value of 2 in <strong>X</strong> doubles the width.</li>
+<li>Select the appropriate preset button to set how many times you want the Texture image to appear across the UV face. For example, the <strong>.5</strong> preset only displays half the image: in the viewer, the UV face appears twice as large against the image, but in the Scene view, you can only see half of the image on the Mesh face. Conversely, using the <strong>4</strong> preset results in the image tiling four times across the Mesh face in the Scene view, so the UV face in the Viewer appears to be a quarter the size of the image.</li>
+<li>Select and drag on the scale gizmo to scale the UV face directly in the UV Viewer.</li>
+</ul>
+<p>In all three cases, ProBuilder updates the <strong>X</strong> and <strong>Y</strong> <strong>Tiling</strong> values to reflect any changes.</p>
+<p><a name="Special"></a></p>
+<h2 id="special">Special</h2>
+<p>These options help you control the Texture direction.</p>
+<h3 id="world-space">World Space</h3>
+<p>Enable this option to align UVs to the World. This ensures Textures on same-angle faces always line up, but UVs do not stay put when you move the object.</p>
+<h3 id="flip-u">Flip U</h3>
+<p>Enable this option to flip the UVs horizontally.</p>
+<h3 id="flip-v">Flip V</h3>
+<p>Enable this option to flip the UVs vertically.</p>
+<h3 id="swap-uv">Swap U/V</h3>
+<p>Enable this option to invert the horizontal and vertical UVs.</p>
+<p><a name="Groups"></a></p>
+<h2 id="texture-groups">Texture Groups</h2>
+<p>Use Texture Groups to keep consistent tiling across several faces as if they were one. Each face in the group must share an edge with at least one other face in the group.</p>
+<h3 id="texture-group-number">Texture Group Number</h3>
+<p>Displays the Texture Group ID of the currently selected face, or 0 if the face doesn't belong to a Texture Group.</p>
+<p>You can also assign the currently selected face(s) to an existing group if you already know the group's number. To do this, enter it in the <strong>Texture Group Number</strong> box.</p>
+<h3 id="group-selected-faces">Group Selected Faces</h3>
+<p>Click the <strong>Group Selected Faces</strong> button to create a new Texture Group from the selected face(s).</p>
+<h3 id="select-texture-group">Select Texture Group</h3>
+<p>Click the <strong>Select Texture Group</strong> button to select all faces in the the group.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/auto-uvs-actions.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

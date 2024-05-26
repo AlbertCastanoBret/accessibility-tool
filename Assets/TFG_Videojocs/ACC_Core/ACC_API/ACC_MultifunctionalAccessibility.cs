@@ -98,6 +98,7 @@ namespace ACC_API
         /// </summary>
         public void EnableAudioManagerMenu()
         {
+            ACC_AccessibilityManager.Instance.EnableCanvas();
             accAudioManager.EnableAudioManagerMenu();
         }
         
@@ -106,6 +107,7 @@ namespace ACC_API
         /// </summary>
         public void DisableAudioManagerMenu()
         {
+            ACC_AccessibilityManager.Instance.DisableCanvas();
             accAudioManager.DisableAudioManagerMenu();
         }
 

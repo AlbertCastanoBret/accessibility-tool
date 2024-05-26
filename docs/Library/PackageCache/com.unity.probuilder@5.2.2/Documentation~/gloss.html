@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Glossary | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Glossary | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/gloss.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="glossary">Glossary</h1>
+
+<h2 id="-c-">-C-</h2>
+<p><a name="coincident"></a></p>
+<h3 id="coincident">Coincident</h3>
+<p><em>Coincident</em> vertices share the same coordinate space, but are <a href="#incident">incident</a> to two separate edges.</p>
+<h2 id="-d-">-D-</h2>
+<p><a name="degenerate"></a></p>
+<h3 id="degenerate-triangles">Degenerate triangles</h3>
+<p>A degenerate triangle does not have any area.</p>
+<h2 id="-i-">-I-</h2>
+<p><a name="incident"></a></p>
+<h3 id="incident">Incident</h3>
+<p>When an edge connects two vertices, those vertices are both <em>incident</em> to the edge.</p>
+<h2 id="-m-">-M-</h2>
+<p><a name="manifold"></a></p>
+<h3 id="manifold-and-non-manifold-geometry">Manifold and non-manifold geometry</h3>
+<p>Manifold geometry is well-formed and could exist in the real world. Non-manifold geometry can cause errors and could de-stabilize your project. The following are examples of non-manifold geometry:</p>
+<ul>
+<li>Inner faces (faces enclosed inside another set of faces)</li>
+<li>Overlapping faces (occupying the same space)</li>
+<li>Faces that bisect another mesh</li>
+<li>Self-intersecting faces</li>
+</ul>
+<h2 id="-q-">-Q-</h2>
+<p><a name="quad"></a></p>
+<h3 id="quad-quadrangle">Quad (quadrangle)</h3>
+<p>Most polygons are &quot;triangulated&quot;, or divided into faces with three edges. However, ProBuilder supports four-sided faces, or &quot;quadrangles&quot; in many cases. &quot;Quad&quot; is the abbreviation for &quot;quadrangle&quot;.</p>
+<h2 id="-w-">-W-</h2>
+<p><a name="winding"></a></p>
+<h3 id="winding-order">Winding order</h3>
+<p>Winding order determines how a polygon's vertices are rendered (clockwise vs. counter-clockwise). A clockwise winding order is sometimes called &quot;right-handed&quot; and a counter-clockwise winding order is sometimes called &quot;left-handed&quot;. In left-handed coordinate systems like Unity, where the y-axis is &quot;up&quot;, counter-clockwise winding is front-facing. For right-handed systems, the rendering order is opposite .</p>
+<p><a name="winged-edge"></a></p>
+<h3 id="winged-edge">Winged edge</h3>
+<p>When three or more faces meet at a boundary, the vertex where they meet is <em>coincident</em> with multiple faces and edges. The <a href="xref:UnityEngine.ProBuilder.WingedEdge">WingedEdge</a> is a structure that holds information about a face, an edge, and a vertex at that boundary. It also provides a list of coincident edges so you can use the <a href="xref:UnityEngine.ProBuilder.EdgeLookup">EdgeLookup</a> to access information about them through scripting.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/gloss.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

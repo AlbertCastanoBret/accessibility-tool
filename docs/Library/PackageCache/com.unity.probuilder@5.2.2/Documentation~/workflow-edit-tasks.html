@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Common editing tasks | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Common editing tasks | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/workflow-edit-tasks.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="common-editing-tasks">Common editing tasks</h1>
+
+<p>This page describes some of the most common ways you can use the ProBuilder tools and actions to create and modify geometry. There any many more possibilities, but these should give you a good place to start developing your own workflow.</p>
+<h2 id="general-modeling-tasks">General modeling tasks</h2>
+<ul>
+<li><p><strong>Selecting</strong>: Selecting elements is the first step you take when you want to change your Mesh. ProBuilder provides a whole range of <a href="selection-tools.html">selection actions</a> that make it easier to target the elements you need to access. As a shortcut, when working in the Face editing mode, you can double-click any face to select all faces on the Mesh.</p>
+</li>
+<li><p><strong>Transforming:</strong> You can translate, rotate, and scale geometry elements to change the shape of a basic Mesh. For example, if you use the basic Stairs shape but you want to give it a crooked look, you could move some edges or vertices.</p>
+</li>
+<li><p><strong>Extruding:</strong> &quot;Extruding&quot; refers to dragging a face out from the Mesh. To do this, click the <img src="images/icons/EditModes_Face.png" alt="Face edit mode"> <a href="modes.html">Face editing mode</a> button on the Edit modes toolbar, select a face, hold Shift, and use the Transform controls.</p>
+<p>Alternatively, you can <a href="Edge_Extrude.html">extrude edges</a> (for example, if you want to build a ski slope, you could extrude an edge and then <a href="smoothing-groups.html">smooth it</a>).</p>
+</li>
+<li><p><strong>Insetting</strong>: &quot;Insetting&quot; refers to dragging the edges of the face inside the Mesh. To do this, select a face, hold Shift, and use the Scale controls. Then drag in the opposite direction without the Shift modifier to complete the <a href="Face_Inset.html">inset</a>.</p>
+</li>
+<li><p><strong>Subdividing edges</strong>: If you have an irregular shape (for example, a wall with a peaked top) and you need to split it into four faces (for example, to insert windows), you can <a href="Edge_InsertLoop.html">insert an edge loop</a> to split the whole wall into two mirrored pieces, and then select only those edges along the front and back of the wall.</p>
+<p><a href="Edge_Subdivide.html">Subdividing</a> the two selected edges then creates a third vertex, which you can connect up with the vertices at the base of the peaked section to create four perfectly even sections on the front and the back. This approach is much easier than trying to subdivide a five-sided polygon.</p>
+</li>
+<li><p><strong>Cutting</strong>: This is similar to <a href="Face_Subdivide.html">subdividing faces</a> except that you control the shape of the new face, instead of letting ProBuilder split the face evenly. You click on the face to define the location of the edges and vertices using the modal <a href="cut-tool.html">Cut</a> tool.</p>
+</li>
+<li><p><strong>Boolean operations</strong>: Some geometry is hard to create by moving faces, edges, and vertices. The experimental <a href="boolean.html">Boolean</a> feature allows you to quickly combine two Meshes together to create a new Mesh. The final Mesh is either the addition of the two, the difference between the two, or only the common geometry between them, depending on the mode.</p>
+</li>
+</ul>
+<h2 id="object-specific-tasks">Object-specific tasks</h2>
+<ul>
+<li><strong>Create a coffee mug</strong>: start with a <a href="Cylinder.html">cylinder</a>, <a href="Selection_Grow.html">select all faces</a> on the top and <a href="Face_Merge.html">merge them</a>. Next, create a slight <a href="Face_Inset.html">inset</a> on the merged top, and <a href="Face_Extrude.html">extrude it</a> all the way down. Finally, create a half-<a href="Torus.html">torus</a>, rotate it, move it next to the cylinder for the handle and <a href="Object_Merge.html">merge</a> the torus and cylinder together.</li>
+<li><strong>Build a bed</strong>: start with a rectangular <a href="Cube.html">cube</a> for the mattress. Create smaller rectangles for the legs of the bed, and then <a href="Object_Merge.html">merge</a> everything together to make one single Mesh.</li>
+<li><strong>Make a bottle</strong>: start with a a <a href="Cylinder.html">cylinder</a>. <a href="Face_Merge.html">Merge the faces</a> on the top end, then <a href="Face_Extrude.html">extrude the face</a> up, scale it to the size of a neck, and extrude it up again.</li>
+</ul>
+<h2 id="building-specific-tasks">Building-specific tasks</h2>
+<ul>
+<li><p><strong>Make a hole</strong> (for a window or door): There are many methods you can use to do this, but some work better depending on what you are working on. For example, in an even and rectangular wall, such as on the first floor of a house, you could use this strategy:</p>
+<ul>
+<li>Select the two faces of the wall (back and front), then <strong>Shift</strong>+<strong>Scale</strong> to create an <a href="Face_Inset.html">inset</a> horizontally, and <strong>Scale</strong> vertically to make it an even border.</li>
+<li>Press <strong>Backspace</strong> to delete the insets.</li>
+</ul>
+<p>On the other hand, if you are working on an uneven or multi-sided wall, such as a castle or church wall, this strategy is preferable:</p>
+<ul>
+<li>Use the <a href="Edge_InsertLoop.html">Insert Edge Loop</a> action to create two vertical edges. Do the same on the horizontal plane (two for a window, one for a door).</li>
+<li>Adjust the loops so that the resulting hole is the right size and location for a window or a door.</li>
+<li>Select the face of the hole and press <strong>Backspace</strong>. If necessary, from the other side of the wall, <a href="Face_Delete.html">delete the face</a> on the other side.</li>
+</ul>
+<p>Whichever strategy you start with, you need to weld the newly exposed edges and vertices together:</p>
+<ul>
+<li>Select all the edges on one side only of the hole and use <strong>Shift</strong>+<strong>Translate</strong> until they connect up with the edge on the other side.</li>
+<li>Then <a href="Vert_Weld.html">weld the vertices</a> together where the edges meet.</li>
+</ul>
+</li>
+<li><p><strong>Add a door</strong>: follow the &quot;Make a hole&quot; procedure, but to start, create a <a href="Door.html">Door shape</a>. Fit the hole to match, <a href="Object_Merge.html">merge the two objects</a>, and then <a href="Vert_Weld.html">weld the door to the frame</a> you created.</p>
+</li>
+<li><p><strong>Make a tunnel with normals on both the inside and outside</strong>: duplicate the tunnel object and scale it slightly so that you <a href="Edge_Bridge.html">bridge the edges</a>. Next, <a href="Object_FlipNormals.html">flip the normals</a> on the smaller one.</p>
+</li>
+<li><p><strong>Make a building with towers</strong>: start with a <a href="Cube.html">cube</a> and <a href="Face_Inset.html">inset</a> on the top face, then <a href="Face_Extrude.html">extrude</a> upward. Repeat this as many times as you like. You could also <a href="Face_Subdivide.html">subdivide the top face</a> to create multiple extrusions.</p>
+</li>
+</ul>
+<!--
+
+<span style="color:red">@TODO: Follow up with Gabriel to get some good examples for using the Cut tool to make either objects or buildings for this section  </span>
+
+-->
+<h2 id="finding-more-inspiration">Finding more inspiration</h2>
+<p>Use the Unity ProBuilder channel to find videos that demonstrate how to use the tools effectively:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=lmLG4nC9tm0">ProBuilder Simple Objects - Crates and Barrels</a></li>
+<li><a href="https://www.youtube.com/watch?v=CBa_opm3_GM">ProBuilder Building Structures with Interior and Exterior</a></li>
+<li><a href="https://www.youtube.com/watch?v=xEEUhSyrq7M">Prototyping a &quot;Medieval House&quot; in Unity with ProBuilder3D</a></li>
+<li><a href="https://www.youtube.com/watch?v=dYBOBgfcTgY">ProBuilder Greyboxing an Interior FPS Level</a></li>
+<li><a href="https://www.youtube.com/watch?v=7k-81UEluyg">Unity at GDC - Rapid worldbuilding with ProBuilder</a></li>
+</ul>
+<!--
+
+<span style="color:red">@TODO: Follow up with Gabriel to get some more up to date videos for this section. </span>
+
+-->
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/workflow-edit-tasks.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

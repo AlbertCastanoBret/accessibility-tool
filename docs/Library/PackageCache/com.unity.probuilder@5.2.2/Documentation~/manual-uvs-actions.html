@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Actions panel: Manual UV Mode | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Actions panel: Manual UV Mode | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/manual-uvs-actions.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="actions-panel-manual-uv-mode">Actions panel: Manual UV Mode</h1>
+
+<p>In Manual mode, the <strong>Actions</strong> panel displays the <strong>UV Mode: Manual</strong> label and helpers for manual UV manipulation. The Manual mode provides the following functionality to help you with texture mapping:</p>
+<ul>
+<li>The <a href="#Project">Project UVs</a> section provides different UV projection methods.</li>
+<li>The <a href="#Selection">Selection</a> section allows you to expand which UV elements are selected.</li>
+<li>The <a href="#Edit">Edit</a> section provides manipulation functionality.</li>
+</ul>
+<p><img src="images/UVPanel_ManualActions.png" alt="UV Editor in Manual UV mode"></p>
+<p>To access this panel, either click the <strong>Convert to Manual</strong> button from the <a href="auto-uvs-actions.html">Actions panel in Auto UV Mode</a>, or  click the <img src="images/icons/EditModes_Vertex.png" alt="UV Vertex edit mode"> <strong>UV Vertex</strong> or <img src="images/icons/EditModes_Edge.png" alt="UV Edge edit mode"> <strong>UV Edge</strong> <a href="edit-mode-toolbar.html">edit mode buttons</a>.</p>
+<blockquote>
+<p><strong>Tip:</strong> If you get to the point where you have been making a lot of edits and something seems wrong but you're not sure how to fix it, you can clear all the edits. To do this, navigate to the <strong>UV Mode: Auto</strong> Actions panel and click the <strong>Reset UVs</strong> button.</p>
+</blockquote>
+<p>To switch back to the <strong>Actions</strong> panel in <strong>Auto UV Mode</strong> and convert all selected faces to <a href="auto-uvs-actions.html">Auto UVs</a>, click the <strong>Convert to Auto</strong> button.</p>
+<blockquote>
+<p><strong>Tip:</strong> Before you start to manipulate UVs manually, make sure you delete any faces that you don't need. For example, if you have a box that is sitting against the wall and doesn't move, delete the face pressed up against the wall. It is a waste of resources to render faces that aren't visible.</p>
+</blockquote>
+<p><a name="Project"></a></p>
+<h2 id="project-uvs">Project UVs</h2>
+<p>Select how you want ProBuilder to project the UVs: using the <strong>Planar</strong> or <strong>Box</strong> projection method.</p>
+<h3 id="planar">Planar</h3>
+<p>Unwraps the selected face(s) using a Planar projection method.</p>
+<p><img src="images/PlanarProject_Example.png" alt="Planar projection onto a 2-dimensional Mesh"></p>
+<p>Planar projection draws the texture on an entire image as if it is projected from a single plane. That is, image travels perpendicularly from the virtual projection plane onto the surface.</p>
+<h3 id="box">Box</h3>
+<p>Unwraps the selected face(s) using a Box projection method.</p>
+<p><img src="images/BoxProject_Example.png" alt="Box projection onto a 3-dimensional Mesh"></p>
+<p>Box projection is like applying planar projection from all six planes at once. This type of projection is ideal for boxes and other 3-dimensional flat objects.</p>
+<p><a name="Selection"></a></p>
+<h2 id="selection">Selection</h2>
+<p>There are two selection helpers you can use to expand which UV elements are selected: <strong>Select Island</strong> and <strong>Select Face</strong>.</p>
+<h3 id="select-island">Select Island</h3>
+<p>With a UV element selected, click this to expand the selection so that it includes all other connected UV elements.</p>
+<p><img src="images/UVExamples_SelectIsland.png" alt="Expand selection from one face to all connected faces"></p>
+<h3 id="select-face">Select Face</h3>
+<p>With a Vertex or Edge selected, click to select all elements on the same face.</p>
+<p><img src="images/UVExamples_SelectFace.png" alt="Expand selection from one vertex to all vertices on the face"></p>
+<p><a name="Edit"></a></p>
+<h2 id="edit">Edit</h2>
+<p>ProBuilder provides a number of manual manipulation features for working in the UV Editor: <a href="#Weld">welding</a> vertices; <a href="#Split">splitting</a> and <a href="#Collapse">collapsing</a> UVs; flipping UV elements <a href="#Horizontal">horizontally</a> and <a href="#Vertical">vertically</a>; and <a href="#Fit">resizing</a> UV elements to match the UV space.</p>
+<p><a name="Weld"></a></p>
+<h3 id="weld">Weld</h3>
+<p><strong>Weld</strong> collapses selected vertices together, but only if they are within a set distance.</p>
+<p>To adjust the distance modifier, click the <strong>+</strong> button on the right side of the <strong>Weld</strong> button.</p>
+<p><img src="images/UVExamples_WeldUVs.png" alt="Reduce edges that are near to a single edge"></p>
+<p>For example, it is good practice to use a low value, such as 0.01. Then you can select all of the UVs at the same time and use <strong>Weld</strong> to reduce duplicate UV vertices. This is an important step if you are planning on autostitching, because it requires faces to be adjacent, and duplicate edges produce undesired results.</p>
+<p><a name="Collapse"></a></p>
+<h3 id="collapse-uvs">Collapse UVs</h3>
+<p><strong>Collapse UVs</strong> collapses all selected vertices to a single vertex, regardless of distance.</p>
+<p><img src="images/UVExamples_CollapseUVs.png" alt="Reduce vertices selected across multiple islands to a single vertex"></p>
+<p><a name="Split"></a></p>
+<h3 id="split-uvs">Split UVs</h3>
+<p><strong>Split UVs</strong> breaks off the selected UV element(s) from any UV element(s), so that you can manipulate them independently.</p>
+<p><img src="images/UVExamples_SplitUVs.png" alt="Break face off from the island"></p>
+<p><a name="Horizontal"></a></p>
+<h3 id="flip-horizontal">Flip Horizontal</h3>
+<p><strong>Flip Horizontal</strong> flips the selected UV element(s) in the horizontal direction.</p>
+<p><img src="images/UVExamples_FlipHorizontal.png" alt="Mirror island horizontally"></p>
+<p><a name="Vertical"></a></p>
+<h3 id="flip-vertical">Flip Vertical</h3>
+<p><strong>Flip Vertical</strong> flips the selected UV element(s) in the vertical direction.</p>
+<p><img src="images/UVExamples_FlipVertical.png" alt="Mirror island vertically"></p>
+<p><a name="Fit"></a></p>
+<h3 id="fit-uvs">Fit UVs</h3>
+<p>Use <strong>Fit UVs</strong> to scale and move the selected UV element(s) to fit them exactly within the UV space.</p>
+<p><img src="images/UVExamples_FitUVs.png" alt="Expand the island to occupy as much of the space as possible"></p>
+<p><a name="continue"></a></p>
+<h3 id="autostitching">Autostitching</h3>
+<p>Usually, to unwrap UV faces, you need to manually position each one individually and weld the UV vertices together. <strong>Autostitching</strong> performs this automatically.</p>
+<p>You can autostitch any two adjacent faces together. To do this, follow this procedure:</p>
+<ol>
+<li><p>Select a face in the Scene view.</p>
+</li>
+<li><p>Open the UV Editor window and switch to UV Face editing mode.</p>
+</li>
+<li><p>Select a face on the Mesh and then <strong>Ctrl+Click</strong> a face that shares an edge with the current selection.</p>
+<blockquote>
+<p><strong>Important:</strong> Use the <strong>Ctrl</strong> key for both macOS and Windows.</p>
+</blockquote>
+</li>
+<li><p>You can continue to <strong>Ctrl+Click</strong> one face at a time as long as it is adjacent to the selected face.</p>
+</li>
+</ol>
+<p>Autostitching allows you to control how ProBuilder projects the Texture image across the Mesh. It is like building a UV quilt that uses <a href="#Project">planar projection</a>.</p>
+<p><a name="copy-uvs"></a></p>
+<h3 id="copy-uvs">Copy UVs</h3>
+<p>You can copy UVs from one face to another. For example, if you are working on a barrel and you want to copy the UVs from the top face to the bottom, follow these steps:</p>
+<ol>
+<li><p>Open the UV Editor. ProBuilder can only perform UV editing tasks when the UV Editor is open.</p>
+</li>
+<li><p>In the Scene view, select the face you want to copy from.</p>
+</li>
+<li><p><strong>Ctrl+Shift+Click</strong> on the face you want to copy to.</p>
+<blockquote>
+<p><strong>Important:</strong> Use the <strong>Ctrl</strong> key for both macOS and Windows.</p>
+</blockquote>
+</li>
+<li><p>You can continue to <strong>Ctrl+Shift+Click</strong> each face you want to copy to.</p>
+</li>
+</ol>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/manual-uvs-actions.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

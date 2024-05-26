@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Selection actions | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Selection actions | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/selection-tools.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="selection-actions">Selection actions</h1>
+
+<p>This part of the ProBuilder toolbar provides access to selection modifiers and actions.</p>
+<p><img src="images/tool_selection.png" alt="Selection buttons on the ProBuilder toolbar"></p>
+<p>Depending on whether you have the <a href="toolbar.html#buttonmode">Toolbar display mode</a> set to <strong>text</strong> mode or <strong>icon</strong> mode, the selection action button displays the following to indicate what state the action is in:</p>
+<ul>
+<li>In <strong>text</strong> mode, the button displays the label text followed by a colon and the name of the state. For example, the <a href="Selection_SelectHidden.html">Select Hidden</a> action displays either <strong>Select Hidden: On</strong> or <strong>Select Hidden: Off</strong>.</li>
+<li>In <strong>icon</strong> mode, the button displays a visual cue that reveals the action's current state. For example, the <a href="HandleAlign.html">Orientation</a> action uses these three icons to indicate the handle alignment states: <img src="images/icons/HandleAlign_Local.png" alt="Orientation: Local"> (<em>Local</em>), <img src="images/icons/HandleAlign_World.png" alt="Orientation: Global"> (<em>Global</em>), and <img src="images/icons/HandleAlign_Plane.png" alt="Orientation: Normal"> (<em>Normal</em>).</li>
+</ul>
+<p>The documentation for each action includes information about these visual indicators.</p>
+<blockquote>
+<p><strong>Note:</strong> Some actions also have extra options or custom settings available. These action buttons have a special indicator in the top-right corner. The documentation for each action includes information about these options.</p>
+</blockquote>
+<h2 id="selection-rect-icon-rect"><img src="images/icons/Selection_Rect_Intersect.png" alt="Selection Rect icon"> Rect</h2>
+<p>Use the <strong>Rect</strong> action to define whether drag selection should only select elements inside the drag-rect, or any intersected elements.</p>
+<p>For more information, see the <a href="Selection_Rect_Intersect.html">Rect</a> action documentation.</p>
+<h2 id="shift-modifier-icon-shift"><img src="images/icons/Selection_ShiftDifference.png" alt="Shift Modifier icon"> Shift</h2>
+<p>Use the <strong>Shift</strong> action to define how holding the <strong>Shift</strong> key affects selection.</p>
+<p>For more information, see the <a href="Selection_Shift.html">Shift</a> action documentation.</p>
+<h2 id="orientation-orientation"><img src="images/icons/HandleAlign_Local.png" alt="Orientation"> Orientation</h2>
+<p>Use the <strong>Orientation</strong> action to set the orientation for Scene handles (<strong>Global</strong>, <strong>Local</strong>, or <strong>Normal</strong>).</p>
+<p>For more information, see the <a href="HandleAlign.html">Orientation</a> action documentation.</p>
+<h2 id="select-hidden-on-select-hidden"><img src="images/icons/Selection_SelectHidden-ON.png" alt="Select Hidden ON"> Select Hidden</h2>
+<p>Use the <strong>Select Hidden</strong> action to define whether hidden elements are selected or ignored when drag-selecting.</p>
+<p>For more information, see the <a href="Selection_SelectHidden.html">Select Hidden</a> action documentation.</p>
+<h2 id="select-edge-loop-icon-select-edge-loop"><img src="images/icons/Selection_Loop.png" alt="Select Edge Loop icon"> Select Edge Loop</h2>
+<p>Use the <strong>Select Edge Loop</strong> action to select an edge loop from each selected edge.</p>
+<p>For more information, see the <a href="Selection_Loop_Edge.html">Select Edge Loop</a> action documentation.</p>
+<h2 id="select-edge-ring-icon-select-edge-ring"><img src="images/icons/Selection_Ring.png" alt="Select Edge Ring icon"> Select Edge Ring</h2>
+<p>Use the <strong>Select Edge Ring</strong> action to select a ring from each selected edge.</p>
+<p>For more information, see the <a href="Selection_Ring_Edge.html">Select Edge Ring</a> action documentation.</p>
+<h2 id="select-face-loop-icon-select-face-loop"><img src="images/icons/Selection_Loop_Face.png" alt="Select Face Loop icon"> Select Face Loop</h2>
+<p>Use the <strong>Select Face Loop</strong> action to select a face loop from each selected face.</p>
+<p>For more information, see the <a href="Selection_Loop_Face.html">Select Face Loop</a> action documentation.</p>
+<h2 id="select-face-ring-icon-select-face-ring"><img src="images/icons/Selection_Ring_Face.png" alt="Select Face Ring icon"> Select Face Ring</h2>
+<p>Use the <strong>Select Face Ring</strong> action to select a face ring from each selected face.</p>
+<p>For more information, see the <a href="Selection_Ring_Face.html">Select Face Ring</a> action documentation.</p>
+<h2 id="select-by-material-icon-select-by-material"><img src="images/icons/Selection_SelectByMaterial.png" alt="Select by Material icon"> Select by Material</h2>
+<p>Use the <strong>Select by Material</strong> action to select all faces which have the same Material.</p>
+<p>For more information, see the <a href="Selection_SelectByMaterial.html">Select by Material</a> action documentation.</p>
+<h2 id="select-by-vertex-color-icon-select-by-colors"><img src="images/icons/Selection_SelectByVertexColor.png" alt="Select by Vertex Color icon"> Select by Colors</h2>
+<p>Use the <strong>Select by Colors</strong> action to select all faces on this object which have the same vertex color.</p>
+<p>For more information, see the <a href="Selection_SelectByVertexColor.html">Select by Colors</a> action documentation.</p>
+<h2 id="shrink-selection-shrink-selection"><img src="images/icons/Selection_Shrink.png" alt="Shrink Selection"> Shrink Selection</h2>
+<p>Use the <strong>Shrink Selection</strong> action to remove the elements on the perimeter of the current selection (<a href="Selection_Grow.html">Grow Selection</a> in reverse).</p>
+<p>For more information, see the <a href="Selection_Shrink.html">Shrink Selection</a> action documentation.</p>
+<h2 id="grow-selection-grow-selection"><img src="images/icons/Selection_Grow.png" alt="Grow Selection"> Grow Selection</h2>
+<p>Use the <strong>Grow Selection</strong> action to expand the selection outward to adjacent faces, edges, or vertices.</p>
+<p>For more information, see the <a href="Selection_Grow.html">Grow Selection</a> action documentation.</p>
+<h2 id="select-hole-icon-select-holes"><img src="images/icons/Selection_SelectHole.png" alt="Select Hole icon"> Select Holes</h2>
+<p>Use the <strong>Select Holes</strong> action to select all elements along the selected open vertex or edge.</p>
+<p>For more information, see the <a href="Selection_SelectHole.html">Select Holes</a> action documentation.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/selection-tools.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

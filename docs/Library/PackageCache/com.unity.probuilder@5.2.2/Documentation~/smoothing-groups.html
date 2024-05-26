@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title> Smooth Group Editor window | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content=" Smooth Group Editor window | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/smoothing-groups.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="smoothing-groups-icon-smooth-group-editor-window"><img src="images/icons/Panel_Smoothing.png" alt="Smoothing Groups icon"> Smooth Group Editor window</h1>
+
+<p>The <strong>Smooth Group Editor</strong> window allows you to <a href="workflow-edit-smoothing.html">add and remove smoothing groups</a> across the faces of a ProBuilder Mesh.</p>
+<p><img src="images/Smoothing_Editor_props.png" alt="Smoothing Groups Example"></p>
+<p><strong>(A)</strong> The <a href="#toggle">toggle buttons</a> control the visibility of some areas of the window.</p>
+<p><strong>(B)</strong> The <a href="#normals">Normals control</a> is a visual aid that allows you to change the length of the normals displayed on the Mesh in the Scene view.</p>
+<p><strong>(C)</strong> The help button opens up a <a href="#quickref">quick reference panel</a> for using this window.</p>
+<p><strong>(D)</strong> The <a href="#overlay">overlay controls panel</a> allows you to customize how ProBuilder previews the smoothing group changes on the Mesh in the Scene view.</p>
+<p><strong>(E)</strong> The <a href="#main-panel">main button panel</a> allows you to define up to 23 sets of smoothing groups.</p>
+<blockquote>
+<p><strong>Tip:</strong> You can also access this tool from the ProBuilder menu (<strong>Tools</strong> &gt; <strong>ProBuilder</strong> &gt; <strong>Editors</strong> &gt; <strong>Open Smoothing Editor</strong>).</p>
+</blockquote>
+<p><a name="toggle"></a></p>
+<h2 id="toggle-panel-buttons">Toggle Panel buttons</h2>
+<p>The cluster of buttons in the top left corner of the window hide or display the extra panels:</p>
+<ul>
+<li>The <strong>Settings</strong> button shows or hides the <a href="#overlay">overlay controls</a> above the main button panel.</li>
+<li>The <strong>Preview</strong> button shows or hides the color cues for each smoothing group. The color for each defined group appears under the button in the <a href="#main-panel">main button panel</a>, and all the faces in the smoothing group display that color on the Mesh in the Scene view.</li>
+<li>The <strong>Normals</strong> button shows or hides the <a href="#normals">Normals control</a>.</li>
+</ul>
+<p><a name="normals"></a></p>
+<h2 id="normals-control">Normals control</h2>
+<p>You can use the Normals slider control to change the length of the normals ProBuilder displays on the Mesh. Viewing the normals allows you to see which vertices are split, therefore affecting the smoothing.</p>
+<p><img src="images/Smoothing_Editor_props-pnlNormals.png" alt="Normals control"></p>
+<p>Move the slider position towards the left to shorten the length of the normals, or move them to the right to lengthen them. When the slider is all the way to the left, the normals are no longer visible.</p>
+<p><a name="quickref"></a></p>
+<h2 id="quick-reference-panel">Quick reference panel</h2>
+<p>The following hints about using the smoothing panels appear when you click the help button in the top right corner of the <strong>Smooth Group Editor</strong> window:</p>
+<p><img src="images/Smoothing_Editor_props-pnlQuickref.png" alt="Quick reference panel panel panel panel"></p>
+<p>To access the online documentation for Smoothing Groups, at the bottom of the panel, click the <strong>Open Documentation</strong> button.</p>
+<p><a name="overlay"></a></p>
+<h2 id="overlay-controls">Overlay controls</h2>
+<p>The overlay controls panel allows you to customize how ProBuilder previews the smoothing group changes on the Mesh in the Scene view.</p>
+<p><img src="images/Smoothing_Editor_props-pnlOverlay.png" alt="Overlay Preview controls"></p>
+<table>
+<thead>
+<tr>
+<th><strong>Property:</strong></th>
+<th><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Preview Opacity</strong></td>
+<td>Increase this value to show more of the color of the applied smoothing group and less of the Mesh's Material. The range of values is <strong>0.001</strong> (smoothing group colors are invisible) to <strong>1</strong> (only smoothing colors are visible).</td>
+</tr>
+<tr>
+<td><strong>Preview Dither</strong></td>
+<td>Enable this option to see how ProBuilder applies the smoothing to the Mesh with the dither overlay.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="main-panel"></a></p>
+<h2 id="main-button-panel">Main button panel</h2>
+<p>The main button panel allows you to define up to 23 sets of smoothing groups.</p>
+<p><img src="images/Smoothing_Editor_props-pnlMain.png" alt="Main button panel"></p>
+<h3 id="buttons">Buttons</h3>
+<p>These buttons in the top right corner help you manage smoothing groups:</p>
+<ul>
+<li>Click the <img src="images/icons/Selection_SelectBySmoothingGroup.png" alt="Select by smooth group"> <strong>Select Smoothing Group</strong> button to extend the face selection to all faces in the currently selected smoothing group. For best results, click a single face in the group to start and then click this button. ProBuilder doesn't shrink the current selection, so start with as small a selection as possible.</li>
+<li>Click the <img src="images/icons/Face_BreakSmoothing.png" alt="Break smooth groups"> <strong>Clear Smoothing Group</strong> button to remove all faces from the currently selected smoothing group.</li>
+</ul>
+<h3 id="preview-colors">Preview colors</h3>
+<p>This panel is always visible, but the color under each button only appears in <a href="#toggle">Preview mode</a>.</p>
+<p>Whether or not you are in Preview mode, the button background changes color according to what faces and smoothing group you've selected:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Button color:</strong></th>
+<th><strong>Description:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/Smoothing_Editor_props-btnWhite.png" alt="White button background"></td>
+<td>No faces are in the selected Smoothing Group yet.</td>
+</tr>
+<tr>
+<td><img src="images/Smoothing_Editor_props-btnGray.png" alt="Gray-blue button background"></td>
+<td>None of the selected faces are in the selected Smoothing Group.</td>
+</tr>
+<tr>
+<td><img src="images/Smoothing_Editor_props-btnBlue.png" alt="Blue button background"></td>
+<td>All of the faces in the currently selected Smoothing Group are currently selected.</td>
+</tr>
+<tr>
+<td><img src="images/Smoothing_Editor_props-btnYellow.png" alt="Yellow button background"></td>
+<td>The current selection includes faces that are in the currently selected Smoothing Group, but it also includes faces that are not in any Smoothing Group.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/smoothing-groups.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Editing Meshes | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Editing Meshes | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/workflow-edit.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="editing-meshes">Editing Meshes</h1>
+
+<p>ProBuilder provides the following ways to edit ProBuilder Meshes:</p>
+<ul>
+<li><p>You can <a href="#edit">modify the elements</a> of any ProBuilder Mesh to change its shape. When you move or extrude faces, edges, or vertices, you are distorting and deforming the Mesh itself.</p>
+<p>ProBuilder also lets you fill holes, split vertices, collapse edges, and many more actions, other than basic transformations. You can use these actions to build up an existing shape or combine it with other shapes, including merging or detaching Meshes.</p>
+<p>ProBuilder provides a modal <a href="cut-tool.html">Cut tool</a> that lets you draw a custom sub-face onto an existing Mesh face.</p>
+<p>You can also modify any regular Unity GameObject with ProBuilder tools, if you <a href="Object_ProBuilderize.html">Probuilderize</a> it first.</p>
+</li>
+<li><p>In addition to modifying Mesh elements, there are special editing modes for (predefined) Shapes, Poly Shapes, and Bezier Shapes that allow you to return to the shape you created or last defined:</p>
+<ul>
+<li><p>For Shapes based on shape primitives, you can change the size of the bounding box and even switch the shape primitive, after you finish <a href="workflow-create-predefined.html">creating it</a>.</p>
+</li>
+<li><p>For Poly Shapes, you can <a href="polyshape.html">modify the base shape, the extrusion, or the normals</a> after you finish <a href="workflow-create-polyshape.html">creating it</a>. For example, you can move the points that define the base or add new points to refine the base shape. You can also change the height and flip the normals.</p>
+</li>
+<li><p>For Bezier Shapes, you can <a href="bezier.html">edit the underlying bezier curve</a>; you can delete and move existing points, add new ones, close the loop, and smooth it.</p>
+<blockquote>
+<p><strong>Warning:</strong> Bezier shapes are experimental, meaning that they are still under development, and might reduce ProBuilder's stability. Use with caution.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p><a name="edit"></a></p>
+<h2 id="modifying-objects-and-elements">Modifying objects and elements</h2>
+<p>To edit objects and elements, you need to:</p>
+<ol>
+<li>Decide which actions can help you achieve the end results. There might be multiple solutions that can all produce the effect you want. This can be a challenging stage, particularly for new users who don't know what kind of tools and actions ProBuilder provides.</li>
+<li>Select the element(s) that you want to modify. Often, the editing tool or action impacts which elements you need to select and how you need to select them.</li>
+<li>Depending on which action you are using, set any options to help customize the outcome or change the default settings. If an action offers options, an indicator appears on the button in the <a href="toolbar.html">ProBuilder toolbar</a>:
+<ul>
+<li><strong>Alt/Opt+Click</strong> the gear <img src="images/icons/Options.png" alt="Options Icon"> indicator that appears in the top right of the button in <strong>Icon</strong> mode.</li>
+<li><strong>Click</strong> the <code>+</code> icon that appears on the right side of the button in <strong>Text</strong> mode.</li>
+</ul>
+</li>
+<li>Perform the action or activate the tool. Depending on what you are doing, this may be a simple matter of clicking a button. In some cases, you may be carrying out some intricate procedures. For example, you can click to <a href="Edge_Extrude.html">extrude edges</a> with the default settings, or you can use the <strong>Shift+Drag</strong> method to control exactly how and where to locate the extruded edge.</li>
+</ol>
+<p>ProBuilder tools and actions create, destroy, join, split, and transform objects and elements. Some actions modify the geometry of the Mesh without changing the overall shape, whereas some actions change both.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/workflow-edit.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

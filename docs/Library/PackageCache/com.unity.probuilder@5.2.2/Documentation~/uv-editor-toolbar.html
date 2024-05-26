@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>UV Editor toolbar | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="UV Editor toolbar | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/uv-editor-toolbar.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="uv-editor-toolbar">UV Editor toolbar</h1>
+
+<p><img src="images/UVToolbar.png" alt="UV Editor toolbar"></p>
+<p><strong>(A)</strong> This first group of buttons contains shortcuts to the standard Unity manipulation tools. These have the same effect as the <a href="https://docs.unity3d.com/Manual/PositioningGameObjects.html">main Unity toolbar buttons</a>.</p>
+<p><strong>(B)</strong> The second button group contains shortcuts to ProBuilder's <a href="edit-mode-toolbar.html">Element Edit modes</a>. When you use <a href="manual-uvs-actions.html">Manual UV Editing</a>, this allows you to select and manipulate UVs by Vertex, Edge, or Face.</p>
+<blockquote>
+<p><strong>Note:</strong> When you use <a href="auto-uvs-actions.html">Auto UVs</a>, you can only edit UVs by face. If you edit an Edge or Vertex, ProBuilder converts the selected UVs to <a href="manual-uvs-actions.html">Manual UVs</a>.</p>
+</blockquote>
+<p><strong>(C)</strong> The third group of buttons contain buttons to perform the following actions:</p>
+<ul>
+<li><img src="images/icons/ProBuilderGUI_UV_Manip_On.png" alt="In-Scene ON"> <strong>Scope controls</strong>: Control how Unity's standard <a href="#Scope">transform tools</a> behave.</li>
+<li><img src="images/icons/ProBuilderGUI_UV_ShowTexture_On.png" alt="In-Scene ON"> <strong>Texture preview</strong>: Toggle whether the UV Viewer displays the face's <a href="#Texture">Texture</a>.</li>
+<li><img src="images/icons/ProBuilderGUI_UV_RenderUVTemplate.png" alt="Render UV Template button"> <strong>Save UV image</strong>: Create <a href="#SaveUV">UV Templates</a> from the current UV mapping.</li>
+</ul>
+<p><a name="Scope"></a></p>
+<h2 id="in-scene-on-scope-controls"><img src="images/icons/ProBuilderGUI_UV_Manip_On.png" alt="In-Scene ON"> Scope controls</h2>
+<p>When Scope controls are <strong>on</strong> (<img src="images/icons/ProBuilderGUI_UV_Manip_On.png" alt="In-Scene ON">), you can use Unity's standard Move, Rotate, and Scale tools to directly manipulate UVs in the scene, without affecting geometry.</p>
+<p>When Scope controls are <strong>off</strong> (<img src="images/icons/ProBuilderGUI_UV_Manip_Off.png" alt="In-Scene OFF">), the Move, Rotate, and Scale tools return to normal geometry actions.</p>
+<p><img src="images/UV_InSceneControls.png" alt="Move, Rotate, and Scale tools on a Mesh"></p>
+<p>When you use the Transform tools in the UV Viewer, you can snap to increments with the <strong>Ctrl</strong> (Windows) or <strong>Cmd</strong> (macOS) modifiers. To customize the size of these increment values, set the <a href="preferences.html#uvs">UV Snap Increment</a> preference.</p>
+<p><a name="Texture"></a></p>
+<h2 id="in-scene-on-texture-preview"><img src="images/icons/ProBuilderGUI_UV_ShowTexture_On.png" alt="In-Scene ON"> Texture preview</h2>
+<p>When Texture preview is <strong>on</strong> (<img src="images/icons/ProBuilderGUI_UV_ShowTexture_On.png" alt="In-Scene ON">), the selected face's Texture appears in the UV Viewer. This preview makes it easier to fit the UV to the Texture.</p>
+<p>When Texture preview is <strong>off</strong> (<img src="images/icons/ProBuilderGUI_UV_ShowTexture_Off.png" alt="In-Scene OFF">), the Texture does not appear in the UV Viewer.</p>
+<p><img src="images/ShowTexturePreview_Example.png" alt="Toggle the Texture preview (OFF - ON)"></p>
+<p><a name="SaveUV"></a></p>
+<h2 id="render-uv-template-button-save-uv-image"><img src="images/icons/ProBuilderGUI_UV_RenderUVTemplate.png" alt="Render UV Template button"> Save UV image</h2>
+<p>Click the Camera icon (<img src="images/icons/ProBuilderGUI_UV_RenderUVTemplate.png" alt="Render UV Template button">) to open the <strong>Save UV Image</strong> window. You can use this window to render a UV Template for texture map painting, atlasing, and sprite sheets.</p>
+<p><img src="images/RenderUVsPanel.png" alt="Render UVs Panel"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>Property:</strong></th>
+<th style="text-align: left;"><strong>Function:</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Image Size</strong></td>
+<td style="text-align: left;">Choose the total size for the rendered template. ProBuilder always renders the image as a square.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Hide Grid</strong></td>
+<td style="text-align: left;">Enable this option to prevent the grid from appearing in the rendered image.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Line Color</strong></td>
+<td style="text-align: left;">Choose the color that you want ProBuilder to use for rendering the UV lines.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Transparent Background</strong></td>
+<td style="text-align: left;">Enable this option to render a transparent background.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Background Color</strong></td>
+<td style="text-align: left;">Choose the color that you want ProBuilder to use for the background. This option is only available when the <strong>Transparent Background</strong> property is disabled.</td>
+</tr>
+</tbody>
+</table>
+<p>When you are satisfied with the options on this window, click the <strong>Save UV Template</strong> button. A file browser opens so you can choose the filename and location where you want to save the file.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/uv-editor-toolbar.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

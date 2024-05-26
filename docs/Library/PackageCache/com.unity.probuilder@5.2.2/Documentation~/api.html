@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>About the ProBuilder Scripting API | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="About the ProBuilder Scripting API | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="../../../../favicon.ico">
+      <link rel="stylesheet" href="../../../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../../../public/main.css">
+      <meta name="docfx:navrel" content="../../../../toc.html">
+      <meta name="docfx:tocrel" content="../../../../toc.html">
+      
+      <meta name="docfx:rel" content="../../../../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/api.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../../../index.html">
+            <img id="logo" class="svg" src="../../../../images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="about-the-probuilder-scripting-api">About the ProBuilder Scripting API</h1>
+
+<p>ProBuilder provides a Scripting API for C#, which you can use to extend the ProBuilder tools and windows. It includes these namespaces:</p>
+<ul>
+<li><a href="xref:UnityEditor.ProBuilder">UnityEditor.ProBuilder</a> provides classes and enums for Unity editor integration. Use them to extend ProBuilder menus, windows, toolbars, and Mesh operations that are only available through the ProBuilder windows and tools.</li>
+<li><a href="xref:UnityEngine.ProBuilder">UnityEngine.ProBuilder</a> provides classes, structs, and enums for compiling Meshes. Use them to access a lot of core ProBuilder functionality, such as creating Meshes, dealing with events, and some math functions.</li>
+<li><a href="xref:UnityEngine.ProBuilder.MeshOperations">UnityEngine.ProBuilder.MeshOperations</a> provides classes for Mesh editing. Use them to manipulate ProBuilder Meshes, including topology and I/0 operations.</li>
+</ul>
+<p>All Mesh creation and editing functionality is restricted to the <code>UnityEngine.ProBuilder</code> and
+<code>UnityEngine.ProBuilder.MeshOperations</code> libraries, which are both available at run time.</p>
+<p>ProBuilder stores Mesh data in a component (<a href="xref:UnityEngine.ProBuilder.ProBuilderMesh">ProBuilderMesh</a>) and compiles it to a
+<a href="https://docs.unity3d.com/ScriptReference/Mesh.html">UnityEngine.Mesh</a> object as necessary.</p>
+<p><code>ProBuilderMesh</code> stores the following Mesh information:</p>
+<ul>
+<li><p>Positions</p>
+</li>
+<li><p>UVs</p>
+</li>
+<li><p>Faces</p>
+<ul>
+<li><p>Triangles</p>
+</li>
+<li><p>Material</p>
+</li>
+<li><p>Smoothing group</p>
+</li>
+<li><p>Auto/Manual UVs</p>
+<p><strong>Note:</strong> ProBuilder can automatically UV unwrap triangles on a per-face basis. You can toggle this feature with the <a href="xref:UnityEngine.ProBuilder.Face">Face</a> class. In addition, users can unwrap faces manually.</p>
+</li>
+</ul>
+</li>
+<li><p>Tangent (if user set)</p>
+</li>
+<li><p>UV3/4 (if user set)</p>
+</li>
+<li><p>Colors</p>
+</li>
+<li><p>Shared indices (also called common vertices)</p>
+</li>
+</ul>
+<p>Normals, tangents, collisions, and UVs are calculated as necessary.</p>
+<h2 id="create-a-mesh">Create a Mesh</h2>
+<p>This example demonstrates how to build a simple quad with the ProBuilder API (not with the <a href="xref:UnityEngine.ProBuilder.ShapeGenerator">ShapeGenerator</a> class):</p>
+<pre><code class="lang-c#">// Create a new quad facing forward.
+ProBuilderMesh quad = ProBuilderMesh.Create(
+    new Vector3[] {
+        new Vector3(0f, 0f, 0f),
+        new Vector3(1f, 0f, 0f),
+        new Vector3(0f, 1f, 0f),
+        new Vector3(1f, 1f, 0f)
+    },
+	new Face[] { new Face(new int[] { 0, 1, 2, 1, 3, 2 } )
+} );
+</code></pre>
+<h2 id="modify-a-mesh">Modify a Mesh</h2>
+<p>Modifying a ProBuilder Mesh is different from modifying a Unity Mesh: instead of working with <a href="https://docs.unity3d.com/ScriptReference/MeshFilter-sharedMesh.html">MeshFilter.sharedMesh</a> you work with the ProBuilder representation of the Mesh: <a href="xref:UnityEngine.ProBuilder.ProBuilderMesh">ProBuilderMesh</a>.</p>
+<p>The basics are the same: set vertex positions, modify triangles (faces in ProBuilder), then rebuild the mesh. For example, to move the vertices up on that quad from the previous example:</p>
+<pre><code class="lang-c#">using UnityEngine;
+using UnityEngine.ProBuilder;
+#if UNITY_EDITOR
+using UnityEditor.ProBuilder;
+#endif
+
+public class MoveVertices : MonoBehaviour
+{
+    void Start()
+    {
+        var cube = ShapeGenerator.CreateShape(ShapeType.Cube);
+        
+        // Move one face on the cube along the direction of its normal
+        Vertex[] vertices = cube.GetVertices();
+        Face face = cube.faces[0];
+
+        Vector3 normal = Math.Normal(cube, face);
+        
+        // A face is a collection of triangles, stored in the indexes array. Because mesh geometry requires that seams
+        // be inserted at points where normals, UVs, or other vertex attributes differ we use GetCoincidentVertices to
+        // collect all vertices at a common position.
+        // To see the difference, try replacing `cube.GetCoincidentVertices` with just `face.dinstinctIndexes`.
+        foreach(var index in cube.GetCoincidentVertices(face.indexes))
+            vertices[index].position += normal;
+
+        cube.SetVertices(vertices);
+        
+        // Rebuild the triangle and submesh arrays, and apply vertex positions and submeshes to `MeshFilter.sharedMesh`.
+        cube.ToMesh();
+
+        // Recalculate UVs, Normals, Tangents, Collisions, then apply to Unity Mesh.
+        cube.Refresh();
+
+        // If in Editor, generate UV2 and collapse duplicate vertices.
+        #if UNITY_EDITOR
+        EditorMeshUtility.Optimize(cube, true);
+        #else
+        // At runtime, `EditorMeshUtility` is not available. To collapse duplicate
+        // vertices in runtime, modify the MeshFilter.sharedMesh directly.
+        // Note that any subsequent changes to `quad` will overwrite the sharedMesh.
+        var umesh = cube.GetComponent&lt;MeshFilter&gt;().sharedMesh;
+        MeshUtility.CollapseSharedVertices(umesh);    
+        #endif
+    }
+}
+</code></pre>
+<p>Note that you should never directly modify the <code>MeshFilter.sharedMesh</code>. ProBuilder controls updating the Unity Mesh with <a href="xref:UnityEngine.ProBuilder.ProBuilderMesh.ToMesh(UnityEngine.MeshTopology)">ProBuilderMesh::ToMesh</a> and <a href="xref:UnityEngine.ProBuilder.ProBuilderMesh.Refresh(UnityEngine.ProBuilder.RefreshMask)">ProBuilderMesh::Refresh</a> functions.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/Library/PackageCache/com.unity.probuilder@5.2.2/Documentation~/api.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
