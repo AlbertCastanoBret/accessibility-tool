@@ -25,6 +25,7 @@ public class PauseMenu : MonoBehaviour
             {
                 buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener( () =>
                 {
+                    ACC_AccessibilityManager.Instance.EnableCanvas();
                     ACC_AccessibilityManager.Instance.AudioAccessibility.EnableSubtitlesMenu();
                     title.SetActive(false);
                     buttons.SetActive(false);
@@ -34,6 +35,7 @@ public class PauseMenu : MonoBehaviour
             {
                 buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener( () =>
                 {
+                    ACC_AccessibilityManager.Instance.EnableCanvas();
                     ACC_AccessibilityManager.Instance.AudioAccessibility.EnableVisualNotificationMenu();
                     title.SetActive(false);
                     buttons.SetActive(false);
@@ -43,6 +45,7 @@ public class PauseMenu : MonoBehaviour
             {
                 buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(() =>
                 {
+                    ACC_AccessibilityManager.Instance.EnableCanvas();
                     ACC_AccessibilityManager.Instance.VisualAccessibility.EnableHighContrastMenu();
                     title.SetActive(false);
                     buttons.SetActive(false);
@@ -52,6 +55,7 @@ public class PauseMenu : MonoBehaviour
             {
                 buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(() =>
                 {
+                    ACC_AccessibilityManager.Instance.EnableCanvas();
                     ACC_AccessibilityManager.Instance.MobilityAccessibility.EnableRemapControlsMenu("Keyboard, Mouse");
                     title.SetActive(false);
                     buttons.SetActive(false);
@@ -61,6 +65,7 @@ public class PauseMenu : MonoBehaviour
             {
                 buttons.transform.GetChild(i).GetComponent<Button>().onClick.AddListener(() =>
                 {
+                    ACC_AccessibilityManager.Instance.EnableCanvas();
                     ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.EnableAudioManagerMenu();
                     title.SetActive(false);
                     buttons.SetActive(false);

@@ -99,7 +99,6 @@ namespace ACC_API
         /// </summary>
         public void EnableHighContrastMenu()
         {
-            ACC_AccessibilityManager.Instance.EnableCanvas();
             accHighContrastManager.EnableHighContrastMenu();
         }
 
@@ -108,7 +107,6 @@ namespace ACC_API
         /// </summary>
         public void DisableHighContrastMenu()
         {
-            ACC_AccessibilityManager.Instance.DisableCanvas();
             accHighContrastManager.DisableHighContrastMenu();
         }
         

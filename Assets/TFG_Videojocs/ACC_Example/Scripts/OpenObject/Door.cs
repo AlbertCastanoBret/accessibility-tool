@@ -93,7 +93,6 @@ public class Door : MonoBehaviour
         if ((Mathf.Abs(actualRotation.y - startingRotation.y) <= 0.5f) && hasPlayedSound)
         {
             hasPlayedSound = false;
-            print("Door is closed");
             if (openCloseSound != null)
             {
                 openCloseSound.PlayOneShot(doorCloseSound);
@@ -103,7 +102,6 @@ public class Door : MonoBehaviour
         else if ((Mathf.Abs(actualRotation.y - startingRotation.y) > 0.5f) && !hasPlayedSound)
         {
             hasPlayedSound = true;
-            print("Door is open");
             if (openCloseSound != null)
             {
                 openCloseSound.PlayOneShot(doorCloseSound);

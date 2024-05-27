@@ -13,7 +13,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     private GameObject visualNotificationSettings, visualNotificationToggle, visualNotificationScrollList;
     
     private float startTime;
-    private bool canPlaySubtitleNotification;
+    private bool canPlaySubtitleNotification, menuEnabled;
     private ACC_VisualNotificationData loadedData;
     
     private void Awake()
@@ -190,10 +190,9 @@ public class ACC_VisualNotificationManager : MonoBehaviour
             {
                 canPlaySubtitleNotification = false;
                 text.text = "";
-                backgroundColor.gameObject.SetActive(false);
+                backgroundColor.enabled = true;
                 loadedData = null;
                 Resources.UnloadUnusedAssets();
-                ACC_AccessibilityManager.Instance.DisableCanvas();
             }
         }
     }
@@ -202,17 +201,19 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         ACC_AccessibilityManager.Instance.AudioAccessibility.
             SetFeatureState(AudioFeatures.VisualNotification, value);
     }
-    
     public void InitializeVisualNotification(bool state)
     {
         text.gameObject.SetActive(state);
         backgroundColor.gameObject.SetActive(state);
-        if (state && loadedData != null)
-        { 
+        if (canPlaySubtitleNotification && state) backgroundColor.enabled = true;
+        else backgroundColor.enabled = false;
+        
+        if (state && !menuEnabled)
+        {
             if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
             {
-                ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color fontColor);
-                backgroundColor.color = new Color(fontColor.r, fontColor.g, fontColor.b, fontColor.a);
+                ColorUtility.TryParseHtmlString("#" + PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor), out Color backgroundColor);
+                this.backgroundColor.color = new Color(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
             }
             else if (loadedData != null)
             {
@@ -237,7 +238,10 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     {
         text.gameObject.SetActive(state);
         backgroundColor.gameObject.SetActive(state);
-        if (state)
+        if (canPlaySubtitleNotification && state) backgroundColor.enabled = true;
+        else backgroundColor.enabled = false;
+        
+        if (state && !menuEnabled)
         {
             if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
             {
@@ -282,8 +286,21 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     }
     public void HideVisualNotification(bool state)
     {
-        text.gameObject.SetActive(!state);
-        backgroundColor.gameObject.SetActive(!state);
+        if (state)
+        {
+            menuEnabled = true;
+            text.gameObject.SetActive(false);
+            backgroundColor.gameObject.SetActive(false);
+            text.enabled = false;
+            backgroundColor.enabled = false;
+        }
+        else
+        {
+            menuEnabled = false;
+            var visualNotificationEnabled = PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1;
+            SetVisualNotification(visualNotificationEnabled);
+            text.enabled = true;
+        }
     }
     public void LoadVisualNotification(string jsonFile)
     {
@@ -309,6 +326,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         canPlaySubtitleNotification = true;
         text.text = loadedData.message;
         startTime = Time.time;
+        backgroundColor.enabled = true;
         
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
         {
@@ -421,6 +439,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     public void SetBackgroundColor(Color color)
     {
         backgroundColor.color = new Color(color.r, color.g, color.b, color.a);
+        if (menuEnabled) backgroundColor.enabled = false;
     }
     public Color GetBackgroundColor()
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ACC_API;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -41,6 +42,7 @@ public class SwitchLight : AbstractInteractable
             if (isOn)
             {
                 //audioSource.PlayOneShot(on);
+                ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.PlaySound("SFX", "Off");
                 GetComponent<Animator>().SetBool("IsOn", true);
                 isOn = false;
                 SetLightsOff();
@@ -48,6 +50,7 @@ public class SwitchLight : AbstractInteractable
             else
             {
                 //audioSource.PlayOneShot(off);
+                ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.PlaySound("SFX", "On");
                 GetComponent<Animator>().SetBool("IsOn", false);
                 isOn = true;
                 SetLightsOn();

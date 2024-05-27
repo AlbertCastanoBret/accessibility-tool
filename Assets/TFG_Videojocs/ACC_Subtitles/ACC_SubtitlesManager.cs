@@ -10,7 +10,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
 {
     private TextMeshProUGUI subtitleText;
     private Image backgroundColor;
-    private bool showActorsName, showActorNameColors;
+    private bool showActorsName, showActorNameColors, menuEnabled;
     private GameObject subtitleSettings, subtitlesToggle, subtitleScrollList;
     
     private bool canPlaySubtitle;
@@ -194,7 +194,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                     showActorsName = false;
                     showActorNameColors = false;
                     subtitleText.text = "";
-                    backgroundColor.gameObject.SetActive(false);
+                    backgroundColor.enabled = false;
                     loadedData = null;
                     Resources.UnloadUnusedAssets();
                 }
@@ -212,7 +212,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         subtitleText.gameObject.SetActive(state);
         backgroundColor.gameObject.SetActive(state);
-        if (state && loadedData != null)
+        if (canPlaySubtitle && state) backgroundColor.enabled = true;
+        else backgroundColor.enabled = false;
+        
+        if (state && loadedData != null && !menuEnabled)
         { 
             if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
             {
@@ -242,7 +245,10 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         subtitleText.gameObject.SetActive(state);
         backgroundColor.gameObject.SetActive(state);
-        if (state)
+        if (canPlaySubtitle && state) backgroundColor.enabled = true;
+        else backgroundColor.enabled = false;
+        
+        if (state && !menuEnabled)
         {
             if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor))
             {
@@ -287,8 +293,21 @@ public class ACC_SubtitlesManager : MonoBehaviour
     }
     public void HideSubtitles(bool state)
     {
-        subtitleText.gameObject.SetActive(!state);
-        backgroundColor.gameObject.SetActive(!state);
+        if (state)
+        {
+            menuEnabled = true;
+            subtitleText.gameObject.SetActive(false);
+            backgroundColor.gameObject.SetActive(false);
+            subtitleText.enabled = false;
+            backgroundColor.enabled = false;
+        }
+        else
+        {
+            menuEnabled = false;
+            var subtitlesEnabled = PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1;
+            SetSubtitles(subtitlesEnabled);
+            subtitleText.enabled = true;
+        }
     }
     public void LoadSubtitles(string jsonFile)
     {
@@ -299,6 +318,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
         canPlaySubtitle = true;
         subtitleText.text = "";
         currentIndex = 0;
+        backgroundColor.enabled = true;
 
         if (!PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.ActorsNameEnabled))
         {
@@ -432,6 +452,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
     public void SetBackgroundColor(Color color)
     {
         backgroundColor.color = new Color(color.r, color.g, color.b, color.a);
+        if (menuEnabled) backgroundColor.enabled = false;
     }
     public Color GetBackgroundColor()
     {

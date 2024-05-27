@@ -140,7 +140,6 @@ namespace ACC_API
         /// </summary>
         public void EnableSubtitlesMenu()
         {
-            ACC_AccessibilityManager.Instance.EnableCanvas();
             accSubtitlesManager.HideSubtitles(true);
             accVisualNotificationManager.HideVisualNotification(true);
             accSubtitlesManager.EnableSubtitlesMenu();
@@ -151,7 +150,6 @@ namespace ACC_API
         /// </summary>
         public void DisableSubtitlesMenu()
         {
-            ACC_AccessibilityManager.Instance.DisableCanvas();
             accSubtitlesManager.HideSubtitles(false);
             accVisualNotificationManager.HideVisualNotification(false);
             accSubtitlesManager.DisableSubtitlesMenu();
@@ -373,7 +371,6 @@ namespace ACC_API
         /// </summary>
         public void EnableVisualNotificationMenu()
         {
-            ACC_AccessibilityManager.Instance.EnableCanvas();
             accSubtitlesManager.HideSubtitles(true);
             accVisualNotificationManager.HideVisualNotification(true);
             accVisualNotificationManager.EnableVisualNotificationMenu();
@@ -384,7 +381,6 @@ namespace ACC_API
         /// </summary>
         public void DisableVisualNotificationMenu()
         {
-            ACC_AccessibilityManager.Instance.DisableCanvas();
             accSubtitlesManager.HideSubtitles(false);
             accVisualNotificationManager.HideVisualNotification(false);
             accVisualNotificationManager.DisableVisualNotificationMenu();

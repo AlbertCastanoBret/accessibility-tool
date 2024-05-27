@@ -97,14 +97,12 @@ public class InteractablePuzzle : AbstractInteractable, I_InteractableInspectObj
 
     private void DoPuzzleAction()
     {
-        //Check if the player is over the object is not being inspected and if the inventory is closed
         if (isOver && !IsInspecting && !inventorySystem.IsInventoryOpen())
         {
             if (puzzleController.CanOpenInventory(gameObject))
             {
                 usableInventory.Invoke(true);
                 itemPosition = inventorySystem.GetItemPosition();
-                print(itemPosition);
                 Inspect();
             }
             else onInteractionPuzzleObject.Invoke(gameObject);

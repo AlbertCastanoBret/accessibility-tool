@@ -146,17 +146,6 @@ namespace ACC_API
             VisualAccessibility.DisableHighContrastMenu();
             MobilityAccessibility.DisableRemapControlsMenu();
             MultifunctionalAccessibility.DisableAudioManagerMenu();
-            //MultifunctionalAccessibility.Play3DSound("Toilet", "Toilet", "Toilet_Toilet_0");
-            //AudioAccessibility.ResetVisualNotificationSettings();
-            //AudioAccessibility.ChangeSubtitleFontSize(20);
-            //AudioAccessibility.ShowActorsName(false);
-            //AudioAccessibility.PlaySubtitle("A");
-            //MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
-            //MultifunctionalAccessibility.PlaySound("SFX", "Alarm");
-            //AudioAccessibility.ChangeVisualNotificationVerticalAlignment(2);
-            //AudioAccessibility.ResetSubtitleSettings();
-            //AudioAccessibility.ChangeVisualNotificationTimeOnScreen(4);
-            //VisualAccessibility.ChangeHighContrastConfiguration("A");
             StartCoroutine(ChangeScene());
         }
 
@@ -300,6 +289,7 @@ namespace ACC_API
         private void CreateCanvas()
         {
             accCanvas = new GameObject("ACC_Canvas");
+            accCanvas.SetActive(true);
             accCanvas.transform.SetParent(transform);
             accCanvas.AddComponent<Canvas>().renderMode = RenderMode.ScreenSpaceOverlay;
             var canvasScaler = accCanvas.AddComponent<CanvasScaler>();

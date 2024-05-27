@@ -102,7 +102,6 @@ namespace ACC_API
         /// <param name="device">The identifier for the device whose controls are to be rebound.</param>
         public void EnableRemapControlsMenu(string device)
         {
-            ACC_AccessibilityManager.Instance.EnableCanvas();
             accRemapControlsManager.EnableRemapControlsMenu(device);
         }
         
@@ -111,7 +110,6 @@ namespace ACC_API
         /// </summary>
         public void DisableRemapControlsMenu()
         {
-            ACC_AccessibilityManager.Instance.DisableCanvas();
             accRemapControlsManager.DisableRebindMenu();
         }
         
