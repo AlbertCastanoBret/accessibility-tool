@@ -31,6 +31,7 @@ namespace TFG_Videojocs.ACC_Utilities
         private string[] inputActionAssets;
         private int selectedAssetIndex;
         private int previousSelectedAssetIndex;
+        private ACC_AudioManagerData audioManager;
 
         private void OnEnable()
         {
@@ -111,6 +112,8 @@ namespace TFG_Videojocs.ACC_Utilities
             
             GUILayout.EndVertical();
             serializedObject.ApplyModifiedProperties();
+            
+            audioManager = ACC_JSONHelper.LoadJson<ACC_AudioManagerData>("ACC_AudioManager/ACC_AudioManager");
         }
         
         private void DrawAccessibilityFeature(SerializedProperty featureEnabledProperty, SerializedProperty showFeatureMenuProperty, string feature="", SerializedProperty extraProperty = null)
@@ -281,10 +284,35 @@ namespace TFG_Videojocs.ACC_Utilities
                     return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) || 
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
                 case "RemapControls":
+                    foreach (InputActionMap map in manager.remapControlsAsset.actionMaps)
+                    {
+                        foreach (InputAction action in map.actions)
+                        {
+                            for (int i = 0; i < action.bindings.Count; i++)
+                            {
+                                var bindingId = action.bindings[i].id.ToString();
+                                var key = GetPlayerPrefsKeyForBinding(action, bindingId);
+                                if (PlayerPrefs.HasKey(key))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
                     return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled);
                 case "AudioManager":
-                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled) || 
-                           PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume);
+                    var hasAudioVolumesKeys = false;
+                    if (audioManager != null)
+                    {
+                        audioManager.audioSources.Items.ForEach(item =>
+                        {
+                            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume + item.value.name))
+                            {
+                                hasAudioVolumesKeys = true;
+                            }
+                        });
+                    }
+                    return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled) || hasAudioVolumesKeys;
                 default:
                     return false;
             }
@@ -338,17 +366,44 @@ namespace TFG_Videojocs.ACC_Utilities
                         ACC_AccessibilityManager.Instance.MobilityAccessibility.ResetAllBindings();
                     else
                     {
+                        foreach (InputActionMap map in manager.remapControlsAsset.actionMaps)
+                        {
+                            foreach (InputAction action in map.actions)
+                            {
+                                for (int i = 0; i < action.bindings.Count; i++)
+                                {
+                                    var bindingId = action.bindings[i].id.ToString();
+                                    var key = GetPlayerPrefsKeyForBinding(action, bindingId);
+                                    if (PlayerPrefs.HasKey(key))
+                                    {
+                                        PlayerPrefs.DeleteKey(key);
+                                        PlayerPrefs.Save();
+                                    }
+                                }
+                                action.RemoveAllBindingOverrides();
+                            }
+                        }
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled);
                         PlayerPrefs.Save();
                     }
                     break;
                 case "AudioManager":
                     if (ACC_AccessibilityManager.Instance != null)
-                        ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.ResetFeatureState(MultifunctionalFeatures.AudioManager);
+                        ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.ResetAudioManagerConfiguration();
                     else
                     {
+                        if (audioManager != null)
+                        {
+                            audioManager.audioSources.Items.ForEach(item =>
+                            {
+                                if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume + item.value.name))
+                                {
+                                    PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume + item.value.name);
+                                    PlayerPrefs.Save();
+                                }
+                            });
+                        }
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled);
-                        PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume);
                         PlayerPrefs.Save();
                     }
                     break;
@@ -393,6 +448,16 @@ namespace TFG_Videojocs.ACC_Utilities
                 i++;
             }
             return keys;
+        }
+        private string GetPlayerPrefsKeyForBinding(InputAction action, string bindingId)
+        {
+            var actionMapName = action.actionMap.name;
+            var actionName = action.name;
+            
+            var safeActionMapName = System.Text.RegularExpressions.Regex.Replace(actionMapName, @"[^a-zA-Z0-9_]", "_");
+            var safeActionName = System.Text.RegularExpressions.Regex.Replace(actionName, @"[^a-zA-Z0-9_]", "_");
+
+            return $"{"Binding_"}{safeActionMapName}_{safeActionName}_{bindingId}";
         }
     }
 }

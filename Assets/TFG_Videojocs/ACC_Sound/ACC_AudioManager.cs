@@ -380,6 +380,16 @@ namespace TFG_Videojocs.ACC_Sound
         public void ResetAudioManagerConfiguration()
         {
             if (!isEnabled) return;
+
+            if (audioSettingsScrollList != null)
+            {
+                foreach (Transform settingsOption in audioSettingsScrollList.transform)
+                {
+                    var slider = settingsOption.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>();
+                    slider.value = audioSources.Items.FirstOrDefault(x => x.value.name == settingsOption.name)!.value.volume;
+                }
+            }
+            
             foreach (Transform audioSource in audioSourcesContainer.transform)
             {
                 var currentAudioSource = audioSource.GetComponent<AudioSource>();
@@ -390,15 +400,9 @@ namespace TFG_Videojocs.ACC_Sound
                     PlayerPrefs.Save();
                 }
             }
-
-            if (audioSettingsScrollList != null)
-            {
-                foreach (Transform settingsOption in audioSettingsScrollList.transform)
-                {
-                    var slider = settingsOption.Find("ACC_AudioSourceVolumeSlider").GetComponent<Slider>();
-                    slider.value = audioSources.Items.FirstOrDefault(x => x.value.name == settingsOption.name)!.value.volume;
-                }
-            }
+            
+            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled);
+            PlayerPrefs.Save();
         }
     }
 }
