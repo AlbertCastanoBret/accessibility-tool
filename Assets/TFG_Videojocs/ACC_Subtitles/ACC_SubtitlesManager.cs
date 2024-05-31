@@ -292,9 +292,9 @@ public class ACC_SubtitlesManager : MonoBehaviour
     {
         if (subtitleSettings != null) subtitleSettings.SetActive(false);
     }
-    public void HideSubtitles(bool state)
+    public void ShowSubtitles(bool state)
     {
-        if (state)
+        if (!state)
         {
             menuEnabled = true;
             subtitleText.gameObject.SetActive(false);

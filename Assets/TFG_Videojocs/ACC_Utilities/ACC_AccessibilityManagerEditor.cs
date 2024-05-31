@@ -221,7 +221,6 @@ namespace TFG_Videojocs.ACC_Utilities
             GUILayout.EndVertical();
             GUILayout.Space(5);
         }
-
         private void ResetEnable(string feature)
         {
             switch (feature)
@@ -258,7 +257,6 @@ namespace TFG_Videojocs.ACC_Utilities
                     break;
             }
         }
-
         private bool ExistsAnyKey(string feature)
         {
             switch (feature)
@@ -307,6 +305,7 @@ namespace TFG_Videojocs.ACC_Utilities
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontColor);
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleBackgroundColor);
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.SubtitleFontSize);
+                        PlayerPrefs.Save();
                     }
                     break;
                 case "VisualNotification":
@@ -321,6 +320,7 @@ namespace TFG_Videojocs.ACC_Utilities
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor);
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor);
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize);
+                        PlayerPrefs.Save();
                     }
                     break;
                 case "HighContrast":
@@ -330,6 +330,7 @@ namespace TFG_Videojocs.ACC_Utilities
                     {
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled);
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
+                        PlayerPrefs.Save();
                     }
                     break;
                 case "RemapControls":
@@ -338,6 +339,7 @@ namespace TFG_Videojocs.ACC_Utilities
                     else
                     {
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled);
+                        PlayerPrefs.Save();
                     }
                     break;
                 case "AudioManager":
@@ -347,6 +349,7 @@ namespace TFG_Videojocs.ACC_Utilities
                     {
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioManagerEnabled);
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.AudioSourceVolume);
+                        PlayerPrefs.Save();
                     }
                     break;
             }
@@ -374,6 +377,22 @@ namespace TFG_Videojocs.ACC_Utilities
             {
                 manager.OnValidate();
             }
+        }
+        private List<string> PlayerPrefsKeys()
+        {
+            var keys = new List<string>();
+            int i = 0;
+            while (true)
+            {
+                var key = PlayerPrefs.GetString(i.ToString(), null);
+                if (string.IsNullOrEmpty(key))
+                {
+                    break;
+                }
+                keys.Add(key);
+                i++;
+            }
+            return keys;
         }
     }
 }

@@ -140,8 +140,8 @@ namespace ACC_API
         /// </summary>
         public void EnableSubtitlesMenu()
         {
-            accSubtitlesManager.HideSubtitles(true);
-            accVisualNotificationManager.HideVisualNotification(true);
+            accSubtitlesManager.ShowSubtitles(false);
+            accVisualNotificationManager.ShowVisualNotification(false);
             accSubtitlesManager.EnableSubtitlesMenu();
         }
 
@@ -150,9 +150,21 @@ namespace ACC_API
         /// </summary>
         public void DisableSubtitlesMenu()
         {
-            accSubtitlesManager.HideSubtitles(false);
-            accVisualNotificationManager.HideVisualNotification(false);
+            accSubtitlesManager.ShowSubtitles(true);
+            accVisualNotificationManager.ShowVisualNotification(true);
             accSubtitlesManager.DisableSubtitlesMenu();
+        }
+        
+        /// <summary>
+        /// Toggles the visibility of subtitles based on the provided state.
+        /// If the state is true, the subtitle elements are hidden and disabled.
+        /// If the state is false, the visibility is determined by the accessibility settings,
+        /// and the subtitles are reinitialized and enabled accordingly.
+        /// </summary>
+        /// <param name="state">A boolean indicating whether to show (true) or hide (false) the subtitles.</param>
+        public void ShowSubtitles(bool state)
+        {
+            accSubtitlesManager.ShowSubtitles(state);
         }
 
         /// <summary>
@@ -371,8 +383,8 @@ namespace ACC_API
         /// </summary>
         public void EnableVisualNotificationMenu()
         {
-            accSubtitlesManager.HideSubtitles(true);
-            accVisualNotificationManager.HideVisualNotification(true);
+            accSubtitlesManager.ShowSubtitles(false);
+            accVisualNotificationManager.ShowVisualNotification(false);
             accVisualNotificationManager.EnableVisualNotificationMenu();
         }
 
@@ -381,9 +393,21 @@ namespace ACC_API
         /// </summary>
         public void DisableVisualNotificationMenu()
         {
-            accSubtitlesManager.HideSubtitles(false);
-            accVisualNotificationManager.HideVisualNotification(false);
+            accSubtitlesManager.ShowSubtitles(true);
+            accVisualNotificationManager.ShowVisualNotification(true);
             accVisualNotificationManager.DisableVisualNotificationMenu();
+        }
+        
+        /// <summary>
+        /// Toggles the visibility of the visual notification based on the provided state.
+        /// If the state is true, the visual notification elements are hidden and disabled.
+        /// If the state is false, the visibility is determined by the accessibility settings,
+        /// and the visual notification is reinitialized and enabled accordingly.
+        /// </summary>
+        /// <param name="state">A boolean indicating whether to show (true) or hide (false) the visual notification.</param>
+        public void ShowVisualNotification(bool state)
+        {
+            accVisualNotificationManager.ShowVisualNotification(state);
         }
 
         /// <summary>

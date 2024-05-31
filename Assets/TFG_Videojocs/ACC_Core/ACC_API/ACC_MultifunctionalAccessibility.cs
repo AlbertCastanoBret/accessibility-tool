@@ -98,6 +98,8 @@ namespace ACC_API
         /// </summary>
         public void EnableAudioManagerMenu()
         {
+            ACC_AccessibilityManager.Instance.AudioAccessibility.ShowSubtitles(false);
+            ACC_AccessibilityManager.Instance.AudioAccessibility.ShowVisualNotification(false);
             accAudioManager.EnableAudioManagerMenu();
         }
         
@@ -106,6 +108,8 @@ namespace ACC_API
         /// </summary>
         public void DisableAudioManagerMenu()
         {
+            ACC_AccessibilityManager.Instance.AudioAccessibility.ShowSubtitles(true);
+            ACC_AccessibilityManager.Instance.AudioAccessibility.ShowVisualNotification(true);
             accAudioManager.DisableAudioManagerMenu();
         }
 

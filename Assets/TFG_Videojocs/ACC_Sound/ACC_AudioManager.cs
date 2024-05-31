@@ -29,7 +29,7 @@ namespace TFG_Videojocs.ACC_Sound
                         {
                             foreach (Transform scrollComponent in settingComponent)
                             {
-                                if (scrollComponent.CompareTag("ACC_ScrollList")) 
+                                if (scrollComponent.CompareTag("ACC_ScrollList"))
                                     audioSettingsScrollList = scrollComponent.gameObject;
                             }
                         }

@@ -99,6 +99,8 @@ namespace ACC_API
         /// </summary>
         public void EnableHighContrastMenu()
         {
+            ACC_AccessibilityManager.Instance.AudioAccessibility.ShowSubtitles(false);
+            ACC_AccessibilityManager.Instance.AudioAccessibility.ShowVisualNotification(false);
             accHighContrastManager.EnableHighContrastMenu();
         }
 
@@ -107,6 +109,8 @@ namespace ACC_API
         /// </summary>
         public void DisableHighContrastMenu()
         {
+            ACC_AccessibilityManager.Instance.AudioAccessibility.ShowSubtitles(true);
+            ACC_AccessibilityManager.Instance.AudioAccessibility.ShowVisualNotification(true);
             accHighContrastManager.DisableHighContrastMenu();
         }
         

@@ -216,6 +216,8 @@ namespace TFG_Videojocs.ACC_RemapControls
                     action.RemoveAllBindingOverrides();
                 }
             }
+            PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled);
+            PlayerPrefs.Save();
         }
         public void LoadRemapControlsSettings()
         {
@@ -255,6 +257,7 @@ namespace TFG_Videojocs.ACC_RemapControls
             var bindingId = action.bindings[bindingIndex].id.ToString();
             var key = GetPlayerPrefsKeyForBinding(action, bindingId);
             PlayerPrefs.DeleteKey(key);
+            PlayerPrefs.Save();
         }
         private string GetPlayerPrefsKeyForBinding(InputAction action, string bindingId)
         {

@@ -285,9 +285,9 @@ public class ACC_VisualNotificationManager : MonoBehaviour
     {
         if (visualNotificationSettings != null) visualNotificationSettings.SetActive(false);
     }
-    public void HideVisualNotification(bool state)
+    public void ShowVisualNotification(bool state)
     {
-        if (state)
+        if (!state)
         {
             menuEnabled = true;
             text.gameObject.SetActive(false);
