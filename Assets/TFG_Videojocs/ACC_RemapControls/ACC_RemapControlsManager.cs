@@ -65,6 +65,7 @@ namespace TFG_Videojocs.ACC_RemapControls
                     });
                 }
             }    
+            DisableRebindMenu();
         }
 
         public void InitializeRemapControls(bool state)
@@ -249,7 +250,6 @@ namespace TFG_Videojocs.ACC_RemapControls
                 }
             }
         }
-        
         private void RemovePlayerPrefsKeyForBinding(InputAction action, int bindingIndex)
         {
             var bindingId = action.bindings[bindingIndex].id.ToString();

@@ -37,6 +37,7 @@ namespace TFG_Videojocs.ACC_Sound
                 }
                 if (child.CompareTag("ACC_AudioSources")) audioSourcesContainer = child.gameObject;
             }
+            DisableAudioManagerMenu();
         }
         private void Start()
         {

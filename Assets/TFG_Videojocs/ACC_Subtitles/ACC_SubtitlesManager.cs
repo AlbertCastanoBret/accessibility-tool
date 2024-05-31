@@ -50,6 +50,7 @@ public class ACC_SubtitlesManager : MonoBehaviour
                     }
                 }
             }
+            DisableSubtitlesMenu();
         }
     }
     private void Start()
@@ -304,8 +305,12 @@ public class ACC_SubtitlesManager : MonoBehaviour
         else
         {
             menuEnabled = false;
-            var subtitlesEnabled = PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1;
-            SetSubtitles(subtitlesEnabled);
+            var subtitlesEnabled = ACC_AccessibilityManager.Instance.subtitlesEnabled;
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.SubtitlesEnabled))
+            {
+                subtitlesEnabled = PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.SubtitlesEnabled) == 1;
+            }
+            InitializeSubtitles(subtitlesEnabled);
             subtitleText.enabled = true;
         }
     }

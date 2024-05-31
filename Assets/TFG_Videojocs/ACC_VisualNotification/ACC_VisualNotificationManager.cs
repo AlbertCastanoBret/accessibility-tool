@@ -50,6 +50,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                 }
             }
         }
+        DisableVisualNotificationMenu();
     }
     private void Start()
     {
@@ -297,8 +298,12 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         else
         {
             menuEnabled = false;
-            var visualNotificationEnabled = PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1;
-            SetVisualNotification(visualNotificationEnabled);
+            var visualNotificationEnabled = ACC_AccessibilityManager.Instance.visualNotificationEnabled;
+            if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled))
+            {
+                visualNotificationEnabled = PlayerPrefs.GetInt(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled) == 1;
+            }
+            InitializeVisualNotification(visualNotificationEnabled);
             text.enabled = true;
         }
     }

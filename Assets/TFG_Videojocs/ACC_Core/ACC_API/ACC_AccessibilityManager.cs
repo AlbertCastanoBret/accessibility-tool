@@ -138,17 +138,6 @@ namespace ACC_API
             }
         }
 
-        private void Start()
-        {
-            LoadAllUserPreferences();
-            AudioAccessibility.DisableSubtitlesMenu();
-            AudioAccessibility.DisableVisualNotificationMenu();
-            VisualAccessibility.DisableHighContrastMenu();
-            MobilityAccessibility.DisableRemapControlsMenu();
-            MultifunctionalAccessibility.DisableAudioManagerMenu();
-            StartCoroutine(ChangeScene());
-        }
-
 #if UNITY_EDITOR
         internal void OnValidate()
         {
@@ -225,21 +214,6 @@ namespace ACC_API
             }
         }
 #endif
-
-        private IEnumerator ChangeScene()
-        {
-            yield return new WaitForSeconds(2);
-            //VisualAccessibility.ChangeHighContrastConfiguration("A");
-            //AudioAccessibility.ChangeSubtitleFontSize(20);
-            //MobilityAccessibilityManager().ShowRemapControlsMenu("Gamepad");
-            //yield return new WaitForSeconds(6);
-            //LoadUserPreferences();
-            //yield return new WaitForSeconds(6);
-            //SceneManager.LoadScene(1);
-            //yield return new WaitForSeconds(1);
-            //AudioAccessibilityManager().PlaySubtitle("Ejemplo 2");
-        }
-
         private void OnEnable()
         {
             SceneManager.sceneLoaded += OnSceneLoaded;

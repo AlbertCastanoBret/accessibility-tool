@@ -43,7 +43,7 @@ public class SwitchLight : AbstractInteractable
             {
                 //audioSource.PlayOneShot(on);
                 ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.PlaySound("SFX", "Off");
-                GetComponent<Animator>().SetBool("IsOn", true);
+                GetComponent<Animator>().SetBool("IsOn", false);
                 isOn = false;
                 SetLightsOff();
             }
@@ -51,7 +51,7 @@ public class SwitchLight : AbstractInteractable
             {
                 //audioSource.PlayOneShot(off);
                 ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.PlaySound("SFX", "On");
-                GetComponent<Animator>().SetBool("IsOn", false);
+                GetComponent<Animator>().SetBool("IsOn", true);
                 isOn = true;
                 SetLightsOn();
             }

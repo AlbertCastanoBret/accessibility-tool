@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
 {
+    [SerializeField] private GameObject startMenu;
     [SerializeField] private GameObject interactionMenu;
     [SerializeField] private GameObject inventoryMenu;
     [SerializeField] private GameObject itemCounter;
@@ -147,7 +148,8 @@ public class HUD : MonoBehaviour
 
     public void ChangeStatePauseMenu()
     {
-        if (!fpsController.GetIsInspecting())
+        var startMenuComponent = startMenu.GetComponent<StartMenu>();
+        if (!fpsController.GetIsInspecting() && startMenuComponent.isEnded)
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);
             if (!pauseMenu.activeSelf)

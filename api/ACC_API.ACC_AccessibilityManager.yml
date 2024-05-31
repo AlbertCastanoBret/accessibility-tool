@@ -6,6 +6,8 @@ items:
   parent: ACC_API
   children:
   - ACC_API.ACC_AccessibilityManager.AudioAccessibility
+  - ACC_API.ACC_AccessibilityManager.DisableCanvas
+  - ACC_API.ACC_AccessibilityManager.EnableCanvas
   - ACC_API.ACC_AccessibilityManager.Instance
   - ACC_API.ACC_AccessibilityManager.LoadAllUserPreferences
   - ACC_API.ACC_AccessibilityManager.MobilityAccessibility
@@ -25,7 +27,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ACC_AccessibilityManager
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 16
+    startLine: 17
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -56,7 +58,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Instance
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 22
+    startLine: 23
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -88,7 +90,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: AudioAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 31
+    startLine: 32
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -120,7 +122,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: VisualAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 51
+    startLine: 52
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -152,7 +154,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: MobilityAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 67
+    startLine: 70
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -184,7 +186,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: MultifunctionalAccessibility
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 85
+    startLine: 88
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -198,6 +200,62 @@ items:
       description: The instance of ACC_MultifunctionalAccessibility.
     content.vb: Public Property MultifunctionalAccessibility As ACC_MultifunctionalAccessibility
   overload: ACC_API.ACC_AccessibilityManager.MultifunctionalAccessibility*
+- uid: ACC_API.ACC_AccessibilityManager.EnableCanvas
+  commentId: M:ACC_API.ACC_AccessibilityManager.EnableCanvas
+  id: EnableCanvas
+  parent: ACC_API.ACC_AccessibilityManager
+  langs:
+  - csharp
+  - vb
+  name: EnableCanvas()
+  nameWithType: ACC_AccessibilityManager.EnableCanvas()
+  fullName: ACC_API.ACC_AccessibilityManager.EnableCanvas()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: EnableCanvas
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
+    startLine: 264
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Enables the canvas by setting its active state to true.
+  example: []
+  syntax:
+    content: public void EnableCanvas()
+    content.vb: Public Sub EnableCanvas()
+  overload: ACC_API.ACC_AccessibilityManager.EnableCanvas*
+- uid: ACC_API.ACC_AccessibilityManager.DisableCanvas
+  commentId: M:ACC_API.ACC_AccessibilityManager.DisableCanvas
+  id: DisableCanvas
+  parent: ACC_API.ACC_AccessibilityManager
+  langs:
+  - csharp
+  - vb
+  name: DisableCanvas()
+  nameWithType: ACC_AccessibilityManager.DisableCanvas()
+  fullName: ACC_API.ACC_AccessibilityManager.DisableCanvas()
+  type: Method
+  source:
+    remote:
+      path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
+      branch: main
+      repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
+    id: DisableCanvas
+    path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
+    startLine: 272
+  assemblies:
+  - Assembly-CSharp
+  namespace: ACC_API
+  summary: Disables the canvas by setting its active state to false.
+  example: []
+  syntax:
+    content: public void DisableCanvas()
+    content.vb: Public Sub DisableCanvas()
+  overload: ACC_API.ACC_AccessibilityManager.DisableCanvas*
 - uid: ACC_API.ACC_AccessibilityManager.LoadAllUserPreferences
   commentId: M:ACC_API.ACC_AccessibilityManager.LoadAllUserPreferences
   id: LoadAllUserPreferences
@@ -216,7 +274,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadAllUserPreferences
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_AccessibilityManager.cs
-    startLine: 272
+    startLine: 280
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -350,6 +408,18 @@ references:
   name: ACC_MultifunctionalAccessibility
   nameWithType: ACC_MultifunctionalAccessibility
   fullName: ACC_API.ACC_MultifunctionalAccessibility
+- uid: ACC_API.ACC_AccessibilityManager.EnableCanvas*
+  commentId: Overload:ACC_API.ACC_AccessibilityManager.EnableCanvas
+  href: ACC_API.ACC_AccessibilityManager.html#ACC_API_ACC_AccessibilityManager_EnableCanvas
+  name: EnableCanvas
+  nameWithType: ACC_AccessibilityManager.EnableCanvas
+  fullName: ACC_API.ACC_AccessibilityManager.EnableCanvas
+- uid: ACC_API.ACC_AccessibilityManager.DisableCanvas*
+  commentId: Overload:ACC_API.ACC_AccessibilityManager.DisableCanvas
+  href: ACC_API.ACC_AccessibilityManager.html#ACC_API_ACC_AccessibilityManager_DisableCanvas
+  name: DisableCanvas
+  nameWithType: ACC_AccessibilityManager.DisableCanvas
+  fullName: ACC_API.ACC_AccessibilityManager.DisableCanvas
 - uid: ACC_API.ACC_AccessibilityManager.LoadAllUserPreferences*
   commentId: Overload:ACC_API.ACC_AccessibilityManager.LoadAllUserPreferences
   href: ACC_API.ACC_AccessibilityManager.html#ACC_API_ACC_AccessibilityManager_LoadAllUserPreferences

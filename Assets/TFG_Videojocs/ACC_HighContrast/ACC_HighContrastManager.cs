@@ -44,6 +44,7 @@ namespace TFG_Videojocs.ACC_HighContrast
                     }
                 }
             }
+            DisableHighContrastMenu();
         }
         private void Start()
         {
