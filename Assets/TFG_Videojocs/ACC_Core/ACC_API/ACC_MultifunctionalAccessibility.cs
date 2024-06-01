@@ -157,10 +157,12 @@ namespace ACC_API
         /// </summary>
         /// <param name="audioSource">The name of the audio source.</param>
         /// <param name="audioClip">The name of the audio clip to play.</param>
-        public void PlaySound(string audioSource, string audioClip)
+        /// <param name="showVisualNotification">Optional parameter to show a visual notification when the sound plays. Default is true.</param>
+        public void PlaySound(string audioSource, string audioClip, bool showVisualNotification = true)
         {
-            accAudioManager.PlaySound(audioSource, audioClip);
+            accAudioManager.PlaySound(audioSource, audioClip, showVisualNotification);
         }
+
         
         /// <summary>
         /// Plays a 3D sound using the specified audio source, audio clip, and GameObject.
@@ -178,9 +180,10 @@ namespace ACC_API
         /// </summary>
         /// <param name="audioSource">The name of the audio source.</param>
         /// <param name="audioClip">The name of the audio clip to play.</param>
-        public void PlayOneShot(string audioSource, string audioClip)
+        /// <param name="showVisualNotification">Optional parameter to show a visual notification when the sound plays. Default is true.</param>
+        public void PlayOneShot(string audioSource, string audioClip, bool showVisualNotification = true)
         {
-            accAudioManager.PlayOneShot(audioSource, audioClip);
+            accAudioManager.PlayOneShot(audioSource, audioClip, showVisualNotification);
         }
         
         /// <summary>

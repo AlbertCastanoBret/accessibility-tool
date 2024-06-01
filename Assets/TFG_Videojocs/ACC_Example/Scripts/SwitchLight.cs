@@ -41,27 +41,24 @@ public class SwitchLight : AbstractInteractable
         {
             if (isOn)
             {
-                //audioSource.PlayOneShot(on);
                 ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.PlaySound("SFX", "Off");
                 GetComponent<Animator>().SetBool("IsOn", false);
-                isOn = false;
                 SetLightsOff();
+                isOn = false;
             }
             else
             {
-                //audioSource.PlayOneShot(off);
                 ACC_AccessibilityManager.Instance.MultifunctionalAccessibility.PlaySound("SFX", "On");
                 GetComponent<Animator>().SetBool("IsOn", true);
-                isOn = true;
                 SetLightsOn();
+                isOn = true;
             }
         }
     }
 
     public void SetLightsOn()
     {
-
-        isOn = true;
+        
         foreach (GameObject light in lights)
         {
             light.SetActive(true);
@@ -70,8 +67,7 @@ public class SwitchLight : AbstractInteractable
 
     public void SetLightsOff()
     {
-
-        isOn = false;
+        
         foreach (GameObject light in lights)
         {
             light.SetActive(false);

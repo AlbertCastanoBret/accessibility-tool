@@ -168,7 +168,7 @@ namespace TFG_Videojocs.ACC_Sound
             }
             return audioSourcesList;
         }
-        public void PlaySound(string audioSource, string audioClip)
+        public void PlaySound(string audioSource, string audioClip, bool showVisualNotification = true)
         {
             if (!isEnabled) return;
             if (audioSourcesContainer.transform.Find(audioSource) == null)
@@ -186,7 +186,10 @@ namespace TFG_Videojocs.ACC_Sound
                     var currentAudioClip = audioClips.Items[indexCurrentAudioSource].value.Items.FirstOrDefault(x => x.value.name == audioClip)?.value;
                     currentAudioSource.clip = currentAudioClip;
                     currentAudioSource.Play();
-                    ACC_AccessibilityManager.Instance.AudioAccessibility.PlayVisualNotification(audioSource, audioClip);
+                    if (showVisualNotification)
+                    {
+                        ACC_AccessibilityManager.Instance.AudioAccessibility.PlayVisualNotification(audioSource, audioClip);
+                    }
                 }
                 else Debug.LogError("Audio clip not found");
             }
@@ -217,7 +220,7 @@ namespace TFG_Videojocs.ACC_Sound
             }
             else Debug.LogError("Audio source not found");
         }
-        public void PlayOneShot(string audioSource, string audioClip)
+        public void PlayOneShot(string audioSource, string audioClip, bool showVisualNotification = true)
         {
             if (!isEnabled) return;
             if (audioSourcesContainer.transform.Find(audioSource) == null)
@@ -234,7 +237,7 @@ namespace TFG_Videojocs.ACC_Sound
                 {
                     var currentAudioClip = audioClips.Items[indexCurrentAudioSource].value.Items.FirstOrDefault(x => x.value.name == audioClip)?.value;
                     currentAudioSource.PlayOneShot(currentAudioClip);
-                    ACC_AccessibilityManager.Instance.AudioAccessibility.PlayVisualNotification(audioSource, audioClip);
+                    if (showVisualNotification) ACC_AccessibilityManager.Instance.AudioAccessibility.PlayVisualNotification(audioSource, audioClip);
                 }
                 else Debug.LogError("Audio clip not found");
             }

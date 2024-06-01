@@ -425,6 +425,7 @@ namespace ACC_API
         /// <summary>
         /// Plays a visual notification using specified audio source and clip.
         /// This overloaded function first loads user preferences for visual notifications, then configures the VisualNotificationManager with a specific audio source and clip, and finally plays the visual notification.
+        /// Only works for 2D audio sources.
         /// </summary>
         /// <param name="audioSource">The audio source to use for the visual notification.</param>
         /// <param name="audioClip">The audio clip to be played alongside the visual notification.</param>

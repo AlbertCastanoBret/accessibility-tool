@@ -54,8 +54,11 @@ public class InputManager : MonoBehaviour
     }
 
     public void OnInteract(InputAction.CallbackContext ctxt)
-    { 
-        OnInteraction?.Invoke();
+    {
+        if (ctxt.performed)
+        {
+            OnInteraction?.Invoke();
+        }
     }
     
     public void OnLeaveInteract(InputAction.CallbackContext ctxt)
