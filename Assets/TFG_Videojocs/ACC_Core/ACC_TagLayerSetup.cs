@@ -12,7 +12,6 @@ namespace TFG_Videojocs.ACC_Core
         static ACC_TagLayerSetup()
         {
             if (EditorPrefs.GetBool(InitializedKey, false)) return;
-            Debug.Log("Setting up tags, layers, and render pipeline...");
             SetupTagsAndLayers();
             SetupRenderPipeline();
             EditorPrefs.SetBool(InitializedKey, true);
