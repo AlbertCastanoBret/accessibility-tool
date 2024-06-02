@@ -47,13 +47,34 @@ internal class ACC_InitializationWindow : EditorWindow
         var image = new Image() {image = texture};
         image.AddToClassList("image");
         
-        var subtitle = new Label("Welcome to the ACC_Accessibility Manager Setup!");
-        subtitle.AddToClassList("subtitle");
+        var subtitle0 = new Label("Welcome to the ACC_Accessibility Manager Setup!");
+        subtitle0.AddToClassList("subtitle");
         var subtitleText = new TextElement() {text = "To begin using the asset and take advantage of all the accessibility features, follow these steps:"};
         subtitleText.style.marginBottom = 12;
 
         var instructionsContainer = new ScrollView(ScrollViewMode.Vertical);
         instructionsContainer.AddToClassList("instructions-container");
+        
+        var subtitle1 = new Label("0. Required Libraries");
+        subtitle1.AddToClassList("subtitle");
+
+        var step0Container = new VisualElement();
+        step0Container.AddToClassList("list-container");
+        var step0Label = new Label("URP: ");
+        step0Label.AddToClassList("list-label");
+        step0Label.style.width = 100;
+        var step0 = new TextElement() {text = "The asset requires the Universal Render Pipeline (URP) to work correctly. If you are not using URP, you will need to switch to it."};
+        step0Container.Add(step0Label);
+        step0Container.Add(step0);
+        
+        var step0_1Container = new VisualElement();
+        step0_1Container.AddToClassList("list-container");
+        var step0_1Label = new Label("Input System: ");
+        step0_1Label.AddToClassList("list-label");
+        step0_1Label.style.width = 100;
+        var step0_1 = new TextElement() {text = "The asset requires the Input System package to work correctly. If you are not using the Input System, you will need to install it."};
+        step0_1Container.Add(step0_1Label);
+        step0_1Container.Add(step0_1);
         
         var subtitle2 = new Label("1. Creating the ACC_Accessibility Manager Object");
         subtitle2.AddToClassList("subtitle");
@@ -202,6 +223,16 @@ internal class ACC_InitializationWindow : EditorWindow
         };
         extraText4.style.marginBottom = 12;
         
+        var subtitle7 = new Label("Notes");
+        subtitle7.AddToClassList("subtitle");
+        var extraText5 = new TextElement
+        {
+            text =
+                "When importing the package into the project, the necessary tags and layers are also included. Ensure these are not removed. Additionally, a pre-configured render pipeline asset is imported and automatically set in the project settings. However, you can create your own URP Asset as long as the renderer within the URP Asset is configured to use the Forward rendering path. If this is not set up correctly, the high contrast mode will not function properly.",
+            enableRichText = true
+        };
+        extraText5.style.marginBottom = 12;
+        
         var createButton = new Button() { text = "Create" };
         createButton.AddToClassList("button");
         createButton.clicked += () =>
@@ -214,8 +245,12 @@ internal class ACC_InitializationWindow : EditorWindow
         rootVisualElement.Add(title);
         rootVisualElement.Add(image);
         
-        instructionsContainer.Add(subtitle);
+        instructionsContainer.Add(subtitle0);
         instructionsContainer.Add(subtitleText);
+        
+        instructionsContainer.Add(subtitle1);
+        instructionsContainer.Add(step0Container);
+        instructionsContainer.Add(step0_1Container);
         
         instructionsContainer.Add(subtitle2);
         instructionsContainer.Add(step1Container);
@@ -241,6 +276,9 @@ internal class ACC_InitializationWindow : EditorWindow
         
         instructionsContainer.Add(subtitle6);
         instructionsContainer.Add(extraText4);
+        
+        instructionsContainer.Add(subtitle7);
+        instructionsContainer.Add(extraText5);
         
         rootVisualElement.Add(instructionsContainer);
         rootVisualElement.Add(createButton);

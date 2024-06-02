@@ -233,6 +233,7 @@ namespace ACC_API
         
         /// <summary>
         /// Sets the volume for a specific audio source.
+        /// Only works for 2D audio sources.
         /// </summary>
         /// <param name="audioSource">The name of the audio source.</param>
         /// <param name="volume">The volume level to set (range typically from 0.0 to 1.0).</param>
@@ -244,6 +245,7 @@ namespace ACC_API
         /// <summary>
         /// Retrieves the volume level for a specified audio source using the AudioManager.
         /// If a PlayerPrefs audioSourceKey exists for the audio source, it returns the saved value.
+        /// Only works for 2D audio sources.
         /// </summary>
         /// <param name="audioSource">The name of the audio source for which the volume is queried.</param>
         /// <returns>The volume level of the specified audio source as a float.</returns>

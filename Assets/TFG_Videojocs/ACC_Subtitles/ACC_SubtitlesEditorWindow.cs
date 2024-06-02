@@ -2,13 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using BgTools.Utils;
 using TFG_Videojocs;
 using TFG_Videojocs.ACC_Subtitles;
 using UnityEditor;
-using UnityEditor.Compilation;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 

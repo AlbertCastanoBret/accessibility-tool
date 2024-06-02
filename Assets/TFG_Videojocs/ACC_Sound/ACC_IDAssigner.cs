@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TFG_Videojocs.ACC_Core;
 using UnityEditor;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ namespace TFG_Videojocs.ACC_Sound
         
         private static void AddUniqueIDComponent()
         {
+            if (!EditorPrefs.GetBool("SetupPipelineAndTagsInitialized")) return;
             uniqueIDs = new List<GameObject>();
             foreach (GameObject obj in Object.FindObjectsOfType<GameObject>())
             {
@@ -58,6 +60,7 @@ namespace TFG_Videojocs.ACC_Sound
         
         private static void OnHierarchyWindowItemGUI(int instanceID, Rect selectionRect)
         {
+            if (!EditorPrefs.GetBool("SetupPipelineAndTagsInitialized")) return;
             GameObject obj = EditorUtility.InstanceIDToObject(instanceID) as GameObject;
             var largeIcons = GetTextures("sv_label_", string.Empty, 0, 8);
             var icon = largeIcons[6];
