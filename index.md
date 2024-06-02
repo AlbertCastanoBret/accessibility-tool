@@ -1,11 +1,15 @@
----
-_layout: landing
----
+# Accessibility Pro Toolkit
 
-# This is the **HOMEPAGE**.
+This manual provides brief instructions to set up and use the accessibility tool developed for Unity. The tool implements various accessibility measures such as control remapping, high contrast mode, subtitles, visual notifications, and audio management.
 
-Refer to [Markdown](http://daringfireball.net/projects/markdown/) for how to write markdown files.
+## Overview
 
-## Quick Start Notes:
+### Pages
+1. **[How to Install](/howtoinstall.html)**
+   - Instructions to install the necessary libraries and the accessibility tool package.
 
-1. Add images to the *images* folder if the file is referencing an image.
+2. **[How to Use](/howtouse.html)**
+   - Steps to configure and use the accessibility features in your Unity project.
+
+3. **[API Documentation](/api/ACC_API.html)**
+   - Detailed reference for advanced configurations and functions of the API.

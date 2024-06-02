@@ -17,8 +17,8 @@ items:
   - ACC_API.ACC_MultifunctionalAccessibility.LoadUserPreferences
   - ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot(System.String,System.String,System.String)
   - ACC_API.ACC_MultifunctionalAccessibility.Play3DSound(System.String,System.String,System.String)
-  - ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String)
-  - ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String)
+  - ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String,System.Boolean)
+  - ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String,System.Boolean)
   - ACC_API.ACC_MultifunctionalAccessibility.ResetAudioManagerConfiguration
   - ACC_API.ACC_MultifunctionalAccessibility.ResetFeatureState(ACC_API.MultifunctionalFeatures)
   - ACC_API.ACC_MultifunctionalAccessibility.SetFeatureState(ACC_API.MultifunctionalFeatures,System.Boolean)
@@ -377,16 +377,16 @@ items:
       description: A list of all 3D AudioSource objects.
     content.vb: Public Function GetAll3DAudioSources() As List(Of AudioSource)
   overload: ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources*
-- uid: ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String)
-  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String)
-  id: PlaySound(System.String,System.String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String,System.Boolean)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.PlaySound(System.String,System.String,System.Boolean)
+  id: PlaySound(System.String,System.String,System.Boolean)
   parent: ACC_API.ACC_MultifunctionalAccessibility
   langs:
   - csharp
   - vb
-  name: PlaySound(string, string)
-  nameWithType: ACC_MultifunctionalAccessibility.PlaySound(string, string)
-  fullName: ACC_API.ACC_MultifunctionalAccessibility.PlaySound(string, string)
+  name: PlaySound(string, string, bool)
+  nameWithType: ACC_MultifunctionalAccessibility.PlaySound(string, string, bool)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.PlaySound(string, string, bool)
   type: Method
   source:
     remote:
@@ -395,14 +395,14 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: PlaySound
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 159
+    startLine: 160
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
   summary: Plays a sound using the specified audio source and clip.
   example: []
   syntax:
-    content: public void PlaySound(string audioSource, string audioClip)
+    content: public void PlaySound(string audioSource, string audioClip, bool showVisualNotification = true)
     parameters:
     - id: audioSource
       type: System.String
@@ -410,11 +410,14 @@ items:
     - id: audioClip
       type: System.String
       description: The name of the audio clip to play.
-    content.vb: Public Sub PlaySound(audioSource As String, audioClip As String)
+    - id: showVisualNotification
+      type: System.Boolean
+      description: Optional parameter to show a visual notification when the sound plays. Default is true.
+    content.vb: Public Sub PlaySound(audioSource As String, audioClip As String, showVisualNotification As Boolean = True)
   overload: ACC_API.ACC_MultifunctionalAccessibility.PlaySound*
-  nameWithType.vb: ACC_MultifunctionalAccessibility.PlaySound(String, String)
-  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.PlaySound(String, String)
-  name.vb: PlaySound(String, String)
+  nameWithType.vb: ACC_MultifunctionalAccessibility.PlaySound(String, String, Boolean)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.PlaySound(String, String, Boolean)
+  name.vb: PlaySound(String, String, Boolean)
 - uid: ACC_API.ACC_MultifunctionalAccessibility.Play3DSound(System.String,System.String,System.String)
   commentId: M:ACC_API.ACC_MultifunctionalAccessibility.Play3DSound(System.String,System.String,System.String)
   id: Play3DSound(System.String,System.String,System.String)
@@ -433,7 +436,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Play3DSound
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 170
+    startLine: 172
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -456,16 +459,16 @@ items:
   nameWithType.vb: ACC_MultifunctionalAccessibility.Play3DSound(String, String, String)
   fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.Play3DSound(String, String, String)
   name.vb: Play3DSound(String, String, String)
-- uid: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String)
-  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String)
-  id: PlayOneShot(System.String,System.String)
+- uid: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String,System.Boolean)
+  commentId: M:ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(System.String,System.String,System.Boolean)
+  id: PlayOneShot(System.String,System.String,System.Boolean)
   parent: ACC_API.ACC_MultifunctionalAccessibility
   langs:
   - csharp
   - vb
-  name: PlayOneShot(string, string)
-  nameWithType: ACC_MultifunctionalAccessibility.PlayOneShot(string, string)
-  fullName: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(string, string)
+  name: PlayOneShot(string, string, bool)
+  nameWithType: ACC_MultifunctionalAccessibility.PlayOneShot(string, string, bool)
+  fullName: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(string, string, bool)
   type: Method
   source:
     remote:
@@ -474,14 +477,14 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: PlayOneShot
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 180
+    startLine: 183
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
   summary: Plays a sound clip once using the specified audio source.
   example: []
   syntax:
-    content: public void PlayOneShot(string audioSource, string audioClip)
+    content: public void PlayOneShot(string audioSource, string audioClip, bool showVisualNotification = true)
     parameters:
     - id: audioSource
       type: System.String
@@ -489,11 +492,14 @@ items:
     - id: audioClip
       type: System.String
       description: The name of the audio clip to play.
-    content.vb: Public Sub PlayOneShot(audioSource As String, audioClip As String)
+    - id: showVisualNotification
+      type: System.Boolean
+      description: Optional parameter to show a visual notification when the sound plays. Default is true.
+    content.vb: Public Sub PlayOneShot(audioSource As String, audioClip As String, showVisualNotification As Boolean = True)
   overload: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot*
-  nameWithType.vb: ACC_MultifunctionalAccessibility.PlayOneShot(String, String)
-  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(String, String)
-  name.vb: PlayOneShot(String, String)
+  nameWithType.vb: ACC_MultifunctionalAccessibility.PlayOneShot(String, String, Boolean)
+  fullName.vb: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot(String, String, Boolean)
+  name.vb: PlayOneShot(String, String, Boolean)
 - uid: ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot(System.String,System.String,System.String)
   commentId: M:ACC_API.ACC_MultifunctionalAccessibility.Play3DOneShot(System.String,System.String,System.String)
   id: Play3DOneShot(System.String,System.String,System.String)
@@ -512,7 +518,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Play3DOneShot
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 191
+    startLine: 194
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -553,7 +559,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: StopSound
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 200
+    startLine: 203
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -588,7 +594,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: Stop3DSound
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 209
+    startLine: 212
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -623,7 +629,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: StopAllSounds
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 217
+    startLine: 220
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -651,7 +657,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: StopAll3DSounds
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 225
+    startLine: 228
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -679,11 +685,14 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: SetVolume
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 235
+    startLine: 239
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
-  summary: Sets the volume for a specific audio source.
+  summary: >-
+    Sets the volume for a specific audio source.
+
+    Only works for 2D audio sources.
   example: []
   syntax:
     content: public void SetVolume(string audioSource, float volume)
@@ -717,7 +726,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: GetVolume
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 246
+    startLine: 251
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -725,6 +734,8 @@ items:
     Retrieves the volume level for a specified audio source using the AudioManager.
 
     If a PlayerPrefs audioSourceKey exists for the audio source, it returns the saved value.
+
+    Only works for 2D audio sources.
   example: []
   syntax:
     content: public float GetVolume(string audioSource)
@@ -758,7 +769,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: LoadPreferencesAudioSourceVolumes
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 254
+    startLine: 259
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -786,7 +797,7 @@ items:
       repo: https://github.com/AlbertCastanoBret/tfg_videojocs.git
     id: ResetAudioManagerConfiguration
     path: Assets/TFG_Videojocs/ACC_Core/ACC_API/ACC_MultifunctionalAccessibility.cs
-    startLine: 263
+    startLine: 268
   assemblies:
   - Assembly-CSharp
   namespace: ACC_API
@@ -1026,7 +1037,7 @@ references:
   fullName: ACC_API.ACC_MultifunctionalAccessibility.GetAll3DAudioSources
 - uid: ACC_API.ACC_MultifunctionalAccessibility.PlaySound*
   commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.PlaySound
-  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_PlaySound_System_String_System_String_
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_PlaySound_System_String_System_String_System_Boolean_
   name: PlaySound
   nameWithType: ACC_MultifunctionalAccessibility.PlaySound
   fullName: ACC_API.ACC_MultifunctionalAccessibility.PlaySound
@@ -1038,7 +1049,7 @@ references:
   fullName: ACC_API.ACC_MultifunctionalAccessibility.Play3DSound
 - uid: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot*
   commentId: Overload:ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot
-  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_PlayOneShot_System_String_System_String_
+  href: ACC_API.ACC_MultifunctionalAccessibility.html#ACC_API_ACC_MultifunctionalAccessibility_PlayOneShot_System_String_System_String_System_Boolean_
   name: PlayOneShot
   nameWithType: ACC_MultifunctionalAccessibility.PlayOneShot
   fullName: ACC_API.ACC_MultifunctionalAccessibility.PlayOneShot

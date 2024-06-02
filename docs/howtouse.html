@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Introduction | Accessibility Pro Toolkit </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Introduction | Accessibility Pro Toolkit ">
+      
+      
+      <link rel="icon" href="favicon.ico">
+      <link rel="stylesheet" href="public/docfx.min.css">
+      <link rel="stylesheet" href="public/main.css">
+      <meta name="docfx:navrel" content="toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/howtouse.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="index.html">
+            <img id="logo" class="svg" src="images/Logo.png" alt="Accessibility Pro Toolkit">
+            Accessibility Pro Toolkit
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="introduction">Introduction</h1>
+
+<p>This manual provides the necessary instructions to use the accessibility tool developed for Unity. This tool allows the implementation of various accessibility measures such as control remapping, high contrast mode, subtitles, and visual notifications, as well as audio management. Below are the steps to configure and use these features.</p>
+<h2 id="initialization-of-the-accessibility-manager">Initialization of the Accessibility Manager</h2>
+<ol>
+<li><p><strong>Open the Initialization Window:</strong></p>
+<ul>
+<li>In the Unity interface, go to <code>Window &gt; Accessibility Tool</code>.</li>
+<li>Click the <code>Create</code> button.</li>
+</ul>
+<p>This will create the Accessibility Manager object in the scene. You can also do this from the main window of the asset by clicking the <code>Refresh Accessibility Manager</code> button.</p>
+</li>
+<li><p><strong>Configure the InputActionAsset:</strong></p>
+<ul>
+<li>Select the <code>Accessibility Manager</code> object in the hierarchy.</li>
+<li>Go to the <code>Inspector</code> and find the <code>Remap Controls Asset</code> field.</li>
+<li>Add the <code>InputActionAsset</code> you want to use in the scene.</li>
+</ul>
+<p>This enables the control remapping accessibility measure.</p>
+</li>
+</ol>
+<h2 id="high-contrast-mode">High Contrast Mode</h2>
+<ol>
+<li><p><strong>Configure High Contrast Mode:</strong></p>
+<ul>
+<li>Go to the <code>VisualAccessibility</code> section in the main window of the tool.</li>
+<li>Select the <code>Settings</code> option in the High Contrast box.</li>
+<li>Enable the <code>Shaders Added</code> option.</li>
+</ul>
+<p>From here, the high contrast mode will be activated and ready to use.</p>
+</li>
+</ol>
+<h2 id="subtitles-and-visual-notifications">Subtitles and Visual Notifications</h2>
+<ol>
+<li><p><strong>Configure Subtitles:</strong></p>
+<ul>
+<li>Configure subtitles from the corresponding floating window.</li>
+<li>Once configured, to call a subtitle, use the following function:
+<pre><code class="lang-csharp">public void PlaySubtitle(string name)
+</code></pre>
+Replace <code>ConfigurationName</code> with the name of the subtitle configuration.</li>
+</ul>
+<p>Ensure that the subtitle functionality is enabled.</p>
+</li>
+<li><p><strong>Configure Visual Notifications:</strong></p>
+<ul>
+<li>Configure visual notifications from the corresponding floating window.</li>
+<li>To call a visual notification, use the following function:
+<pre><code class="lang-csharp">public void PlayVisualNotification(string visualNotification)
+</code></pre>
+Replace <code>ConfigurationName</code> with the name of the visual notification configuration.</li>
+</ul>
+<p>Ensure that both the visual notification functionality and the AudioManager state are enabled.</p>
+</li>
+</ol>
+<h2 id="control-remapping">Control Remapping</h2>
+<ol>
+<li><p><strong>Configure the InputActionAsset:</strong></p>
+<ul>
+<li>Configure the <code>InputActionAsset</code> according to your needs.</li>
+<li>If you want to use the template provided by the asset, open the control scheme configuration window.</li>
+<li>Select the actions you want to be remappable.</li>
+</ul>
+<p>Once done, the template will be properly configured. Open the control remapping menu to verify that it works correctly. You can also reconfigure actions using other API functions. Do not forget to enable the control remapping measure state.</p>
+</li>
+</ol>
+<h2 id="audiomanager-management">AudioManager Management</h2>
+<ol>
+<li><p><strong>Configure Audio Sources:</strong></p>
+<ul>
+<li>Configure the audio sources and their respective audio clips.</li>
+<li>In the AudioManager template, a slider will appear to change the volume of each audio source.</li>
+</ul>
+<p>This only works for 2D audio sources. 3D audio sources will be created as prefabs and can be accessed through the <code>Resources/ACC_Prefabs/ACC_Audio/ACC_3DAudioSources</code> folder. When these sources are added to the scene, they will have a unique, non-modifiable name that will be used as a parameter for 3D audio source functions.</p>
+</li>
+<li><p><strong>Play Sounds:</strong></p>
+<ul>
+<li>To play a sound, use the following function:
+<pre><code class="lang-csharp">public void PlaySound(string audioSource, string audioClip, bool showVisualNotification = true);
+</code></pre>
+</li>
+<li>To play a 3D sound, use the following function:
+<pre><code class="lang-csharp">public void Play3DSound(string audioSource, string audioClip, string gameObject);
+</code></pre>
+</li>
+</ul>
+<p>Replace the parameters according to your needs. Ensure that the measure state is enabled.</p>
+</li>
+</ol>
+<h2 id="additional-options-and-configuration">Additional Options and Configuration</h2>
+<p>The API offers many more functions for changing configurations, data persistence, etc. You can access the <a href="/api/ACC_API.html">API documentation</a> to understand what each function does.</p>
+<p>When a configuration value of a measure is changed, a PlayerPref is created. To remove configured PlayerPrefs, use the buttons available in the <code>AccessibilityManager</code> editor. To enable and disable measures, use the editor as this does not create PlayerPrefs. From the same editor, you can also display the configuration menu of each accessibility measure.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/AlbertCastanoBret/tfg_videojocs/blob/main/howtouse.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
