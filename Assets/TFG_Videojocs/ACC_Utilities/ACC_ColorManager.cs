@@ -48,7 +48,6 @@ namespace TFG_Videojocs.ACC_Utilities
                     return entry.Key.ToString();
                 }
             }
-            
             return "Unknown";
         }
         

@@ -223,8 +223,8 @@ namespace TFG_Videojocs.ACC_Utilities
             visualNotificationTextMeshProUGUI.color = new Color(0, 0, 0, 0);
             
             RectTransform visualNotificationTextRectTransform = visualNotificationText.GetComponent<RectTransform>() ?? visualNotificationText.AddComponent<RectTransform>();
-            visualNotificationTextRectTransform.anchorMin = new Vector2(0, 0.5f);
-            visualNotificationTextRectTransform.anchorMax = new Vector2(1, 0.5f);
+            visualNotificationTextRectTransform.anchorMin = new Vector2(0, 0.49f);
+            visualNotificationTextRectTransform.anchorMax = new Vector2(1, 0.51f);
             visualNotificationTextRectTransform.pivot = new Vector2(0.5f, 0.5f);
             visualNotificationTextRectTransform.anchoredPosition = new Vector2(0, 0);
             visualNotificationTextRectTransform.sizeDelta = new Vector2(0, 100);

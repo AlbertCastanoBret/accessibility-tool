@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using TFG_Videojocs.ACC_Core;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,7 +9,6 @@ namespace TFG_Videojocs.ACC_Sound
     [InitializeOnLoad]
     public static class ACC_IDAssigner
     {
-        //private SortedDictionary<>
         private static List<GameObject> uniqueIDs = new();
         
         static ACC_IDAssigner()

@@ -174,6 +174,7 @@ namespace ACC_API
                 }
             }
         }
+
         private void Update()
         {
             if (!sceneLoaded) return;

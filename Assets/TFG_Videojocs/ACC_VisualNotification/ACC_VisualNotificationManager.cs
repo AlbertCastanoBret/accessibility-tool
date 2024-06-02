@@ -393,7 +393,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         backgroundRectTransform.anchoredPosition = new Vector2(0, posY);
         
         UpdateSize();
-        LoadVisualNotificationSettings();
+        LoadVisualNotificationSettings(true);
     }
     public void UpdateSize()
     {
@@ -619,6 +619,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         if (Math.Abs(text.GetComponent<RectTransform>().anchorMin.y - 0.5f) 
             < TOLERANCE && Math.Abs(text.GetComponent<RectTransform>().anchorMax.y - 0.5f) < TOLERANCE)
         {
+            Debug.Log("Center");
             return "Center";
         }
         if (Math.Abs(text.GetComponent<RectTransform>().anchorMin.y - 0) 
@@ -657,7 +658,7 @@ public class ACC_VisualNotificationManager : MonoBehaviour
         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
         PlayerPrefs.Save();
     }
-    public void LoadVisualNotificationSettings()
+    public void LoadVisualNotificationSettings(bool isPlayingVisualNotification = false)
     {
         if (PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationEnabled))
         {
@@ -718,14 +719,18 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                     var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                     var color = ACC_AccessibilityManager.Instance.AudioAccessibility.GetVisualNotificationFontColor();
                     var colorName = ACC_ColorManager.GetColorName(color);
-                    dropdown.value = colorName switch
+                    if (isPlayingVisualNotification && !PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor)) dropdown.value = 0;
+                    else if (!isPlayingVisualNotification && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontColor))
                     {
-                        "Unknown" => 0,
-                        "Red" => 1,
-                        "Green" => 2,
-                        "Blue" => 3,
-                        _ => 0
-                    };
+                        dropdown.value = colorName switch
+                        {
+                            "Unknown" => 0,
+                            "Red" => 1,
+                            "Green" => 2,
+                            "Blue" => 3,
+                            _ => 0
+                        };
+                    }
                 }
 
                 if (settingsOption.name == "ACC_BackgroundColor")
@@ -733,27 +738,35 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                     var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                     var color = ACC_AccessibilityManager.Instance.AudioAccessibility.GetVisualNotificationBackgroundColor();
                     var colorName = ACC_ColorManager.GetColorName(color);
-                    dropdown.value = colorName switch
+                    if (isPlayingVisualNotification && !PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor)) dropdown.value = 0;
+                    else if (!isPlayingVisualNotification && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationBackgroundColor))
                     {
-                        "Unknown" => 0,
-                        "White" => 1,
-                        "Red" => 2,
-                        "Green" => 3,
-                        _ => 0
-                    };
+                        dropdown.value = colorName switch
+                        {
+                            "Unknown" => 0,
+                            "White" => 1,
+                            "Red" => 2,
+                            "Green" => 3,
+                            _ => 0
+                        };
+                    }
                 }
 
                 if (settingsOption.name == "ACC_FontSizeSelector")
                 {
                     var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                     var fontSize = ACC_AccessibilityManager.Instance.AudioAccessibility.GetVisualNotificationFontSize();
-                    dropdown.value = fontSize switch
+                    if (isPlayingVisualNotification && !PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize)) dropdown.value = 0;
+                    else if (!isPlayingVisualNotification && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationFontSize))
                     {
-                        20 => 1,
-                        50 => 2,
-                        80 => 3,
-                        _ => 0
-                    };
+                        dropdown.value = fontSize switch
+                        {
+                            20 => 1,
+                            50 => 2,
+                            80 => 3,
+                            _ => 0
+                        };
+                    }
                 }
 
                 if (settingsOption.name == "ACC_HorizontalAlignment")
@@ -761,13 +774,17 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                     var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                     var key = ACC_AccessibilityManager.Instance.AudioAccessibility
                         .GetVisualNotificationHorizontalAlignment();
-                    dropdown.value = key switch
+                    if (isPlayingVisualNotification && !PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment)) dropdown.value = 0;
+                    else if (!isPlayingVisualNotification && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment))
                     {
-                        "Left" => 1,
-                        "Center" => 2,
-                        "Right" => 3,
-                        _ => 0
-                    };
+                        dropdown.value = key switch
+                        {
+                            "Left" => 1,
+                            "Center" => 2,
+                            "Right" => 3,
+                            _ => 0
+                        };
+                    }
                 }
 
                 if (settingsOption.name == "ACC_VerticalAlignment")
@@ -775,13 +792,17 @@ public class ACC_VisualNotificationManager : MonoBehaviour
                     var dropdown = settingsOption.Find("Dropdown").GetComponent<TMP_Dropdown>();
                     var key = ACC_AccessibilityManager.Instance.AudioAccessibility
                         .GetVisualNotificationVerticalAlignment();
-                    dropdown.value = key switch
+                    if (isPlayingVisualNotification && !PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment)) dropdown.value = 0;
+                    else if (!isPlayingVisualNotification && PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment))
                     {
-                        "Top" => 1,
-                        "Center" => 2,
-                        "Down" => 3,
-                        _ => 0
-                    };
+                        dropdown.value = key switch
+                        {
+                            "Top" => 1,
+                            "Center" => 2,
+                            "Down" => 3,
+                            _ => 0
+                        };
+                    }
                 }
             }
         }

@@ -462,7 +462,6 @@ namespace ACC_API
             {
                 return PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationHorizontalAlignment);
             }
-
             return accVisualNotificationManager.GetCurrentHorizontalAlignment();
         }
 
@@ -501,7 +500,6 @@ namespace ACC_API
             {
                 return PlayerPrefs.GetString(ACC_AccessibilitySettingsKeys.VisualNotificationVerticalAlignment);
             }
-
             return accVisualNotificationManager.GetCurrentVerticalAlignment();
         }
 

@@ -909,72 +909,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &242230458
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 242230460}
-  - component: {fileID: 242230459}
-  m_Layer: 0
-  m_Name: ACC_AccessibilityManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &242230459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 242230458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca6710ebd5e3fc54984fc89422d4065a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subtitlesEnabled: 1
-  showSubtitlesMenu: 0
-  visualNotificationEnabled: 1
-  showVisualNotificationMenu: 0
-  highContrastEnabled: 0
-  showHighContrastMenu: 0
-  isPrevisualizing: 0
-  shadersAdded: 1
-  highContrastColorMaterial: {fileID: 2100000, guid: 2082beb940857eb428ed38f05b40c1b1, type: 2}
-  highContrastOutlineMaterial: {fileID: 2100000, guid: 3d158f59efb6c964395dd1c5e098c7f0, type: 2}
-  remapControlsEnabled: 1
-  showRemapControlsMenu: 0
-  remapControlsAsset: {fileID: -944628639613478452, guid: 9c5788b76639bbd4c9799337d8c10951, type: 3}
-  remapControlsMenus:
-  - Keyboard, Mouse
-  - Gamepad
-  - Touchscreen
-  - Joystick
-  - XRController
-  currentRemapControlsMenu: Keyboard, Mouse
-  audioManagerEnabled: 1
-  showAudioManagerMenu: 0
---- !u!4 &242230460
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 242230458}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &286502840 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4398937377465421586, guid: 429d5b4146a3eb84ca6c3ea993a3f941, type: 3}
@@ -1171,6 +1105,72 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &374696804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 374696806}
+  - component: {fileID: 374696805}
+  m_Layer: 0
+  m_Name: ACC_AccessibilityManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &374696805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374696804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6710ebd5e3fc54984fc89422d4065a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subtitlesEnabled: 1
+  showSubtitlesMenu: 0
+  visualNotificationEnabled: 1
+  showVisualNotificationMenu: 0
+  highContrastEnabled: 0
+  showHighContrastMenu: 0
+  isPrevisualizing: 0
+  shadersAdded: 1
+  highContrastColorMaterial: {fileID: 2100000, guid: 2082beb940857eb428ed38f05b40c1b1, type: 2}
+  highContrastOutlineMaterial: {fileID: 2100000, guid: 3d158f59efb6c964395dd1c5e098c7f0, type: 2}
+  remapControlsEnabled: 1
+  showRemapControlsMenu: 0
+  remapControlsAsset: {fileID: -944628639613478452, guid: 9c5788b76639bbd4c9799337d8c10951, type: 3}
+  remapControlsMenus:
+  - Keyboard, Mouse
+  - Gamepad
+  - Touchscreen
+  - Joystick
+  - XRController
+  currentRemapControlsMenu: Keyboard, Mouse
+  audioManagerEnabled: 1
+  showAudioManagerMenu: 0
+--- !u!4 &374696806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374696804}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &422731743 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6605911631202855894, guid: 429d5b4146a3eb84ca6c3ea993a3f941, type: 3}
@@ -1449,10 +1449,6 @@ PrefabInstance:
       propertyPath: MinDistance
       value: 2.018701
       objectReference: {fileID: 0}
-    - target: {fileID: 6041308588472997659, guid: 1270d7480b5a2db43aa14f0387201c8e, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 66dd9975a4643bb4f85292c63cae7b6e, type: 3}
     - target: {fileID: 6041308588472997659, guid: 1270d7480b5a2db43aa14f0387201c8e, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].time
       value: 0.27649117
@@ -9360,4 +9356,4 @@ SceneRoots:
   - {fileID: 75709075}
   - {fileID: 329730134950745862}
   - {fileID: 1792690366}
-  - {fileID: 242230460}
+  - {fileID: 374696806}

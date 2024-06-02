@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -120,3 +121,4 @@ namespace TFG_Videojocs.ACC_Core
         }
     }
 }
+#endif
