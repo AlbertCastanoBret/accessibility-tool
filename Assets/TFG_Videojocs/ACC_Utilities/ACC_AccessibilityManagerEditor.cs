@@ -284,17 +284,20 @@ namespace TFG_Videojocs.ACC_Utilities
                     return PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastEnabled) || 
                            PlayerPrefs.HasKey(ACC_AccessibilitySettingsKeys.HighContrastConfiguration);
                 case "RemapControls":
-                    foreach (InputActionMap map in manager.remapControlsAsset.actionMaps)
+                    if (manager.remapControlsAsset != null)
                     {
-                        foreach (InputAction action in map.actions)
+                        foreach (InputActionMap map in manager.remapControlsAsset.actionMaps)
                         {
-                            for (int i = 0; i < action.bindings.Count; i++)
+                            foreach (InputAction action in map.actions)
                             {
-                                var bindingId = action.bindings[i].id.ToString();
-                                var key = GetPlayerPrefsKeyForBinding(action, bindingId);
-                                if (PlayerPrefs.HasKey(key))
+                                for (int i = 0; i < action.bindings.Count; i++)
                                 {
-                                    return true;
+                                    var bindingId = action.bindings[i].id.ToString();
+                                    var key = GetPlayerPrefsKeyForBinding(action, bindingId);
+                                    if (PlayerPrefs.HasKey(key))
+                                    {
+                                        return true;
+                                    }
                                 }
                             }
                         }
@@ -366,23 +369,28 @@ namespace TFG_Videojocs.ACC_Utilities
                         ACC_AccessibilityManager.Instance.MobilityAccessibility.ResetAllBindings();
                     else
                     {
-                        foreach (InputActionMap map in manager.remapControlsAsset.actionMaps)
+                        if (manager.remapControlsAsset != null)
                         {
-                            foreach (InputAction action in map.actions)
+                            foreach (InputActionMap map in manager.remapControlsAsset.actionMaps)
                             {
-                                for (int i = 0; i < action.bindings.Count; i++)
+                                foreach (InputAction action in map.actions)
                                 {
-                                    var bindingId = action.bindings[i].id.ToString();
-                                    var key = GetPlayerPrefsKeyForBinding(action, bindingId);
-                                    if (PlayerPrefs.HasKey(key))
+                                    for (int i = 0; i < action.bindings.Count; i++)
                                     {
-                                        PlayerPrefs.DeleteKey(key);
-                                        PlayerPrefs.Save();
+                                        var bindingId = action.bindings[i].id.ToString();
+                                        var key = GetPlayerPrefsKeyForBinding(action, bindingId);
+                                        if (PlayerPrefs.HasKey(key))
+                                        {
+                                            PlayerPrefs.DeleteKey(key);
+                                            PlayerPrefs.Save();
+                                        }
                                     }
+
+                                    action.RemoveAllBindingOverrides();
                                 }
-                                action.RemoveAllBindingOverrides();
                             }
                         }
+
                         PlayerPrefs.DeleteKey(ACC_AccessibilitySettingsKeys.RemapControlsEnabled);
                         PlayerPrefs.Save();
                     }

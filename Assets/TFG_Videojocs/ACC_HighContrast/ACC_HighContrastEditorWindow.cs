@@ -109,13 +109,37 @@ namespace TFG_Videojocs.ACC_HighContrast
                 value =>
                 {
                     var currentRow = tableScrollView.IndexOf(row)-1;
-                    ACC_HighContrastConfiguration newHighContrastData = new ACC_HighContrastConfiguration();
-                    if(controller.currentData.highContrastConfigurations.Items.Exists(x => x.key == currentRow && x.value.name == name))
+                    var name = "New High Contrast Configuration";
+                    var tag = "Untagged";
+                    var color = Color.white;
+                    var colorMinDistance = 2f;
+                    var colorMaxDistance = 6f;
+                    var outlineColor = Color.white;
+                    var outlineThickness = 0.6f;
+                    var outlineFadeDistance = 5f;
+                    
+                    if(controller.currentData.highContrastConfigurations.Items.Exists(x => x.key == currentRow))
                     {
-                        newHighContrastData = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value;
+                        name = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value.name;
+                        tag = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value.tag;
+                        color = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value.color;
+                        colorMinDistance = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value.colorMinDistance;
+                        colorMaxDistance = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value.colorMaxDistance;
+                        outlineColor = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value.outlineColor;
+                        outlineThickness = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value.outlineThickness;
+                        outlineFadeDistance = controller.currentData.highContrastConfigurations.Items.Find(x => x.key == currentRow).value.outlineFadeDistance;
                     }
-                    newHighContrastData.name = value;
-                    controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, newHighContrastData);
+                    controller.currentData.highContrastConfigurations.AddOrUpdate(currentRow, new ACC_HighContrastConfiguration()
+                    {
+                        name = value,
+                        tag = tag,
+                        color = color,
+                        colorMinDistance = colorMinDistance,
+                        colorMaxDistance = colorMaxDistance,
+                        outlineColor = outlineColor,
+                        outlineThickness = outlineThickness,
+                        outlineFadeDistance = outlineFadeDistance
+                    });
                 });
             
             nameField.style.width = new StyleLength(Length.Percent(90));
@@ -128,7 +152,6 @@ namespace TFG_Videojocs.ACC_HighContrast
                     for(var j = tableScrollView.childCount-2; j>currentRow; j--)
                     {
                         controller.currentData.highContrastConfigurations.AddOrUpdate(j+1, controller.currentData.highContrastConfigurations.Items.Find(x => x.key == j).value);
-                        controller.currentData.highContrastConfigurations.Remove(j);
                     }
                 }
                 CreateHighContrastConfiguration(index: tableScrollView.IndexOf(row)+1);

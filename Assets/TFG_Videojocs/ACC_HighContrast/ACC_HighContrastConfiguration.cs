@@ -1,10 +1,11 @@
 using System;
+using TFG_Videojocs.ACC_Utilities;
 using UnityEngine;
 
 namespace TFG_Videojocs.ACC_HighContrast
 {
     [System.Serializable]
-    public class ACC_HighContrastConfiguration: IEquatable<ACC_HighContrastConfiguration>, ICloneable
+    public class ACC_HighContrastConfiguration: ICloneable
     {
         public string name;
         public string tag;
@@ -27,19 +28,37 @@ namespace TFG_Videojocs.ACC_HighContrast
             outlineFadeDistance = 5f;
         }
         
-        public bool Equals(ACC_HighContrastConfiguration other)
+        public override bool Equals(object other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return 
-                name == other.name 
-                && string.Equals(tag, other.tag) 
-                && color.Equals(other.color) 
-                && colorMinDistance.Equals(other.colorMinDistance)
-                && colorMaxDistance.Equals(other.colorMaxDistance)
-                && outlineColor.Equals(other.outlineColor) 
-                && outlineThickness.Equals(other.outlineThickness)
-                && outlineFadeDistance.Equals(other.outlineFadeDistance);
+            if (other == null || GetType() != other.GetType())
+                return false;
+
+            ACC_HighContrastConfiguration otherConfiguration = (ACC_HighContrastConfiguration)other;
+            return string.Equals(name, otherConfiguration.name, StringComparison.OrdinalIgnoreCase)
+                   && string.Equals(tag, otherConfiguration.tag, StringComparison.OrdinalIgnoreCase)
+                   && color.Equals(otherConfiguration.color)
+                   && colorMinDistance.Equals(otherConfiguration.colorMinDistance)
+                   && colorMaxDistance.Equals(otherConfiguration.colorMaxDistance)
+                   && outlineColor.Equals(otherConfiguration.outlineColor)
+                   && outlineThickness.Equals(otherConfiguration.outlineThickness)
+                   && outlineFadeDistance.Equals(otherConfiguration.outlineFadeDistance);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = (int)2166136261;
+                hash = (hash * 16777619) ^ name.GetHashCode();
+                hash = (hash * 16777619) ^ tag.GetHashCode();
+                hash = (hash * 16777619) ^ color.GetHashCode();
+                hash = (hash * 16777619) ^ colorMinDistance.GetHashCode();
+                hash = (hash * 16777619) ^ colorMaxDistance.GetHashCode();
+                hash = (hash * 16777619) ^ outlineColor.GetHashCode();
+                hash = (hash * 16777619) ^ outlineThickness.GetHashCode();
+                hash = (hash * 16777619) ^ outlineFadeDistance.GetHashCode();
+                return hash;
+            }
         }
 
         public object Clone()

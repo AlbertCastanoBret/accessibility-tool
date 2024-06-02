@@ -110,7 +110,6 @@ public class ACC_SubtitlesEditorWindow : ACC_BaseFloatingWindow<ACC_SubtitlesEdi
                     var subtitle = "Hello";
                     var time = 1;
                     
-                    
                     if (controller.currentData.subtitles.Items.Exists(x => x.key == currentRow))
                     {
                         subtitle = controller.currentData.subtitles.Items.Find(x => x.key == currentRow).value.subtitle;
