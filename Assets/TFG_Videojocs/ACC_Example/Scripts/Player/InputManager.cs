@@ -63,48 +63,75 @@ public class InputManager : MonoBehaviour
     
     public void OnLeaveInteract(InputAction.CallbackContext ctxt)
     {
-        OnLeaveInteraction?.Invoke();
+        if (ctxt.performed)
+        {
+            OnLeaveInteraction?.Invoke();
+        }
     }
     
     public void OnArrowRightPress(InputAction.CallbackContext ctxt)
     {
-        OnArrowRight?.Invoke();
+        if (ctxt.performed)
+        { 
+            OnArrowRight?.Invoke();
+        }
     }
     
     public void OnArrowLeftPress(InputAction.CallbackContext ctxt)
     {
-        OnArrowLeft?.Invoke();
+        if (ctxt.performed)
+        {
+            OnArrowLeft?.Invoke();
+        }
     }
     
     public void OnArrowUpPress(InputAction.CallbackContext ctxt)
     {
-        OnArrowUp?.Invoke();
+        if (ctxt.performed)
+        {
+            OnArrowUp?.Invoke();
+        }
     }
     
     public void OnArrowDownPress(InputAction.CallbackContext ctxt)
     {
-        OnArrowDown?.Invoke();
+        if (ctxt.performed)
+        {
+            OnArrowDown?.Invoke();
+        }
     }
     
     public void OnInventoryPress(InputAction.CallbackContext ctxt)
     {
-        OnInventory?.Invoke();
+        if (ctxt.performed)
+        {
+            OnInventory?.Invoke();
+        }
     }
     
     public void OnReadPress(InputAction.CallbackContext ctxt)
     {
-        OnRead?.Invoke();
+        if (ctxt.performed)
+        {
+            OnRead?.Invoke();
+        }
     }
     
     public void OnUsePress(InputAction.CallbackContext ctxt)
     {
-        OnUse?.Invoke();
+        if (ctxt.performed)
+        {
+            OnUse?.Invoke();
+        }
     }
     
     public void OnFlashlightPress(InputAction.CallbackContext ctxt)
     {
-        fpsController.OnFlashlightEnabled();
-        OnFlashlight?.Invoke();
+        if (ctxt.performed)
+        {
+            fpsController.OnFlashlightEnabled();
+            OnFlashlight?.Invoke();
+        }
     }
 
     private void OnDisable()

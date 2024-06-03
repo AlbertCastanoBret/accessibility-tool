@@ -20,7 +20,7 @@ public class StartMenu : MonoBehaviour
     void Start()
     {
         ACC_AccessibilityManager.Instance.LoadAllUserPreferences();
-        ACC_AccessibilityManager.Instance.AudioAccessibility.PlaySubtitle("TapeSubtitles");
+        //ACC_AccessibilityManager.Instance.AudioAccessibility.PlaySubtitle("A");
         OnPauseMenu.Invoke();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
